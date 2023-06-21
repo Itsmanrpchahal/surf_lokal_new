@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "763888395949",
+    "project_id": "surflokalcrm",
+    "storage_bucket": "surflokalcrm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763888395949:android:905176b375f1f7604b8824",
+        "android_client_info": {
+          "package_name": "com.surflokalcrm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763888395949-v4eoev5avbjs5a9o3s6aboutjbmm1bkl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtXejDch8eQ2PUwUzfZuodCXae3QFyJIM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763888395949-dqplasaene1jbg46vqfuoiguedjms2tu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "763888395949-acs8edskutfrpsib7r3de0aeijfqohan.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.surflokalcrm"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">surfLokalCRM</string>
+<!--    <string name="facebook_app_id">920469105870549</string>-->
+
+    <string name="facebook_app_id">259040939970013</string>
+    <string name="fb_login_protocol_scheme">fb259040939970013</string>
+    <string name="facebook_client_token">dda25910675df8d59cc12886421d4258</string>
+
+
+</resources>
