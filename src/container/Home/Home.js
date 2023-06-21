@@ -16,6 +16,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import axios from 'axios';
+
 import { postAPI } from '../../config/apiMethod';
 import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler';
@@ -50,6 +51,8 @@ const Home = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const flatListRef = useRef(null);
+  const [selectedItem, setSelectedItem] = useState(null);
+
   const [homeData, setHomeData] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -121,30 +124,38 @@ const Home = () => {
     navigation.navigate('Tabs', { screen: 'Home' });
   };
 
-  const renderFillterItem = ({ item }) => (
-    // console.log('cheker', item.term_icon_url),
-    <View style={{ justifyContent: 'center' }}>
-      <TouchableOpacity onPress={() => { }}>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginLeft: 20,
-            marginRight: 20,
-          }}>
-          {/* <Image source={{uri: item.term_icon_url}} /> */}
-          <SvgUri
-            style={{ height: 20, width: 20, resizeMode: 'contain' }}
-            uri={item.term_icon_url}
-          />
-          <Text
-            style={{ fontSize: 12, color: Colors.black, marginTop: 5, fontWeight: '700' }}>
-            {item.term_name}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
+  const renderFillterItem = ({ item }) => {
+    const isSelected = selectedItem === item.id;
+  
+    return (
+      <View style={{ justifyContent: 'center' }}>
+        <TouchableOpacity onPress={() => setSelectedItem(item.id)}>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginLeft: 20,
+              marginRight: 20,
+            }}>
+            <SvgUri
+              style={{ height: 20, width: 20, resizeMode: 'contain' }}
+              uri={item.term_icon_url}
+            />
+            <Text
+              style={{
+                fontSize: 12,
+                color: Colors.black,
+                marginTop: 5,
+                fontWeight: isSelected ? 'bold' : 'normal',
+              }}>
+              {item.term_name}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+  
 
   return (
     <SafeAreaView
@@ -246,6 +257,7 @@ const Home = () => {
           onScroll={handleSlideChange}
           onMomentumScrollEnd={handleSlideChange}
           renderItem={renderFillterItem}
+          extraData={selectedItem} 
         />
       </View>
       <View style={{ height: Platform.OS == 'android' ? '74%' : '84%' }}>
@@ -897,6 +909,25 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                 textAlign: 'center',
               }}>
               {'$'}{item.associationfee == null ? 0 : item.associationfee}
+            </Text>
+          </View>
+        ) : null}
+             {item.property_size != '' ? (
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Image
+              source={Images.tax}
+              style={{ height: 28, width: 28,marginTop:10, resizeMode: 'contain' }}></Image>
+            <Text
+              style={{
+                fontSize: 16,
+                color: Colors.black,
+                textAlign: 'center',
+              }}>
+              0
             </Text>
           </View>
         ) : null}

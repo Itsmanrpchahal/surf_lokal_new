@@ -11,9 +11,11 @@ import {
 } from 'react-native';
 import RNSpeedometer from 'react-native-speedometer';
 import Images from '../../utils/Images';
+import { useNavigation } from '@react-navigation/native';
 import Colors from '../../utils/Colors';
 
 const App = () => {
+  const navigation = useNavigation();
   const [meterValue, setMeterValue] = useState(1200);
   const [backgroundColor, setBackgroundColor] = useState('blue');
   const [textColor, setTextColor] = useState('white');
@@ -50,15 +52,40 @@ const App = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
+      <View style={{ }}>
       <View
         style={{
           width: '80%',
           height: 60,
-          justifyContent: 'center',
+          flexDirection:'row',
+          justifyContent:'space-between',
           alignSelf: 'center',
           alignItems: 'center',
         }}>
-        <Text style={{ fontSize: 20, color: Colors.black }}>Surf Rewards</Text>
+        <Text style={{ fontSize: 20,marginLeft:100, color: Colors.black }}>Surf Rewards</Text>
+       
+        <TouchableOpacity
+            onPress={() =>   navigation.navigate('Home')} 
+            style={{
+            alignItems:'center',
+      
+            justifyContent:'center',
+              height: 30,
+              width: 30,
+              borderRadius: 15,
+              backgroundColor: Colors.gray,
+            }}>
+            <Image
+              source={Images.close}
+              style={{
+                height: 15,
+                width: 15,
+                resizeMode: 'contain',
+                tintColor: Colors.black,
+                transform: [{rotate: '90deg'}],
+              }}></Image>
+          </TouchableOpacity>
+          </View>
       </View>
       <View>
 

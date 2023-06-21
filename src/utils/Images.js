@@ -80,5 +80,6 @@ const Images = {
   cloud: require(BaseUrl + 'cloud.png'),
   favlike: require(BaseUrl + 'favlike.png'),
   deletelike: require(BaseUrl + 'deletelike.png'),
+  tax: require(BaseUrl + 'tax.png'),
 };
 export default Images;
