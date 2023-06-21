@@ -175,11 +175,15 @@ const ViewPropertiy = props => {
       <>
         <View style={{ paddingHorizontal: 20 }}>
           <View style={styles.address}>
+          {nearByData ? (
+            <Text>Loading......</Text>
+    ) : (
               <FlatList
                 data={nearByData}
                 keyExtractor={(item) => item.unite_name}
                 renderItem={renderItem}
               />
+              )}
           </View>
 
         </View>
@@ -527,6 +531,22 @@ const ViewPropertiy = props => {
 
         {selectedTab == 0 ? (<Details />) : selectedTab == 1 ? (<Featuers />) : selectedTab == 2 ? (<Address />) : selectedTab == 3 ? (<NearBy />) : (<WalkSco />)}
 
+        <View style={{ width:'100%',
+        // marginHorizontal:20,
+        marginVertical:20,
+         paddingHorizontal:20,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center',
+        alignContent:'center'}}>
+          <View style={{height:50,width:50,borderWidth:1,borderColor:'gray',borderRadius:100,alignItems:'center',justifyContent:'center'}}>
+        <Image source={Images.deletelike} style={{height:30,width:30}}/>
+        </View>
+        <View style={{height:50,width:50,borderWidth:1,borderColor:'gray',borderRadius:100,alignItems:'center',justifyContent:'center'}}>
+
+        <Image source={Images.favlike} style={{height:30,width:30,}}/>
+        </View>
+      </View>
       </ScrollView>
 
       <Modal

@@ -14,6 +14,7 @@ import {
   ImageBackground,
   Animated,
   Vibration,
+  Orientation
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
@@ -51,12 +52,7 @@ const ViewImage = props => {
   const flatListRef = useRef(null);
   const image = props.route.params
   console.log(image);
-  // useEffect(() => {
-  //   Orientation.lockToPortrait();
-  //   return () => {
-  //     Orientation.unlockAllOrientations();
-  //   };
-  // }, []);
+
   const navigation = useNavigation();
   const renderItem = ({item}) => {
     return <View style={styles.slideOuter}></View>;

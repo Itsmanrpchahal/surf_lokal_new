@@ -78,5 +78,7 @@ const Images = {
   sch: require(BaseUrl + 'sch.png'),
   cal: require(BaseUrl + 'cal.png'),
   cloud: require(BaseUrl + 'cloud.png'),
+  favlike: require(BaseUrl + 'favlike.png'),
+  deletelike: require(BaseUrl + 'deletelike.png'),
 };
 export default Images;

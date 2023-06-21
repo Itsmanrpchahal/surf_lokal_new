@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -15,6 +15,15 @@ import Colors from '../../utils/Colors';
 
 const App = () => {
   const [meterValue, setMeterValue] = useState(1200);
+  const [backgroundColor, setBackgroundColor] = useState('blue');
+  const [textColor, setTextColor] = useState('white');
+  const [borderColor, setBorderColor] = useState('black');
+
+  const [isRewardsSelected, setIsRewardsSelected] = useState(false);
+
+  const handlePress = () => {
+    setIsRewardsSelected(!isRewardsSelected);
+  };
 
   const getImageCall = () => {
     if (meterValue <= 500) {
@@ -40,7 +49,7 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Colors.white}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       <View
         style={{
           width: '80%',
@@ -49,13 +58,13 @@ const App = () => {
           alignSelf: 'center',
           alignItems: 'center',
         }}>
-        <Text style={{fontSize: 20, color: Colors.black}}>Surf Rewards</Text>
+        <Text style={{ fontSize: 20, color: Colors.black }}>Surf Rewards</Text>
       </View>
       <View>
 
-      {/* <ScrollView style={styles.container} showsVerticalScrollIndicator={false}> */}
+      
         <View
-          style={{marginTop: 10, backgroundColor: Colors.white, width: '100%'}}>
+          style={{ marginTop: 10, backgroundColor: Colors.white, width: '100%' }}>
           <RNSpeedometer
             value={meterValue}
             size={180}
@@ -123,7 +132,7 @@ const App = () => {
                 labelColor: '#dadf26',
                 activeBarColor: '#dadf26',
               },
-              
+
               {
                 name: '',
                 labelColor: '#c2d82f',
@@ -155,18 +164,18 @@ const App = () => {
                 activeBarColor: '#5dba46',
               },
             ]}
-            //needleImage={Images.meter}
-            // wrapperStyle={}
-            //outerCircleStyle={{height: 80}}
-            // halfCircleStyle={}
-            //imageWrapperStyle={{resizeMode: 'contain', height: 100, width: 100}}
-            //innerCircleStyle={{width: 130, borderRadius: 65}}
-            // labelWrapperStyle={}
-            // labelStyle={}
-            // labelNoteStyle={}
-            />
+          //needleImage={Images.meter}
+          // wrapperStyle={}
+          //outerCircleStyle={{height: 80}}
+          // halfCircleStyle={}
+          //imageWrapperStyle={{resizeMode: 'contain', height: 100, width: 100}}
+          //innerCircleStyle={{width: 130, borderRadius: 65}}
+          // labelWrapperStyle={}
+          // labelStyle={}
+          // labelNoteStyle={}
+          />
         </View>
-        <View style={{backgroundColor: Colors.white, justifyContent: 'center'}}>
+        <View style={{ backgroundColor: Colors.white, justifyContent: 'center' }}>
           <Text
             style={{
               fontSize: 20,
@@ -179,36 +188,36 @@ const App = () => {
         </View>
         {meterValue <= 3000 ? (
           <View
-          style={{
-            width: '80%',
-            justifyContent: 'center',
-            alignSelf: 'center',
-            alignItems: 'center',
-            marginTop: 20,
-          }}>
+            style={{
+              width: '80%',
+              justifyContent: 'center',
+              alignSelf: 'center',
+              alignItems: 'center',
+              marginTop: 20,
+            }}>
             <Text
-              style={{fontSize: 24, fontWeight: 'bold', color: Colors.black}}>
+              style={{ fontSize: 24, fontWeight: 'bold', color: Colors.black }}>
               surf Rating
             </Text>
 
             <View
-          style={{
-            width: '100%',
-            justifyContent: 'center',
-            alignSelf: 'center',
-            alignItems: 'center',
-            marginTop: 20,
-          }}>
-          <Text
-            style={{
-              fontSize: 30,
-              color: Colors.black,
-              textAlign: 'center',
-              // fontWeight:"100%"
-            }}>
-            {getLevelCall()}
-          </Text>
-        </View>
+              style={{
+                width: '100%',
+                justifyContent: 'center',
+                alignSelf: 'center',
+                alignItems: 'center',
+                marginTop: 20,
+              }}>
+              <Text
+                style={{
+                  fontSize: 30,
+                  color: Colors.black,
+                  textAlign: 'center',
+                  // fontWeight:"100%"
+                }}>
+                {getLevelCall()}
+              </Text>
+            </View>
           </View>
         ) : null}
         <Image
@@ -221,56 +230,51 @@ const App = () => {
             alignSelf: 'center',
           }}></Image>
 
-          <View style={{flexDirection:"row", justifyContent:"space-around",marginTop:10}}>
+        {/* <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, }}>
+          <TouchableOpacity onPress={handlePress}
+            style={[styles.rew, { backgroundColor: backgroundColor, borderColor: borderColor }]}>
+            <Text style={[styles.text, { color: textColor }]}>Rewards</Text>
+          </TouchableOpacity>
 
-           <TouchableOpacity
-                // onPress={() => navigation.navigate("ChatSearch")}
-                style={{
-                  height: 30,
-                  borderRadius: 8,
-                  width: 100,
-                  marginTop: 10,
-                  marginRight: '10%',
-                  backgroundColor: Colors.primaryBlue,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  // alignSelf: 'flex-end',
-                  flexDirection: 'row',
-                }}>
-                {/* <Image
-                  source={Images.lokal}
-                  resizeMode="contain"
-                style={{ height: 15, width: 15, tintColor: Colors.white }}></Image> */}
-                <Text style={{ fontSize: 16, fontWeight: '300', color: Colors.white }}>
-                Rewards
-                </Text>
+          <TouchableOpacity
+            // onPress={() => navigation.navigate("ChatSearch")}
+            style={styles.rew}>
+            <Text style={{ fontSize: 16, color: Colors.white }}>
+              Challenges
+            </Text>
+          </TouchableOpacity>
+        </View> */}
+       <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, }}>
 
-              </TouchableOpacity>
-              <TouchableOpacity
-                // onPress={() => navigation.navigate("ChatSearch")}
-                
-                style={{
-                  height: 30,
-                  borderRadius: 8,
-                  width: 100,
-                  marginTop: 10,
-                  marginRight: '10%',
-                  backgroundColor: Colors.primaryBlue,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  // alignSelf: 'flex-end',
-                  flexDirection: 'row',
-                }}>
-                {/* <Image
-                  source={Images.lokal}
-                  resizeMode="contain"
-                style={{ height: 15, width: 15, tintColor: Colors.white }}></Image> */}
-                <Text style={{ fontSize: 16, fontWeight: '400', color: Colors.white }}>
-                Challenges
-                </Text>
+  <TouchableOpacity
+        onPress={handlePress}
+        style={[
+          styles.rew,
+          {
+            backgroundColor: isRewardsSelected ? 'green' : 'transparent',
+            borderColor: isRewardsSelected ? 'green' : 'black',
+          },
+        ]}
+      >
+        <Text style={[styles.text, { color: isRewardsSelected ? 'white' : 'black' }]}>Rewards</Text>
+      </TouchableOpacity>
 
-              </TouchableOpacity>
-              </View>
+      <TouchableOpacity
+        onPress={handlePress}
+        style={[
+          styles.rew,
+          {
+            backgroundColor: isRewardsSelected ? 'transparent' : 'green',
+            borderColor: isRewardsSelected ? 'black' : 'green',
+          },
+        ]}
+      >
+        <Text style={[styles.text, { color: isRewardsSelected ? 'black' : 'white' }]}>Challenges</Text>
+      </TouchableOpacity>
+</View>
+
+
+
         {/* <View
           style={{
             width: '50%',
@@ -288,8 +292,8 @@ const App = () => {
             {getLevelCall()}
           </Text>
         </View> */}
-      {/* </ScrollView> */}
-              </View>
+       
+      </View>
     </SafeAreaView>
   );
 };
@@ -307,5 +311,17 @@ const styles = StyleSheet.create({
     marginTop: 30,
     borderBottomWidth: 0.3,
     borderBottomColor: 'black',
+  },
+  rew: {
+    height: 50,
+    width: 150,
+    borderRadius: 24,
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    marginTop: 40,
+    // marginRight: '10%',
+    backgroundColor: Colors.primaryBlue,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
