@@ -53,12 +53,7 @@ const Home = () => {
   const [homeData, setHomeData] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [loading, setLoading] = useState(false);
-  // useEffect(() => {
-  //   Orientation.lockToPortrait();
-  //   return () => {
-  //     Orientation.unlockAllOrientations();
-  //   };
-  // }, []);
+
   useEffect(() => {
     getPopertiesApiCall();
     getFilterApiCall();
@@ -447,7 +442,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
         style={{
           width: screenWidth,
           height: Platform.OS == 'android' ? '45%' : '30%',
-          marginTop: Platform.OS == 'android' ? 45 : 0,
+          marginTop: Platform.OS == 'android' ? 40 : 0,
           justifyContent: 'center',
           alignItems: 'center',
         }}
@@ -480,7 +475,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
           alignSelf: 'flex-end',
           width: '90%',
           height: '10%',
-          marginTop: Platform.OS == 'android' ? 25 : 0,
+          marginTop: Platform.OS == 'android' ? 40 : 0,
           marginRight: 20,
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -515,7 +510,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
               color: Colors.primaryBlue,
               fontWeight: '500',
             }}>
-            {'$'}{item.originallistprice}
+            {item.originallistprice}
           </Text>
         </TouchableOpacity>
 
@@ -947,8 +942,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   slide: {
-    width: screenWidth - 10,
-    height: 250,
+    width: screenWidth - 20,
+    height: 300,
     marginTop: 10,
     borderRadius: 18,
     alignSelf: 'center',

@@ -143,8 +143,27 @@ const Settings = props => {
           alignItems: 'center',
         }}>
           <TouchableOpacity  onPress={() => navigation.goBack()}>
-
-          <Image
+          <View
+                  style={{
+                    height: 40,
+                    width: 40,
+                    borderRadius: 20,
+                    backgroundColor: Colors.primaryBlue,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                  }}>
+                  {detials[0]?.user_image != null ? (
+                    <Image
+                      style={{ height: 40, width: 40 }}
+                      source={{ uri: detials[0]?.user_image }}
+                    />
+                  ) : (
+                    <Text style={{ fontSize: 17, color: Colors.white }}>JD</Text>
+                  )}
+                  {/* <Loader loading={loading} /> */}
+                </View>
+          {/* <Image
               source={Images.profile}
               style={{
                 height: 35,
@@ -152,7 +171,7 @@ const Settings = props => {
                 resizeMode: 'contain',
                 // tintColor: Colors.black,
                 transform: [{rotate: '90deg'}],
-              }}></Image>
+              }}></Image> */}
               </TouchableOpacity>
         {/* <Text style={{fontSize: 20, color: Colors.black}}>Settings</Text> */}
         <Text style={{fontSize: 20, color: Colors.black}}>Settings</Text>

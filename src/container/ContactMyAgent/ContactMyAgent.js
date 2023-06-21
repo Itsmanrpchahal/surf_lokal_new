@@ -388,7 +388,7 @@ const ContactMyAgent = () => {
                 style={{
                   height: 30,
                   borderRadius: 8,
-                width: 110,
+                width: 150,
 
                   marginTop: 10,
                   marginRight: '10%',
@@ -415,7 +415,7 @@ const ContactMyAgent = () => {
                 style={{
                   height: 30,
                   borderRadius: 8,
-                width: 110,
+                width: 150,
                   marginTop: 10,
                   marginRight: '10%',
                   backgroundColor: Colors.primaryBlue,
@@ -435,13 +435,17 @@ const ContactMyAgent = () => {
                 </Text>
 
               </TouchableOpacity>
-              <TouchableOpacity
+
+
+            </View>
+            <View>
+            <TouchableOpacity
                 onPress={() => navigation.navigate("ChatSearch")}
 
                 style={{
                   height: 30,
                   borderRadius: 8,
-                width: 110,
+                width: 150,
 
                   marginTop: 10,
                   marginRight: '10%',

@@ -74,5 +74,9 @@ const Images = {
   plus: require(BaseUrl + 'plus.png'),
   //22 may
   user: require(BaseUrl + 'user.png'),
+
+  sch: require(BaseUrl + 'sch.png'),
+  cal: require(BaseUrl + 'cal.png'),
+  cloud: require(BaseUrl + 'cloud.png'),
 };
 export default Images;

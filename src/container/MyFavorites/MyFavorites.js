@@ -33,7 +33,7 @@ const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
 
-const Home = () => {
+const MyFavorites = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [adress, setAddres] = useState('');
   const [index, setIndex] = useState(0);
@@ -92,7 +92,7 @@ const Home = () => {
   const renderItemImage = ({item, index}) => (
     <TouchableOpacity
       activeOpacity={1}
-      onPress={() => navigation.navigate('ViewPropertiy',{item:item?.featured_image})}
+      onPress={() => navigation.navigate('ViewPropertiy',{item:item})}
       style={styles.slideOuter}>
       <Image source={{uri: item?.featured_image}} style={styles.slide}></Image>
     </TouchableOpacity>
@@ -108,7 +108,7 @@ const Home = () => {
         keyExtractor={item => item.id}
       /> */}
       <TouchableOpacity
-        onPress={() => navigation.navigate('ViewPropertiy', {data:item.featured_image_src})}>
+        onPress={() => navigation.navigate('ViewPropertiy', {data:item})}>
         <Image source={{uri: item?.featured_image_src}} style={styles.slide} />
       </TouchableOpacity>
 
@@ -669,4 +669,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default MyFavorites;
