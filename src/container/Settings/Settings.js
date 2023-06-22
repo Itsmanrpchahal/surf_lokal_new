@@ -178,7 +178,7 @@ const Settings = props => {
         
         <TouchableOpacity
         
-            onPress={() => navigation.goBack()}
+            onPress={() => navigation.navigate("MyProfile")}
             style={{
             alignItems:'center',
       
@@ -279,7 +279,7 @@ const Settings = props => {
             allowFontScaling={false}
             style={{marginLeft: 5, color: Colors.black}}
             placeholderTextColor={Colors.textColorLight}
-            value={detials[0].user_email}
+            value={detials[0]?.user_email}
             keyboardType="default"
             returnKeyType="done"
             editable={false}

@@ -54,7 +54,7 @@ export default StyleSheet.create({
     marginHorizontal: 5,
   },
   paginationDotActive: {
-    backgroundColor: 'blue',
+   
   },
   //fliter
   filter: {
@@ -62,14 +62,26 @@ export default StyleSheet.create({
   },
   phoneInputView: {
     width: '70%',
+    
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    fontSize:20
+    fontSize:20,
+    shadowColor: "#000",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.00,
+    
+    elevation: 24,
   },
   inputStyle: {
     width: '90%',
     color: Colors.textColorDark,
     fontSize: 14 * fontSizeRatio,
+    
   },
 });

@@ -67,7 +67,7 @@ const images = [
   },
 
   {
-    image: Images.downThumb,
+    image: Images.fill,
     title: 'Recycle Bin',
     navigation: 'RecycleBin',
   },

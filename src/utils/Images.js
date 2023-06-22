@@ -81,5 +81,7 @@ const Images = {
   favlike: require(BaseUrl + 'favlike.png'),
   deletelike: require(BaseUrl + 'deletelike.png'),
   tax: require(BaseUrl + 'tax.png'),
+  fill: require(BaseUrl + 'fill.png'),
+  fillgreen: require(BaseUrl + 'fillgreen.png'),
 };
 export default Images;

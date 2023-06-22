@@ -59,25 +59,24 @@ const ChatSearch = (props) => {
       </View>
       {/* <Text style={styles.text}>{data.item.navigation}</Text> */}
 
-
       <ScrollView style={{ flex: 0.5, marginBottom: 90, paddingHorizontal: 7 }}>
         <Text style={{ color: 'black' }}>{ans}</Text>
       </ScrollView>
       <View style={styles.buttonContainer}>
         <View style={styles.viewstyle}>
-
           <TextInput
+          style={styles.Text}
             placeholder='Send a message'
-            placeholderTextColor={Colors.textColorLight}
+            placeholderTextColor={Colors.black}
             onChangeText={setMessage}
             value={message}
           />
-          <TouchableOpacity onPress={myfubx}>
+        </View>
+        <TouchableOpacity onPress={myfubx}>
             <Image
               style={styles.sent}
               source={Images.send} />
           </TouchableOpacity>
-        </View>
       </View>
     </View>
   );
@@ -99,17 +98,16 @@ const styles = StyleSheet.create({
   },
   sent: {
     tintColor: Colors.PrimaryColor,
-    height: 25,
-    width: 30
+    height: 30,
+    marginRight:20,
+    width: 35
   },
   viewstyle: {
-    justifyContent: 'space-between',
     borderWidth: 2,
     borderRadius: 30,
-    marginBottom: 30,
-    paddingHorizontal: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
+    paddingStart:20,
+    width:"80%",
+    
     margin: 10
   },
   View: {
@@ -123,6 +121,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     left: 0,
+    alignItems:"center",
+    justifyContent:"space-between",
+    flexDirection:'row',
     right: 0,
     // Add any other styles for the button container if needed
   },
@@ -145,6 +146,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
 
+  },
+  Text:{
+    color:"black"
   }
 
 });

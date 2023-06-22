@@ -67,7 +67,7 @@ const BottomTabNavigator = () => {
               Rewards
             </Text>
           ),
-          tabBarIcon: Images.surfReward,
+          // tabBarIcon: Images.surfReward,
           keyboardHidesTabBar: true,
           tabBarHideOnKeyboard: true,
         }}

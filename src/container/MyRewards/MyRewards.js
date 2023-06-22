@@ -65,7 +65,7 @@ const App = () => {
         <Text style={{ fontSize: 20,marginLeft:100, color: Colors.black }}>Surf Rewards</Text>
        
         <TouchableOpacity
-            onPress={() =>   navigation.navigate('Home')} 
+            onPress={() =>   navigation.navigate('MyProfile')} 
             style={{
             alignItems:'center',
       

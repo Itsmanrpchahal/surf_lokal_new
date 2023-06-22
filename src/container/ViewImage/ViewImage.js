@@ -14,7 +14,8 @@ import {
   ImageBackground,
   Animated,
   Vibration,
-  Orientation
+  Orientation,
+useWindowDimensions
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
@@ -29,34 +30,35 @@ const screenWidth = Dimensions.get('window').width;
 const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
-const filterData = [
-  {id: 1, name: 'Filter', image: Images.test},
-  {id: 2, name: 'Filter', image: Images.test1},
-  {id: 3, name: 'Filter', image: Images.test},
-  {id: 4, name: 'Filter', image: Images.test1},
-  {id: 5, name: 'New Construction', image: Images.test},
-  {id: 6, name: 'Filter', image: Images.test2},
-  {id: 7, name: 'Filter', image: Images.test},
-  {id: 8, name: 'Filter', image: Images.test1},
-  {id: 9, name: 'Filter', image: Images.test},
-  {id: 10, name: 'Filter', image: Images.test1},
-  {id: 11, name: 'Filter', image: Images.test2},
-  {id: 12, name: 'Filter', image: Images.test},
-  {id: 13, name: 'Filter', image: Images.test2},
-  {id: 14, name: 'Filter', image: Images.test},
-];
+
 const ViewImage = props => {
+ 
+  
   const [currentSlide, setCurrentSlide] = useState(0);
   const [adress, setAddres] = useState('');
+  const [orientation, setOrientation] = useState('portrait')
   const [index, setIndex] = useState(0);
   const flatListRef = useRef(null);
+  const [isLandscape, setIsLandscape] = useState(
+    Dimensions.get('window').width > Dimensions.get('window').height
+  );
+  const windowDimensions = useWindowDimensions();
   const image = props.route.params
   console.log(image);
+  useEffect(() => {
+    const updateOrientation = () => {
+      setIsLandscape(windowDimensions.width > windowDimensions.height);
+    };
+
+    Dimensions.addEventListener('change', updateOrientation);
+
+    
+  }, [windowDimensions]);
+ 
 
   const navigation = useNavigation();
-  const renderItem = ({item}) => {
-    return <View style={styles.slideOuter}></View>;
-  };
+
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={{height: '100%', width: '100%', justifyContent: 'center'}}>
@@ -94,8 +96,13 @@ const ViewImage = props => {
               }}></Image>
           </TouchableOpacity>
         </View>
-<Image source={{uri:image.image.guid}} style={styles.slide}></Image>
+<View>
 
+ 
+<Image source={{uri:image.image.guid}} style={styles.slide}
+
+/>
+</View>
       </View>
     </SafeAreaView>
   );
@@ -114,10 +121,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   slide: {
-    width: screenWidth,
+    width: "110%",
     height: screenHeight,
     resizeMode: 'contain',
-    marginTop: -50,
+    alignSelf:'center'
+    
   },
   title: {
     fontSize: 32,

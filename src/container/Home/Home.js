@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  Animated,
+   PanResponder,
   Dimensions,
   Platform,
   FlatList,
@@ -16,8 +18,6 @@ import {
   ActivityIndicator
 } from 'react-native';
 import axios from 'axios';
-
-import { postAPI } from '../../config/apiMethod';
 import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
@@ -35,11 +35,9 @@ import { getSearch } from '../../modules/getSearch';
 import { getFilter } from '../../modules/getFilter';
 import { getNearBy } from '../../modules/getNearBy';
 import { SvgUri } from 'react-native-svg';
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import { Rating } from 'react-native-ratings';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-import { create } from 'apisauce';
-
 const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
@@ -165,6 +163,7 @@ const Home = () => {
           height: Platform.OS == 'android' ? '12%' : '8%',
           width: '100%',
           justifyContent: 'center',
+         
           alignItems: 'center',
           flexDirection: 'row',
         }}>
@@ -174,6 +173,16 @@ const Home = () => {
             width: '75%',
             borderRadius: 18,
             borderWidth: 1,
+       
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.23,
+            shadowRadius: 2.62,
+            
+            // elevation: 0.1,
             borderColor: Colors.BorderColor,
             flexDirection: 'row',
           }}>
@@ -199,7 +208,7 @@ const Home = () => {
               allowFontScaling={false}
               style={Styles.inputStyle}
               placeholderTextColor={Colors.textColorLight}
-              placeholder={'Search...'}
+              placeholder={'Filters..'}
               returnKeyType="done"
               onChangeText={text => setAddres(text)}
             />
@@ -238,8 +247,8 @@ const Home = () => {
               <Image
                 source={Images.gps}
                 style={{
-                  height: 20,
-                  width: 20,
+                  height: 25,
+                  width: 25,
                   resizeMode: 'contain',
                 }}></Image>
 
@@ -291,6 +300,54 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
   const [reviewTitle, setReviewTitle] = useState('');
   const [review, setReview] = useState('');
   const [text, setText] = useState('')
+
+
+  const position = useRef(new Animated.ValueXY()).current;
+  const swipeThreshold = 120; // Minimum distance required to trigger a swipe action
+  const likeOpacity = position.x.interpolate({
+    inputRange: [0, swipeThreshold],
+    outputRange: [0, 1],
+    extrapolate: 'clamp',
+  });
+  const nopeOpacity = position.x.interpolate({
+    inputRange: [-swipeThreshold, 0],
+    outputRange: [1, 0],
+    extrapolate: 'clamp',
+  });
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (_, gesture) => {
+        position.setValue({ x: gesture.dx, y: gesture.dy });
+      },
+      onPanResponderRelease: (_, gesture) => {
+        if (gesture.dx > swipeThreshold) {
+        
+          // Right swipe, delete action
+          // Perform your delete logic here
+          resetPosition();
+        } else if (gesture.dx < -swipeThreshold) {
+          // Left swipe, like action
+          // Perform your like logic here
+          trashfile(item.ID);
+          resetPosition();
+        } else {
+          // No significant swipe, reset position
+          resetPosition();
+        }
+      },
+    })
+  ).current;
+
+  const resetPosition = () => {
+    // Reset the position using Animated.spring or any other animation method
+    Animated.spring(position, {
+      toValue: { x: 0, y: 0 },
+      useNativeDriver: false
+    }).start();
+  };
+
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -449,20 +506,37 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
   };
 
   return (
-    <View style={{ height: '100%', width: '100%' }}>
-      <TouchableOpacity
-        style={{
-          width: screenWidth,
-          height: Platform.OS == 'android' ? '45%' : '30%',
-          marginTop: Platform.OS == 'android' ? 40 : 0,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        onPress={() => navigation.navigate('ViewPropertiy', { data: item })}>
-        <Image
+    <View style={{ flex:1 }}>
+
+      <TouchableOpacity 
+        style={styles.view}>
+        
+      <Animated.View
+          style={[
+            position.getLayout(),
+            {   },
+          ]}
+          {...panResponder.panHandlers}
+        >
+           <Image 
           source={{ uri: item.featured_image_src }}
           style={styles.slide}></Image>
-        <AppIntroSlider
+          <Animated.View style={{ position: 'absolute', top: 20, left: 20, opacity: likeOpacity }}>
+           <Image source={Images.fill} style={{height:55,width:50}} />
+          </Animated.View>
+          <Animated.View style={{ position: 'absolute', top: 20, right: 20, opacity: nopeOpacity }}>
+          <Image source={Images.fillgreen} style={{height:50,width:50}} />
+          </Animated.View>
+        </Animated.View>
+      </TouchableOpacity>
+
+ {/* <Image
+          source={{ uri: item.featured_image_src }}
+          style={styles.slide}></Image> */}
+
+
+  {/* onPress={() => navigation.navigate('ViewPropertiy', { data: item })} */}
+   {/* <AppIntroSlider
           renderItem={({ item }) => (
             <View>
               <Image source={{ uri: item.guid }} style={styles.slide}></Image>
@@ -478,16 +552,15 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
           activeDotStyle={Colors.white}
           // onDone={onDone}
           scrollEnabled={false}
-        />
-      </TouchableOpacity>
-
+        /> */}
       <View
         style={{
           flexDirection: 'row',
           alignSelf: 'flex-end',
           width: '90%',
+       
           height: '10%',
-          marginTop: Platform.OS == 'android' ? 40 : 0,
+          marginTop: Platform.OS == 'android' ? -10 : 0,
           marginRight: 20,
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -804,12 +877,12 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
 
       <View
         style={{
-          height: '10%',
+        
           justifyContent: 'space-between',
         }}>
 
         <TouchableOpacity
-          onPress={() => { }}
+           onPress={() => navigation.navigate('ViewPropertiy', { data: item })}
           style={{ width: '98%', alignSelf: 'center', justifyContent: 'center' }}>
           <Text
             style={{ fontSize: 16, color: Colors.black, textAlign: 'center' }}>
@@ -823,7 +896,8 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
         style={{
           flexDirection: 'row',
           width: '90%',
-          height: '20%',
+          height: '5%',
+         marginTop:30,
           alignSelf: 'center',
           justifyContent: 'space-between',
         }}>
@@ -933,17 +1007,8 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
         ) : null}
       </View>
 
-      <View
-        style={{
-          width: '90%',
-          height: Platform.OS == 'android' ? '15%' : '30%',
-          justifyContent: 'space-between',
-          alignSelf: 'center',
-          flexDirection: 'row',
-          alignItems: 'center',
-          zIndex: 99,
-          overflow: 'visible',
-        }}>
+      {/* <View
+        style={styles.bin}>
         <TouchableOpacity onPress={() => trashfile(item.ID)}>
           <Image
             source={Images.dislike}
@@ -952,7 +1017,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
         <TouchableOpacity onPress={() => saveFile(item.ID)}>
           <Image source={Images.like} style={{ height: 40, width: 40 }}></Image>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -960,6 +1025,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+  },
+  bin:{
+    
+      width: '90%',
+      height: Platform.OS == 'android' ? '10%' : '30%',
+      justifyContent: 'space-between',
+      alignSelf: 'center',
+      flexDirection: 'row',
+      marginTop:15,
+      alignItems: 'center',
+      zIndex: 99,
+      overflow: 'visible',
+    
   },
   containerIos: {
     height: screenHeight,
@@ -975,12 +1053,10 @@ const styles = StyleSheet.create({
   slide: {
     width: screenWidth - 20,
     height: 300,
-    marginTop: 10,
     borderRadius: 18,
-    alignSelf: 'center',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
+   
+  
+   
   },
   title: {
     fontSize: 32,
@@ -1012,6 +1088,16 @@ const styles = StyleSheet.create({
   paginationDotActive: {
     backgroundColor: 'blue',
   },
+  view:{
+    
+      width: screenWidth,
+      height: Platform.OS == 'android' ? '65%' : '50%',
+      marginTop: Platform.OS == 'android' ? 5 : 0,
+      justifyContent: 'center',
+      alignItems: 'center',
+    
+    },
+  
   //fliter
   filter: {
     height: 60,
@@ -1026,3 +1112,4 @@ const styles = StyleSheet.create({
 });
 
 export default Home;
+
