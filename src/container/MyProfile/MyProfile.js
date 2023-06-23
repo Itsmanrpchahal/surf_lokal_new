@@ -9,6 +9,7 @@ import {
   Platform,
   FlatList,
   Alert,
+  Animated,
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
@@ -37,49 +38,66 @@ const images = [
     image: Images.ThumbUp,
     title: 'Favorites',
     navigation: 'MyFavorites',
+    image2: Images.fillgreen
+
   },
   {
     image: Images.savedSearch,
     title: 'Saved Searches',
     navigation: 'SavedSearches',
+    image2: Images.savedSearch
+
   },
   {
     image: Images.notification,
     title: 'Notifications',
     navigation: 'Notification',
+    image2: Images.notification
+
   },
 
   {
     image: Images.contactAgent,
     title: 'Contact My lokal Agent',
     navigation: 'ContactMyAgent',
+    image2: Images.contactAgent
+
   },
   {
     image: Images.surfReward,
     title: 'Rewards',
     navigation: 'MyRewards',
+    image2: Images.surfReward
+
   },
 
   {
     image: Images.surfShop,
     title: 'surf Shop',
     navigation: 'MakeAnOffer',
+    image2: Images.surfShop
+
   },
 
   {
-    image: Images.fill,
+    image: Images.deletelike,
     title: 'Recycle Bin',
     navigation: 'RecycleBin',
+    image2: Images.fill
+
   },
 
   // {
   //   image: Images.setting,
   //   title: 'Settings',
   //   navigation: 'Settings',
+  // image2:Images.setting
   // },
 ];
 
 const MyFavorites = () => {
+
+  const [selectedIcon, setSelectedIcon] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [details, setDetails] = useState([]);
   const [index, setIndex] = useState(true);
@@ -87,7 +105,23 @@ const MyFavorites = () => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+
+const rotateValue = useRef(new Animated.Value(0)).current;
+const startRotationAnimation = () => {
+  Animated.loop(
+    Animated.timing(rotateValue, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    })
+  ).start();
+};
+useEffect(() => {
+  startRotationAnimation();
+}, []);
+
   useEffect(() => {
+    // setisFocused(false)
     const unsubscribe = navigation.addListener('focus', () => {
       getProfileApiCall();
     });
@@ -140,7 +174,7 @@ const MyFavorites = () => {
     try {
       var res = await axios.post(
         'https://surf.topsearchrealty.com/webapi/v1/profile/',
-        data,
+        data,rotate
       );
 
       // console.log('--ppp', res);
@@ -158,15 +192,26 @@ const MyFavorites = () => {
       setLoading(false);
     }
   };
-  const renderItem = ({ item }) => (
+  const handleIconPress = (item, index) => {
+    setSelectedIcon(index);
+    if (item.title == 'Sign Out') {
+      AsyncStorage.removeItem('userId');
+    }
+    navigation.navigate(item.navigation);
+
+  };
+
+  const handleIconPressSetting = () => {
+  
+    navigation.navigate('Settings', { data: details })
+
+  };
+  const renderItem = ({ item, index }) => (
+
     <View style={styles.slideOuter}>
       <TouchableOpacity
-        onPress={() => {
-          if (item.title == 'Sign Out') {
-            AsyncStorage.removeItem('userId');
-          }
-          navigation.navigate(item.navigation);
-        }}
+        activeOpacity={0.8}
+        onPress={() => handleIconPress(item,index)}
         style={{
           width: '100%',
           alignItems: 'center',
@@ -180,7 +225,7 @@ const MyFavorites = () => {
             alignItems: 'center',
           }}>
           <Image
-            source={item.image}
+            source={selectedIcon === index  ? item.image2 : item.image}
             style={{ height: 25, width: 25, resizeMode: 'contain' }}
           />
 
@@ -274,10 +319,10 @@ const MyFavorites = () => {
                   left: 23,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  shadowColor: 'black',
-                  shadowOffset: { height: 5, width: 0 },
-                  shadowOpacity: 0.5,
-                  shadowRadius: 2,
+                  // shadowColor: 'black',
+                  // shadowOffset: { height: 5, width: 0 },
+                  // shadowOpacity: 0.5,
+                  // shadowRadius: 2,
                 }}>
 
               </View>
@@ -287,12 +332,22 @@ const MyFavorites = () => {
             {details[0]?.username}
           </Text>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Settings', { data: details })}
+        onPress={() => handleIconPressSetting()}
+
+            // onPress={() => navigation.navigate('Settings', { data: details })}
             style={{
               height: 40,
               width: 40,
               justifyContent: 'center',
               alignItems: 'center',
+              transform: [
+                {
+                  rotate: rotateValue.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: ['0deg', '360deg'],
+                  }),
+                },
+              ],
             }}>
             <Image
               source={Images.setting}
@@ -300,7 +355,8 @@ const MyFavorites = () => {
                 height: 30,
                 width: 30,
                 resizeMode: 'contain',
-              }}></Image>
+            
+                 }}></Image>
           </TouchableOpacity>
         </View>
         <View style={{ marginTop: 20, height: '100%' }}>
@@ -308,8 +364,10 @@ const MyFavorites = () => {
           <FlatList
 
             data={images}
-            keyExtractor={item => item.id}
+            keyExtractor={(item, index) => index.toString()}
+            // keyExtractor={item => item.id}
             renderItem={renderItem}
+            // extraData={isSelected}
           />
 
         </View>

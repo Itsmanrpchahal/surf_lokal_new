@@ -24,6 +24,7 @@ import {useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import * as Animatable from 'react-native-animatable';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -188,15 +189,16 @@ const Settings = props => {
               borderRadius: 15,
               backgroundColor: Colors.gray,
             }}>
-            <Image
-              source={Images.close}
-              style={{
-                height: 15,
-                width: 15,
-                resizeMode: 'contain',
-                tintColor: Colors.black,
-                transform: [{rotate: '90deg'}],
-              }}></Image>
+                  <Animatable.Image
+    source={Images.close}
+    style={{
+      height: 15,
+      width: 15,
+      resizeMode: 'contain',
+      tintColor: Colors.black,
+    }}
+    animation="flipInY" 
+  />
           </TouchableOpacity>
       </View>
 

@@ -22,7 +22,9 @@
                 android:name="android.support.DOCUMENT_LAUNCH"
                 android:value="android.intent.action.VIEW" />
 
-
+<meta-data
+    android:name="com.google.android.geo.API_KEY"
+    android:value="AIzaSyBenZdKitxhCII3y6i0XS7ZevgRJi9I6RM"/>
     <meta-data android:name="com.facebook.sdk.ApplicationId"
 android:value="@string/facebook_app_id"/>
       <activity

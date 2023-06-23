@@ -1,6 +1,6 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   Text,
   TouchableOpacity,
@@ -9,7 +9,7 @@ import {
   KeyboardAvoidingView,
   Dimensions,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Images from '../utils/Images';
 import Fonts from '../utils/Fonts';
 import Colors from '../utils/Colors';
@@ -26,8 +26,9 @@ import MakeAnOffer from '../container/MakeAnOffer/MakeAnOffer';
 import MyRewards from '../container/MyRewards/MyRewards';
 import RecycleBin from '../container/RecycleBin/RecycleBin';
 import Settings from '../container/Settings/Settings';
-import {ifIphoneX} from 'react-native-iphone-x-helper';
+import { ifIphoneX } from 'react-native-iphone-x-helper';
 import ChatSearch from '../container/Chat/ChatSearch';
+import Notification from '../container/Notification/Notification';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -42,14 +43,14 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      screenOptions={{headerShown: false, keyboardHidesTabBar: true}}
+      screenOptions={{ headerShown: false, keyboardHidesTabBar: true }}
       tabBar={props => <CustomTabBar {...props} />}>
-          <Tab.Screen
+      <Tab.Screen
         name="MyProfile"
         component={MyProfileTab}
         options={{
           tabBarLabel: (
-            <Text style={{fontSize: 10}} allowFontScaling={false}>
+            <Text style={{ fontSize: 10 }} allowFontScaling={false}>
               Profile
             </Text>
           ),
@@ -63,16 +64,30 @@ const BottomTabNavigator = () => {
         component={MyRewards}
         options={{
           tabBarLabel: (
-            <Text style={{fontSize: 10}} allowFontScaling={false}>
-              Rewards
+            <View>
+            <Text
+            style={{
+              fontSize: 28,
+              color: 'gray',
+              position:"absolute",
+              top:-43
+            }}
+            allowFontScaling={false}
+          >
+            199
+          </Text>
+            <Text style={{fontSize: 12 }} allowFontScaling={false}>
+              Rewardss
             </Text>
+            </View>
           ),
+
           // tabBarIcon: Images.surfReward,
           keyboardHidesTabBar: true,
           tabBarHideOnKeyboard: true,
         }}
       />
-     
+
       <Tab.Screen
         name="Home"
         component={Home}
@@ -83,7 +98,7 @@ const BottomTabNavigator = () => {
           //   />
           // ),
           tabBarLabel: (
-            <Text style={{fontSize: 16}} allowFontScaling={false}>
+            <Text style={{ fontSize: 16 }} allowFontScaling={false}>
               Home
             </Text>
           ),
@@ -92,12 +107,12 @@ const BottomTabNavigator = () => {
           tabBarHideOnKeyboard: true,
         }}
       />
-       <Tab.Screen
+      <Tab.Screen
         name="Favorites"
         component={MyFavorites}
         options={{
           tabBarLabel: (
-            <Text style={{fontSize: 10}} allowFontScaling={false}>
+            <Text style={{ fontSize: 10 }} allowFontScaling={false}>
               Favorites
             </Text>
           ),
@@ -106,13 +121,13 @@ const BottomTabNavigator = () => {
           tabBarHideOnKeyboard: true,
         }}
       />
-    
+
       <Tab.Screen
         name="ChatSearch"
         component={ChatSearch}
         options={{
           tabBarLabel: (
-            <Text style={{fontSize: 10}} allowFontScaling={false}>
+            <Text style={{ fontSize: 10 }} allowFontScaling={false}>
               Chat
             </Text>
           ),
@@ -138,12 +153,14 @@ const MyProfileTab = () => {
       <Stack.Screen name="ContactMyAgent" component={ContactMyAgent} />
       <Stack.Screen name="MakeAnOffer" component={MakeAnOffer} />
       <Stack.Screen name="MyRewards" component={MyRewards} />
+      <Stack.Screen name="Notification" component={Notification} />
+
       <Stack.Screen name="RecycleBin" component={RecycleBin} />
     </Stack.Navigator>
   );
 };
 
-function CustomTabBar({state, descriptors, navigation}) {
+function CustomTabBar({ state, descriptors, navigation }) {
   return (
     <View
       style={{
@@ -170,13 +187,13 @@ function CustomTabBar({state, descriptors, navigation}) {
           ),
         }}>
         {state.routes.map((route, index) => {
-          const {options} = descriptors[route.key];
+          const { options } = descriptors[route.key];
           const label =
             options.tabBarLabel !== undefined
               ? options.tabBarLabel
               : options.title !== undefined
-              ? options.title
-              : route.name;
+                ? options.title
+                : route.name;
           const image =
             options.tabBarIcon !== undefined ? options.tabBarIcon : route.name;
           const isFocused = state.index === index;
@@ -188,7 +205,7 @@ function CustomTabBar({state, descriptors, navigation}) {
             });
             if (!isFocused && !event.defaultPrevented) {
               // The `merge: true` option makes sure that the params inside the tab screen are preserved
-              navigation.navigate({name: route.name, merge: true});
+              navigation.navigate({ name: route.name, merge: true });
             }
           };
           const onLongPress = () => {
@@ -200,7 +217,7 @@ function CustomTabBar({state, descriptors, navigation}) {
           return (
             <TouchableOpacity
               accessibilityRole="button"
-              accessibilityState={isFocused ? {selected: true} : {}}
+              accessibilityState={isFocused ? { selected: true } : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
               testID={options.tabBarTestID}
               onPress={onPress}

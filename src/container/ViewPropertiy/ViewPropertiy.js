@@ -9,6 +9,8 @@ import {
   ScrollView,
   Dimensions,
   SafeAreaView,
+  Animated,
+  PanResponder,
   Modal,
   FlatList
 } from 'react-native';
@@ -16,6 +18,8 @@ import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import { useDispatch } from 'react-redux';
+import { WebView } from 'react-native-webview';
+
 import { useNavigation } from '@react-navigation/native';
 import { Rating } from 'react-native-ratings';
 import { getPopertiesDetails } from '../../modules/getPopertiesDetails';
@@ -46,7 +50,8 @@ const ViewPropertiy = props => {
 
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
-  const [nearByData, setNearByData] = useState([])
+  const [nearByData, setNearByData] = useState([]);
+  const [calData, setCalData] = useState([]);
   const [index, setIndex] = useState(0);
   const navigation = useNavigation();
   const [readmore, setreadmore] = useState('');
@@ -54,6 +59,123 @@ const ViewPropertiy = props => {
   const [showFullContent, setShowFullContent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
+const [weather, setweather] = useState([]);
+const [tax, settax] = useState([]);
+const [walk, setWalk] = useState([]);
+  const [showIcon, setShowIcon] = useState(false);
+  const [Icon, setIcon] = useState(false)
+  const position = useRef(new Animated.ValueXY()).current;
+  const swipeThreshold = 120; // Minimum distance required to trigger a swipe action
+  const likeOpacity = position.x.interpolate({
+    inputRange: [0, swipeThreshold],
+    outputRange: [0, 1],
+    extrapolate: 'clamp',
+  });
+  const nopeOpacity = position.x.interpolate({
+    inputRange: [-swipeThreshold, 0],
+    outputRange: [1, 0],
+    extrapolate: 'clamp',
+  });
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (_, gesture) => {
+        position.setValue({ x: gesture.dx, y: gesture.dy });
+        if (gesture.dx < -swipeThreshold) {
+          setShowIcon(true);
+        } else {
+          setShowIcon(false);
+        };
+        if (gesture.dx > swipeThreshold) {
+          setIcon(true);
+        } else {
+          setIcon(false);
+        }
+      },
+      onPanResponderRelease: (_, gesture) => {
+        if (gesture.dx > swipeThreshold) {
+          // trashfile(item.ID);
+
+          console.log("trash files")
+          // Right swipe, delete action
+          // Perform your delete logic here
+          resetPosition();
+        } else if (gesture.dx < -swipeThreshold) {
+          // Left swipe, like action
+          // Perform your like logic here
+          // saveFile(item.ID)
+          console.log("save File")
+          resetPosition();
+        } else {
+          // No significant swipe, reset position
+          resetPosition();
+        }
+      },
+    })
+  ).current;
+
+  const resetPosition = () => {
+    // Reset the position using Animated.spring or any other animation method
+    Animated.spring(position, {
+      toValue: { x: 0, y: 0 },
+      useNativeDriver: false
+    }).start();
+  };
+
+
+  const saveFile = async post_id => {
+    const userID = await AsyncStorage.getItem('userId');
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    let data = new FormData();
+    data.append('userID', userID);
+    data.append('post_id', post_id);
+    try {
+      var res = await axios.post(
+        'https://surf.topsearchrealty.com/webapi/v1/favorites/addremovefavorite.php',
+        data,
+      );
+
+      console.log('--ppp', res);
+      // console.log('--ppp', typeof res.status);
+
+      if (res.status == 200) {
+        Alert.alert(res.data.message);
+      } else {
+        Alert.alert('something went wrong!.');
+      }
+    } catch (err) {
+      console.log('err', err);
+    }
+  };
+  const trashfile = async post_id => {
+    const userID = await AsyncStorage.getItem('userId');
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    let data = new FormData();
+    data.append('userID', userID);
+    data.append('post_id', post_id);
+    try {
+      var res = await axios.post(
+        'https://surf.topsearchrealty.com/webapi/v1/trashlist/addremovetrash.php',
+        data,
+      );
+
+      console.log('--ppp', res.data);
+
+      if (res.status == 200) {
+        console.log('--ppp', res.data);
+        Alert.alert(res.data.message);
+      } else {
+        Alert.alert('something went wrong!.');
+      }
+    } catch (err) {
+      console.log('err', err);
+    }
+  };
 
   const postID = props.route.params
   console.log("testing????????????????????????", postID.data)
@@ -83,9 +205,19 @@ const ViewPropertiy = props => {
       console.log(data, "dddddddddddddddddddddd");
       setNearByData(response.payload.data[0].what_is_nearby || []);
       console.log(nearByData, "nearByDatanearByData");
+      setCalData(response.payload.data[0].moartage || []);
+      // const mapp =data.map((item) => item.moartage[0].moartage_details || []);
+      console.log(calData, "calculator")
+      setweather(response.payload.data[0].current_weather);
+      console.log("checkWeather////////",weather);
+      settax(response.payload.data[0].tax_history );
+      setWalk(response.payload.data[0].walkscore );
     });
   };
   console.log(data, 'show Api data');
+
+
+
 
   const Details = () => {
     return (
@@ -163,15 +295,11 @@ const ViewPropertiy = props => {
       <>
         <View style={{ paddingHorizontal: 20 }}>
           <View style={styles.address}>
-            {nearByData ? (
-              <Text>Loading......</Text>
-            ) : (
-              <FlatList
-                data={nearByData}
-                keyExtractor={(item) => item.unite_name}
-                renderItem={renderItem}
-              />
-            )}
+            <FlatList
+              data={nearByData}
+              keyExtractor={(item) => item.unite_name}
+              renderItem={renderItem}
+            />
           </View>
 
         </View>
@@ -181,13 +309,13 @@ const ViewPropertiy = props => {
   const WalkSco = () => {
     return (
       <>
-        <View style={{ paddingHorizontal: 20 }}>
-          <View style={styles.address}>
-            <View style={{ width: '50%' }}>
-              <Text style={styles.property}>Walk Sco  </Text>
-            </View>
+             <View style={{ height: 2200,backgroundColor:'red' }}>
+          <View style={styles.addresss}>
+            <WebView
+              source={{ uri: walk?.walkscore_details }}
+              onLoad={console.log("loaded")}
+            />
           </View>
-
         </View>
       </>
     )
@@ -197,8 +325,14 @@ const ViewPropertiy = props => {
       <>
         <View style={{ paddingHorizontal: 20 }}>
           <View style={styles.address}>
-            <View style={{ width: '50%' }}>
-              <Text style={styles.property}>Current Weather </Text>
+            <View style={{ width: '100%'}}>
+            <Text style={styles.props}>Location: {weather.location_name}</Text>
+            <Text style={styles.props}>Localtime: {weather.location_localtime}</Text>
+            <View style={{flexDirection:"row",alignItems:'center'}}>
+            <Text style={styles.props}>Condition: {weather.condition_text}</Text>
+            <Image style={{height:40,width:40}} source={{uri:weather.current_condition_icon}} />
+            </View>
+              <Text style={styles.props}>Temperature: {weather.current_temp}</Text>
             </View>
           </View>
 
@@ -209,13 +343,13 @@ const ViewPropertiy = props => {
   const Calculator = () => {
     return (
       <>
-        <View style={{ paddingHorizontal: 20 }}>
-          <View style={styles.address}>
-            <View style={{ width: '50%' }}>
-              <Text style={styles.property}> Mortgage Calculator</Text>
-            </View>
+        <View style={{ height: 2200 }}>
+          <View style={styles.addresss}>
+            <WebView
+              source={{ uri: calData?.moartage_details }}
+              onLoad={console.log("loaded")}
+            />
           </View>
-
         </View>
       </>
     )
@@ -240,7 +374,12 @@ const ViewPropertiy = props => {
         <View style={{ paddingHorizontal: 20 }}>
           <View style={styles.address}>
             <View style={{ width: '50%' }}>
-              <Text style={styles.property}> Tax History</Text>
+              <Text style={styles.property}>Tax History</Text>
+              <Text style={styles.props}>Property year tax: {tax.property_year_tax}</Text>
+            <Text style={styles.props}>Annual amount: {tax.taxannualamount}</Text>
+            <Text style={styles.props}>Taxes: {tax.taxes}</Text>
+            <Text style={styles.props}>Tax year: {tax.taxyear}</Text>
+
             </View>
           </View>
 
@@ -250,55 +389,47 @@ const ViewPropertiy = props => {
   }
   return (
     <SafeAreaView style={{ flex: 1 }}>
+
       <View style={styles.slideOuter}>
-        <TouchableOpacity onPress={() =>
-          navigation.navigate('ViewPropertiyImage', { data: postID.data })}>
-          <Image
-            source={{ uri: postID?.data?.featured_image_src }}
-            style={styles.slide} />
-        </TouchableOpacity>
-        <View style={styles.headerIcon}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.screen}>
-            <Image
-              source={Images.downArrow}
-              style={styles.imagedata}></Image>
-          </TouchableOpacity>
 
-          <TouchableOpacity>
+        <Animated.View
+          style={[
+            position.getLayout(),
+            {},
+          ]}
+          {...panResponder.panHandlers}
+        >
+          <TouchableOpacity >
             <Image
-              source={Images.address}
-              style={styles.addresimage}></Image>
+              source={{ uri: postID?.data?.featured_image_src }} style={styles.slide} />
           </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            width: '90%',
-            position: 'absolute',
-            bottom: 5,
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-
+          <View style={styles.headerIcon}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={styles.screen}>
+              <Image source={Images.downArrow} style={styles.imagedata}></Image>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Image source={Images.address} style={styles.addresimage}></Image>
+            </TouchableOpacity>
           </View>
-
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('ViewPropertiyImage', { data: postID.data })}>
-            <Image
-              source={Images.imageView}
-              style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.imgview}>
+            <View style={styles.imgg}>
+            </View>
+            <TouchableOpacity onPress={() => navigation.navigate('ViewPropertiyImage', { data: postID.data })}>
+              <Image source={Images.imageView} style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
+            </TouchableOpacity>
+          </View>
+          <Animated.View style={{ position: 'absolute', top: 20, left: 20, opacity: likeOpacity }}>
+            <Image source={Images.deletelike} style={{ height: 45, width: 45, tintColor: 'transparent' }} />
+          </Animated.View>
+          <Animated.View style={{ position: 'absolute', top: 20, right: 20, opacity: nopeOpacity }}>
+            <Image source={Images.favlike} style={{ height: 45, width: 45, tintColor: 'transparent' }} />
+          </Animated.View>
+        </Animated.View>
       </View>
+
+
 
       <View style={styles.slideOuter}>
         <View
@@ -461,41 +592,38 @@ const ViewPropertiy = props => {
           ) : null}
         </View>
       </View>
-
-
-
       <View style={{ width: '90%', paddingStart: 10, paddingVertical: 10 }}>
-<ScrollView>
-       
-        <>
+        <ScrollView>
 
-          <Text
-            numberOfLines={postID.data.ID == readmore ? 0 : 20}
-            style={{
-              fontSize: 14,
-              flexDirection: 'row',
-              color: Colors.black,
-              width: '100%',
-            }}>
-            {typeof postID.data.content.rendered === 'string' ? (
-              <>
-                {showFullContent || postID.data.content.rendered.length < 20 ? (
-                  postID.data.content.rendered
-                ) : (
-                  postID.data.content.rendered.slice(0, 20) + '...    '
-                )}
+          <>
 
-              </>
-            ) : (
-              null
-            )}
-          </Text>
-          <TouchableOpacity style={{ justifyContent: "center", alignItems: "center" }}
-            onPress={() => setShowFullContent(!showFullContent)}>
-            <Text style={{ color: "darkblue", marginTop: 10, fontSize: 16 }}>{showFullContent ? 'Show Less' : 'Read More'}</Text>
-          </TouchableOpacity>
-        </>
-      </ScrollView>
+            <Text
+              numberOfLines={postID.data.ID == readmore ? 0 : 20}
+              style={{
+                fontSize: 14,
+                flexDirection: 'row',
+                color: Colors.black,
+                width: '100%',
+              }}>
+              {typeof postID.data.content.rendered === 'string' ? (
+                <>
+                  {showFullContent || postID.data.content.rendered.length < 20 ? (
+                    postID.data.content.rendered
+                  ) : (
+                    postID.data.content.rendered.slice(0, 20) + '...    '
+                  )}
+
+                </>
+              ) : (
+                null
+              )}
+            </Text>
+            <TouchableOpacity style={{ justifyContent: "center", alignItems: "center" }}
+              onPress={() => setShowFullContent(!showFullContent)}>
+              <Text style={{ color: "darkblue", marginTop: 10, fontSize: 16 }}>{showFullContent ? 'Show Less' : 'Read More'}</Text>
+            </TouchableOpacity>
+          </>
+        </ScrollView>
 
       </View>
 
@@ -595,7 +723,7 @@ const ViewPropertiy = props => {
                 <Text style={styles.detailText}>School Rating</Text>
               </TouchableOpacity>
             </View>
-           
+
             <View style={styles.featuersComtainer}>
               <TouchableOpacity
 
@@ -622,8 +750,8 @@ const ViewPropertiy = props => {
                 <Text style={styles.detailText}>Current Weather</Text>
               </TouchableOpacity>
             </View>
-     
-            
+
+
 
           </View>
 
@@ -637,7 +765,7 @@ const ViewPropertiy = props => {
         {showDetals && Details()}
         {ShowNear && nearBy()} */}
 
-        {selectedTab == 0 ? (<Details />) : selectedTab == 1 ? (<Featuers />) : selectedTab == 2 ? (<Address />) : selectedTab == 3 ? (<NearBy />) :selectedTab == 4 ?(<WalkSco/>): selectedTab == 5 ?(<CurrentWeather/>):selectedTab == 6 ?(<Calculator/>):selectedTab == 7 ?(<School />):(<TaxHistory/>)}
+        {selectedTab == 0 ? (<Details />) : selectedTab == 1 ? (<Featuers />) : selectedTab == 2 ? (<Address />) : selectedTab == 3 ? (<NearBy />) : selectedTab == 4 ? (<WalkSco />) : selectedTab == 5 ? (<CurrentWeather />) : selectedTab == 6 ? (<Calculator />) : selectedTab == 7 ? (<School />) : (<TaxHistory />)}
 
 
         <View style={{
@@ -650,13 +778,22 @@ const ViewPropertiy = props => {
           alignItems: 'center',
           alignContent: 'center'
         }}>
-          <View style={{ height: 50, width: 50, borderWidth: 1, borderColor: 'gray', borderRadius: 100, alignItems: 'center', justifyContent: 'center' }}>
-            <Image source={Images.deletelike} style={{ height: 30, width: 30 }} />
-          </View>
-          <View style={{ height: 50, width: 50, borderWidth: 1, borderColor: 'gray', borderRadius: 100, alignItems: 'center', justifyContent: 'center' }}>
+          {
+            Icon && (
+              <View style={{ height: 60, width: 60, borderWidth: 1, borderColor: 'gray', borderRadius: 100, alignItems: 'center', justifyContent: 'center' }}>
+                <Image source={Images.fill} style={{ height: 32, width: 30 }} />
+              </View>
+            )
+          }
 
-            <Image source={Images.favlike} style={{ height: 30, width: 30, }} />
-          </View>
+
+          {showIcon && (
+            <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
+              <View style={{ height: 60, width: 60, borderWidth: 1, borderColor: 'gray', borderRadius: 100, alignItems: 'center', justifyContent: 'center' }}>
+                <Image source={Images.fillgreen} style={{ height: 35, width: 30, }} />
+              </View>
+            </View>
+          )}
         </View>
       </ScrollView>
 
@@ -1064,7 +1201,13 @@ const styles = StyleSheet.create({
   slideOuter: {
     width: screenWidth,
     justifyContent: 'center',
+
     alignItems: 'center',
+  },
+  imgg: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   property: {
     fontSize: 18,
@@ -1084,6 +1227,14 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: Colors.black,
     textAlign: 'center',
+  },
+  imgview: {
+    flexDirection: 'row',
+    width: '90%',
+    position: 'absolute',
+    bottom: 5,
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   slide: {
     width: screenWidth,
@@ -1116,8 +1267,15 @@ const styles = StyleSheet.create({
   },
   address: {
     width: '100%',
+
     marginTop: 20,
     justifyContent: 'center',
+  },
+  addresss: {
+
+    width: '100%',
+    height: '100%',
+   
   },
   props: {
     fontSize: 13,
@@ -1178,5 +1336,4 @@ const styles = StyleSheet.create({
   },
 
 });
-
 export default ViewPropertiy;

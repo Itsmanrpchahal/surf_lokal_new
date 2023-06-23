@@ -23,6 +23,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { makeOffer, makeOfferReducer } from '../../modules/makeOffer';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 import FormData from 'form-data';
 import { ScrollView } from 'react-native-gesture-handler';
 const screenHeight = Dimensions.get('window').height;
@@ -75,6 +77,8 @@ const MakeAnOffer = () => {
   const [adress, setAddres] = useState('');
   const [index, setIndex] = useState(true);
   const flatListRef = useRef(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
   const navigation = useNavigation();
 
 
@@ -107,6 +111,24 @@ const MakeAnOffer = () => {
     navigation.navigate('Tabs', { screen: 'Home' });
   };
 
+
+
+
+  const showDatepicker = () => {
+    setShowDatePicker(true);
+  };
+
+  const hideDatePicker = () => {
+    setShowDatePicker(false);
+  };
+
+  const handleDateChange = (event, date) => {
+    if (date) {
+      setSelectedDate(date);
+   
+    }
+    hideDatePicker();
+  };
 
   useEffect(() => {
     getData()
@@ -300,6 +322,7 @@ const MakeAnOffer = () => {
         </View>
         {casherror && <Text style={styles.error}>Case loan is required</Text>}
         <View style={styles.inputStyle}>
+        <TouchableOpacity onPress={showDatepicker}>
           <TextInput
             allowFontScaling={false}
             style={{ marginLeft: 5, color: Colors.black }}
@@ -308,7 +331,22 @@ const MakeAnOffer = () => {
             keyboardType="default"
             returnKeyType="done"
             onChangeText={text => setCloseDate(text)}
-          />
+            value={selectedDate ? selectedDate.toDateString() : ''}
+            editable={false}
+               />
+
+        
+      
+      {showDatePicker && (
+        <DateTimePicker
+          value={selectedDate || new Date()}
+          mode="date"
+          display="default"
+          onChange={handleDateChange}
+        />
+       
+      )}
+       </TouchableOpacity>
         </View>
         {dateerror && <Text style={styles.error}>Date is required</Text>}
         <View style={styles.inputStyle}>

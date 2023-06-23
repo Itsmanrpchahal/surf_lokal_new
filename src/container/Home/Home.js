@@ -123,11 +123,14 @@ const Home = () => {
   };
 
   const renderFillterItem = ({ item }) => {
+    const ITEMID= item
+    console.log(ITEMID,"ITEMIDITEMIDITEMID");
     const isSelected = selectedItem === item.id;
+    // console.log(selectedItem, "isSelectedisSelectedisSelected");
   
     return (
       <View style={{ justifyContent: 'center' }}>
-        <TouchableOpacity onPress={() => setSelectedItem(item.id)}>
+        <TouchableOpacity onPress={() => setSelectedItem(item)}>
           <View
             style={{
               justifyContent: 'center',
@@ -142,7 +145,8 @@ const Home = () => {
             <Text
               style={{
                 fontSize: 12,
-                color: Colors.black,
+                color:isSelected ? Colors.black :Colors.gray,
+                // color: Colors.black,
                 marginTop: 5,
                 fontWeight: isSelected ? 'bold' : 'normal',
               }}>
@@ -163,9 +167,18 @@ const Home = () => {
           height: Platform.OS == 'android' ? '12%' : '8%',
           width: '100%',
           justifyContent: 'center',
-         
+          borderRadius: 5,
+          
           alignItems: 'center',
           flexDirection: 'row',
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity:  0.17,
+          // shadowRadius: 3.05,
+          elevation: 1
         }}>
         <View
           style={{
@@ -173,18 +186,11 @@ const Home = () => {
             width: '75%',
             borderRadius: 18,
             borderWidth: 1,
-       
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.23,
-            shadowRadius: 2.62,
-            
-            // elevation: 0.1,
             borderColor: Colors.BorderColor,
             flexDirection: 'row',
+          // backgroundColor:"yellow",
+
+
           }}>
           <TouchableOpacity
             onPress={() => getSearchApiCall()}
@@ -208,7 +214,7 @@ const Home = () => {
               allowFontScaling={false}
               style={Styles.inputStyle}
               placeholderTextColor={Colors.textColorLight}
-              placeholder={'Filters..'}
+              placeholder={'Filters...'}
               returnKeyType="done"
               onChangeText={text => setAddres(text)}
             />
@@ -323,11 +329,15 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
       },
       onPanResponderRelease: (_, gesture) => {
         if (gesture.dx > swipeThreshold) {
+          trashfile(item.ID);
+          console.log("trash files")
         
           // Right swipe, delete action
           // Perform your delete logic here
           resetPosition();
         } else if (gesture.dx < -swipeThreshold) {
+            saveFile(item.ID)
+          console.log("save File")
           // Left swipe, like action
           // Perform your like logic here
           trashfile(item.ID);
