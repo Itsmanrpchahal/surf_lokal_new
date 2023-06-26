@@ -6,10 +6,12 @@ import {
   Dimensions,
   TextInput,
   Alert,
-  Image
+  Image,
+  Switch
 
 } from 'react-native';
-import React from 'react'
+import React, {useState, useEffect, useRef} from 'react';
+
 import Colors from '../../utils/Colors';
 import Images from '../../utils/Images';
 import { useNavigation } from '@react-navigation/native';
@@ -17,6 +19,16 @@ import { useNavigation } from '@react-navigation/native';
 
 const Notification = () => {
   const navigation = useNavigation();
+  const [isEnabled, setIsEnabled] = useState(false);
+  const [toggle, setToggle] = useState(false);
+
+
+  const toggleSwitch = () => {setIsEnabled(previousState => !previousState);
+    setToggle(!isEnabled);}
+    console.log(toggle)
+  
+  
+
   
   return (
    <>
@@ -44,7 +56,34 @@ const Notification = () => {
                 transform: [{rotate: '90deg'}],
               }}></Image>
           </TouchableOpacity>
+          
       </View>
+      <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            marginTop: 20,
+            alignSelf: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <Text
+            style={{
+              fontSize: 20,
+              color: Colors.textColorLight,
+            }}>
+            Allow Notfication
+          </Text>
+          <View>
+          <Switch
+            trackColor={{false: '#767577', true: '#81b0ff'}}
+            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
+         
+          </View>
+        </View>
    </>
   )
 }

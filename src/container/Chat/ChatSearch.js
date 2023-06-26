@@ -9,7 +9,7 @@ import { FlatList, ScrollView } from 'react-native-gesture-handler';
 const ChatSearch = (props) => {
   const data = props.route.params;
   const [message, setMessage] = useState('');
-  const [chatData, setchatData] = useState([])
+  const [chatData, setchatData] = useState([]);
   const [ans, setans] = useState([])
 
 
@@ -21,13 +21,8 @@ const ChatSearch = (props) => {
     axios.post('https://surf.topsearchrealty.com/webapi/v1/chatgpt/', formData)
       .then(response => {
         console.log(Object.values(response.data.data));
-        setchatData(response.data.data);
-        const Ans = chatData.map((item) => item.answere)
-        console.log('Ans:', Ans);
-        setans(Ans);
-
-        console.log(ans, "ans")
-        console.log(chatData.map((item) => item.answere), "titfortat");
+        setchatData(response.data.data[0]);
+        console.log(chatData, "chat data")
       })
       .catch(error => {
         console.log(error);
@@ -51,21 +46,23 @@ const ChatSearch = (props) => {
         </TouchableOpacity>
         <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 15 }}>ChatGPT</Text>
         <TouchableOpacity>
-          <Image
+          {/* <Image
             source={Images.call}
             style={styles.image}
-          />
+          /> */}
         </TouchableOpacity>
       </View>
       {/* <Text style={styles.text}>{data.item.navigation}</Text> */}
 
       <ScrollView style={{ flex: 0.5, marginBottom: 90, paddingHorizontal: 7 }}>
-        <Text style={{ color: 'black' }}>{ans}</Text>
+        <Text style={{ color: 'black' }}>{chatData.question}</Text>
+        <Text style={{ color: 'black' }}>{chatData.answere}</Text>
+
       </ScrollView>
       <View style={styles.buttonContainer}>
         <View style={styles.viewstyle}>
           <TextInput
-          style={styles.Text}
+            style={styles.Text}
             placeholder='Send a message'
             placeholderTextColor={Colors.black}
             onChangeText={setMessage}
@@ -73,10 +70,10 @@ const ChatSearch = (props) => {
           />
         </View>
         <TouchableOpacity onPress={myfubx}>
-            <Image
-              style={styles.sent}
-              source={Images.send} />
-          </TouchableOpacity>
+          <Image
+            style={styles.sent}
+            source={Images.send} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -99,15 +96,15 @@ const styles = StyleSheet.create({
   sent: {
     tintColor: Colors.PrimaryColor,
     height: 30,
-    marginRight:20,
+    marginRight: 20,
     width: 35
   },
   viewstyle: {
     borderWidth: 2,
     borderRadius: 30,
-    paddingStart:20,
-    width:"80%",
-    
+    paddingStart: 20,
+    width: "80%",
+
     margin: 10
   },
   View: {
@@ -121,9 +118,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     left: 0,
-    alignItems:"center",
-    justifyContent:"space-between",
-    flexDirection:'row',
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: 'row',
     right: 0,
     // Add any other styles for the button container if needed
   },
@@ -147,8 +144,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
 
   },
-  Text:{
-    color:"black"
+  Text: {
+    color: "black"
   }
 
 });

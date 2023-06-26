@@ -137,16 +137,12 @@ useEffect(() => {
       includeBase64: true,
       freeStyleCropEnabled: true,
     }).then(res => {
-      let source = { uri: res.path };
-      let avatarSource = source;
       let uriResponse = res.path;
       let name = res.path.split('/').pop();
       let type = res.mime;
-      //let uriResponse = res.path;
-      // console.log('mkm', avatarSource);
-      // console.log('uri', uriResponse);
-      console.log('File name:', res);
       saveFile(uriResponse, name, type);
+    }).catch(error => {
+      console.log('Image picking failed:', error);
     });
   };
   const getProfileApiCall = () => {
@@ -157,31 +153,34 @@ useEffect(() => {
     });
   };
 
-  const saveFile = async (uriResponse, name, type) => {
+  const saveFile = async (uriResponse, name, type,) => {
     setLoading(true);
     const userID = await AsyncStorage.getItem('userId');
-    const headers = {
-      'Content-Type': 'application/json',
-    };
+  
     let data = new FormData();
-    data.append("userID")
-    data.append('file', {
+    data.append("userID",userID)
+    data.append('userimage', {
       uri: uriResponse,
       type: type,
       name: name,
     });
-    data.append('userID', userID);
+    console.log(data ,"pyloaddddddddd");
     try {
       var res = await axios.post(
         'https://surf.topsearchrealty.com/webapi/v1/profile/',
-        data,rotate
-      );
+        data,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }  
+        );
 
       // console.log('--ppp', res);
       // console.log('--ppp', typeof res.status);
 
-      if (res.status == 200) {
-        console.log('hello', res);
+      if (res.status === 200) {
+        console.log('hello', res.data);
         getProfileApiCall();
       } else {
         Alert.alert('something went wrong!.');
@@ -271,7 +270,8 @@ useEffect(() => {
               flexDirection: 'row',
             }}>
             <TouchableOpacity
-              onPress={() => _pickImage()}
+              onPress={() =>{ _pickImage()
+             }}
               activeOpacity={0.5}
               style={{
                 height: 40,

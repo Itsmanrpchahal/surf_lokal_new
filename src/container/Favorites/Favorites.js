@@ -42,7 +42,7 @@ const Home = () => {
   const [data, setHomeData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
-    setModalVisible(!modalVisible);
+    // setModalVisible(!modalVisible);
   };
   const [rating, setRating] = useState(0);
   const handleRating = rating => {
