@@ -79,6 +79,7 @@ const OtpInput = ({navigation}) => {
               fontWeight: 'bold',
               textAlign: 'center',
               width: '60%',
+              fontFamily:'Poppins-Regular'
             }}>
             Surf Lokal CRM
           </Text>
@@ -89,6 +90,7 @@ const OtpInput = ({navigation}) => {
               fontSize: 24 * fontSizeRatio,
               color: Colors.black,
               fontWeight: 'bold',
+              fontFamily:'Poppins-Regular'
             }}>
             Enter OTP sent to 8789879879
           </Text>
@@ -100,6 +102,7 @@ const OtpInput = ({navigation}) => {
               fontSize: 20 * fontSizeRatio,
               fontWeight: '500',
               color: Colors.PrimaryColor,
+              fontFamily:'Poppins-Regular'
             }}>
             Change Number
           </Text>
@@ -171,6 +174,7 @@ const OtpInput = ({navigation}) => {
               fontSize: 20 * fontSizeRatio,
               fontWeight: '500',
               color: Colors.PrimaryColor,
+              fontFamily:'Poppins-Regular'
             }}>
             Resend OTP
           </Text>
@@ -183,6 +187,7 @@ const OtpInput = ({navigation}) => {
             fontSize: 20 * fontSizeRatio,
             fontWeight: '500',
             color: Colors.white,
+            fontFamily:'Poppins-Regular'
           }}
           btnStyle={{
             borderRadius: 6,
@@ -208,6 +213,7 @@ const styles = StyleSheet.create({
     width: '14%',
     textAlign: 'center',
     color: Colors.PrimaryColor,
+    fontFamily:'Poppins-Regular'
   },
 });
 

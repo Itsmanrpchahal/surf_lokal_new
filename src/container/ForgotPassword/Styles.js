@@ -29,12 +29,14 @@ export default StyleSheet.create({
     color: Colors.textColorDark,
     fontWeight: 'bold',
     textAlign: 'center',
+    fontFamily:'Poppins-Regular'
   },
   signUpText: {
     fontSize: 24 * fontSizeRatio,
     color: Colors.primaryBlue,
     fontWeight: '400',
     textAlign: 'center',
+    fontFamily:'Poppins-Regular'
   },
   loginContainer: {
     height: 160 * viewSizeRatio,

@@ -247,8 +247,8 @@ export default function Login({ navigation }) {
         borderBottomWidth: 1,
         height: 40,
       }}>
-      <Text style={{ fontSize: 16, color: Colors.black, marginLeft: 10 }}>
-        <Text style={{ fontSize: 14, color: Colors.black }}>
+      <Text style={{ fontSize: 16, color: Colors.black, marginLeft: 10,fontFamily:'Poppins-Regular' }}>
+        <Text style={{ fontSize: 14, color: Colors.black ,fontFamily:'Poppins-Regular'}}>
           ({item.dial_code})
         </Text>{' '}
         {item.name}
@@ -358,6 +358,7 @@ export default function Login({ navigation }) {
                         fontWeight: '700',
                         color: Colors.black,
                         marginTop: 10,
+                        fontFamily:'Poppins-Regular'
                       }}>
                       Select Country
                     </Text>
@@ -417,6 +418,7 @@ export default function Login({ navigation }) {
             fontSize: 20 * fontSizeRatio,
             fontWeight: '500',
             color: Colors.white,
+            fontFamily:'Poppins-Regular'
           }}
           btnStyle={{
             borderRadius: 6,
@@ -438,6 +440,7 @@ export default function Login({ navigation }) {
                 fontSize: 14,
                 fontWeight: '700',
                 color: Colors.primaryBlue,
+                fontFamily:'Poppins-Regular'
               }}>
               Sign Up
             </Text>
@@ -458,6 +461,7 @@ export default function Login({ navigation }) {
                 fontSize: 14,
                 fontWeight: '700',
                 color: Colors.primaryBlue,
+                fontFamily:'Poppins-Regular'
               }}>
               Forgot Password
             </Text>

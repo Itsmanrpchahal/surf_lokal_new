@@ -143,7 +143,7 @@ const Home = () => {
               marginRight: 20,
             }}>
             <SvgUri
-              style={{ height: 20, width: 20, resizeMode: 'contain' }}
+              style={{ height: 25, width: 25, resizeMode: 'contain' }}
               uri={item.term_icon_url}
             />
             <Text
@@ -152,6 +152,8 @@ const Home = () => {
                 color: isSelected ? Colors.black : Colors.gray,
                 marginTop: 5,
                 fontWeight: isSelected ? 'bold' : 'normal',
+                fontFamily:'Poppins-Regular'
+                
               }}>
               {item.term_name}
             </Text>
@@ -584,29 +586,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
           </Animated.View>
         </View>
 
-        {/* <Image
-          source={{ uri: item.featured_image_src }}
-          style={styles.slide}></Image> */}
-
-
-        {/* onPress={() => navigation.navigate('ViewPropertiy', { data: item })} */}
-        {/* <AppIntroSlider
-          renderItem={({ item }) => (
-            <View>
-              <Image source={{ uri: item.guid }} style={styles.slide}></Image>
-            </View>
-          )}
-          showNextButton={false}
-          renderNextButton={renderNextButton}
-          renderPrevButton={renderPrevButton}
-          showPrevButton={false}
-          data={item.property_gallery}
-          dotStyle={Colors.white}
-          showDoneButton={false}
-          activeDotStyle={Colors.white}
-          // onDone={onDone}
-          scrollEnabled={false}
-        /> */}
+    
         <View
           style={{
             flexDirection: 'row',
@@ -636,7 +616,8 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                 source={Images.star}
                 style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
             </TouchableOpacity>
-            <Text style={{ fontSize: 14, color: Colors.black, textAlign: 'center', marginLeft: 5 }}>
+            <Text style={{ fontSize: 14, color: Colors.black,
+               textAlign: 'center', marginLeft: 5,fontFamily:'Poppins-Regular' }}>
               {item.total_average_rating}
             </Text>
           </View>
@@ -649,6 +630,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                 fontSize: 18,
                 color: Colors.primaryBlue,
                 fontWeight: '500',
+                fontFamily:'Poppins-Regular'
               }}>
               {item.originallistprice}
             </Text>
@@ -720,6 +702,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       fontWeight: '700',
                       color: Colors.black,
                       marginTop: 10,
+                      fontFamily:'Poppins-Regular'
                     }}>
                     Rate and Review
                   </Text>
@@ -761,7 +744,8 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       alignItems: 'center',
                       marginTop: 10,
                     }}>
-                    <Text style={{ fontSize: 12, color: Colors.black, }}>
+                    <Text style={{ fontSize: 12, 
+                      color: Colors.black,fontFamily:'Poppins-Regular' }}>
                       Photos Quality Rating :
                     </Text>
                     <Rating
@@ -785,7 +769,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                     }}>
-                    <Text style={{ fontSize: 12, color: Colors.black }}>
+                    <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
                       Description & Details :
                     </Text>
                     <Rating
@@ -808,7 +792,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                     }}>
-                    <Text style={{ fontSize: 12, color: Colors.black }}>
+                    <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
                       Price Of Property :
                     </Text>
                     <Rating
@@ -832,7 +816,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                     }}>
-                    <Text style={{ fontSize: 12, color: Colors.black }}>
+                    <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
                       General Interest in the property :
                     </Text>
                     <Rating
@@ -857,6 +841,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       fontSize: 12,
                       color: Colors.black,
                       marginTop: 12,
+                      fontFamily:'Poppins-Regular'
                     }}>
                     Review
                   </Text>
@@ -881,7 +866,8 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                         // padding: 2,
                         alignItems:"flex-start",
                         alignSelf:"flex-start",
-                        verticalAlign:"top"
+                        verticalAlign:"top",
+                        fontFamily:'Poppins-Regular'
                       }}
                       //keyboardType="default"
                       autoCorrect={false}
@@ -924,6 +910,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                         fontSize: 14,
                         fontWeight: '700',
                         color: Colors.white,
+                        fontFamily:'Poppins-Regular'
                       }}>
                       Submit
                     </Text>
@@ -943,7 +930,8 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             onPress={() => navigation.navigate('ViewPropertiy', { data: item })}
             style={{ width: '98%', alignSelf: 'center', justifyContent: 'center' }}>
             <Text
-              style={{ fontSize: 16, color: Colors.black, textAlign: 'center' }}>
+              style={{ fontSize: 16, color: Colors.black, 
+              textAlign: 'center',fontFamily:'Poppins-Regular' }}>
               {item.title}
             </Text>
           </TouchableOpacity>
@@ -971,6 +959,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   fontSize: 16,
                   color: Colors.black,
                   textAlign: 'center',
+                  fontFamily:'Poppins-Regular'
                 }}>
                 {item.property_bedrooms} {'Beds'}
               </Text>
@@ -990,6 +979,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   fontSize: 16,
                   color: Colors.black,
                   textAlign: 'center',
+                  fontFamily:'Poppins-Regular'
                 }}>
                 {item.bathroomsfull} {'Baths'}
               </Text>
@@ -1009,6 +999,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   fontSize: 16,
                   color: Colors.black,
                   textAlign: 'center',
+                  fontFamily:'Poppins-Regular'
                 }}>
                 {item.property_size}{'sq ft'}
               </Text>
@@ -1038,6 +1029,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   color: Colors.black,
                   marginTop:6,
                   textAlign: 'center',
+                  fontFamily:'Poppins-Regular'
                 }}>
                 {'$'}{item.associationfee == null ? 0 : item.associationfee}
               </Text>
@@ -1057,6 +1049,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   fontSize: 16,
                   color: Colors.black,
                   textAlign: 'center',
+                  fontFamily:'Poppins-Regular'
                 }}>
                   {'$'}{item.taxannualamount == null ? 0 : item.taxannualamount}
               </Text>

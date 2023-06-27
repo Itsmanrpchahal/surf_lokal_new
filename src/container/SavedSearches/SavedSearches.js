@@ -103,9 +103,9 @@ const MyFavorites = ({navigation}) => {
       <View style={styles.slideOuter}>
         <View style={{ width: '100%', alignItems: 'center' }}>
           <View style={{ height: 200, width: '90%', alignSelf: 'center', marginTop: 10 }}>
-            <Text style={{ fontSize: 20, color: Colors.textColorLight }}> City: </Text>
-            <Text style={{ fontSize: 20, fontWeight: '500', color: Colors.textColorDark }}>{item.propertycity}</Text>
-            <Text style={{ fontSize: 20, marginTop: 20, color: Colors.textColorLight }}> Parameters: </Text>
+            <Text style={{ fontSize: 20, color: Colors.textColorLight, fontFamily:'Poppins-Regular' }}> City: </Text>
+            <Text style={{ fontSize: 20, fontWeight: '500', color: Colors.textColorDark, fontFamily:'Poppins-Regular' }}>{item.propertycity}</Text>
+            <Text style={{ fontSize: 20, marginTop: 20, color: Colors.textColorLight , fontFamily:'Poppins-Regular'}}> Parameters: </Text>
             <TextInput
               ref={inputRef}
               value={item.search_parameters}
@@ -128,7 +128,7 @@ const MyFavorites = ({navigation}) => {
                     alignItems: 'center',
                   }}
                 >
-                  <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white }}> Save </Text>
+                  <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white, fontFamily:'Poppins-Regular' }}> Save </Text>
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
@@ -142,7 +142,7 @@ const MyFavorites = ({navigation}) => {
                     alignItems: 'center',
                   }}
                 >
-                  <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white }}> Edit </Text>
+                  <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white, fontFamily:'Poppins-Regular' }}> Edit </Text>
                 </TouchableOpacity>
               )}
               <TouchableOpacity
@@ -156,7 +156,7 @@ const MyFavorites = ({navigation}) => {
                   alignItems: 'center',
                 }}
               >
-                <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white }}> Delete </Text>
+                <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white, fontFamily:'Poppins-Regular' }}> Delete </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -178,7 +178,7 @@ const MyFavorites = ({navigation}) => {
           marginLeft:50
        
         }}>
-        <Text style={{ fontSize: 20, color: Colors.black }}>Saved Searches</Text>
+        <Text style={{ fontSize: 20, color: Colors.black, fontFamily:'Poppins-Regular' }}>Saved Searches</Text>
         <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={{
@@ -248,6 +248,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+    fontFamily:'Poppins-Regular'
   },
   pagination: {
     position: 'absolute',

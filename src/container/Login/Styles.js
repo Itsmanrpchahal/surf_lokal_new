@@ -68,14 +68,17 @@ export default StyleSheet.create({
     height: 80 * viewSizeRatio,
     color: Colors.textColorDark,
     fontSize: 22 * fontSizeRatio,
+    fontFamily:'Poppins-Regular'
   },
   regionText: {
     color: Colors.textColorLight,
     fontSize: 16 * fontSizeRatio,
+    fontFamily:'Poppins-Regular'
   },
   selectRegionText: {
     color: Colors.black,
     fontSize: 22 * fontSizeRatio,
+    fontFamily:'Poppins-Regular'
   },
   arrow: {
     height: 20 * imageSizeRatio,
@@ -85,6 +88,7 @@ export default StyleSheet.create({
   alertText: {
     color: Colors.black,
     fontSize: 16 * fontSizeRatio,
+    fontFamily:'Poppins-Regular'
   },
   orView: {
     flexDirection: 'row',
@@ -104,6 +108,7 @@ export default StyleSheet.create({
     color: Colors.black,
     fontSize: 20 * fontSizeRatio,
     textAlign: 'center',
+    fontFamily:'Poppins-Regular'
   },
   socialMediaButtons: {
     width: '85%',
@@ -123,6 +128,7 @@ export default StyleSheet.create({
     fontSize: 20 * fontSizeRatio,
     fontWeight: '500',
     marginLeft: 30,
+    fontFamily:'Poppins-Regular'
   },
   socialMediaButtonsImage: {
     height: 30 * viewSizeRatio,

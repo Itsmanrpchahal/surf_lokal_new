@@ -82,6 +82,7 @@ export default StyleSheet.create({
     width: '90%',
     color: Colors.textColorDark,
     fontSize: 14 * fontSizeRatio,
+    fontFamily:'Poppins-Regular'
     
   },
 });

@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet, TextInput, Button } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, TextInput, Button,Linking } from 'react-native';
 import Colors from '../../utils/Colors';
 import Images from '../../utils/Images';
 import axios from 'axios';
@@ -33,7 +33,10 @@ const ChatSearch = (props) => {
     console.log(ans, "use??????????");
   }, [ans]);
 
-
+  const makePhoneCall = () => {
+    let phoneNumber = '512458790';
+    Linking.openURL(`tel:${phoneNumber}`);
+  };
   return (
     <View style={styles.container}>
       {/* Your other content */}
@@ -44,19 +47,19 @@ const ChatSearch = (props) => {
             style={styles.image1}
           />
         </TouchableOpacity>
-        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 15 }}>ChatGPT</Text>
-        <TouchableOpacity>
-          {/* <Image
+        <Text style={{ color: 'black', fontSize: 15,fontFamily:'Poppins-BoldItalic' }}>ChatGPT</Text>
+        <TouchableOpacity onPress={()=>makePhoneCall()}>
+          <Image
             source={Images.call}
             style={styles.image}
-          /> */}
+          />
         </TouchableOpacity>
       </View>
       {/* <Text style={styles.text}>{data.item.navigation}</Text> */}
 
       <ScrollView style={{ flex: 0.5, marginBottom: 90, paddingHorizontal: 7 }}>
-        <Text style={{ color: 'black' }}>{chatData.question}</Text>
-        <Text style={{ color: 'black' }}>{chatData.answere}</Text>
+        <Text style={{ color: 'black',fontFamily:'Poppins-Regular' }}>{chatData.question}</Text>
+        <Text style={{ color: 'black',fontFamily:'Poppins-Regular' }}>{chatData.answere}</Text>
 
       </ScrollView>
       <View style={styles.buttonContainer}>
@@ -145,7 +148,8 @@ const styles = StyleSheet.create({
 
   },
   Text: {
-    color: "black"
+    color: "black",
+    fontFamily:'Poppins-Regular'
   }
 
 });

@@ -250,7 +250,7 @@ const MakeAnOffer = () => {
       <ScrollView style={{ flex: 1 }} >
         <View
           style={styles.viewStyle}>
-          <Text style={{ fontSize: 20, color: Colors.black }}>Make An Offer</Text>
+          <Text style={{ fontSize: 20, color: Colors.black,fontFamily:'Poppins-Bold' }}>Make An Offer</Text>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={{
@@ -282,6 +282,7 @@ const MakeAnOffer = () => {
                 fontSize: 20,
                 color: Colors.textColorLight,
                 textAlign: 'center',
+                fontFamily:'Poppins-Regular'
               }}>
               All fields below are required
             </Text>
@@ -290,7 +291,7 @@ const MakeAnOffer = () => {
           <View style={styles.inputStyle}>
             <TextInput
               allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black }}
+              style={{ marginLeft: 5, color: Colors.black,fontFamily:'Poppins-Regular' }}
               placeholderTextColor={Colors.textColorLight}
               placeholder={'Propertity Address'}
               keyboardType="default"
@@ -316,7 +317,7 @@ const MakeAnOffer = () => {
           <View style={styles.inputStyle}>
             <TextInput
               allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black }}
+              style={{ marginLeft: 5, color: Colors.black,fontFamily:'Poppins-Regular' }}
               placeholderTextColor={Colors.textColorLight}
               placeholder={'Cash or Conventional Loan'}
               keyboardType="default"
@@ -352,7 +353,7 @@ const MakeAnOffer = () => {
           <View style={styles.inputStyle}>
             <TextInput
               allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black }}
+              style={{ marginLeft: 5, color: Colors.black,fontFamily:'Poppins-Regular' }}
               placeholderTextColor={Colors.textColorLight}
               placeholder={'Full Legal Name'}
               keyboardType="default"
@@ -364,7 +365,7 @@ const MakeAnOffer = () => {
           <View style={styles.inputStyle}>
             <TextInput
               allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black }}
+              style={{ marginLeft: 5, color: Colors.black,fontFamily:'Poppins-Regular' }}
               placeholderTextColor={Colors.textColorLight}
               placeholder={'Current Address'}
               keyboardType="default"
@@ -376,7 +377,7 @@ const MakeAnOffer = () => {
           <View style={styles.inputStyle}>
             <TextInput
               allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black }}
+              style={{ marginLeft: 5, color: Colors.black,fontFamily:'Poppins-Regular' }}
               placeholderTextColor={Colors.textColorLight}
               placeholder={'Email'}
               keyboardType="default"
@@ -389,7 +390,7 @@ const MakeAnOffer = () => {
             style={styles.inputStyle}>
             <TextInput
               allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black }}
+              style={{ marginLeft: 5, color: Colors.black,fontFamily:'Poppins-Regular' }}
               placeholderTextColor={Colors.textColorLight}
               placeholder={'Phone'}
               keyboardType="default"
@@ -401,7 +402,8 @@ const MakeAnOffer = () => {
           <TouchableOpacity onPress={() => makeOfferAPI()}
             style={styles.btn}
           >
-            <Text style={{ fontSize: 16, fontWeight: '400', color: Colors.white }}>
+            <Text style={{ fontSize: 16, fontWeight: '400', 
+            color: Colors.white ,fontFamily:'Poppins-Regular'}}>
               Submit
             </Text>
           </TouchableOpacity>
@@ -421,7 +423,8 @@ const styles = StyleSheet.create({
     color: 'red',
     paddingHorizontal: 22,
     marginTop: 2,
-    fontSize: 12
+    fontSize: 12,
+    fontFamily:'Poppins-Regular'
   },
   inputStyle: {
     flexDirection: 'row',

@@ -36,8 +36,8 @@ const renderItem = ({ item }) => {
     <>
       <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', marginVertical: 5, justifyContent: 'space-between' }}>
         <View style={{}}>
-          <Text style={{ color: "black" }}>{item.unite_name}</Text>
-          <Text style={{ color: "gray" }}>{item.unit_distance}</Text>
+          <Text style={{ color: "black",fontFamily:'Poppins-Regular' }}>{item.unite_name}</Text>
+          <Text style={{ color: "gray",fontFamily:'Poppins-Regular' }}>{item.unit_distance}</Text>
         </View>
         <View>
           <Image style={{ height: 15, width: 100, }} source={{ uri: item.image_url }} />
@@ -472,6 +472,7 @@ const [walk, setWalk] = useState([]);
                 fontSize: 14,
                 color: Colors.black,
                 textAlign: 'center',
+                fontFamily:'Poppins-Regular',
                 marginLeft: 5,
               }}>
               {postID.data.total_average_rating}
@@ -483,6 +484,7 @@ const [walk, setWalk] = useState([]);
               fontSize: 18,
               color: Colors.primaryBlue,
               fontWeight: '500',
+              fontFamily:'Poppins-Regular'
             }}>{postID.data?.property_price}
           </Text>
           <TouchableOpacity>
@@ -500,7 +502,7 @@ const [walk, setWalk] = useState([]);
             marginTop: 5,
           }}>
           <Text
-            style={{ fontSize: 16, color: Colors.black, textAlign: 'center' }}>
+            style={{ fontSize: 16, color: Colors.black, textAlign: 'center',fontFamily:'Poppins-Regular' }}>
             {postID?.data?.title}
           </Text>
         </View>
@@ -532,6 +534,7 @@ const [walk, setWalk] = useState([]);
                   color: Colors.black,
                   textAlign: 'center',
                   marginLeft: 5,
+                  fontFamily:'Poppins-Regular'
                 }}>
                 {postID.data.property_bedrooms} {'Beds'}
               </Text>
@@ -557,6 +560,7 @@ const [walk, setWalk] = useState([]);
                   color: Colors.black,
                   textAlign: 'center',
                   marginLeft: 5,
+                  fontFamily:'Poppins-Regular'
                 }}>
                 {postID.data.bathroomsfull} {'Bath'}
               </Text>
@@ -582,6 +586,7 @@ const [walk, setWalk] = useState([]);
                   color: Colors.black,
                   textAlign: 'center',
                   marginLeft: 5,
+                  fontFamily:'Poppins-Regular'
                 }}>
                 {postID.data.property_size} {'sq ft'}
               </Text>
@@ -601,7 +606,7 @@ const [walk, setWalk] = useState([]);
                   fontSize: 12,
                   color: Colors.black,
                   textAlign: 'center',
-                  marginLeft: 5,
+                  marginLeft: 5,fontFamily:'Poppins-Regular'
                 }}>
                 {'$'}{postID.data.associationfee == null ? 0 : postID.data.associationfee}
               </Text>
@@ -621,6 +626,7 @@ const [walk, setWalk] = useState([]);
                 flexDirection: 'row',
                 color: Colors.black,
                 width: '100%',
+                fontFamily:'Poppins-Regular'
               }}>
               {typeof postID.data.content.rendered === 'string' ? (
                 <>
@@ -637,7 +643,9 @@ const [walk, setWalk] = useState([]);
             </Text>
             <TouchableOpacity style={{ justifyContent: "center", alignItems: "center" }}
               onPress={() => setShowFullContent(!showFullContent)}>
-              <Text style={{ color: "darkblue", marginTop: 10, fontSize: 16 }}>{showFullContent ? 'Show Less' : 'Read More'}</Text>
+              <Text style={{ color: "darkblue", marginTop: 10, 
+              fontSize: 16,fontFamily:'Poppins-Regular' }}>
+                {showFullContent ? 'Show Less' : 'Read More'}</Text>
             </TouchableOpacity>
         </ScrollView>
 
@@ -778,10 +786,7 @@ const [walk, setWalk] = useState([]);
 
 
       <ScrollView style={{ flex: 1, marginBottom: 90 }}>
-        {/* {showFeatures && featuers()}
-        {adress && address()}
-        {showDetals && Details()}
-        {ShowNear && nearBy()} */}
+    
 
         {selectedTab == 0 ? (<Details />) : selectedTab == 1 ? (<Featuers />) : selectedTab == 2 ? (<Address />) : selectedTab == 3 ? (<NearBy />) : selectedTab == 4 ? (<WalkSco />) : selectedTab == 5 ? (<CurrentWeather />) : selectedTab == 6 ? (<Calculator />) : selectedTab == 7 ? (<School />) : (<TaxHistory />)}
 
@@ -852,7 +857,7 @@ const [walk, setWalk] = useState([]);
           alignItems: 'center',
           marginLeft: 10,
         }}>
-        <Text style={{ fontSize: 12, color: Colors.gray }}></Text>
+        <Text style={{ fontSize: 12, color: Colors.gray,fontFamily:'Poppins-Regular' }}></Text>
       </TouchableOpacity>
       <View
         style={{
@@ -874,6 +879,7 @@ const [walk, setWalk] = useState([]);
             fontWeight: '700',
             color: Colors.black,
             marginTop: 10,
+            fontFamily:'Poppins-Regular'
           }}>
           Rate and Review
         </Text>
@@ -915,7 +921,7 @@ const [walk, setWalk] = useState([]);
             alignItems: 'center',
             marginTop: 10,
           }}>
-          <Text style={{ fontSize: 12, color: Colors.black, }}>
+          <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
             Photos Quality Rating :
           </Text>
           <Rating
@@ -939,7 +945,7 @@ const [walk, setWalk] = useState([]);
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{ fontSize: 12, color: Colors.black }}>
+          <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
             Description & Details :
           </Text>
           <Rating
@@ -962,7 +968,7 @@ const [walk, setWalk] = useState([]);
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{ fontSize: 12, color: Colors.black }}>
+          <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
             Price Of Property :
           </Text>
           <Rating
@@ -986,7 +992,7 @@ const [walk, setWalk] = useState([]);
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{ fontSize: 12, color: Colors.black }}>
+          <Text style={{ fontSize: 12, color: Colors.black ,fontFamily:'Poppins-Regular'}}>
             General Interest in the property :
           </Text>
           <Rating
@@ -1011,6 +1017,7 @@ const [walk, setWalk] = useState([]);
             fontSize: 12,
             color: Colors.black,
             marginTop: 12,
+            fontFamily:'Poppins-Regular'
           }}>
           Review
         </Text>
@@ -1035,7 +1042,8 @@ const [walk, setWalk] = useState([]);
               // padding: 2,
               alignItems:"flex-start",
               alignSelf:"flex-start",
-              verticalAlign:"top"
+              verticalAlign:"top",
+              fontFamily:'Poppins-Regular'
             }}
             //keyboardType="default"
             autoCorrect={false}
@@ -1078,6 +1086,7 @@ const [walk, setWalk] = useState([]);
               fontSize: 14,
               fontWeight: '700',
               color: Colors.white,
+              fontFamily:'Poppins-Regular'
             }}>
             Submit
           </Text>
@@ -1148,18 +1157,21 @@ const styles = StyleSheet.create({
     color: Colors.white,
     textAlign: 'center',
     marginLeft: 5,
+    fontFamily:'Poppins-Regular'
   },
   call: {
     fontSize: 12,
     color: Colors.black,
     textAlign: 'center',
     marginLeft: 5,
+    fontFamily:'Poppins-Regular'
   },
   ratetext: {
     fontSize: 12,
     color: Colors.black,
     textAlign: 'center',
     marginLeft: 5,
+    fontFamily:'Poppins-Regular'
   },
   book: {
     justifyContent: 'center',
@@ -1235,12 +1247,14 @@ const styles = StyleSheet.create({
   property: {
     fontSize: 18,
     color: Colors.black,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily:'Poppins-Regular'
   },
   detailText: {
     fontSize: 10,
     color: Colors.black,
     textAlign: 'center',
+    fontFamily:'Poppins-Regular'
 
     // marginLeft: 5,
     // width
@@ -1250,6 +1264,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: Colors.black,
     textAlign: 'center',
+    fontFamily:'Poppins-Regular'
   },
   imgview: {
     flexDirection: 'row',
@@ -1302,6 +1317,7 @@ const styles = StyleSheet.create({
   },
   props: {
     fontSize: 13,
+    fontFamily:'Poppins-Regular',
 
     color: Colors.black,
     marginTop: 5

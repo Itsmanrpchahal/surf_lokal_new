@@ -191,6 +191,7 @@ export default function Register({navigation}) {
             fontSize: 20 * fontSizeRatio,
             fontWeight: '500',
             color: Colors.white,
+            fontFamily:'Poppins-Regular'
           }}
           btnStyle={{
             borderRadius: 6,

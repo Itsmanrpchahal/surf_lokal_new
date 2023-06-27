@@ -164,18 +164,10 @@ const Settings = props => {
                   )}
                   {/* <Loader loading={loading} /> */}
                 </View>
-          {/* <Image
-              source={Images.profile}
-              style={{
-                height: 35,
-                width: 35,
-                resizeMode: 'contain',
-                // tintColor: Colors.black,
-                transform: [{rotate: '90deg'}],
-              }}></Image> */}
+     
               </TouchableOpacity>
-        {/* <Text style={{fontSize: 20, color: Colors.black}}>Settings</Text> */}
-        <Text style={{fontSize: 20, color: Colors.black}}>Settings</Text>
+        
+        <Text style={{fontSize: 20, color: Colors.black, fontFamily:'Poppins-Regular'}}>Settings</Text>
         
         <TouchableOpacity
         
@@ -215,6 +207,7 @@ const Settings = props => {
             style={{
               fontSize: 20,
               color: Colors.textColorLight,
+              fontFamily:'Poppins-Regular'
             }}>
             Allow Notfication
           </Text>
@@ -240,6 +233,7 @@ const Settings = props => {
             style={{
               fontSize: 20,
               color: Colors.textColorLight,
+              fontFamily:'Poppins-Regular'
             }}>
             User Details
           </Text>
@@ -257,7 +251,7 @@ const Settings = props => {
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{marginLeft: 5, color: Colors.black, flex: 1}}
+            style={{marginLeft: 5, color: Colors.black, flex: 1, fontFamily:'Poppins-Regular'}}
             placeholderTextColor={Colors.textColorLight}
             value={userName}
             keyboardType="default"
@@ -279,7 +273,7 @@ const Settings = props => {
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{marginLeft: 5, color: Colors.black}}
+            style={{marginLeft: 5, color: Colors.black, fontFamily:'Poppins-Regular'}}
             placeholderTextColor={Colors.textColorLight}
             value={detials[0]?.user_email}
             keyboardType="default"
@@ -301,7 +295,7 @@ const Settings = props => {
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{marginLeft: 5, color: Colors.black}}
+            style={{marginLeft: 5, color: Colors.black, fontFamily:'Poppins-Regular'}}
             placeholderTextColor={Colors.textColorLight}
             value={address}
             keyboardType="default"
@@ -322,7 +316,7 @@ const Settings = props => {
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{marginLeft: 5, color: Colors.black}}
+            style={{marginLeft: 5, color: Colors.black, fontFamily:'Poppins-Regular'}}
             placeholderTextColor={Colors.textColorLight}
             value={mob}
             keyboardType="default"
@@ -336,67 +330,11 @@ const Settings = props => {
           <TouchableOpacity onPress={()=>navigation.navigate('Login')}
           style={{flexDirection:'row'}}>
          <Image source={Images.signOut} style={{height:25,width:25}} />
-         <Text style={{marginLeft:10,fontSize:20,color:"black"}}>signOut</Text>
+         <Text style={{marginLeft:10,fontSize:20,color:"black", fontFamily:'Poppins-Regular'}}>signOut</Text>
          </TouchableOpacity>
         </View>
 
-        {/* <View
-          style={{
-            flexDirection: 'row',
-            width: '90%',
-            marginTop: 20,
-            alignSelf: 'center',
-          }}>
-          <Text
-            style={{
-              fontSize: 20,
-              color: Colors.textColorLight,
-            }}>
-            Change Password
-          </Text>
-        </View> */}
-        {/* <View
-          style={{
-            flexDirection: 'row',
-            width: '90%',
-            marginTop: 20,
-            height: 40,
-            alignItems: 'center',
-            alignSelf: 'center',
-            borderWidth: 1,
-            borderColor: Colors.BorderColor,
-          }}>
-          <TextInput
-            allowFontScaling={false}
-            style={{marginLeft: 5, color: Colors.black}}
-            placeholderTextColor={Colors.textColorLight}
-            placeholder={'Password'}
-            keyboardType="default"
-            returnKeyType="done"
-            onChangeText={text => console.log(text)}
-          />
-        </View> */}
-        {/* <View
-          style={{
-            flexDirection: 'row',
-            width: '90%',
-            marginTop: 20,
-            height: 40,
-            alignItems: 'center',
-            alignSelf: 'center',
-            borderWidth: 1,
-            borderColor: Colors.BorderColor,
-          }}>
-          <TextInput
-            allowFontScaling={false}
-            style={{marginLeft: 5, color: Colors.black}}
-            placeholderTextColor={Colors.textColorLight}
-            placeholder={'Confirm Password'}
-            keyboardType="default"
-            returnKeyType="done"
-            onChangeText={text => console.log(text)}
-          />
-        </View> */}
+   
 
         <TouchableOpacity
           onPress={() => saveFile()}
@@ -414,7 +352,7 @@ const Settings = props => {
             <ActivityIndicator size={'small'} color={'#fff'} />
           ) : (
             <Text
-              style={{fontSize: 16, fontWeight: '400', color: Colors.white}}>
+              style={{fontSize: 16, fontWeight: '400', color: Colors.white, fontFamily:'Poppins-Regular'}}>
               Submit
             </Text>
           )}
@@ -452,6 +390,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     marginBottom: 20,
+    fontFamily:'Poppins-Regular'
   },
   button: {
     padding: 10,
@@ -461,6 +400,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+    fontFamily:'Poppins-Regular'
   },
   pagination: {
     position: 'absolute',

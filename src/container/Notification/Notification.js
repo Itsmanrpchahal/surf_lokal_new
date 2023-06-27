@@ -34,7 +34,7 @@ const Notification = () => {
    <>
    <View
         style={styles.viewStyle}>
-        <Text style={{ fontSize: 20, color: Colors.black }}>Notification</Text>
+        <Text style={{ fontSize: 20, color: Colors.black,fontFamily:'Poppins-Regular' }}>Notification</Text>
         <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={{
@@ -70,6 +70,7 @@ const Notification = () => {
             style={{
               fontSize: 20,
               color: Colors.textColorLight,
+              fontFamily:'Poppins-Regular'
             }}>
             Allow Notfication
           </Text>

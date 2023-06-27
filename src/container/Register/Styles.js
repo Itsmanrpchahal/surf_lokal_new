@@ -76,6 +76,7 @@ export default StyleSheet.create({
     height: 80 * viewSizeRatio,
     color: Colors.textColorDark,
     fontSize: 18 * fontSizeRatio,
+    fontFamily:'Poppins-Regular'
   },
   regionText: {
     color: Colors.textColorLight,
@@ -125,6 +126,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
+    fontFamily:'Poppins-Regular'
   },
 
   socialMediaButtonsText: {
