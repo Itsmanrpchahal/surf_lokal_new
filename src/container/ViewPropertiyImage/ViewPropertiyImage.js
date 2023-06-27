@@ -187,6 +187,7 @@ style={styles.slide}
                 color: Colors.black,
                 textAlign: 'center',
                 marginLeft: 5,
+                fontFamily:'Poppins-Regular'
               }}>
               Rate Property
             </Text>
@@ -205,6 +206,7 @@ style={styles.slide}
                 color: Colors.black,
                 textAlign: 'center',
                 marginLeft: 5,
+                fontFamily:'Poppins-Regular'
               }}>
               Call us
             </Text>
@@ -235,6 +237,7 @@ style={styles.slide}
                 color: Colors.white,
                 textAlign: 'center',
                 marginLeft: 5,
+                fontFamily:'Poppins-Regular'
               }}>
               Book a tour
             </Text>

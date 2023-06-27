@@ -374,6 +374,7 @@ const RecycleBin = () => {
               fontSize: 20,
               color: Colors.primaryBlue,
               fontWeight: '500',
+              fontFamily:'Poppins-Regular'
             }}>
             $ {item.originallistprice}
           </Text>
@@ -399,7 +400,8 @@ const RecycleBin = () => {
               style={{height: 20, width: 20, resizeMode: 'contain'}}></Image>
           </TouchableOpacity>
           <Text
-            style={{fontSize: 14, color: Colors.black, textAlign: 'center'}}>
+            style={{fontSize: 14,
+              fontFamily:'Poppins-Regular', color: Colors.black, textAlign: 'center'}}>
             {item.total_average_rating}
           </Text>
           <TouchableOpacity onPress={() => handleShare()}>
@@ -409,6 +411,10 @@ const RecycleBin = () => {
           </TouchableOpacity>
         </View>
       </View>
+
+      <Text  style={{fontSize: 16, color: Colors.black, 
+         fontFamily:'Poppins-Regular',textAlign: 'center',marginTop:15}}>
+
       <KeyboardAvoidingView >
 
 <Modal
@@ -683,6 +689,7 @@ const RecycleBin = () => {
 </Modal>
 </KeyboardAvoidingView>
       <Text  style={{fontSize: 16, color: Colors.black, textAlign: 'center',marginTop:15}}>
+
             {item.title}</Text>
 
 
@@ -703,13 +710,14 @@ const RecycleBin = () => {
             }}>
             <Image
               source={Images.bed}
-              style={{height: 25, width: 25, resizeMode: 'contain'}}></Image>
+              style={{height: 28, width: 28, resizeMode: 'contain'}}></Image>
               
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 16,
                 color: Colors.black,
                 textAlign: 'center',
+                fontFamily:'Poppins-Regular'
               }}>
               {item.property_bedrooms} {'Beds'}
             </Text>
@@ -723,12 +731,13 @@ const RecycleBin = () => {
             }}>
             <Image
               source={Images.bath}
-              style={{height: 25, width: 25, resizeMode: 'contain'}}></Image>
+              style={{height: 28, width: 28, resizeMode: 'contain'}}></Image>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 16,
                 color: Colors.black,
                 textAlign: 'center',
+                fontFamily:'Poppins-Regular'
               }}>
               {item.bathroomsfull} {'Bath'}
             </Text>
@@ -742,12 +751,13 @@ const RecycleBin = () => {
             }}>
             <Image
               source={Images.measuring}
-              style={{height: 25, width: 25, resizeMode: 'contain'}}></Image>
+              style={{height: 28, width: 28, resizeMode: 'contain'}}></Image>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 16,
                 color: Colors.black,
                 textAlign: 'center',
+                fontFamily:'Poppins-Regular'
               }}>
               {item.property_size} {'sq ft'}
             </Text>
@@ -773,6 +783,9 @@ const RecycleBin = () => {
                 fontSize: 16,
                 color: Colors.black,
                 textAlign: 'center',
+
+                fontFamily:'Poppins-Regular'
+
               }}>
               {'$'}{item.associationfee == null ? 0 : item.associationfee}
             </Text>
@@ -793,6 +806,7 @@ const RecycleBin = () => {
                   fontSize: 16,
                   color: Colors.black,
                   textAlign: 'center',
+                  fontFamily:'Poppins-Regular'
                 }}>
                   {'$'}{item.taxannualamount == null ? 0 : item.taxannualamount}
               </Text>
@@ -813,7 +827,7 @@ const RecycleBin = () => {
           alignItems: 'center',
           marginLeft:70
         }}>
-        <Text style={{fontSize: 20, color: Colors.black}}>Recycle Bin</Text>
+        <Text style={{fontSize: 20, color: Colors.black, fontFamily:'Poppins-Regular'}}>Recycle Bin</Text>
         <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={{
@@ -878,6 +892,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+    fontFamily:'Poppins-Regular'
   },
   pagination: {
     position: 'absolute',

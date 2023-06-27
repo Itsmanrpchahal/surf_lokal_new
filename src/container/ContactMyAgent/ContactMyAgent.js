@@ -177,7 +177,7 @@ const ContactMyAgent = () => {
           alignItems: 'center',
           marginLeft: 50
         }}>
-        <Text style={{ fontSize: 20, color: Colors.black }}>
+        <Text style={{ fontSize: 20, color: Colors.black,fontFamily:'Poppins-Bold' }}>
           Contact My Agent
         </Text>
         <TouchableOpacity
@@ -235,12 +235,12 @@ const ContactMyAgent = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <Text style={{ fontSize: 22, color: Colors.white }}>JD</Text>
+              <Text style={{ fontSize: 22, color: Colors.white,fontFamily:'Poppins-Regular' }}>JD</Text>
             </View>
           )}
         </TouchableOpacity>
 
-        <Text style={{ fontSize: 24, color: Colors.black, marginLeft: 10 }}>
+        <Text style={{ fontSize: 24, color: Colors.black, marginLeft: 10 ,fontFamily:'Poppins-Regular'}}>
           {agentData?.first_name} {agentData?.last_name}
         </Text>
       </View>
@@ -268,6 +268,7 @@ const ContactMyAgent = () => {
                   fontSize: 18,
                   color: Colors.textColorLight,
                   marginLeft: 20,
+                  fontFamily:'Poppins-Regular'
                 }}>
                 {agentData?.agent_phone}
               </Text>
@@ -304,6 +305,7 @@ const ContactMyAgent = () => {
                   fontSize: 18,
                   color: Colors.textColorLight,
                   marginLeft: 20,
+                  fontFamily:'Poppins-Regular'
                 }}>
                 {agentData?.agent_email}
               </Text>
@@ -317,41 +319,6 @@ const ContactMyAgent = () => {
           </TouchableOpacity>
         </View>
 
-        {/* <View style={styles.slideOuter}>
-          <TouchableOpacity
-            //onPress={() => navigation.navigate(item.navigation)}
-            style={{
-              width: '100%',
-              alignItems: 'center',
-            }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                width: '80%',
-                height: 60,
-                alignItems: 'center',
-              }}>
-              <Image
-                source={Images.agentInsta}
-                style={{height: 25, width: 25, resizeMode: 'contain'}}></Image>
-
-              <Text
-                style={{
-                  fontSize: 18,
-                  color: Colors.textColorLight,
-                  marginLeft: 20,
-                }}>
-                
-              </Text>
-            </View>
-            <View
-              style={{
-                height: 1,
-                width: '100%',
-                backgroundColor: Colors.BorderColor,
-              }}></View>
-          </TouchableOpacity>
-        </View> */}
 
         <View style={styles.slideOuter}>
           <TouchableOpacity
@@ -360,26 +327,7 @@ const ContactMyAgent = () => {
               width: '100%',
               alignItems: 'center',
             }}>
-            {/* <View
-              style={{
-                flexDirection: 'row',
-                width: '80%',
-                height: 60,
-                alignItems: 'center',
-              }}>
-              <Image
-                source={Images.agentVideo}
-                style={{height: 25, width: 25, resizeMode: 'contain'}}></Image>
-
-              <Text
-                style={{
-                  fontSize: 18,
-                  color: Colors.textColorLight,
-                  marginLeft: 20,
-                }}>
-                jhon.smith@icloud.com
-              </Text>
-            </View> */}
+         
                   <View style={{flexDirection:"row",justifyContent:"space-around",marginTop:10}}>
 
 
@@ -404,7 +352,7 @@ const ContactMyAgent = () => {
                   source={Images.lokal}
                   resizeMode="contain"
                   style={{ height: 15, width: 15, tintColor: Colors.white }}></Image> */}
-                <Text style={{ fontSize: 16, fontWeight: '300', color: Colors.white }}>
+                <Text style={{ fontSize: 16, fontWeight: '300', color: Colors.white ,fontFamily:'Poppins-Regular'}}>
                   Make Offer
                 </Text>
 
@@ -426,11 +374,8 @@ const ContactMyAgent = () => {
                   margin:10
 
                 }}>
-                {/* <Image
-                  source={Images.lokal}
-                  resizeMode="contain"
-                  style={{ height: 15, width: 15, tintColor: Colors.white }}></Image> */}
-                <Text style={{ fontSize: 16, fontWeight: '400', color: Colors.white }}>
+               
+                <Text style={{ fontSize: 16, fontWeight: '400', color: Colors.white,fontFamily:'Poppins-Regular' }}>
                   List My Home
                 </Text>
 
@@ -461,7 +406,7 @@ const ContactMyAgent = () => {
                   source={Images.lokal}
                   resizeMode="contain"
                   style={{ height: 15, width: 15, tintColor: Colors.white }}></Image> */}
-                <Text style={{ fontSize: 16, fontWeight: '400', color: Colors.white }}>
+                <Text style={{ fontSize: 16, fontWeight: '400', color: Colors.white,fontFamily:'Poppins-Regular' }}>
                   Request Showing
                 </Text>
 
@@ -488,6 +433,7 @@ const ContactMyAgent = () => {
             style={{
               fontSize: 18,
               color: Colors.textColorLight,
+              fontFamily:'Poppins-Regular'
             }}>
             Quick Inquiry
           </Text>
@@ -505,7 +451,7 @@ const ContactMyAgent = () => {
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{ marginLeft: 5, color: Colors.black, fontSize: 12 }}
+            style={{ marginLeft: 5, color: Colors.black, fontSize: 12, }}
             placeholderTextColor={Colors.textColorLight}
             placeholder={'Propertity Address'}
             keyboardType="default"
@@ -555,7 +501,7 @@ const ContactMyAgent = () => {
             source={Images.lokal}
             resizeMode="contain"
             style={{ height: 15, width: 15, tintColor: Colors.white }}></Image> */}
-          <Text style={{ fontSize: 16, fontWeight: '400', color: Colors.white }}>
+          <Text style={{ fontSize: 16, fontWeight: '400', color: Colors.white,fontFamily:'Poppins-Regular' }}>
             Send
           </Text>
 

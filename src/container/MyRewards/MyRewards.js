@@ -62,7 +62,8 @@ const App = () => {
           alignSelf: 'center',
           alignItems: 'center',
         }}>
-        <Text style={{ fontSize: 20,marginLeft:100, color: Colors.black }}>Surf Rewards</Text>
+        <Text style={{ fontSize: 20,marginLeft:100, 
+          color: Colors.black,fontFamily:'Poppins-Regular' }}>Surf Rewards</Text>
        
         <TouchableOpacity
             onPress={() =>   navigation.navigate('MyProfile')} 
@@ -209,6 +210,7 @@ const App = () => {
               color: Colors.textColorLight,
               marginTop: 20,
               textAlign: 'center',
+              fontFamily:'Poppins-Regular'
             }}>
             reaching next tier with  {'\n'}the numerical points tally
           </Text>
@@ -223,7 +225,8 @@ const App = () => {
               marginTop: 20,
             }}>
             <Text
-              style={{ fontSize: 24, fontWeight: 'bold', color: Colors.black }}>
+              style={{ fontSize: 24, fontWeight: 'bold',
+               color: Colors.black,fontFamily:'Poppins-Regular' }}>
               surf Rating
             </Text>
 
@@ -241,6 +244,7 @@ const App = () => {
                   color: Colors.black,
                   textAlign: 'center',
                   // fontWeight:"100%"
+                  fontFamily:'Poppins-Regular'
                 }}>
                 {getLevelCall()}
               </Text>
@@ -257,20 +261,7 @@ const App = () => {
             alignSelf: 'center',
           }}></Image>
 
-        {/* <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, }}>
-          <TouchableOpacity onPress={handlePress}
-            style={[styles.rew, { backgroundColor: backgroundColor, borderColor: borderColor }]}>
-            <Text style={[styles.text, { color: textColor }]}>Rewards</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            // onPress={() => navigation.navigate("ChatSearch")}
-            style={styles.rew}>
-            <Text style={{ fontSize: 16, color: Colors.white }}>
-              Challenges
-            </Text>
-          </TouchableOpacity>
-        </View> */}
+        
        <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, }}>
 
   <TouchableOpacity
@@ -283,7 +274,7 @@ const App = () => {
           },
         ]}
       >
-        <Text style={[styles.text, { color: isRewardsSelected ? 'white' : 'black' }]}>Rewards</Text>
+        <Text style={[styles.text,{ color: isRewardsSelected ? 'white' : 'black',fontFamily:'Poppins-Regular' }]}>Rewards</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -296,29 +287,13 @@ const App = () => {
           },
         ]}
       >
-        <Text style={[styles.text, { color: isRewardsSelected ? 'black' : 'white' }]}>Challenges</Text>
+        <Text style={[styles.text, { color: isRewardsSelected ? 'black' : 'white' ,fontFamily:'Poppins-Regular'}]}>Challenges</Text>
       </TouchableOpacity>
 </View>
 
 
 
-        {/* <View
-          style={{
-            width: '50%',
-            justifyContent: 'center',
-            alignSelf: 'center',
-            alignItems: 'center',
-            marginTop: 20,
-          }}>
-          <Text
-            style={{
-              fontSize: 30,
-              color: Colors.black,
-              textAlign: 'center',
-            }}>
-            {getLevelCall()}
-          </Text>
-        </View> */}
+ 
        
       </View>
     </SafeAreaView>

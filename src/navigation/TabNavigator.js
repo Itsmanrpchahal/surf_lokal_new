@@ -50,7 +50,7 @@ const BottomTabNavigator = () => {
         component={MyProfileTab}
         options={{
           tabBarLabel: (
-            <Text style={{ fontSize: 10 }} allowFontScaling={false}>
+            <Text style={{ fontSize: 10,fontFamily:'Poppins-Regular' }} allowFontScaling={false}>
               Profile
             </Text>
           ),
@@ -76,8 +76,8 @@ const BottomTabNavigator = () => {
           >
             199
           </Text>
-            <Text style={{fontSize: 12 }} allowFontScaling={false}>
-              Rewardss
+            <Text style={{fontSize: 12 ,fontFamily:'Poppins-Regular'}} allowFontScaling={false}>
+              Rewards
             </Text>
             </View>
           ),
@@ -98,7 +98,7 @@ const BottomTabNavigator = () => {
           //   />
           // ),
           tabBarLabel: (
-            <Text style={{ fontSize: 16 }} allowFontScaling={false}>
+            <Text style={{ fontSize: 16,fontFamily:'Poppins-Regular' }} allowFontScaling={false}>
               Home
             </Text>
           ),
@@ -112,7 +112,7 @@ const BottomTabNavigator = () => {
         component={MyFavorites}
         options={{
           tabBarLabel: (
-            <Text style={{ fontSize: 10 }} allowFontScaling={false}>
+            <Text style={{ fontSize: 10 ,fontFamily:'Poppins-Regular'}} allowFontScaling={false}>
               Favorites
             </Text>
           ),
@@ -127,7 +127,7 @@ const BottomTabNavigator = () => {
         component={ChatSearch}
         options={{
           tabBarLabel: (
-            <Text style={{ fontSize: 10 }} allowFontScaling={false}>
+            <Text style={{ fontSize: 10,fontFamily:'Poppins-Regular' }} allowFontScaling={false}>
               Chat
             </Text>
           ),
@@ -249,7 +249,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
               <Text
                 style={{
                   color: isFocused ? Colors.primaryBlue : Colors.textColorDark,
-                  fontSize: 12,
+                  fontSize: 12,fontFamily:'Poppins-Regular'
                 }}>
                 {label}
               </Text>

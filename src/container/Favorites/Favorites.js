@@ -165,6 +165,7 @@ const Home = () => {
               fontSize: 20,
               color: Colors.primaryBlue,
               fontWeight: '500',
+              fontFamily:'Poppins-Regular'
             }}>
             {'$'}
             {item.originallistprice}
@@ -257,6 +258,7 @@ const Home = () => {
             fontWeight: '700',
             color: Colors.black,
             marginTop: 10,
+            fontFamily:'Poppins-Regular'
           }}>
           Rate and Review
         </Text>
@@ -298,7 +300,7 @@ const Home = () => {
             alignItems: 'center',
             marginTop: 10,
           }}>
-          <Text style={{ fontSize: 12, color: Colors.black, }}>
+          <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
             Photos Quality Rating :
           </Text>
           <Rating
@@ -322,7 +324,7 @@ const Home = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{ fontSize: 12, color: Colors.black }}>
+          <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
             Description & Details :
           </Text>
           <Rating
@@ -345,7 +347,7 @@ const Home = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{ fontSize: 12, color: Colors.black }}>
+          <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
             Price Of Property :
           </Text>
           <Rating
@@ -369,7 +371,7 @@ const Home = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{ fontSize: 12, color: Colors.black }}>
+          <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
             General Interest in the property :
           </Text>
           <Rating
@@ -394,6 +396,7 @@ const Home = () => {
             fontSize: 12,
             color: Colors.black,
             marginTop: 12,
+            fontFamily:'Poppins-Regular'
           }}>
           Review
         </Text>
@@ -461,6 +464,7 @@ const Home = () => {
               fontSize: 14,
               fontWeight: '700',
               color: Colors.white,
+              fontFamily:'Poppins-Regular'
             }}>
             Submit
           </Text>
@@ -478,7 +482,8 @@ const Home = () => {
           justifyContent: 'center',
           marginTop: 5,
         }}>
-        <Text style={{fontSize: 16, color: Colors.black, textAlign: 'center'}}>
+        <Text style={{fontSize: 16, color: Colors.black,
+           textAlign: 'center',fontFamily:'Poppins-Regular'}}>
           {item.Title}
         </Text>
       </TouchableOpacity>
@@ -505,6 +510,7 @@ const Home = () => {
                 fontSize: 12,
                 color: Colors.black,
                 textAlign: 'center',
+                fontFamily:'Poppins-Regular'
               }}>
               {item.property_bedrooms} {'Beds'}
             </Text>
@@ -524,6 +530,7 @@ const Home = () => {
                 fontSize: 12,
                 color: Colors.black,
                 textAlign: 'center',
+                fontFamily:'Poppins-Regular'
               }}>
               {item.bathroomsfull} {'Baths'}
             </Text>
@@ -543,6 +550,7 @@ const Home = () => {
                 fontSize: 12,
                 color: Colors.black,
                 textAlign: 'center',
+                fontFamily:'Poppins-Regular'
               }}>
               {item.property_size} {'sq ft'}
             </Text>
@@ -562,6 +570,7 @@ const Home = () => {
                 fontSize: 12,
                 color: Colors.black,
                 textAlign: 'center',
+                fontFamily:'Poppins-Regular'
               }}>
               {'$'} {item.associationfee == null ? 0 : item.associationfee}
             </Text>
@@ -581,7 +590,7 @@ const Home = () => {
           alignSelf: 'center',
           alignItems: 'center',
         }}>
-        <Text style={{fontSize: 20, color: Colors.black}}>Favorties</Text>
+        <Text style={{fontSize: 20, color: Colors.black,fontFamily:'Poppins-Regular'}}>Favorties</Text>
       </View>
       <View style={{height: '100%', width: '100%'}}>
         <FlatList
@@ -616,6 +625,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     marginBottom: 20,
+    fontFamily:'Poppins-Regular'
   },
   button: {
     padding: 10,

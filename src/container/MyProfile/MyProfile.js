@@ -21,6 +21,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProfile } from '../../modules/getProfile';
 import ImagePicker from 'react-native-image-crop-picker';
+import Fonts from '../../utils/Fonts';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import Loader from '../../components/Loader';
@@ -233,6 +234,7 @@ useEffect(() => {
               fontSize: 18,
               color: Colors.textColorLight,
               marginLeft: 20,
+              fontFamily:'Poppins-Regular'
             }}>
             {item.title}
           </Text>
@@ -304,7 +306,7 @@ useEffect(() => {
                       source={{ uri: details[0]?.user_image }}
                     />
                   ) : (
-                    <Text style={{ fontSize: 17, color: Colors.white }}>JD</Text>
+                    <Text style={{ fontSize: 17, color: Colors.white,fontFamily:'Poppins-Regular' }}>JD</Text>
                   )}
                   <Loader loading={loading} />
                 </View>
@@ -328,7 +330,7 @@ useEffect(() => {
               </View>
             </TouchableOpacity>
           </View>
-          <Text style={{ fontSize: 24, color: Colors.black }}>
+          <Text style={{ fontSize: 24, color: Colors.black,fontFamily:'Poppins-Regular' }}>
             {details[0]?.username}
           </Text>
           <TouchableOpacity
@@ -371,6 +373,7 @@ useEffect(() => {
           />
 
         </View>
+       
       </ScrollView>
     </SafeAreaView>
   );
@@ -412,6 +415,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+    fontFamily:'Poppins-Regular'
   },
   pagination: {
     position: 'absolute',
