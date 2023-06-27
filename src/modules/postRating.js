@@ -4,8 +4,9 @@ import {url} from '../config/url';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const postRating = createAsyncThunk('postRating', async dispatch => {
+  const id = await AsyncStorage.getItem('userId');
   return await postAPI(
-    'https://surf.topsearchrealty.com/webapi/v1/rating/',
+    'https://surf.topsearchrealty.com/webapi/v1/rating/?userID='+id,
     dispatch,
   )
     .then(async response => {

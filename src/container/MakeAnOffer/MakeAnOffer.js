@@ -18,7 +18,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Styles from './Styles';
 import { useNavigation } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { makeOffer, makeOfferReducer } from '../../modules/makeOffer';
+import { makeOffer } from '../../modules/makeOffer';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -207,10 +207,12 @@ const MakeAnOffer = () => {
 
   };
 
-  const makeOfferAPI = () => {
+  const makeOfferAPI = async post_id => {
+    const id = await AsyncStorage.getItem('userId');
+
     if (validateInputs()) {
       let data = new FormData();
-      // data.append('userid', id);
+      data.append('userid', id);
       data.append('property_address', address);
       data.append('property_price_offer', priceOffer);
       data.append('case_loan', cashLoan);
@@ -221,15 +223,30 @@ const MakeAnOffer = () => {
       data.append('closeing_date', selectedDate);
 
       console.log(data, "data")
-      let config = {
-        method: 'post',
-        url: 'https://surf.topsearchrealty.com/webapi/v1/makeoffer/',
-        headers: {
-          'Cookie': 'PHPSESSID=fd247af4106b063e8aecf7dd166aef83',
-          'Content-Type': 'multipart/form-data',
-        },
-        data: data
-      };
+      dispatch(makeOffer(data)).then(response => {
+        console.log('res', response.payload);
+        if (response.payload.success) {
+          console.log('====================================');
+          console.log(response.payload.success);
+          console.log('====================================');
+          // toggleModal();
+        } else {
+          console.log(e);
+
+          // toggleModal();
+          // Alert.alert('Alert', response.payload.message);
+        }
+        // setFilterData(response.payload.data);
+      });
+      // let config = {
+      //   method: 'post',
+      //   url: 'https://surf.topsearchrealty.com/webapi/v1/makeoffer/?userid='+id,
+      //   headers: {
+      //     'Cookie': 'PHPSESSID=fd247af4106b063e8aecf7dd166aef83',
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      //   data: data
+      // };
 
       axios.request(config)
         .then(response => {

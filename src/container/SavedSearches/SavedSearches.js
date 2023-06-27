@@ -102,10 +102,12 @@ const MyFavorites = ({navigation}) => {
     return (
       <View style={styles.slideOuter}>
         <View style={{ width: '100%', alignItems: 'center' }}>
+
           <View style={{ height: 200, width: '90%', alignSelf: 'center', marginTop: 10 }}>
             <Text style={{ fontSize: 20, color: Colors.textColorLight, fontFamily:'Poppins-Regular' }}> City: </Text>
             <Text style={{ fontSize: 20, fontWeight: '500', color: Colors.textColorDark, fontFamily:'Poppins-Regular' }}>{item.propertycity}</Text>
             <Text style={{ fontSize: 20, marginTop: 20, color: Colors.textColorLight , fontFamily:'Poppins-Regular'}}> Parameters: </Text>
+
             <TextInput
               ref={inputRef}
               value={item.search_parameters}
