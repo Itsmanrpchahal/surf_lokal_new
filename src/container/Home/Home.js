@@ -166,13 +166,14 @@ const Home = () => {
 
     <SafeAreaView
       style={Platform.OS == 'android' ? styles.container : styles.containerIos}>
+
       <View
         style={{
           height: Platform.OS == 'android' ? '12%' : '8%',
           width: '100%',
           justifyContent: 'center',
           borderRadius: 5,
-          marginBottom: 25,
+          marginBottom: 35,
           alignItems: 'center',
           flexDirection: 'row',
           shadowColor: "#000",
@@ -306,6 +307,7 @@ const Home = () => {
   );
 };
 const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
+  
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
@@ -316,6 +318,26 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
   const [reviewTitle, setReviewTitle] = useState('');
   const [review, setReview] = useState('');
   const [text, setText] = useState('')
+  const [showIcon, setShowIcon] = useState(false);
+  const [Icon, setIcon] = useState(false);
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowIcon(false);
+      setIcon(false)
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [showIcon]);
+
+  useEffect(() => {
+    const icontime = setTimeout(() => {
+      setIcon(false)
+    }, 2000);
+
+    return () => clearTimeout(icontime);
+  }, [Icon]);
 
 
   const position = useRef(new Animated.ValueXY()).current;
@@ -336,6 +358,16 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (_, gesture) => {
         position.setValue({ x: gesture.dx, y: gesture.dy });
+        if (gesture.dx < -swipeThreshold) {
+          setShowIcon(true);
+        } else {
+          setShowIcon(false);
+        };
+        if (gesture.dx > swipeThreshold) {
+          setIcon(true);
+        } else {
+          setIcon(false);
+        }
       },
       onPanResponderRelease: (_, gesture) => {
         if (gesture.dx > swipeThreshold) {
@@ -349,7 +381,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
           console.log("save File")
           // Left swipe, like action
           // Perform your like logic here
-          trashfile(item.ID);
+         
           resetPosition();
         } else {
           // No significant swipe, reset position
@@ -528,27 +560,29 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     <ScrollView>
       <View style={{ flex: 1 }}>
 
-        <TouchableOpacity
-          style={styles.viewmain}>
+      <View style={styles.slideOuter}>
 
           <Animated.View
             style={[
               position.getLayout(),
-              {}, styles.innerviewmain
+              {},
             ]}
             {...panResponder.panHandlers}
           >
-            <Image
-              source={{ uri: item.featured_image_src }}
-              style={styles.slide}></Image>
-            {/* <Animated.View style={{ position: 'absolute', top: 20, left: 20, opacity: likeOpacity }}>
-           <Image source={Images.fill} style={{height:55,width:50}} />
-          </Animated.View> */}
-            {/* <Animated.View style={{ position: 'absolute', top: 20, right: 20, opacity: nopeOpacity }}>
-          <Image source={Images.fillgreen} style={{height:50,width:50}} />
-          </Animated.View> */}
+            <TouchableOpacity >
+              <Image
+                source={{ uri: item.featured_image_src }} style={styles.slider} />
+            </TouchableOpacity>
+            <View style={styles.headerIcon}>
+            </View>
+            <Animated.View style={{ position: 'absolute', top: 20, left: 20, opacity: likeOpacity }}>
+              <Image source={Images.deletelike} style={{ height: 45, width: 45, tintColor: 'transparent' }} />
+            </Animated.View>
+            <Animated.View style={{ position: 'absolute', top: 20, right: 20, opacity: nopeOpacity }}>
+              <Image source={Images.favlike} style={{ height: 45, width: 45, tintColor: 'transparent' }} />
+            </Animated.View>
           </Animated.View>
-        </TouchableOpacity>
+        </View>
 
         {/* <Image
           source={{ uri: item.featured_image_src }}
@@ -847,6 +881,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                         // padding: 2,
                         alignItems:"flex-start",
                         alignSelf:"flex-start",
+                        verticalAlign:"top"
                       }}
                       //keyboardType="default"
                       autoCorrect={false}
@@ -1001,6 +1036,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                 style={{
                   fontSize: 16,
                   color: Colors.black,
+                  marginTop:6,
                   textAlign: 'center',
                 }}>
                 {'$'}{item.associationfee == null ? 0 : item.associationfee}
@@ -1022,23 +1058,39 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   color: Colors.black,
                   textAlign: 'center',
                 }}>
-                0
+                  {'$'}{item.taxannualamount == null ? 0 : item.taxannualamount}
               </Text>
             </View>
           ) : null}
         </View>
 
-        {/* <View
-        style={styles.bin}>
-        <TouchableOpacity onPress={() => trashfile(item.ID)}>
-          <Image
-            source={Images.dislike}
-            style={{ height: 40, width: 40 }}></Image>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => saveFile(item.ID)}>
-          <Image source={Images.like} style={{ height: 40, width: 40 }}></Image>
-        </TouchableOpacity>
-      </View> */}
+        <View style={{
+          width: '100%',
+          // marginHorizontal:20,
+          marginVertical: 20,
+          paddingHorizontal: 20,
+          flexDirection: 'row',
+
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          alignContent: 'center'
+        }}>
+          {
+            Icon && (
+              <View style={{ height: 60, width: 60, borderWidth: 1, borderColor: 'gray', borderRadius: 100, alignItems: 'center', justifyContent: 'center' }}>
+                <Image source={Images.fill} style={{ height: 32, width: 30 }} />
+              </View>
+            )
+          }
+
+          {showIcon && (
+            <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
+              <View style={{ height: 60, width: 60, borderWidth: 1, borderColor: 'gray', borderRadius: 100, alignItems: 'center', justifyContent: 'center' }}>
+                <Image source={Images.fillgreen} style={{ height: 35, width: 30, }} />
+              </View>
+            </View>
+          )}
+        </View>
       </View>
     </ScrollView>
 
@@ -1115,7 +1167,15 @@ const styles = StyleSheet.create({
   paginationDotActive: {
     backgroundColor: 'blue',
   },
-
+  slider: {
+    width: screenWidth,
+    height: screenHeight / 2.7,
+    borderRadius: 8,
+    alignSelf: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
   view: {
 
     width: screenWidth,
@@ -1136,6 +1196,17 @@ const styles = StyleSheet.create({
   ratingText: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  headerIcon: {
+    flexDirection: 'row',
+    width: '90%',
+    alignSelf: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    overflow: 'visible',
+    zIndex: 99,
+    position: 'absolute',
+    top: 10,
   },
 });
 

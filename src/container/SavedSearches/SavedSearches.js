@@ -10,6 +10,7 @@ import {
   TextInput,
   FlatList,
   Alert,
+  Keyboard
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
@@ -32,8 +33,10 @@ const MyFavorites = ({navigation}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [adress, setAddres] = useState('');
   const [images, setImages] = useState([]);
+  const [editing, setEditing] = useState(false);
   const [updatedParameter, setUpdatedParameter] = useState('');
   const [editData, setEditData] = useState(null);
+  const inputRef = useRef(null);
   const flatListRef = useRef(null);
 
   useEffect(() => {
@@ -83,6 +86,17 @@ const MyFavorites = ({navigation}) => {
     });
     setImages(updatedList);
   };
+  const handleEditPress = (item) => {
+    setEditing(true);
+    setUpdatedParameter(item.search_parameters);
+    inputRef.current.focus();
+    Keyboard.dismiss();
+  };
+
+  const handleSavePress = (item) => {
+    setEditing(false);
+    editSearchApiCall(item.UserID, item.ID, updatedParameter);
+  };
 
   const renderItem = ({ item, index }) => {
     return (
@@ -93,28 +107,44 @@ const MyFavorites = ({navigation}) => {
             <Text style={{ fontSize: 20, fontWeight: '500', color: Colors.textColorDark }}>{item.propertycity}</Text>
             <Text style={{ fontSize: 20, marginTop: 20, color: Colors.textColorLight }}> Parameters: </Text>
             <TextInput
+              ref={inputRef}
               value={item.search_parameters}
               style={{ color: 'black' }}
               onChangeText={text => {
                 handleChangeText(item.ID, text);
               }}
+              editable={editing}
             />
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '60%', alignSelf: 'flex-end', marginTop: 10 }}>
-              <TouchableOpacity
-                onPress={() => {
-                  editSearchApiCall(item.UserID, item.ID, updatedParameter);
-                }}
-                style={{
-                  height: 30,
-                  borderRadius: 8,
-                  width: 80,
-                  backgroundColor: 'green',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white }}> Edit </Text>
-              </TouchableOpacity>
+            {editing ? (
+                <TouchableOpacity
+                  onPress={() => handleSavePress(item)}
+                  style={{
+                    height: 30,
+                    borderRadius: 8,
+                    width: 80,
+                    backgroundColor: 'green',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white }}> Save </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => handleEditPress(item)}
+                  style={{
+                    height: 30,
+                    borderRadius: 8,
+                    width: 80,
+                    backgroundColor: 'green',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white }}> Edit </Text>
+                </TouchableOpacity>
+              )}
               <TouchableOpacity
                 onPress={() => deleteSearchApiCall(item.UserID, item.ID)}
                 style={{
@@ -172,7 +202,12 @@ const MyFavorites = ({navigation}) => {
           </TouchableOpacity>
       </View>
       <View style={{ height: '100%', width: '100%', backgroundColor: Colors.white }}>
-        <FlatList data={images} renderItem={renderItem} ListFooterComponent={<View style={{ height: 60 }}></View>} />
+        <FlatList  ref={flatListRef}
+        data={images}
+         renderItem={renderItem} 
+         keyExtractor={(item, index) => index.toString()}
+         contentContainerStyle={{ paddingBottom: 20 }}
+         ListFooterComponent={<View style={{ height: 60 }}></View>} />
       </View>
     </SafeAreaView>
   );
