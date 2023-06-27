@@ -42,6 +42,7 @@ const App = () => {
         <Provider store={store}>
           <NavigationContainer>
             <StackNavigator />
+            
           </NavigationContainer>
         </Provider>
       </SafeAreaView>
