@@ -25,7 +25,6 @@ import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Styles from './Styles';
-import { Swipeable } from 'react-native-gesture-handler';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -96,7 +95,7 @@ const Home = () => {
     const slideWidth = event.nativeEvent.layoutMeasurement.width;
     const offset = event.nativeEvent.contentOffset.x;
     const index = Math.floor(offset / slideWidth);
-    setCurrentSlide(index);    console.log(selectedItem, "isSelectedisSelectedisSelected");
+    setCurrentSlide(index); console.log(selectedItem, "isSelectedisSelectedisSelected");
 
   };
 
@@ -133,7 +132,7 @@ const Home = () => {
 
     return (
 
-      <View style={{ justifyContent: 'center' }}>
+      <View style={{}}>
         <TouchableOpacity onPress={() => setSelectedItem(item.counter_id)}>
           <View
             style={{
@@ -173,7 +172,7 @@ const Home = () => {
           width: '100%',
           justifyContent: 'center',
           borderRadius: 5,
-          marginBottom: 35,
+          marginBottom: 10,
           alignItems: 'center',
           flexDirection: 'row',
           shadowColor: "#000",
@@ -268,9 +267,7 @@ const Home = () => {
                   width: 25,
                   resizeMode: 'contain',
                 }}></Image>
-
             </TouchableOpacity>
-
           )}
         </View>
       </View>
@@ -283,7 +280,7 @@ const Home = () => {
           onScroll={handleSlideChange}
           onMomentumScrollEnd={handleSlideChange}
           renderItem={renderFillterItem}
-          // extraData={selectedItem}
+        // extraData={selectedItem}
         />
       </View>
       <View style={{ height: Platform.OS == 'android' ? '74%' : '84%' }}>
@@ -297,22 +294,16 @@ const Home = () => {
           bottomButton={false}
           activeDotStyle={{ position: 'absolute' }}
           dotStyle={{ position: 'absolute' }}
-        //dotStyle={Colors.white}
-        //activeDotStyle={Colors.white}
-        // onDone={onDone}
-        //scrollEnabled={false}
         />
       </View>
     </SafeAreaView>
   );
 };
 const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
-  
+
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
-  const toggleModal = () => {
-    setModalVisible(!modalVisible);
-  };
+  const toggleModal = () => { setModalVisible(!modalVisible); };
   const [rating, setRating] = useState(0);
   const [productId, setProductId] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
@@ -381,7 +372,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
           console.log("save File")
           // Left swipe, like action
           // Perform your like logic here
-         
+
           resetPosition();
         } else {
           // No significant swipe, reset position
@@ -392,7 +383,6 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
   ).current;
 
   const resetPosition = () => {
-    // Reset the position using Animated.spring or any other animation method
     Animated.spring(position, {
       toValue: { x: 0, y: 0 },
       useNativeDriver: false
@@ -413,8 +403,6 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
       setRating(response.payload.data[0]?.interest_review_stars);
     });
   };
-
-
   const renderNextButton = () => {
     return (
       <View
@@ -436,7 +424,6 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
       </View>
     );
   };
-
   const renderPrevButton = () => {
     return (
       <View
@@ -465,15 +452,14 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     var formdata = new FormData();
     formdata.append('userID', id);
     formdata.append('postid', productId);
-    formdata.append('photo_quality_rating',rating );
+    formdata.append('photo_quality_rating', rating);
     formdata.append('desc_stars', rating);
     formdata.append('price_stars', rating);
     formdata.append('interest_stars', rating);
     formdata.append('content', review);
     formdata.append('reviewtitle', reviewTitle);
 
-    console.log(formdata ,"formdataformdata");
-
+    console.log(formdata, "formdataformdata");
     dispatch(postRating(formdata)).then(response => {
       console.log('res', response.payload);
       if (response.payload.success) {
@@ -560,7 +546,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     <ScrollView>
       <View style={{ flex: 1 }}>
 
-      <View style={styles.slideOuter}>
+        <View style={styles.slideOuter}>
 
           <Animated.View
             style={[
@@ -583,30 +569,6 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             </Animated.View>
           </Animated.View>
         </View>
-
-        {/* <Image
-          source={{ uri: item.featured_image_src }}
-          style={styles.slide}></Image> */}
-
-
-        {/* onPress={() => navigation.navigate('ViewPropertiy', { data: item })} */}
-        {/* <AppIntroSlider
-          renderItem={({ item }) => (
-            <View>
-              <Image source={{ uri: item.guid }} style={styles.slide}></Image>
-            </View>
-          )}
-          showNextButton={false}
-          renderNextButton={renderNextButton}
-          renderPrevButton={renderPrevButton}
-          showPrevButton={false}
-          data={item.property_gallery}
-          dotStyle={Colors.white}
-          showDoneButton={false}
-          activeDotStyle={Colors.white}
-          // onDone={onDone}
-          scrollEnabled={false}
-        /> */}
         <View
           style={{
             flexDirection: 'row',
@@ -627,7 +589,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
           }}>
             <TouchableOpacity
               onPress={() => {
-                setProductId(item.ID );
+                setProductId(item.ID);
                 setReviewTitle(item.title)
                 toggleModal();
               }}>
@@ -879,16 +841,16 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                         borderColor: Colors.gray,
                         fontSize: 14,
                         // padding: 2,
-                        alignItems:"flex-start",
-                        alignSelf:"flex-start",
-                        verticalAlign:"top"
+                        alignItems: "flex-start",
+                        alignSelf: "flex-start",
+                        verticalAlign: "top"
                       }}
                       //keyboardType="default"
                       autoCorrect={false}
                       returnKeyType="done"
                       placeholderTextColor={Colors.gray}
                       placeholder='Write a review...'
-                    onChangeText={text => setReview(text)}
+                      onChangeText={text => setReview(text)}
                     />
                   </View>
                 </View>
@@ -903,7 +865,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                 }}>
 
                   <TouchableOpacity
-                  onPress={()=>addReview()}
+                    onPress={() => addReview()}
                     // onPress={() => setModalVisible(false)}
                     // onPress={Alert.alert("Hyy")}
                     style={{
@@ -1036,7 +998,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                 style={{
                   fontSize: 16,
                   color: Colors.black,
-                  marginTop:6,
+                  marginTop: 6,
                   textAlign: 'center',
                 }}>
                 {'$'}{item.associationfee == null ? 0 : item.associationfee}
@@ -1058,7 +1020,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   color: Colors.black,
                   textAlign: 'center',
                 }}>
-                  {'$'}{item.taxannualamount == null ? 0 : item.taxannualamount}
+                {'$'}{item.taxannualamount == null ? 0 : item.taxannualamount}
               </Text>
             </View>
           ) : null}
@@ -1211,5 +1173,3 @@ const styles = StyleSheet.create({
 });
 
 export default Home;
-
-

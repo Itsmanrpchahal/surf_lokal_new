@@ -1,8 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {postAPI} from '../config/apiMethod';
-import {url} from '../config/url';
 import AsyncStorage from '@react-native-community/async-storage';
-import {Alert} from 'react-native';
 
 export const getProfile = createAsyncThunk('getProfile', async () => {
   const id = await AsyncStorage.getItem('userId');

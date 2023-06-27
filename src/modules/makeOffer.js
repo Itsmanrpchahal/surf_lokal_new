@@ -1,44 +1,50 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { url } from "../config/url";
-import { postAPI } from "../config/apiMethod";
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {postAPI, uploadImageAPI} from '../config/apiMethod';
+import AsyncStorage from '@react-native-community/async-storage';
 
-export const makeOffer = createAsyncThunk("makeOffer", async (payload) => {
-  const urlDynamic =
-    "https://surf.topsearchrealty.com/webapi/v1/makeoffer/";
-  try {
-    const response = await postAPI(urlDynamic, payload);
-    console.log(response, "res");
-    const { data } = response;
-    return data;
-  } catch (error) {
-    console.log(error);
-    if (error.response) {
-      console.log("API issue", error.response);
-    } else if (error.request) {
-      console.log("API issue", error.request);
-    } else {
-      console.log("API issue", error.message);
-    }
-    throw error;
-  }
+export const makeOffer = createAsyncThunk('makeOffer', async dispatch => {
+  const id = await AsyncStorage.getItem('userId');
+  return await postAPI(
+    'https://surf.topsearchrealty.com/webapi/v1/makeoffer/?userID='+ id,
+    dispatch,
+  )
+    .then(async response => {
+      const {data} = response;
+      if (data.status) {
+        return data;
+      } else {
+        return data;
+      }
+    })
+    .catch(e => {
+      console.log(e);
+      if (e.response) {
+        console.log('api issue', e.response);
+      } else if (e.request) {
+        console.log('api issue', e.response);
+      } else {
+        console.log('api issue', e.response);
+      }
+    });
+  
 });
 
 const makeOfferSlice = createSlice({
-  name: "makeOffer",
+  name: 'makeOffer',
   initialState: {
-    makeOffer: [],
+    makeOfferData: [],
     status: null,
   },
   extraReducers: {
     [makeOffer.pending]: (state, action) => {
-      state.status = "loading";
+      state.status = 'loading';
     },
     [makeOffer.fulfilled]: (state, action) => {
-      state.status = "success";
-      state.addActivityTaskData = action.payload;
+      state.status = 'success';
+      state.makeOfferData = action.payload;
     },
     [makeOffer.rejected]: (state, action) => {
-      state.status = "failed";
+      state.status = 'failed';
     },
   },
 });
