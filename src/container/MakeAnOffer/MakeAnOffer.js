@@ -210,53 +210,53 @@ const MakeAnOffer = () => {
   const makeOfferAPI = async post_id => {
     const id = await AsyncStorage.getItem('userId');
 
-    if (validateInputs()) {
-      let data = new FormData();
-      data.append('userid', id);
-      data.append('property_address', address);
-      data.append('property_price_offer', priceOffer);
-      data.append('case_loan', cashLoan);
-      data.append('full_legal_name', legalName);
-      data.append('current_address', currentAddress);
-      data.append('email', email);
-      data.append('phone', phone);
-      data.append('closeing_date', selectedDate);
-
-      console.log(data, "data")
-      dispatch(makeOffer(data)).then(response => {
-        console.log('res', response.payload);
-        if (response.payload.success) {
-          console.log('====================================');
-          console.log(response.payload.success);
-          console.log('====================================');
-          // toggleModal();
-        } else {
-          console.log(e);
-
-          // toggleModal();
-          // Alert.alert('Alert', response.payload.message);
-        }
-        // setFilterData(response.payload.data);
-      });
-      // let config = {
-      //   method: 'post',
-      //   url: 'https://surf.topsearchrealty.com/webapi/v1/makeoffer/?userid='+id,
-      //   headers: {
-      //     'Cookie': 'PHPSESSID=fd247af4106b063e8aecf7dd166aef83',
-      //     'Content-Type': 'multipart/form-data',
-      //   },
-      //   data: data
-      // };
-
-      axios.request(config)
-        .then(response => {
-          console.log("check res", JSON.stringify(response.data));
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    // if (validateInputs()) {
+    let data = {
+      userid: id,
+      property_address: address,
+      property_price_offer: priceOffer,
+      case_loan: cashLoan,
+      full_legal_name: legalName,
+      current_address: currentAddress,
+      email: email,
+      phone: phone,
+      closeing_date: selectedDate,
     };
+
+    console.log(data, "data makeOfferAPI")
+    dispatch(makeOffer(data)).then(response => {
+      console.log('res makeOfferAPI', response);
+      if (response.payload.success) {
+        Alert.alert("Offer submit");
+        navigation.navigate("MyProfile")
+      } else {
+        console.log(e);
+        Alert.alert(response.payload.message);
+      }
+      // setFilterData(response.payload.data);
+    });
+    // let config = {
+    //   method: 'post',
+    //   url: 'https://surf.topsearchrealty.com/webapi/v1/makeoffer/',
+    //   headers: {
+    //     'Cookie': 'PHPSESSID=fd247af4106b063e8aecf7dd166aef83',
+    //     'Content-Type': 'multipart/form-data',
+    //   },
+    //   data: data
+    // };
+
+    // axios.request(config)
+    //   .then(response => {
+    //     console.log("check res", JSON.stringify(response.data));
+    //     toggleModal();
+    //     Alert.alert('Alert', response.payload.message);
+
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   };
+  // };
 
 
 
@@ -267,7 +267,7 @@ const MakeAnOffer = () => {
       <ScrollView style={{ flex: 1 }} >
         <View
           style={styles.viewStyle}>
-          <Text style={{ fontSize: 20,marginLeft:25, color: Colors.black,fontFamily:'Poppins-Regular' }}>Make An Offer</Text>
+          <Text style={{ fontSize: 20, marginLeft: 25, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Make An Offer</Text>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={{
@@ -299,7 +299,7 @@ const MakeAnOffer = () => {
                 fontSize: 20,
                 color: Colors.textColorLight,
                 textAlign: 'center',
-                fontFamily:'Poppins-Regular'
+                fontFamily: 'Poppins-Regular'
               }}>
               All fields below are required
             </Text>
@@ -308,7 +308,7 @@ const MakeAnOffer = () => {
           <View style={styles.inputStyle}>
             <TextInput
               allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black,fontFamily:'Poppins-Regular' }}
+              style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
               placeholderTextColor={Colors.textColorLight}
               placeholder={'Propertity Address'}
               keyboardType="default"
@@ -334,7 +334,7 @@ const MakeAnOffer = () => {
           <View style={styles.inputStyle}>
             <TextInput
               allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black,fontFamily:'Poppins-Regular' }}
+              style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
               placeholderTextColor={Colors.textColorLight}
               placeholder={'Cash or Conventional Loan'}
               keyboardType="default"
@@ -370,7 +370,7 @@ const MakeAnOffer = () => {
           <View style={styles.inputStyle}>
             <TextInput
               allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black,fontFamily:'Poppins-Regular' }}
+              style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
               placeholderTextColor={Colors.textColorLight}
               placeholder={'Full Legal Name'}
               keyboardType="default"
@@ -382,7 +382,7 @@ const MakeAnOffer = () => {
           <View style={styles.inputStyle}>
             <TextInput
               allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black,fontFamily:'Poppins-Regular' }}
+              style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
               placeholderTextColor={Colors.textColorLight}
               placeholder={'Current Address'}
               keyboardType="default"
@@ -394,7 +394,7 @@ const MakeAnOffer = () => {
           <View style={styles.inputStyle}>
             <TextInput
               allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black,fontFamily:'Poppins-Regular' }}
+              style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
               placeholderTextColor={Colors.textColorLight}
               placeholder={'Email'}
               keyboardType="default"
@@ -407,7 +407,7 @@ const MakeAnOffer = () => {
             style={styles.inputStyle}>
             <TextInput
               allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black,fontFamily:'Poppins-Regular' }}
+              style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
               placeholderTextColor={Colors.textColorLight}
               placeholder={'Phone'}
               keyboardType="default"
@@ -419,8 +419,10 @@ const MakeAnOffer = () => {
           <TouchableOpacity onPress={() => makeOfferAPI()}
             style={styles.btn}
           >
-            <Text style={{ fontSize: 16, fontWeight: '400', 
-            color: Colors.white ,fontFamily:'Poppins-Regular'}}>
+            <Text style={{
+              fontSize: 16, fontWeight: '400',
+              color: Colors.white, fontFamily: 'Poppins-Regular'
+            }}>
               Submit
             </Text>
           </TouchableOpacity>
@@ -441,7 +443,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 22,
     marginTop: 2,
     fontSize: 12,
-    fontFamily:'Poppins-Regular'
+    fontFamily: 'Poppins-Regular'
   },
   inputStyle: {
     flexDirection: 'row',

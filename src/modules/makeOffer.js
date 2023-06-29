@@ -1,20 +1,17 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {postAPI, uploadImageAPI} from '../config/apiMethod';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { uploadImageAPI } from '../config/apiMethod';
+import { url } from '../config/url';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const makeOffer = createAsyncThunk('makeOffer', async dispatch => {
-  const id = await AsyncStorage.getItem('userId');
-  return await postAPI(
-    'https://surf.topsearchrealty.com/webapi/v1/makeoffer/?userID='+ id,
+  return await uploadImageAPI(
+    'https://surf.topsearchrealty.com/webapi/v1/makeoffer/',
     dispatch,
   )
     .then(async response => {
-      const {data} = response;
-      if (data.status) {
-        return data;
-      } else {
-        return data;
-      }
+      const { data } = response;
+      console.log('value', response);
+      return data;
     })
     .catch(e => {
       console.log(e);
@@ -26,7 +23,6 @@ export const makeOffer = createAsyncThunk('makeOffer', async dispatch => {
         console.log('api issue', e.response);
       }
     });
-  
 });
 
 const makeOfferSlice = createSlice({

@@ -102,24 +102,57 @@ const MyFavorites = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [details, setDetails] = useState([]);
   const [index, setIndex] = useState(true);
+  const [isImageChanged, setIsImageChanged] = useState(false);
+  const [isImage, setIsImage] = useState(false);
   const flatListRef = useRef(null);
+  const [showIcon, setShowIcon] = useState(false);
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-const rotateValue = useRef(new Animated.Value(0)).current;
-const startRotationAnimation = () => {
-  Animated.loop(
-    Animated.timing(rotateValue, {
-      toValue: 1,
-      duration: 1000,
-      useNativeDriver: true,
-    })
-  ).start();
-};
-useEffect(() => {
-  startRotationAnimation();
-}, []);
+
+  const handleImagePress = () => {
+    navigation.navigate('RecycleBin');
+    setIsImageChanged(true);
+
+    // Reset the image after 2 seconds
+    setTimeout(() => {
+      setIsImageChanged(false);
+    }, 1500);
+  };
+
+  const handleFavPress = () => {
+    navigation.navigate('MyFavorites');
+
+    setIsImage(true)
+
+    // Reset the image after 2 seconds
+    setTimeout(() => {
+      setIsImage(false)
+    }, 1500);
+  };
+
+  useEffect(() => {
+    // Clear the timeout if the component unmounts before the 2 seconds
+    return () => {
+      clearTimeout();
+    };
+  }, []);
+
+
+  const rotateValue = useRef(new Animated.Value(0)).current;
+  const startRotationAnimation = () => {
+    Animated.loop(
+      Animated.timing(rotateValue, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true,
+      })
+    ).start();
+  };
+  useEffect(() => {
+    startRotationAnimation();
+  }, []);
 
   useEffect(() => {
     // setisFocused(false)
@@ -157,15 +190,15 @@ useEffect(() => {
   const saveFile = async (uriResponse, name, type,) => {
     setLoading(true);
     const userID = await AsyncStorage.getItem('userId');
-  
+
     let data = new FormData();
-    data.append("userID",userID)
+    data.append("userID", userID)
     data.append('userimage', {
       uri: uriResponse,
       type: type,
       name: name,
     });
-    console.log(data ,"pyloaddddddddd");
+    console.log(data, "pyloaddddddddd");
     try {
       var res = await axios.post(
         'https://surf.topsearchrealty.com/webapi/v1/profile/',
@@ -174,8 +207,8 @@ useEffect(() => {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
-        }  
-        );
+        }
+      );
 
       // console.log('--ppp', res);
       // console.log('--ppp', typeof res.status);
@@ -202,7 +235,7 @@ useEffect(() => {
   };
 
   const handleIconPressSetting = () => {
-  
+
     navigation.navigate('Settings', { data: details })
 
   };
@@ -211,7 +244,7 @@ useEffect(() => {
     <View style={styles.slideOuter}>
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => handleIconPress(item,index)}
+        onPress={() => handleIconPress(item, index)}
         style={{
           width: '100%',
           alignItems: 'center',
@@ -225,7 +258,7 @@ useEffect(() => {
             alignItems: 'center',
           }}>
           <Image
-            source={selectedIcon === index  ? item.image2 : item.image}
+            source={selectedIcon === index ? item.image2 : item.image}
             style={{ height: 25, width: 25, resizeMode: 'contain' }}
           />
 
@@ -234,7 +267,7 @@ useEffect(() => {
               fontSize: 18,
               color: Colors.textColorLight,
               marginLeft: 20,
-              fontFamily:'Poppins-Regular'
+              fontFamily: 'Poppins-Regular'
             }}>
             {item.title}
           </Text>
@@ -272,8 +305,9 @@ useEffect(() => {
               flexDirection: 'row',
             }}>
             <TouchableOpacity
-              onPress={() =>{ _pickImage()
-             }}
+              onPress={() => {
+                _pickImage()
+              }}
               activeOpacity={0.5}
               style={{
                 height: 40,
@@ -306,7 +340,7 @@ useEffect(() => {
                       source={{ uri: details[0]?.user_image }}
                     />
                   ) : (
-                    <Text style={{ fontSize: 17, color: Colors.white,fontFamily:'Poppins-Regular' }}>JD</Text>
+                    <Text style={{ fontSize: 17, color: Colors.white, fontFamily: 'Poppins-Regular' }}>JD</Text>
                   )}
                   <Loader loading={loading} />
                 </View>
@@ -330,11 +364,11 @@ useEffect(() => {
               </View>
             </TouchableOpacity>
           </View>
-          <Text style={{ fontSize: 24, color: Colors.black,fontFamily:'Poppins-Regular' }}>
+          <Text style={{ fontSize: 24, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
             {details[0]?.username}
           </Text>
           <TouchableOpacity
-        onPress={() => handleIconPressSetting()}
+            onPress={() => handleIconPressSetting()}
 
             // onPress={() => navigation.navigate('Settings', { data: details })}
             style={{
@@ -357,23 +391,139 @@ useEffect(() => {
                 height: 30,
                 width: 30,
                 resizeMode: 'contain',
-            
-                 }}></Image>
+
+              }}></Image>
           </TouchableOpacity>
         </View>
         <View style={{ marginTop: 20, height: '100%' }}>
 
-          <FlatList
+          {/* <FlatList
 
             data={images}
             keyExtractor={(item, index) => index.toString()}
             // keyExtractor={item => item.id}
             renderItem={renderItem}
-            // extraData={isSelected}
-          />
+          // extraData={isSelected}
+          /> */}
+          <View style={styles.slideOuter}>
+            <TouchableOpacity onPress={handleFavPress}
+              activeOpacity={0.8}
+              style={{
+                width: '100%',
+                alignItems: 'center',
+              }}>
+              <View style={styles.viewstyle}>
+                <Image
+                  source={isImage ? Images.fillgreen : Images.ThumbUp}
+                  style={{ height: 25, width: 25, resizeMode: 'contain' }} />
+                <Text style={styles.text}>MyFavorites</Text>
+              </View>
+              <View style={styles.line}></View>
+            </TouchableOpacity>
+          </View>
 
+          <View style={styles.slideOuter}>
+            <TouchableOpacity onPress={() => navigation.navigate('SavedSearches')}
+              activeOpacity={0.8}
+              style={{
+                width: '100%',
+                alignItems: 'center',
+              }}>
+              <View style={styles.viewstyle}>
+                <Image
+                  source={Images.savedSearch}
+                  style={{ height: 25, width: 25, resizeMode: 'contain' }} />
+                <Text style={styles.text}>SavedSearches</Text>
+              </View>
+              <View style={styles.line}></View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.slideOuter}>
+            <TouchableOpacity onPress={() => navigation.navigate('Notification')}
+              activeOpacity={0.8}
+              style={{
+                width: '100%',
+                alignItems: 'center',
+              }}>
+              <View style={styles.viewstyle}>
+                <Image
+                  source={Images.notification}
+                  style={{ height: 25, width: 25, resizeMode: 'contain' }} />
+                <Text style={styles.text}>Notifications</Text>
+              </View>
+              <View style={styles.line}></View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.slideOuter}>
+            <TouchableOpacity onPress={() => navigation.navigate('ContactMyAgent')}
+              activeOpacity={0.8}
+              style={{
+                width: '100%',
+                alignItems: 'center',
+              }}>
+              <View style={styles.viewstyle}>
+                <Image
+                  source={Images.contactAgent}
+                  style={{ height: 25, width: 25, resizeMode: 'contain' }} />
+                <Text style={styles.text}>Contact My lokal Agent</Text>
+              </View>
+              <View style={styles.line}></View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.slideOuter}>
+            <TouchableOpacity onPress={() => navigation.navigate('MyRewards')}
+              activeOpacity={0.8}
+              style={{
+                width: '100%',
+                alignItems: 'center',
+              }}>
+              <View style={styles.viewstyle}>
+                <Image
+                  source={Images.surfReward}
+                  style={{ height: 25, width: 25, resizeMode: 'contain' }} />
+                <Text style={styles.text}>Rewards</Text>
+              </View>
+              <View style={styles.line}></View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.slideOuter}>
+            <TouchableOpacity onPress={() => navigation.navigate('MakeAnOffer')}
+
+              activeOpacity={0.8}
+              style={{
+                width: '100%',
+                alignItems: 'center',
+              }}>
+              <View style={styles.viewstyle}>
+                <Image
+                  source={Images.surfShop}
+                  style={{ height: 33, width: 29, resizeMode: 'contain' }} />
+                <Text style={styles.text}>surf Shop</Text>
+              </View>
+              <View style={styles.line}></View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.slideOuter}>
+            <TouchableOpacity onPress={handleImagePress}
+              activeOpacity={0.8}
+              style={{
+                width: '100%',
+                alignItems: 'center',
+              }}>
+              <View
+                style={styles.viewstyle}>
+                <TouchableOpacity>
+                  <Image
+                    source={isImageChanged ? Images.fill : Images.deletelike}
+                    style={{ height: 25, width: 25, resizeMode: 'contain' }} />
+                </TouchableOpacity>
+                <Text style={styles.text}>Recycle Bin</Text>
+              </View>
+              <View style={styles.line}></View>
+            </TouchableOpacity>
+          </View>
         </View>
-       
+
       </ScrollView>
     </SafeAreaView>
   );
@@ -383,6 +533,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+  },
+  viewstyle: {
+    flexDirection: 'row',
+    width: '100%',
+    paddingHorizontal: 30,
+    height: 60,
+    alignItems: 'center',
+  },
+  line: {
+    height: 1,
+    width: '100%',
+    backgroundColor: Colors.BorderColor,
+  },
+  text: {
+    fontSize: 18,
+    color: Colors.textColorLight,
+    marginLeft: 20,
+    fontFamily: 'Poppins-Regular'
   },
   slideOuter: {
     width: screenWidth,
@@ -415,7 +583,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
-    fontFamily:'Poppins-Regular'
+    fontFamily: 'Poppins-Regular'
   },
   pagination: {
     position: 'absolute',

@@ -398,11 +398,12 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
   }, []);
   const getRatingApiCall = () => {
     dispatch(getRating()).then(response => {
-      console.log('getRating', response.payload);
+      console.log('getRatingData', response.payload);
       setRating(response.payload.data[0]?.photo_wuality_rating);
       setRating(response.payload.data[0]?.description_review_stars);
       setRating(response.payload.data[0]?.price_review_stars);
       setRating(response.payload.data[0]?.interest_review_stars);
+      console.log();
     });
   };
   const renderNextButton = () => {
@@ -451,20 +452,25 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
 
   const addReview = async post_id => {
     const id = await AsyncStorage.getItem('userId');
-    var formdata = new FormData();
-    formdata.append('userID', id);
-    formdata.append('postid', productId);
-    formdata.append('photo_quality_rating', rating);
-    formdata.append('desc_stars', rating);
-    formdata.append('price_stars', rating);
-    formdata.append('interest_stars', rating);
-    formdata.append('content', review);
-    formdata.append('reviewtitle', reviewTitle);
 
+    let formdata = {
+      userID:id,
+      postid:productId,
+      comment_content:review,
+      review_title:reviewTitle,
+      review_stars:rating,
+      photo_quality_rating:rating,
+      desc_stars:rating,
+      price_stars:rating,
+      interest_stars:rating,
+      content:review,
+      reviewtitle:reviewTitle
+    };
     console.log(formdata, "formdataformdata");
     dispatch(postRating(formdata)).then(response => {
       console.log('res', response.payload);
       if (response.payload.success) {
+        Alert.alert('Alert', response.payload.message);
         toggleModal();
       } else {
         toggleModal();

@@ -335,6 +335,32 @@ const ViewPropertiy = props => {
               <Text style={styles.props}>Est. Taxes: {data.map((item) => item.details.property_details.taxes)}  </Text>
             </View>
           </View>
+          <View style={styles.viewstyle}>
+            <View style={{ width: '50%' }}>
+              <Text style={styles.property}>Interior Features
+              </Text>
+              <Text style={styles.props}>A/C: {data.map((item) => item.details.interior_features.A_C)} </Text>
+              <Text style={styles.props}>Heating: {data.map((item) => item.details.interior_features.heating)}</Text>
+              <Text style={styles.props}>Flooring: {data.map((item) => item.details.interior_features.flooring)} </Text>
+              <Text style={styles.props}>Property Rooms: {data.map((item) => item.details.interior_features.property_rooms)} </Text>
+             
+            </View>
+            <View style={{ width: '50%' }}>
+              <Text style={styles.property}>Exterior Features</Text>
+              <Text style={styles.props}>Architectural Style:  {data.map((item) => item.details.exterior_features.architecturalstyle)}  </Text>
+              <Text style={styles.props}>Construction: {data.map((item) => item.details.exterior_features.construction)}</Text>
+              <Text style={styles.props}>Roofing: {data.map((item) => item.details.exterior_features.roofing)}  </Text>
+              <Text style={styles.props}>Water Source: {data.map((item) => item.details.exterior_features.watersource)}</Text>
+            </View>
+          </View>
+        
+            <View style={{ width: '50%',marginTop:30 }}>
+              <Text style={styles.property}>Miscellaneous Details
+              </Text>
+              <Text style={styles.props}>Driving Directions:{data.map((item) => item.details.miscellaneous_details.driving_directions)} </Text>
+              <Text style={styles.props}>Listing Office: {data.map((item) => item.details.miscellaneous_details.listing_office)} sq ft </Text>
+              
+            </View>
         </View>
       </>
     )
@@ -434,7 +460,7 @@ const ViewPropertiy = props => {
   const Calculator = () => {
     return (
       <>
-        <View style={{ height: 1400, width: "100%" }}>
+        <View style={{ height: 1800, width: "100%" }}>
           <Text style={styles.propertyt}>Moartage Calculator</Text>
           <View style={styles.addresss}>
             <WebView

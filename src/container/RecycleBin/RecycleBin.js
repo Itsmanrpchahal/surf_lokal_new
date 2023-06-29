@@ -703,11 +703,11 @@ const RecycleBin = () => {
             }}>
             <Image
               source={Images.bed}
-              style={{height: 25, width: 25, resizeMode: 'contain'}}></Image>
+              style={{height: 28, width: 28, resizeMode: 'contain'}}></Image>
               
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 16,
                 color: Colors.black,
                 textAlign: 'center',
               }}>
@@ -723,10 +723,10 @@ const RecycleBin = () => {
             }}>
             <Image
               source={Images.bath}
-              style={{height: 25, width: 25, resizeMode: 'contain'}}></Image>
+              style={{height: 28, width: 28, resizeMode: 'contain'}}></Image>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 16,
                 color: Colors.black,
                 textAlign: 'center',
               }}>
@@ -742,10 +742,10 @@ const RecycleBin = () => {
             }}>
             <Image
               source={Images.measuring}
-              style={{height: 25, width: 25, resizeMode: 'contain'}}></Image>
+              style={{height: 28, width: 28, resizeMode: 'contain'}}></Image>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 16,
                 color: Colors.black,
                 textAlign: 'center',
               }}>
