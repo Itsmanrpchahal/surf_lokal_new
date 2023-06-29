@@ -69,7 +69,7 @@ const Home = () => {
   };
   const getPopertiesApiCall = () => {
     dispatch(getPoperties()).then(response => {
-      console.log('res', response.payload);
+      console.log('res getPoperties', response.payload);
       setHomeData(response.payload.data);
     });
   };
@@ -911,7 +911,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             justifyContent: 'space-between',
           }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('ViewPropertiy', { data: item })}
+            onPress={() => navigation.navigate('ViewPropertiy', { data: item, postid:item.ID })}
             style={{ width: '98%', alignSelf: 'center', justifyContent: 'center' }}>
             <Text
               style={{ fontSize: 16, color: Colors.black, 

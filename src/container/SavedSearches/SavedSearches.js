@@ -103,10 +103,18 @@ const MyFavorites = ({navigation}) => {
       <View style={styles.slideOuter}>
         <View style={{ width: '100%', alignItems: 'center' }}>
 
-          <View style={{ height: 200, width: '90%', alignSelf: 'center', marginTop: 10 }}>
-            <Text style={{ fontSize: 20, color: Colors.textColorLight, fontFamily:'Poppins-Regular' }}> City: </Text>
-            <Text style={{ fontSize: 20, fontWeight: '500', color: Colors.textColorDark, fontFamily:'Poppins-Regular' }}>{item.propertycity}</Text>
-            <Text style={{ fontSize: 20, marginTop: 20, color: Colors.textColorLight , fontFamily:'Poppins-Regular'}}> Parameters: </Text>
+          <View style={{ height: 170, width: '90%', alignSelf: 'center', marginTop: 3 }}>
+          <View>
+  {item.propertycity && (
+    <Text style={{ fontSize: 20, color: Colors.textColorLight, fontFamily: 'Poppins-Regular' }}>City:</Text>
+  )}
+  {item.propertycity && (
+    <Text style={{ fontSize: 20, fontWeight: '500', color: Colors.textColorDark, fontFamily: 'Poppins-Regular' }}>
+      {item.propertycity}
+    </Text>
+  )}
+</View>
+            <Text style={{ fontSize: 20, marginTop: 10, color: Colors.textColorLight , fontFamily:'Poppins-Regular'}}> Parameters: </Text>
 
             <TextInput
               ref={inputRef}
@@ -177,7 +185,8 @@ const MyFavorites = ({navigation}) => {
           flexDirection: 'row',
           justifyContent: 'space-around',
           width:'90%',
-          marginLeft:50
+          marginLeft:70,
+          marginBottom:20
        
         }}>
         <Text style={{ fontSize: 20, color: Colors.black, fontFamily:'Poppins-Regular' }}>Saved Searches</Text>

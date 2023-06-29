@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
@@ -27,7 +28,9 @@ import { postRating } from '../../modules/postRating';
 import { useNavigation } from '@react-navigation/native';
 import { Rating } from 'react-native-ratings';
 import { getPopertiesDetails } from '../../modules/getPopertiesDetails';
-import MapView from 'react-native-maps';
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import MapView, { Callout, Circle, Marker } from "react-native-maps";
+
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const fontSizeRatio = screenHeight / 1000;
@@ -82,6 +85,7 @@ const ViewPropertiy = props => {
   const [showFullContent, setShowFullContent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [map, setMap] = useState([]);
+  const [lat, setLat] = useState([]);
   const [location, setLocation] = useState(null);
   const [selectedTab, setSelectedTab] = useState(0);
   const [weather, setweather] = useState([]);
@@ -89,6 +93,10 @@ const ViewPropertiy = props => {
   const [walk, setWalk] = useState([]);
   const [showIcon, setShowIcon] = useState(false);
   const [Icon, setIcon] = useState(false)
+
+  const [pin, setPin] = useState(null);
+  const [region, setRegion] = useState(null);
+  console.log(region,"region")
   const position = useRef(new Animated.ValueXY()).current;
   const swipeThreshold = 120; // Minimum distance required to trigger a swipe action
   const likeOpacity = position.x.interpolate({
@@ -203,7 +211,7 @@ const ViewPropertiy = props => {
   };
 
   const postID = props.route.params
-  console.log("testing????????????????????????", postID.data)
+  console.log("testing????????????????????????", postID.data.ID)
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -253,7 +261,7 @@ const ViewPropertiy = props => {
   const getPopertiesDetailsApiCall = () => {
     console.log("data", postID)
     dispatch(getPopertiesDetails(postID.data.ID)).then(response => {
-      console.log("api response", response)
+      console.log("api response getPopertiesDetails", response)
       if (response.payload.data == null) {
         console.log("hello world")
         setLoading(true);
@@ -261,19 +269,40 @@ const ViewPropertiy = props => {
       else {
         setLoading(false)
       }
+      
       setData(response.payload.data);
-      console.log(data, "dddddddddddddddddddddd");
+      // console.log(data, "dddddddddddddddddddddd");
       setNearByData(response.payload.data[0].what_is_nearby || []);
-      console.log(nearByData, "nearByDatanearByData");
+      // console.log(nearByData, "nearByDatanearByData");
       setCalData(response.payload.data[0].moartage || []);
       // const mapp =data.map((item) => item.moartage[0].moartage_details || []);
-      console.log(calData, "calculator")
+      // console.log(calData, "calculator")
       setweather(response.payload.data[0].current_weather);
-      console.log("checkWeather////////", weather);
+      // console.log("checkWeather////////", weather);
       settax(response.payload.data[0].tax_history);
       setWalk(response.payload.data[0].walkscore);
+      // console.log(walk,"walk")
       setMap(response.payload.data[0].address.property_address);
-      console.log(map, "map")
+      console.log(map, "map");
+      const res = [
+        {
+         ID: "1034295",
+          property_longitude: map.property_longitude.toString(),
+          property_latitude: map.property_latitude.toString(),
+          // other properties
+        }
+      ];
+      const property = res[0];
+      const latitude = parseFloat(property.property_latitude);
+      const longitude = parseFloat(property.property_longitude);
+  console.log(property,"property")
+      setPin({ latitude, longitude });
+      setRegion({
+        latitude,
+        longitude,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421
+      });
     });
   };
   console.log(data, 'show Api data');
@@ -331,18 +360,23 @@ const ViewPropertiy = props => {
 
     return (
       <>
-        <View style={{height:100,width:"100%"}}>
-          <Text>{map?.property_latitude}</Text>
-          <Text>{map?.property_latitude}</Text>
-
-          {/* <MapView
-            initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-          /> */}
+        <View style={{ height: 800, width: "100%" }}>  
+      <MapView
+        style={styles.map}
+        initialRegion={region}
+        provider="google"
+      >
+        {pin && <Marker coordinate={pin} />}
+        {pin && (
+          <Circle
+            center={pin}
+            radius={1000}
+            fillColor="rgba(255, 0, 0, 0.2)"
+            strokeColor="rgba(255, 0, 0, 0.5)"
+            strokeWidth={2}
+          />
+        )}
+      </MapView>
         </View>
       </>
     )
@@ -367,34 +401,30 @@ const ViewPropertiy = props => {
   const WalkSco = () => {
     return (
       <>
-        <View style={{ height: 200 }}>
-          <Text style={styles.propertyt}>Nearby</Text>
-          <View style={styles.addresss}>
+        <View style={styles.addresss}>
             <WebView
               source={{ uri: walk?.walkscore_details }}
               onLoad={console.log("loaded")}
-              style={{ width: "100%", resizeMode: "contain" }}
+              style={{ width: "100%"}}
             />
           </View>
-        </View>
       </>
     )
   }
   const CurrentWeather = () => {
     return (
       <>
-        <View style={{ paddingHorizontal: 20 }}>
+        <View style={{ paddingHorizontal: 20, height: 200 }}>
           <Text style={styles.propertyts}>Current Weather</Text>
           <View style={styles.addresss}>
             <Text style={styles.props}>Location: {weather.location_name}</Text>
             <Text style={styles.props}>Localtime: {weather.location_localtime}</Text>
             <View style={{ flexDirection: "row", alignItems: 'center' }}>
-              <Text style={styles.props}>Condition: {weather.condition_text}</Text>
-              
-              
+              <Text style={styles.prop}>Condition: {weather.condition_text}</Text>
+              <View style={{}}>
+                <Image style={{ height: 45, width: 45, color: "black" }} source={{ uri: weather?.current_condition_icon }} />
+              </View>
             </View>
-            <Image style={{ height: 40, width: 40, color:"black",backgroundColor:"yellow" }} source={{ uri: weather?.current_condition_icon }} />
-
             <Text style={styles.props}>Temperature: {weather.current_temp}</Text>
           </View>
         </View>
@@ -404,7 +434,7 @@ const ViewPropertiy = props => {
   const Calculator = () => {
     return (
       <>
-        <View style={{ height: 2200, width: "100%" }}>
+        <View style={{ height: 1400, width: "100%" }}>
           <Text style={styles.propertyt}>Moartage Calculator</Text>
           <View style={styles.addresss}>
             <WebView
@@ -437,7 +467,6 @@ const ViewPropertiy = props => {
           <View style={styles.address}>
             <View style={{ width: '50%' }}>
               <Text style={styles.property}>Tax History</Text>
-              <Text style={styles.props}>Property year tax: {tax.property_year_tax}</Text>
               <Text style={styles.props}>Annual amount: {tax.taxannualamount}</Text>
               <Text style={styles.props}>Taxes: {tax.taxes}</Text>
               <Text style={styles.props}>Tax year: {tax.taxyear}</Text>
@@ -1239,6 +1268,10 @@ const styles = StyleSheet.create({
 
 
   },
+  map: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height
+  },
   detail: {
     height: 27,
     width: 27,
@@ -1355,9 +1388,13 @@ const styles = StyleSheet.create({
   },
   props: {
     fontSize: 13,
-
     color: Colors.black,
     marginTop: 5
+  },
+  prop: {
+    fontSize: 13,
+    color: Colors.black,
+
   },
   view: {
     flexDirection: 'row',
@@ -1417,7 +1454,7 @@ const styles = StyleSheet.create({
     paddingStart: 20,
     fontWeight: 'bold'
   },
-  addresss: {  height: 1400 },
+  addresss: { height: 1400 },
   propertyts: {
     fontSize: 18,
     color: Colors.black,
@@ -1427,3 +1464,5 @@ const styles = StyleSheet.create({
 
 });
 export default ViewPropertiy;
+
+
