@@ -267,7 +267,7 @@ const MakeAnOffer = () => {
       <ScrollView style={{ flex: 1 }} >
         <View
           style={styles.viewStyle}>
-          <Text style={{ fontSize: 20, color: Colors.black,fontFamily:'Poppins-Bold' }}>Make An Offer</Text>
+          <Text style={{ fontSize: 20,marginLeft:25, color: Colors.black,fontFamily:'Poppins-Regular' }}>Make An Offer</Text>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={{

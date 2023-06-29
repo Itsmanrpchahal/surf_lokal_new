@@ -9,6 +9,7 @@ import {
   Platform,
   FlatList,
   TextInput,
+  Alert,
   ScrollView,
 } from 'react-native';
 import 'react-native-gesture-handler';
@@ -98,37 +99,7 @@ const ContactMyAgent = () => {
   };
   const SendQuickinquiry = () => {
 
-    // const data = {
-    //   property_address:address,
-    // 	message:message,
-    //   // email_message: "Email has sent successfully"
-    //   agent_email:agentData.agent_email
-    // }
-    // console.log("data", data)
-    //   let config = {
-    //     method: 'post',
-    //     url: 'https://surf.topsearchrealty.com/webapi/v1/agent/quick_inquiry.php',
-    //     data,
-    //     headers: { 
-    //       'Content-Type':'application/json' ,
-    //     },
-    //     data:JSON.stringify(data)
-
-    //   };
-    //   axios.request(config)
-    //     .then(response => {
-    //       if (response && response.data) {
-    //         console.log(JSON.stringify(response.data));
-    //         console.log(data)
-    //         // setResponseMessage(response.data.data[0].email_message)
-    //         // Continue handling the response data
-    //       } else {
-    //         // setResponseMessage(response.data.data[0].email_message)
-    //         console.log('Invalid response:', response);
-    //       }
-    //     }).catch(error => {
-    //   console.error('Error:', error);
-    // });
+  
 
     const data = new FormData();
     data.append('property_address', address);
@@ -147,6 +118,9 @@ const ContactMyAgent = () => {
     axios.request(config)
       .then(response => {
         console.log(response.data);
+        Alert.alert('Your data send Successfully');
+        setAddress("")
+        setMessage("")
         // Continue handling the response data
       })
       .catch(error => {
