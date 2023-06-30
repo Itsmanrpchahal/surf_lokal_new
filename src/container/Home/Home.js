@@ -31,6 +31,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getPoperties } from '../../modules/getPoperties';
 import { getRating } from '../../modules/getRating';
 import { postRating } from '../../modules/postRating';
+import { Card, Button } from 'react-native-elements';
+import DeckSwiper from 'react-native-deck-swiper';
 import { getSearch } from '../../modules/getSearch';
 import { getFilter } from '../../modules/getFilter';
 import { getNearBy } from '../../modules/getNearBy';
@@ -71,6 +73,7 @@ const Home = () => {
     dispatch(getPoperties()).then(response => {
       console.log('res getPoperties', response.payload);
       setHomeData(response.payload.data);
+      console.log(homeData, "data image data")
     });
   };
   const getNearByApiCall = () => {
@@ -151,8 +154,8 @@ const Home = () => {
                 color: isSelected ? Colors.black : Colors.gray,
                 marginTop: 5,
                 fontWeight: isSelected ? 'bold' : 'normal',
-                fontFamily:'Poppins-Regular'
-                
+                fontFamily: 'Poppins-Regular'
+
               }}>
               {item.term_name}
             </Text>
@@ -286,7 +289,7 @@ const Home = () => {
         />
       </View>
       <View style={{ height: Platform.OS == 'android' ? '74%' : '84%' }}>
-        <AppIntroSlider
+        {/* <AppIntroSlider
           renderItem={({ item }) => <Item item={item} />}
           showNextButton={false}
           showPrevButton={false}
@@ -296,13 +299,63 @@ const Home = () => {
           bottomButton={false}
           activeDotStyle={{ position: 'absolute' }}
           dotStyle={{ position: 'absolute' }}
+        /> */}
+        {/* <DeckSwiper
+        cards={homeData}
+        renderCard={(card) => <Item item={card} />}
+        onSwiped={(cardIndex) => console.log(cardIndex)}
+        onSwipedLeft={(cardIndex) => console.log(cardIndex)}
+        onSwipedRight={(cardIndex) => console.log(cardIndex)}
+        cardIndex={0}
+        backgroundColor="transparent"
+        stackSize={1}
+        infinite
+        animateCardOpacity
+        swipeBackCard
+      /> */}
+        <DeckSwiper
+          cards={homeData}
+          renderCard={(card) => <Item item={card} />}
+          onSwiped={(cardIndex) => console.log(cardIndex)}
+          onSwipedLeft={(cardIndex) => {
+            console.log(cardIndex);
+            // Additional functionality for left swipe
+            // You can perform any desired actions or update state here
+            // Example: setSwipedLeft(true);
+          }}
+          onSwipedRight={(cardIndex) => {
+            console.log(cardIndex, "onSwipedRight");
+            // Additional functionality for right swipe
+            // You can perform any desired actions or update state here
+            // Example: setSwipedRight(true);
+          }}
+          cardIndex={0}
+          backgroundColor="transparent"
+          stackSize={1}
+          infinite
+          animateCardOpacity
+          swipeBackCard
         />
       </View>
     </SafeAreaView>
   );
 };
 const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
+  if (!item || !item.featured_image_src) {
+    return null; // or render a placeholder component if needed
+  }
+  const [swipedLeft, setSwipedLeft] = useState(false);
 
+  const handleSwipeLeft = () => {
+    console.log('Swiped Left');
+    Alert.alert("hello")
+    setSwipedLeft(true);
+  };
+
+  const handleSwipeRight = () => {
+    console.log('Swiped Right');
+  };
+  console.log(item, "itemrespone")
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const toggleModal = () => { setModalVisible(!modalVisible); };
@@ -313,6 +366,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
   const [text, setText] = useState('')
   const [showIcon, setShowIcon] = useState(false);
   const [Icon, setIcon] = useState(false);
+ 
 
 
   useEffect(() => {
@@ -454,17 +508,17 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     const id = await AsyncStorage.getItem('userId');
 
     let formdata = {
-      userID:id,
-      postid:productId,
-      comment_content:review,
-      review_title:reviewTitle,
-      review_stars:rating,
-      photo_quality_rating:rating,
-      desc_stars:rating,
-      price_stars:rating,
-      interest_stars:rating,
-      content:review,
-      reviewtitle:reviewTitle
+      userID: id,
+      postid: productId,
+      comment_content: review,
+      review_title: reviewTitle,
+      review_stars: rating,
+      photo_quality_rating: rating,
+      desc_stars: rating,
+      price_stars: rating,
+      interest_stars: rating,
+      content: review,
+      reviewtitle: reviewTitle
     };
     console.log(formdata, "formdataformdata");
     dispatch(postRating(formdata)).then(response => {
@@ -550,13 +604,40 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     }
   };
 
+  const [swipeDirection, setSwipeDirection] = useState(null);
+
+  const handleOnSwipedLeft = () => {
+    setSwipeDirection('left');
+  };
+
+  const handleOnSwipedRight = () => {
+    setSwipeDirection('right');
+  };
+
+  const resetSwipeDirection = () => {
+    setSwipeDirection(null);
+  };
+
+  
+
+  const imageOpacityStyle = swipeDirection === 'left' ? styles.redOpacity : null;
+
+
+
   return (
     <ScrollView>
       <View style={{ flex: 1 }}>
-
-        <View style={styles.slideOuter}>
-
-          <Animated.View
+        <TouchableOpacity
+          style={styles.slideOuter}>
+          <TouchableOpacity 
+            style={styles.cardContainer}
+          >
+            <Image
+              source={{ uri: item.featured_image_src }}
+              style={styles.slider}
+            />
+          </TouchableOpacity>
+          {/* <Animated.View
             style={[
               position.getLayout(),
               {},
@@ -570,13 +651,13 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             <View style={styles.headerIcon}>
             </View>
             <Animated.View style={{ position: 'absolute', top: 20, left: 20, opacity: likeOpacity }}>
-              <Image source={Images.deletelike} style={{ height: 45, width: 45, tintColor: 'transparent' }} />
+              <Image source={Images.deletelike} style={{ height: 245, width: 45, tintColor: 'transparent' }} />
             </Animated.View>
             <Animated.View style={{ position: 'absolute', top: 20, right: 20, opacity: nopeOpacity }}>
-              <Image source={Images.favlike} style={{ height: 45, width: 45, tintColor: 'transparent' }} />
+              <Image source={Images.favlike} style={{ height: 245, width: 45, tintColor: 'transparent' }} />
             </Animated.View>
-          </Animated.View>
-        </View>
+          </Animated.View> */}
+        </TouchableOpacity>
         <View
           style={{
             flexDirection: 'row',
@@ -606,8 +687,10 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                 source={Images.star}
                 style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
             </TouchableOpacity>
-            <Text style={{ fontSize: 14, color: Colors.black,
-               textAlign: 'center', marginLeft: 5,fontFamily:'Poppins-Regular' }}>
+            <Text style={{
+              fontSize: 14, color: Colors.black,
+              textAlign: 'center', marginLeft: 5, fontFamily: 'Poppins-Regular'
+            }}>
               {item.total_average_rating}
             </Text>
           </View>
@@ -620,7 +703,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                 fontSize: 18,
                 color: Colors.primaryBlue,
                 fontWeight: '500',
-                fontFamily:'Poppins-Regular'
+                fontFamily: 'Poppins-Regular'
               }}>
               {item.originallistprice}
             </Text>
@@ -692,7 +775,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       fontWeight: '700',
                       color: Colors.black,
                       marginTop: 10,
-                      fontFamily:'Poppins-Regular'
+                      fontFamily: 'Poppins-Regular'
                     }}>
                     Rate and Review
                   </Text>
@@ -734,8 +817,10 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       alignItems: 'center',
                       marginTop: 10,
                     }}>
-                    <Text style={{ fontSize: 12, 
-                      color: Colors.black,fontFamily:'Poppins-Regular' }}>
+                    <Text style={{
+                      fontSize: 12,
+                      color: Colors.black, fontFamily: 'Poppins-Regular'
+                    }}>
                       Photos Quality Rating :
                     </Text>
                     <Rating
@@ -759,7 +844,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                     }}>
-                    <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
+                    <Text style={{ fontSize: 12, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
                       Description & Details :
                     </Text>
                     <Rating
@@ -782,7 +867,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                     }}>
-                    <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
+                    <Text style={{ fontSize: 12, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
                       Price Of Property :
                     </Text>
                     <Rating
@@ -806,7 +891,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                     }}>
-                    <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
+                    <Text style={{ fontSize: 12, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
                       General Interest in the property :
                     </Text>
                     <Rating
@@ -831,7 +916,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       fontSize: 12,
                       color: Colors.black,
                       marginTop: 12,
-                      fontFamily:'Poppins-Regular'
+                      fontFamily: 'Poppins-Regular'
                     }}>
                     Review
                   </Text>
@@ -854,10 +939,10 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                         borderColor: Colors.gray,
                         fontSize: 14,
                         // padding: 2,
-                        alignItems:"flex-start",
-                        alignSelf:"flex-start",
-                        verticalAlign:"top",
-                        fontFamily:'Poppins-Regular'
+                        alignItems: "flex-start",
+                        alignSelf: "flex-start",
+                        verticalAlign: "top",
+                        fontFamily: 'Poppins-Regular'
                       }}
                       //keyboardType="default"
                       autoCorrect={false}
@@ -900,7 +985,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                         fontSize: 14,
                         fontWeight: '700',
                         color: Colors.white,
-                        fontFamily:'Poppins-Regular'
+                        fontFamily: 'Poppins-Regular'
                       }}>
                       Submit
                     </Text>
@@ -917,11 +1002,13 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             justifyContent: 'space-between',
           }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('ViewPropertiy', { data: item, postid:item.ID })}
+            onPress={() => navigation.navigate('ViewPropertiy', { data: item, postid: item.ID })}
             style={{ width: '98%', alignSelf: 'center', justifyContent: 'center' }}>
             <Text
-              style={{ fontSize: 16, color: Colors.black, 
-              textAlign: 'center',fontFamily:'Poppins-Regular' }}>
+              style={{
+                fontSize: 16, color: Colors.black,
+                textAlign: 'center', fontFamily: 'Poppins-Regular'
+              }}>
               {item.title}
             </Text>
           </TouchableOpacity>
@@ -949,7 +1036,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   fontSize: 16,
                   color: Colors.black,
                   textAlign: 'center',
-                  fontFamily:'Poppins-Regular'
+                  fontFamily: 'Poppins-Regular'
                 }}>
                 {item.property_bedrooms} {'Beds'}
               </Text>
@@ -969,7 +1056,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   fontSize: 16,
                   color: Colors.black,
                   textAlign: 'center',
-                  fontFamily:'Poppins-Regular'
+                  fontFamily: 'Poppins-Regular'
                 }}>
                 {item.bathroomsfull} {'Baths'}
               </Text>
@@ -989,7 +1076,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   fontSize: 16,
                   color: Colors.black,
                   textAlign: 'center',
-                  fontFamily:'Poppins-Regular'
+                  fontFamily: 'Poppins-Regular'
                 }}>
                 {item.property_size}{'sq ft'}
               </Text>
@@ -1019,7 +1106,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   color: Colors.black,
                   marginTop: 6,
                   textAlign: 'center',
-                  fontFamily:'Poppins-Regular'
+                  fontFamily: 'Poppins-Regular'
                 }}>
                 {'$'}{item.associationfee == null ? 0 : item.associationfee}
               </Text>
@@ -1039,7 +1126,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   fontSize: 16,
                   color: Colors.black,
                   textAlign: 'center',
-                  fontFamily:'Poppins-Regular'
+                  fontFamily: 'Poppins-Regular'
                 }}>
                 {'$'}{item.taxannualamount == null ? 0 : item.taxannualamount}
               </Text>
@@ -1140,6 +1227,18 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     flexDirection: 'row',
   },
+  cardContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+   // Adjust the margin-bottom as needed to create spacing between cards
+    zIndex: 1, 
+  },
+  redOpacity: {
+    opacity: 0.5, // Set the desired opacity value for the red effect
+    backgroundColor: 'red', // Set the desired background color for the red effect
+  },
   paginationDot: {
     width: 10,
     height: 10,
@@ -1168,7 +1267,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 
   },
-
+  redOverlay: {
+    backgroundColor: 'red', // Adjust the opacity and color as desired
+  },
   //fliter
   filter: {
     height: 60,
