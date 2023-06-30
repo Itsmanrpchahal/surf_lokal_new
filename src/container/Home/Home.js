@@ -27,12 +27,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Styles from './Styles';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getPoperties } from '../../modules/getPoperties';
 import { getRating } from '../../modules/getRating';
 import { postRating } from '../../modules/postRating';
-import { Card, Button } from 'react-native-elements';
-import DeckSwiper from 'react-native-deck-swiper';
 import { getSearch } from '../../modules/getSearch';
 import { getFilter } from '../../modules/getFilter';
 import { getNearBy } from '../../modules/getNearBy';
@@ -47,17 +45,15 @@ const imageSizeRation = screenHeight / 1000;
 const Home = () => {
 
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [adress, setAddres] = useState('');
-  const [index, setIndex] = useState(0);
+  const [ currentSlide, setCurrentSlide ] = useState(0);
+  const [ adress, setAddres ] = useState('');
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const flatListRef = useRef(null);
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [ selectedItem, setSelectedItem ] = useState(null);
 
-  const [homeData, setHomeData] = useState([]);
-  const [filterData, setFilterData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [ homeData, setHomeData ] = useState([]);
+  const [ filterData, setFilterData ] = useState([]);
+  const [ loading, setLoading ] = useState(false);
 
   useEffect(() => {
     getPopertiesApiCall();
@@ -73,7 +69,6 @@ const Home = () => {
     dispatch(getPoperties()).then(response => {
       console.log('res getPoperties', response.payload);
       setHomeData(response.payload.data);
-      console.log(homeData, "data image data")
     });
   };
   const getNearByApiCall = () => {
@@ -102,40 +97,12 @@ const Home = () => {
 
   };
 
-  const scrollToIndex = index => {
-    setIndex(index);
-    flatListRef.current.scrollToIndex({ index });
-  };
-
-
-  const handleSwipeFromLeft = id => {
-    //Vibration.vibrate(100);
-    setData(prevData => prevData.filter(item => item.id !== id));
-  };
-
-  const handleSwipeFromRight = id => {
-    //Vibration.vibrate(100);
-    setData(prevData =>
-      prevData.map(item => {
-        if (item.id === id) {
-          return { ...item, liked: true };
-        }
-        return item;
-      }),
-    );
-  };
-
-
-  const onDone = () => {
-    navigation.navigate('Tabs', { screen: 'Home' });
-  };
-
   const renderFillterItem = ({ item }) => {
     const isSelected = selectedItem === item.counter_id;
 
     return (
 
-      <View style={{ }}>
+      <View style={{}}>
         <TouchableOpacity onPress={() => setSelectedItem(item.counter_id)}>
           <View
             style={{
@@ -288,8 +255,8 @@ const Home = () => {
         // extraData={selectedItem}
         />
       </View>
-      <View style={{ height: Platform.OS == 'android' ? '94%' : '84%' }}>
-        {/* <AppIntroSlider
+      <View style={{ height: Platform.OS == 'android' ? '74%' : '84%' }}>
+        <AppIntroSlider
           renderItem={({ item }) => <Item item={item} />}
           showNextButton={false}
           showPrevButton={false}
@@ -299,104 +266,53 @@ const Home = () => {
           bottomButton={false}
           activeDotStyle={{ position: 'absolute' }}
           dotStyle={{ position: 'absolute' }}
-        /> */}
-        {/* <DeckSwiper
-        cards={homeData}
-        renderCard={(card) => <Item item={card} />}
-        onSwiped={(cardIndex) => console.log(cardIndex)}
-        onSwipedLeft={(cardIndex) => console.log(cardIndex)}
-        onSwipedRight={(cardIndex) => console.log(cardIndex)}
-        cardIndex={0} 
-        backgroundColor="transparent"
-        stackSize={1}
-        infinite
-        animateCardOpacity
-        swipeBackCard
-      /> */}
-        <DeckSwiper
-          cards={homeData}
-          renderCard={(card) => <Item item={card} />}
-          onSwiped={(cardIndex) => console.log(cardIndex)}
-          onSwipedLeft={(cardIndex) => {
-            console.log(cardIndex);
-            // Additional functionality for left swipe
-            // You can perform any desired actions or update state here
-            // Example: setSwipedLeft(true);
-          }}
-          onSwipedRight={(cardIndex) => {
-            console.log(cardIndex, "onSwipedRight");
-            // Additional functionality for right swipe
-            // You can perform any desired actions or update state here
-            // Example: setSwipedRight(true);
-          }}
-          cardIndex={0}
-          backgroundColor="transparent"
-          stackSize={1}
-          infinite
-          animateCardOpacity
-          swipeBackCard
         />
       </View>
     </SafeAreaView>
   );
 };
 const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
-  if (!item || !item.featured_image_src) {
-    return null; // or render a placeholder component if needed
-  }
-  const [swipedLeft, setSwipedLeft] = useState(false);
 
-  const handleSwipeLeft = () => {
-    console.log('Swiped Left');
-    Alert.alert("hello")
-    setSwipedLeft(true);
-  };
-
-  const handleSwipeRight = () => {
-    console.log('Swiped Right');
-  };
-  console.log(item, "itemrespone")
   const navigation = useNavigation();
-  const [modalVisible, setModalVisible] = useState(false);
+  const [ modalVisible, setModalVisible ] = useState(false);
   const toggleModal = () => { setModalVisible(!modalVisible); };
-  const [rating, setRating] = useState(0);
-  const [productId, setProductId] = useState('');
-  const [reviewTitle, setReviewTitle] = useState('');
-  const [review, setReview] = useState('');
-  const [text, setText] = useState('')
-  const [showIcon, setShowIcon] = useState(false);
-  const [Icon, setIcon] = useState(false);
- 
+  const [ rating, setRating ] = useState(0);
+  const [ productId, setProductId ] = useState('');
+  const [ reviewTitle, setReviewTitle ] = useState('');
+  const [ review, setReview ] = useState('');
+  const [ text, setText ] = useState('');
+  const [ showIcon, setShowIcon ] = useState(false);
+  const [ Icon, setIcon ] = useState(false);
 
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowIcon(false);
-      setIcon(false)
+      setIcon(false);
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [showIcon]);
+  }, [ showIcon ]);
 
   useEffect(() => {
     const icontime = setTimeout(() => {
-      setIcon(false)
+      setIcon(false);
     }, 2000);
 
     return () => clearTimeout(icontime);
-  }, [Icon]);
+  }, [ Icon ]);
 
 
   const position = useRef(new Animated.ValueXY()).current;
   const swipeThreshold = 120; // Minimum distance required to trigger a swipe action
   const likeOpacity = position.x.interpolate({
-    inputRange: [0, swipeThreshold],
-    outputRange: [0, 1],
+    inputRange: [ 0, swipeThreshold ],
+    outputRange: [ 0, 1 ],
     extrapolate: 'clamp',
   });
   const nopeOpacity = position.x.interpolate({
-    inputRange: [-swipeThreshold, 0],
-    outputRange: [1, 0],
+    inputRange: [ -swipeThreshold, 0 ],
+    outputRange: [ 1, 0 ],
     extrapolate: 'clamp',
   });
 
@@ -405,32 +321,39 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (_, gesture) => {
         position.setValue({ x: gesture.dx, y: gesture.dy });
-        if (gesture.dx < -swipeThreshold) {
+        if (gesture.dx < -swipeThreshold)
+        {
           setShowIcon(true);
-        } else {
+        } else
+        {
           setShowIcon(false);
         };
-        if (gesture.dx > swipeThreshold) {
+        if (gesture.dx > swipeThreshold)
+        {
           setIcon(true);
-        } else {
+        } else
+        {
           setIcon(false);
         }
       },
       onPanResponderRelease: (_, gesture) => {
-        if (gesture.dx > swipeThreshold) {
+        if (gesture.dx > swipeThreshold)
+        {
           trashfile(item.ID);
-          console.log("trash files")
+          console.log("trash files");
           // Right swipe, delete action
           // Perform your delete logic here
           resetPosition();
-        } else if (gesture.dx < -swipeThreshold) {
-          saveFile(item.ID)
-          console.log("save File")
+        } else if (gesture.dx < -swipeThreshold)
+        {
+          saveFile(item.ID);
+          console.log("save File");
           // Left swipe, like action
           // Perform your like logic here
 
           resetPosition();
-        } else {
+        } else
+        {
           // No significant swipe, reset position
           resetPosition();
         }
@@ -453,10 +376,10 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
   const getRatingApiCall = () => {
     dispatch(getRating()).then(response => {
       console.log('getRatingData', response.payload);
-      setRating(response.payload.data[0]?.photo_wuality_rating);
-      setRating(response.payload.data[0]?.description_review_stars);
-      setRating(response.payload.data[0]?.price_review_stars);
-      setRating(response.payload.data[0]?.interest_review_stars);
+      setRating(response.payload.data[ 0 ]?.photo_wuality_rating);
+      setRating(response.payload.data[ 0 ]?.description_review_stars);
+      setRating(response.payload.data[ 0 ]?.price_review_stars);
+      setRating(response.payload.data[ 0 ]?.interest_review_stars);
       console.log();
     });
   };
@@ -475,7 +398,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             width: 20,
             resizeMode: 'contain',
             tintColor: Colors.white,
-            transform: [{ rotate: '-90deg' }],
+            transform: [ { rotate: '-90deg' } ],
           }}
           source={Images.downArrow}></Image>
       </View>
@@ -497,7 +420,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             width: 20,
             resizeMode: 'contain',
             tintColor: Colors.white,
-            transform: [{ rotate: '90deg' }],
+            transform: [ { rotate: '90deg' } ],
           }}
           source={Images.downArrow}></Image>
       </View>
@@ -523,10 +446,12 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     console.log(formdata, "formdataformdata");
     dispatch(postRating(formdata)).then(response => {
       console.log('res', response.payload);
-      if (response.payload.success) {
+      if (response.payload.success)
+      {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
-      } else {
+      } else
+      {
         toggleModal();
         Alert.alert('Alert', response.payload.message);
       }
@@ -542,7 +467,8 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     let data = new FormData();
     data.append('userID', userID);
     data.append('post_id', post_id);
-    try {
+    try
+    {
       var res = await axios.post(
         'https://surf.topsearchrealty.com/webapi/v1/favorites/addremovefavorite.php',
         data,
@@ -551,12 +477,15 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
       console.log('--ppp', res);
       // console.log('--ppp', typeof res.status);
 
-      if (res.status == 200) {
+      if (res.status == 200)
+      {
         Alert.alert(res.data.message);
-      } else {
+      } else
+      {
         Alert.alert('something went wrong!.');
       }
-    } catch (err) {
+    } catch (err)
+    {
       console.log('err', err);
     }
   };
@@ -568,7 +497,8 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     let data = new FormData();
     data.append('userID', userID);
     data.append('post_id', post_id);
-    try {
+    try
+    {
       var res = await axios.post(
         'https://surf.topsearchrealty.com/webapi/v1/trashlist/addremovetrash.php',
         data,
@@ -576,68 +506,48 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
 
       console.log('--ppp', res.data);
 
-      if (res.status == 200) {
+      if (res.status == 200)
+      {
         console.log('--ppp', res.data);
         Alert.alert(res.data.message);
-      } else {
+      } else
+      {
         Alert.alert('something went wrong!.');
       }
-    } catch (err) {
+    } catch (err)
+    {
       console.log('err', err);
     }
   };
 
   const shareContent = async () => {
-    try {
+    try
+    {
       const result = await Share.share({
         message: 'Check out this awesome app!',
         url: 'https://example.com',
         title: 'My RN App',
       });
-      if (result.action === Share.sharedAction) {
+      if (result.action === Share.sharedAction)
+      {
         console.log('Content shared successfully');
-      } else if (result.action === Share.dismissedAction) {
+      } else if (result.action === Share.dismissedAction)
+      {
         console.log('Share operation dismissed');
       }
-    } catch (error) {
-      console.log(`Error sharing content: ${error.message}`);
+    } catch (error)
+    {
+      console.log(`Error sharing content: ${ error.message }`);
     }
   };
-
-  const [swipeDirection, setSwipeDirection] = useState(null);
-
-  const handleOnSwipedLeft = () => {
-    setSwipeDirection('left');
-  };
-
-  const handleOnSwipedRight = () => {
-    setSwipeDirection('right');
-  };
-
-  const resetSwipeDirection = () => {
-    setSwipeDirection(null);
-  };
-
-  
-
-  const imageOpacityStyle = swipeDirection === 'left' ? styles.redOpacity : null;
-
-
 
   return (
     <ScrollView>
       <View style={{ flex: 1 }}>
-        <TouchableOpacity
-          style={styles.slideOuter}>
-          <TouchableOpacity 
-            style={styles.cardContainer}
-          >
-            <Image
-              source={{ uri: item.featured_image_src }}
-              style={styles.slider}
-            />
-          </TouchableOpacity>
-          {/* <Animated.View
+
+        <View style={styles.slideOuter}>
+
+          <Animated.View
             style={[
               position.getLayout(),
               {},
@@ -651,23 +561,22 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             <View style={styles.headerIcon}>
             </View>
             <Animated.View style={{ position: 'absolute', top: 20, left: 20, opacity: likeOpacity }}>
-              <Image source={Images.deletelike} style={{ height: 245, width: 45, tintColor: 'transparent' }} />
+              <Image source={Images.deletelike} style={{ height: 45, width: 45, tintColor: 'transparent' }} />
             </Animated.View>
             <Animated.View style={{ position: 'absolute', top: 20, right: 20, opacity: nopeOpacity }}>
-              <Image source={Images.favlike} style={{ height: 245, width: 45, tintColor: 'transparent' }} />
+              <Image source={Images.favlike} style={{ height: 45, width: 45, tintColor: 'transparent' }} />
             </Animated.View>
-          </Animated.View> */}
-        </TouchableOpacity>
- 
+          </Animated.View>
+        </View>
         <View
           style={{
             flexDirection: 'row',
             alignSelf: 'flex-end',
-            width: '100%',
-         
+            width: '90%',
+
             height: '10%',
             marginTop: Platform.OS == 'android' ? -10 : 0,
-      
+            marginRight: 20,
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
@@ -680,7 +589,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             <TouchableOpacity
               onPress={() => {
                 setProductId(item.ID);
-                setReviewTitle(item.title)
+                setReviewTitle(item.title);
                 toggleModal();
               }}>
 
@@ -796,7 +705,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       width: 20,
                       resizeMode: 'contain',
                       tintColor: Colors.black,
-                      transform: [{ rotate: '45deg' }],
+                      transform: [ { rotate: '45deg' } ],
                     }}
                     source={Images.plus}></Image>
                 </TouchableOpacity>
@@ -909,7 +818,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   </View>
                 </View>
 
-
+             
                 <View style={{ height: 20 }}></View>
                 <View style={{ width: '95%', alignSelf: 'center' }}>
                   <Text
@@ -999,11 +908,11 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
 
         <View
           style={{
-            backgroundColor:'#fff',
+
             justifyContent: 'space-between',
           }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('ViewPropertiy', { item})}
+            onPress={() => navigation.navigate('ViewPropertiy', { item })}
             style={{ width: '98%', alignSelf: 'center', justifyContent: 'center' }}>
             <Text
               style={{
@@ -1018,9 +927,8 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
           style={{
             flexDirection: 'row',
             width: '90%',
-            height: '12%',
-            marginTop: 10,
-            backgroundColor:'#fff',
+            height: '5%',
+            marginTop: 30,
             alignSelf: 'center',
             justifyContent: 'space-between',
           }}>
@@ -1135,7 +1043,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             </View>
           ) : null}
         </View>
-        </View>
+
         <View style={{
           width: '100%',
           // marginHorizontal:20,
@@ -1163,7 +1071,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             </View>
           )}
         </View>
-     
+      </View>
     </ScrollView>
 
   );
@@ -1194,7 +1102,8 @@ const styles = StyleSheet.create({
   slideOuter: {
     width: screenWidth,
     height: 300,
- 
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   // slide: {
   //   width: screenWidth - 20,
@@ -1206,9 +1115,7 @@ const styles = StyleSheet.create({
   // },
   viewmain: { height: 300, marginBottom: 20, },
   innerviewmain: { height: 300, marginBottom: 20, },
-  slide: { height: 300,
-     marginBottom: 20,
-      borderRadius: 20, marginHorizontal: 12, marginTop: 20 },
+  slide: { height: 300, marginBottom: 20, borderRadius: 20, marginHorizontal: 12, marginTop: 20 },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
@@ -1229,18 +1136,6 @@ const styles = StyleSheet.create({
     bottom: 20,
     alignSelf: 'center',
     flexDirection: 'row',
-  },
-  cardContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
-   // Adjust the margin-bottom as needed to create spacing between cards
-    zIndex: 1, 
-  },
-  redOpacity: {
-    opacity: 0.5, // Set the desired opacity value for the red effect
-    backgroundColor: 'red', // Set the desired background color for the red effect
   },
   paginationDot: {
     width: 10,
@@ -1270,9 +1165,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 
   },
-  redOverlay: {
-    backgroundColor: 'red', // Adjust the opacity and color as desired
-  },
+
   //fliter
   filter: {
     height: 60,

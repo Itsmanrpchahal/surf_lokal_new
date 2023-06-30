@@ -1,47 +1,47 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getAPI } from '../config/apiMethod';
-import { url } from '../config/url';
-import AsyncStorage from '@react-native-community/async-storage';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getAPI } from "../config/apiMethod";
+import { url } from "../config/url";
 
 export const getPopertiesDetails = createAsyncThunk(
-  'getPopertiesDetails',
-  async (id) => {
-    console.log("id",id);
-    return await getAPI(
-      "https://surf.topsearchrealty.com/webapi/v1/singleproperty/?Post_Id=" + id)
-      .then(async response => {
+  "getPropertiesDetails",
+  async (postid) => {
+    console.log(postid, "getPropertiesDetails postid");
+    const urlDynamic =
+      "https://surf.topsearchrealty.com/webapi/v1/singleproperty/?Post_Id=" + postid;
+    return await getAPI(urlDynamic)
+      .then(async (response) => {
         const { data } = response;
         return data;
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
         if (e.response) {
-          console.log('api issue', e.response);
+          console.log("api issue", e.response);
         } else if (e.request) {
-          console.log('api issue', e.response);
+          console.log("api issue", e.response);
         } else {
-          console.log('api issue', e.response);
+          console.log("api issue", e.response);
         }
       });
-  },
+  }
 );
 
 const getPopertiesDetailsSlice = createSlice({
-  name: 'getPopertiesDetails',
+  name: "getPopertiesDetails",
   initialState: {
-    getPopertiesDetailsData: [],
+    getPopertiesDetails: [],
     status: null,
   },
   extraReducers: {
     [getPopertiesDetails.pending]: (state, action) => {
-      state.status = 'loading';
+      state.status = "loading";
     },
     [getPopertiesDetails.fulfilled]: (state, action) => {
-      state.status = 'success';
-      state.getPopertiesDetailsData = action.payload;
+      state.status = "success";
+      state.getPopertiesDetails = action.payload;
     },
     [getPopertiesDetails.rejected]: (state, action) => {
-      state.status = 'failed';
+      state.status = "failed";
     },
   },
 });
