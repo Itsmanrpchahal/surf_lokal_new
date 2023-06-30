@@ -306,7 +306,7 @@ const Home = () => {
         onSwiped={(cardIndex) => console.log(cardIndex)}
         onSwipedLeft={(cardIndex) => console.log(cardIndex)}
         onSwipedRight={(cardIndex) => console.log(cardIndex)}
-        cardIndex={0}
+        cardIndex={0} 
         backgroundColor="transparent"
         stackSize={1}
         infinite
