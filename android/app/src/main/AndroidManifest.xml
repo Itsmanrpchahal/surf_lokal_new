@@ -35,7 +35,7 @@ android:value="@string/facebook_app_id"/>
         android:launchMode="singleTask"
        android:windowSoftInputMode="adjustPan"
           android:exported="true"
-            android:screenOrientation="sensor">
+            android:screenOrientation="unspecified">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />

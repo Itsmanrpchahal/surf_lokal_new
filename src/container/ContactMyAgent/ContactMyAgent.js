@@ -11,6 +11,7 @@ import {
   TextInput,
   Alert,
   ScrollView,
+  Linking
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
@@ -21,6 +22,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Styles from './Styles';
 import { useNavigation } from '@react-navigation/native';
 import FormData from 'form-data';
+import { idText } from 'typescript';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -85,18 +89,29 @@ const ContactMyAgent = () => {
     fetchAgentData();
   }, []);
 
+ 
   const fetchAgentData = async () => {
+    const id = await AsyncStorage.getItem('userId');
+    console.log(id,"Agenyt id");
+
     try {
       const response = await axios.get(
-        'https://surf.topsearchrealty.com/webapi/v1/agent/?userID=18'
+        'https://surf.topsearchrealty.com/webapi/v1/agent/?userID='+id
       );
       if (response.data.success) {
-        setAgentData(response.data.data[0]);
+        const agentData = response.data.data[0][0];
+        console.log('Agent Data:', agentData);
+        setAgentData(agentData);
       }
     } catch (error) {
       console.log('Error fetching agent data:', error);
     }
   };
+  const makePhoneCall = () => {
+    let phoneNumber =agentData?.agent_phone;
+    Linking.openURL(`tel:${phoneNumber}`);
+  };
+  
   const SendQuickinquiry = () => {
 
   
@@ -149,9 +164,9 @@ const ContactMyAgent = () => {
           justifyContent: 'space-around',
           alignSelf: 'center',
           alignItems: 'center',
-          marginLeft: 50
+          marginLeft: 70
         }}>
-        <Text style={{ fontSize: 20, color: Colors.black,fontFamily:'Poppins-Bold' }}>
+        <Text style={{ fontSize: 20, color: Colors.black,fontFamily:'Poppins-Regular' }}>
           Contact My Agent
         </Text>
         <TouchableOpacity
@@ -204,24 +219,23 @@ const ContactMyAgent = () => {
               style={{
                 height: 40,
                 width: 40,
-                borderRadius: 20,
-                backgroundColor: Colors.primaryBlue,
+                borderRadius: 50,
+                // backgroundColor: Colors.primaryBlue,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <Text style={{ fontSize: 22, color: Colors.white,fontFamily:'Poppins-Regular' }}>JD</Text>
+             <Image source={{uri:agentData?.featured_image_url}} style={{height:30,width:30,marginRight:20}}/>
             </View>
           )}
         </TouchableOpacity>
 
         <Text style={{ fontSize: 24, color: Colors.black, marginLeft: 10 ,fontFamily:'Poppins-Regular'}}>
-          {agentData?.first_name} {agentData?.last_name}
+          {agentData?.agent_title} {agentData?.last_name}
         </Text>
       </View>
       <ScrollView style={{ height: '100%', width: '100%' }}>
         <View style={styles.slideOuter}>
-          <TouchableOpacity
-            //onPress={() => navigation.navigate(item.navigation)}
+          <TouchableOpacity onPress={()=>makePhoneCall()}
             style={{
               width: '100%',
               alignItems: 'center',
@@ -258,7 +272,6 @@ const ContactMyAgent = () => {
 
         <View style={styles.slideOuter}>
           <TouchableOpacity
-            //onPress={() => navigation.navigate(item.navigation)}
             style={{
               width: '100%',
               alignItems: 'center',
@@ -306,7 +319,7 @@ const ContactMyAgent = () => {
 
 
               <TouchableOpacity
-                onPress={() => navigation.navigate("ChatSearch")}
+                onPress={() => navigation.navigate("ChatSearch",{agentData})}
                 style={{
                   height: 30,
                   borderRadius: 8,
@@ -332,7 +345,7 @@ const ContactMyAgent = () => {
 
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate("ChatSearch")}
+                onPress={() => navigation.navigate("ChatSearch",{agentData})}
 
                 style={{
                   height: 30,
@@ -359,7 +372,7 @@ const ContactMyAgent = () => {
             </View>
             <View>
             <TouchableOpacity
-                onPress={() => navigation.navigate("ChatSearch")}
+                onPress={() => navigation.navigate("ChatSearch",{agentData})}
 
                 style={{
                   height: 30,

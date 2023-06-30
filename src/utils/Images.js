@@ -83,5 +83,6 @@ const Images = {
   tax: require(BaseUrl + 'tax.png'),
   fill: require(BaseUrl + 'fill.png'),
   fillgreen: require(BaseUrl + 'fillgreen.png'),
+  check: require(BaseUrl + 'check.png'),
 };
 export default Images;

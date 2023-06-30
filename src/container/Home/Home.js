@@ -27,7 +27,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Styles from './Styles';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getPoperties } from '../../modules/getPoperties';
 import { getRating } from '../../modules/getRating';
 import { postRating } from '../../modules/postRating';
@@ -45,17 +45,15 @@ const imageSizeRation = screenHeight / 1000;
 const Home = () => {
 
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [adress, setAddres] = useState('');
-  const [index, setIndex] = useState(0);
+  const [ currentSlide, setCurrentSlide ] = useState(0);
+  const [ adress, setAddres ] = useState('');
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const flatListRef = useRef(null);
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [ selectedItem, setSelectedItem ] = useState(null);
 
-  const [homeData, setHomeData] = useState([]);
-  const [filterData, setFilterData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [ homeData, setHomeData ] = useState([]);
+  const [ filterData, setFilterData ] = useState([]);
+  const [ loading, setLoading ] = useState(false);
 
   useEffect(() => {
     getPopertiesApiCall();
@@ -99,34 +97,6 @@ const Home = () => {
 
   };
 
-  const scrollToIndex = index => {
-    setIndex(index);
-    flatListRef.current.scrollToIndex({ index });
-  };
-
-
-  const handleSwipeFromLeft = id => {
-    //Vibration.vibrate(100);
-    setData(prevData => prevData.filter(item => item.id !== id));
-  };
-
-  const handleSwipeFromRight = id => {
-    //Vibration.vibrate(100);
-    setData(prevData =>
-      prevData.map(item => {
-        if (item.id === id) {
-          return { ...item, liked: true };
-        }
-        return item;
-      }),
-    );
-  };
-
-
-  const onDone = () => {
-    navigation.navigate('Tabs', { screen: 'Home' });
-  };
-
   const renderFillterItem = ({ item }) => {
     const isSelected = selectedItem === item.counter_id;
 
@@ -151,8 +121,8 @@ const Home = () => {
                 color: isSelected ? Colors.black : Colors.gray,
                 marginTop: 5,
                 fontWeight: isSelected ? 'bold' : 'normal',
-                fontFamily:'Poppins-Regular'
-                
+                fontFamily: 'Poppins-Regular'
+
               }}>
               {item.term_name}
             </Text>
@@ -304,45 +274,45 @@ const Home = () => {
 const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
 
   const navigation = useNavigation();
-  const [modalVisible, setModalVisible] = useState(false);
+  const [ modalVisible, setModalVisible ] = useState(false);
   const toggleModal = () => { setModalVisible(!modalVisible); };
-  const [rating, setRating] = useState(0);
-  const [productId, setProductId] = useState('');
-  const [reviewTitle, setReviewTitle] = useState('');
-  const [review, setReview] = useState('');
-  const [text, setText] = useState('')
-  const [showIcon, setShowIcon] = useState(false);
-  const [Icon, setIcon] = useState(false);
+  const [ rating, setRating ] = useState(0);
+  const [ productId, setProductId ] = useState('');
+  const [ reviewTitle, setReviewTitle ] = useState('');
+  const [ review, setReview ] = useState('');
+  const [ text, setText ] = useState('');
+  const [ showIcon, setShowIcon ] = useState(false);
+  const [ Icon, setIcon ] = useState(false);
 
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowIcon(false);
-      setIcon(false)
+      setIcon(false);
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [showIcon]);
+  }, [ showIcon ]);
 
   useEffect(() => {
     const icontime = setTimeout(() => {
-      setIcon(false)
+      setIcon(false);
     }, 2000);
 
     return () => clearTimeout(icontime);
-  }, [Icon]);
+  }, [ Icon ]);
 
 
   const position = useRef(new Animated.ValueXY()).current;
   const swipeThreshold = 120; // Minimum distance required to trigger a swipe action
   const likeOpacity = position.x.interpolate({
-    inputRange: [0, swipeThreshold],
-    outputRange: [0, 1],
+    inputRange: [ 0, swipeThreshold ],
+    outputRange: [ 0, 1 ],
     extrapolate: 'clamp',
   });
   const nopeOpacity = position.x.interpolate({
-    inputRange: [-swipeThreshold, 0],
-    outputRange: [1, 0],
+    inputRange: [ -swipeThreshold, 0 ],
+    outputRange: [ 1, 0 ],
     extrapolate: 'clamp',
   });
 
@@ -351,32 +321,39 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (_, gesture) => {
         position.setValue({ x: gesture.dx, y: gesture.dy });
-        if (gesture.dx < -swipeThreshold) {
+        if (gesture.dx < -swipeThreshold)
+        {
           setShowIcon(true);
-        } else {
+        } else
+        {
           setShowIcon(false);
         };
-        if (gesture.dx > swipeThreshold) {
+        if (gesture.dx > swipeThreshold)
+        {
           setIcon(true);
-        } else {
+        } else
+        {
           setIcon(false);
         }
       },
       onPanResponderRelease: (_, gesture) => {
-        if (gesture.dx > swipeThreshold) {
+        if (gesture.dx > swipeThreshold)
+        {
           trashfile(item.ID);
-          console.log("trash files")
+          console.log("trash files");
           // Right swipe, delete action
           // Perform your delete logic here
           resetPosition();
-        } else if (gesture.dx < -swipeThreshold) {
-          saveFile(item.ID)
-          console.log("save File")
+        } else if (gesture.dx < -swipeThreshold)
+        {
+          saveFile(item.ID);
+          console.log("save File");
           // Left swipe, like action
           // Perform your like logic here
 
           resetPosition();
-        } else {
+        } else
+        {
           // No significant swipe, reset position
           resetPosition();
         }
@@ -399,10 +376,10 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
   const getRatingApiCall = () => {
     dispatch(getRating()).then(response => {
       console.log('getRatingData', response.payload);
-      setRating(response.payload.data[0]?.photo_wuality_rating);
-      setRating(response.payload.data[0]?.description_review_stars);
-      setRating(response.payload.data[0]?.price_review_stars);
-      setRating(response.payload.data[0]?.interest_review_stars);
+      setRating(response.payload.data[ 0 ]?.photo_wuality_rating);
+      setRating(response.payload.data[ 0 ]?.description_review_stars);
+      setRating(response.payload.data[ 0 ]?.price_review_stars);
+      setRating(response.payload.data[ 0 ]?.interest_review_stars);
       console.log();
     });
   };
@@ -421,7 +398,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             width: 20,
             resizeMode: 'contain',
             tintColor: Colors.white,
-            transform: [{ rotate: '-90deg' }],
+            transform: [ { rotate: '-90deg' } ],
           }}
           source={Images.downArrow}></Image>
       </View>
@@ -443,7 +420,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             width: 20,
             resizeMode: 'contain',
             tintColor: Colors.white,
-            transform: [{ rotate: '90deg' }],
+            transform: [ { rotate: '90deg' } ],
           }}
           source={Images.downArrow}></Image>
       </View>
@@ -454,25 +431,27 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     const id = await AsyncStorage.getItem('userId');
 
     let formdata = {
-      userID:id,
-      postid:productId,
-      comment_content:review,
-      review_title:reviewTitle,
-      review_stars:rating,
-      photo_quality_rating:rating,
-      desc_stars:rating,
-      price_stars:rating,
-      interest_stars:rating,
-      content:review,
-      reviewtitle:reviewTitle
+      userID: id,
+      postid: productId,
+      comment_content: review,
+      review_title: reviewTitle,
+      review_stars: rating,
+      photo_quality_rating: rating,
+      desc_stars: rating,
+      price_stars: rating,
+      interest_stars: rating,
+      content: review,
+      reviewtitle: reviewTitle
     };
     console.log(formdata, "formdataformdata");
     dispatch(postRating(formdata)).then(response => {
       console.log('res', response.payload);
-      if (response.payload.success) {
+      if (response.payload.success)
+      {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
-      } else {
+      } else
+      {
         toggleModal();
         Alert.alert('Alert', response.payload.message);
       }
@@ -488,7 +467,8 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     let data = new FormData();
     data.append('userID', userID);
     data.append('post_id', post_id);
-    try {
+    try
+    {
       var res = await axios.post(
         'https://surf.topsearchrealty.com/webapi/v1/favorites/addremovefavorite.php',
         data,
@@ -497,12 +477,15 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
       console.log('--ppp', res);
       // console.log('--ppp', typeof res.status);
 
-      if (res.status == 200) {
+      if (res.status == 200)
+      {
         Alert.alert(res.data.message);
-      } else {
+      } else
+      {
         Alert.alert('something went wrong!.');
       }
-    } catch (err) {
+    } catch (err)
+    {
       console.log('err', err);
     }
   };
@@ -514,7 +497,8 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     let data = new FormData();
     data.append('userID', userID);
     data.append('post_id', post_id);
-    try {
+    try
+    {
       var res = await axios.post(
         'https://surf.topsearchrealty.com/webapi/v1/trashlist/addremovetrash.php',
         data,
@@ -522,31 +506,38 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
 
       console.log('--ppp', res.data);
 
-      if (res.status == 200) {
+      if (res.status == 200)
+      {
         console.log('--ppp', res.data);
         Alert.alert(res.data.message);
-      } else {
+      } else
+      {
         Alert.alert('something went wrong!.');
       }
-    } catch (err) {
+    } catch (err)
+    {
       console.log('err', err);
     }
   };
 
   const shareContent = async () => {
-    try {
+    try
+    {
       const result = await Share.share({
         message: 'Check out this awesome app!',
         url: 'https://example.com',
         title: 'My RN App',
       });
-      if (result.action === Share.sharedAction) {
+      if (result.action === Share.sharedAction)
+      {
         console.log('Content shared successfully');
-      } else if (result.action === Share.dismissedAction) {
+      } else if (result.action === Share.dismissedAction)
+      {
         console.log('Share operation dismissed');
       }
-    } catch (error) {
-      console.log(`Error sharing content: ${error.message}`);
+    } catch (error)
+    {
+      console.log(`Error sharing content: ${ error.message }`);
     }
   };
 
@@ -598,7 +589,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             <TouchableOpacity
               onPress={() => {
                 setProductId(item.ID);
-                setReviewTitle(item.title)
+                setReviewTitle(item.title);
                 toggleModal();
               }}>
 
@@ -606,8 +597,10 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                 source={Images.star}
                 style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
             </TouchableOpacity>
-            <Text style={{ fontSize: 14, color: Colors.black,
-               textAlign: 'center', marginLeft: 5,fontFamily:'Poppins-Regular' }}>
+            <Text style={{
+              fontSize: 14, color: Colors.black,
+              textAlign: 'center', marginLeft: 5, fontFamily: 'Poppins-Regular'
+            }}>
               {item.total_average_rating}
             </Text>
           </View>
@@ -620,7 +613,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                 fontSize: 18,
                 color: Colors.primaryBlue,
                 fontWeight: '500',
-                fontFamily:'Poppins-Regular'
+                fontFamily: 'Poppins-Regular'
               }}>
               {item.originallistprice}
             </Text>
@@ -692,7 +685,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       fontWeight: '700',
                       color: Colors.black,
                       marginTop: 10,
-                      fontFamily:'Poppins-Regular'
+                      fontFamily: 'Poppins-Regular'
                     }}>
                     Rate and Review
                   </Text>
@@ -712,7 +705,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       width: 20,
                       resizeMode: 'contain',
                       tintColor: Colors.black,
-                      transform: [{ rotate: '45deg' }],
+                      transform: [ { rotate: '45deg' } ],
                     }}
                     source={Images.plus}></Image>
                 </TouchableOpacity>
@@ -734,8 +727,10 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       alignItems: 'center',
                       marginTop: 10,
                     }}>
-                    <Text style={{ fontSize: 12, 
-                      color: Colors.black,fontFamily:'Poppins-Regular' }}>
+                    <Text style={{
+                      fontSize: 12,
+                      color: Colors.black, fontFamily: 'Poppins-Regular'
+                    }}>
                       Photos Quality Rating :
                     </Text>
                     <Rating
@@ -759,7 +754,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                     }}>
-                    <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
+                    <Text style={{ fontSize: 12, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
                       Description & Details :
                     </Text>
                     <Rating
@@ -782,7 +777,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                     }}>
-                    <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
+                    <Text style={{ fontSize: 12, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
                       Price Of Property :
                     </Text>
                     <Rating
@@ -806,7 +801,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                     }}>
-                    <Text style={{ fontSize: 12, color: Colors.black,fontFamily:'Poppins-Regular' }}>
+                    <Text style={{ fontSize: 12, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
                       General Interest in the property :
                     </Text>
                     <Rating
@@ -823,7 +818,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   </View>
                 </View>
 
-
+             
                 <View style={{ height: 20 }}></View>
                 <View style={{ width: '95%', alignSelf: 'center' }}>
                   <Text
@@ -831,7 +826,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                       fontSize: 12,
                       color: Colors.black,
                       marginTop: 12,
-                      fontFamily:'Poppins-Regular'
+                      fontFamily: 'Poppins-Regular'
                     }}>
                     Review
                   </Text>
@@ -854,10 +849,10 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                         borderColor: Colors.gray,
                         fontSize: 14,
                         // padding: 2,
-                        alignItems:"flex-start",
-                        alignSelf:"flex-start",
-                        verticalAlign:"top",
-                        fontFamily:'Poppins-Regular'
+                        alignItems: "flex-start",
+                        alignSelf: "flex-start",
+                        verticalAlign: "top",
+                        fontFamily: 'Poppins-Regular'
                       }}
                       //keyboardType="default"
                       autoCorrect={false}
@@ -900,7 +895,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                         fontSize: 14,
                         fontWeight: '700',
                         color: Colors.white,
-                        fontFamily:'Poppins-Regular'
+                        fontFamily: 'Poppins-Regular'
                       }}>
                       Submit
                     </Text>
@@ -917,11 +912,13 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             justifyContent: 'space-between',
           }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('ViewPropertiy', { data: item, postid:item.ID })}
+            onPress={() => navigation.navigate('ViewPropertiy', { item })}
             style={{ width: '98%', alignSelf: 'center', justifyContent: 'center' }}>
             <Text
-              style={{ fontSize: 16, color: Colors.black, 
-              textAlign: 'center',fontFamily:'Poppins-Regular' }}>
+              style={{
+                fontSize: 16, color: Colors.black,
+                textAlign: 'center', fontFamily: 'Poppins-Regular'
+              }}>
               {item.title}
             </Text>
           </TouchableOpacity>
@@ -949,7 +946,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   fontSize: 16,
                   color: Colors.black,
                   textAlign: 'center',
-                  fontFamily:'Poppins-Regular'
+                  fontFamily: 'Poppins-Regular'
                 }}>
                 {item.property_bedrooms} {'Beds'}
               </Text>
@@ -969,7 +966,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   fontSize: 16,
                   color: Colors.black,
                   textAlign: 'center',
-                  fontFamily:'Poppins-Regular'
+                  fontFamily: 'Poppins-Regular'
                 }}>
                 {item.bathroomsfull} {'Baths'}
               </Text>
@@ -989,7 +986,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   fontSize: 16,
                   color: Colors.black,
                   textAlign: 'center',
-                  fontFamily:'Poppins-Regular'
+                  fontFamily: 'Poppins-Regular'
                 }}>
                 {item.property_size}{'sq ft'}
               </Text>
@@ -1019,7 +1016,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   color: Colors.black,
                   marginTop: 6,
                   textAlign: 'center',
-                  fontFamily:'Poppins-Regular'
+                  fontFamily: 'Poppins-Regular'
                 }}>
                 {'$'}{item.associationfee == null ? 0 : item.associationfee}
               </Text>
@@ -1039,7 +1036,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
                   fontSize: 16,
                   color: Colors.black,
                   textAlign: 'center',
-                  fontFamily:'Poppins-Regular'
+                  fontFamily: 'Poppins-Regular'
                 }}>
                 {'$'}{item.taxannualamount == null ? 0 : item.taxannualamount}
               </Text>

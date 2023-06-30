@@ -40,7 +40,8 @@ const ViewPropertiyImage = props => {
   const [index, setIndex] = useState(0);
   const flatListRef = useRef(null);
   const postID = props.route.params
-  console.log(postID.data.ID, "ViewPropertiyImage Props");
+  console.log(postID, "ViewPropertiyImage Props");
+
 
   useEffect(() => {
     getPopertiesDetailsApiCall();
@@ -64,7 +65,7 @@ const ViewPropertiyImage = props => {
   }, []);
   const getPopertiesDetailsApiCall = () => {
     console.log("data", postID)
-    dispatch(getPopertiesDetails(postID.data.ID)).then(response => {
+    dispatch(getPopertiesDetails(postID)).then(response => {
       console.log("api response ViewPropertiyImage", response.payload.data[0])
       if (response.payload.data == null) {
         console.log("hello world")
@@ -98,7 +99,7 @@ const ViewPropertiyImage = props => {
           onLoad={console.log("loaded")}
         />
       </View>
-          {postID.data.property_gallery && postID.data.property_gallery.length > 0 ? (
+          {/* {postID.data.property_gallery && postID.data.property_gallery.length > 0 ? (
             postID.data.property_gallery.map((image, index) => (
               <TouchableOpacity
                 key={index}
@@ -115,7 +116,7 @@ const ViewPropertiyImage = props => {
             ))
           ) : (
             <Text>No images found.</Text>
-          )}
+          )} */}
      
         </ScrollView>
         <View
