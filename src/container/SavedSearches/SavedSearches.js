@@ -10,7 +10,8 @@ import {
   TextInput,
   FlatList,
   Alert,
-  Keyboard
+  Keyboard,
+  RefreshControl
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
@@ -28,16 +29,18 @@ const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
 
-const MyFavorites = ({navigation}) => {
+const MyFavorites = ({ navigation }) => {
   const dispatch = useDispatch();
+  const [apiResponse, setApiResponse] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [adress, setAddres] = useState('');
+  const [address, setAddress] = useState('');
   const [images, setImages] = useState([]);
   const [editing, setEditing] = useState(false);
-  const [updatedParameter, setUpdatedParameter] = useState('');
-  const [editData, setEditData] = useState(null);
-  const inputRef = useRef(null);
+  const [editingItemId, setEditingItemId] = useState(null);
+  const [updatedParameters, setUpdatedParameters] = useState({});
   const flatListRef = useRef(null);
+  const [showNoDataMessage, setShowNoDataMessage] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     getSavedApiCall();
@@ -46,7 +49,11 @@ const MyFavorites = ({navigation}) => {
   const getSavedApiCall = () => {
     dispatch(getSavedSearch()).then(response => {
       console.log('res', response.payload);
-      setImages(response.payload.data);
+      if (response.payload.data === 'Record not found!') {
+        setShowNoDataMessage(true);
+      } else {
+        setImages(response.payload.data);
+      }
     });
   };
 
@@ -73,60 +80,91 @@ const MyFavorites = ({navigation}) => {
     });
   };
 
-  const handleChangeText = (itemId, text) => {
-    const updatedList = images.map(item => {
-      if (item.ID === itemId) {
-        setUpdatedParameter(text);
-        return {
-          ...item,
-          search_parameters: text,
-        };
-      }
-      return item;
-    });
-    setImages(updatedList);
+  const handleChangeText = (itemId, parameterIndex, text) => {
+    setUpdatedParameters(prevState => ({
+      ...prevState,
+      [itemId]: {
+        ...prevState[itemId],
+        [parameterIndex]: text,
+      },
+    }));
   };
-  const handleEditPress = (item) => {
-    setEditing(true);
-    setUpdatedParameter(item.search_parameters);
-    inputRef.current.focus();
+
+  const handleEditPress = item => {
+    const parameters = item.search_parameters.split(',');
+    const updatedParametersObj = {};
+    parameters.forEach((parameter, index) => {
+      updatedParametersObj[index] = parameter;
+    });
+
+    setEditingItemId(item.ID);
+    setUpdatedParameters({
+      ...updatedParameters,
+      [item.ID]: updatedParametersObj,
+    });
     Keyboard.dismiss();
   };
 
-  const handleSavePress = (item) => {
-    setEditing(false);
+  const handleSavePress = item => {
+    const updatedParameterArr = Object.values(updatedParameters[item.ID]);
+    const updatedParameter = updatedParameterArr.join(',');
+
+    setEditingItemId(null);
     editSearchApiCall(item.UserID, item.ID, updatedParameter);
   };
 
+  const handleRefresh = () => {
+    setRefreshing(true);
+    getSavedApiCall();
+    setRefreshing(false);
+  };
+
   const renderItem = ({ item, index }) => {
+    const isEditing = item.ID === editingItemId;
+    const parameters = item.search_parameters.split(',');
+
     return (
       <View style={styles.slideOuter}>
         <View style={{ width: '100%', alignItems: 'center' }}>
-
           <View style={{ height: 170, width: '90%', alignSelf: 'center', marginTop: 3 }}>
-          <View>
-  {item.propertycity && (
-    <Text style={{ fontSize: 20, color: Colors.textColorLight, fontFamily: 'Poppins-Regular' }}>City:</Text>
-  )}
-  {item.propertycity && (
-    <Text style={{ fontSize: 20, fontWeight: '500', color: Colors.textColorDark, fontFamily: 'Poppins-Regular' }}>
-      {item.propertycity}
-    </Text>
-  )}
-</View>
-            <Text style={{ fontSize: 20, marginTop: 10, color: Colors.textColorLight , fontFamily:'Poppins-Regular'}}> Parameters: </Text>
+            <View>
+              {item.propertycity && (
+                <Text style={{ fontSize: 20, color: Colors.textColorLight, fontFamily: 'Poppins-Regular' }}>
+                  City:
+                </Text>
+              )}
+              {item.propertycity && (
+                <Text
+                  style={{ fontSize: 20, fontWeight: '500', color: Colors.textColorDark, fontFamily: 'Poppins-Regular' }}>
+                  {item.propertycity}
+                </Text>
+              )}
+            </View>
+            <Text style={{ fontSize: 20, marginTop: 10, color: Colors.textColorLight, fontFamily: 'Poppins-Regular' }}>
+              Parameters:
+            </Text>
 
-            <TextInput
-              ref={inputRef}
-              value={item.search_parameters}
-              style={{ color: 'black' }}
-              onChangeText={text => {
-                handleChangeText(item.ID, text);
-              }}
-              editable={editing}
-            />
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '60%', alignSelf: 'flex-end', marginTop: 10 }}>
-            {editing ? (
+            {parameters.map((parameter, parameterIndex) => (
+              <TextInput
+                key={parameterIndex.toString()}
+                value={updatedParameters[item.ID]?.[parameterIndex] ?? parameter}
+                style={{ color: 'black' }}
+                onChangeText={text => {
+                  handleChangeText(item.ID, parameterIndex, text);
+                }}
+                editable={isEditing}
+              />
+            ))}
+
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                width: '60%',
+                alignSelf: 'flex-end',
+                marginTop: 10,
+              }}>
+              {isEditing ? (
                 <TouchableOpacity
                   onPress={() => handleSavePress(item)}
                   style={{
@@ -136,9 +174,10 @@ const MyFavorites = ({navigation}) => {
                     backgroundColor: 'green',
                     justifyContent: 'center',
                     alignItems: 'center',
-                  }}
-                >
-                  <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white, fontFamily:'Poppins-Regular' }}> Save </Text>
+                  }}>
+                  <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white, fontFamily: 'Poppins-Regular' }}>
+                    Save
+                  </Text>
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
@@ -150,9 +189,10 @@ const MyFavorites = ({navigation}) => {
                     backgroundColor: 'green',
                     justifyContent: 'center',
                     alignItems: 'center',
-                  }}
-                >
-                  <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white, fontFamily:'Poppins-Regular' }}> Edit </Text>
+                  }}>
+                  <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white, fontFamily: 'Poppins-Regular' }}>
+                    Edit
+                  </Text>
                 </TouchableOpacity>
               )}
               <TouchableOpacity
@@ -164,9 +204,10 @@ const MyFavorites = ({navigation}) => {
                   backgroundColor: 'red',
                   justifyContent: 'center',
                   alignItems: 'center',
-                }}
-              >
-                <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white, fontFamily:'Poppins-Regular' }}> Delete </Text>
+                }}>
+                <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white, fontFamily: 'Poppins-Regular' }}>
+                  Delete
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -178,31 +219,40 @@ const MyFavorites = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-    
-    <View
+      <View
         style={{
-          marginTop:8,
+          marginTop: 8,
           flexDirection: 'row',
           justifyContent: 'space-around',
-          width:'90%',
-          marginLeft:70,
-          marginBottom:20
-       
+          width: '90%',
+          marginLeft: 20,
         }}>
-        <Text style={{ fontSize: 20, color: Colors.black, fontFamily:'Poppins-Regular' }}>Saved Searches</Text>
-        <TouchableOpacity
-            onPress={() => navigation.goBack()}
+        
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text
             style={{
-            alignItems:'center',
-      
-            justifyContent:'center',
-              height: 30,
-              width: 30,
-              borderRadius: 15,
-              backgroundColor: Colors.gray,
+              fontSize: 24,
+              // fontWeight: 'bold',
+              color: Colors.textColorDark,
+              fontFamily: 'Poppins-Regular',
             }}>
-            <Image
-              source={Images.close}
+            My Favorites
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={{ justifyContent: 'center',
+          alignItems: 'center',
+          height: 30,
+          width: 30,
+          borderRadius: 15,
+          backgroundColor: Colors.gray,}}
+          onPress={() => navigation.goBack()}>
+          <Image    source={Images.close}
               style={{
                 height: 15,
                 width: 15,
@@ -210,19 +260,42 @@ const MyFavorites = ({navigation}) => {
                 tintColor: Colors.black,
                 transform: [{rotate: '90deg'}],
               }}></Image>
-          </TouchableOpacity>
+        </TouchableOpacity>
       </View>
-      <View style={{ height: '100%', width: '100%', backgroundColor: Colors.white }}>
-        <FlatList  ref={flatListRef}
-        data={images}
-         renderItem={renderItem} 
-         keyExtractor={(item, index) => index.toString()}
-         contentContainerStyle={{ paddingBottom: 20 }}
-         ListFooterComponent={<View style={{ height: 60 }}></View>} />
-      </View>
+      {showNoDataMessage ? (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: '500',
+              color: Colors.textColorDark,
+              fontFamily: 'Poppins-Regular',
+            }}>
+            No saved searches found!
+          </Text>
+        </View>
+      ) : (
+        <FlatList
+          ref={flatListRef}
+          style={{ flex: 1 }}
+          contentContainerStyle={{ paddingBottom: 20 }}
+          data={images}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} colors={[Colors.primary]} />
+          }
+        />
+      )}
     </SafeAreaView>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -259,7 +332,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
-    fontFamily:'Poppins-Regular'
+    fontFamily: 'Poppins-Regular',
   },
   pagination: {
     position: 'absolute',

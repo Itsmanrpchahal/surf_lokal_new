@@ -4,10 +4,13 @@ import { View, Text, TouchableOpacity, Image, StyleSheet, TextInput, Button,Link
 import Colors from '../../utils/Colors';
 import Images from '../../utils/Images';
 import axios from 'axios';
+import { useRoute } from '@react-navigation/native';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 
-const ChatSearch = (props) => {
-  const data = props.route.params;
+const ChatSearch = () => {
+  const route = useRoute();
+  const agentData = route.params?.agentData;
+  console.log(agentData)
   const [message, setMessage] = useState('');
   const [chatData, setchatData] = useState([]);
   const [ans, setans] = useState([])
@@ -34,7 +37,7 @@ const ChatSearch = (props) => {
   }, [ans]);
 
   const makePhoneCall = () => {
-    let phoneNumber = '512458790';
+    let phoneNumber = agentData?.agent_phone
     Linking.openURL(`tel:${phoneNumber}`);
   };
   return (

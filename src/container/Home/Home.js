@@ -135,7 +135,7 @@ const Home = () => {
 
     return (
 
-      <View style={{}}>
+      <View style={{ }}>
         <TouchableOpacity onPress={() => setSelectedItem(item.counter_id)}>
           <View
             style={{
@@ -288,7 +288,7 @@ const Home = () => {
         // extraData={selectedItem}
         />
       </View>
-      <View style={{ height: Platform.OS == 'android' ? '74%' : '84%' }}>
+      <View style={{ height: Platform.OS == 'android' ? '94%' : '84%' }}>
         {/* <AppIntroSlider
           renderItem={({ item }) => <Item item={item} />}
           showNextButton={false}
@@ -658,15 +658,16 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             </Animated.View>
           </Animated.View> */}
         </TouchableOpacity>
+ 
         <View
           style={{
             flexDirection: 'row',
             alignSelf: 'flex-end',
-            width: '90%',
-
+            width: '100%',
+         
             height: '10%',
             marginTop: Platform.OS == 'android' ? -10 : 0,
-            marginRight: 20,
+      
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
@@ -998,11 +999,11 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
 
         <View
           style={{
-
+            backgroundColor:'#fff',
             justifyContent: 'space-between',
           }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('ViewPropertiy', { data: item, postid: item.ID })}
+            onPress={() => navigation.navigate('ViewPropertiy', { item})}
             style={{ width: '98%', alignSelf: 'center', justifyContent: 'center' }}>
             <Text
               style={{
@@ -1017,8 +1018,9 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
           style={{
             flexDirection: 'row',
             width: '90%',
-            height: '5%',
-            marginTop: 30,
+            height: '12%',
+            marginTop: 10,
+            backgroundColor:'#fff',
             alignSelf: 'center',
             justifyContent: 'space-between',
           }}>
@@ -1133,7 +1135,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             </View>
           ) : null}
         </View>
-
+        </View>
         <View style={{
           width: '100%',
           // marginHorizontal:20,
@@ -1161,7 +1163,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
             </View>
           )}
         </View>
-      </View>
+     
     </ScrollView>
 
   );
@@ -1192,8 +1194,7 @@ const styles = StyleSheet.create({
   slideOuter: {
     width: screenWidth,
     height: 300,
-    justifyContent: 'center',
-    alignItems: 'center',
+ 
   },
   // slide: {
   //   width: screenWidth - 20,
@@ -1205,7 +1206,9 @@ const styles = StyleSheet.create({
   // },
   viewmain: { height: 300, marginBottom: 20, },
   innerviewmain: { height: 300, marginBottom: 20, },
-  slide: { height: 300, marginBottom: 20, borderRadius: 20, marginHorizontal: 12, marginTop: 20 },
+  slide: { height: 300,
+     marginBottom: 20,
+      borderRadius: 20, marginHorizontal: 12, marginTop: 20 },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
