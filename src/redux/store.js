@@ -21,6 +21,8 @@ import getNearByReducer from '../modules/getNearBy';
 import editSearchReducer from '../modules/editSearch';
 import chatGptReducer from '../modules/chatgpt';
 import makeOfferReducer from '../modules/makeOffer';
+import addFavoriteReducer from "../modules/addFavorite"
+import addRemoveTrash from '../modules/addRemoveTrash';
 export const store = configureStore({
   reducer: {
     loginUser: loginUserReducer,
@@ -45,6 +47,8 @@ export const store = configureStore({
     googleUser: googleUserReducer,
     chatGpt:chatGptReducer,
     makeOffer:makeOfferReducer,    
+    addFavorite :addFavoriteReducer,
+    addRemoveTrash:addRemoveTrash
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

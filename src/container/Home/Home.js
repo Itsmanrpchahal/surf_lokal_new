@@ -87,7 +87,12 @@ const Home = () => {
       setHomeData(response.payload.data);
     });
   };
-
+const getAllRating=()=>{
+   dispatch(getSearch(adress)).then(response => {
+      console.log('res', response.payload);
+      setHomeData(response.payload.data);
+    });
+}
 
   const handleSlideChange = event => {
     const slideWidth = event.nativeEvent.layoutMeasurement.width;
@@ -110,9 +115,12 @@ const Home = () => {
               alignItems: 'center',
               marginLeft: 20,
               marginRight: 20,
+              // height:80
+              // marginHorizontal:10,
+              // marginVertical:10
             }}>
             <SvgUri
-              style={{ height: 25, width: 25, resizeMode: 'contain' }}
+              style={{ height: 19, width: 19, resizeMode: 'contain' }}
               uri={item.term_icon_url}
             />
             <Text
@@ -374,13 +382,12 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     getRatingApiCall();
   }, []);
   const getRatingApiCall = () => {
-    dispatch(getRating()).then(response => {
-      console.log('getRatingData', response.payload);
+    dispatch(getRating(item.ID)).then(response => {
+      console.log('getRatingData', response);
       setRating(response.payload.data[ 0 ]?.photo_wuality_rating);
       setRating(response.payload.data[ 0 ]?.description_review_stars);
       setRating(response.payload.data[ 0 ]?.price_review_stars);
       setRating(response.payload.data[ 0 ]?.interest_review_stars);
-      console.log();
     });
   };
   const renderNextButton = () => {
@@ -459,7 +466,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     });
   };
 
-  const saveFile = async post_id => {
+  const saveFile = async (post_id) => {
     const userID = await AsyncStorage.getItem('userId');
     const headers = {
       'Content-Type': 'application/json',
@@ -467,6 +474,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     let data = new FormData();
     data.append('userID', userID);
     data.append('post_id', post_id);
+    console.log(data, "Fav datata")
     try
     {
       var res = await axios.post(
@@ -475,10 +483,10 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
       );
 
       console.log('--ppp', res);
-      // console.log('--ppp', typeof res.status);
-
+      console.log('--ppp', typeof res.status);
       if (res.status == 200)
       {
+        console.log('--ppp  res.data', res.data);
         Alert.alert(res.data.message);
       } else
       {
@@ -497,6 +505,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     let data = new FormData();
     data.append('userID', userID);
     data.append('post_id', post_id);
+    console.log(data, "trash datata")
     try
     {
       var res = await axios.post(
@@ -508,7 +517,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
 
       if (res.status == 200)
       {
-        console.log('--ppp', res.data);
+        console.log('--ppp  res.data', res.data);
         Alert.alert(res.data.message);
       } else
       {
