@@ -16,7 +16,8 @@ import {
   KeyboardAvoidingView,
   Alert,
   Button,
-  ActivityIndicator
+  ActivityIndicator,
+  useWindowDimensions
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
@@ -196,12 +197,10 @@ const ViewPropertiy = (props, imageUrl) => {
     console.log(formdata, "formdataformdata");
     dispatch(postRating(formdata)).then(response => {
       console.log('res', response.payload);
-      if (response.payload.success)
-      {
+      if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
-      } else
-      {
+      } else {
         toggleModal();
         Alert.alert('Alert', response.payload.message);
       }
@@ -294,7 +293,7 @@ const ViewPropertiy = (props, imageUrl) => {
     return (
       <>
         <View style={{ height: 800, width: "100%" }}>
-          <View style={{marginHorizontal:10}}>
+          <View style={{ marginHorizontal: 10 }}>
           <Text style={styles.property}>Address</Text>
               <Text style={styles.props}>Address {property?.address.property_address.address}</Text>
               <Text style={styles.props}>Area: {property?.address.property_address.area}</Text>
@@ -455,7 +454,7 @@ const ViewPropertiy = (props, imageUrl) => {
               ]}
               {...panResponder.panHandlers}
             >
-              <TouchableOpacity onPress={() => navigation.navigate('ViewPropertiyImage', {postid:postid.item.ID})} >
+              <TouchableOpacity onPress={() => navigation.navigate('ViewPropertiyImage', { postid: postid.item.ID })} >
                 <Image
                   source={{ uri: property?.property_featured[0] }} style={styles.slide} />
               </TouchableOpacity>
@@ -472,7 +471,7 @@ const ViewPropertiy = (props, imageUrl) => {
               <View style={styles.imgview}>
                 <View style={styles.imgg}>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate('ViewPropertiyImage', {postid:postid.item.ID})}>
+                <TouchableOpacity onPress={() => navigation.navigate('ViewPropertiyImage', { postid: postid.item.ID })}>
                   <Image source={Images.imageView} style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
                 </TouchableOpacity>
               </View>
@@ -545,12 +544,16 @@ const ViewPropertiy = (props, imageUrl) => {
               </Text>
             </View>
 
+            <ScrollView horizontal={true} scrollEnabled={true}>
+
+
             <View
               style={{
                 flexDirection: 'row',
                 width: '90%',
                 marginTop: 10,
-                justifyContent: 'space-between',
+                marginLeft:12
+                  // justifyContent: 'space-between',
               }}>
               {property?.bedrooms != '' ? (
                 <View
@@ -558,6 +561,8 @@ const ViewPropertiy = (props, imageUrl) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     flexDirection: 'row',
+                      marginRight: 12,
+                      paddingRight: 12,
                   }}>
                   <Image
                     source={Images.bed}
@@ -583,6 +588,8 @@ const ViewPropertiy = (props, imageUrl) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     flexDirection: 'row',
+                      marginRight: 12,
+                      paddingRight: 12,
                   }}>
                   <Image
                     source={Images.bath}
@@ -608,6 +615,8 @@ const ViewPropertiy = (props, imageUrl) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     flexDirection: 'row',
+                      marginRight: 12,
+                      paddingRight: 12,
                   }}>
                   <Image
                     source={Images.measuring}
@@ -632,7 +641,8 @@ const ViewPropertiy = (props, imageUrl) => {
                   style={{
                     justifyContent: 'center',
                     alignItems: 'center',
-
+                      marginRight: 12,
+                      paddingRight: 12,
                     flexDirection: 'row',
                   }}>
                   <Text style={{ color: "black", fontSize: 13 }}>HOA</Text>
@@ -647,7 +657,38 @@ const ViewPropertiy = (props, imageUrl) => {
                   </Text>
                 </View>
               ) : null}
+                {property?.yearbuilt != '' ? (
+                  <View
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginRight: 12,
+                      paddingRight: 12,
+                      flexDirection: 'row',
+                    }}>
+                    <Image
+                      source={Images.calendar}
+                      style={{
+                        height: 25,
+                        width: 25,
+                        resizeMode: 'contain',
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        color: Colors.black,
+                        textAlign: 'center',
+                        marginLeft: 5,
+                      }}>
+                      {property?.yearbuilt == null ? 0 : property?.yearbuilt}
+                    </Text>
             </View>
+                ) : null}
+
+
+          </View>
+            </ScrollView>
+
           </View>
 
 
@@ -1198,7 +1239,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray,
   },
   slideOuter: {
-    width: screenWidth,
+    width: '100%',
     justifyContent: 'center',
 
     alignItems: 'center',
@@ -1229,7 +1270,7 @@ const styles = StyleSheet.create({
   },
   imgview: {
     flexDirection: 'row',
-    width: '90%',
+    width: screenWidth,
     position: 'absolute',
     bottom: 5,
     justifyContent: 'space-between',
@@ -1237,7 +1278,7 @@ const styles = StyleSheet.create({
   },
   slide: {
     width: screenWidth,
-    height: screenHeight / 4,
+    height: screenHeight / 3,
     borderRadius: 8,
     alignSelf: 'center',
     justifyContent: 'space-between',

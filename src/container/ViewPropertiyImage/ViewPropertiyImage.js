@@ -9,7 +9,8 @@ import {
   ScrollView,
   Alert,
   Dimensions,
-
+  Linking,
+  ActivityIndicator
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
@@ -32,7 +33,8 @@ const ViewPropertiyImage = props => {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
-  const [Data, setData] = useState([]);
+  const [data, setData] = useState([]);
+
   const [video, setvideo] = useState([]);
   const [orientation, setOrientation] = useState('portrait');
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -40,8 +42,15 @@ const ViewPropertiyImage = props => {
   const [index, setIndex] = useState(0);
   const flatListRef = useRef(null);
   const postID = props.route.params
-  console.log(postID, "ViewPropertiyImage Props");
+  console.log(postID.postid, "ViewPropertiyImage Props");
+  const property = data[0];
+  console.log(property, "ViewPropertiyImage dataa");
 
+
+  const makePhoneCall = () => {
+    let phoneNumber = '512458790';
+    Linking.openURL(`tel:${phoneNumber}`);
+  };
 
   useEffect(() => {
     getPopertiesDetailsApiCall();
@@ -60,25 +69,16 @@ const ViewPropertiyImage = props => {
 
     // Clean up the event listener when the component unmounts
     return () => {
-      // Dimensions.removeEventListener('change', handleChangeOrientation);
+      Dimensions.removeEventListener('change', handleChangeOrientation);
     };
   }, []);
   const getPopertiesDetailsApiCall = () => {
-    console.log("data", postID)
-    dispatch(getPopertiesDetails(postID)).then(response => {
-      console.log("api response ViewPropertiyImage", response.payload.data[0])
-      if (response.payload.data == null) {
-        console.log("hello world")
-        setLoading(true);
-      }
-      else {
-        setLoading(false)
-      }
-      setData(response.payload.data[0].property_gallery );
-      console.log(Data, "image full data");
-      //   const mapp =data.map((item) => item.property_category);
-      // console.log(mapp, "calculator")
-
+    setLoading(true);
+    dispatch(getPopertiesDetails(postID.postid)).then(response => {
+      console.log("ViewPropertiyImage Response", response)
+      setLoading(false);
+      setData(response.payload.data);
+      console.log(data, "dddddddddddddddddddddd");
     });
   };
   const handleChangeOrientation = () => {
@@ -86,21 +86,27 @@ const ViewPropertiyImage = props => {
   };
 
   const navigation = useNavigation();
-
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="gray" />
+      </View>
+    );
+  }
   return (
     <SafeAreaView style={styles.container}>
-         
+
       <View style={{ height: '88%', width: '100%' }}>
         <ScrollView>
         <View style={{ height: 200, width: "100%", }}>
         <WebView
         style={{height:400,width:"100%",}}
-          source={{ uri: Data?.property_video}}
-          onLoad={console.log("loaded")}
+          source={{ uri: property?.property_gallery.property_video}}
+          // onLoad={console.log("loaded")}
         />
       </View>
-          {/* {postID.data.property_gallery && postID.data.property_gallery.length > 0 ? (
-            postID.data.property_gallery.map((image, index) => (
+          {property?.property_gallery.Gallery && property?.property_gallery.Gallery.length > 0 ? (
+            property?.property_gallery.Gallery.map((image, index) => (
               <TouchableOpacity
                 key={index}
                 onPress={() =>
@@ -116,7 +122,7 @@ const ViewPropertiyImage = props => {
             ))
           ) : (
             <Text>No images found.</Text>
-          )} */}
+          )}
      
         </ScrollView>
         <View
@@ -204,6 +210,7 @@ const ViewPropertiyImage = props => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
+              <TouchableOpacity onPress={()=>{makePhoneCall}}>
             <Image
               source={Images.contactUs}
               style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
@@ -217,6 +224,7 @@ const ViewPropertiyImage = props => {
               }}>
               Call us
             </Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View
@@ -263,14 +271,14 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   slideOuter: {
-    width: screenWidth,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 5,
   },
   slide: {
     width: screenWidth,
-    height: screenHeight / 4,
+    height: screenHeight / 2.5,
     borderRadius: 8,
     alignSelf: 'center',
     justifyContent: 'space-between',
@@ -310,6 +318,12 @@ const styles = StyleSheet.create({
   //fliter
   filter: {
     height: 60,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: "yellow"
   },
 });
 
