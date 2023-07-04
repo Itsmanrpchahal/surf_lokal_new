@@ -99,7 +99,7 @@ const ContactMyAgent = () => {
         'https://surf.topsearchrealty.com/webapi/v1/agent/?userID='+id
       );
       if (response.data.success) {
-        const agentData = response.data.data[0][0];
+        const agentData = response.data.data[0];
         console.log('Agent Data:', agentData);
         setAgentData(agentData);
       }

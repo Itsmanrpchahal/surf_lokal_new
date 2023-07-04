@@ -9,6 +9,7 @@ import {
   ScrollView,
   Alert,
   Dimensions,
+  Linking,
   ActivityIndicator
 } from 'react-native';
 import 'react-native-gesture-handler';
@@ -45,6 +46,12 @@ const ViewPropertiyImage = props => {
   const property = data[0];
   console.log(property, "ViewPropertiyImage dataa");
 
+
+  const makePhoneCall = () => {
+    let phoneNumber = '512458790';
+    Linking.openURL(`tel:${phoneNumber}`);
+  };
+
   useEffect(() => {
     getPopertiesDetailsApiCall();
 
@@ -62,7 +69,7 @@ const ViewPropertiyImage = props => {
 
     // Clean up the event listener when the component unmounts
     return () => {
-      // Dimensions.removeEventListener('change', handleChangeOrientation);
+      Dimensions.removeEventListener('change', handleChangeOrientation);
     };
   }, []);
   const getPopertiesDetailsApiCall = () => {
@@ -88,14 +95,14 @@ const ViewPropertiyImage = props => {
   }
   return (
     <SafeAreaView style={styles.container}>
-         
+
       <View style={{ height: '88%', width: '100%' }}>
         <ScrollView>
         <View style={{ height: 200, width: "100%", }}>
         <WebView
         style={{height:400,width:"100%",}}
           source={{ uri: property?.property_gallery.property_video}}
-          onLoad={console.log("loaded")}
+          // onLoad={console.log("loaded")}
         />
       </View>
           {property?.property_gallery.Gallery && property?.property_gallery.Gallery.length > 0 ? (
@@ -203,6 +210,7 @@ const ViewPropertiyImage = props => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
+              <TouchableOpacity onPress={()=>{makePhoneCall}}>
             <Image
               source={Images.contactUs}
               style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
@@ -216,6 +224,7 @@ const ViewPropertiyImage = props => {
               }}>
               Call us
             </Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View
@@ -262,14 +271,14 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   slideOuter: {
-    width: screenWidth,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 5,
   },
   slide: {
     width: screenWidth,
-    height: screenHeight / 4,
+    height: screenHeight / 2.5,
     borderRadius: 8,
     alignSelf: 'center',
     justifyContent: 'space-between',
