@@ -70,7 +70,6 @@ const Home = () => {
       console.log('res getPoperties', response.payload);
       setHomeData(response.payload.data);
     });
-    
   };
   const getNearByApiCall = () => {
     setLoading(true);
