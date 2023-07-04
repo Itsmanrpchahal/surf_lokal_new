@@ -36,6 +36,7 @@ import { getFilter } from '../../modules/getFilter';
 import { getNearBy } from '../../modules/getNearBy';
 import { SvgUri } from 'react-native-svg';
 import { Rating } from 'react-native-ratings';
+import addFavorite from '../../modules/addFavorite';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const fontSizeRatio = screenHeight / 1000;
@@ -472,31 +473,34 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     const headers = {
       'Content-Type': 'application/json',
     };
-    let data = new FormData();
-    data.append('userID', userID);
-    data.append('post_id', post_id);
-    console.log(data, "Fav datata")
-    try
-    {
-      var res = await axios.post(
-        'https://surf.topsearchrealty.com/webapi/v1/favorites/addremovefavorite.php',
-        data,
-      );
+   
+    let payload = {
+      userID: userID,
+      post_id: post_id,
+    };
+    console.log(payload, "Fav datata")
+    dispatch(addFavorite(payload))
+    // try
+    // {
+    //   var res = await axios.post(
+    //     'https://surf.topsearchrealty.com/webapi/v1/favorites/addremovefavorite.php',
+    //     data,
+    //   );
 
-      console.log('--ppp', res);
-      console.log('--ppp', typeof res.status);
-      if (res.status == 200)
-      {
-        console.log('--ppp  res.data', res.data);
-        Alert.alert(res.data.message);
-      } else
-      {
-        Alert.alert('something went wrong!.');
-      }
-    } catch (err)
-    {
-      console.log('err', err);
-    }
+    //   console.log('--ppp', res);
+    //   console.log('--ppp', typeof res.status);
+    //   if (res.status == 200)
+    //   {
+    //     console.log('--ppp  res.data', res.data);
+    //     Alert.alert(res.data.message);
+    //   } else
+    //   {
+    //     Alert.alert('something went wrong!.');
+    //   }
+    // } catch (err)
+    // {
+    //   console.log('err', err);
+    // }
   };
   const trashfile = async post_id => {
     const userID = await AsyncStorage.getItem('userId');

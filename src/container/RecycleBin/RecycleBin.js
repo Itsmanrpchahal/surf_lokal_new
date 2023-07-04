@@ -330,7 +330,7 @@ const RecycleBin = () => {
 
   const renderItem = ({item}) => (
     <View style={styles.slideOuter}>
-      <TouchableOpacity onPress={()=>{navigation.navigate('ViewPropertiy',{data:item})}}>
+      <TouchableOpacity onPress={()=>{navigation.navigate('ViewPropertiy',{item})}}>
       <Image source={{uri: item.featured_image_src}} style={styles.slide} />
       </TouchableOpacity>
       
@@ -368,14 +368,14 @@ const RecycleBin = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}></View> */}
-        <TouchableOpacity onPress={() => navigation.navigate('ViewPropertiy')}>
+        <TouchableOpacity onPress={() => navigation.navigate('ViewPropertiy',{item})}>
           <Text
             style={{
               fontSize: 20,
               color: Colors.primaryBlue,
               fontWeight: '500',
             }}>
-            $ {item.originallistprice}
+          {item.property_price}
           </Text>
         </TouchableOpacity>
       
@@ -774,7 +774,7 @@ const RecycleBin = () => {
                 color: Colors.black,
                 textAlign: 'center',
               }}>
-              {'$'}{item.associationfee == null ? 0 : item.associationfee}
+              {item.associationfee == null ? 0 : item.associationfee}
             </Text>
           </View>
         ) : null}
@@ -794,7 +794,7 @@ const RecycleBin = () => {
                   color: Colors.black,
                   textAlign: 'center',
                 }}>
-                  {'$'}{item.taxannualamount == null ? 0 : item.taxannualamount}
+                 {item.taxannualamount == null ? 0 : item.taxannualamount}
               </Text>
             </View>
           ) : null}
@@ -854,14 +854,14 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   slideOuter: {
-    width: screenWidth,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 18,
   },
   slide: {
-    width: screenWidth - 40,
-    height: screenHeight / 4,
+    width: screenWidth ,
+    height: screenHeight / 3,
     borderRadius: 18,
     margin: 20,
   },

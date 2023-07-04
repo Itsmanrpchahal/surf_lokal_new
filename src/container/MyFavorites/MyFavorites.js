@@ -31,6 +31,9 @@ const screenWidth = Dimensions.get('window').width;
 import {Rating, AirbnbRating} from 'react-native-ratings';
 import AsyncStorage from '@react-native-community/async-storage';
 import { postRating } from '../../modules/postRating';
+// import { getAgent } from '../../modules/getAgent';
+
+
 
 const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
@@ -83,6 +86,7 @@ const MyFavorites = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     getFavoritePropertiesApiCall();
+    // getAgentApicall();
   }, []);
   const getFavoritePropertiesApiCall = () => {
     dispatch(getFavoriteProperties()).then(response => {
@@ -90,6 +94,14 @@ const MyFavorites = () => {
       setHomeData(response.payload.data);
     });
   };
+
+  const getAgentApicall=()=>{
+    dispatch(getAgent()).then(response=>{
+      console.log('Rohan',response.payload)
+      setHomeData(response.payload.data)
+
+    })
+  }
   // useEffect(() => {
   //   Orientation.lockToPortrait();
   //   return () => {
@@ -138,7 +150,7 @@ const MyFavorites = () => {
         keyExtractor={item => item.id}
       /> */}
       <TouchableOpacity
-        onPress={() => navigation.navigate('ViewPropertiy', {data:item})}>
+        onPress={() => navigation.navigate('ViewPropertiy', {item})}>
         <Image source={{uri: item?.featured_image_src}} style={styles.slide} />
       </TouchableOpacity>
 
@@ -159,7 +171,7 @@ const MyFavorites = () => {
             fontSize: 18,
             color: Colors.black,
           }}>
-          {'RX -'} {item?.ListingKey}
+         {item?.ListingKey}
         </Text>
       </View>
       <View
@@ -196,8 +208,8 @@ const MyFavorites = () => {
               color: Colors.primaryBlue,
               fontWeight: '500',
             }}>
-            {'$'}
-            {item.originallistprice}
+          
+            {item.property_price}
           </Text>
         </TouchableOpacity>
 
@@ -505,7 +517,7 @@ const MyFavorites = () => {
   </View>
 </Modal>
 </KeyboardAvoidingView>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => navigation.navigate('ViewPropertiy')}
         style={{
           width: '95%',
@@ -516,7 +528,7 @@ const MyFavorites = () => {
         <Text style={{fontSize: 16, color: Colors.black, textAlign: 'center'}}>
           {item.Title}
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <View
         style={{
@@ -604,7 +616,7 @@ const MyFavorites = () => {
                 color: Colors.black,
                 textAlign: 'center',
               }}>
-              {'$'}{item.associationfee == null ? 0 : item.associationfee}
+              {item.associationfee == null ? 0 : item.associationfee}
             </Text>
           </View>
         ) : null}
@@ -624,7 +636,7 @@ const MyFavorites = () => {
                   color: Colors.black,
                   textAlign: 'center',
                 }}>
-                  {'$'}{item.taxannualamount == null ? 0 : item.taxannualamount}
+                  {item.taxannualamount == null ? 0 : item.taxannualamount}
               </Text>
             </View>
           ) : null}
@@ -685,14 +697,14 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   slideOuter: {
-    width: screenWidth,
+    width: "100%",
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 18,
   },
   slide: {
-    width: screenWidth - 40,
-    height: screenHeight / 4,
+    width: screenWidth ,
+    height: screenHeight / 3,
     borderRadius: 18,
     margin: 20,
   },
