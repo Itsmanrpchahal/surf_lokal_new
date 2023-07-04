@@ -230,7 +230,7 @@ const ContactMyAgent = () => {
         </TouchableOpacity>
 
         <Text style={{ fontSize: 24, color: Colors.black, marginLeft: 10 ,fontFamily:'Poppins-Regular'}}>
-          {agentData?.agent_title} {agentData?.last_name}
+        {agentData ? `${agentData?.agent_title} ${agentData?.last_name}` : 'No Agent Data'}
         </Text>
       </View>
       <ScrollView style={{ height: '100%', width: '100%' }}>
@@ -505,7 +505,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   slideOuter: {
-    width: screenWidth,
+    width: "100%",
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors,

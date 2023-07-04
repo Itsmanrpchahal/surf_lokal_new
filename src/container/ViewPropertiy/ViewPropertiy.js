@@ -129,6 +129,92 @@ const ViewPropertiy = (props, imageUrl) => {
       });
     });
   };
+  const saveFile = async (post_id) => {
+    const userID = await AsyncStorage.getItem('userId');
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    let payload = {
+      userID: userID,
+      post_id: post_id,
+    };
+    console.log(payload, "Fav datata")
+    // dispatch(addFavorite(payload))
+    try
+    {
+      var res = await axios.post(
+        'https://surf.topsearchrealty.com/webapi/v1/favorites/addremovefavorite.php',
+        payload,
+      );
+
+      console.log('--ppp payload', res);
+      console.log('--ppp', typeof res.status);
+      if (res.status == 200)
+      {
+        console.log('--ppp  res.data', res.data);
+        Alert.alert(res.data.message);
+      } else
+      {
+        Alert.alert('something went wrong!.');
+      }
+    } catch (err)
+    {
+      console.log('err', err);
+    }
+  };
+  const trashfile = async post_id => {
+    const userID = await AsyncStorage.getItem('userId');
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    let payload = {
+      userID: userID,
+      post_id: post_id,
+    };
+    console.log(payload, "trash datata")
+    try
+    {
+      var res = await axios.post(
+        'https://surf.topsearchrealty.com/webapi/v1/trashlist/addremovetrash.php',
+        payload,
+      );
+
+      console.log('--trash payload', res.data);
+
+      if (res.code == 200)
+      {
+        console.log('--ppp  res.data', res.data);
+        Alert.alert(res.data.message);
+      } else
+      {
+        Alert.alert('something went wrong!.');
+      }
+    } catch (err)
+    {
+      console.log('err', err);
+    }
+  };
+
+  const shareContent = async () => {
+    try
+    {
+      const result = await Share.share({
+        message: 'Check out this awesome app!',
+        url: 'https://example.com',
+        title: 'My RN App',
+      });
+      if (result.action === Share.sharedAction)
+      {
+        console.log('Content shared successfully');
+      } else if (result.action === Share.dismissedAction)
+      {
+        console.log('Share operation dismissed');
+      }
+    } catch (error)
+    {
+      console.log(`Error sharing content: ${ error.message }`);
+    }
+  };
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -147,7 +233,7 @@ const ViewPropertiy = (props, imageUrl) => {
       },
       onPanResponderRelease: (_, gesture) => {
         if (gesture.dx > swipeThreshold) {
-          // trashfile(item.ID);
+          trashfile(postid.item.ID);
 
           console.log("trash files")
           // Right swipe, delete action
@@ -156,7 +242,7 @@ const ViewPropertiy = (props, imageUrl) => {
         } else if (gesture.dx < -swipeThreshold) {
           // Left swipe, like action
           // Perform your like logic here
-          // saveFile(item.ID)
+          saveFile(postid.item.ID)
           console.log("save File")
           resetPosition();
         } else {
@@ -456,7 +542,7 @@ const ViewPropertiy = (props, imageUrl) => {
             >
               <TouchableOpacity onPress={() => navigation.navigate('ViewPropertiyImage', { postid: postid.item.ID })} >
                 <Image
-                  source={{ uri: property?.property_featured[0] }} style={styles.slide} />
+                  source={{ uri: property?.featured_image_src }} style={styles.slide} />
               </TouchableOpacity>
               <View style={styles.headerIcon}>
                 <TouchableOpacity
@@ -525,7 +611,7 @@ const ViewPropertiy = (props, imageUrl) => {
                 }}>
                 {property?.price}
               </Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => shareContent()}>
                 <Image
                   source={Images.send}
                   style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
@@ -1241,7 +1327,7 @@ const styles = StyleSheet.create({
   slideOuter: {
     width: '100%',
     justifyContent: 'center',
-
+backgroundColor:"#fff",
     alignItems: 'center',
   },
   imgg: {
@@ -1398,6 +1484,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: "yellow"
+    backgroundColor: "yellow"
   },
 })

@@ -553,7 +553,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular'
   },
   slideOuter: {
-    width: screenWidth,
+    width: "100%",
 
     justifyContent: 'center',
     alignItems: 'center',

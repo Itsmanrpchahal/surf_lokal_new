@@ -241,7 +241,7 @@ const MyFavorites = ({ navigation }) => {
               color: Colors.textColorDark,
               fontFamily: 'Poppins-Regular',
             }}>
-            My Favorites
+            Saved Searches
           </Text>
         </View>
         <TouchableOpacity
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   slideOuter: {
-    width: screenWidth,
+    width: "100%",
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors,
