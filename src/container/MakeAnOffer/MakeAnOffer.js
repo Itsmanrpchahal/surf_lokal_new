@@ -14,7 +14,6 @@ import Images from '../../utils/Images';
 import { useSelector, useDispatch } from 'react-redux';
 import Colors from '../../utils/Colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
-// import Orientation from 'react-native-orientation-locker';
 import Styles from './Styles';
 import { useNavigation } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -22,8 +21,8 @@ import { makeOffer } from '../../modules/makeOffer';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import FormData from 'form-data';
 import { ScrollView } from 'react-native-gesture-handler';
+
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const fontSizeRatio = screenHeight / 1000;
@@ -76,7 +75,6 @@ const MakeAnOffer = () => {
 
   const navigation = useNavigation();
 
-
   const dispatch = useDispatch();
   const [priceOffer, setPriceOffer] = useState('');
   const [cashLoan, setCashLoan] = useState('');
@@ -85,9 +83,6 @@ const MakeAnOffer = () => {
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
-
-
-
   const [closeDate, setCloseDate] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -96,24 +91,25 @@ const MakeAnOffer = () => {
   const [error, setError] = useState(false);
   const [pricerror, setpricerror] = useState(false);
   const [casherror, setcasherror] = useState(false);
-
   const [dateerror, setDateerror] = useState(false);
-
-
   const [nameerror, setnameerror] = useState(false);
   const [currenterror, setcurrenterror] = useState(false);
   const [emailerror, setemailerror] = useState(false);
   const [phoneerror, setphoneerror] = useState(false);
 
-
   const getData = async () => {
     const id = await AsyncStorage.getItem('userId');
     setUserID(id)
-  };
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   const accessRequestAction = () => {
-    makeOfferAPI();
-    navigation.navigate('Tabs', { screen: 'Home' });
+    navigation.navigate('AccessRequest');
   };
+
   const showDatepicker = () => {
     setShowDatePicker(true);
   };
@@ -122,152 +118,153 @@ const MakeAnOffer = () => {
     setShowDatePicker(false);
   };
 
-  const handleDateChange = (event, date) => {
-    if (date) {
-      setSelectedDate(date);
-      setDateerror(false);
-    }
-    hideDatePicker();
+  const handleDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || closeDate;
+    setShowDatePicker(false);
+    setSelectedDate(currentDate);
+    setCloseDate(currentDate);
   };
 
-  useEffect(() => {
-    getData()
-  }, [])
-
-
   const validateInputs = () => {
+    let valid = true;
 
-    if (!address) {
-      setError(true);
-    } else {
-      setError(false);
-    }
-
-    if (!priceOffer) {
+   
+    if (priceOffer === '') {
       setpricerror(true);
-    }
-    else {
+      valid = false;
+    } else {
       setpricerror(false);
     }
 
-    if (!cashLoan) {
+    if (cashLoan === '') {
       setcasherror(true);
-    }
-    else {
+      valid = false;
+    } else {
       setcasherror(false);
     }
-    if (!legalName) {
-      setnameerror(true);
+
+    if (closeDate === '') {
+      setDateerror(true);
+      valid = false;
+    } else {
+      setDateerror(false);
     }
-    else {
+
+    if (legalName === '') {
+      setnameerror(true);
+      valid = false;
+    } else {
       setnameerror(false);
     }
-    if (!currentAddress) {
+
+    if (currentAddress === '') {
       setcurrenterror(true);
-    }
-    else {
+      valid = false;
+    } else {
       setcurrenterror(false);
     }
-    if (!email) {
+
+    if (email === '') {
       setemailerror(true);
-    }
-    else {
+      valid = false;
+    } else {
       setemailerror(false);
     }
-    if (!phone) {
-      setphoneerror(true);
+
+    if (!validateEmail(email)) {
+      setemailerror(true);
+      valid = false;
+    } else {
+      setemailerror(false);
     }
-    else {
+
+    if (phone === '') {
+      setphoneerror(true);
+      valid = false;
+    } else {
       setphoneerror(false);
     }
-    if (!selectedDate) {
-      setDateerror(true);
+
+    if (!validatePhoneNumber(phone)) {
+      setphoneerror(true);
+      valid = false;
     } else {
-      // Handle the logic for closing date
-    }
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      console.log('Invalid email format');
-      return false;
+      setphoneerror(false);
     }
 
-    const phoneRegex = /^[0-9]{10}$/;
-    if (!phoneRegex.test(phone)) {
-      setphoneerror('Invalid phone number format');
-      return;
-    }
-
-    // if (!closeDate) {
-    //   setDateerror('Closing date is required');
-    //   return ;
-    // }
-
-    return true; // All inputs are valid
-
+    return valid;
   };
 
-  const makeOfferAPI = async post_id => {
+  const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhoneNumber = (phone) => {
+    const phoneRegex = /^\d{10}$/;
+    return phoneRegex.test(phone);
+  };
+
+  const makeOfferAPI = async () => {
     const id = await AsyncStorage.getItem('userId');
-
-    // if (validateInputs()) {
-    let data = {
-      userid: id,
-      property_address: address,
-      property_price_offer: priceOffer,
-      case_loan: cashLoan,
-      full_legal_name: legalName,
-      current_address: currentAddress,
-      email: email,
-      phone: phone,
-      closeing_date: selectedDate,
-    };
-
-    console.log(data, "data makeOfferAPI")
-    dispatch(makeOffer(data)).then(response => {
-      console.log('res makeOfferAPI', response);
-      if (response.payload.success) {
-        Alert.alert("Offer submit");
-        navigation.navigate("MyProfile")
-      } else {
-        console.log(e);
-        Alert.alert(response.payload.message);
+  
+    if (validateInputs()) {
+      try {
+        const data = {
+          userid: id,
+          property_address: address,
+          property_price_offer: priceOffer,
+          case_loan: cashLoan,
+          full_legal_name: legalName,
+          current_address: currentAddress,
+          email: email,
+          phone: phone,
+          closeing_date: selectedDate,
+        };
+        
+        const response = await axios.post('https://surf.topsearchrealty.com/webapi/v1/makeoffer/', data);
+      
+       
+        setAddress('');
+        setPriceOffer('');
+        setCashLoan('');
+        setCloseDate('');
+        setLegalName('');
+        setCurrentAddress('');
+        setEmail('');
+        setPhone('');
+        setError(false);
+  
+        if (response.status === 200) {
+          if (response.data.success) {
+            Alert.alert("Offer submitted");
+            navigation.navigate("MyProfile");
+          } else {
+            console.log(response.data);
+            Alert.alert("Offer submit");
+          }
+        } 
+      } catch (error) {
+        setError(true);
+        Alert.alert(error.message);
       }
-      // setFilterData(response.payload.data);
-    });
-    // let config = {
-    //   method: 'post',
-    //   url: 'https://surf.topsearchrealty.com/webapi/v1/makeoffer/',
-    //   headers: {
-    //     'Cookie': 'PHPSESSID=fd247af4106b063e8aecf7dd166aef83',
-    //     'Content-Type': 'multipart/form-data',
-    //   },
-    //   data: data
-    // };
-
-    // axios.request(config)
-    //   .then(response => {
-    //     console.log("check res", JSON.stringify(response.data));
-    //     toggleModal();
-    //     Alert.alert('Alert', response.payload.message);
-
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
+    }
   };
-  // };
-
-
-
-
+ 
   return (
-
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{ flex: 1 }} >
-        <View
+      <KeyboardAwareScrollView
+        keyboardDismissMode="interactive"
+        showsVerticalScrollIndicator={false}
+        enableOnAndroid={true}
+        extraScrollHeight={90}
+      >
+          <View style={styles.cardContainer}>
+
+                <View
           style={styles.viewStyle}>
-          <Text style={{ fontSize: 20, marginLeft: 25, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Make An Offer</Text>
+          <Text style={{ fontSize: 20, marginLeft: 25, color: Colors.black,
+             fontFamily: 'Poppins-Regular' }}>Make An Offer </Text>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={{
@@ -290,145 +287,129 @@ const MakeAnOffer = () => {
               }}></Image>
           </TouchableOpacity>
         </View>
-
-        <KeyboardAwareScrollView style={{ height: '100%', width: '100%' }}>
-          <View
-            style={styles.view}>
-            <Text
-              style={{
-                fontSize: 20,
-                color: Colors.textColorLight,
-                textAlign: 'center',
-                fontFamily: 'Poppins-Regular'
-              }}>
-              All fields below are required
-            </Text>
+            <View style={styles.formContainer}>
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
+              >
+                <View style={styles.inputContainer}>
+                  <Text style={styles.labelText}>Property Address*</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Property Address"
+                    value={address}
+                    onChangeText={(text) => setAddress(text)}
+                  />
+                </View>
+                <View style={styles.inputContainer}>
+                  <Text style={styles.labelText}>Offer Price*</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Offer Price"
+                    keyboardType="default"
+                    value={priceOffer}
+                    onChangeText={(text) => setPriceOffer(text)}
+                  />
+                  {pricerror && (
+                    <Text style={styles.errorText}>Please enter a valid price</Text>
+                  )}
+                </View>
+                <View style={styles.inputContainer}>
+                  <Text style={styles.labelText}>Cash Loan*</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Cash Loan"
+                    keyboardType="default"
+                    value={cashLoan}
+                    onChangeText={(text) => setCashLoan(text)}
+                  />
+                  {casherror && (
+                    <Text style={styles.errorText}>Please enter a valid cash loan</Text>
+                  )}
+                </View>
+                <View style={styles.inputContainer}>
+                  <Text style={styles.labelText}>Close Date*</Text>
+                  <TouchableOpacity
+                    style={styles.datePickerContainer}
+                    onPress={showDatepicker}
+                  >
+                    <Text style={styles.datePickerText}>
+                      {selectedDate ? selectedDate.toDateString() : 'Select Date'}
+                    </Text>
+                  </TouchableOpacity>
+                  {showDatePicker && (
+                    <DateTimePicker
+                      value={selectedDate || new Date()}
+                      mode="date"
+                      is24Hour={true}
+                      display="default"
+                      onChange={handleDateChange}
+                    />
+                  )}
+                  {dateerror && (
+                    <Text style={styles.errorText}>Please select a close date</Text>
+                  )}
+                </View>
+                <View style={styles.inputContainer}>
+                  <Text style={styles.labelText}>Legal Name*</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Legal Name"
+                    value={legalName}
+                    onChangeText={(text) => setLegalName(text)}
+                  />
+                  {nameerror && (
+                    <Text style={styles.errorText}>Please enter a valid legal name</Text>
+                  )}
+                </View>
+                <View style={styles.inputContainer}>
+                  <Text style={styles.labelText}>Current Address*</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Current Address"
+                    value={currentAddress}
+                    onChangeText={(text) => setCurrentAddress(text)}
+                  />
+                  {currenterror && (
+                    <Text style={styles.errorText}>Please enter a valid address</Text>
+                  )}
+                </View>
+                <View style={styles.inputContainer}>
+                  <Text style={styles.labelText}>Email*</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Email"
+                    value={email}
+                    onChangeText={(text) => setEmail(text)}
+                  />
+                  {emailerror && (
+                    <Text style={styles.errorText}>Please enter a valid email address</Text>
+                  )}
+                </View>
+                <View style={styles.inputContainer}>
+                  <Text style={styles.labelText}>Phone*</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Phone"
+                    keyboardType="numeric"
+                    value={phone}
+                    onChangeText={(text) => setPhone(text)}
+                  />
+                  {phoneerror && (
+                    <Text style={styles.errorText}>Please enter a valid phone number</Text>
+                  )}
+                </View>
+              </ScrollView>
+              <TouchableOpacity
+                style={styles.submitButton}
+                onPress={()=>makeOfferAPI()}
+              >
+                <Text style={styles.submitButtonText}>Submit</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-
-          <View style={styles.inputStyle}>
-            <TextInput
-              allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
-              placeholderTextColor={Colors.textColorLight}
-              placeholder={'Propertity Address'}
-              keyboardType="default"
-              returnKeyType="done"
-              onChangeText={text => setAddress(text)}
-            />
-
-          </View>
-          {error && <Text style={styles.error}>Please fill property address</Text>}
-
-          <View style={styles.inputStyle}>
-            <TextInput
-              allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black }}
-              placeholderTextColor={Colors.textColorLight}
-              placeholder={'Propertity Price Offer'}
-              keyboardType="default"
-              returnKeyType="done"
-              onChangeText={l => setPriceOffer(l)}
-            />
-          </View>
-          {pricerror && <Text style={styles.error}>Property price offer is required</Text>}
-          <View style={styles.inputStyle}>
-            <TextInput
-              allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
-              placeholderTextColor={Colors.textColorLight}
-              placeholder={'Cash or Conventional Loan'}
-              keyboardType="default"
-              returnKeyType="done"
-              onChangeText={p => setCashLoan(p)}
-            />
-          </View>
-          {casherror && <Text style={styles.error}>Case loan is required</Text>}
-          <View style={styles.inputStyle}>
-            <TouchableOpacity onPress={showDatepicker}>
-              <TextInput
-                allowFontScaling={false}
-                style={{ marginLeft: 5, color: Colors.black }}
-                placeholderTextColor={Colors.textColorLight}
-                placeholder={'Preferred Closing Date'}
-                keyboardType="default"
-                returnKeyType="done"
-                value={selectedDate ? selectedDate.toDateString() : ''}
-                editable={false}
-              />
-              {showDatePicker && (
-                <DateTimePicker
-                  value={selectedDate || new Date()}
-                  mode="date"
-                  display="default"
-                  onChange={handleDateChange}
-                />
-
-              )}
-            </TouchableOpacity>
-          </View>
-          {dateerror && <Text style={styles.error}>Date is required</Text>}
-          <View style={styles.inputStyle}>
-            <TextInput
-              allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
-              placeholderTextColor={Colors.textColorLight}
-              placeholder={'Full Legal Name'}
-              keyboardType="default"
-              returnKeyType="done"
-              onChangeText={h => setLegalName(h)}
-            />
-          </View>
-          {nameerror && <Text style={styles.error}>Full name is required</Text>}
-          <View style={styles.inputStyle}>
-            <TextInput
-              allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
-              placeholderTextColor={Colors.textColorLight}
-              placeholder={'Current Address'}
-              keyboardType="default"
-              returnKeyType="done"
-              onChangeText={o => setCurrentAddress(o)}
-            />
-          </View>
-          {currenterror && <Text style={styles.error}>Current address is required</Text>}
-          <View style={styles.inputStyle}>
-            <TextInput
-              allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
-              placeholderTextColor={Colors.textColorLight}
-              placeholder={'Email'}
-              keyboardType="default"
-              returnKeyType="done"
-              onChangeText={e => setEmail(e)}
-            />
-          </View>
-          {emailerror && <Text style={styles.error}>Email is required</Text>}
-          <View
-            style={styles.inputStyle}>
-            <TextInput
-              allowFontScaling={false}
-              style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
-              placeholderTextColor={Colors.textColorLight}
-              placeholder={'Phone'}
-              keyboardType="default"
-              returnKeyType="done"
-              onChangeText={t => setPhone(t)}
-            />
-          </View>
-          {phoneerror && <Text style={styles.error}>Phone is required</Text>}
-          <TouchableOpacity onPress={() => makeOfferAPI()}
-            style={styles.btn}
-          >
-            <Text style={{
-              fontSize: 16, fontWeight: '400',
-              color: Colors.white, fontFamily: 'Poppins-Regular'
-            }}>
-              Submit
-            </Text>
-          </TouchableOpacity>
-          <View style={{ height: 100 }}></View>
-        </KeyboardAwareScrollView>
-      </ScrollView>
+     
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
@@ -438,41 +419,31 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
   },
-  error: {
-    color: 'red',
-    paddingHorizontal: 22,
-    marginTop: 2,
-    fontSize: 12,
-    fontFamily: 'Poppins-Regular'
-  },
-  inputStyle: {
-    flexDirection: 'row',
-    width: '90%',
-    marginTop: 20,
-    height: 40,
+  bodyContainer: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center',
-    borderWidth: 1,
-    borderColor: Colors.BorderColor,
+    padding: 16,
   },
-  btn: {
-    height: 30,
+  cardContainer: {
+    width: '100%',
+    backgroundColor: Colors.white,
     borderRadius: 8,
-    width: 100,
-    marginTop: 10,
-    marginRight: '10%',
-    backgroundColor: Colors.primaryBlue,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'flex-end',
-    flexDirection: 'row',
+    shadowColor: Colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    paddingHorizontal: 16,
+    paddingVertical: 20,
   },
-  slideOuter: {
-    width: screenWidth,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors,
-    borderRadius: 18,
+  cardTitleText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
   viewStyle: {
     flexDirection: 'row',
@@ -481,59 +452,64 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignSelf: 'center',
     alignItems: 'center',
-    marginLeft: 50
+    marginLeft: 40,
+    marginBottom:10
   },
-  view: {
-    flexDirection: 'row',
-    width: '100%',
-    marginTop: 20,
-    alignItems: 'center',
-
+  formContainer: {
+    
     justifyContent: 'center',
+  
   },
-  slide: {
-    width: screenWidth - 40,
-    height: screenHeight / 3,
-    borderRadius: 18,
-    margin: 20,
-    justifyContent: 'space-between',
+  inputContainer: {
+    marginBottom: 16,
+  },
+  labelText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  input: {
+
+    height: 40,
+    borderColor: Colors.grey,
+    borderWidth: 1,
+    borderRadius: 4,
+    paddingHorizontal: 8,
+    width: '100%',
+  },
+  datePickerContainer: {
+    width: '100%',
+    height: 40,
+    justifyContent: 'center',
+    borderColor: Colors.grey,
+    borderWidth: 1,
+    borderRadius: 4,
+    paddingHorizontal: 8,
+  },
+  datePickerText: {
+    fontSize: 14,
+  },
+  errorText: {
+    color:'red',
+    fontSize: 14,
+    marginTop: 4,
+  },
+  submitButton: {
+    height: 30,
+    borderRadius: 8,
+    width: 100,
+    marginTop: 10,
+    marginRight: '5%',
+    backgroundColor: Colors.primaryBlue,
+    justifyContent: 'center',
     alignItems: 'center',
-    resizeMode: 'contain',
+    alignSelf: 'flex-end',
     flexDirection: 'row',
+ 
   },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  button: {
-    padding: 10,
-    backgroundColor: 'blue',
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  pagination: {
-    position: 'absolute',
-    bottom: 20,
-    alignSelf: 'center',
-    flexDirection: 'row',
-  },
-  paginationDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: 'gray',
-    marginHorizontal: 5,
-  },
-  paginationDotActive: {
-    backgroundColor: 'blue',
-  },
-  //fliter
-  filter: {
-    height: 60,
+  submitButtonText: {
+    fontSize: 16, fontWeight: '400',
+    color: Colors.white, fontFamily: 'Poppins-Regular'
   },
 });
 
