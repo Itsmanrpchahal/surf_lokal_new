@@ -234,6 +234,12 @@ const ContactMyAgent = () => {
         </Text>
       </View>
       <ScrollView style={{ height: '100%', width: '100%' }}>
+      {agentData? (
+        
+        
+        
+        <View>
+
         <View style={styles.slideOuter}>
           <TouchableOpacity onPress={()=>makePhoneCall()}
             style={{
@@ -408,6 +414,11 @@ const ContactMyAgent = () => {
               }}></View>
           </TouchableOpacity>
         </View>
+        </View>
+              ) : null}
+
+
+
         <View
           style={{
             flexDirection: 'row',

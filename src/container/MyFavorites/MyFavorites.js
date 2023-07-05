@@ -32,7 +32,7 @@ import {Rating, AirbnbRating} from 'react-native-ratings';
 import AsyncStorage from '@react-native-community/async-storage';
 import { postRating } from '../../modules/postRating';
 // import { getAgent } from '../../modules/getAgent';
-
+import { getAgent } from '../../modules/getAgent';
 
 
 const fontSizeRatio = screenHeight / 1000;
@@ -46,8 +46,9 @@ const MyFavorites = () => {
   const flatListRef = useRef(null);
   const navigation = useNavigation();
   const [data, setHomeData] = useState([]);
+  const [agentData,setAgentData]=useState([])
   const[text,setText]= useState('')
-
+  const [showNoDataMessage, setShowNoDataMessage] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -86,21 +87,27 @@ const MyFavorites = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     getFavoritePropertiesApiCall();
-    // getAgentApicall();
+    getAgentApicall();
   }, []);
   const getFavoritePropertiesApiCall = () => {
     dispatch(getFavoriteProperties()).then(response => {
       console.log('res-ppp', response.payload);
-      setHomeData(response.payload.data);
+     
+      if (response.payload.data === 'Record not found!') {
+        setShowNoDataMessage(true);
+      } else {
+         setHomeData(response.payload.data);
+      }
     });
-  };
+  }
+   
+  const getAgentApicall = () =>{
+    dispatch(getAgent()).then(response =>{
+      console.log('rrrohan',response.payload.data);
+      setAgentData(response.payload.data);
+      
 
-  const getAgentApicall=()=>{
-    dispatch(getAgent()).then(response=>{
-      console.log('Rohan',response.payload)
-      setHomeData(response.payload.data)
-
-    })
+    });
   }
   // useEffect(() => {
   //   Orientation.lockToPortrait();
@@ -109,7 +116,7 @@ const MyFavorites = () => {
   //   };
   // }, []);
   const makePhoneCall = () => {
-    let phoneNumber = '512458790';
+    let phoneNumber =agentData[0]?. agent_phone;
     Linking.openURL(`tel:${phoneNumber}`);
   };
   const sendEmail = () => {
@@ -131,14 +138,7 @@ const MyFavorites = () => {
       title: 'Cool Article',
     });
   };
-  const renderItemImage = ({item, index}) => (
-    <TouchableOpacity
-      activeOpacity={1}
-      onPress={() => navigation.navigate('ViewPropertiy',{item:item})}
-      style={styles.slideOuter}>
-      <Image source={{uri: item?.featured_image}} style={styles.slide}></Image>
-    </TouchableOpacity>
-  );
+
 
   const renderItem = ({item}) => (
     <View style={styles.slideOuter}>
@@ -529,11 +529,12 @@ const MyFavorites = () => {
           {item.Title}
         </Text>
       </TouchableOpacity> */}
-
+<ScrollView horizontal={true} scrollEnabled={true} >
       <View
         style={{
           flexDirection: 'row',
-          width: '90%',
+          width: 400,
+          margin:10,
 
           alignSelf: 'center',
           justifyContent: 'space-between',
@@ -640,9 +641,11 @@ const MyFavorites = () => {
               </Text>
             </View>
           ) : null}
+           
       </View>
-      
+      </ScrollView>
     </View>
+ 
   );
 
   return (
@@ -680,12 +683,32 @@ const MyFavorites = () => {
           </TouchableOpacity>
       </View>
       <View style={{height: '100%', width: '100%'}}>
+      {showNoDataMessage ? (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: '500',
+              color: Colors.textColorDark,
+              fontFamily: 'Poppins-Regular',
+            }}>
+            No favourite file data found!
+          </Text>
+        </View>
+      ) : (
         <FlatList
           data={data}
           keyExtractor={item => item.id}
           renderItem={renderItem}
           ListFooterComponent={<View style={{height: 70}}></View>}
         />
+      
+      )}
       </View>
     </SafeAreaView>
   );
@@ -701,6 +724,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 18,
+  },
+  emptyContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   slide: {
     width: screenWidth ,

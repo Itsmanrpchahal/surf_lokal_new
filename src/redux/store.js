@@ -15,6 +15,7 @@ import forgotPasswordReducer from '../modules/forgotPassword';
 import getSavedSearchReducer from '../modules/getSavedSearch';
 import deleteSearchReducer from '../modules/deleteSearch';
 import getSearchReducer from '../modules/getSearch';
+import getAgentReducer from '../modules/getAgent';
 // 16 May 2023
 import getFilterReducer from '../modules/getFilter';
 import getNearByReducer from '../modules/getNearBy';
@@ -40,6 +41,7 @@ export const store = configureStore({
     getSavedSearch: getSavedSearchReducer,
     deleteSearch: deleteSearchReducer,
     getSearch: getSearchReducer,
+     getAgent : getAgentReducer,  
     // 16 May 2023
     getFilter: getFilterReducer,
     getNearBy: getNearByReducer,

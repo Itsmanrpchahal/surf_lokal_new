@@ -31,7 +31,7 @@ import { Rating } from 'react-native-ratings';
 import { getPopertiesDetails } from '../../modules/getPopertiesDetails';
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import MapView, { Callout, Circle, Marker } from "react-native-maps";
-
+import { getRating } from '../../modules/getRating';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const fontSizeRatio = screenHeight / 1000;
@@ -70,6 +70,8 @@ const ViewPropertiy = (props, imageUrl) => {
   const [walk, setWalk] = useState([]);
   const [showIcon, setShowIcon] = useState(false);
   const [Icon, setIcon] = useState(false)
+  const [ratingData,setRatingData] = useState([])
+  const [isEditing, setIsEditing] = useState(false);
 
   const [pin, setPin] = useState(null);
   const [region, setRegion] = useState(null);
@@ -89,6 +91,7 @@ const ViewPropertiy = (props, imageUrl) => {
 
   useEffect(() => {
     getPopertiesDetailsApiCall();
+     getRatingApicall()
   }, []);
 
   const getPopertiesDetailsApiCall = () => {
@@ -129,6 +132,12 @@ const ViewPropertiy = (props, imageUrl) => {
       });
     });
   };
+   const getRatingApicall = ()=>{
+    dispatch(getRating()).then(response=>{
+      console.log ('MMM',response.payload.data)
+       setRatingData(response.payload.data)
+    })
+   }
   const saveFile = async (post_id) => {
     const userID = await AsyncStorage.getItem('userId');
     const headers = {
@@ -266,7 +275,7 @@ const ViewPropertiy = (props, imageUrl) => {
 
   const addReview = async post_id => {
     const id = await AsyncStorage.getItem('userId');
-
+    formdata.append('content', isEditing ? review : ratingData[0]?.comment_content);
     let formdata = {
       userID: id,
       postid: productId,
@@ -626,7 +635,7 @@ const ViewPropertiy = (props, imageUrl) => {
                 marginTop: 5,
               }}>
               <Text style={{ fontSize: 16, color: Colors.black, textAlign: 'center' }}>
-                {property?.post_title}
+                {property?.title}
               </Text>
             </View>
 
@@ -929,10 +938,11 @@ const ViewPropertiy = (props, imageUrl) => {
   animationType="slide"
   visible={modalVisible}
   onRequestClose={toggleModal}>
+
   <View
     style={{
       // marginTop: 40,
-      height: '80%',
+      height: '95%',
       width: '100%',
       alignItems: 'center',
       alignContent: 'center',
@@ -1014,6 +1024,26 @@ const ViewPropertiy = (props, imageUrl) => {
         marginTop: 10,
         justifyContent: 'center',
       }}></View>
+      <View style={{}}>
+      <Text
+          style={{
+            fontSize: 18,
+            fontWeight: '700',
+            color: Colors.black,
+            marginTop: 10,
+            marginRight:180
+          }}>
+        Your Review
+        </Text>
+        <Text style={{margin:10,fontSize:12,color:'black'}}>{ratingData[0]?.comment_content}</Text>
+        {!isEditing && (
+  <TouchableOpacity
+    onPress={() => setIsEditing(true)}
+    style={{ marginTop: 10 }}>
+    <Text style={{ fontSize: 12, color: 'blue' }}>Edit</Text>
+  </TouchableOpacity>
+)}
+      </View>
     <View style={{ width: '95%', height: '70%' }}>
       <View style={{ width: '95%', alignSelf: 'center' }}>
         <View
@@ -1030,7 +1060,8 @@ const ViewPropertiy = (props, imageUrl) => {
             type="custom"
             ratingCount={5}
             imageSize={25}
-            startingValue={rating}
+            startingValue={ratingData[0]?.photo_wuality_rating
+            }
             ratingBackgroundColor="#c8c7c8"
             onFinishRating={setRating}
             style={styles.rating}
@@ -1054,7 +1085,8 @@ const ViewPropertiy = (props, imageUrl) => {
             type="custom"
             ratingCount={5}
             imageSize={25}
-            startingValue={rating}
+            startingValue={ratingData[0]?.description_review_stars
+            }
             ratingBackgroundColor="#c8c7c8"
             onFinishRating={setRating}
             style={styles.rating}
@@ -1077,7 +1109,8 @@ const ViewPropertiy = (props, imageUrl) => {
             type="custom"
             ratingCount={5}
             imageSize={25}
-            startingValue={rating}
+            startingValue={ratingData[0]?.price_review_stars
+            }
             ratingBackgroundColor="#c8c7c8"
             onFinishRating={setRating}
             style={styles.rating}
@@ -1101,7 +1134,8 @@ const ViewPropertiy = (props, imageUrl) => {
             type="custom"
             ratingCount={5}
             imageSize={25}
-            startingValue={rating}
+            startingValue={ratingData[0]?.interest_review_stars
+            }
             ratingBackgroundColor="#c8c7c8"
             onFinishRating={setRating}
             style={styles.rating}
@@ -1129,29 +1163,28 @@ const ViewPropertiy = (props, imageUrl) => {
             marginTop: 10,
             //justifyContent: 'center',
           }}>
-          <TextInput
-            // allowFontScaling={false}
-            style={{
-              width: '100%',
-              borderRadius: 8,
-              height: '100%',
-              paddingHorizontal: 12,
-              color: Colors.black,
-              borderWidth: 1,
-              borderColor: Colors.gray,
-              fontSize: 14,
-              // padding: 2,
-              alignItems: "flex-start",
-              alignSelf: "flex-start",
-              verticalAlign: "top"
-            }}
-            //keyboardType="default"
-            autoCorrect={false}
-            returnKeyType="done"
-            placeholderTextColor={Colors.gray}
-            placeholder='Write a review...'
-            onChangeText={text => setReview(text)}
-          />
+          
+
+{isEditing ? (
+  <TextInput
+    style={{
+      margin: 10,
+      fontSize: 12,
+      color: 'black',
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius: 5,
+      padding: 5,
+    }}
+    value={ratingData[0]?.comment_content}
+    onChangeText={text => setReview(text)}
+    autoFocus
+  />
+) : (
+  <Text style={{ margin: 10, fontSize: 12, color: 'black' }}>
+    {ratingData[0]?.comment_content}
+  </Text>
+)}
         </View>
       </View>
       <View style={{
@@ -1193,6 +1226,7 @@ const ViewPropertiy = (props, imageUrl) => {
       </View>
     </View>
   </View>
+  
 </Modal>
 </KeyboardAvoidingView>
           </View>
