@@ -30,6 +30,8 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {getTrash} from '../../modules/getTrash';
+import { getAgent } from '../../modules/getAgent';
+
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import AsyncStorage from '@react-native-community/async-storage';
@@ -38,213 +40,15 @@ const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
 
-const images = [
-  {
-    uri: Images.test,
-    title: 'Image 1',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test1,
-    title: 'Image 2',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test2,
-    title: 'Image 3',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test,
-    title: 'Image 4',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test1,
-    title: 'Image 5',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test2,
-    title: 'Image 6',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test,
-    title: 'Image 1',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test1,
-    title: 'Image 2',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test2,
-    title: 'Image 3',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test,
-    title: 'Image 4',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test1,
-    title: 'Image 5',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test2,
-    title: 'Image 6',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test,
-    title: 'Image 1',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test1,
-    title: 'Image 2',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test2,
-    title: 'Image 3',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test,
-    title: 'Image 4',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test1,
-    title: 'Image 5',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-  {
-    uri: Images.test2,
-    title: 'Image 6',
-    price: '$ 200,000',
-    rendered: '3286  Arcara Way   407 | Lake Worth Beach',
-    bed: '2 Beds',
-    bath: '2 Baths',
-    size: '1,050 ft',
-    details: 'RX-10101010',
-    hoa: '$184',
-  },
-];
 
 const RecycleBin = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [data, setHomeData] = useState([]);
   const [index, setIndex] = useState(0);
+  const [agentData,setAgentData]=useState([])
   const [readmore, setreadmore] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [showNoDataMessage, setShowNoDataMessage] = useState(false);
   const toggleModal = () => {
     setModalVisible(true);
   };
@@ -285,15 +89,31 @@ const RecycleBin = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     getTrashApiCall();
+    getAgentApicall();
   }, []);
 
   const getTrashApiCall = () => {
     dispatch(getTrash()).then(response => {
-      console.log('res--', response.payload.data);
-      setHomeData(response.payload.data);
+      console.log('res--',response.payload.data);
+      if (response.payload.data === 'Record not found!') {
+        setShowNoDataMessage(true);
+      } else {
+         setHomeData(response.payload.data);
+      }
     });
-  }; const makePhoneCall = () => {
-    let phoneNumber = '512458790';
+  
+  };
+  const getAgentApicall = () =>{
+    dispatch(getAgent()).then(response =>{
+      console.log('rrrohan',response.payload.data);
+      setAgentData(response.payload.data);
+      
+
+    });
+  }
+   const makePhoneCall = () => {
+    let phoneNumber =agentData[0]?. agent_phone;
+   
     Linking.openURL(`tel:${phoneNumber}`);
   };
   const sendEmail = () => {
@@ -319,16 +139,10 @@ const RecycleBin = () => {
 
   // const [data, setData] = useState(images);
 
-  const renderItemImage = ({item, index}) => (
-    <TouchableOpacity
-      activeOpacity={1}
-      onPress={() => navigation.navigate('ViewPropertiy',{data:item})}
-      style={styles.slideOuter}>
-      <Image source={item.uri} style={styles.slide}></Image>
-    </TouchableOpacity>
-  );
+  
 
   const renderItem = ({item}) => (
+   
     <View style={styles.slideOuter}>
       <TouchableOpacity onPress={()=>{navigation.navigate('ViewPropertiy',{item})}}>
       <Image source={{uri: item.featured_image_src}} style={styles.slide} />
@@ -361,13 +175,7 @@ const RecycleBin = () => {
               style={{height: 20, width: 20}}></Image>
           </TouchableOpacity>
         </View>
-        {/* <View
-          style={{
-            flexDirection: 'row',
-            width: '15%',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}></View> */}
+      
         <TouchableOpacity onPress={() => navigation.navigate('ViewPropertiy',{item})}>
           <Text
             style={{
@@ -686,14 +494,15 @@ const RecycleBin = () => {
             {item.title}</Text>
 
 
+            <ScrollView horizontal={true} scrollEnabled={true} >
       <View
-        style={{ marginTop:15,
+        style={{
           flexDirection: 'row',
-          width:'90%',
+          width: 400,
+          margin:10,
 
-          // alignSelf: 'center',
+          alignSelf: 'center',
           justifyContent: 'space-between',
-          backgroundColor:'white'
         }}>
         {item.property_bedrooms != '' ? (
           <View
@@ -799,6 +608,7 @@ const RecycleBin = () => {
             </View>
           ) : null}
       </View>
+      </ScrollView>
     </View>
   );
 
@@ -837,12 +647,33 @@ const RecycleBin = () => {
           </TouchableOpacity>
       </View>
       <View style={{height: '100%', width: '100%'}}>
+      {showNoDataMessage ? (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: '500',
+              color: Colors.textColorDark,
+              fontFamily: 'Poppins-Regular',
+            }}>
+            No favourite file data found!
+          </Text>
+        </View>
+      ) : (
         <FlatList
           data={data}
           keyExtractor={item => item.id}
           renderItem={renderItem}
           contentContainerStyle={{paddingBottom: 50}}
         />
+      
+        )}
+      
       </View>
     </SafeAreaView>
   );
@@ -899,6 +730,12 @@ const styles = StyleSheet.create({
   filter: {
     height: 60,
   },
+  emptyContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   rating: {
     marginVertical: 5,
   },

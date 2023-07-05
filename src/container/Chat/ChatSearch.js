@@ -4,17 +4,16 @@ import { View, Text, TouchableOpacity, Image, StyleSheet, TextInput, Button,Link
 import Colors from '../../utils/Colors';
 import Images from '../../utils/Images';
 import axios from 'axios';
-import { useRoute } from '@react-navigation/native';
+import { getAgent } from '../../modules/getAgent';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import { useDispatch } from 'react-redux';
 
 const ChatSearch = () => {
-  const route = useRoute();
-  const agentData = route.params?.agentData;
-  console.log(agentData)
+ 
   const [message, setMessage] = useState('');
   const [chatData, setchatData] = useState([]);
   const [ans, setans] = useState([])
-
+  const [agentData,setAgentData]=useState([])
 
   const myfubx = () => {
     let formData = new FormData();
@@ -32,12 +31,22 @@ const ChatSearch = () => {
       });
     setMessage('');
   };
+  const dispatch = useDispatch();
   useEffect(() => {
     console.log(ans, "use??????????");
+    getAgentApicall();
   }, [ans]);
+  const getAgentApicall = () =>{
+    dispatch(getAgent()).then(response =>{
+      console.log('rrrohan',response.payload.data);
+      setAgentData(response.payload.data);
+      
+
+    });
+  }
 
   const makePhoneCall = () => {
-    let phoneNumber = agentData?.agent_phone
+    let phoneNumber = agentData[0]?.agent_phone
     Linking.openURL(`tel:${phoneNumber}`);
   };
   return (

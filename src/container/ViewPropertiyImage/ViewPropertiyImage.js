@@ -20,7 +20,7 @@ import { useNavigation } from '@react-navigation/native';
 import { WebView } from 'react-native-webview';
 import { getPopertiesDetails } from '../../modules/getPopertiesDetails';
 import { useDispatch } from 'react-redux';
-
+import { getAgent } from '../../modules/getAgent';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -40,6 +40,7 @@ const ViewPropertiyImage = props => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [adress, setAddres] = useState('');
   const [index, setIndex] = useState(0);
+  const [agentData,setAgentData]=useState([])
   const flatListRef = useRef(null);
   const postID = props.route.params
   console.log(postID.postid, "ViewPropertiyImage Props");
@@ -47,13 +48,11 @@ const ViewPropertiyImage = props => {
   console.log(property, "ViewPropertiyImage dataa");
 
 
-  const makePhoneCall = () => {
-    let phoneNumber = '512458790';
-    Linking.openURL(`tel:${phoneNumber}`);
-  };
-
+ 
   useEffect(() => {
     getPopertiesDetailsApiCall();
+    getAgentApicall();
+    
 
     const isPortrait = () => {
       const dim = Dimensions.get('screen');
@@ -81,6 +80,19 @@ const ViewPropertiyImage = props => {
       console.log(data, "dddddddddddddddddddddd");
     });
   };
+  const getAgentApicall = () =>{
+    dispatch(getAgent()).then(response =>{
+      console.log('rrrohan',response.payload.data);
+      setAgentData(response.payload.data);
+      
+
+    });
+  }
+  const makePhoneCall = () => {
+    let phoneNumber =agentData[0]?. agent_phone ;
+    Linking.openURL(`tel:${phoneNumber}`);
+  };
+
   const handleChangeOrientation = () => {
     setOrientation(isPortrait() ? 'portrait' : 'landscape');
   };
@@ -210,7 +222,7 @@ const ViewPropertiyImage = props => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-              <TouchableOpacity onPress={()=>{makePhoneCall}}>
+              <TouchableOpacity onPress={()=>makePhoneCall()  }>
             <Image
               source={Images.contactUs}
               style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>

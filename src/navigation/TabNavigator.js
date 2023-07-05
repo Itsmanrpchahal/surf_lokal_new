@@ -67,7 +67,7 @@ const BottomTabNavigator = () => {
          
           tabBarLabel: (
            <View style={{position:"relative"}}>
-           <Text style={{ fontSize: 15,fontFamily:'Poppins-Regular',position:"absolute",fontSize:35,top:-50}} allowFontScaling={false}>
+           <Text style={{fontFamily:'Poppins-Regular',position:"absolute",fontSize:35,top:-50}} allowFontScaling={false}>
           99
           </Text>
             <Text style={{ fontSize: 10,fontFamily:'Poppins-Regular',}} allowFontScaling={false}>
