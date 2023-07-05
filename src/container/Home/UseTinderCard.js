@@ -12,10 +12,6 @@ import {
 import Images from '../../utils/Images';
 import clamp from 'clamp';
 
-
-// Example usage
-// const clampedValue = clamp(value, min, max);
-
 const { width } = Dimensions.get('screen');
 const SWIPE_THRESHOLD = 0.25 * width;
 
@@ -46,12 +42,12 @@ const UseTinderCard = () => {
       animal: 'Goat'
     },
   ]);
+
   useEffect(() => {
     scale.setValue(0.9);
     opacity.setValue(1);
     animation.setValue({ x: 0, y: 0 });
   }, [data]);
-
 
   const animation = useRef(new Animated.ValueXY()).current;
   const opacity = useRef(new Animated.Value(1)).current;
@@ -83,14 +79,14 @@ const UseTinderCard = () => {
               friction: 4,
               useNativeDriver: false,
             }),
-          ]).start(transitionNext);
-          // if (velocity > 0) {
-          //   Alert.alert("handle Right Decay")
-          //   // handleRightDecay();
-          // } else {
-          //   // handleLeftDecay();
-          //   Alert.alert("handle Left Decay")
-          // }
+          ]).start();
+          if (velocity > 0) {
+            // handleRightDecay();
+            Alert.alert("handle Right Decay");
+          } else {
+            // handleLeftDecay();
+            Alert.alert("handle Left Decay");
+          }
         } else {
           Animated.spring(animation, {
             toValue: { x: 0, y: 0 },
@@ -102,61 +98,37 @@ const UseTinderCard = () => {
     })
   ).current;
 
-  const transitionNext = function () {
-    Animated.parallel([
-      Animated.timing(opacity, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: false,
-      }),
-      Animated.spring(scale, {
-        toValue: 1,
-        friction: 4,
-        useNativeDriver: false,
-      }),
-    ]).start(() => {
-      setData((data) => {
-        return data
-      });
-    });
-  };
-
-
   return (
     <View style={styles.container}>
       {data
         .slice(0, 2)
         .reverse()
         .map((item, index, items) => {
-          // check if it's top card
           const isLastItem = index === items.length - 1;
-          // apply panHandlers if it's top card
           const panHandlers = isLastItem ? { ..._panResponder.panHandlers } : {};
-          // check if it's next card
           const isSecondToLast = index === items.length - 2;
-          // rotate from -30 degree to +30 degree for swipe distance of -200 to +200
           const rotate = animation.x.interpolate({
             inputRange: [-200, 0, 200],
             outputRange: ['-30deg', '0deg', '30deg'],
             extrapolate: 'clamp',
-            // make sure the rotation doesn't go beyong 30 degrees.
           });
 
-          // prepare card styles
           const animatedCardStyles = {
             transform: [{ rotate }, ...animation.getTranslateTransform()],
             opacity,
           };
-          const cardStyle = animatedCardStyles
-          const nextStyle = isSecondToLast
-            && { transform: [{ scale: scale }], borderRadius: 5 }
-
+          const cardStyle = animatedCardStyles;
+          const nextStyle = isSecondToLast && {
+            transform: [{ scale: scale }],
+            borderRadius: 5,
+          };
 
           return (
             <Animated.View
               {...panHandlers}
-              style={[styles.card, cardStyle, nextStyle]}  // apply styles
-              key={item.id}>
+              style={[styles.card, cardStyle, nextStyle]}
+              key={item.id}
+            >
               <View style={styles.imageContainer}>
                 <Image resizeMode="cover" source={item.image} style={styles.image} />
               </View>
@@ -169,13 +141,11 @@ const UseTinderCard = () => {
         })}
     </View>
   );
+};
 
-}
-
-export default UseTinderCard
+export default UseTinderCard;
 
 const styles = StyleSheet.create({
-  // add container styles and place the cards to center
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -209,14 +179,14 @@ const styles = StyleSheet.create({
     borderColor: '#FFF',
   },
   imageContainer: {
-    flex: 1
+    flex: 1,
   },
   image: {
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   textContainer: {
-    padding: 10
+    padding: 10,
   },
   nameText: {
     fontSize: 16,
@@ -224,6 +194,6 @@ const styles = StyleSheet.create({
   animalText: {
     fontSize: 14,
     color: '#757575',
-    paddingTop: 5
-  }
-})
+    paddingTop: 5,
+  },
+});

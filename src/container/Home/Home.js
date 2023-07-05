@@ -38,10 +38,9 @@ import { SvgUri } from 'react-native-svg';
 import { Rating } from 'react-native-ratings';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-const fontSizeRatio = screenHeight / 1000;
-const viewSizeRatio = screenHeight / 1000;
-const imageSizeRation = screenHeight / 1000;
-import DeckSwiper from 'react-native-deck-swiper';
+// const fontSizeRatio = screenHeight / 1000;
+// const viewSizeRatio = screenHeight / 1000;
+// const imageSizeRation = screenHeight / 1000;
 import clamp from 'clamp';
 
 
@@ -61,76 +60,11 @@ const Home = () => {
   const [ modalVisible, setModalVisible ] = useState(false);
   const [ review, setReview ] = useState('');
   const [ rating, setRating ] = useState(0);
+  const [postID, setPostID] = useState('')
 
   const toggleModal = () => { setModalVisible(!modalVisible); };
-  // const saveFile = async (post_id) => {
-  //   const userID = await AsyncStorage.getItem('userId');
-  //   const headers = {
-  //     'Content-Type': 'application/json',
-  //   };
-  //   let payload = {
-  //     userID: userID,
-  //     post_id: post_id,
-  //   };
-  //   console.log(payload, "Fav datata")
-  //   // dispatch(addFavorite(payload))
-  //   try
-  //   {
-  //     var res = await axios.post(
-  //       'https://surf.topsearchrealty.com/webapi/v1/favorites/addremovefavorite.php',
-  //       payload,
-  //     );
-
-  //     console.log('--ppp payload', res);
-  //     console.log('--ppp', typeof res.status);
-  //     if (res.status == 200)
-  //     {
-  //       console.log('--ppp  res.data', res.data);
-  //       Alert.alert(res.data.message);
-  //     } else
-  //     {
-  //       Alert.alert('something went wrong!.');
-  //     }
-  //   } catch (err)
-  //   {
-  //     console.log('err', err);
-  //   }
-  // };
-  // const trashfile = async post_id => {
-  //   const userID = await AsyncStorage.getItem('userId');
-  //   const headers = {
-  //     'Content-Type': 'application/json',
-  //   };
-  //   let payload = {
-  //     userID: userID,
-  //     post_id: post_id,
-  //   };
-  //   console.log(payload, "trash datata")
-  //   try
-  //   {
-  //     var res = await axios.post(
-  //       'https://surf.topsearchrealty.com/webapi/v1/trashlist/addremovetrash.php',
-  //       payload,
-  //     );
-
-  //     console.log('--trash payload', res.data);
-
-  //     if (res.code == 200)
-  //     {
-  //       console.log('--ppp  res.data', res.data);
-  //       Alert.alert(res.data.message);
-  //     } else
-  //     {
-  //       Alert.alert('something went wrong!.');
-  //     }
-  //   } catch (err)
-  //   {
-  //     console.log('err', err);
-  //   }
-  // };
   const addReview = async post_id => {
     const id = await AsyncStorage.getItem('userId');
-
     let formdata = {
       userID: id,
       postid: productId,
@@ -156,7 +90,6 @@ const Home = () => {
         toggleModal();
         Alert.alert('Alert', response.payload.message);
       }
-      // setFilterData(response.payload.data);
     });
   };
 
@@ -213,22 +146,19 @@ const Home = () => {
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              marginLeft: 20,
-              marginRight: 20,
-              // height:80
-              // marginHorizontal:10,
-              // marginVertical:10
+              marginLeft: 5,
+              marginRight: 5,
             }}>
             <SvgUri
-              style={{ height: 19, width: 19, resizeMode: 'contain' }}
+              style={{ height: 27, width: 27, resizeMode: 'contain' }}
               uri={item.term_icon_url}
             />
             <Text
               style={{
                 fontSize: 12,
                 color: isSelected ? Colors.black : Colors.gray,
-                marginTop: 5,
-                fontWeight: isSelected ? 'bold' : 'normal',
+                marginTop: 3,
+                fontWeight: isSelected ? 'nprmal' : 'normal',
                 fontFamily: 'Poppins-Regular'
 
               }}>
@@ -278,15 +208,13 @@ const Home = () => {
             }),
           ]).start();
           if (velocity > 0) {
-          // saveFile(item.ID)
-          console.log(productId,"saveFile files")
+          console.log(postID,"saveFile files")
 
             Alert.alert("handle Right Decay")
-            // handleRightDecay();
           } else {
-          // console.log(property.ID,"trash files")
-          // trashfile(item.ID);
-            // handleLeftDecay();
+
+
+          console.log(postID,"trash files")
             Alert.alert("handle Left Decay")
           }
         } else {
@@ -315,33 +243,35 @@ const Home = () => {
       <SafeAreaView
         style={Platform.OS == 'android' ? styles.container : styles.containerIos}>
 
-        <View style={{ height: "100%", overflow: "scroll" }}>
+        <View style={{ 
+          height: "100%" }}>
 
           <View
             style={{
-              height: Platform.OS == 'android' ? '12%' : '8%',
               width: '100%',
+              paddingVertical:18,
               justifyContent: 'center',
               borderRadius: 5,
-              marginBottom: 10,
+             marginBottom: 18,
               alignItems: 'center',
               flexDirection: 'row',
               shadowColor: "#000",
               backgroundColor: '#fff',
               elevation: 4,
               shadowColor: '#000',
-              shadowOffset: { width: 0, height: 2 }, // iOS shadow properties
+              shadowOffset: { width: 0, height: 2 }, 
               shadowOpacity: 0.2,
               shadowRadius: 4,
             }}>
             <View
               style={{
-                height: 40,
-                width: '75%',
-                borderRadius: 18,
+                height: 50,
+                width: '85%',
+                borderRadius: 100,
                 borderWidth: 1,
                 borderColor: Colors.BorderColor,
                 flexDirection: 'row',
+                alignItems:"center"
               }}>
               <TouchableOpacity
                 onPress={() => getSearchApiCall()}
@@ -357,25 +287,27 @@ const Home = () => {
                     height: 20,
                     width: 20,
                     resizeMode: 'contain',
-                    marginLeft: 10,
+                    marginLeft: 5,
                   }}></Image>
               </TouchableOpacity>
-              <View style={Styles.phoneInputView}>
+              <View style={{width:"65%"}}>
                 <TextInput
                   allowFontScaling={false}
-                  style={Styles.inputStyle}
                   placeholderTextColor={Colors.textColorLight}
                   placeholder={'Filters...'}
                   returnKeyType="done"
                   onChangeText={text => setAddres(text)}
+                  style={{
+                    fontSize: 14, 
+                    color:"#000"
+                  }}
                 />
               </View>
+              <View style={{width:"25%",alignItems:"center"}}>
               <TouchableOpacity
                 style={{
-                  height: 40,
-                  width: 40,
+                  height: 50,
                   justifyContent: 'center',
-                  alignItems: 'center',
                   borderLeftWidth: 1,
                   borderLeftColor: Colors.BorderColor,
                 }}>
@@ -384,9 +316,11 @@ const Home = () => {
                   style={{
                     height: 20,
                     width: 20,
+                    marginLeft:8,
                     resizeMode: 'contain',
                   }}></Image>
               </TouchableOpacity>
+            </View>
             </View>
             <View>
               {loading ? (
@@ -396,55 +330,42 @@ const Home = () => {
                 <TouchableOpacity
                   onPress={() => getNearByApiCall()}
                   style={{
-                    height: 40,
-                    width: 40,
-                    justifyContent: 'center',
-                    alignItems: 'center',
                   }}>
                   <Image
                     source={Images.gps}
                     style={{
                       height: 25,
                       width: 25,
+                      marginLeft:12,
                       resizeMode: 'contain',
                     }}></Image>
                 </TouchableOpacity>
               )}
             </View>
           </View>
-          <View style={{ width: '95%', alignSelf: 'center', height: '8%' }}>
+          <View style={{ width: '92%', alignSelf: 'center',justifyContent:"center",marginBottom:12 }}>
             <FlatList
               data={filterData}
               keyExtractor={item => item.id}
               horizontal
               showsHorizontalScrollIndicator={false}
-              // onScroll={handleSlideChange}
-              // onMomentumScrollEnd={handleSlideChange}
               renderItem={renderFillterItem}
-            // extraData={selectedItem}
             />
           </View>
 
-          <View style={{}}>
+          <View style={{ width:"92%",alignSelf: 'center',justifyContent:"center",}}>
             {homeData
               .slice(0, 2)
               .reverse()
               .map((item, index, items) => {
-                // check if it's top card
                 const isLastItem = index === items.length - 1;
-                // apply panHandlers if it's top card
                 const panHandlers = isLastItem ? { ..._panResponder.panHandlers } : {};
-                // check if it's next card
                 const isSecondToLast = index === items.length - 2;
-                // rotate from -30 degree to +30 degree for swipe distance of -200 to +200
                 const rotate = animation.x.interpolate({
                   inputRange: [-200, 0, 200],
                   outputRange: ['-30deg', '0deg', '30deg'],
                   extrapolate: 'clamp',
-                  // make sure the rotation doesn't go beyong 30 degrees.
                 });
-
-                // prepare card styles
                 const animatedCardStyles = {
                   transform: [{ rotate }, ...animation.getTranslateTransform()],
                   opacity,
@@ -457,32 +378,28 @@ const Home = () => {
                 return (
                   <>
 
-                    <View style={{ position: "relative", }}>
+                    <View style={{ position: "relative",width:"100%"}}>
                       <Animated.View
                         {...panHandlers}
-                        style={[styles.card, cardStyle, nextStyle]}  // apply styles
+                        style={[styles.card, cardStyle, nextStyle]}  
                         key={item.id}>
-                        <TouchableOpacity >
+                        <TouchableOpacity style={styles.slidercover}>
                           <Image
                             source={{ uri: property?.featured_image_src }} style={styles.slider} />
                         </TouchableOpacity>
                         <View style={{
                           flexDirection: 'row',
-                          alignSelf: 'flex-end',
                           width: '100%',
-                          height: '15%',
                           justifyContent: 'space-between',
                           alignItems: 'center',
                           backgroundColor: Colors.white,
-                          padding: 5
+                          paddingHorizontal:12,
+                          paddingVertical:12
                         }}>
                           <View style={{
                             flexDirection: 'row',
                             justifyContent: 'center',
-                            alignItems: 'center',
-                            marginLeft: 10
-
-                          }}>
+                            alignItems: 'center', }}>
                             <TouchableOpacity
                               onPress={() => {
                                 setProductId(item.ID);
@@ -492,21 +409,21 @@ const Home = () => {
 
                               <Image
                                 source={Images.star}
-                                style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
+                                style={{ height: 20, width: 20, resizeMode: 'contain' , marginTop:-6}}></Image>
                             </TouchableOpacity>
                             <Text style={{
                               fontSize: 14, color: Colors.black,
-                              textAlign: 'center', marginLeft: 5, fontFamily: 'Poppins-Regular'
+                              textAlign: 'center', marginLeft: 5, fontFamily: 'Poppins-SemiBold'
                             }}>
                               {property?.total_average_rating}
                             </Text>
 
                           </View>
                           <Text style={{
-                            fontSize: 18,
+                            fontSize: 20,
                             color: Colors.primaryBlue,
                             fontWeight: '500',
-                            fontFamily: 'Poppins-Regular'
+                            fontFamily: "Poppins-SemiBold"
                           }}>{property?.property_price}</Text>
                           <TouchableOpacity>
                             <Image source={Images.send} style={{ height: 20, width: 20, resizeMode: 'contain' }} />
@@ -801,18 +718,19 @@ const Home = () => {
                           }}>
                           <TouchableOpacity
                             onPress={() => navigation.navigate('ViewPropertiy', { item })}
-                            style={{ width: '98%', alignSelf: 'center', justifyContent: 'center', backgroundColor: Colors.white, }}>
+                            style={{ width: '100%', alignSelf: 'center', justifyContent: 'center', backgroundColor: Colors.white,paddingHorizontal:12 }}>
                             <Text
                               style={{
-                                fontSize: 16, color: Colors.black,
-                                textAlign: 'center', fontFamily: 'Poppins-Regular'
+                                fontSize: 14, color: Colors.black,
+                                marginBottom:15,
+                                textAlign: 'center', fontFamily: 'Poppins-Medium.ttf'
                               }}>
                               {item.title}
+                              
                             </Text>
                           </TouchableOpacity>
                         </View>
-                      </Animated.View>
-                      <View
+                        <View
                         style={{
                           flexDirection: 'row',
                           width: '100%',
@@ -820,8 +738,8 @@ const Home = () => {
                           alignSelf: 'center',
                           paddingHorizontal: 15,
                           justifyContent: 'space-between',
-                          position: "absolute",
-                          marginTop: 370
+                          // position: "absolute",
+                          // marginTop: 370
                         }}>
                         {property?.property_bedrooms != '' ? (
                           <View
@@ -831,10 +749,10 @@ const Home = () => {
                             }}>
                             <Image
                               source={Images.bed}
-                              style={{ height: 30, width: 30, resizeMode: 'contain' }}></Image>
+                              style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
                             <Text
                               style={{
-                                fontSize: 16,
+                                fontSize: 14,
                                 color: Colors.black,
                                 textAlign: 'center',
                                 fontFamily: 'Poppins-Regular'
@@ -851,10 +769,10 @@ const Home = () => {
                             }}>
                             <Image
                               source={Images.bath}
-                              style={{ height: 30, width: 30, resizeMode: 'contain' }}></Image>
+                              style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
                             <Text
                               style={{
-                                fontSize: 16,
+                                fontSize: 14,
                                 color: Colors.black,
                                 textAlign: 'center',
                                 fontFamily: 'Poppins-Regular'
@@ -871,10 +789,10 @@ const Home = () => {
                             }}>
                             <Image
                               source={Images.measuring}
-                              style={{ height: 30, width: 30, resizeMode: 'contain' }}></Image>
+                              style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
                             <Text
                               style={{
-                                fontSize: 16,
+                                fontSize: 14,
                                 color: Colors.black,
                                 textAlign: 'center',
                                 fontFamily: 'Poppins-Regular'
@@ -892,9 +810,10 @@ const Home = () => {
 
                             <Text
                               style={{
-                                fontSize: 20,
+                                fontSize: 13,
                                 color: Colors.black,
                                 textAlign: 'center',
+                                fontWeight:"bold"
                               }}>
                               {"HOA"}
                             </Text>
@@ -903,7 +822,7 @@ const Home = () => {
               style={{height: 25, width: 25, resizeMode: 'contain'}}></Image> */}
                             <Text
                               style={{
-                                fontSize: 16,
+                                fontSize: 14,
                                 color: Colors.black,
                                 marginTop: 6,
                                 textAlign: 'center',
@@ -921,10 +840,10 @@ const Home = () => {
                             }}>
                             <Image
                               source={Images.tax}
-                              style={{ height: 28, width: 28, marginTop: 10, resizeMode: 'contain' }}></Image>
+                              style={{ height: 20, width: 20, marginTop: 0, resizeMode: 'contain' }}></Image>
                             <Text
                               style={{
-                                fontSize: 16,
+                                fontSize: 14,
                                 color: Colors.black,
                                 textAlign: 'center',
                                 fontFamily: 'Poppins-Regular'
@@ -936,6 +855,8 @@ const Home = () => {
 
                         ) : null}
                       </View>
+                      </Animated.View>
+                     
 
                     </View>
 
@@ -990,7 +911,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
-  inputStyle: { fontSize: 55, },
+  // inputStyle: { fontSize: 55, },
   button: {
     padding: 10,
     backgroundColor: 'blue',
@@ -1017,13 +938,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
   },
   slider: {
-    width: screenWidth,
+    width: "100%",
     height: screenHeight / 2.7,
-    borderRadius: 8,
+    borderRadius: 0,
     alignSelf: 'center',
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
+    borderTopLeftRadius:8,
+    borderTopRightRadius:8
   },
   view: {
 
@@ -1073,10 +996,12 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '100%',
-    height: 300,
-    backgroundColor: '#f4f4f4',
+    height: "auto",
+    backgroundColor: '#fdfdfd',
     position: 'absolute',
     borderRadius: 10,
+    paddingBottom:22,
+    marginBottom:22,
     ...Platform.select({
       android: {
         elevation: 1,

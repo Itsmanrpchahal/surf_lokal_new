@@ -16,7 +16,7 @@ import Colors from '../utils/Colors';
 import Rewards from '../container/Rewards/Rewards';
 import Favorites from '../container/Favorites/Favorites';
 import Home from '../container/Home/Home';
-// import Chat from '../container/Chat/Chat';
+//import HomeNew from '../container/Home/HomeNew';
 import MyProfile from '../container/MyProfile/MyProfile';
 import MyFavorites from '../container/MyFavorites/MyFavorites';
 import SavedSearches from '../container/SavedSearches/SavedSearches';
@@ -63,29 +63,23 @@ const BottomTabNavigator = () => {
         name="Rewards"
         component={MyRewards}
         options={{
+      
+         
           tabBarLabel: (
-            <View>
-            <Text
-            style={{
-              fontSize: 28,
-              color: 'gray',
-              position:"absolute",
-              top:-43
-            }}
-            allowFontScaling={false}
-          >
-            199
+           <View style={{position:"relative"}}>
+           <Text style={{ fontSize: 15,fontFamily:'Poppins-Regular',position:"absolute",fontSize:35,top:-50}} allowFontScaling={false}>
+          99
           </Text>
-            <Text style={{fontSize: 12 ,fontFamily:'Poppins-Regular'}} allowFontScaling={false}>
-              Rewards
+            <Text style={{ fontSize: 10,fontFamily:'Poppins-Regular',}} allowFontScaling={false}>
+            Rewards
             </Text>
-            </View>
+         </View>
           ),
-
-          // tabBarIcon: Images.surfReward,
+        
           keyboardHidesTabBar: true,
           tabBarHideOnKeyboard: true,
         }}
+   
       />
 
       <Tab.Screen
