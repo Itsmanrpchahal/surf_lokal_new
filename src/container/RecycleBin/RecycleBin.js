@@ -31,6 +31,9 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {getTrash} from '../../modules/getTrash';
 import { getAgent } from '../../modules/getAgent';
+import { getRating } from '../../modules/getRating';
+import { postUpdateRating } from '../../modules/postUpdateRating';
+
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -47,33 +50,63 @@ const RecycleBin = () => {
   const [index, setIndex] = useState(0);
   const [agentData,setAgentData]=useState([])
   const [readmore, setreadmore] = useState('');
+const [isEditing, setIsEditing] = useState(false);
+const [ratingData,setRatingData] = useState([])
+
   const [modalVisible, setModalVisible] = useState(false);
   const [showNoDataMessage, setShowNoDataMessage] = useState(false);
-  const toggleModal = () => {
-    setModalVisible(true);
-  };
+  const dispatch = useDispatch();
+
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
   const [productId, setProductId] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
+  const toggleModal = () => {
+    setModalVisible(true);
+  };
 
+  const updateReview = async (post_id) => {
+    const id = await AsyncStorage.getItem('userId');
+    const formData = new FormData();
+  formData.append('userID', id);
+  formData.append('postid', productId);
+  formData.append('comment_content',review);
+  formData.append('review_title', reviewTitle);
+  formData.append('review_stars',rating);
+  formData.append('description_review_stars', rating);
+  formData.append('price_review_stars', rating);
+  formData.append('interest_review_stars', rating);
+  formData.append('reviewtitle',reviewTitle)
+    console.log(formData, "rkrkrk");
+    dispatch(postUpdateRating(formData)).then((response) => {
+      console.log('kkk', response.payload);
+      if (response.payload.success) {
+        Alert.alert('Alert', response.payload.message);
+        toggleModal();
+      } else {
+        toggleModal();
+        Alert.alert('Alert', response.payload.message);
+      }
+    });
+  };
+ 
   const addReview = async post_id => {
     const id = await AsyncStorage.getItem('userId');
-    var formdata = new FormData();
-    formdata.append('userID', id);
-    formdata.append('postid', productId);
-    formdata.append('photo_quality_rating',rating );
-    formdata.append('desc_stars', rating);
-    formdata.append('price_stars', rating);
-    formdata.append('interest_stars', rating);
-    formdata.append('content', review);
-    formdata.append('reviewtitle', reviewTitle);
-
-    console.log(formdata ,"formdataformdata");
-
-    dispatch(postRating(formdata)).then(response => {
+    const formData = new FormData();
+    formData.append('userID', id);
+    formData.append('postid', productId);
+    formData.append('comment_content',review);
+    formData.append('review_title', reviewTitle);
+    formData.append('review_stars',rating);
+    formData.append('description_review_stars', rating);
+    formData.append('price_review_stars', rating);
+    formData.append('interest_review_stars', rating);
+    formData.append('reviewtitle',reviewTitle)
+    console.log(formData, "formdataformdata");
+    dispatch(postRating(formData)).then(response => {
       console.log('res', response.payload);
       if (response.payload.success) {
+        Alert.alert('Alert', response.payload.message);
         toggleModal();
       } else {
         toggleModal();
@@ -81,16 +114,18 @@ const RecycleBin = () => {
       }
       // setFilterData(response.payload.data);
     });
-    setModalVisible(!modalVisible);
-
   };
   const flatListRef = useRef(null);
   const navigation = useNavigation();
-  const dispatch = useDispatch();
+  
   useEffect(() => {
     getTrashApiCall();
     getAgentApicall();
+    
   }, []);
+  useEffect(()=>{
+   getRatingApicall();
+  },[])
 
   const getTrashApiCall = () => {
     dispatch(getTrash()).then(response => {
@@ -111,6 +146,13 @@ const RecycleBin = () => {
 
     });
   }
+    const getRatingApicall=()=>{
+      dispatch(getRating()).then(response=>{
+        console.log ('MMM',response.payload.data)
+         setRatingData(response.payload.data)
+      })
+     }
+  
    const makePhoneCall = () => {
     let phoneNumber =agentData[0]?. agent_phone;
    
@@ -219,15 +261,16 @@ const RecycleBin = () => {
       </View>
       <KeyboardAvoidingView >
 
-<Modal
+      <Modal
   transparent={true}
   animationType="slide"
   visible={modalVisible}
   onRequestClose={toggleModal}>
+
   <View
     style={{
       // marginTop: 40,
-      height: '80%',
+      height: '95%',
       width: '100%',
       alignItems: 'center',
       alignContent: 'center',
@@ -309,6 +352,26 @@ const RecycleBin = () => {
         marginTop: 10,
         justifyContent: 'center',
       }}></View>
+      <View style={{}}>
+      <Text
+          style={{
+            fontSize: 18,
+            fontWeight: '700',
+            color: Colors.black,
+            marginTop: 10,
+            marginRight:180
+          }}>
+        Your Review
+        </Text>
+        <Text style={{margin:10,fontSize:12,color:'black'}}>{ratingData[0]?.comment_content}</Text>
+        {!isEditing && (
+  <TouchableOpacity
+    onPress={() => setIsEditing(true)}
+    style={{ marginTop: 10 }}>
+    <Text style={{ fontSize: 12, color: 'blue' }}>Edit</Text>
+  </TouchableOpacity>
+)}
+      </View>
     <View style={{ width: '95%', height: '70%' }}>
       <View style={{ width: '95%', alignSelf: 'center' }}>
         <View
@@ -325,7 +388,8 @@ const RecycleBin = () => {
             type="custom"
             ratingCount={5}
             imageSize={25}
-            startingValue={rating}
+            startingValue={ratingData[0]?.photo_wuality_rating
+            }
             ratingBackgroundColor="#c8c7c8"
             onFinishRating={setRating}
             style={styles.rating}
@@ -349,7 +413,8 @@ const RecycleBin = () => {
             type="custom"
             ratingCount={5}
             imageSize={25}
-            startingValue={rating}
+            startingValue={ratingData[0]?.description_review_stars
+            }
             ratingBackgroundColor="#c8c7c8"
             onFinishRating={setRating}
             style={styles.rating}
@@ -372,7 +437,8 @@ const RecycleBin = () => {
             type="custom"
             ratingCount={5}
             imageSize={25}
-            startingValue={rating}
+            startingValue={ratingData[0]?.price_review_stars
+            }
             ratingBackgroundColor="#c8c7c8"
             onFinishRating={setRating}
             style={styles.rating}
@@ -396,7 +462,8 @@ const RecycleBin = () => {
             type="custom"
             ratingCount={5}
             imageSize={25}
-            startingValue={rating}
+            startingValue={ratingData[0]?.interest_review_stars
+            }
             ratingBackgroundColor="#c8c7c8"
             onFinishRating={setRating}
             style={styles.rating}
@@ -424,29 +491,28 @@ const RecycleBin = () => {
             marginTop: 10,
             //justifyContent: 'center',
           }}>
-          <TextInput
-            // allowFontScaling={false}
-            style={{
-              width: '100%',
-              borderRadius: 8,
-              height: '100%',
-              paddingHorizontal: 12,
-              color: Colors.black,
-              borderWidth: 1,
-              borderColor: Colors.gray,
-              fontSize: 14,
-              // padding: 2,
-              alignItems:"flex-start",
-              alignSelf:"flex-start",
-              verticalAlign:"top"
-            }}
-            //keyboardType="default"
-            autoCorrect={false}
-            returnKeyType="done"
-            placeholderTextColor={Colors.gray}
-            placeholder='Write a review...'
-          onChangeText={text => setReview(text)}
-          />
+          
+
+{isEditing ? (
+  <TextInput
+    style={{
+      margin: 10,
+      fontSize: 12,
+      color: 'black',
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius: 5,
+      padding: 5,
+    }}
+    value={review}
+    onChangeText={text => setReview(text)}
+    autoFocus
+  />
+) : (
+  <Text style={{ margin: 10, fontSize: 12, color: 'black' }}>
+    {ratingData[0]?.comment_content}
+  </Text>
+)}
         </View>
       </View>
       <View style={{
@@ -458,9 +524,14 @@ const RecycleBin = () => {
         justifyContent: "flex-end",
         paddingHorizontal: 10
       }}>
+         {isEditing ? (
+          <TouchableOpacity onPress={() => updateReview()} style={{ marginRight: 10 }}>
+            <Text style={{ fontSize: 14, fontWeight: '700', color: Colors.PrimaryColor }}>Update</Text>
+          </TouchableOpacity>
+        ) : (
 
         <TouchableOpacity
-        onPress={()=>addReview()}
+          onPress={() => addReview()}
           // onPress={() => setModalVisible(false)}
           // onPress={Alert.alert("Hyy")}
           style={{
@@ -485,9 +556,12 @@ const RecycleBin = () => {
             Submit
           </Text>
         </TouchableOpacity>
+        )}
       </View>
+        
     </View>
   </View>
+  
 </Modal>
 </KeyboardAvoidingView>
       <Text  style={{fontSize: 16, color: Colors.black, textAlign: 'center',marginTop:15}}>

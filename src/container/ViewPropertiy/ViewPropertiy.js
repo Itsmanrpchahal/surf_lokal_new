@@ -32,6 +32,7 @@ import { getPopertiesDetails } from '../../modules/getPopertiesDetails';
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import MapView, { Callout, Circle, Marker } from "react-native-maps";
 import { getRating } from '../../modules/getRating';
+import { postUpdateRating } from '../../modules/postUpdateRating';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const fontSizeRatio = screenHeight / 1000;
@@ -272,25 +273,46 @@ const ViewPropertiy = (props, imageUrl) => {
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
+  const updateReview = async (post_id) => {
+    const id = await AsyncStorage.getItem('userId');
+    const formData = new FormData();
+  formData.append('userID', id);
+  formData.append('postid', productId);
+  formData.append('comment_content',review);
+  formData.append('review_title', reviewTitle);
+  formData.append('review_stars',rating);
+  formData.append('description_review_stars', rating);
+  formData.append('price_review_stars', rating);
+  formData.append('interest_review_stars', rating);
+  formData.append('reviewtitle',reviewTitle)
+    console.log(formData, "rkrkrk");
+    dispatch(postUpdateRating(formData)).then((response) => {
+      console.log('kkk', response.payload);
+      if (response.payload.success) {
+        Alert.alert('Alert', response.payload.message);
+        toggleModal();
+      } else {
+        toggleModal();
+        Alert.alert('Alert', response.payload.message);
+      }
+    });
+  };
+
 
   const addReview = async post_id => {
     const id = await AsyncStorage.getItem('userId');
-    formdata.append('content', isEditing ? review : ratingData[0]?.comment_content);
-    let formdata = {
-      userID: id,
-      postid: productId,
-      comment_content: review,
-      review_title: reviewTitle,
-      review_stars: rating,
-      photo_quality_rating: rating,
-      desc_stars: rating,
-      price_stars: rating,
-      interest_stars: rating,
-      content: review,
-      reviewtitle: reviewTitle
-    };
-    console.log(formdata, "formdataformdata");
-    dispatch(postRating(formdata)).then(response => {
+    const formData = new FormData();
+    formData.append('userID', id);
+    formData.append('postid', productId);
+    formData.append('comment_content',review);
+    formData.append('review_title', reviewTitle);
+    formData.append('review_stars',rating);
+    formData.append('description_review_stars', rating);
+    formData.append('price_review_stars', rating);
+    formData.append('interest_review_stars', rating);
+    formData.append('reviewtitle',reviewTitle)
+    console.log(formData, "formdataformdata");
+    dispatch(postRating(formData)).then(response => {
       console.log('res', response.payload);
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
@@ -1176,7 +1198,7 @@ const ViewPropertiy = (props, imageUrl) => {
       borderRadius: 5,
       padding: 5,
     }}
-    value={ratingData[0]?.comment_content}
+    value={review}
     onChangeText={text => setReview(text)}
     autoFocus
   />
@@ -1196,6 +1218,11 @@ const ViewPropertiy = (props, imageUrl) => {
         justifyContent: "flex-end",
         paddingHorizontal: 10
       }}>
+         {isEditing ? (
+          <TouchableOpacity onPress={() => updateReview()} style={{ marginRight: 10 }}>
+            <Text style={{ fontSize: 14, fontWeight: '700', color: Colors.PrimaryColor }}>Update</Text>
+          </TouchableOpacity>
+        ) : (
 
         <TouchableOpacity
           onPress={() => addReview()}
@@ -1223,7 +1250,9 @@ const ViewPropertiy = (props, imageUrl) => {
             Submit
           </Text>
         </TouchableOpacity>
+        )}
       </View>
+        
     </View>
   </View>
   
@@ -1518,6 +1547,6 @@ backgroundColor:"#fff",
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "yellow"
+    backgroundColor: Colors.PrimaryColor
   },
 })

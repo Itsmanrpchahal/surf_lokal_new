@@ -10,7 +10,8 @@ import {
   Alert,
   Dimensions,
   Linking,
-  ActivityIndicator
+  ActivityIndicator,
+  Modal
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
@@ -21,6 +22,11 @@ import { WebView } from 'react-native-webview';
 import { getPopertiesDetails } from '../../modules/getPopertiesDetails';
 import { useDispatch } from 'react-redux';
 import { getAgent } from '../../modules/getAgent';
+import { getRating } from '../../modules/getRating';
+import { postUpdateRating } from '../../modules/postUpdateRating';
+import { postRating } from '../../modules/postRating';
+import AsyncStorage from '@react-native-community/async-storage';
+import { Rating } from 'react-native-ratings';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -34,6 +40,10 @@ const ViewPropertiyImage = props => {
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState('');
+  const [productId, setProductId] = useState('');
+  const [reviewTitle, setReviewTitle] = useState('');
 
   const [video, setvideo] = useState([]);
   const [orientation, setOrientation] = useState('portrait');
@@ -41,6 +51,9 @@ const ViewPropertiyImage = props => {
   const [adress, setAddres] = useState('');
   const [index, setIndex] = useState(0);
   const [agentData,setAgentData]=useState([])
+  const [ratingData,setRatingData] = useState([])
+  const [isEditing, setIsEditing] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const flatListRef = useRef(null);
   const postID = props.route.params
   console.log(postID.postid, "ViewPropertiyImage Props");
@@ -67,9 +80,9 @@ const ViewPropertiyImage = props => {
     Dimensions.addEventListener('change', handleChangeOrientation);
 
     // Clean up the event listener when the component unmounts
-    return () => {
-      Dimensions.removeEventListener('change', handleChangeOrientation);
-    };
+    
+      // Dimensions.removeEventListener('change', handleChangeOrientation);
+    
   }, []);
   const getPopertiesDetailsApiCall = () => {
     setLoading(true);
@@ -93,8 +106,62 @@ const ViewPropertiyImage = props => {
     Linking.openURL(`tel:${phoneNumber}`);
   };
 
-  const handleChangeOrientation = () => {
-    setOrientation(isPortrait() ? 'portrait' : 'landscape');
+  // const handleChangeOrientation = () => {
+  //   setOrientation(isPortrait() ? 'portrait' : 'landscape');
+  // };
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+  const updateReview = async (post_id) => {
+    const id = await AsyncStorage.getItem('userId');
+    const formData = new FormData();
+  formData.append('userID', id);
+  formData.append('postid', productId);
+  formData.append('comment_content',review);
+  formData.append('review_title', reviewTitle);
+  formData.append('review_stars',rating);
+  formData.append('description_review_stars', rating);
+  formData.append('price_review_stars', rating);
+  formData.append('interest_review_stars', rating);
+  formData.append('reviewtitle',reviewTitle)
+    console.log(formData, "rkrkrk");
+    dispatch(postUpdateRating(formData)).then((response) => {
+      console.log('kkk', response.payload);
+      if (response.payload.success) {
+        Alert.alert('Alert', response.payload.message);
+        toggleModal();
+      } else {
+        toggleModal();
+        Alert.alert('Alert', response.payload.message);
+      }
+    });
+  };
+
+
+  const addReview = async post_id => {
+    const id = await AsyncStorage.getItem('userId');
+    const formData = new FormData();
+    formData.append('userID', id);
+    formData.append('postid', productId);
+    formData.append('comment_content',review);
+    formData.append('review_title', reviewTitle);
+    formData.append('review_stars',rating);
+    formData.append('description_review_stars', rating);
+    formData.append('price_review_stars', rating);
+    formData.append('interest_review_stars', rating);
+    formData.append('reviewtitle',reviewTitle)
+    console.log(formData, "formdataformdata");
+    dispatch(postRating(formData)).then(response => {
+      console.log('res', response.payload);
+      if (response.payload.success) {
+        Alert.alert('Alert', response.payload.message);
+        toggleModal();
+      } else {
+        toggleModal();
+        Alert.alert('Alert', response.payload.message);
+      }
+      // setFilterData(response.payload.data);
+    });
   };
 
   const navigation = useNavigation();
@@ -203,6 +270,11 @@ const ViewPropertiyImage = props => {
               alignItems: 'center',
               alignContent: 'center',
             }}>
+              <TouchableOpacity onPress={()=>{
+                setProductId(postID.postid.ID);
+                setReviewTitle(postID.postid.title)
+                toggleModal();
+              }}>
             <Image
               source={Images.reviews}
               style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
@@ -216,6 +288,8 @@ const ViewPropertiyImage = props => {
               }}>
               Rate Property
             </Text>
+          </TouchableOpacity>
+
           </View>
           <View
             style={{
@@ -271,7 +345,308 @@ const ViewPropertiyImage = props => {
           </TouchableOpacity>
         </View>
       </View>
-      
+      <Modal
+  transparent={true}
+  animationType="slide"
+  visible={modalVisible}
+  onRequestClose={toggleModal}>
+
+  <View
+    style={{
+      // marginTop: 40,
+      height: '95%',
+      width: '100%',
+      alignItems: 'center',
+      alignContent: 'center',
+      backgroundColor: Colors.white,
+      position: 'absolute',
+      bottom: 10,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      borderWidth: 1,
+      borderColor: Colors.gray,
+    }}>
+    <View
+      style={{
+        height: '10%',
+        width: '90%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginLeft: 10,
+        }}>
+        <Text style={{ fontSize: 12, color: Colors.gray }}></Text>
+      </TouchableOpacity>
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 10,
+        }}>
+        <TouchableOpacity
+          onPress={() => setModalVisible(false)}
+          style={{
+            height: 5,
+            width: 50,
+            borderRadius: 8,
+            backgroundColor: Colors.gray,
+          }}></TouchableOpacity>
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: '700',
+            color: Colors.black,
+            marginTop: 10,
+          }}>
+          Rate and Review
+        </Text>
+      </View>
+
+      <TouchableOpacity
+        onPress={() => setModalVisible(false)}
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginRight: 10,
+        }}>
+        <Image
+          style={{
+            height: 20,
+            width: 20,
+            resizeMode: 'contain',
+            tintColor: Colors.black,
+            transform: [{ rotate: '45deg' }],
+          }}
+          source={Images.plus}></Image>
+      </TouchableOpacity>
+    </View>
+    <View
+      style={{
+        width: '100%',
+        height: 1,
+        backgroundColor: Colors.gray,
+        marginTop: 10,
+        justifyContent: 'center',
+      }}></View>
+      <View style={{}}>
+      <Text
+          style={{
+            fontSize: 18,
+            fontWeight: '700',
+            color: Colors.black,
+            marginTop: 10,
+            marginRight:180
+          }}>
+        Your Review
+        </Text>
+        <Text style={{margin:10,fontSize:12,color:'black'}}>{ratingData[0]?.comment_content}</Text>
+        {!isEditing && (
+  <TouchableOpacity
+    onPress={() => setIsEditing(true)}
+    style={{ marginTop: 10 }}>
+    <Text style={{ fontSize: 12, color: 'blue' }}>Edit</Text>
+  </TouchableOpacity>
+)}
+      </View>
+    <View style={{ width: '95%', height: '70%' }}>
+      <View style={{ width: '95%', alignSelf: 'center' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 10,
+          }}>
+          <Text style={{ fontSize: 12, color: Colors.black, }}>
+            Photos Quality Rating :
+          </Text>
+          <Rating
+            type="custom"
+            ratingCount={5}
+            imageSize={25}
+            startingValue={ratingData[0]?.photo_wuality_rating
+            }
+            ratingBackgroundColor="#c8c7c8"
+            onFinishRating={setRating}
+            style={styles.rating}
+            ratingColor="#ffbe0b"
+          //tintColor="#f1f3f4"
+          />
+        </View>
+      </View>
+
+      <View style={{ width: '95%', alignSelf: 'center' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <Text style={{ fontSize: 12, color: Colors.black }}>
+            Description & Details :
+          </Text>
+          <Rating
+            type="custom"
+            ratingCount={5}
+            imageSize={25}
+            startingValue={ratingData[0]?.description_review_stars
+            }
+            ratingBackgroundColor="#c8c7c8"
+            onFinishRating={setRating}
+            style={styles.rating}
+            ratingColor="#ffbe0b"
+          //tintColor="#f1f3f4"
+          />
+        </View>
+      </View>
+      <View style={{ width: '95%', alignSelf: 'center' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <Text style={{ fontSize: 12, color: Colors.black }}>
+            Price Of Property :
+          </Text>
+          <Rating
+            type="custom"
+            ratingCount={5}
+            imageSize={25}
+            startingValue={ratingData[0]?.price_review_stars
+            }
+            ratingBackgroundColor="#c8c7c8"
+            onFinishRating={setRating}
+            style={styles.rating}
+            ratingColor="#ffbe0b"
+          //tintColor="#f1f3f4"
+          />
+        </View>
+      </View>
+
+      <View style={{ width: '95%', alignSelf: 'center' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <Text style={{ fontSize: 12, color: Colors.black }}>
+            General Interest in the property :
+          </Text>
+          <Rating
+            type="custom"
+            ratingCount={5}
+            imageSize={25}
+            startingValue={ratingData[0]?.interest_review_stars
+            }
+            ratingBackgroundColor="#c8c7c8"
+            onFinishRating={setRating}
+            style={styles.rating}
+            ratingColor="#ffbe0b"
+          //tintColor="#f1f3f4"
+          />
+        </View>
+      </View>
+
+
+      <View style={{ height: 20 }}></View>
+      <View style={{ width: '95%', alignSelf: 'center' }}>
+        <Text
+          style={{
+            fontSize: 12,
+            color: Colors.black,
+            marginTop: 12,
+          }}>
+          Review
+        </Text>
+        <View
+          style={{
+            width: '100%',
+            height: 100,
+            marginTop: 10,
+            //justifyContent: 'center',
+          }}>
+          
+
+{isEditing ? (
+  <TextInput
+    style={{
+      margin: 10,
+      fontSize: 12,
+      color: 'black',
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius: 5,
+      padding: 5,
+    }}
+    value={review}
+    onChangeText={text => setReview(text)}
+    autoFocus
+  />
+) : (
+  <Text style={{ margin: 10, fontSize: 12, color: 'black' }}>
+    {ratingData[0]?.comment_content}
+  </Text>
+)}
+        </View>
+      </View>
+      <View style={{
+
+        width: '100%',
+
+        flexDirection: 'row',
+        alignItems: "center",
+        justifyContent: "flex-end",
+        paddingHorizontal: 10
+      }}>
+         {isEditing ? (
+          <TouchableOpacity onPress={() => updateReview()} style={{ marginRight: 10 }}>
+            <Text style={{ fontSize: 14, fontWeight: '700', color: Colors.PrimaryColor }}>Update</Text>
+          </TouchableOpacity>
+        ) : (
+
+        <TouchableOpacity
+          onPress={() => addReview()}
+          // onPress={() => setModalVisible(false)}
+          // onPress={Alert.alert("Hyy")}
+          style={{
+            height: 35,
+            width: '45%',
+            borderRadius: 5,
+            backgroundColor: Colors.PrimaryColor,
+            marginTop: 10,
+
+
+            flexDirection: 'row',
+            alignItems: "center",
+            justifyContent: "center"
+
+          }}>
+          <Text
+            style={{
+              fontSize: 14,
+              fontWeight: '700',
+              color: Colors.white,
+            }}>
+            Submit
+          </Text>
+        </TouchableOpacity>
+        )}
+      </View>
+        
+    </View>
+  </View>
+  
+</Modal>
     </SafeAreaView>
   );
 };

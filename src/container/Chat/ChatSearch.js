@@ -7,7 +7,7 @@ import axios from 'axios';
 import { getAgent } from '../../modules/getAgent';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
-
+import AsyncStorage from '@react-native-community/async-storage';
 const ChatSearch = () => {
  
   const [message, setMessage] = useState('');
@@ -16,10 +16,12 @@ const ChatSearch = () => {
   const [agentData,setAgentData]=useState([])
 
   const myfubx = () => {
-    let formData = new FormData();
-    formData.append('userid', '3');
-    formData.append('message', message);
+    
 
+    let formData = new FormData();
+    formData.append('userid', "3");
+    formData.append('message', message);
+   ;
     axios.post('https://surf.topsearchrealty.com/webapi/v1/chatgpt/', formData)
       .then(response => {
         console.log(Object.values(response.data.data));
