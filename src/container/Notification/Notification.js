@@ -36,23 +36,25 @@ const Notification = () => {
     }
   };
 
-  const renderItem = ({item,index}) => (
-    <View style={styles.slideOuter}>
-       <View style={{ flexDirection: 'row', width: '95%', height: 50, alignItems: 'center',marginTop:10 }}>
-      <Image
-        source={{ uri: item.featured_image_url }}
-        style={{ height: 60, width: 70, resizeMode: 'cover',marginLeft:10,borderRadius:20 }}
-      />
-     
-        <Text style={{ fontSize: 16, marginLeft: 5, color: Colors.textColorLight }}>{item.post_title}</Text>
-        <Text style={{ fontSize: 12, color: Colors.textColorLight, position: 'absolute', top: 0, right: 8 }}>
-          {item.post_date}
-        </Text>
+  const renderItem = ({ item, index }) => {
+    if (isEnabled) {
+      return null; 
+    }
+    return (
+      <View style={styles.slideOuter}>
+        <View style={{ flexDirection: 'row', width: '95%', height: 50, alignItems: 'center', marginTop: 10 }}>
+          <Image
+            source={{ uri: item.featured_image_url }}
+            style={{ height: 60, width: 70, resizeMode: 'cover', marginLeft: 10, borderRadius: 20 }}
+          />
+          <Text style={{ fontSize: 16, marginLeft: 5, color: Colors.textColorLight }}>{item.post_title}</Text>
+          <Text style={{ fontSize: 12, color: Colors.textColorLight, position: 'absolute', top: 0, right: 8 }}>
+            {item.post_date}
+          </Text>
+        </View>
       </View>
-    
-    </View>
-  );
-
+    );
+  };
   return (
     <View style={styles.container}>
       <View style={styles.viewStyle}>

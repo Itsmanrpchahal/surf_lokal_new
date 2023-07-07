@@ -998,9 +998,6 @@ const Home = () => {
                                 }}>
                                 {'HOA'}
                               </Text>
-                              {/* <Image
-              source={Images.hoa}
-              style={{height: 25, width: 25, resizeMode: 'contain'}}></Image> */}
                               <Text
                                 style={{
                                   fontSize: 14,
@@ -1009,9 +1006,9 @@ const Home = () => {
                                   textAlign: 'center',
                                   fontFamily: 'Poppins-Regular',
                                 }}>
-                                {property?.associationfee == null
+                                {item?.associationfee == null
                                   ? 0
-                                  : property?.associationfee}
+                                  : item?.associationfee}
                               </Text>
                             </View>
                           ) : null}
