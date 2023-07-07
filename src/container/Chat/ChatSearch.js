@@ -8,6 +8,8 @@ import { getAgent } from '../../modules/getAgent';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
+import {chatGpt} from '../../modules/chatGpt';
+import { store } from '../../redux/store';
 const ChatSearch = () => {
  
   const [message, setMessage] = useState('');
@@ -15,23 +17,21 @@ const ChatSearch = () => {
   const [ans, setans] = useState([])
   const [agentData,setAgentData]=useState([])
 
-  const myfubx = () => {
-    
 
-    let formData = new FormData();
-    formData.append('userid', "3");
-    formData.append('message', message);
-   ;
-    axios.post('https://surf.topsearchrealty.com/webapi/v1/chatgpt/', formData)
-      .then(response => {
-        console.log(Object.values(response.data.data));
-        setchatData(response.data.data[0]);
-        console.log(chatData, "chat data")
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    setMessage('');
+  const myfubx = async message => {
+    
+    const userID = await AsyncStorage.getItem('userId');
+
+    let payload = {
+      userid: userID,
+      message: message,
+    };
+    console.log('chatgtp message payload', payload);
+
+    await dispatch(chatGpt(payload)).then(response => {
+     setans(response.data.data)
+     console.log('uuuu',response.data.data[0].answere)
+    });
   };
   const dispatch = useDispatch();
   useEffect(() => {
@@ -40,12 +40,15 @@ const ChatSearch = () => {
   }, [ans]);
   const getAgentApicall = () =>{
     dispatch(getAgent()).then(response =>{
-      console.log('rrrohan',response.payload.data);
+      // console.log('rrrohan',response.payload.data);
       setAgentData(response.payload.data);
       
 
     });
   }
+useEffect(() => {
+console.log("message", message)
+},[store])
 
   const makePhoneCall = () => {
     let phoneNumber = agentData[0]?.agent_phone
@@ -72,10 +75,13 @@ const ChatSearch = () => {
       {/* <Text style={styles.text}>{data.item.navigation}</Text> */}
 
       <ScrollView style={{ flex: 0.5, marginBottom: 90, paddingHorizontal: 7 }}>
-        <Text style={{ color: 'black',fontFamily:'Poppins-Regular' }}>{chatData.question}</Text>
-        <Text style={{ color: 'black',fontFamily:'Poppins-Regular' }}>{chatData.answere}</Text>
+  <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>{"Q. "}{store.getState().chatGpt.chatGptData?.data && JSON.stringify(store.getState().chatGpt.chatGptData?.data[0]?.question)}</Text>
+  <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>{"Ans:-"}{store.getState().chatGpt.chatGptData?.data && JSON.stringify(store.getState().chatGpt.chatGptData?.data[0]?.answere)}</Text>
 
-      </ScrollView>
+  {chatData.map((item, index) => (
+    <Text key={index} style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>{item.answere}</Text>
+  ))}
+</ScrollView>
       <View style={styles.buttonContainer}>
         <View style={styles.viewstyle}>
           <TextInput
@@ -86,7 +92,9 @@ const ChatSearch = () => {
             value={message}
           />
         </View>
-        <TouchableOpacity onPress={myfubx}>
+        <TouchableOpacity onPress={()=>
+          {setMessage("")
+          myfubx(message)}}>
           <Image
             style={styles.sent}
             source={Images.send} />
