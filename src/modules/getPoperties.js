@@ -1,25 +1,48 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getAPI } from '../config/apiMethod';
-import { url } from '../config/url';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {getAPI, uploadImageAPI} from '../config/apiMethod';
+import {url} from '../config/url';
 import AsyncStorage from '@react-native-community/async-storage';
 
-export const getPoperties = createAsyncThunk('getPoperties', async () => {
-  return await getAPI('https://surf.topsearchrealty.com/webapi/v1/property')
-    .then(async response => {
-      console.log("HOme response", response)
-      const { data } = response;
-      return data;
-    })
-    .catch(e => {
-      console.log(e);
-      if (e.response) {
-        console.log('api issue', e.response);
-      } else if (e.request) {
-        console.log('api issue', e.response);
-      } else {
-        console.log('api issue', e.response);
-      }
-    });
+let latLng = {
+  latitude: 26.4898,
+  longitude: -80.174854,
+};
+export const getPoperties = createAsyncThunk('getPoperties', async type => {
+  console.log(JSON.stringify(type.type) + '======', 'typppppppppppppp');
+  return type.type === 0
+    ? await getAPI('https://surf.topsearchrealty.com/webapi/v1/property')
+        .then(async response => {
+          const {data} = response;
+          console.log('property datat', response.data.data);
+          return data;
+        })
+        .catch(e => {
+          console.log(e, 'getPoperties');
+        })
+    : type.type === 1
+    ? await uploadImageAPI(
+        'https://surf.topsearchrealty.com/webapi/v1/nearby/',
+        latLng,
+      )
+        .then(async response => {
+          const {data} = response;
+          console.log('value1', response.data);
+          return data;
+        })
+        .catch(e => {
+          console.log('tyep 1', e, 'nearby gps');
+        })
+    : await getAPI(
+        'https://surf.topsearchrealty.com/webapi/v1/search/insert_search.php',
+        type.data,
+      )
+        .then(async response => {
+          const {data} = response;
+          return data;
+        })
+        .catch(e => {
+          console.log(e, 'search');
+        });
 });
 
 const getPopertiesSlice = createSlice({
@@ -30,7 +53,8 @@ const getPopertiesSlice = createSlice({
   },
   extraReducers: {
     [getPoperties.pending]: (state, action) => {
-      state.status = 'loading';
+      state.satus;
+      satus = 'loading';
     },
     [getPoperties.fulfilled]: (state, action) => {
       state.status = 'success';
