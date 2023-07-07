@@ -18,7 +18,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Styles from './Styles';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { chatGpt } from '../../modules/chatgpt';
+import { chatGpt } from '../../modules/chatGpt';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const screenHeight = Dimensions.get('window').height;

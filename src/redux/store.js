@@ -20,7 +20,7 @@ import getAgentReducer from '../modules/getAgent';
 import getFilterReducer from '../modules/getFilter';
 import getNearByReducer from '../modules/getNearBy';
 import editSearchReducer from '../modules/editSearch';
-import chatGptReducer from '../modules/chatgpt';
+import chatGptReducer from '../modules/chatGpt';
 import makeOfferReducer from '../modules/makeOffer';
 import addFavoriteReducer from '../modules/addToFavorite';
 import addRemoveTrash from '../modules/addRemoveTrash';
