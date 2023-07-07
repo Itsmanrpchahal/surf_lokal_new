@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import {configureStore} from '@reduxjs/toolkit';
 import loginUserReducer from '../modules/loginUser';
 import googleUserReducer from '../modules/googleLogin';
 import getCountryReducer from '../modules/getCountry';
@@ -22,7 +22,7 @@ import getNearByReducer from '../modules/getNearBy';
 import editSearchReducer from '../modules/editSearch';
 import chatGptReducer from '../modules/chatgpt';
 import makeOfferReducer from '../modules/makeOffer';
-import addFavoriteReducer from "../modules/addFavorite"
+import addFavoriteReducer from '../modules/addToFavorite';
 import addRemoveTrash from '../modules/addRemoveTrash';
 export const store = configureStore({
   reducer: {
@@ -40,17 +40,17 @@ export const store = configureStore({
     forgotPassword: forgotPasswordReducer,
     getSavedSearch: getSavedSearchReducer,
     deleteSearch: deleteSearchReducer,
-    getSearch: getSearchReducer,
-     getAgent : getAgentReducer,  
+    // getSearch: getSearchReducer,
+    getAgent: getAgentReducer,
     // 16 May 2023
     getFilter: getFilterReducer,
     getNearBy: getNearByReducer,
     editSearch: editSearchReducer,
     googleUser: googleUserReducer,
-    chatGpt:chatGptReducer,
-    makeOffer:makeOfferReducer,    
-    addFavorite :addFavoriteReducer,
-    addRemoveTrash:addRemoveTrash
+    chatGpt: chatGptReducer,
+    makeOffer: makeOfferReducer,
+    addFavorite: addFavoriteReducer,
+    addRemoveTrash: addRemoveTrash,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
