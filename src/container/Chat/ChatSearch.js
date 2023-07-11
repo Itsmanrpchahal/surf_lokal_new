@@ -72,10 +72,10 @@ const ChatSearch = () => {
   return (
     <View style={styles.container}>
       <View style={styles.View}>
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <Image source={Images.chat} style={styles.image1} />
-        </TouchableOpacity>
-        <Text style={{ color: 'black', fontSize: 15, fontFamily: 'Poppins-BoldItalic' }}>ChatGPT</Text>
+        </TouchableOpacity> */}
+        <Text style={{ color: 'black', fontSize: 15, fontFamily: 'Poppins-BoldItalic',textAlign:"center",width:"100%" }}>Powered by Chat GPT-4</Text>
         <TouchableOpacity onPress={() => makePhoneCall()}>
           <Image source={Images.call} style={styles.image} />
         </TouchableOpacity>
@@ -101,20 +101,30 @@ const ChatSearch = () => {
           <TextInput
             style={styles.Text}
             placeholder='Send a message'
-            placeholderTextColor={Colors.black}
+            placeholderTextColor={Colors.textColorLight}
             onChangeText={setMessage}
             value={message}
           />
         </View>
 
-        <TouchableOpacity onPress={() => {
+        <TouchableOpacity   style={{width:"10%"}} onPress={() => {
           setMessage('');
           myfubx(message);
+        
         }}>
           {loading ? (
             <Image style={styles.loadingIndicator} source={Images.loading} />
           ) : (
-            <Image style={styles.sent} source={Images.send} />
+            <Image
+                              source={Images.send}
+                              style={{
+                                height: 20,
+                                width: 20,
+                                resizeMode: 'contain',
+                                position:"relative",
+                              //  right:10
+                              }}
+                            />
           )}
         </TouchableOpacity>
       </View>
@@ -133,6 +143,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     alignItems: 'center',
     borderBottomColor: Colors.gray,
+    position:"relative"
   },
   image1: {
     height: 20,
@@ -147,9 +158,12 @@ const styles = StyleSheet.create({
     height: 20,
     width: 30,
     resizeMode: 'contain',
-    tintColor: Colors.PrimaryColor,
+    tintColor: Colors.surfblur,
     borderRadius: 10,
     borderWidth: 1,
+    position:"absolute",
+    right:10,
+    top:-10
   },
   buttonContainer: {
     position: 'absolute',
@@ -161,15 +175,17 @@ const styles = StyleSheet.create({
     right: 0,
   },
   viewstyle: {
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 30,
     paddingStart: 20,
-    width: '80%',
+    borderColor:Colors.BorderColor,
+    width: '90%',
     margin: 10,
   },
   Text: {
-    color: 'black',
+    color: Colors.textColorLight,
     fontFamily: 'Poppins-Regular',
+    paddingTop:20
   },
   loadingIndicator: {
     height: 30,

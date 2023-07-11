@@ -107,7 +107,7 @@ const BottomTabNavigator = () => {
         options={{
           tabBarLabel: (
             <Text style={{ fontSize: 10 ,fontFamily:'Poppins-Regular'}} allowFontScaling={false}>
-              Favorites
+              Favorites 
             </Text>
           ),
           tabBarIcon: Images.ThumbUp,

@@ -8,5 +8,6 @@ const Colors = {
   BorderColor: '#ddddde',
   textColorLight: '#a9a8a8',
   textColorDark: '#303030',
+  surfblur:"#0065C4"
 };
 export default Colors;

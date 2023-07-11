@@ -158,13 +158,11 @@ const ContactMyAgent = () => {
     <SafeAreaView style={styles.container}>
       <View
         style={{
+          marginTop:8,
           flexDirection: 'row',
-          width: '90%',
-          height: 60,
-          justifyContent: 'space-around',
-          alignSelf: 'center',
-          alignItems: 'center',
-          marginLeft: 70
+          justifyContent: 'center',
+          width:'100%',
+          marginLeft:0
         }}>
         <Text style={{ fontSize: 20, color: Colors.black,fontFamily:'Poppins-Regular' }}>
           Contact My Agent
@@ -173,7 +171,9 @@ const ContactMyAgent = () => {
           onPress={() => navigation.goBack()}
           style={{
             alignItems: 'center',
-
+position:"absolute",
+      right:10,
+      rop:10,
             justifyContent: 'center',
             height: 30,
             width: 30,

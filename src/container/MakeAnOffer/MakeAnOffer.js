@@ -263,13 +263,15 @@ const MakeAnOffer = () => {
 
                 <View
           style={styles.viewStyle}>
-          <Text style={{ fontSize: 20, marginLeft: 25, color: Colors.black,
+          <Text style={{ fontSize: 20,  color: Colors.black,
              fontFamily: 'Poppins-Regular' }}>Make An Offer </Text>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={{
               alignItems: 'center',
-
+ position:"absolute",
+      right:10,
+      rop:10,
               justifyContent: 'center',
               height: 30,
               width: 30,
@@ -446,14 +448,19 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   viewStyle: {
-    flexDirection: 'row',
-    width: '90%',
-    height: 60,
-    justifyContent: 'space-around',
-    alignSelf: 'center',
-    alignItems: 'center',
-    marginLeft: 40,
-    marginBottom:10
+    // flexDirection: 'row',
+    // width: '90%',
+    // height: 60,
+    // justifyContent: 'space-around',
+    // alignSelf: 'center',
+    // alignItems: 'center',
+    // marginLeft: 40,
+    // marginBottom:10
+      marginTop:8,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          width:'100%',
+          marginLeft:0
   },
   formContainer: {
     

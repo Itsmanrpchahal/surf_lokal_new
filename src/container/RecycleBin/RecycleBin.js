@@ -689,20 +689,20 @@ const [ratingData,setRatingData] = useState([])
   return (
     <SafeAreaView style={styles.container}>
       <View
-        style={{flexDirection:'row',
-          width: '100%',
-          height: 60,
-          justifyContent: 'space-around',
-          alignSelf: 'center',
-          alignItems: 'center',
-          marginLeft:70
+        style={{ marginTop:8,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          width:'100%',
+          marginLeft:0
         }}>
         <Text style={{fontSize: 20, color: Colors.black}}>Recycle Bin</Text>
         <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={{
             alignItems:'center',
-      
+        position:"absolute",
+      right:10,
+      rop:10,
             justifyContent:'center',
               height: 30,
               width: 30,

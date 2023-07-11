@@ -67,6 +67,9 @@ const Notification = () => {
             height: 30,
             width: 30,
             borderRadius: 15,
+                 position:"absolute",
+      right:10,
+      rop:10,
             backgroundColor: Colors.gray,
           }}
         >
@@ -117,13 +120,18 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundColor,
   },
   viewStyle: {
-    flexDirection: 'row',
-    height: 50,
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 15,
-    backgroundColor: Colors.white,
+  //  flexDirection: 'row',
+  //  height: 50,
+  //  width: '100%',
+  //  justifyContent: 'space-between',
+ //   alignItems: 'center',
+  //  paddingHorizontal: 15,
+   // backgroundColor: Colors.white,
+     marginTop:8,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          width:'100%',
+          marginLeft:0
   },
   slideOuter: {
     width: '95%',
