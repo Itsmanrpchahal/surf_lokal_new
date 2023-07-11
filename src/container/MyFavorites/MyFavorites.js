@@ -729,9 +729,9 @@ const MyFavorites = () => {
         style={{
           marginTop:8,
           flexDirection: 'row',
-          justifyContent: 'space-around',
+          justifyContent: 'center',
           width:'100%',
-          marginLeft:50
+          marginLeft:0
        
         }}>
         <Text style={{fontSize: 20, color: Colors.black}}>Favorties</Text>
@@ -739,7 +739,9 @@ const MyFavorites = () => {
             onPress={() => navigation.goBack()}
             style={{
             alignItems:'center',
-      
+      position:"absolute",
+      right:10,
+      rop:10,
             justifyContent:'center',
               height: 30,
               width: 30,
@@ -793,6 +795,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+    position:"relative"
   },
   slideOuter: {
     width: "100%",

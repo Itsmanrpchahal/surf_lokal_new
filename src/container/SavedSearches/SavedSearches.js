@@ -221,19 +221,14 @@ const MyFavorites = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <View
         style={{
-          marginTop: 8,
+         marginTop:8,
           flexDirection: 'row',
-          justifyContent: 'space-around',
-          width: '90%',
-          marginLeft: 20,
+          justifyContent: 'center',
+          width:'100%',
+          marginLeft:0
         }}>
         
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+     
           <Text
             style={{
               fontSize: 24,
@@ -243,12 +238,14 @@ const MyFavorites = ({ navigation }) => {
             }}>
             Saved Searches
           </Text>
-        </View>
+     
         <TouchableOpacity
           style={{ justifyContent: 'center',
           alignItems: 'center',
           height: 30,
-          width: 30,
+          width: 30, position:"absolute",
+      right:10,
+      rop:10,
           borderRadius: 15,
           backgroundColor: Colors.gray,}}
           onPress={() => navigation.goBack()}>
@@ -301,6 +298,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+    position:"relative"
   },
   slideOuter: {
     width: "100%",
