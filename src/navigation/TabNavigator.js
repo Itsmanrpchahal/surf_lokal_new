@@ -92,8 +92,8 @@ const BottomTabNavigator = () => {
           //   />
           // ),
           tabBarLabel: (
-            <Text style={{ fontSize: 16,fontFamily:'Poppins-Regular' }} allowFontScaling={false}>
-              Home
+            <Text style={{ fontSize: 12,fontFamily:'Poppins-Regular' }} allowFontScaling={false}>
+            surf lokal Home
             </Text>
           ),
           tabBarIcon: Images.lokal,

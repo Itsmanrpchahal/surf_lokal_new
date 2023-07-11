@@ -233,8 +233,8 @@ const ContactMyAgent = () => {
         {agentData ? `${agentData?.agent_title} ${agentData?.last_name}` : 'No Agent Data'}
         </Text>
       </View>
-      <ScrollView style={{ height: '100%', width: '100%' }}>
       {agentData? (
+      <ScrollView style={{ height: '100%', width: '100%' }}>
         
         
         
@@ -415,7 +415,7 @@ const ContactMyAgent = () => {
           </TouchableOpacity>
         </View>
         </View>
-              ) : null}
+              {/* ) : null} */}
 
 
 
@@ -458,6 +458,7 @@ const ContactMyAgent = () => {
             onChangeText={text => setAddress(text)}
           />
         </View>
+
         <View
           style={{
             flexDirection: 'row',
@@ -504,8 +505,10 @@ const ContactMyAgent = () => {
           </Text>
 
         </TouchableOpacity>
+        
         <View style={{ height: 50 }}></View>
       </ScrollView>
+              ) : null}
     </SafeAreaView>
   );
 
