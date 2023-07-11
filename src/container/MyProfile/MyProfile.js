@@ -416,7 +416,7 @@ const MyFavorites = () => {
                 <Image
                   source={isImage ? Images.fillgreen : Images.ThumbUp}
                   style={{ height: 25, width: 25, resizeMode: 'contain' }} />
-                <Text style={styles.text}>MyFavorites</Text>
+                <Text style={styles.text}>My Favorites</Text>
               </View>
               <View style={styles.line}></View>
             </TouchableOpacity>
@@ -433,7 +433,7 @@ const MyFavorites = () => {
                 <Image
                   source={Images.savedSearch}
                   style={{ height: 25, width: 25, resizeMode: 'contain' }} />
-                <Text style={styles.text}>SavedSearches</Text>
+                <Text style={styles.text}>Saved Searches</Text>
               </View>
               <View style={styles.line}></View>
             </TouchableOpacity>
@@ -465,7 +465,7 @@ const MyFavorites = () => {
                 <Image
                   source={Images.contactAgent}
                   style={{ height: 25, width: 25, resizeMode: 'contain' }} />
-                <Text style={styles.text}>Contact My lokal Agent</Text>
+                <Text style={styles.text}>Contact surf lokal</Text>
               </View>
               <View style={styles.line}></View>
             </TouchableOpacity>
@@ -498,7 +498,7 @@ const MyFavorites = () => {
                 <Image
                   source={Images.surfShop}
                   style={{ height: 33, width: 29, resizeMode: 'contain' }} />
-                <Text style={styles.text}>surf Shop</Text>
+                <Text style={styles.text}>Surf Shop</Text>
               </View>
               <View style={styles.line}></View>
             </TouchableOpacity>
