@@ -5,13 +5,11 @@ import { url } from "../config/url";
 export const getRating = createAsyncThunk(
   "getRating",
   async (post_id) => {
-    console.log(post_id, "getRating postid");
     const urlDynamic =
       "https://surf.topsearchrealty.com/webapi/v1/rating/user_rating.php?userID=3&post_id=" + post_id;
     return await getAPI(urlDynamic)
       .then(async (response) => {
         const { data } = response;
-        console.log(response.payload,"getRatinggetRating",data)
         return data;
       })
       .catch((e) => {
