@@ -213,7 +213,7 @@ const [ratingData,setRatingData] = useState([])
           <TouchableOpacity
             onPress={() => navigation.navigate('ChatSearch')}>
             <Image
-              source={Images.chatProp}
+              source={Images.chat}
               style={{height: 20, width: 20}}></Image>
           </TouchableOpacity>
         </View>
@@ -249,7 +249,7 @@ const [ratingData,setRatingData] = useState([])
               style={{height: 20, width: 20, resizeMode: 'contain'}}></Image>
           </TouchableOpacity>
           <Text
-            style={{fontSize: 14, color: Colors.black, textAlign: 'center'}}>
+            style={{fontSize: 14, color: Colors.black, textAlign: 'center',marginRight:10}}>
             {item.total_average_rating}
           </Text>
           <TouchableOpacity onPress={() => handleShare()}>
@@ -568,7 +568,7 @@ const [ratingData,setRatingData] = useState([])
             {item.title}</Text>
 
 
-            <ScrollView horizontal={true} scrollEnabled={true} >
+            <ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false} >
       <View
         style={{
           flexDirection: 'row',
@@ -586,11 +586,11 @@ const [ratingData,setRatingData] = useState([])
             }}>
             <Image
               source={Images.bed}
-              style={{height: 28, width: 28, resizeMode: 'contain'}}></Image>
+              style={{height: 20, width: 20, resizeMode: 'contain'}}></Image>
               
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.black,
                 textAlign: 'center',
               }}>
@@ -606,10 +606,10 @@ const [ratingData,setRatingData] = useState([])
             }}>
             <Image
               source={Images.bath}
-              style={{height: 28, width: 28, resizeMode: 'contain'}}></Image>
+              style={{height: 20, width: 20, resizeMode: 'contain'}}></Image>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.black,
                 textAlign: 'center',
               }}>
@@ -625,10 +625,10 @@ const [ratingData,setRatingData] = useState([])
             }}>
             <Image
               source={Images.measuring}
-              style={{height: 28, width: 28, resizeMode: 'contain'}}></Image>
+              style={{height: 20, width: 20, resizeMode: 'contain'}}></Image>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.black,
                 textAlign: 'center',
               }}>
@@ -645,7 +645,7 @@ const [ratingData,setRatingData] = useState([])
 
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: 13,
                   color: Colors.black,
                   textAlign: 'center',
                 }}>
@@ -653,7 +653,7 @@ const [ratingData,setRatingData] = useState([])
               </Text>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.black,
                 textAlign: 'center',
               }}>
@@ -670,10 +670,10 @@ const [ratingData,setRatingData] = useState([])
               }}>
               <Image
                 source={Images.tax}
-                style={{ height: 28, width: 28, marginTop: 5, resizeMode: 'contain' }}></Image>
+                style={{ height: 20, width: 20, marginTop: 5, resizeMode: 'contain' }}></Image>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 14,
                   color: Colors.black,
                   textAlign: 'center',
                 }}>

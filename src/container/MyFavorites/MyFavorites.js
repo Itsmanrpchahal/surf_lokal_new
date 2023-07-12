@@ -239,7 +239,7 @@ const MyFavorites = () => {
           <TouchableOpacity
             onPress={() => navigation.navigate('ChatSearch')}>
             <Image
-              source={Images.chatProp}
+              source={Images.chat}
               style={{height: 20, width: 20}}></Image>
           </TouchableOpacity>
         </View>
@@ -275,8 +275,8 @@ const MyFavorites = () => {
               style={{height: 20, width: 20, resizeMode: 'contain'}}></Image>
           </TouchableOpacity>
           <Text
-            style={{fontSize: 14, color: Colors.black, textAlign: 'center'}}>
-            {item.total_average_rating}
+        style={{fontSize: 14, color: Colors.black, textAlign:'left',marginRight:10}}>
+           {item.total_average_rating}
           </Text>
           <TouchableOpacity onPress={() => handleShare()}>
             <Image
@@ -604,7 +604,7 @@ const MyFavorites = () => {
           {item.Title}
         </Text>
       </TouchableOpacity> */}
-<ScrollView horizontal={true} scrollEnabled={true} >
+<ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}>
       <View
         style={{
           flexDirection: 'row',
@@ -622,10 +622,10 @@ const MyFavorites = () => {
             }}>
             <Image
               source={Images.bed}
-              style={{height: 28, width: 28, resizeMode: 'contain'}}></Image>
+              style={{height: 20, width: 20, resizeMode: 'contain'}}></Image>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.black,
                 textAlign: 'center',
               }}>
@@ -641,10 +641,10 @@ const MyFavorites = () => {
             }}>
             <Image
               source={Images.bath}
-              style={{height: 28, width: 28, resizeMode: 'contain'}}></Image>
+              style={{height: 20, width: 20, resizeMode: 'contain'}}></Image>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.black,
                 textAlign: 'center',
               }}>
@@ -660,10 +660,10 @@ const MyFavorites = () => {
             }}>
             <Image
               source={Images.measuring}
-              style={{height: 28, width: 28, resizeMode: 'contain'}}></Image>
+              style={{height: 20, width: 20, resizeMode: 'contain'}}></Image>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.black,
                 textAlign: 'center',
               }}>
@@ -680,7 +680,7 @@ const MyFavorites = () => {
 
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: 13,
                   color: Colors.black,
                   textAlign: 'center',
                 }}>
@@ -688,7 +688,7 @@ const MyFavorites = () => {
               </Text>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.black,
                 textAlign: 'center',
               }}>
@@ -705,10 +705,10 @@ const MyFavorites = () => {
               }}>
               <Image
                 source={Images.tax}
-                style={{ height: 28, width: 28, marginTop: 5, resizeMode: 'contain' }}></Image>
+                style={{ height: 20, width: 20, marginTop: 5, resizeMode: 'contain' }}></Image>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 14,
                   color: Colors.black,
                   textAlign: 'center',
                 }}>
@@ -774,7 +774,7 @@ const MyFavorites = () => {
               color: Colors.textColorDark,
               fontFamily: 'Poppins-Regular',
             }}>
-            No favourite file data found!
+            No favourite file  found!
           </Text>
         </View>
       ) : (
