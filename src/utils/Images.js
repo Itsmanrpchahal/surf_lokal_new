@@ -85,7 +85,8 @@ const Images = {
   fillgreen: require(BaseUrl + 'fillgreen.png'),
   check: require(BaseUrl + 'check.png'),
   calendar:require(BaseUrl+"calendar.png"),
-  loading:require(BaseUrl+"loading.gif")
+  loading:require(BaseUrl+"loading.gif"),
+  graylocation:require(BaseUrl+"graylocation.png")
 
 };
 export default Images;
