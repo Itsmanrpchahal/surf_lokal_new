@@ -196,13 +196,14 @@ const ViewPropertiyImage = props => {
             width: '90%',
             alignSelf: 'center',
 
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
             overflow: 'visible',
             zIndex: 99,
             position: 'absolute',
             top: 10,
           }}>
+           
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={{
@@ -280,9 +281,9 @@ const ViewPropertiyImage = props => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <TouchableOpacity onPress={() => makePhoneCall()}>
+            <TouchableOpacity onPress={() => navigation.navigate('ChatSearch' )}>
               <Image
-                source={Images.contactUs}
+                source={Images.chat}
                 style={{height: 25, width: 25, resizeMode: 'contain'}}></Image>
               <Text
                 style={{
@@ -292,15 +293,14 @@ const ViewPropertiyImage = props => {
                   marginLeft: 5,
                   fontFamily: 'Poppins-Regular',
                 }}>
-                Call us
+                Chat
               </Text>
             </TouchableOpacity>
           </View>
         </View>
         <View
           style={{
-            //justifyContent: 'center',
-            //alignItems: 'center',
+         
             width: '50%',
           }}>
           <TouchableOpacity

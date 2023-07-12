@@ -73,10 +73,10 @@ const images = [
   },
 
   {
-    image: Images.surfShop,
+    image: Images.chart,
     title: 'surf Shop',
     navigation: 'MakeAnOffer',
-    image2: Images.surfShop
+    image2: Images.chart
 
   },
 
@@ -496,7 +496,7 @@ const MyFavorites = () => {
               }}>
               <View style={styles.viewstyle}>
                 <Image
-                  source={Images.surfShop}
+                  source={Images.chart}
                   style={{ height: 33, width: 29, resizeMode: 'contain' }} />
                 <Text style={styles.text}>Surf Shop</Text>
               </View>

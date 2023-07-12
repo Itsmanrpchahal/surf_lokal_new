@@ -42,6 +42,7 @@ const Images = {
   contactAgent: require(BaseUrl + 'contactAgent.png'),
   surfReward: require(BaseUrl + 'surfReward.png'),
   surfShop:require(BaseUrl+'surfShop.png'),
+  chart:require(BaseUrl + 'chart.png'),
   favroites: require(BaseUrl + 'favroites.png'),
   downThumb:require(BaseUrl+'downThumb.png'),
   ThumbUp:require(BaseUrl+'ThumbUp.png'),
