@@ -75,7 +75,7 @@ const ChatSearch = () => {
         {/* <TouchableOpacity>
           <Image source={Images.chat} style={styles.image1} />
         </TouchableOpacity> */}
-        <Text style={{ color: 'black', fontSize: 15, fontFamily: 'Poppins-BoldItalic',textAlign:"center",width:"100%" }}>Powered by Chat GPT-4</Text>
+        <Text style={{ color: 'black', fontSize: 15, fontFamily: 'Poppins-REgular',textAlign:"center",width:"100%",paddingBottom:15 }}>Powered by Chat GPT-4</Text>
         <TouchableOpacity onPress={() => makePhoneCall()}>
           <Image source={Images.call} style={styles.image} />
         </TouchableOpacity>
@@ -107,7 +107,7 @@ const ChatSearch = () => {
           />
         </View>
 
-        <TouchableOpacity   style={{width:"10%"}} onPress={() => {
+        <TouchableOpacity   style={{width:"15%",paddingLeft:2}} onPress={() => {
           setMessage('');
           myfubx(message);
         
@@ -122,7 +122,7 @@ const ChatSearch = () => {
                                 width: 20,
                                 resizeMode: 'contain',
                                 position:"relative",
-                              //  right:10
+                             //right:10
                               }}
                             />
           )}
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     position:"absolute",
     right:10,
-    top:-10
+    top:-16
   },
   buttonContainer: {
     position: 'absolute',
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingStart: 20,
     borderColor:Colors.BorderColor,
-    width: '90%',
+    width: '85%',
     margin: 10,
   },
   Text: {

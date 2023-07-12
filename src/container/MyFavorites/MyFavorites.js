@@ -604,7 +604,7 @@ const MyFavorites = () => {
           {item.Title}
         </Text>
       </TouchableOpacity> */}
-<ScrollView horizontal={true} scrollEnabled={true} >
+<ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}>
       <View
         style={{
           flexDirection: 'row',
