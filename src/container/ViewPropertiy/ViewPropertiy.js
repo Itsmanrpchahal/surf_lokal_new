@@ -623,6 +623,7 @@ const ViewPropertiy = (props, imageUrl) => {
                           </Text>
                         </View>
                         <Text
+                        onPress={() => navigation.navigate('ViewPropertiyImage', { postid: postid.item.ID })}
                           style={{
                             fontSize: 20,
                             color: Colors.primaryBlue,

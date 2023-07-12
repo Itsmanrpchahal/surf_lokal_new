@@ -15,6 +15,7 @@ import {
   Modal,
   ActivityIndicator,
   KeyboardAvoidingView,
+  Button,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler';
@@ -29,6 +30,7 @@ import { getFilter } from '../../modules/getFilter';
 import { SvgUri } from 'react-native-svg';
 import { Rating } from 'react-native-ratings';
 import { postUpdateRating } from '../../modules/postUpdateRating';
+import { Dropdown, MultiSelect } from 'react-native-element-dropdown';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -42,6 +44,27 @@ const { width } = Dimensions.get('screen');
 const SWIPE_THRESHOLD = 0.25 * width;
 
 const Home = () => {
+  const bedRoomData = [
+    { label: 'Any', value: 'any' },
+    { label: '1', value: '1' },
+    { label: '2', value: '2' },
+    { label: '3', value: '3' },
+    { label: '4', value: '4' },
+    { label: '5', value: '5' },
+    { label: '6', value: '6' },
+    { label: '7', value: '7' },
+    { label: '8+', value: '8' },
+  ]
+  const data = [
+    { label: 'Item 1', value: '1' },
+    { label: 'Item 2', value: '2' },
+    { label: 'Item 3', value: '3' },
+    { label: 'Item 4', value: '4' },
+    { label: 'Item 5', value: '5' },
+    { label: 'Item 6', value: '6' },
+    { label: 'Item 7', value: '7' },
+    { label: 'Item 8', value: '8' },
+  ];
   const dispatch = useDispatch();
   const [homeData, setHomeData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -52,18 +75,23 @@ const Home = () => {
   const [productId, setProductId] = useState();
   const [reviewTitle, setReviewTitle] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [review, setReview] = useState('');
   const [rating, setRating] = useState(0);
   const [showIcon, setShowIcon] = useState(false);
   const [ratingData, setRatingData] = useState([])
   const [isEditing, setIsEditing] = useState(false);
-
+  const [isSelected, setIsSelected] = useState(false)
   const [Icon, setIcon] = useState(false);
+  const [bedroomitem, setBedroomItem] = useState(-1)
+  const [bathRoom, setBathRoomItem] = useState(-1)
+  const [selected, setSelected] = useState([]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowIcon(false);
       setIcon(false);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [showIcon]);
@@ -71,7 +99,7 @@ const Home = () => {
   useEffect(() => {
     const icontime = setTimeout(() => {
       setIcon(false);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(icontime);
   }, [Icon]);
@@ -87,24 +115,17 @@ const Home = () => {
   }
   const getRatingApicall = () => {
     dispatch(getRating()).then(response => {
-      console.log('MMM', response.payload.data)
       setRatingData(response.payload.data)
     })
   }
   const position = useRef(new Animated.ValueXY()).current;
   const swipeThreshold = 120; // Minimum distance required to trigger a swipe action
-  const likeOpacity = position.x.interpolate({
-    inputRange: [0, swipeThreshold],
-    outputRange: [0, 1],
-    extrapolate: 'clamp',
-  });
-  const nopeOpacity = position.x.interpolate({
-    inputRange: [-swipeThreshold, 0],
-    outputRange: [1, 0],
-    extrapolate: 'clamp',
-  });
+
   const toggleModal = () => {
     setModalVisible(!modalVisible);
+  };
+  const filtertoggleModal = () => {
+    setFilterModalVisible(!filterModalVisible);
   };
 
   const addReview = async post_id => {
@@ -140,7 +161,6 @@ const Home = () => {
       userID: userID,
       post_id: post_id,
     };
-    console.log('tarsh payload', payload);
 
     await dispatch(addToFavorite(payload)).then(response => {
       if (response.payload.success) {
@@ -158,7 +178,6 @@ const Home = () => {
       userID: userID,
       post_id: post_id,
     };
-    console.log('tarsh payload', payload);
 
     await dispatch(addRemoveTrash(payload)).then(response => {
       if (response.payload.success) {
@@ -194,9 +213,7 @@ const Home = () => {
     formData.append('price_review_stars', rating);
     formData.append('interest_review_stars', rating);
     formData.append('reviewtitle', reviewTitle)
-    console.log(formData, "rkrkrk");
     dispatch(postUpdateRating(formData)).then((response) => {
-      console.log('kkk', response.payload);
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
@@ -211,7 +228,12 @@ const Home = () => {
 
     return (
       <View style={{}}>
-        <TouchableOpacity onPress={() => setSelectedItem(item.counter_id)}>
+        <TouchableOpacity
+
+          onPress={() => {
+            setSelectedItem(item.counter_id)
+            setIsSelected(true)
+          }}>
           <View
             style={{
               justifyContent: 'center',
@@ -244,6 +266,10 @@ const Home = () => {
     animation.setValue({ x: 0, y: 0 });
   }, []);
 
+  useEffect(() => {
+    console.log("ICONn", Icon)
+    console.log("setIcon", showIcon)
+  }, [Icon, showIcon])
   const animation = useRef(new Animated.ValueXY()).current;
   const opacity = useRef(new Animated.Value(1)).current;
   const scale = useRef(new Animated.Value(0.9)).current;
@@ -256,6 +282,22 @@ const Home = () => {
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (event, gesture) => {
         animation.setValue({ x: gesture.dx, y: gesture.dy });
+        if (gesture.dx < -swipeThreshold) {
+          setShowIcon(true);
+          console.log('I am here')
+        } else {
+          setShowIcon(false);
+          console.log('I am where')
+
+        };
+        if (gesture.dx > swipeThreshold) {
+          setIcon(true);
+          console.log('I am here1')
+
+        } else {
+          setIcon(false);
+          console.log('I am where1')
+        }
       },
       onPanResponderRelease: (e, { dx, dy, vx, vy }) => {
         let velocity;
@@ -283,8 +325,14 @@ const Home = () => {
               (postID =
                 store.getState().getPoperties.getPopertiesData?.data[0].ID),
             );
+
             savefile(postID);
           } else {
+            console.log(
+              'left',
+              (postID =
+                store.getState().getPoperties.getPopertiesData?.data[0].ID),
+            );
             trashfile(postID);
           }
         } else {
@@ -366,7 +414,6 @@ const Home = () => {
                   placeholder={'Filters...'}
                   returnKeyType="done"
                   onChangeText={text => setAddres(text)}
-                  // onKeyPress={(keyPress) => console.log(JSON.stringify(keyPress))}
                   style={{
                     fontSize: 14,
                     color: '#000',
@@ -429,11 +476,294 @@ const Home = () => {
             />
           </View>
 
+          {
+            isSelected && <View >
+              <View style={{ width: '100%', flexDirection: "row", justifyContent: 'space-evenly' }}>
+                {/* <Button title='Saved search'/> */}
+                <TouchableOpacity
+                  style={[
+                    styles.rew,
+                    {
+                      backgroundColor: 'white',
+                      borderColor: 'black',
+                    },
+                  ]}
+                >
+                  <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Save Search</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => filtertoggleModal()}
+                  style={[
+                    styles.rew,
+                    {
+                      backgroundColor: 'white',
+                      borderColor: 'black',
+                    },
+                  ]}
+                >
+                  <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Filters</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    setIsSelected(false)
+                    setSelectedItem(null)
+                  }}
+                  style={[
+                    styles.rew,
+                    {
+                      backgroundColor: "white",
+                      borderColor: 'black',
+                    },
+                  ]}
+                >
+                  <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Clear filters</Text>
+                </TouchableOpacity>
+
+              </View>
+              <KeyboardAvoidingView >
+
+                <Modal
+                  transparent={true}
+                  animationType="slide"
+                  visible={filterModalVisible}
+                  onRequestClose={filtertoggleModal}>
+                  <View
+                    style={{
+                      // marginTop: 40,
+                      height: '95%',
+                      width: '100%',
+                      alignItems: 'center',
+                      alignContent: 'center',
+                      backgroundColor: Colors.white,
+                      position: 'absolute',
+                      bottom: 10,
+                      borderTopLeftRadius: 20,
+                      borderTopRightRadius: 20,
+                      borderWidth: 1,
+                      borderColor: Colors.gray,
+                    }}>
+                    <View
+                      style={{
+                        height: '10%',
+                        width: '90%',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}>
+                      <TouchableOpacity
+                        onPress={() => navigation.goBack()}
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          marginLeft: 10,
+                        }}>
+                        <Text style={{ fontSize: 12, color: Colors.gray }}></Text>
+                      </TouchableOpacity>
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          // marginTop: 10,
+                        }}>
+                      </View>
+
+                      <TouchableOpacity
+                        onPress={() => setFilterModalVisible(false)}
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          marginRight: 10,
+                        }}>
+                        <Image
+                          style={{
+                            height: 20,
+                            width: 20,
+                            resizeMode: 'contain',
+                            tintColor: Colors.black,
+                            transform: [{ rotate: '45deg' }],
+                          }}
+                          source={Images.plus}></Image>
+                      </TouchableOpacity>
+                    </View>
+                    <View
+                      style={{
+                        width: '100%',
+                        height: 1,
+                        backgroundColor: Colors.gray,
+                        marginTop: 10,
+                        justifyContent: 'center',
+                      }}></View>
+
+                    <View style={{ width: '95%', height: '70%' }}>
+                      <Text style={{}}>Choose your city</Text>
+                      <MultiSelect
+                        style={styles.dropdown}
+                        placeholderStyle={styles.placeholderStyle}
+                        selectedTextStyle={styles.selectedTextStyle}
+                        inputSearchStyle={styles.inputSearchStyle}
+                        iconStyle={styles.iconStyle}
+                        data={data}
+                        search
+                        maxHeight={300}
+                        labelField="label"
+                        valueField="value"
+                        placeholder="Select item"
+                        searchPlaceholder="Search..."
+                        value={selected}
+                        onChange={item => {
+                          setSelected(item);
+                        }}
+
+                      />
+                      <Text style={{}}>Bedrooms</Text>
+                      <FlatList
+                        data={bedRoomData}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={({ item, index }) => {
+                          return (
+                            <TouchableOpacity onPress={() => { setBedroomItem(index) }}>
+                              <View style={{ width: 70, height: 40, marginTop: 8, marginHorizontal: 10, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.black, backgroundColor: bedroomitem === index ? Colors.black : Colors.white }}>
+                                <Text style={{ color: bedroomitem === index ? Colors.white : Colors.black }}>{item.label}</Text>
+                              </View>
+                            </TouchableOpacity>
+                          )
+                        }}
+                      >
+
+                      </FlatList>
+
+                      <Text syle={{}}>Bathrooms</Text>
+                      <FlatList
+                        data={bedRoomData}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={({ item, index }) => {
+                          return (
+                            <TouchableOpacity onPress={() => { setBathRoomItem(index) }}>
+                              <View style={{ width: 70, height: 40, marginTop: 8, marginHorizontal: 10, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.black, backgroundColor: bathRoom === index ? Colors.black : Colors.white }}>
+                                <Text style={{ color: bathRoom === index ? Colors.white : Colors.black }}>{item.label}</Text>
+                              </View>
+                            </TouchableOpacity>
+                          )
+                        }}
+                      ></FlatList>
+
+
+
+                      <Text style={{}}>Square Feet</Text>
+
+                      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+
+                        <TextInput
+                          style={{ borderWidth: 1, width: '47%', borderColor: Colors.black, borderRadius: 10, padding: 6 }}
+                          placeholder='Min Price'
+                          keyboardType='numeric'>
+
+                        </TextInput>
+                        <TextInput
+                          style={{ borderWidth: 1, width: '47%', borderColor: Colors.black, borderRadius: 10, padding: 6 }}
+                          placeholder='Max Price'
+                          keyboardType='numeric'>
+
+                        </TextInput>
+                      </View>
+
+                      <Text style={{}}>Price Range</Text>
+
+                      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 8 }}>
+
+                        <MultiSelect
+                          style={{ width: '47%', borderColor: Colors.black, borderWidth: 1, borderRadius: 10, paddingLeft: 6, paddingRight: 6, paddingTop: 4, paddingBottom: 4 }}
+                          placeholderStyle={styles.placeholderStyle}
+                          selectedTextStyle={styles.selectedTextStyle}
+                          inputSearchStyle={styles.inputSearchStyle}
+                          iconStyle={styles.iconStyle}
+                          data={data}
+                          search
+                          maxHeight={300}
+                          labelField="label"
+                          valueField="value"
+                          placeholder="Min Price"
+                          searchPlaceholder="Search..."
+                          value={selected}
+                          onChange={item => {
+                            setSelected(item);
+                          }}
+
+                        />
+                        <MultiSelect
+                          style={{ width: '47%', borderColor: Colors.black, borderWidth: 1, borderRadius: 10, paddingLeft: 6, paddingRight: 6, paddingTop: 4, paddingBottom: 4 }}
+
+                          placeholderStyle={styles.placeholderStyle}
+                          selectedTextStyle={styles.selectedTextStyle}
+                          inputSearchStyle={styles.inputSearchStyle}
+                          iconStyle={styles.iconStyle}
+                          data={data}
+                          search
+                          maxHeight={300}
+                          labelField="label"
+                          valueField="value"
+                          placeholder="Max Price"
+                          searchPlaceholder="Search..."
+                          value={selected}
+                          onChange={item => {
+                            setSelected(item);
+                          }}
+
+                        />
+                      </View>
+                      <View style={{
+
+                        width: '100%',
+
+                        flexDirection: 'row',
+                        alignItems: "center",
+                        justifyContent: "flex-end",
+                        paddingHorizontal: 10
+                      }}>
+
+                        <TouchableOpacity
+                          // onPress={() => addReview()}
+                          onPress={() => setFilterModalVisible(false)}
+                          // onPress={Alert.alert("Hyy")}
+                          style={{
+                            height: 35,
+                            width: '45%',
+                            borderRadius: 5,
+                            backgroundColor: Colors.PrimaryColor,
+                            marginTop: 10,
+                            flexDirection: 'row',
+                            alignItems: "center",
+                            justifyContent: "center"
+                          }}>
+                          <Text
+                            style={{
+                              fontSize: 14,
+                              fontWeight: '700',
+                              color: Colors.white,
+                            }}>
+                            Apply
+                          </Text>
+                        </TouchableOpacity>
+
+                      </View>
+
+                    </View>
+                  </View>
+
+                </Modal>
+              </KeyboardAvoidingView>
+            </View>
+          }
           <View
             style={{
               width: '92%',
               alignSelf: 'center',
               justifyContent: 'center',
+              marginTop: 12,
             }}>
             {homeData
               .slice(0, 2)
@@ -473,38 +803,8 @@ const Home = () => {
                               style={styles.slider}
                             />
                           </View>
-                          <>
-                            <Animated.View
-                              style={{
-                                backgroundColor: 'rgba(255,0,0,0.4)',
-                                height: '80%',
-                                width: '100%',
-                                borderRadius: 0,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                position: 'absolute',
-                                opacity: bin
-                              }}>
-                              <View
-                                style={{
-                                  backgroundColor: Colors.white,
-                                  height: 50,
-                                  width: 50,
-                                  borderRadius: 100,
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                }}>
-                                <Image
-                                  source={Images.deletelike}
-                                  style={{
-                                    height: 25,
-                                    width: 25,
-                                    tintColor: 'red',
-                                  }}
-                                />
-                              </View>
-                            </Animated.View>
-                            <Animated.View
+                          {
+                            Icon && <View
                               style={{
                                 backgroundColor: 'rgba(0, 128, 0, .6)',
                                 height: '80%',
@@ -513,7 +813,7 @@ const Home = () => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 position: 'absolute',
-                                opacity: fav
+                                // opacity: fav
 
                               }}>
                               <View
@@ -534,8 +834,73 @@ const Home = () => {
                                   }}
                                 />
                               </View>
-                            </Animated.View>
-                          </>
+                            </View>
+                          }
+                          {
+                            showIcon &&
+                            <>
+                              <View style={{
+                                backgroundColor: 'rgba(255,0,0,0.4)',
+                                height: '80%',
+                                width: '100%',
+                                borderRadius: 0,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                position: 'absolute',
+                              }} >
+                                <View
+                                  style={{
+                                    backgroundColor: Colors.white,
+                                    height: 50,
+                                    width: 50,
+                                    borderRadius: 100,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                  }}>
+
+                                  <Image
+                                    source={Images.deletelike}
+                                    style={{
+                                      height: 25,
+                                      width: 25,
+                                      tintColor: 'red',
+                                    }}
+                                  />
+                                </View>
+                              </View>
+                              {/* <Animated.View
+                                style={{
+                                  backgroundColor: 'rgba(255,0,0,0.4)',
+                                  height: '80%',
+                                  width: '100%',
+                                  borderRadius: 0,
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  position: 'absolute',
+                                  opacity: bin
+                                }}>
+                                <View
+                                  style={{
+                                    backgroundColor: Colors.white,
+                                    height: 50,
+                                    width: 50,
+                                    borderRadius: 100,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                  }}>
+                                  <Image
+                                    source={Images.deletelike}
+                                    style={{
+                                      height: 25,
+                                      width: 25,
+                                      tintColor: 'red',
+                                    }}
+                                  />
+                                </View>
+                              </Animated.View> */}
+                            </>
+
+                          }
                           <View
                             style={{
                               flexDirection: 'row',
@@ -1073,6 +1438,8 @@ const Home = () => {
                           </View>
                         </View>
                       </Animated.View>
+
+
                     </View>
                   </>
                 );
@@ -1252,5 +1619,57 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#757575',
     paddingTop: 5,
+  },
+  rew: {
+    width: 110,
+    borderRadius: 8,
+    borderWidth: 1,
+    // paddingHorizontal:2,
+    // backgroundColor: Colors.primaryBlue,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dropdown: {
+    margin: 16,
+    height: 50,
+    backgroundColor: 'white',
+    borderRadius: 12,
+    padding: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  item: {
+    padding: 17,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  textItem: {
+    flex: 1,
+    fontSize: 16,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
   },
 });

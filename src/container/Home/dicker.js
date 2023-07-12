@@ -366,7 +366,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
   const [text, setText] = useState('')
   const [showIcon, setShowIcon] = useState(false);
   const [Icon, setIcon] = useState(false);
- 
+
 
 
   useEffect(() => {
@@ -618,7 +618,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
     setSwipeDirection(null);
   };
 
-  
+
 
   const imageOpacityStyle = swipeDirection === 'left' ? styles.redOpacity : null;
 
@@ -629,7 +629,7 @@ const Item = ({ item, onSwipeFromLeft, onSwipeFromRight }) => {
       <View style={{ flex: 1 }}>
         <TouchableOpacity
           style={styles.slideOuter}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.cardContainer}
           >
             <Image
@@ -952,8 +952,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
-   // Adjust the margin-bottom as needed to create spacing between cards
-    zIndex: 1, 
+    // Adjust the margin-bottom as needed to create spacing between cards
+    zIndex: 1,
   },
   redOpacity: {
     opacity: 0.5, // Set the desired opacity value for the red effect
