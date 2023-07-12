@@ -418,7 +418,7 @@ position:"absolute",
               {/* ) : null} */}
 
 
-
+{/* 
         <View
           style={{
             flexDirection: 'row',
@@ -435,8 +435,8 @@ position:"absolute",
             }}>
             Quick Inquiry
           </Text>
-        </View>
-        <View
+        </View> */}
+        {/* <View
           style={{
             flexDirection: 'row',
             width: '80%',
@@ -457,8 +457,8 @@ position:"absolute",
             value={address}
             onChangeText={text => setAddress(text)}
           />
-        </View>
-
+        </View> */}
+{/* 
         <View
           style={{
             flexDirection: 'row',
@@ -481,8 +481,8 @@ position:"absolute",
             onChangeText={text => setMessage(text)}
             value={message}
           />
-        </View>
-        <TouchableOpacity
+        </View> */}
+        {/* <TouchableOpacity
           onPress={SendQuickinquiry}
           style={{
             height: 30,
@@ -496,15 +496,15 @@ position:"absolute",
             alignSelf: 'flex-end',
             flexDirection: 'row',
           }}>
-          {/* <Image
+          <Image
             source={Images.lokal}
             resizeMode="contain"
-            style={{ height: 15, width: 15, tintColor: Colors.white }}></Image> */}
+            style={{ height: 15, width: 15, tintColor: Colors.white }}></Image>
           <Text style={{ fontSize: 16, fontWeight: '400', color: Colors.white,fontFamily:'Poppins-Regular' }}>
             Send
           </Text>
 
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         
         <View style={{ height: 50 }}></View>
       </ScrollView>

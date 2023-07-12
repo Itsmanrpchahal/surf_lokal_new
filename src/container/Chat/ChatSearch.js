@@ -83,10 +83,10 @@ const ChatSearch = () => {
 
       <ScrollView style={{ flex: 0.5, marginBottom: 90, paddingHorizontal: 7 }}>
         <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>
-          {"Q. "}{store.getState().chatGpt.chatGptData?.data && JSON.stringify(store.getState().chatGpt.chatGptData?.data[0]?.question)}
+          {store.getState().chatGpt.chatGptData?.data && JSON.stringify(store.getState().chatGpt.chatGptData?.data[0]?.question)}
         </Text>
         <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>
-          {"Ans:-"}{store.getState().chatGpt.chatGptData?.data && JSON.stringify(store.getState().chatGpt.chatGptData?.data[0]?.answere)}
+          {store.getState().chatGpt.chatGptData?.data && JSON.stringify(store.getState().chatGpt.chatGptData?.data[0]?.answere)}
         </Text>
 
         {chatData.map((item, index) => (
