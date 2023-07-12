@@ -165,7 +165,7 @@ const ContactMyAgent = () => {
           marginLeft:0
         }}>
         <Text style={{ fontSize: 20, color: Colors.black,fontFamily:'Poppins-Regular' }}>
-          Contact My Agent
+        Contact surf lokal
         </Text>
         <TouchableOpacity
           onPress={() => navigation.goBack()}

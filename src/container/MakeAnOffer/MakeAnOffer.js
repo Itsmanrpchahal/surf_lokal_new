@@ -420,6 +420,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+    paddingHorizontal:10,
+    // paddingVertical:10
   },
   bodyContainer: {
     flex: 1,
@@ -439,8 +441,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    paddingHorizontal: 16,
-    paddingVertical: 20,
+    //paddingHorizontal: 16,
+   // paddingVertical: 20,
   },
   cardTitleText: {
     fontSize: 24,

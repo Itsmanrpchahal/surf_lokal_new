@@ -1366,7 +1366,8 @@ const ViewPropertiy = (props, imageUrl) => {
           </View> */}
 
 
-          <View style={{ width: '100%',  paddingVertical: 10,paddingHorizontal:10 }}>
+          <View style={{ width: '100%', 
+          paddingHorizontal:8 }}>
             <>
               <Text
                 numberOfLines={property?.ID == readmore ? 0 : 100}
