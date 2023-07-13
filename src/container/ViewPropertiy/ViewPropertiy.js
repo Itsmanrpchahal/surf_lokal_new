@@ -37,6 +37,7 @@ import { postUpdateRating } from '../../modules/postUpdateRating';
 import { store } from '../../redux/store';
 import { addToFavorite } from '../../modules/addToFavorite';
 import { addRemoveTrash } from '../../modules/addRemoveTrash';
+import { colors } from 'react-native-swiper-flatlist/src/themes';
 
 
 const screenHeight = Dimensions.get('window').height;
@@ -359,7 +360,7 @@ const ViewPropertiy = (props, imageUrl) => {
                       <Image
                         source={Images.check}
                         style={{ height: 15, width: 15, resizeMode: 'contain', marginRight: 15 }}></Image>
-                      <Text>{item}</Text>
+                      <Text style={{color:"black"}}>{item}</Text>
                     </View>
                   </>
                 )}
@@ -1486,8 +1487,8 @@ const ViewPropertiy = (props, imageUrl) => {
                     style={styles.detailsStyle}>
                     <Image
                       source={Images.nearBy}
-                      style={styles.detail}></Image>
-                    <Text style={styles.detailText}>What's Nearby </Text>
+                      style={[styles.detail, {tintColor:"blue"}]}></Image>
+                    <Text style={[styles.detailText]}>What's Nearby </Text>
                   </TouchableOpacity>
                 </View>
                 <View style={styles.featuersComtainer}>
@@ -2095,7 +2096,7 @@ marginHorizontal:16,position:"relative"
     fontFamily:"Poppins-SemiBold"
   },
   detailText: {
-    fontSize: 10,
+    fontSize: 8,
     color: Colors.black,
     textAlign: 'center',
 

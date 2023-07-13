@@ -125,7 +125,7 @@ const Home = () => {
     setModalVisible(!modalVisible);
   };
   const filtertoggleModal = () => {
-    setFilterModalVisible(!filterModalVisible);
+    // setFilterModalVisible(!filterModalVisible);
   };
 
   const addReview = async post_id => {
