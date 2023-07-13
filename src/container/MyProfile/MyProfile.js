@@ -497,7 +497,7 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.chart}
-                  style={{ height: 33, width: 29, resizeMode: 'contain' }} />
+                  style={{ height: 25, width: 25, resizeMode: 'contain' }} />
                 <Text style={styles.text}>Surf Shop</Text>
               </View>
               <View style={styles.line}></View>
@@ -543,13 +543,13 @@ const styles = StyleSheet.create({
   },
   line: {
     height: 1,
-    width: '100%',
+    width: '90%',
     backgroundColor: Colors.BorderColor,
   },
   text: {
     fontSize: 18,
     color: Colors.textColorLight,
-    marginLeft: 20,
+    marginLeft: 15,
     fontFamily: 'Poppins-Regular'
   },
   slideOuter: {

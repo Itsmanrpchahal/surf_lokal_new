@@ -5,7 +5,7 @@ const Images = {
   google: require(BaseUrl + 'google.png'),
   downArrow: require(BaseUrl + 'arrowDown.png'),
   apple: require(BaseUrl + 'apple.png'),
- 
+
   email: require(BaseUrl + 'email.png'),
   facebook: require(BaseUrl + 'facebook.png'),
   chat: require(BaseUrl + 'chat.png'),
@@ -38,14 +38,14 @@ const Images = {
   phone: require(BaseUrl + 'phone.png'),
   setting: require(BaseUrl + 'setting.png'),
   savedSearch: require(BaseUrl + 'savedSearch.png'),
-  notification:require(BaseUrl+'notification.png'),
+  notification: require(BaseUrl + 'notification.png'),
   contactAgent: require(BaseUrl + 'contactAgent.png'),
   surfReward: require(BaseUrl + 'surfReward.png'),
-  surfShop:require(BaseUrl+'surfShop.png'),
-  chart:require(BaseUrl + 'chart.png'),
+  surfShop: require(BaseUrl + 'surfShop.png'),
+  chart: require(BaseUrl + 'chart.png'),
   favroites: require(BaseUrl + 'favroites.png'),
-  downThumb:require(BaseUrl+'downThumb.png'),
-  ThumbUp:require(BaseUrl+'ThumbUp.png'),
+  downThumb: require(BaseUrl + 'downThumb.png'),
+  ThumbUp: require(BaseUrl + 'correctthumb.png'),
   recycleBin: require(BaseUrl + 'recycleBin.png'),
   call: require(BaseUrl + 'call.png'),
   chatProp: require(BaseUrl + 'chatProp.png'),
@@ -84,14 +84,16 @@ const Images = {
   cal: require(BaseUrl + 'cal.png'),
   cloud: require(BaseUrl + 'cloud.png'),
   favlike: require(BaseUrl + 'favlike.png'),
+  leftarrow: require(BaseUrl + 'leftarrow.png'),
+  rightarrow: require(BaseUrl + 'rightarrow.png'),
   deletelike: require(BaseUrl + 'deletelike.png'),
   tax: require(BaseUrl + 'tax.png'),
   fill: require(BaseUrl + 'fill.png'),
   fillgreen: require(BaseUrl + 'fillgreen.png'),
   check: require(BaseUrl + 'check.png'),
-  calendar:require(BaseUrl+"calendar.png"),
-  loading:require(BaseUrl+"loading.gif"),
-  graylocation:require(BaseUrl+"graylocation.png")
+  calendar: require(BaseUrl + "calendar.png"),
+  loading: require(BaseUrl + "loading.gif"),
+  graylocation: require(BaseUrl + "graylocation.png")
 
 };
 export default Images;

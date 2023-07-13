@@ -128,7 +128,7 @@ const MakeAnOffer = () => {
   const validateInputs = () => {
     let valid = true;
 
-   
+
     if (priceOffer === '') {
       setpricerror(true);
       valid = false;
@@ -207,7 +207,7 @@ const MakeAnOffer = () => {
 
   const makeOfferAPI = async () => {
     const id = await AsyncStorage.getItem('userId');
-  
+
     if (validateInputs()) {
       try {
         const data = {
@@ -221,10 +221,10 @@ const MakeAnOffer = () => {
           phone: phone,
           closeing_date: selectedDate,
         };
-        
+
         const response = await axios.post('https://surf.topsearchrealty.com/webapi/v1/makeoffer/', data);
-      
-       
+
+
         setAddress('');
         setPriceOffer('');
         setCashLoan('');
@@ -234,7 +234,7 @@ const MakeAnOffer = () => {
         setEmail('');
         setPhone('');
         setError(false);
-  
+
         if (response.status === 200) {
           if (response.data.success) {
             Alert.alert("Offer submitted");
@@ -243,14 +243,14 @@ const MakeAnOffer = () => {
             console.log(response.data);
             Alert.alert("Offer submit");
           }
-        } 
+        }
       } catch (error) {
         setError(true);
         Alert.alert(error.message);
       }
     }
   };
- 
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAwareScrollView
@@ -259,158 +259,160 @@ const MakeAnOffer = () => {
         enableOnAndroid={true}
         extraScrollHeight={90}
       >
-          <View style={styles.cardContainer}>
+        <View style={styles.cardContainer}>
 
-                <View
-          style={styles.viewStyle}>
-          <Text style={{ fontSize: 20,  color: Colors.black,
-             fontFamily: 'Poppins-Regular' }}>Make An Offer </Text>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={{
-              alignItems: 'center',
- position:"absolute",
-      right:10,
-      rop:10,
-              justifyContent: 'center',
-              height: 30,
-              width: 30,
-              borderRadius: 15,
-              backgroundColor: Colors.gray,
-            }}>
-            <Image
-              source={Images.close}
+          <View
+            style={styles.viewStyle}>
+            <Text style={{
+              fontSize: 20, color: Colors.black,
+              fontFamily: 'Poppins-Regular'
+            }}>Make An Offer </Text>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
               style={{
-                height: 15,
-                width: 15,
-                resizeMode: 'contain',
-                tintColor: Colors.black,
-                transform: [{ rotate: '90deg' }],
-              }}></Image>
-          </TouchableOpacity>
-        </View>
-            <View style={styles.formContainer}>
-              <ScrollView
-                showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps="handled"
-              >
-                <View style={styles.inputContainer}>
-                  <Text style={styles.labelText}>Property Address*</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Property Address"
-                    value={address}
-                    onChangeText={(text) => setAddress(text)}
-                  />
-                </View>
-                <View style={styles.inputContainer}>
-                  <Text style={styles.labelText}>Offer Price*</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Offer Price"
-                    keyboardType="default"
-                    value={priceOffer}
-                    onChangeText={(text) => setPriceOffer(text)}
-                  />
-                  {pricerror && (
-                    <Text style={styles.errorText}>Please enter a valid price</Text>
-                  )}
-                </View>
-                <View style={styles.inputContainer}>
-                  <Text style={styles.labelText}>Cash Loan*</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Cash Loan"
-                    keyboardType="default"
-                    value={cashLoan}
-                    onChangeText={(text) => setCashLoan(text)}
-                  />
-                  {casherror && (
-                    <Text style={styles.errorText}>Please enter a valid cash loan</Text>
-                  )}
-                </View>
-                <View style={styles.inputContainer}>
-                  <Text style={styles.labelText}>Close Date*</Text>
-                  <TouchableOpacity
-                    style={styles.datePickerContainer}
-                    onPress={showDatepicker}
-                  >
-                    <Text style={styles.datePickerText}>
-                      {selectedDate ? selectedDate.toDateString() : 'Select Date'}
-                    </Text>
-                  </TouchableOpacity>
-                  {showDatePicker && (
-                    <DateTimePicker
-                      value={selectedDate || new Date()}
-                      mode="date"
-                      is24Hour={true}
-                      display="default"
-                      onChange={handleDateChange}
-                    />
-                  )}
-                  {dateerror && (
-                    <Text style={styles.errorText}>Please select a close date</Text>
-                  )}
-                </View>
-                <View style={styles.inputContainer}>
-                  <Text style={styles.labelText}>Legal Name*</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Legal Name"
-                    value={legalName}
-                    onChangeText={(text) => setLegalName(text)}
-                  />
-                  {nameerror && (
-                    <Text style={styles.errorText}>Please enter a valid legal name</Text>
-                  )}
-                </View>
-                <View style={styles.inputContainer}>
-                  <Text style={styles.labelText}>Current Address*</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Current Address"
-                    value={currentAddress}
-                    onChangeText={(text) => setCurrentAddress(text)}
-                  />
-                  {currenterror && (
-                    <Text style={styles.errorText}>Please enter a valid address</Text>
-                  )}
-                </View>
-                <View style={styles.inputContainer}>
-                  <Text style={styles.labelText}>Email*</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={(text) => setEmail(text)}
-                  />
-                  {emailerror && (
-                    <Text style={styles.errorText}>Please enter a valid email address</Text>
-                  )}
-                </View>
-                <View style={styles.inputContainer}>
-                  <Text style={styles.labelText}>Phone*</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Phone"
-                    keyboardType="numeric"
-                    value={phone}
-                    onChangeText={(text) => setPhone(text)}
-                  />
-                  {phoneerror && (
-                    <Text style={styles.errorText}>Please enter a valid phone number</Text>
-                  )}
-                </View>
-              </ScrollView>
-              <TouchableOpacity
-                style={styles.submitButton}
-                onPress={()=>makeOfferAPI()}
-              >
-                <Text style={styles.submitButtonText}>Submit</Text>
-              </TouchableOpacity>
-            </View>
+                alignItems: 'center',
+                position: "absolute",
+                right: 10,
+                rop: 10,
+                justifyContent: 'center',
+                height: 35,
+                width: 35,
+                borderRadius: 100,
+                backgroundColor: Colors.gray,
+              }}>
+              <Image
+                source={Images.close}
+                style={{
+                  height: 12,
+                  width: 12,
+                  resizeMode: 'contain',
+                  tintColor: Colors.black,
+                  transform: [{ rotate: '90deg' }],
+                }}></Image>
+            </TouchableOpacity>
           </View>
-     
+          <View style={styles.formContainer}>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+            >
+              <View style={styles.inputContainer}>
+                <Text style={styles.labelText}>Property Address*</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Property Address"
+                  value={address}
+                  onChangeText={(text) => setAddress(text)}
+                />
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.labelText}>Offer Price*</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Offer Price"
+                  keyboardType="default"
+                  value={priceOffer}
+                  onChangeText={(text) => setPriceOffer(text)}
+                />
+                {pricerror && (
+                  <Text style={styles.errorText}>Please enter a valid price</Text>
+                )}
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.labelText}>Cash Loan*</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Cash Loan"
+                  keyboardType="default"
+                  value={cashLoan}
+                  onChangeText={(text) => setCashLoan(text)}
+                />
+                {casherror && (
+                  <Text style={styles.errorText}>Please enter a valid cash loan</Text>
+                )}
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.labelText}>Close Date*</Text>
+                <TouchableOpacity
+                  style={styles.datePickerContainer}
+                  onPress={showDatepicker}
+                >
+                  <Text style={styles.datePickerText}>
+                    {selectedDate ? selectedDate.toDateString() : 'Select Date'}
+                  </Text>
+                </TouchableOpacity>
+                {showDatePicker && (
+                  <DateTimePicker
+                    value={selectedDate || new Date()}
+                    mode="date"
+                    is24Hour={true}
+                    display="default"
+                    onChange={handleDateChange}
+                  />
+                )}
+                {dateerror && (
+                  <Text style={styles.errorText}>Please select a close date</Text>
+                )}
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.labelText}>Legal Name*</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Legal Name"
+                  value={legalName}
+                  onChangeText={(text) => setLegalName(text)}
+                />
+                {nameerror && (
+                  <Text style={styles.errorText}>Please enter a valid legal name</Text>
+                )}
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.labelText}>Current Address*</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Current Address"
+                  value={currentAddress}
+                  onChangeText={(text) => setCurrentAddress(text)}
+                />
+                {currenterror && (
+                  <Text style={styles.errorText}>Please enter a valid address</Text>
+                )}
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.labelText}>Email*</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Email"
+                  value={email}
+                  onChangeText={(text) => setEmail(text)}
+                />
+                {emailerror && (
+                  <Text style={styles.errorText}>Please enter a valid email address</Text>
+                )}
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.labelText}>Phone*</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Phone"
+                  keyboardType="numeric"
+                  value={phone}
+                  onChangeText={(text) => setPhone(text)}
+                />
+                {phoneerror && (
+                  <Text style={styles.errorText}>Please enter a valid phone number</Text>
+                )}
+              </View>
+            </ScrollView>
+            <TouchableOpacity
+              style={styles.submitButton}
+              onPress={() => makeOfferAPI()}
+            >
+              <Text style={styles.submitButtonText}>Submit</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
@@ -420,7 +422,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    paddingHorizontal:10,
+    paddingHorizontal: 10,
     // paddingVertical:10
   },
   bodyContainer: {
@@ -442,7 +444,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
     //paddingHorizontal: 16,
-   // paddingVertical: 20,
+    // paddingVertical: 20,
   },
   cardTitleText: {
     fontSize: 24,
@@ -458,16 +460,16 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     // marginLeft: 40,
     // marginBottom:10
-      marginTop:8,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          width:'100%',
-          marginLeft:0
+    marginTop: 8,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%',
+    marginLeft: 0
   },
   formContainer: {
-    
+
     justifyContent: 'center',
-  
+
   },
   inputContainer: {
     marginBottom: 16,
@@ -499,7 +501,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   errorText: {
-    color:'red',
+    color: 'red',
     fontSize: 14,
     marginTop: 4,
   },
@@ -514,7 +516,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'flex-end',
     flexDirection: 'row',
- 
+
   },
   submitButtonText: {
     fontSize: 16, fontWeight: '400',

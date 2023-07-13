@@ -52,46 +52,48 @@ const App = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
-      <View style={{ }}>
-      <View
-        style={{
-           marginTop:8,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          width:'100%',
-          marginLeft:0
-        }}>
-        <Text style={{ fontSize: 20,
-          color: Colors.black,fontFamily:'Poppins-Regular' }}>Surf Rewards</Text>
-       
-        <TouchableOpacity
-            onPress={() =>   navigation.navigate('MyProfile')} 
+      <View style={{}}>
+        <View
+          style={{
+            marginTop: 8,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            width: '100%',
+            marginLeft: 0
+          }}>
+          <Text style={{
+            fontSize: 20,
+            color: Colors.black, fontFamily: 'Poppins-Regular'
+          }}>Surf Rewards</Text>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate('MyProfile')}
             style={{
-            alignItems:'center',
-       position:"absolute",
-      right:10,
-      rop:10,
-            justifyContent:'center',
-              height: 30,
-              width: 30,
-              borderRadius: 15,
+              alignItems: 'center',
+              position: "absolute",
+              right: 10,
+              rop: 10,
+              justifyContent: 'center',
+              height: 35,
+              width: 35,
+              borderRadius: 100,
               backgroundColor: Colors.gray,
             }}>
             <Image
               source={Images.close}
               style={{
-                height: 15,
-                width: 15,
+                height: 12,
+                width: 12,
                 resizeMode: 'contain',
                 tintColor: Colors.black,
-                transform: [{rotate: '90deg'}],
+                transform: [{ rotate: '90deg' }],
               }}></Image>
           </TouchableOpacity>
-          </View>
+        </View>
       </View>
       <View>
 
-      
+
         <View
           style={{ marginTop: 10, backgroundColor: Colors.white, width: '100%' }}>
           <RNSpeedometer
@@ -211,7 +213,7 @@ const App = () => {
               color: Colors.textColorLight,
               marginTop: 20,
               textAlign: 'center',
-              fontFamily:'Poppins-Regular'
+              fontFamily: 'Poppins-Regular'
             }}>
             reaching next tier with  {'\n'}the numerical points tally
           </Text>
@@ -226,8 +228,10 @@ const App = () => {
               marginTop: 20,
             }}>
             <Text
-              style={{ fontSize: 24, fontWeight: 'bold',
-               color: Colors.black,fontFamily:'Poppins-Regular' }}>
+              style={{
+                fontSize: 24, fontWeight: 'bold',
+                color: Colors.black, fontFamily: 'Poppins-Regular'
+              }}>
               surf Rating
             </Text>
 
@@ -245,7 +249,7 @@ const App = () => {
                   color: Colors.black,
                   textAlign: 'center',
                   // fontWeight:"100%"
-                  fontFamily:'Poppins-Regular'
+                  fontFamily: 'Poppins-Regular'
                 }}>
                 {getLevelCall()}
               </Text>
@@ -262,40 +266,40 @@ const App = () => {
             alignSelf: 'center',
           }}></Image>
 
-        
-       <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, }}>
 
-  <TouchableOpacity
-        onPress={handlePress}
-        style={[
-          styles.rew,
-          {
-            backgroundColor: isRewardsSelected ? 'green' : 'transparent',
-            borderColor: isRewardsSelected ? 'green' : 'black',
-          },
-        ]}
-      >
-        <Text style={[styles.text,{ color: isRewardsSelected ? 'white' : 'black',fontFamily:'Poppins-Regular' }]}>Rewards</Text>
-      </TouchableOpacity>
+        <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, }}>
 
-      <TouchableOpacity
-        onPress={handlePress}
-        style={[
-          styles.rew,
-          {
-            backgroundColor: isRewardsSelected ? 'transparent' : 'green',
-            borderColor: isRewardsSelected ? 'black' : 'green',
-          },
-        ]}
-      >
-        <Text style={[styles.text, { color: isRewardsSelected ? 'black' : 'white' ,fontFamily:'Poppins-Regular'}]}>Challenges</Text>
-      </TouchableOpacity>
-</View>
+          <TouchableOpacity
+            onPress={handlePress}
+            style={[
+              styles.rew,
+              {
+                backgroundColor: isRewardsSelected ? 'green' : 'transparent',
+                borderColor: isRewardsSelected ? 'green' : 'black',
+              },
+            ]}
+          >
+            <Text style={[styles.text, { color: isRewardsSelected ? 'white' : 'black', fontFamily: 'Poppins-Regular' }]}>Rewards</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={handlePress}
+            style={[
+              styles.rew,
+              {
+                backgroundColor: isRewardsSelected ? 'transparent' : 'green',
+                borderColor: isRewardsSelected ? 'black' : 'green',
+              },
+            ]}
+          >
+            <Text style={[styles.text, { color: isRewardsSelected ? 'black' : 'white', fontFamily: 'Poppins-Regular' }]}>Challenges</Text>
+          </TouchableOpacity>
+        </View>
 
 
 
- 
-       
+
+
       </View>
     </SafeAreaView>
   );

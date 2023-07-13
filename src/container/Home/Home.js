@@ -244,8 +244,8 @@ const Home = () => {
               paddingRight: 10
             }}>
             <SvgUri
-              height={25}
-              width={25}
+              height={30}
+              width={30}
               uri={item.term_icon_url}
 
             />
