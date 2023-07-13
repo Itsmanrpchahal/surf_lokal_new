@@ -50,7 +50,7 @@ const BottomTabNavigator = () => {
         component={MyProfileTab}
         options={{
           tabBarLabel: (
-            <Text style={{ fontSize: 10,fontFamily:'Poppins-Regular' }} allowFontScaling={false}>
+            <Text style={{ fontSize: 10, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
               Profile
             </Text>
           ),
@@ -63,23 +63,23 @@ const BottomTabNavigator = () => {
         name="Rewards"
         component={MyRewards}
         options={{
-      
-         
+
+
           tabBarLabel: (
-           <View style={{position:"relative"}}>
-           <Text style={{fontFamily:'Poppins-Regular',position:"absolute",fontSize:35,top:-50}} allowFontScaling={false}>
-          99
-          </Text>
-            <Text style={{ fontSize: 10,fontFamily:'Poppins-Regular',}} allowFontScaling={false}>
-            Rewards
-            </Text>
-         </View>
+            <View style={{ position: "relative" }}>
+              <Text style={{ fontFamily: 'Poppins-Regular', position: "absolute", fontSize: 35, top: -50 }} allowFontScaling={false}>
+                99
+              </Text>
+              <Text style={{ fontSize: 10, fontFamily: 'Poppins-Regular', }} allowFontScaling={false}>
+                Rewards
+              </Text>
+            </View>
           ),
-        
+
           keyboardHidesTabBar: true,
           tabBarHideOnKeyboard: true,
         }}
-   
+
       />
 
       <Tab.Screen
@@ -92,8 +92,8 @@ const BottomTabNavigator = () => {
           //   />
           // ),
           tabBarLabel: (
-            <Text style={{ fontSize: 12,fontFamily:'Poppins-Regular' }} allowFontScaling={false}>
-            surf lokal Home
+            <Text style={{ fontSize: 0, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
+
             </Text>
           ),
           tabBarIcon: Images.lokal,
@@ -106,8 +106,8 @@ const BottomTabNavigator = () => {
         component={MyFavorites}
         options={{
           tabBarLabel: (
-            <Text style={{ fontSize: 10 ,fontFamily:'Poppins-Regular'}} allowFontScaling={false}>
-              Favorites 
+            <Text style={{ fontSize: 10, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
+              Favorites
             </Text>
           ),
           tabBarIcon: Images.ThumbUp,
@@ -121,7 +121,7 @@ const BottomTabNavigator = () => {
         component={ChatSearch}
         options={{
           tabBarLabel: (
-            <Text style={{ fontSize: 10,fontFamily:'Poppins-Regular' }} allowFontScaling={false}>
+            <Text style={{ fontSize: 10, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
               Chat
             </Text>
           ),
@@ -243,7 +243,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
               <Text
                 style={{
                   color: isFocused ? Colors.primaryBlue : Colors.textColorDark,
-                  fontSize: 12,fontFamily:'Poppins-Regular'
+                  fontSize: 12, fontFamily: 'Poppins-Regular'
                 }}>
                 {label}
               </Text>
