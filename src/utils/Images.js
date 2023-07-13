@@ -51,6 +51,8 @@ const Images = {
   chatProp: require(BaseUrl + 'chatProp.png'),
   area: require(BaseUrl + 'area.png'),
   profile: require(BaseUrl + 'profile.png'),
+  upsideArrow:require(BaseUrl + 'upsideArrow.png'),
+  correctThumb: require(BaseUrl + 'correctthumb.png'),
   // 20 Apr
   bigCahouna: require(BaseUrl + 'bigCahouna.png'),
   fastGun: require(BaseUrl + 'fastGun.png'),
@@ -61,6 +63,8 @@ const Images = {
   agentTel: require(BaseUrl + 'agentTel.png'),
   agentVideo: require(BaseUrl + 'agentVideo.png'),
   meter: require(BaseUrl + 'meter.png'),
+  sendm : require(BaseUrl +'sendm.png'),
+  reload: require(BaseUrl +'reload.png'),
   // 24 Apr
   imageView: require(BaseUrl + 'imageView.png'),
   detail: require(BaseUrl + 'detail.png'),

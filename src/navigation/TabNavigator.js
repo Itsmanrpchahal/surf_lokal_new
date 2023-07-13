@@ -29,6 +29,7 @@ import Settings from '../container/Settings/Settings';
 import { ifIphoneX } from 'react-native-iphone-x-helper';
 import ChatSearch from '../container/Chat/ChatSearch';
 import Notification from '../container/Notification/Notification';
+import Styles from '../container/Rewards/Styles';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -66,11 +67,18 @@ const BottomTabNavigator = () => {
       
          
           tabBarLabel: (
-           <View style={{position:"relative"}}>
-           <Text style={{fontFamily:'Poppins-Regular',position:"absolute",fontSize:35,top:-50}} allowFontScaling={false}>
-          99
-          </Text>
-            <Text style={{ fontSize: 10,fontFamily:'Poppins-Regular',}} allowFontScaling={false}>
+
+           <View style={{}}>
+        
+           <Text style={{fontFamily:'Poppins-Regular',
+           position:"absolute",
+           fontSize:32,top:-50,
+           color:Colors.black,
+           
+           
+          }}
+            allowFontScaling={false}> 0</Text>
+            <Text style={{ fontSize: 10,fontFamily:'Poppins-Regular'}} allowFontScaling={false}>
             Rewards
             </Text>
          </View>
@@ -81,22 +89,14 @@ const BottomTabNavigator = () => {
         }}
    
       />
-
-      <Tab.Screen
+           <Tab.Screen
         name="Home"
         component={Home}
         options={{
-          // tabBarIcon: (
-          //   <Image source={Images.lokal} 
-          //   style={{height:25,width:25,tintColor:'red'}}
-          //   />
-          // ),
-          tabBarLabel: (
-            <Text style={{ fontSize: 12,fontFamily:'Poppins-Regular' }} allowFontScaling={false}>
-            surf lokal Home
-            </Text>
-          ),
-          tabBarIcon: Images.lokal,
+          tabBarLabel: null,
+          tabBarIconStyle:height="40%",width:"40%",
+          tabBarIcon:Images.lokal ,
+              
           keyboardHidesTabBar: true,
           tabBarHideOnKeyboard: true,
         }}
@@ -110,7 +110,7 @@ const BottomTabNavigator = () => {
               Favorites 
             </Text>
           ),
-          tabBarIcon: Images.ThumbUp,
+          tabBarIcon: Images.correctThumb,
           keyboardHidesTabBar: true,
           tabBarHideOnKeyboard: true,
         }}
@@ -164,6 +164,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
         justifyContent: 'center',
         borderTopColor: Colors.gray,
         borderTopWidth: 1,
+        alignItems: 'center',
       }}>
       <View
         style={{
@@ -217,25 +218,28 @@ function CustomTabBar({ state, descriptors, navigation }) {
               onPress={onPress}
               onLongPress={onLongPress}
               style={{
-                width: 100,
-                maxHeight: 90,
+                width: "30%",
+                maxHeight: 100,
                 alignItems: 'center',
                 justifyContent: 'center',
                 alignContent: 'center',
+                marginVertical:-10,
+                marginTop:1
               }}>
               <View
                 style={{
                   height: 50,
-                  width: 50,
+                  width: 100,
                   justifyContent: 'center',
                   alignItems: 'center',
+                
                 }}>
                 <Image
                   source={image}
                   resizeMode="contain"
                   style={{
-                    height: '50%',
-                    width: '50%',
+                    height: '70%',
+                    width: '70%',
                     // tintColor: isFocused ? Colors.primaryBlue : null,
                   }}
                 />
@@ -243,7 +247,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
               <Text
                 style={{
                   color: isFocused ? Colors.primaryBlue : Colors.textColorDark,
-                  fontSize: 12,fontFamily:'Poppins-Regular'
+                  fontSize: 12,fontFamily:'Poppins-Regular',
                 }}>
                 {label}
               </Text>
