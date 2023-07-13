@@ -55,6 +55,16 @@ const ViewPropertiyImage = props => {
   const [isEditing, setIsEditing] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const flatListRef = useRef(null);
+
+  const scrollViewRef = useRef(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const scrollToTop = () => {
+    scrollViewRef.current.scrollTo({ y: 0, animated: true });
+  };
+  const handleScroll = (event) => {
+    const offsetY = event.nativeEvent.contentOffset.y;
+    setIsScrolled(offsetY > 0);
+  };
   const postID = props.route.params;
   console.log(postID.postid, 'ViewPropertiyImage Props');
   const property = data[0];
@@ -168,7 +178,7 @@ const ViewPropertiyImage = props => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={{height: '88%', width: '100%'}}>
-        <ScrollView>
+        <ScrollView ref={scrollViewRef}  onScroll={handleScroll}>
           <View style={{height: 200, width: '100%'}}>
             <WebView
               style={{height: 400, width: '100%'}}
@@ -189,7 +199,13 @@ const ViewPropertiyImage = props => {
           ) : (
             <Text>No images found.</Text>
           )}
+         
         </ScrollView>
+        {isScrolled && (
+        <TouchableOpacity onPress={scrollToTop} style={styles.buttonscroll} >
+         <Image source={Images.upsideArrow} style={{width:40,height:40,tintColor:'black'}}/>
+        </TouchableOpacity>
+           )}
         <View
           style={{
             flexDirection: 'row',
@@ -256,6 +272,11 @@ const ViewPropertiyImage = props => {
               alignContent: 'center',
             }}>
             <TouchableOpacity
+             style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignContent: 'center',
+            }}
               onPress={() => {
                 setProductId(postID.postid.ID);
                 setReviewTitle(postID.postid.title);
@@ -281,7 +302,14 @@ const ViewPropertiyImage = props => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <TouchableOpacity onPress={() => navigation.navigate('ChatSearch' )}>
+            <TouchableOpacity 
+             style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignContent: 'center',
+            }}
+
+             onPress={() => navigation.navigate('ChatSearch' )}>
               <Image
                 source={Images.chat}
                 style={{height: 25, width: 25, resizeMode: 'contain'}}></Image>
@@ -667,6 +695,17 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  buttonscroll: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.primaryBlue,
+    borderRadius: 20,
+    height: 40,
+    width: 40,
   },
   pagination: {
     position: 'absolute',

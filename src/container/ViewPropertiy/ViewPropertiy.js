@@ -86,6 +86,15 @@ const ViewPropertiy = (props, imageUrl) => {
 
   const [pin, setPin] = useState(null);
   const [region, setRegion] = useState(null);
+  const scrollViewRef = useRef(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const scrollToTop = () => {
+    scrollViewRef.current.scrollTo({ y: 0, animated: true });
+  };
+  const handleScroll = (event) => {
+    const offsetY = event.nativeEvent.contentOffset.y;
+    setIsScrolled(offsetY > 0);
+  };
   console.log(region, "region")
 
   useEffect(() => {
@@ -444,6 +453,7 @@ const ViewPropertiy = (props, imageUrl) => {
     return (
       <>
         <View style={styles.addresss}>
+          {console.log('url ===>',walk?.walkscore_details)}
           <WebView
             source={{ uri: walk?.walkscore_details }}
             onLoad={console.log("loaded")}
@@ -480,10 +490,12 @@ const ViewPropertiy = (props, imageUrl) => {
           <Text style={styles.propertyt}>Moartage Calculator</Text>
           <View style={styles.addresss}>
             <WebView
+            style={{height:1000,marginLeft:20,marginRight:20}}
+            scrollEnabled={true}
+            nestedScrollEnabled
               source={{ uri: calData?.moartage_details }}
               onLoad={console.log("loaded")}
             />
-            <Text style={styles.propertyt}>Moartage Calculator</Text>
 
           </View>
         </View>
@@ -533,7 +545,7 @@ const ViewPropertiy = (props, imageUrl) => {
   }
   return (
     <>
-      <ScrollView>
+      <ScrollView  ref={scrollViewRef}  onScroll={handleScroll}>
         <SafeAreaView style={{ flex: 1 }}>
 
           <View
@@ -1969,8 +1981,16 @@ const ViewPropertiy = (props, imageUrl) => {
             </View>
           </ScrollView>
 
-        </SafeAreaView >
-      </ScrollView >
+
+        </SafeAreaView>
+      </ScrollView>
+      {isScrolled && (
+        <TouchableOpacity onPress={scrollToTop} style={styles.buttonscroll} >
+         <Image source={Images.upsideArrow} style={{width:40,height:40,tintColor:'black'}}/>
+        </TouchableOpacity>
+           )}
+
+
     </>
   )
 }
@@ -2001,6 +2021,17 @@ const styles = StyleSheet.create({
     color: Colors.white,
     textAlign: 'center',
     marginLeft: 5,
+  },
+  buttonscroll: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.primaryBlue,
+    borderRadius: 20,
+    height: 40,
+    width: 40,
   },
   call: {
     fontSize: 12,
