@@ -211,7 +211,7 @@ const MyFavorites = ({ navigation }) => {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={{ height: 1, width: '100%', backgroundColor: Colors.BorderColor }}></View>
+          <View style={{ height: 1, width: '90%', backgroundColor: Colors.BorderColor }}></View>
         </View>
       </View>
     );
@@ -221,42 +221,44 @@ const MyFavorites = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <View
         style={{
-         marginTop:8,
+          marginTop: 8,
           flexDirection: 'row',
           justifyContent: 'center',
-          width:'100%',
-          marginLeft:0
+          width: '100%',
+          marginLeft: 0
         }}>
-        
-     
-          <Text
-            style={{
-              fontSize: 24,
-              // fontWeight: 'bold',
-              color: Colors.textColorDark,
-              fontFamily: 'Poppins-Regular',
-            }}>
-            Saved Searches
-          </Text>
-     
+
+
+        <Text
+          style={{
+            fontSize: 24,
+            // fontWeight: 'bold',
+            color: Colors.textColorDark,
+            fontFamily: 'Poppins-Regular',
+          }}>
+          Saved Searches
+        </Text>
+
         <TouchableOpacity
-          style={{ justifyContent: 'center',
-          alignItems: 'center',
-          height: 30,
-          width: 30, position:"absolute",
-      right:10,
-      rop:10,
-          borderRadius: 15,
-          backgroundColor: Colors.gray,}}
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 35,
+            width: 35, position: "absolute",
+            right: 10,
+            rop: 10,
+            borderRadius: 100,
+            backgroundColor: Colors.gray,
+          }}
           onPress={() => navigation.goBack()}>
-          <Image    source={Images.close}
-              style={{
-                height: 15,
-                width: 15,
-                resizeMode: 'contain',
-                tintColor: Colors.black,
-                transform: [{rotate: '90deg'}],
-              }}></Image>
+          <Image source={Images.close}
+            style={{
+              height: 12,
+              width: 12,
+              resizeMode: 'contain',
+              tintColor: Colors.black,
+              transform: [{ rotate: '90deg' }],
+            }}></Image>
         </TouchableOpacity>
       </View>
       {showNoDataMessage ? (
@@ -298,7 +300,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    position:"relative"
+    position: "relative"
   },
   slideOuter: {
     width: "100%",

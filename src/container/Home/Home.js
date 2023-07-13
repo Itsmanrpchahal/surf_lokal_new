@@ -240,17 +240,21 @@ const Home = () => {
               alignItems: 'center',
               marginLeft: 5,
               marginRight: 5,
+              // width: 110
+              paddingRight: 10
             }}>
             <SvgUri
-              style={{ height: 27, width: 27, resizeMode: 'contain' }}
+              height={30}
+              width={30}
               uri={item.term_icon_url}
+
             />
             <Text
               style={{
                 fontSize: 12,
-                color: isSelected ? Colors.black : Colors.gray,
+                color: isSelected ? Colors.surfblur : Colors.newgray,
                 marginTop: 3,
-                fontWeight: isSelected ? 'nprmal' : 'normal',
+                fontWeight: isSelected ? 'normal' : 'normal',
                 fontFamily: 'Poppins-Regular',
               }}>
               {item.term_name}
@@ -369,16 +373,16 @@ const Home = () => {
               paddingVertical: 18,
               justifyContent: 'center',
               borderRadius: 5,
-              marginBottom: 18,
+              marginBottom: 4,
               alignItems: 'center',
               flexDirection: 'row',
-              shadowColor: '#000',
+              //shadowColor: '#000',
               backgroundColor: '#fff',
-              elevation: 4,
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.2,
-              shadowRadius: 4,
+              // elevation: 4,
+              // shadowColor: '#000',
+              // shadowOffset: { width: 0, height: 2 },
+              // shadowOpacity: 0.2,
+              // shadowRadius: 4,
             }}>
             <View
               style={{
@@ -410,13 +414,17 @@ const Home = () => {
               <View style={{ width: '65%' }}>
                 <TextInput
                   allowFontScaling={false}
-                  placeholderTextColor={Colors.textColorLight}
-                  placeholder={'Filters...'}
+                  placeholderTextColor={"#494949"}
+                  fontFamily={'Poppins-Regular'}
+                  placeholder={'Surf... powered by ChatGPT'}
                   returnKeyType="done"
                   onChangeText={text => setAddres(text)}
                   style={{
                     fontSize: 14,
                     color: '#000',
+                    marginLeft: 7,
+                    position: "relative",
+                    top: 3
                   }}
                 />
               </View>
@@ -539,9 +547,13 @@ const Home = () => {
                       bottom: 10,
                       borderTopLeftRadius: 20,
                       borderTopRightRadius: 20,
+                      // borderBottomRightRadius: 20,
+                      //borderBottomLeftRadius: 20,
                       borderWidth: 1,
                       borderColor: Colors.gray,
-                    }}>
+
+                    }}
+                  >
                     <View
                       style={{
                         height: '10%',
@@ -796,6 +808,28 @@ const Home = () => {
                         {...panHandlers}
                         style={[styles.card, cardStyle, nextStyle]}
                         key={item.id}>
+                        {/* <View style={styles.marrowcover}>
+                          <Text style={styles.leftarrowss}>
+                            <Image
+                              source={Images.leftarrow}
+                              style={{
+                                height: 35,
+                                width: 35,
+                                resizeMode: "contain"
+                               
+                              }}
+                            /></Text>
+                          <Text style={styles.rightarrow}> <Image
+                            source={Images.rightarrow}
+                            style={{
+                              height: 35,
+                              width: 35,
+                              resizeMode: "contain",
+                              marginLeft: 12
+                             
+                            }}
+                          /></Text>
+                        </View> */}
                         <View>
                           <View style={styles.slidercover}>
                             <Image
@@ -1285,11 +1319,11 @@ const Home = () => {
                                 navigation.navigate('ViewPropertiy', { item })
                               }
                               style={{
-                                fontSize: 14,
+                                fontSize: 15,
                                 color: Colors.black,
                                 marginBottom: 15,
                                 textAlign: 'center',
-                                fontFamily: 'Poppins-Medium.ttf',
+                                fontFamily: 'Poppins-Medium',
                               }}>
                               {item.title}
                             </Text>
@@ -1321,7 +1355,7 @@ const Home = () => {
                                   }}></Image>
                                 <Text
                                   style={{
-                                    fontSize: 14,
+                                    fontSize: 11,
                                     color: Colors.black,
                                     textAlign: 'center',
                                     fontFamily: 'Poppins-Regular',
@@ -1345,7 +1379,7 @@ const Home = () => {
                                   }}></Image>
                                 <Text
                                   style={{
-                                    fontSize: 14,
+                                    fontSize: 11,
                                     color: Colors.black,
                                     textAlign: 'center',
                                     fontFamily: 'Poppins-Regular',
@@ -1369,7 +1403,7 @@ const Home = () => {
                                   }}></Image>
                                 <Text
                                   style={{
-                                    fontSize: 14,
+                                    fontSize: 11,
                                     color: Colors.black,
                                     textAlign: 'center',
                                     fontFamily: 'Poppins-Regular',
@@ -1387,7 +1421,7 @@ const Home = () => {
                                 }}>
                                 <Text
                                   style={{
-                                    fontSize: 13,
+                                    fontSize: 12,
                                     color: Colors.black,
                                     textAlign: 'center',
                                     fontWeight: 'bold',
@@ -1396,7 +1430,7 @@ const Home = () => {
                                 </Text>
                                 <Text
                                   style={{
-                                    fontSize: 14,
+                                    fontSize: 11,
                                     color: Colors.black,
                                     marginTop: 6,
                                     textAlign: 'center',
@@ -1424,7 +1458,7 @@ const Home = () => {
                                   }}></Image>
                                 <Text
                                   style={{
-                                    fontSize: 14,
+                                    fontSize: 11,
                                     color: Colors.black,
                                     textAlign: 'center',
                                     fontFamily: 'Poppins-Regular',
@@ -1456,6 +1490,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+  },
+  marrowcover: {
+    width: "100%", flexDirection: "row",
+    zIndex: 9,
+    top: "30%",
+    justifyContent: "space-between", position: "absolute"
   },
   bin: {
     width: '90%',
@@ -1521,7 +1561,7 @@ const styles = StyleSheet.create({
   },
   slider: {
     width: '100%',
-    height: screenHeight / 2.7,
+    height: screenHeight / 2,
     borderRadius: 0,
     alignSelf: 'center',
     justifyContent: 'space-between',
@@ -1529,6 +1569,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
+    borderBottomLeftRadius: 8
   },
   view: {
     width: screenWidth,
