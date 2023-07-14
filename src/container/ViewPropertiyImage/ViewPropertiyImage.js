@@ -203,7 +203,7 @@ const ViewPropertiyImage = props => {
         </ScrollView>
         {isScrolled && (
           <TouchableOpacity onPress={scrollToTop} style={styles.buttonscroll} >
-            <Image source={Images.downArrow} style={{ width: 18, height: 18, tintColor: Colors.white, resizeMode: "contain" }} />
+            <Image source={Images.upsideArrow} style={{ width: 18, height: 18, tintColor: Colors.white, resizeMode: "contain" }} />
           </TouchableOpacity>
         )}
         <View

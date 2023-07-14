@@ -874,10 +874,10 @@ const Home = () => {
                         </View> */}
                         <View>
                           <View style={styles.slidercover}>
-                            {/* <Image
-                              source={{ uri: property?.featured_image_src }}
+                            <Image
+                              source={{ uri: property?.featured_image_src[0].guid }}
                               style={styles.slider}
-                            /> */}
+                            />
                           </View>
                           {
                             Icon && <View
