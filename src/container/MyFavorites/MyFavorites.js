@@ -243,12 +243,13 @@ const MyFavorites = () => {
               style={{ height: 20, width: 20 }}></Image>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('ViewPropertiy')}>
+        <TouchableOpacity onPress={() => navigation.navigate('ViewPropertiy',{ item })}>
           <Text
             style={{
               fontSize: 20,
               color: Colors.primaryBlue,
               fontWeight: '500',
+              fontFamily: 'Poppins-SemiBold'
             }}>
 
             {item.property_price}

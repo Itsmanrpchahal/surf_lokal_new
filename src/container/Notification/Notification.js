@@ -28,7 +28,7 @@ const Notification = () => {
     try {
       const response = await axios.get('https://surf.topsearchrealty.com/webapi/v1/notifications/?userID=' + id);
       const responseData = response.data;
-      const nestedData = responseData.data[0]; // Access the nested array and object within 'data'
+      const nestedData = responseData.data[0]; 
       setData(nestedData);
       console.log(nestedData);
     } catch (error) {
@@ -48,7 +48,7 @@ const Notification = () => {
             style={{ height: 60, width: 70, resizeMode: 'cover', marginLeft: 10, borderRadius: 20 }}
           />
           <Text style={{ fontSize: 16, marginLeft: 5, color: Colors.textColorLight }}>{item.post_title}</Text>
-          <Text style={{ fontSize: 12, color: Colors.textColorLight, position: 'absolute', top: 0, right: 8 }}>
+          <Text style={{ fontSize: 12, color: Colors.textColorLight, position: 'absolute', top:-5, right: 8 }}>
             {item.post_date}
           </Text>
         </View>
