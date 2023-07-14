@@ -30,7 +30,7 @@ import { ifIphoneX } from 'react-native-iphone-x-helper';
 import ChatSearch from '../container/Chat/ChatSearch';
 import Notification from '../container/Notification/Notification';
 import Styles from '../container/Rewards/Styles';
-
+import { useIsFocused } from '@react-navigation/native';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -41,6 +41,7 @@ const viewSizeRatio = screenHeight / 1000;
 const imageSizeRatio = screenHeight / 1000;
 
 const BottomTabNavigator = () => {
+  const isFocused = useIsFocused();
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -68,7 +69,7 @@ const BottomTabNavigator = () => {
          
           tabBarLabel: (
 
-           <View style={{}}>
+           <View >
         
            <Text style={{fontFamily:'Poppins-Regular',
            position:"absolute",
@@ -78,7 +79,7 @@ const BottomTabNavigator = () => {
            
           }}
             allowFontScaling={false}> 0</Text>
-            <Text style={{ fontSize: 10,fontFamily:'Poppins-Regular'}} allowFontScaling={false}>
+            <Text style={{ fontSize: 10,fontFamily:'Poppins-Regular',color:isFocused ? Colors.textColorDark :null}} allowFontScaling={false}>
             Rewards
             </Text>
          </View>
@@ -92,9 +93,9 @@ const BottomTabNavigator = () => {
            <Tab.Screen
         name="Home"
         component={Home}
-        options={{
+        options={{ 
           tabBarLabel: null,
-          tabBarIconStyle:height="40%",width:"40%",
+          
           tabBarIcon:Images.lokal ,
               
           keyboardHidesTabBar: true,
@@ -159,12 +160,15 @@ function CustomTabBar({ state, descriptors, navigation }) {
     <View
       style={{
         width: '100%',
-        // height: 80,
+        height: "11%",
         backgroundColor: Colors.white,
         justifyContent: 'center',
         borderTopColor: Colors.gray,
         borderTopWidth: 1,
         alignItems: 'center',
+       marginTop:10,
+       marginBottom:8,
+        paddingTop:10
       }}>
       <View
         style={{
@@ -174,10 +178,10 @@ function CustomTabBar({ state, descriptors, navigation }) {
           alignContent: 'center',
           ...ifIphoneX(
             {
-              marginBottom: 25,
+              marginBottom: 15,
             },
             {
-              marginBottom: 15,
+              marginBottom: 5,
             },
           ),
         }}>
@@ -209,6 +213,22 @@ function CustomTabBar({ state, descriptors, navigation }) {
               target: route.key,
             });
           };
+          const getIconStyle = () => {
+            if (route.name === 'Home') {
+              return {
+                height: 65,
+                width: 60,
+                
+                tintColor: isFocused ? Colors.primaryBlue : Colors.textColorDark,
+
+              };
+            }
+            return {
+              height: 28,
+              width: 28,
+              tintColor: isFocused ? Colors.primaryBlue : Colors.textColorDark,
+            };
+          };
           return (
             <TouchableOpacity
               accessibilityRole="button"
@@ -237,11 +257,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
                 <Image
                   source={image}
                   resizeMode="contain"
-                  style={{
-                    height: '70%',
-                    width: '70%',
-                    // tintColor: isFocused ? Colors.primaryBlue : null,
-                  }}
+                  style={getIconStyle()}
                 />
               </View>
               <Text

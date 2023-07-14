@@ -301,6 +301,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Property Address"
+                  placeholderTextColor={'gray'}
                   value={address}
                   onChangeText={(text) => setAddress(text)}
                 />
@@ -310,6 +311,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Offer Price"
+                  placeholderTextColor={'gray'}
                   keyboardType="default"
                   value={priceOffer}
                   onChangeText={(text) => setPriceOffer(text)}
@@ -323,6 +325,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Cash Loan"
+                  placeholderTextColor={'gray'}
                   keyboardType="default"
                   value={cashLoan}
                   onChangeText={(text) => setCashLoan(text)}
@@ -359,6 +362,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Legal Name"
+                  placeholderTextColor={'gray'}
                   value={legalName}
                   onChangeText={(text) => setLegalName(text)}
                 />
@@ -371,6 +375,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Current Address"
+                  placeholderTextColor={'gray'}
                   value={currentAddress}
                   onChangeText={(text) => setCurrentAddress(text)}
                 />
@@ -383,6 +388,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Email"
+                  placeholderTextColor={'gray'}
                   value={email}
                   onChangeText={(text) => setEmail(text)}
                 />
@@ -395,6 +401,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Phone"
+                  placeholderTextColor={'gray'}
                   keyboardType="numeric"
                   value={phone}
                   onChangeText={(text) => setPhone(text)}
@@ -404,12 +411,44 @@ const MakeAnOffer = () => {
                 )}
               </View>
             </ScrollView>
-            <TouchableOpacity
-              style={styles.submitButton}
-              onPress={() => makeOfferAPI()}
-            >
-              <Text style={styles.submitButtonText}>Submit</Text>
-            </TouchableOpacity>
+         
+
+<View
+              style={{
+                width: '100%',
+
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                paddingHorizontal: 10,
+              }}>
+              <TouchableOpacity
+                onPress={() => makeOfferAPI()}
+                // onPress={() => setModalVisible(false)}
+                // onPress={Alert.alert("Hyy")}
+                style={{
+                  height: 50,
+                  width: '45%',
+                  borderRadius: 100,
+                  backgroundColor: Colors.surfblur,
+                  marginTop: 10,
+
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: 20
+                }}>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: '700',
+                    color: Colors.white,
+                    fontFamily: 'Poppins-Regular',
+                  }}>
+                  Submit
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
 
@@ -476,8 +515,9 @@ const styles = StyleSheet.create({
   },
   labelText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '700',
     marginBottom: 8,
+    color:Colors.black
   },
   input: {
 
@@ -487,6 +527,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 8,
     width: '100%',
+    color:Colors.textColorDark,
+    
+    
   },
   datePickerContainer: {
     width: '100%',
@@ -499,6 +542,7 @@ const styles = StyleSheet.create({
   },
   datePickerText: {
     fontSize: 14,
+    color:'gray'
   },
   errorText: {
     color: 'red',

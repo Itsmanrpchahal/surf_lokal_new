@@ -224,6 +224,7 @@ const RecycleBin = () => {
               fontSize: 20,
               color: Colors.primaryBlue,
               fontWeight: '500',
+              fontFamily: 'Poppins-SemiBold'
             }}>
             {item.property_price}
           </Text>
@@ -564,8 +565,8 @@ const RecycleBin = () => {
 
         </Modal>
       </KeyboardAvoidingView>
-      <Text style={{ fontSize: 16, color: Colors.black, textAlign: 'center', marginTop: 15 }}>
-        {item.title}</Text>
+      {/* <Text style={{ fontSize: 16, color: Colors.black, textAlign: 'center', marginTop: 15 }}>
+        {item.title}</Text> */}
 
 
       <ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false} >

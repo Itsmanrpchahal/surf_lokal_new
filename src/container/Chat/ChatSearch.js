@@ -84,7 +84,7 @@ const ChatSearch = () => {
                 </TouchableOpacity>
 
             </View>
-            <Text style={{ fontSize: 16, borderRadius: 16, alignSelf: 'flex-start', maxWidth: '70%', marginLeft: 22, marginTop: 22 }}>Hi! What can I help you with?</Text>
+            <Text style={{ fontSize: 16, borderRadius: 16, alignSelf: 'flex-start', maxWidth: '70%', marginLeft: 22, marginTop: 22,color:Colors.black }}>Hi! What can I help you with?</Text>
 
             <AutoScrollFlatList
                 data={res}
@@ -132,6 +132,7 @@ const ChatSearch = () => {
                     alignSelf: 'flex-start',
                     maxWidth: '70%',
                     marginLeft: 16,
+                    color:Colors.black,
                     marginTop: 12,
                     backgroundColor: Colors.white
                 }}>Please reply on this chat box</Text>
@@ -144,6 +145,7 @@ const ChatSearch = () => {
                             maxWidth: '70%',
                             marginLeft: 16,
                             marginTop: 12,
+                            color:Colors.black,
                             backgroundColor: Colors.white
                         }}>typing</Text>
                         <TypingAnimation
@@ -168,8 +170,9 @@ const ChatSearch = () => {
                     flexDirection: 'row',
                      justifyContent: 'space-between' }}>
                     <TextInput
-                        style={{ width: '90%', backgroundColor: Colors.white }}
+                        style={{ width: '90%', backgroundColor: Colors.white ,color:Colors.black}}
                         placeholder="Type here"
+                        placeholderTextColor={'black'}
                         value={message}
                         onChangeText={setMessage}>
                     </TextInput>

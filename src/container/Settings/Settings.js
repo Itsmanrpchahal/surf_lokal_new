@@ -339,22 +339,43 @@ const Settings = props => {
         <TouchableOpacity
           onPress={() => saveFile()}
           style={{
-            height: 40,
-            borderRadius: 8,
-            width: 150,
-            marginTop: 50,
-            backgroundColor: Colors.primaryBlue,
-            justifyContent: 'center',
-            alignItems: 'center',
-            alignSelf: 'center',
+            height: 50,
+                width: '45%',
+                borderRadius: 100,
+                backgroundColor: Colors.surfblur,
+                marginTop: 20,
+                 marginHorizontal:20,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+
+                
           }}>
           {loading ? (
             <ActivityIndicator size={'small'} color={'#fff'} />
           ) : (
-            <Text
-              style={{fontSize: 16, fontWeight: '400', color: Colors.white, fontFamily:'Poppins-Regular'}}>
-              Submit
-            </Text>
+            <View
+            style={{
+              width: '100%',
+
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              paddingHorizontal: 10,
+              
+            }}>
+          
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: '700',
+                  color: Colors.white,
+                  fontFamily: 'Poppins-Regular',
+                }}>
+                Submit
+              </Text>
+           
+          </View>
           )}
         </TouchableOpacity>
 
