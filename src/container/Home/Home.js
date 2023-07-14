@@ -246,8 +246,8 @@ const Home = () => {
               paddingRight: 10
             }}>
             <SvgUri
-              height={30}
-              width={30}
+              height={20}
+              width={20}
               uri={item.term_icon_url}
               fontWeight="bold"
               fill={isSelected ? Colors.darbluec : "black"}
@@ -1569,11 +1569,11 @@ const styles = StyleSheet.create({
   viewmain: { height: 300, marginBottom: 20 },
   innerviewmain: { height: 300, marginBottom: 20 },
   slide: {
-    height: 300,
+    height: 250,
     marginBottom: 20,
     borderRadius: 20,
     marginHorizontal: 12,
-    marginTop: 20,
+    marginTop: 2
   },
   title: {
     fontSize: 32,
@@ -1607,18 +1607,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
   },
   slider: {
-    width: '100%',
-    height: screenHeight / 2,
-    borderRadius: 0,
+    width: width - 18,
+    height: 260,
+    borderRadius: 8,
     alignSelf: 'center',
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
-    borderBottomRightRadius: 8,
-    borderBottomLeftRadius: 8
+    marginTop: 10
   },
+
   view: {
     width: screenWidth,
     height: Platform.OS == 'android' ? '65%' : '50%',
