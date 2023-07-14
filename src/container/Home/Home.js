@@ -39,6 +39,8 @@ import { store } from '../../redux/store';
 import { addToFavorite } from '../../modules/addToFavorite';
 import { addRemoveTrash } from '../../modules/addRemoveTrash';
 import { getRating } from '../../modules/getRating';
+import { ScrollView } from 'react-native-gesture-handler';
+import { colors } from 'react-native-swiper-flatlist/src/themes';
 
 const { width } = Dimensions.get('screen');
 const SWIPE_THRESHOLD = 0.25 * width;
@@ -125,7 +127,7 @@ const Home = () => {
     setModalVisible(!modalVisible);
   };
   const filtertoggleModal = () => {
-    // setFilterModalVisible(!filterModalVisible);
+    setFilterModalVisible(!filterModalVisible);
   };
 
   const addReview = async post_id => {
@@ -247,21 +249,25 @@ const Home = () => {
               height={30}
               width={30}
               uri={item.term_icon_url}
-
+              fontWeight="bold"
+              fill={isSelected ? Colors.darbluec : "black"}
             />
             <Text
               style={{
                 fontSize: 12,
-                color: isSelected ? Colors.surfblur : Colors.newgray,
-                marginTop: 3,
-                fontWeight: isSelected ? 'normal' : 'normal',
-                fontFamily: 'Poppins-Regular',
+
+                color: isSelected ? Colors.darbluec : Colors.newgray,
+
+                fontFamily: isSelected ? 'Poppins-SemiBold' : 'Poppins-Regular',
+                borderBottomColor: isSelected ? Colors.darbluec : 'transparent',
+                borderBottomWidth: isSelected ? 1 : 0,
+
               }}>
               {item.term_name}
             </Text>
           </View>
-        </TouchableOpacity>
-      </View>
+        </TouchableOpacity >
+      </View >
     );
   };
   useEffect(() => {
@@ -403,12 +409,12 @@ const Home = () => {
                   alignItems: 'center',
                 }}>
                 <Image
-                  source={Images.search}
+                  source={Images.searchnew}
                   style={{
                     height: 20,
                     width: 20,
                     resizeMode: 'contain',
-                    marginLeft: 5,
+                    marginLeft: 2,
                   }}></Image>
               </TouchableOpacity>
               <View style={{ width: '65%' }}>
@@ -422,7 +428,7 @@ const Home = () => {
                   style={{
                     fontSize: 14,
                     color: '#000',
-                    marginLeft: 7,
+                    marginLeft: 0,
                     position: "relative",
                     top: 3
                   }}
@@ -486,18 +492,18 @@ const Home = () => {
 
           {
             isSelected && <View >
-              <View style={{ width: '100%', flexDirection: "row", justifyContent: 'space-evenly' }}>
-                {/* <Button title='Saved search'/> */}
+              <View style={{ width: '100%', flexDirection: "row", justifyContent: 'center', marginVertical: 8, marginTop: 16 }}>
+
                 <TouchableOpacity
                   style={[
                     styles.rew,
                     {
                       backgroundColor: 'white',
-                      borderColor: 'black',
+
                     },
                   ]}
                 >
-                  <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Save Search</Text>
+                  <Text style={{ color: Colors.newgray, fontFamily: 'Poppins-Regular', fontSize: 12 }}>Save Search</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => filtertoggleModal()}
@@ -505,11 +511,22 @@ const Home = () => {
                     styles.rew,
                     {
                       backgroundColor: 'white',
-                      borderColor: 'black',
+
                     },
                   ]}
                 >
-                  <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Filters</Text>
+                  <Text style={{ color: Colors.newgray, fontFamily: 'Poppins-Regular', fontSize: 12 }}>
+                    <TouchableOpacity style={{ paddingRight: 6, }}><Image
+                      source={Images.filtericon}
+                      style={{
+                        height: 10,
+                        width: 10,
+
+                        resizeMode: 'contain',
+
+                      }}></Image>
+                    </TouchableOpacity>
+                    Filters</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
@@ -520,14 +537,14 @@ const Home = () => {
                     styles.rew,
                     {
                       backgroundColor: "white",
-                      borderColor: 'black',
                     },
                   ]}
                 >
-                  <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Clear filters</Text>
+                  <Text style={{ color: Colors.newgray, fontFamily: 'Poppins-Regular', fontSize: 12 }}>Clear Filters</Text>
                 </TouchableOpacity>
 
               </View>
+
               <KeyboardAvoidingView >
 
                 <Modal
@@ -535,239 +552,264 @@ const Home = () => {
                   animationType="slide"
                   visible={filterModalVisible}
                   onRequestClose={filtertoggleModal}>
+
                   <View
                     style={{
                       // marginTop: 40,
                       height: '95%',
                       width: '100%',
+                      paddingHorizontal: 8,
                       alignItems: 'center',
                       alignContent: 'center',
                       backgroundColor: Colors.white,
                       position: 'absolute',
-                      bottom: 10,
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      justifyContent: "center",
                       borderTopLeftRadius: 20,
                       borderTopRightRadius: 20,
-                      // borderBottomRightRadius: 20,
-                      //borderBottomLeftRadius: 20,
                       borderWidth: 1,
-                      borderColor: Colors.gray,
+                      borderColor: Colors.BorderColor,
+                    }}>
+                    <ScrollView style={{
+                      //s height: '10%',
+                      width: '99%',
 
-                    }}
-                  >
-                    <View
-                      style={{
-                        height: '10%',
-                        width: '90%',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}>
-                      <TouchableOpacity
-                        onPress={() => navigation.goBack()}
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          marginLeft: 10,
-                        }}>
-                        <Text style={{ fontSize: 12, color: Colors.gray }}></Text>
-                      </TouchableOpacity>
+                    }}>
                       <View
                         style={{
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          // marginTop: 10,
-                        }}>
-                      </View>
-
-                      <TouchableOpacity
-                        onPress={() => setFilterModalVisible(false)}
-                        style={{
+                          //s height: '10%',
+                          width: '100%',
                           flexDirection: 'row',
-                          justifyContent: 'center',
+                          justifyContent: 'flex-end',
                           alignItems: 'center',
-                          marginRight: 10,
+
                         }}>
-                        <Image
+                        <View
                           style={{
-                            height: 20,
-                            width: 20,
-                            resizeMode: 'contain',
-                            tintColor: Colors.black,
-                            transform: [{ rotate: '45deg' }],
-                          }}
-                          source={Images.plus}></Image>
-                      </TouchableOpacity>
-                    </View>
-                    <View
-                      style={{
-                        width: '100%',
-                        height: 1,
-                        backgroundColor: Colors.gray,
-                        marginTop: 10,
-                        justifyContent: 'center',
-                      }}></View>
-
-                    <View style={{ width: '95%', height: '70%' }}>
-                      <Text style={{}}>Choose your city</Text>
-                      <MultiSelect
-                        style={styles.dropdown}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        iconStyle={styles.iconStyle}
-                        data={data}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value"
-                        placeholder="Select item"
-                        searchPlaceholder="Search..."
-                        value={selected}
-                        onChange={item => {
-                          setSelected(item);
-                        }}
-
-                      />
-                      <Text style={{}}>Bedrooms</Text>
-                      <FlatList
-                        data={bedRoomData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                          return (
-                            <TouchableOpacity onPress={() => { setBedroomItem(index) }}>
-                              <View style={{ width: 70, height: 40, marginTop: 8, marginHorizontal: 10, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.black, backgroundColor: bedroomitem === index ? Colors.black : Colors.white }}>
-                                <Text style={{ color: bedroomitem === index ? Colors.white : Colors.black }}>{item.label}</Text>
-                              </View>
-                            </TouchableOpacity>
-                          )
-                        }}
-                      >
-
-                      </FlatList>
-
-                      <Text syle={{}}>Bathrooms</Text>
-                      <FlatList
-                        data={bedRoomData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                          return (
-                            <TouchableOpacity onPress={() => { setBathRoomItem(index) }}>
-                              <View style={{ width: 70, height: 40, marginTop: 8, marginHorizontal: 10, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.black, backgroundColor: bathRoom === index ? Colors.black : Colors.white }}>
-                                <Text style={{ color: bathRoom === index ? Colors.white : Colors.black }}>{item.label}</Text>
-                              </View>
-                            </TouchableOpacity>
-                          )
-                        }}
-                      ></FlatList>
-
-
-
-                      <Text style={{}}>Square Feet</Text>
-
-                      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-
-                        <TextInput
-                          style={{ borderWidth: 1, width: '47%', borderColor: Colors.black, borderRadius: 10, padding: 6 }}
-                          placeholder='Min Price'
-                          keyboardType='numeric'>
-
-                        </TextInput>
-                        <TextInput
-                          style={{ borderWidth: 1, width: '47%', borderColor: Colors.black, borderRadius: 10, padding: 6 }}
-                          placeholder='Max Price'
-                          keyboardType='numeric'>
-
-                        </TextInput>
-                      </View>
-
-                      <Text style={{}}>Price Range</Text>
-
-                      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 8 }}>
-
-                        <MultiSelect
-                          style={{ width: '47%', borderColor: Colors.black, borderWidth: 1, borderRadius: 10, paddingLeft: 6, paddingRight: 6, paddingTop: 4, paddingBottom: 4 }}
-                          placeholderStyle={styles.placeholderStyle}
-                          selectedTextStyle={styles.selectedTextStyle}
-                          inputSearchStyle={styles.inputSearchStyle}
-                          iconStyle={styles.iconStyle}
-                          data={data}
-                          search
-                          maxHeight={300}
-                          labelField="label"
-                          valueField="value"
-                          placeholder="Min Price"
-                          searchPlaceholder="Search..."
-                          value={selected}
-                          onChange={item => {
-                            setSelected(item);
-                          }}
-
-                        />
-                        <MultiSelect
-                          style={{ width: '47%', borderColor: Colors.black, borderWidth: 1, borderRadius: 10, paddingLeft: 6, paddingRight: 6, paddingTop: 4, paddingBottom: 4 }}
-
-                          placeholderStyle={styles.placeholderStyle}
-                          selectedTextStyle={styles.selectedTextStyle}
-                          inputSearchStyle={styles.inputSearchStyle}
-                          iconStyle={styles.iconStyle}
-                          data={data}
-                          search
-                          maxHeight={300}
-                          labelField="label"
-                          valueField="value"
-                          placeholder="Max Price"
-                          searchPlaceholder="Search..."
-                          value={selected}
-                          onChange={item => {
-                            setSelected(item);
-                          }}
-
-                        />
-                      </View>
-                      <View style={{
-
-                        width: '100%',
-
-                        flexDirection: 'row',
-                        alignItems: "center",
-                        justifyContent: "flex-end",
-                        paddingHorizontal: 10
-                      }}>
+                            width: '100%',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}>
+                        </View>
 
                         <TouchableOpacity
-                          // onPress={() => addReview()}
                           onPress={() => setFilterModalVisible(false)}
-                          // onPress={Alert.alert("Hyy")}
                           style={{
-                            height: 35,
-                            width: '45%',
-                            borderRadius: 5,
-                            backgroundColor: Colors.PrimaryColor,
-                            marginTop: 10,
-                            flexDirection: 'row',
+                            backgroundColor: Colors.surfblur,
+                            height: 37,
+                            width: 37,
+                            borderRadius: 100,
                             alignItems: "center",
-                            justifyContent: "center"
-                          }}>
-                          <Text
-                            style={{
-                              fontSize: 14,
-                              fontWeight: '700',
-                              color: Colors.white,
-                            }}>
-                            Apply
-                          </Text>
-                        </TouchableOpacity>
+                            justifyContent: "center",
+                            margin: 12,
+                            marginBottom: 0
 
+                          }}>
+                          <Image
+                            style={{
+                              height: 16,
+                              width: 16,
+                              //margin: 12,
+                              resizeMode: 'contain',
+                              tintColor: Colors.white,
+                              transform: [{ rotate: '45deg' }],
+                            }}
+                            source={Images.plus}></Image>
+                        </TouchableOpacity>
                       </View>
 
-                    </View>
+
+                      <View style={{
+                        width: '99%',
+                        //  height: '70%'
+                        // alignItems: "center",
+                        // marginHorizontal: 12,
+
+                      }}>
+
+
+                        <Text style={{ color: 'black', fontFamily: 'Poppins-Regular', width: "99%", marginBottom: 8 }}>Choose your city </Text>
+                        <MultiSelect
+                          style={styles.dropdown}
+                          placeholderStyle={styles.placeholderStyle}
+                          selectedTextStyle={styles.selectedTextStyle}
+                          inputSearchStyle={styles.inputSearchStyle}
+                          iconStyle={styles.iconStyle}
+                          placeholderTextColor="red"
+                          data={data}
+                          search
+                          maxHeight={300}
+                          labelField="label"
+                          valueField="value"
+                          placeholder="Select item"
+                          searchPlaceholder="Search..."
+
+                          value={selected}
+                          onChange={item => {
+                            setSelected(item);
+                          }}
+
+                        />
+
+                        <View style={{ marginBottom: 12 }}>
+
+                          <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Bedrooms</Text>
+                          <FlatList
+                            data={bedRoomData}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            renderItem={({ item, index }) => {
+                              return (
+                                <TouchableOpacity onPress={() => { setBedroomItem(index) }}>
+                                  <View style={{ width: 70, height: 40, marginTop: 8, marginHorizontal: 3, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.BorderColor, backgroundColor: bedroomitem === index ? Colors.newgray : Colors.white }}>
+                                    <Text style={{ fontFamily: 'Poppins-Regular', color: bedroomitem === index ? Colors.white : Colors.newgray }}>{item.label}</Text>
+                                  </View>
+                                </TouchableOpacity>
+                              )
+                            }}
+                          >
+
+                          </FlatList>
+                        </View>
+                        <View>
+
+
+                          <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Bathrooms</Text>
+                          <FlatList
+                            data={bedRoomData}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            renderItem={({ item, index }) => {
+                              return (
+                                <TouchableOpacity onPress={() => { setBathRoomItem(index) }}>
+                                  <View style={{ width: 70, height: 40, marginTop: 8, marginHorizontal: 3, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.BorderColor, backgroundColor: bathRoom === index ? Colors.newgray : Colors.white }}>
+                                    <Text style={{ fontFamily: 'Poppins-Regular', color: bathRoom === index ? Colors.white : Colors.newgray }}>{item.label}</Text>
+                                  </View>
+                                </TouchableOpacity>
+                              )
+                            }}
+                          ></FlatList>
+                        </View>
+
+                        <View>
+
+                          <Text style={{ color: 'black', fontFamily: 'Poppins-Regular', marginTop: 12 }}>Square Feet</Text>
+
+                          <View style={{ flexDirection: 'column', justifyContent: 'space-between', marginTop: 8 }}>
+
+                            <TextInput
+                              style={{ borderWidth: 1, fontSize: 12, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
+                              placeholder='Min Price'
+                              placeholderTextColor="#424242"
+
+                              keyboardType='numeric'>
+
+
+                            </TextInput>
+                            <TextInput
+                              style={{ borderWidth: 1, fontSize: 12, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
+                              placeholder='Max Price'
+                              placeholderTextColor="#494949"
+                              keyboardType='numeric'>
+
+                            </TextInput>
+                          </View>
+                        </View>
+                        <View style={{ marginTop: 12 }}>
+
+                          <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Price Range</Text>
+
+                          <View style={{ flexDirection: "column", justifyContent: 'space-between', marginTop: 8 }}>
+
+                            <MultiSelect
+                              style={{ borderWidth: 1, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
+                              placeholderStyle={styles.placeholderStyle}
+                              selectedTextStyle={styles.selectedTextStyle}
+                              inputSearchStyle={styles.inputSearchStyle}
+                              iconStyle={styles.iconStyle}
+                              data={data}
+                              search
+                              maxHeight={300}
+                              labelField="label"
+                              valueField="value"
+                              placeholder="Min Price"
+                              searchPlaceholder="Search..."
+                              value={selected}
+                              onChange={item => {
+                                setSelected(item);
+                              }}
+
+                            />
+                            <MultiSelect
+                              style={{ borderWidth: 1, marginBottom: 8, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12 }}
+
+                              placeholderStyle={styles.placeholderStyle}
+                              selectedTextStyle={styles.selectedTextStyle}
+                              inputSearchStyle={styles.inputSearchStyle}
+                              iconStyle={styles.iconStyle}
+                              data={data}
+                              search
+                              maxHeight={300}
+                              labelField="label"
+                              valueField="value"
+                              placeholder="Max Price"
+                              searchPlaceholder="Search..."
+                              value={selected}
+                              onChange={item => {
+                                setSelected(item);
+                              }}
+
+                            />
+                          </View>
+                        </View>
+
+                        <View style={{
+                          width: '100%',
+                          flexDirection: 'row',
+                          alignItems: "center",
+                          justifyContent: "flex-end",
+                          // paddingHorizontal: 10
+                        }}>
+
+                          <TouchableOpacity
+                            // onPress={() => addReview()}
+                            onPress={() => setFilterModalVisible(false)}
+                            // onPress={Alert.alert("Hyy")}
+                            style={{
+                              height: 50,
+                              width: '40%',
+                              borderRadius: 100,
+                              backgroundColor: Colors.surfblur,
+                              marginTop: 10,
+                              flexDirection: 'row',
+                              alignItems: "center",
+                              justifyContent: "center",
+                              marginBottom: 40
+
+                            }}>
+                            <Text
+                              style={{
+                                fontSize: 16,
+                                // fontWeight: '700',
+                                color: Colors.white,
+                                fontFamily: "Poppins-Regular",
+                              }}>
+                              Apply
+                            </Text>
+                          </TouchableOpacity>
+
+                        </View>
+
+                      </View>
+                    </ScrollView>
                   </View>
 
                 </Modal>
+
               </KeyboardAvoidingView>
+
             </View>
           }
           <View
@@ -832,10 +874,10 @@ const Home = () => {
                         </View> */}
                         <View>
                           <View style={styles.slidercover}>
-                            <Image
+                            {/* <Image
                               source={{ uri: property?.featured_image_src }}
                               style={styles.slider}
-                            />
+                            /> */}
                           </View>
                           {
                             Icon && <View
@@ -1010,7 +1052,7 @@ const Home = () => {
 
                               <View
                                 style={{
-                                  // marginTop: 40,
+
                                   height: '95%',
                                   width: '100%',
                                   alignItems: 'center',
@@ -1021,12 +1063,15 @@ const Home = () => {
                                   borderTopLeftRadius: 20,
                                   borderTopRightRadius: 20,
                                   borderWidth: 1,
-                                  borderColor: Colors.gray,
+                                  right: 0,
+                                  left: 0
+                                  //borderColor: Colors.gray,
                                 }}>
+
                                 <View
                                   style={{
                                     height: '10%',
-                                    width: '90%',
+                                    width: '100%',
                                     flexDirection: 'row',
                                     justifyContent: 'space-between',
                                     alignItems: 'center',
@@ -1072,7 +1117,7 @@ const Home = () => {
                                       flexDirection: 'row',
                                       justifyContent: 'center',
                                       alignItems: 'center',
-                                      marginRight: 10,
+                                      //marginRight: 10,
                                     }}>
                                     <Image
                                       style={{
@@ -1301,9 +1346,11 @@ const Home = () => {
                                   </View>
 
                                 </View>
+
                               </View>
 
                             </Modal>
+
                           </KeyboardAvoidingView>
 
                           <View
@@ -1663,29 +1710,27 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   rew: {
-    width: 110,
+    //  width: 110,
     borderRadius: 8,
-    borderWidth: 1,
-    // paddingHorizontal:2,
-    // backgroundColor: Colors.primaryBlue,
+    paddingHorizontal: 13,
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.BorderColor,
+    paddingVertical: 4,
+    marginHorizontal: 6,
   },
   dropdown: {
-    margin: 16,
+    // margin: 16,
     height: 50,
     backgroundColor: 'white',
     borderRadius: 12,
     padding: 12,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: Colors.BorderColor,
+    width: "100%",
+    marginBottom: 12,
+    color: "red"
   },
   icon: {
     marginRight: 5,
@@ -1702,16 +1747,27 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 16,
+    fontFamily: "Poppins-Regular",
+    Colors: Colors.newgray
   },
   selectedTextStyle: {
-    fontSize: 16,
+    fontSize: 12,
+    fontFamily: "Poppins-Regular",
+    // borderRadius: 100
+    Colors: Colors.newgray
   },
   iconStyle: {
     width: 20,
     height: 20,
   },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
+  // inputSearchStyle: {
+  //   height: 40,
+  //   fontSize: 16,
+  //   backgroundColor: "red"
+  // },
+  placeholderStyle: {
+    color: Colors.newgray, // Customize the color of the placeholder text
+    fontSize: 12,
+    fontFamily: "Poppins-Regular"
   },
 });
