@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -16,17 +16,17 @@ import {
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
-import {WebView} from 'react-native-webview';
-import {getPopertiesDetails} from '../../modules/getPopertiesDetails';
-import {useDispatch} from 'react-redux';
-import {getAgent} from '../../modules/getAgent';
-import {getRating} from '../../modules/getRating';
-import {postUpdateRating} from '../../modules/postUpdateRating';
-import {postRating} from '../../modules/postRating';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import { WebView } from 'react-native-webview';
+import { getPopertiesDetails } from '../../modules/getPopertiesDetails';
+import { useDispatch } from 'react-redux';
+import { getAgent } from '../../modules/getAgent';
+import { getRating } from '../../modules/getRating';
+import { postUpdateRating } from '../../modules/postUpdateRating';
+import { postRating } from '../../modules/postRating';
 import AsyncStorage from '@react-native-community/async-storage';
-import {Rating} from 'react-native-ratings';
+import { Rating } from 'react-native-ratings';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -177,35 +177,35 @@ const ViewPropertiyImage = props => {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{height: '88%', width: '100%'}}>
-        <ScrollView ref={scrollViewRef}  onScroll={handleScroll}>
-          <View style={{height: 200, width: '100%'}}>
+      <View style={{ height: '88%', width: '100%' }}>
+        <ScrollView ref={scrollViewRef} onScroll={handleScroll}>
+          <View style={{ height: 200, width: '100%' }}>
             <WebView
-              style={{height: 400, width: '100%'}}
-              source={{uri: property?.property_gallery.property_video}}
-              // onLoad={console.log("loaded")}
+              style={{ height: 400, width: '100%' }}
+              source={{ uri: property?.property_gallery.property_video }}
+            // onLoad={console.log("loaded")}
             />
           </View>
           {property?.property_gallery.Gallery &&
-          property?.property_gallery.Gallery.length > 0 ? (
+            property?.property_gallery.Gallery.length > 0 ? (
             property?.property_gallery.Gallery.map((image, index) => (
               <TouchableOpacity
                 key={index}
-                onPress={() => navigation.navigate('ViewImage', {image})}
+                onPress={() => navigation.navigate('ViewImage', { image })}
                 style={styles.slideOuter}>
-                <Image source={{uri: image.guid}} style={styles.slide} />
+                <Image source={{ uri: image.guid }} style={styles.slide} />
               </TouchableOpacity>
             ))
           ) : (
             <Text>No images found.</Text>
           )}
-         
+
         </ScrollView>
         {isScrolled && (
-        <TouchableOpacity onPress={scrollToTop} style={styles.buttonscroll} >
-         <Image source={Images.upsideArrow} style={{width:40,height:40,tintColor:'black'}}/>
-        </TouchableOpacity>
-           )}
+          <TouchableOpacity onPress={scrollToTop} style={styles.buttonscroll} >
+            <Image source={Images.downArrow} style={{ width: 18, height: 18, tintColor: Colors.white, resizeMode: "contain" }} />
+          </TouchableOpacity>
+        )}
         <View
           style={{
             flexDirection: 'row',
@@ -219,7 +219,7 @@ const ViewPropertiyImage = props => {
             position: 'absolute',
             top: 10,
           }}>
-           
+
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={{
@@ -238,7 +238,7 @@ const ViewPropertiyImage = props => {
                 width: 15,
                 resizeMode: 'contain',
                 tintColor: Colors.black,
-                transform: [{rotate: '90deg'}],
+                transform: [{ rotate: '90deg' }],
               }}></Image>
           </TouchableOpacity>
         </View>
@@ -272,11 +272,11 @@ const ViewPropertiyImage = props => {
               alignContent: 'center',
             }}>
             <TouchableOpacity
-             style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignContent: 'center',
-            }}
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignContent: 'center',
+              }}
               onPress={() => {
                 setProductId(postID.postid.ID);
                 setReviewTitle(postID.postid.title);
@@ -284,7 +284,7 @@ const ViewPropertiyImage = props => {
               }}>
               <Image
                 source={Images.reviews}
-                style={{height: 25, width: 25, resizeMode: 'contain'}}></Image>
+                style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
               <Text
                 style={{
                   fontSize: 14,
@@ -302,17 +302,17 @@ const ViewPropertiyImage = props => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <TouchableOpacity 
-             style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignContent: 'center',
-            }}
+            <TouchableOpacity
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignContent: 'center',
+              }}
 
-             onPress={() => navigation.navigate('ChatSearch' )}>
+              onPress={() => navigation.navigate('ChatSearch')}>
               <Image
                 source={Images.chat}
-                style={{height: 25, width: 25, resizeMode: 'contain'}}></Image>
+                style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
               <Text
                 style={{
                   fontSize: 14,
@@ -328,7 +328,7 @@ const ViewPropertiyImage = props => {
         </View>
         <View
           style={{
-         
+
             width: '50%',
           }}>
           <TouchableOpacity
@@ -343,7 +343,7 @@ const ViewPropertiyImage = props => {
             }}>
             <Image
               source={Images.bookTour}
-              style={{height: 20, width: 20, resizeMode: 'contain'}}></Image>
+              style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
             <Text
               style={{
                 fontSize: 16,
@@ -393,7 +393,7 @@ const ViewPropertiyImage = props => {
                 alignItems: 'center',
                 marginLeft: 10,
               }}>
-              <Text style={{fontSize: 12, color: Colors.gray}}></Text>
+              <Text style={{ fontSize: 12, color: Colors.gray }}></Text>
             </TouchableOpacity>
             <View
               style={{
@@ -434,7 +434,7 @@ const ViewPropertiyImage = props => {
                   width: 20,
                   resizeMode: 'contain',
                   tintColor: Colors.black,
-                  transform: [{rotate: '45deg'}],
+                  transform: [{ rotate: '45deg' }],
                 }}
                 source={Images.plus}></Image>
             </TouchableOpacity>
@@ -458,19 +458,19 @@ const ViewPropertiyImage = props => {
               }}>
               Your Review
             </Text>
-            <Text style={{margin: 10, fontSize: 12, color: 'black'}}>
+            <Text style={{ margin: 10, fontSize: 12, color: 'black' }}>
               {ratingData[0]?.comment_content}
             </Text>
             {!isEditing && (
               <TouchableOpacity
                 onPress={() => setIsEditing(true)}
-                style={{marginTop: 10}}>
-                <Text style={{fontSize: 12, color: 'blue'}}>Edit</Text>
+                style={{ marginTop: 10 }}>
+                <Text style={{ fontSize: 12, color: 'blue' }}>Edit</Text>
               </TouchableOpacity>
             )}
           </View>
-          <View style={{width: '95%', height: '70%'}}>
-            <View style={{width: '95%', alignSelf: 'center'}}>
+          <View style={{ width: '95%', height: '70%' }}>
+            <View style={{ width: '95%', alignSelf: 'center' }}>
               <View
                 style={{
                   flexDirection: 'row',
@@ -478,7 +478,7 @@ const ViewPropertiyImage = props => {
                   alignItems: 'center',
                   marginTop: 10,
                 }}>
-                <Text style={{fontSize: 12, color: Colors.black}}>
+                <Text style={{ fontSize: 12, color: Colors.black }}>
                   Photos Quality Rating :
                 </Text>
                 <Rating
@@ -490,19 +490,19 @@ const ViewPropertiyImage = props => {
                   onFinishRating={setRating}
                   style={styles.rating}
                   ratingColor="#ffbe0b"
-                  //tintColor="#f1f3f4"
+                //tintColor="#f1f3f4"
                 />
               </View>
             </View>
 
-            <View style={{width: '95%', alignSelf: 'center'}}>
+            <View style={{ width: '95%', alignSelf: 'center' }}>
               <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center',
                 }}>
-                <Text style={{fontSize: 12, color: Colors.black}}>
+                <Text style={{ fontSize: 12, color: Colors.black }}>
                   Description & Details :
                 </Text>
                 <Rating
@@ -514,18 +514,18 @@ const ViewPropertiyImage = props => {
                   onFinishRating={setRating}
                   style={styles.rating}
                   ratingColor="#ffbe0b"
-                  //tintColor="#f1f3f4"
+                //tintColor="#f1f3f4"
                 />
               </View>
             </View>
-            <View style={{width: '95%', alignSelf: 'center'}}>
+            <View style={{ width: '95%', alignSelf: 'center' }}>
               <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center',
                 }}>
-                <Text style={{fontSize: 12, color: Colors.black}}>
+                <Text style={{ fontSize: 12, color: Colors.black }}>
                   Price Of Property :
                 </Text>
                 <Rating
@@ -537,19 +537,19 @@ const ViewPropertiyImage = props => {
                   onFinishRating={setRating}
                   style={styles.rating}
                   ratingColor="#ffbe0b"
-                  //tintColor="#f1f3f4"
+                //tintColor="#f1f3f4"
                 />
               </View>
             </View>
 
-            <View style={{width: '95%', alignSelf: 'center'}}>
+            <View style={{ width: '95%', alignSelf: 'center' }}>
               <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center',
                 }}>
-                <Text style={{fontSize: 12, color: Colors.black}}>
+                <Text style={{ fontSize: 12, color: Colors.black }}>
                   General Interest in the property :
                 </Text>
                 <Rating
@@ -561,13 +561,13 @@ const ViewPropertiyImage = props => {
                   onFinishRating={setRating}
                   style={styles.rating}
                   ratingColor="#ffbe0b"
-                  //tintColor="#f1f3f4"
+                //tintColor="#f1f3f4"
                 />
               </View>
             </View>
 
-            <View style={{height: 20}}></View>
-            <View style={{width: '95%', alignSelf: 'center'}}>
+            <View style={{ height: 20 }}></View>
+            <View style={{ width: '95%', alignSelf: 'center' }}>
               <Text
                 style={{
                   fontSize: 12,
@@ -599,7 +599,7 @@ const ViewPropertiyImage = props => {
                     autoFocus
                   />
                 ) : (
-                  <Text style={{margin: 10, fontSize: 12, color: 'black'}}>
+                  <Text style={{ margin: 10, fontSize: 12, color: 'black' }}>
                     {ratingData[0]?.comment_content}
                   </Text>
                 )}
@@ -617,7 +617,7 @@ const ViewPropertiyImage = props => {
               {isEditing ? (
                 <TouchableOpacity
                   onPress={() => updateReview()}
-                  style={{marginRight: 10}}>
+                  style={{ marginRight: 10 }}>
                   <Text
                     style={{
                       fontSize: 14,
