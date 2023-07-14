@@ -444,6 +444,7 @@ const ViewPropertiy = (props, imageUrl) => {
     return (
       <>
         <View style={styles.addresss}>
+          {console.log('url ===>',walk?.walkscore_details)}
           <WebView
             source={{ uri: walk?.walkscore_details }}
             onLoad={console.log("loaded")}
@@ -480,10 +481,12 @@ const ViewPropertiy = (props, imageUrl) => {
           <Text style={styles.propertyt}>Moartage Calculator</Text>
           <View style={styles.addresss}>
             <WebView
+            style={{height:1000,marginLeft:20,marginRight:20}}
+            scrollEnabled={true}
+            nestedScrollEnabled
               source={{ uri: calData?.moartage_details }}
               onLoad={console.log("loaded")}
             />
-            <Text style={styles.propertyt}>Moartage Calculator</Text>
 
           </View>
         </View>
