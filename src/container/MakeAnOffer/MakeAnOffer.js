@@ -267,7 +267,7 @@ const MakeAnOffer = () => {
               fontSize: 20, color: Colors.black,
               fontFamily: 'Poppins-Regular'
             }}>Make An Offer </Text>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => navigation.goBack()}
               style={{
                 alignItems: 'center',
@@ -288,6 +288,29 @@ const MakeAnOffer = () => {
                   resizeMode: 'contain',
                   tintColor: Colors.black,
                   transform: [{ rotate: '90deg' }],
+                }}></Image>
+            </TouchableOpacity> */}
+            <TouchableOpacity
+              style={{
+                alignItems: 'center',
+                position: "absolute",
+                right: 10,
+                rop: 10,
+
+                backgroundColor: Colors.surfblur,
+                height: 37,
+                width: 37,
+                borderRadius: 100,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => navigation.goBack()}>
+              <Image source={Images.whiteclose}
+                style={{
+                  height: 12,
+                  width: 12,
+                  resizeMode: 'contain',
+                  tintColor: Colors.white,
                 }}></Image>
             </TouchableOpacity>
           </View>
@@ -411,9 +434,9 @@ const MakeAnOffer = () => {
                 )}
               </View>
             </ScrollView>
-         
 
-<View
+
+            <View
               style={{
                 width: '100%',
 
@@ -517,7 +540,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     marginBottom: 8,
-    color:Colors.black
+    color: Colors.black
   },
   input: {
 
@@ -527,9 +550,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 8,
     width: '100%',
-    color:Colors.textColorDark,
-    
-    
+    color: Colors.textColorDark,
+
+
   },
   datePickerContainer: {
     width: '100%',
@@ -542,7 +565,7 @@ const styles = StyleSheet.create({
   },
   datePickerText: {
     fontSize: 14,
-    color:'gray'
+    color: 'gray'
   },
   errorText: {
     color: 'red',

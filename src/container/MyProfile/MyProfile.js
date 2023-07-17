@@ -415,7 +415,9 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={isImage ? Images.fillgreen : Images.ThumbUp}
-                  style={{ height: 25, width: 25, resizeMode: 'contain' }} />
+                  style={{
+                    height: 25, width: 25, resizeMode: 'contain',
+                  }} />
                 <Text style={styles.text}>My Favorites</Text>
               </View>
               <View style={styles.line}></View>

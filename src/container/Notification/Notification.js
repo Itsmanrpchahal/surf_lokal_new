@@ -28,7 +28,7 @@ const Notification = () => {
     try {
       const response = await axios.get('https://surf.topsearchrealty.com/webapi/v1/notifications/?userID=' + id);
       const responseData = response.data;
-      const nestedData = responseData.data[0]; 
+      const nestedData = responseData.data[0];
       setData(nestedData);
       console.log(nestedData);
     } catch (error) {
@@ -48,7 +48,7 @@ const Notification = () => {
             style={{ height: 60, width: 70, resizeMode: 'cover', marginLeft: 10, borderRadius: 20 }}
           />
           <Text style={{ fontSize: 16, marginLeft: 5, color: Colors.textColorLight }}>{item.post_title}</Text>
-          <Text style={{ fontSize: 12, color: Colors.textColorLight, position: 'absolute', top:-5, right: 8 }}>
+          <Text style={{ fontSize: 12, color: Colors.textColorLight, position: 'absolute', top: -5, right: 8 }}>
             {item.post_date}
           </Text>
         </View>
@@ -60,29 +60,27 @@ const Notification = () => {
       <View style={styles.viewStyle}>
         <Text style={{ fontSize: 20, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Notifications</Text>
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
           style={{
             alignItems: 'center',
-            justifyContent: 'center',
-            height: 35,
-            width: 35,
-            borderRadius: 100,
             position: "absolute",
             right: 10,
             rop: 10,
-            backgroundColor: Colors.gray,
+
+            backgroundColor: Colors.surfblur,
+            height: 37,
+            width: 37,
+            borderRadius: 100,
+            alignItems: "center",
+            justifyContent: "center",
           }}
-        >
-          <Image
-            source={Images.close}
+          onPress={() => navigation.goBack()}>
+          <Image source={Images.whiteclose}
             style={{
               height: 12,
               width: 12,
               resizeMode: 'contain',
-              tintColor: Colors.black,
-              transform: [{ rotate: '90deg' }],
-            }}
-          />
+              tintColor: Colors.white,
+            }}></Image>
         </TouchableOpacity>
       </View>
       <View

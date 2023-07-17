@@ -241,23 +241,25 @@ const MyFavorites = ({ navigation }) => {
 
         <TouchableOpacity
           style={{
-            justifyContent: 'center',
             alignItems: 'center',
-            height: 35,
-            width: 35, position: "absolute",
+            position: "absolute",
             right: 10,
             rop: 10,
+
+            backgroundColor: Colors.surfblur,
+            height: 37,
+            width: 37,
             borderRadius: 100,
-            backgroundColor: Colors.gray,
+            alignItems: "center",
+            justifyContent: "center",
           }}
           onPress={() => navigation.goBack()}>
-          <Image source={Images.close}
+          <Image source={Images.whiteclose}
             style={{
               height: 12,
               width: 12,
               resizeMode: 'contain',
-              tintColor: Colors.black,
-              transform: [{ rotate: '90deg' }],
+              tintColor: Colors.white,
             }}></Image>
         </TouchableOpacity>
       </View>

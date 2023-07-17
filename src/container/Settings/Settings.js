@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -17,11 +17,11 @@ import {
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 // import Orientation from 'react-native-orientation-locker';
 import Styles from './Styles';
-import {useNavigation} from '@react-navigation/native';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { useNavigation } from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import * as Animatable from 'react-native-animatable';
@@ -85,16 +85,18 @@ const Settings = props => {
   const [isEnabled, setIsEnabled] = useState(false);
   const detials = props.route.params.data;
   console.log('value check', detials);
-  
-  const toggleSwitch = () => {setIsEnabled(previousState => !previousState);
-  setToggle(!isEnabled);}
+
+  const toggleSwitch = () => {
+    setIsEnabled(previousState => !previousState);
+    setToggle(!isEnabled);
+  }
   console.log(toggle)
   useEffect(() => {
     setUserName(detials[0].username);
     setAddres(detials[0].address);
     setMob(detials[0].mobile);
   }, []);
-  
+
 
   const saveFile = async () => {
     setLoading(true);
@@ -107,8 +109,8 @@ const Settings = props => {
     data.append('username', userName);
     data.append('user_address', address);
     data.append('mobile', mob);
-    data.append('email_notification',toggle )
-    console.log(data,"jnjjnijj")
+    data.append('email_notification', toggle)
+    console.log(data, "jnjjnijj")
     try {
       var res = await axios.post(
         'https://surf.topsearchrealty.com/webapi/v1/userprofile/profileupdate.php',
@@ -135,66 +137,68 @@ const Settings = props => {
   return (
     <SafeAreaView style={styles.container}>
       <View
-        style={{ flexDirection:'row',
-        // marginLeft:80,
+        style={{
+          flexDirection: 'row',
+          // marginLeft:80,
           width: '90%',
           height: 60,
           justifyContent: 'space-between',
           alignSelf: 'center',
           alignItems: 'center',
         }}>
-          <TouchableOpacity  onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <View
-                  style={{
-                    height: 40,
-                    width: 40,
-                    borderRadius: 20,
-                    backgroundColor: Colors.primaryBlue,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    overflow: 'hidden',
-                  }}>
-                  {detials[0]?.user_image != null ? (
-                    <Image
-                      style={{ height: 40, width: 40 }}
-                      source={{ uri: detials[0]?.user_image }}
-                    />
-                  ) : (
-                    <Text style={{ fontSize: 17, color: Colors.white }}>JD</Text>
-                  )}
-                  {/* <Loader loading={loading} /> */}
-                </View>
-     
-              </TouchableOpacity>
-        
-        <Text style={{fontSize: 20, color: Colors.black, fontFamily:'Poppins-Regular'}}>Settings</Text>
-        
-        <TouchableOpacity
-        
-            onPress={() => navigation.navigate("MyProfile")}
             style={{
-            alignItems:'center',
-      
-            justifyContent:'center',
-              height: 30,
-              width: 30,
-              borderRadius: 15,
-              backgroundColor: Colors.gray,
+              height: 40,
+              width: 40,
+              borderRadius: 20,
+              backgroundColor: Colors.primaryBlue,
+              justifyContent: 'center',
+              alignItems: 'center',
+              overflow: 'hidden',
             }}>
-                  <Animatable.Image
-    source={Images.close}
-    style={{
-      height: 15,
-      width: 15,
-      resizeMode: 'contain',
-      tintColor: Colors.black,
-    }}
-    animation="flipInY" 
-  />
-          </TouchableOpacity>
+            {detials[0]?.user_image != null ? (
+              <Image
+                style={{ height: 40, width: 40 }}
+                source={{ uri: detials[0]?.user_image }}
+              />
+            ) : (
+              <Text style={{ fontSize: 17, color: Colors.white }}>JD</Text>
+            )}
+            {/* <Loader loading={loading} /> */}
+          </View>
+
+        </TouchableOpacity>
+
+        <Text style={{ fontSize: 20, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Settings</Text>
+
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            marginLeft: 12,
+
+            backgroundColor: Colors.surfblur,
+            height: 37,
+            width: 37,
+            borderRadius: 100,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onPress={() => navigation.navigate("MyProfile")}
+        >
+          <Animatable.Image source={Images.whiteclose}
+            style={{
+              height: 12,
+              width: 12,
+              resizeMode: 'contain',
+              tintColor: Colors.white,
+            }}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
       </View>
 
-      <KeyboardAwareScrollView style={{height: '100%', width: '100%'}}>
+      <KeyboardAwareScrollView style={{ height: '100%', width: '100%' }}>
         <View
           style={{
             flexDirection: 'row',
@@ -207,19 +211,19 @@ const Settings = props => {
             style={{
               fontSize: 20,
               color: Colors.textColorLight,
-              fontFamily:'Poppins-Regular'
+              fontFamily: 'Poppins-Regular'
             }}>
             Allow Notfication
           </Text>
           <View>
-          <Switch
-            trackColor={{false: '#767577', true: '#81b0ff'}}
-            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
-         
+            <Switch
+              trackColor={{ false: '#767577', true: '#81b0ff' }}
+              thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
+
           </View>
         </View>
         <View
@@ -233,7 +237,7 @@ const Settings = props => {
             style={{
               fontSize: 20,
               color: Colors.textColorLight,
-              fontFamily:'Poppins-Regular'
+              fontFamily: 'Poppins-Regular'
             }}>
             User Details
           </Text>
@@ -251,7 +255,7 @@ const Settings = props => {
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{marginLeft: 5, color: Colors.black, flex: 1, fontFamily:'Poppins-Regular'}}
+            style={{ marginLeft: 5, color: Colors.black, flex: 1, fontFamily: 'Poppins-Regular' }}
             placeholderTextColor={Colors.textColorLight}
             value={userName}
             keyboardType="default"
@@ -273,7 +277,7 @@ const Settings = props => {
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{marginLeft: 5, color: Colors.black, fontFamily:'Poppins-Regular'}}
+            style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
             placeholderTextColor={Colors.textColorLight}
             value={detials[0]?.user_email}
             keyboardType="default"
@@ -295,7 +299,7 @@ const Settings = props => {
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{marginLeft: 5, color: Colors.black, fontFamily:'Poppins-Regular'}}
+            style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
             placeholderTextColor={Colors.textColorLight}
             value={address}
             keyboardType="default"
@@ -316,7 +320,7 @@ const Settings = props => {
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{marginLeft: 5, color: Colors.black, fontFamily:'Poppins-Regular'}}
+            style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
             placeholderTextColor={Colors.textColorLight}
             value={mob}
             keyboardType="default"
@@ -326,45 +330,45 @@ const Settings = props => {
         </View>
 
 
-        <View style={{marginTop:20,justifyContent:'flex-start',marginHorizontal:20,width:"100%"}}>
-          <TouchableOpacity onPress={()=>navigation.navigate('Login')}
-          style={{flexDirection:'row'}}>
-         <Image source={Images.signOut} style={{height:25,width:25}} />
-         <Text style={{marginLeft:10,fontSize:20,color:"black", fontFamily:'Poppins-Regular'}}>signOut</Text>
-         </TouchableOpacity>
+        <View style={{ marginTop: 20, justifyContent: 'flex-start', marginHorizontal: 20, width: "100%" }}>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}
+            style={{ flexDirection: 'row' }}>
+            <Image source={Images.signOut} style={{ height: 25, width: 25 }} />
+            <Text style={{ marginLeft: 10, fontSize: 20, color: "black", fontFamily: 'Poppins-Regular' }}>signOut</Text>
+          </TouchableOpacity>
         </View>
 
-   
+
 
         <TouchableOpacity
           onPress={() => saveFile()}
           style={{
             height: 50,
-                width: '45%',
-                borderRadius: 100,
-                backgroundColor: Colors.surfblur,
-                marginTop: 20,
-                 marginHorizontal:20,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
+            width: '45%',
+            borderRadius: 100,
+            backgroundColor: Colors.surfblur,
+            marginTop: 20,
+            marginHorizontal: 20,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
 
-                
+
           }}>
           {loading ? (
             <ActivityIndicator size={'small'} color={'#fff'} />
           ) : (
             <View
-            style={{
-              width: '100%',
+              style={{
+                width: '100%',
 
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              paddingHorizontal: 10,
-              
-            }}>
-          
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingHorizontal: 10,
+
+              }}>
+
               <Text
                 style={{
                   fontSize: 14,
@@ -374,12 +378,12 @@ const Settings = props => {
                 }}>
                 Submit
               </Text>
-           
-          </View>
+
+            </View>
           )}
         </TouchableOpacity>
 
-        <View style={{height: 100}}></View>
+        <View style={{ height: 100 }}></View>
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
@@ -411,7 +415,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     marginBottom: 20,
-    fontFamily:'Poppins-Regular'
+    fontFamily: 'Poppins-Regular'
   },
   button: {
     padding: 10,
@@ -421,7 +425,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
-    fontFamily:'Poppins-Regular'
+    fontFamily: 'Poppins-Regular'
   },
   pagination: {
     position: 'absolute',
