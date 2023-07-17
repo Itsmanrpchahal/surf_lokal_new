@@ -225,22 +225,23 @@ const ViewPropertiyImage = props => {
 
 <TouchableOpacity
           style={{
-            alignItems: 'center',
+           alignItems:'center',
             position: "absolute",
             right: 10,
-            rop: 10,
-
+            top: -10,
+              
             backgroundColor: Colors.surfblur,
             height: 37,
             width: 37,
             borderRadius: 100,
-            alignItems: "center",
+          
             justifyContent: "center",
+            alignContent:'center'
           }}
           onPress={() => navigation.goBack()}>
           <Image source={Images.whiteclose}
             style={{
-              marginTop:20,
+       
               height: 12,
               width: 12,
               resizeMode: 'contain',
