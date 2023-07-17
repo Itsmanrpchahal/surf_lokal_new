@@ -8,6 +8,7 @@ import { chat } from "../../modules/chat";
 import { TypingAnimation } from 'react-native-typing-animation';
 import {AutoScrollFlatList} from "react-native-autoscroll-flatlist";
 import Images from "../../utils/Images";
+import * as Animatable from 'react-native-animatable';
 const data = [
     { label: 'Test', type: 0 },
     { label: 'Test', type: 0 },
@@ -32,7 +33,7 @@ const ChatSearch = () => {
     const [message, setMessage] = useState();
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false)
-    const [res, setRes] = useState([])
+    const [res, setRes] = useState([{ type: 1, message: "When would you like to schedule a showing?" }])
     const yourRef = useRef([]);
     useEffect(() => {
 
@@ -44,20 +45,24 @@ const ChatSearch = () => {
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}
                     style={{
+                        height: 37,
+        width: 37,
+        borderRadius: 100,
                         flexDirection: "row",
                         justifyContent: "center",
+                        backgroundColor: Colors.surfblur,
                         alignItems: "center",
                         marginLeft: 10,
                     }}
                 >
                     <Image
                         style={{
-                            height: 15,
-                            width: 15,
+                            height: 12,
+                            width: 12,
                             resizeMode: "contain",
-                            tintColor: Colors.black,
+                            tintColor: Colors.white,
                         }}
-                        source={Images.close}
+                        source={Images.whiteclose}
                     ></Image>
                 </TouchableOpacity>
                 <Text style={{ fontSize: 19, fontWeight: "bold", color: Colors.black }}>

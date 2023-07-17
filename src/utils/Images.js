@@ -28,6 +28,8 @@ const Images = {
   send: require(BaseUrl + 'send.png'),
   hoa: require(BaseUrl + 'hoa.png'),
   star: require(BaseUrl + 'star.png'),
+  VideoPlay : require (BaseUrl + 'VideoPlay.png'),
+ 
   // Slides
   slide1: require(BaseUrl + 'slide1.png'),
   slide2: require(BaseUrl + 'slide2.jpg'),
@@ -82,7 +84,7 @@ const Images = {
   whiteclose: require(BaseUrl + 'close-white.png'),
   //22 may
   user: require(BaseUrl + 'user.png'),
-
+  whiteclose:require(BaseUrl+'close-white.png'),
   sch: require(BaseUrl + 'sch.png'),
   cal: require(BaseUrl + 'cal.png'),
   cloud: require(BaseUrl + 'cloud.png'),

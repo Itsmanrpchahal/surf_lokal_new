@@ -180,11 +180,14 @@ const ViewPropertiyImage = props => {
       <View style={{ height: '88%', width: '100%' }}>
         <ScrollView ref={scrollViewRef} onScroll={handleScroll}>
           <View style={{ height: 200, width: '100%' }}>
+   
             <WebView
               style={{ height: 400, width: '100%' }}
               source={{ uri: property?.property_gallery.property_video }}
             // onLoad={console.log("loaded")}
-            />
+            mediaPlaybackRequiresUserAction={false} 
+           />
+       
           </View>
           {property?.property_gallery.Gallery &&
             property?.property_gallery.Gallery.length > 0 ? (
@@ -220,27 +223,30 @@ const ViewPropertiyImage = props => {
             top: 10,
           }}>
 
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
+<TouchableOpacity
+          style={{
+            alignItems: 'center',
+            position: "absolute",
+            right: 10,
+            rop: 10,
+
+            backgroundColor: Colors.surfblur,
+            height: 37,
+            width: 37,
+            borderRadius: 100,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onPress={() => navigation.goBack()}>
+          <Image source={Images.whiteclose}
             style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: 30,
-              width: 30,
-              borderRadius: 15,
-              backgroundColor: Colors.gray,
-            }}>
-            <Image
-              source={Images.close}
-              style={{
-                height: 15,
-                width: 15,
-                resizeMode: 'contain',
-                tintColor: Colors.black,
-                transform: [{ rotate: '90deg' }],
-              }}></Image>
-          </TouchableOpacity>
+              marginTop:20,
+              height: 12,
+              width: 12,
+              resizeMode: 'contain',
+              tintColor: Colors.white,
+            }}></Image>
+        </TouchableOpacity>
         </View>
       </View>
 
@@ -278,12 +284,13 @@ const ViewPropertiyImage = props => {
                 alignContent: 'center',
               }}
               onPress={() => {
-                setProductId(postID.postid.ID);
-                setReviewTitle(postID.postid.title);
-                toggleModal();
+                // setProductId(postID.postid.ID);
+                // setReviewTitle(postID.postid.title);
+                // toggleModal();
+                makePhoneCall()
               }}>
               <Image
-                source={Images.reviews}
+                source={Images.call}
                 style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
               <Text
                 style={{
@@ -293,7 +300,7 @@ const ViewPropertiyImage = props => {
                   marginLeft: 5,
                   fontFamily: 'Poppins-Regular',
                 }}>
-                Rate Property
+              Call
               </Text>
             </TouchableOpacity>
           </View>
@@ -332,6 +339,7 @@ const ViewPropertiyImage = props => {
             width: '50%',
           }}>
           <TouchableOpacity
+          onPress={()=>navigation.navigate('ChatSearch')}
             style={{
               justifyContent: 'center',
               alignItems: 'center',
@@ -346,13 +354,13 @@ const ViewPropertiyImage = props => {
               style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 10,
                 color: Colors.white,
                 textAlign: 'center',
                 marginLeft: 5,
                 fontFamily: 'Poppins-Regular',
               }}>
-              Book a tour
+             SCHEDULE A SHOWING
             </Text>
           </TouchableOpacity>
         </View>
