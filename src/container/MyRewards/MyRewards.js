@@ -65,7 +65,6 @@ const App = () => {
             fontSize: 20,
             color: Colors.black, fontFamily: 'Poppins-Regular'
           }}>Surf Rewards</Text>
-
           <TouchableOpacity
             onPress={() => navigation.navigate('MyProfile')}
             style={{
@@ -73,22 +72,24 @@ const App = () => {
               position: "absolute",
               right: 10,
               rop: 10,
-              justifyContent: 'center',
-              height: 35,
-              width: 35,
+
+              backgroundColor: Colors.surfblur,
+              height: 37,
+              width: 37,
               borderRadius: 100,
-              backgroundColor: Colors.gray,
-            }}>
-            <Image
-              source={Images.close}
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Image source={Images.whiteclose}
               style={{
                 height: 12,
                 width: 12,
                 resizeMode: 'contain',
-                tintColor: Colors.black,
-                transform: [{ rotate: '90deg' }],
+                tintColor: Colors.white,
               }}></Image>
           </TouchableOpacity>
+
         </View>
       </View>
       <View>
@@ -101,7 +102,9 @@ const App = () => {
             size={180}
             minValue={0}
             maxValue={3000}
+            //needleColor="blue" // Change this to the desired color
             allowedDecimals={0}
+
             labels={[
               {
                 name: '',
@@ -227,13 +230,6 @@ const App = () => {
               alignItems: 'center',
               marginTop: 20,
             }}>
-            <Text
-              style={{
-                fontSize: 24, fontWeight: 'bold',
-                color: Colors.black, fontFamily: 'Poppins-Regular'
-              }}>
-              surf Rating
-            </Text>
 
             <View
               style={{

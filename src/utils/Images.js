@@ -79,6 +79,7 @@ const Images = {
   close: require(BaseUrl + 'close.png'),
   signOut: require(BaseUrl + 'signOut.png'),
   plus: require(BaseUrl + 'plus.png'),
+  whiteclose: require(BaseUrl + 'close-white.png'),
   //22 may
   user: require(BaseUrl + 'user.png'),
 

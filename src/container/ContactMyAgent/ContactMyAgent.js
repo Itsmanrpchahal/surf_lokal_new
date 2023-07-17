@@ -113,12 +113,12 @@ const ContactMyAgent = () => {
   };
   const handleEmailLink = () => {
     const email = agentData?.agent_email;
-    
+
     const subject = '';
     const body = '';
-  
+
     const url = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  
+
     Linking.openURL(url)
       .catch(error => console.error('Error opening email app:', error));
   };
@@ -181,26 +181,26 @@ const ContactMyAgent = () => {
           Contact Surf Lokal
         </Text>
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
           style={{
             alignItems: 'center',
             position: "absolute",
             right: 10,
             rop: 10,
-            justifyContent: 'center',
-            height: 35,
-            width: 35,
+
+            backgroundColor: Colors.surfblur,
+            height: 37,
+            width: 37,
             borderRadius: 100,
-            backgroundColor: Colors.gray,
-          }}>
-          <Image
-            source={Images.close}
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onPress={() => navigation.goBack()}>
+          <Image source={Images.whiteclose}
             style={{
               height: 12,
               width: 12,
               resizeMode: 'contain',
-              tintColor: Colors.black,
-              transform: [{ rotate: '90deg' }],
+              tintColor: Colors.white,
             }}></Image>
         </TouchableOpacity>
       </View>
@@ -300,7 +300,7 @@ const ContactMyAgent = () => {
             </View>
             <View style={styles.slideOuter}>
               <TouchableOpacity
-              onPress={() => navigation.navigate('ChatSearch')}
+                onPress={() => navigation.navigate('ChatSearch')}
                 style={{
                   width: '90%',
                   alignItems: 'center',
@@ -336,7 +336,7 @@ const ContactMyAgent = () => {
             </View>
             <View style={styles.slideOuter}>
               <TouchableOpacity
-              onPress={()=>handleEmailLink()}
+                onPress={() => handleEmailLink()}
                 style={{
                   width: '90%',
                   alignItems: 'center',
@@ -410,25 +410,25 @@ const ContactMyAgent = () => {
                     </Text>
 
                   </TouchableOpacity>
-                  <TouchableOpacity 
-                  onPress={() => makePhoneCall()}
-                  style={styles.buttonview}
+                  <TouchableOpacity
+                    onPress={() => makePhoneCall()}
+                    style={styles.buttonview}
                   >
 
                     <Text style={styles.buttonText}>Call
                     </Text>
 
                   </TouchableOpacity>
-                  <TouchableOpacity 
-                  onPress={()=>handleEmailLink()}
-                  style={styles.buttonview}>
+                  <TouchableOpacity
+                    onPress={() => handleEmailLink()}
+                    style={styles.buttonview}>
 
                     <Text style={styles.buttonText}>E-mail
                     </Text>
 
                   </TouchableOpacity>
                   <TouchableOpacity
-                      onPress={() => navigation.navigate('ChatSearch')}
+                    onPress={() => navigation.navigate('ChatSearch')}
                     style={styles.buttonview}>
 
                     <Text style={styles.buttonText}>Chat
