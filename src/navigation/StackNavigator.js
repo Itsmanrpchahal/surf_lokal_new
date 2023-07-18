@@ -12,6 +12,7 @@ import ForgotPassword from '../container/ForgotPassword/ForgotPassword';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import ChatSearch from '../container/Chat/ChatSearch';
+import SingleImage from '../container/ViewImage/SingleImage';
 
 const Stack = createStackNavigator();
 
@@ -47,6 +48,7 @@ const StackNavigator = () => {
       <Stack.Screen name="ViewPropertiyImage" component={ViewPropertiyImage} />
       <Stack.Screen name="ViewImage" component={ViewImage} />
       <Stack.Screen name="ChatSearch" component={ChatSearch} />
+      <Stack.Screen name="SingleImage" component={SingleImage} />
     </Stack.Navigator>
   ) : null;
 };
