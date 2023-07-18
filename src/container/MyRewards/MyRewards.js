@@ -13,10 +13,11 @@ import RNSpeedometer from 'react-native-speedometer';
 import Images from '../../utils/Images';
 import { useNavigation } from '@react-navigation/native';
 import Colors from '../../utils/Colors';
+import * as Animatable from 'react-native-animatable';
 
 const App = () => {
   const navigation = useNavigation();
-  const [meterValue, setMeterValue] = useState(1200);
+  const [meterValue, setMeterValue] = useState(300);
   const [backgroundColor, setBackgroundColor] = useState('blue');
   const [textColor, setTextColor] = useState('white');
   const [borderColor, setBorderColor] = useState('black');
@@ -65,30 +66,33 @@ const App = () => {
             fontSize: 20,
             color: Colors.black, fontFamily: 'Poppins-Regular'
           }}>Surf Rewards</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('MyProfile')}
-            style={{
-              alignItems: 'center',
-              position: "absolute",
-              right: 10,
-              rop: 10,
+         <TouchableOpacity
+       style={{
+        alignItems: 'center',
+        position: "absolute",
+        right: 10,
+        rop: 10,
 
-              backgroundColor: Colors.surfblur,
-              height: 37,
-              width: 37,
-              borderRadius: 100,
-              alignItems: "center",
-              justifyContent: "center",
+        backgroundColor: Colors.surfblur,
+        height: 37,
+        width: 37,
+        borderRadius: 100,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+          onPress={() => navigation.navigate("MyProfile")}
+        >
+          <Animatable.Image 
+          source={Images.whiteclose}
+            style={{
+              height: 12,
+              width: 12,
+              resizeMode: 'contain',
+              tintColor: Colors.white,
             }}
-          >
-            <Image source={Images.whiteclose}
-              style={{
-                height: 12,
-                width: 12,
-                resizeMode: 'contain',
-                tintColor: Colors.white,
-              }}></Image>
-          </TouchableOpacity>
+            animation="flipInY"
+          />
+        </TouchableOpacity>
 
         </View>
       </View>
@@ -97,12 +101,14 @@ const App = () => {
 
         <View
           style={{ marginTop: 10, backgroundColor: Colors.white, width: '100%' }}>
-          <RNSpeedometer
+          <RNSpeedometer 
+           
             value={meterValue}
-            size={180}
+            size={200}
             minValue={0}
             maxValue={3000}
-            //needleColor="blue" // Change this to the desired color
+         
+            // needleColor="blue" 
             allowedDecimals={0}
 
             labels={[
@@ -198,18 +204,24 @@ const App = () => {
                 activeBarColor: '#5dba46',
               },
             ]}
-          //needleImage={Images.meter}
-          // wrapperStyle={}
-          //outerCircleStyle={{height: 80}}
-          // halfCircleStyle={}
-          //imageWrapperStyle={{resizeMode: 'contain', height: 100, width: 100}}
-          //innerCircleStyle={{width: 130, borderRadius: 65}}
-          // labelWrapperStyle={}
-          // labelStyle={}
-          // labelNoteStyle={}
+          
+          
+          //  needleImage={Images.meter}
+           imageWrapperStyle={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'absolute',
+            left: 1,
+            zIndex: 10,
+          }}
+           imageStyle={{tintColor:"black"
+           }}
+       
+         
           />
         </View>
-        <View style={{ backgroundColor: Colors.white, justifyContent: 'center' }}>
+   
+        <View style={{ backgroundColor: Colors.white, justifyContent: 'center',marginTop:30 }}>
           <Text
             style={{
               fontSize: 20,

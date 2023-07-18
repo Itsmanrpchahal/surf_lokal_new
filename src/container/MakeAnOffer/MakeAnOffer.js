@@ -22,6 +22,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { ScrollView } from 'react-native-gesture-handler';
+import * as Animatable from 'react-native-animatable';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -290,29 +291,33 @@ const MakeAnOffer = () => {
                   transform: [{ rotate: '90deg' }],
                 }}></Image>
             </TouchableOpacity> */}
-            <TouchableOpacity
-              style={{
-                alignItems: 'center',
-                position: "absolute",
-                right: 10,
-                rop: 10,
+               <TouchableOpacity
+       style={{
+        alignItems: 'center',
+        position: "absolute",
+        right: 10,
+        rop: 10,
 
-                backgroundColor: Colors.surfblur,
-                height: 37,
-                width: 37,
-                borderRadius: 100,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => navigation.goBack()}>
-              <Image source={Images.whiteclose}
-                style={{
-                  height: 12,
-                  width: 12,
-                  resizeMode: 'contain',
-                  tintColor: Colors.white,
-                }}></Image>
-            </TouchableOpacity>
+        backgroundColor: Colors.surfblur,
+        height: 37,
+        width: 37,
+        borderRadius: 100,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+          onPress={() => navigation.navigate("MyProfile")}
+        >
+          <Animatable.Image 
+          source={Images.whiteclose}
+            style={{
+              height: 12,
+              width: 12,
+              resizeMode: 'contain',
+              tintColor: Colors.white,
+            }}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
           </View>
           <View style={styles.formContainer}>
             <ScrollView

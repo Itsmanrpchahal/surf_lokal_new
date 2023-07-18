@@ -27,7 +27,7 @@ import { postUpdateRating } from '../../modules/postUpdateRating';
 import { postRating } from '../../modules/postRating';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Rating } from 'react-native-ratings';
-
+import * as Animatable from 'react-native-animatable';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -179,6 +179,10 @@ const ViewPropertiyImage = props => {
     <SafeAreaView style={styles.container}>
       <View style={{ height: '88%', width: '100%' }}>
         <ScrollView ref={scrollViewRef} onScroll={handleScroll}>
+          
+        <TouchableOpacity onPress={() => navigation.navigate('SingleImage', { imageUri: property?.featured_image_src })}>
+  <Image source={{ uri: property?.featured_image_src }} style={styles.slide} />
+</TouchableOpacity>
           <View style={{ height: 200, width: '100%' }}>
    
             <WebView
@@ -224,29 +228,31 @@ const ViewPropertiyImage = props => {
           }}>
 
 <TouchableOpacity
-          style={{
-           alignItems:'center',
-            position: "absolute",
-            right: 10,
-            top: -10,
-              
-            backgroundColor: Colors.surfblur,
-            height: 37,
-            width: 37,
-            borderRadius: 100,
-          
-            justifyContent: "center",
-            alignContent:'center'
-          }}
-          onPress={() => navigation.goBack()}>
-          <Image source={Images.whiteclose}
+       style={{
+        alignItems: 'center',
+        position: "absolute",
+        right: 10,
+        top: -10,
+
+        backgroundColor: Colors.surfblur,
+        height: 37,
+        width: 37,
+        borderRadius: 100,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+          onPress={() => navigation.navigate("MyProfile")}
+        >
+          <Animatable.Image 
+          source={Images.whiteclose}
             style={{
-       
               height: 12,
               width: 12,
               resizeMode: 'contain',
               tintColor: Colors.white,
-            }}></Image>
+            }}
+            animation="flipInY"
+          />
         </TouchableOpacity>
         </View>
       </View>
@@ -339,31 +345,40 @@ const ViewPropertiyImage = props => {
 
             width: '50%',
           }}>
-          <TouchableOpacity
-          onPress={()=>navigation.navigate('ChatSearch')}
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-              backgroundColor: Colors.primaryBlue,
-              borderRadius: 14,
-              height: 40,
-              width: '80%',
-            }}>
-            <Image
-              source={Images.bookTour}
-              style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
-            <Text
-              style={{
-                fontSize: 10,
-                color: Colors.white,
-                textAlign: 'center',
-                marginLeft: 5,
-                fontFamily: 'Poppins-Regular',
-              }}>
-             SCHEDULE A SHOWING
-            </Text>
-          </TouchableOpacity>
+<TouchableOpacity
+  onPress={() => {
+    navigation.navigate('ChatSearch', {
+      initialMessage: 'When would you like to schedule a showing?',
+      agentReply: 'A Lokal agent will confirm with you within the next 2 hours',
+    });
+  }}
+  style={{
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: Colors.primaryBlue,
+    borderRadius: 14,
+    height: 40,
+    width: '80%',
+  }}
+>
+  <Image
+    source={Images.bookTour}
+    style={{ height: 20, width: 20, resizeMode: 'contain' }}
+  />
+  <Text
+    style={{
+      fontSize: 10,
+      color: Colors.white,
+      textAlign: 'center',
+      marginLeft: 5,
+      fontFamily: 'Poppins-Regular',
+    }}
+  >
+    SCHEDULE A SHOWING
+  </Text>
+</TouchableOpacity>
+
         </View>
       </View>
       <Modal

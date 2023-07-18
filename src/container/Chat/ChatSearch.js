@@ -1,44 +1,34 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, Text, TouchableOpacity, Image, TextInput } from 'react-native'
 import Colors from "../../utils/Colors";
-import { useNavigation, useIsFocused } from "@react-navigation/native";
+import { useNavigation, useIsFocused, useRoute } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
 import { chat } from "../../modules/chat";
 import { TypingAnimation } from 'react-native-typing-animation';
-import {AutoScrollFlatList} from "react-native-autoscroll-flatlist";
+import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
 import Images from "../../utils/Images";
 import * as Animatable from 'react-native-animatable';
-const data = [
-    { label: 'Test', type: 0 },
-    { label: 'Test', type: 0 },
-    { label: 'Test', type: 1 },
-    { label: 'Test', type: 0 },
-    { label: 'Test', type: 1 },
-    { label: 'Test', type: 1 },
-    { label: 'Test', type: 1 },
-    { label: 'Test', type: 0 },
-    { label: 'Test', type: 1 },
-    { label: 'Test', type: 1 },
-    { label: 'Test', type: 0 },
-    { label: 'Test', type: 0 },
-    { label: 'Test', type: 0 },
-    { label: 'Test', type: 1 },
-    { label: 'Test', type: 0 },
 
-]
 const ChatSearch = () => {
-    const navigation = useNavigation();
-    const [type, setType] = useState([])
-    const [message, setMessage] = useState();
-    const dispatch = useDispatch();
-    const [loading, setLoading] = useState(false)
-    const [res, setRes] = useState([{ type: 1, message: "When would you like to schedule a showing?" }])
-    const yourRef = useRef([]);
-    useEffect(() => {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const [message, setMessage] = useState();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const [res, setRes] = useState([]);
 
+  useEffect(() => {
+    if (route.params?.initialMessage && route.params?.agentReply) {
+      const initialMessage = route.params.initialMessage;
+      const agentReply = route.params.agentReply;
+      setRes([
+        { type: 1, message: initialMessage },
+        { type: 1, message: agentReply },
+      ]);
+    }
+  }, [route.params?.initialMessage, route.params?.agentReply]);
 
-    }, [res])
     return (
         <View style={{ height: "100%", position: 'relative', paddingBottom: 100, }}>
             <View style={{ backgroundColor: Colors.gray, height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -195,6 +185,7 @@ const ChatSearch = () => {
                                 const newTodo = {
                                     type: 1,
                                     message: ress.payload.data.text,
+                                    
                                 };
                                 setMessage('')
 

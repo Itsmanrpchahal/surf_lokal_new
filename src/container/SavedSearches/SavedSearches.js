@@ -22,6 +22,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getSavedSearch } from '../../modules/getSavedSearch';
 import { deleteSearch } from '../../modules/deleteSearch';
 import { editSearch } from '../../modules/editSearch';
+import * as Animatable from 'react-native-animatable';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -240,27 +241,31 @@ const MyFavorites = ({ navigation }) => {
         </Text>
 
         <TouchableOpacity
-          style={{
-            alignItems: 'center',
-            position: "absolute",
-            right: 10,
-            rop: 10,
+       style={{
+        alignItems: 'center',
+        position: "absolute",
+        right: 10,
+        rop: 10,
 
-            backgroundColor: Colors.surfblur,
-            height: 37,
-            width: 37,
-            borderRadius: 100,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          onPress={() => navigation.goBack()}>
-          <Image source={Images.whiteclose}
+        backgroundColor: Colors.surfblur,
+        height: 37,
+        width: 37,
+        borderRadius: 100,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+          onPress={() => navigation.navigate("MyProfile")}
+        >
+          <Animatable.Image 
+          source={Images.whiteclose}
             style={{
               height: 12,
               width: 12,
               resizeMode: 'contain',
               tintColor: Colors.white,
-            }}></Image>
+            }}
+            animation="flipInY"
+          />
         </TouchableOpacity>
       </View>
       {showNoDataMessage ? (

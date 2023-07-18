@@ -5,6 +5,7 @@ import Colors from '../../utils/Colors';
 import Images from '../../utils/Images';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
+import * as Animatable from 'react-native-animatable';
 
 const Notification = () => {
   const navigation = useNavigation();
@@ -60,27 +61,31 @@ const Notification = () => {
       <View style={styles.viewStyle}>
         <Text style={{ fontSize: 20, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Notifications</Text>
         <TouchableOpacity
-          style={{
-            alignItems: 'center',
-            position: "absolute",
-            right: 10,
-            rop: 10,
+       style={{
+        alignItems: 'center',
+        position: "absolute",
+        right: 10,
+        rop: 10,
 
-            backgroundColor: Colors.surfblur,
-            height: 37,
-            width: 37,
-            borderRadius: 100,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          onPress={() => navigation.goBack()}>
-          <Image source={Images.whiteclose}
+        backgroundColor: Colors.surfblur,
+        height: 37,
+        width: 37,
+        borderRadius: 100,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+          onPress={() => navigation.navigate("MyProfile")}
+        >
+          <Animatable.Image 
+          source={Images.whiteclose}
             style={{
               height: 12,
               width: 12,
               resizeMode: 'contain',
               tintColor: Colors.white,
-            }}></Image>
+            }}
+            animation="flipInY"
+          />
         </TouchableOpacity>
       </View>
       <View
