@@ -52,49 +52,46 @@ const App = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
-      <View style={{}}>
-        <View
-          style={{
-            marginTop: 8,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            width: '100%',
-            marginLeft: 0
-          }}>
-          <Text style={{
-            fontSize: 20,
-            color: Colors.black, fontFamily: 'Poppins-Regular'
-          }}>Surf Rewards</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('MyProfile')}
+      <View style={{ }}>
+      <View
+        style={{
+           marginTop:8,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          width:'100%',
+          marginLeft:0
+        }}>
+        <Text style={{ fontSize: 20,
+          color: Colors.black,fontFamily:'Poppins-Regular' }}>Surf Rewards</Text>
+       
+        <TouchableOpacity
+            onPress={() =>   navigation.navigate('MyProfile')} 
             style={{
-              alignItems: 'center',
-              position: "absolute",
-              right: 10,
-              rop: 10,
-
-              backgroundColor: Colors.surfblur,
-              height: 37,
-              width: 37,
-              borderRadius: 100,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Image source={Images.whiteclose}
+            alignItems:'center',
+       position:"absolute",
+      right:10,
+      rop:10,
+            justifyContent:'center',
+              height: 30,
+              width: 30,
+              borderRadius: 15,
+              backgroundColor: Colors.gray,
+            }}>
+            <Image
+              source={Images.close}
               style={{
-                height: 12,
-                width: 12,
+                height: 15,
+                width: 15,
                 resizeMode: 'contain',
-                tintColor: Colors.white,
+                tintColor: Colors.black,
+                transform: [{rotate: '90deg'}],
               }}></Image>
           </TouchableOpacity>
-
-        </View>
+          </View>
       </View>
       <View>
 
-
+      
         <View
           style={{ marginTop: 10, backgroundColor: Colors.white, width: '100%' }}>
           <RNSpeedometer
@@ -102,9 +99,7 @@ const App = () => {
             size={180}
             minValue={0}
             maxValue={3000}
-            //needleColor="blue" // Change this to the desired color
             allowedDecimals={0}
-
             labels={[
               {
                 name: '',
@@ -216,7 +211,7 @@ const App = () => {
               color: Colors.textColorLight,
               marginTop: 20,
               textAlign: 'center',
-              fontFamily: 'Poppins-Regular'
+              fontFamily:'Poppins-Regular'
             }}>
             reaching next tier with  {'\n'}the numerical points tally
           </Text>
@@ -230,6 +225,11 @@ const App = () => {
               alignItems: 'center',
               marginTop: 20,
             }}>
+            <Text
+              style={{ fontSize: 24, fontWeight: 'bold',
+               color: Colors.black,fontFamily:'Poppins-Regular' }}>
+              surf Rating
+            </Text>
 
             <View
               style={{
@@ -245,7 +245,7 @@ const App = () => {
                   color: Colors.black,
                   textAlign: 'center',
                   // fontWeight:"100%"
-                  fontFamily: 'Poppins-Regular'
+                  fontFamily:'Poppins-Regular'
                 }}>
                 {getLevelCall()}
               </Text>
@@ -262,40 +262,40 @@ const App = () => {
             alignSelf: 'center',
           }}></Image>
 
+        
+       <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, }}>
 
-        <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, }}>
+  <TouchableOpacity
+        onPress={handlePress}
+        style={[
+          styles.rew,
+          {
+            backgroundColor: isRewardsSelected ? 'green' : 'transparent',
+            borderColor: isRewardsSelected ? 'green' : 'black',
+          },
+        ]}
+      >
+        <Text style={[styles.text,{ color: isRewardsSelected ? 'white' : 'black',fontFamily:'Poppins-Regular' }]}>Rewards</Text>
+      </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={handlePress}
-            style={[
-              styles.rew,
-              {
-                backgroundColor: isRewardsSelected ? 'green' : 'transparent',
-                borderColor: isRewardsSelected ? 'green' : 'black',
-              },
-            ]}
-          >
-            <Text style={[styles.text, { color: isRewardsSelected ? 'white' : 'black', fontFamily: 'Poppins-Regular' }]}>Rewards</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={handlePress}
-            style={[
-              styles.rew,
-              {
-                backgroundColor: isRewardsSelected ? 'transparent' : 'green',
-                borderColor: isRewardsSelected ? 'black' : 'green',
-              },
-            ]}
-          >
-            <Text style={[styles.text, { color: isRewardsSelected ? 'black' : 'white', fontFamily: 'Poppins-Regular' }]}>Challenges</Text>
-          </TouchableOpacity>
-        </View>
-
-
+      <TouchableOpacity
+        onPress={handlePress}
+        style={[
+          styles.rew,
+          {
+            backgroundColor: isRewardsSelected ? 'transparent' : 'green',
+            borderColor: isRewardsSelected ? 'black' : 'green',
+          },
+        ]}
+      >
+        <Text style={[styles.text, { color: isRewardsSelected ? 'black' : 'white' ,fontFamily:'Poppins-Regular'}]}>Challenges</Text>
+      </TouchableOpacity>
+</View>
 
 
 
+ 
+       
       </View>
     </SafeAreaView>
   );

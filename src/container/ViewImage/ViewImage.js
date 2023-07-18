@@ -74,29 +74,27 @@ const ViewImage = props => {
             position: 'absolute',
             top: 10,
           }}>
-            <TouchableOpacity
-          style={{
-            alignItems: 'center',
-            position: "absolute",
-            right: 10,
-            top: 10,
-
-            backgroundColor: Colors.surfblur,
-            height: 37,
-            width: 37,
-            borderRadius: 100,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          onPress={() => navigation.goBack()}>
-          <Image source={Images.whiteclose}
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
             style={{
-              height: 12,
-              width: 12,
-              resizeMode: 'contain',
-              tintColor: Colors.white,
-            }}></Image>
-        </TouchableOpacity>
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 30,
+              width: 30,
+              borderRadius: 15,
+              backgroundColor: Colors.gray,
+            }}>
+            <Image
+              source={Images.close}
+              style={{
+                height: 15,
+                width: 15,
+                resizeMode: 'contain',
+                tintColor: Colors.black,
+                transform: [{rotate: '90deg'}],
+              }}></Image>
+          </TouchableOpacity>
         </View>
 <View>
 

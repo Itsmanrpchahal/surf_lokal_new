@@ -28,7 +28,7 @@ const Notification = () => {
     try {
       const response = await axios.get('https://surf.topsearchrealty.com/webapi/v1/notifications/?userID=' + id);
       const responseData = response.data;
-      const nestedData = responseData.data[0];
+      const nestedData = responseData.data[0]; // Access the nested array and object within 'data'
       setData(nestedData);
       console.log(nestedData);
     } catch (error) {
@@ -38,7 +38,7 @@ const Notification = () => {
 
   const renderItem = ({ item, index }) => {
     if (isEnabled) {
-      return null;
+      return null; 
     }
     return (
       <View style={styles.slideOuter}>
@@ -48,7 +48,7 @@ const Notification = () => {
             style={{ height: 60, width: 70, resizeMode: 'cover', marginLeft: 10, borderRadius: 20 }}
           />
           <Text style={{ fontSize: 16, marginLeft: 5, color: Colors.textColorLight }}>{item.post_title}</Text>
-          <Text style={{ fontSize: 12, color: Colors.textColorLight, position: 'absolute', top: -5, right: 8 }}>
+          <Text style={{ fontSize: 12, color: Colors.textColorLight, position: 'absolute', top: 0, right: 8 }}>
             {item.post_date}
           </Text>
         </View>
@@ -60,27 +60,29 @@ const Notification = () => {
       <View style={styles.viewStyle}>
         <Text style={{ fontSize: 20, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Notifications</Text>
         <TouchableOpacity
+          onPress={() => navigation.goBack()}
           style={{
             alignItems: 'center',
-            position: "absolute",
-            right: 10,
-            rop: 10,
-
-            backgroundColor: Colors.surfblur,
-            height: 37,
-            width: 37,
-            borderRadius: 100,
-            alignItems: "center",
-            justifyContent: "center",
+            justifyContent: 'center',
+            height: 30,
+            width: 30,
+            borderRadius: 15,
+                 position:"absolute",
+      right:10,
+      rop:10,
+            backgroundColor: Colors.gray,
           }}
-          onPress={() => navigation.goBack()}>
-          <Image source={Images.whiteclose}
+        >
+          <Image
+            source={Images.close}
             style={{
-              height: 12,
-              width: 12,
+              height: 15,
+              width: 15,
               resizeMode: 'contain',
-              tintColor: Colors.white,
-            }}></Image>
+              tintColor: Colors.black,
+              transform: [{ rotate: '90deg' }],
+            }}
+          />
         </TouchableOpacity>
       </View>
       <View
@@ -118,18 +120,18 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundColor,
   },
   viewStyle: {
-    //  flexDirection: 'row',
-    //  height: 50,
-    //  width: '100%',
-    //  justifyContent: 'space-between',
-    //   alignItems: 'center',
-    //  paddingHorizontal: 15,
-    // backgroundColor: Colors.white,
-    marginTop: 8,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width: '100%',
-    marginLeft: 0
+  //  flexDirection: 'row',
+  //  height: 50,
+  //  width: '100%',
+  //  justifyContent: 'space-between',
+ //   alignItems: 'center',
+  //  paddingHorizontal: 15,
+   // backgroundColor: Colors.white,
+     marginTop:8,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          width:'100%',
+          marginLeft:0
   },
   slideOuter: {
     width: '95%',
@@ -144,7 +146,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 2,
     elevation: 2,
-
+    
   },
 });
 
