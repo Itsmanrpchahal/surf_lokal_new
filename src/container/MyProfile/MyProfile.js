@@ -415,9 +415,7 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={isImage ? Images.fillgreen : Images.ThumbUp}
-                  style={{
-                    height: 25, width: 25, resizeMode: 'contain',
-                  }} />
+                  style={{ height: 25, width: 25, resizeMode: 'contain' }} />
                 <Text style={styles.text}>My Favorites</Text>
               </View>
               <View style={styles.line}></View>
@@ -499,7 +497,7 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.chart}
-                  style={{ height: 25, width: 25, resizeMode: 'contain' }} />
+                  style={{ height: 33, width: 29, resizeMode: 'contain' }} />
                 <Text style={styles.text}>Surf Shop</Text>
               </View>
               <View style={styles.line}></View>
@@ -545,13 +543,13 @@ const styles = StyleSheet.create({
   },
   line: {
     height: 1,
-    width: '90%',
+    width: '100%',
     backgroundColor: Colors.BorderColor,
   },
   text: {
     fontSize: 18,
     color: Colors.textColorLight,
-    marginLeft: 15,
+    marginLeft: 20,
     fontFamily: 'Poppins-Regular'
   },
   slideOuter: {
