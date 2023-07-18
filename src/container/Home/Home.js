@@ -381,7 +381,7 @@ const Home = () => {
                 allowFontScaling={false}
                 placeholderTextColor={"#494949"}
                 fontFamily={'Poppins-Regular'}
-                placeholder={'Surf... powered by ChatGPT'}
+                placeholder={'Surf... powered by Cynthia'}
                 returnKeyType="done"
                 onChangeText={text => setAddres(text)}
                 style={{
