@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -15,13 +15,13 @@ import {
   Animated,
   Vibration,
   Orientation,
-useWindowDimensions
+  useWindowDimensions
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 
 const screenHeight = Dimensions.get('window').height;
@@ -32,8 +32,8 @@ const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
 
 const ViewImage = props => {
- 
-  
+
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [adress, setAddres] = useState('');
   const [orientation, setOrientation] = useState('portrait')
@@ -52,16 +52,16 @@ const ViewImage = props => {
 
     Dimensions.addEventListener('change', updateOrientation);
 
-    
+
   }, [windowDimensions]);
- 
+
 
   const navigation = useNavigation();
 
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{height: '100%', width: '100%', justifyContent: 'center'}}>
+      <View style={{ height: '100%', width: '100%', justifyContent: 'center' }}>
         <View
           style={{
             flexDirection: 'row',
@@ -75,34 +75,36 @@ const ViewImage = props => {
             top: 10,
           }}>
           <TouchableOpacity
-            onPress={() => navigation.goBack()}
             style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
               alignItems: 'center',
-              height: 30,
-              width: 30,
-              borderRadius: 15,
-              backgroundColor: Colors.gray,
-            }}>
-            <Image
-              source={Images.close}
+              position: "absolute",
+              right: 10,
+              top: 10,
+
+              backgroundColor: Colors.surfblur,
+              height: 37,
+              width: 37,
+              borderRadius: 100,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={() => navigation.goBack()}>
+            <Image source={Images.whiteclose}
               style={{
-                height: 15,
-                width: 15,
+                height: 12,
+                width: 12,
                 resizeMode: 'contain',
-                tintColor: Colors.black,
-                transform: [{rotate: '90deg'}],
+                tintColor: Colors.white,
               }}></Image>
           </TouchableOpacity>
         </View>
-<View>
+        <View>
 
- 
-<Image source={{uri:image.image.guid}} style={styles.slide}
 
-/>
-</View>
+          <Image source={{ uri: image.image.guid }} style={styles.slide}
+
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -124,8 +126,8 @@ const styles = StyleSheet.create({
     width: "110%",
     height: screenHeight,
     resizeMode: 'contain',
-    alignSelf:'center'
-    
+    alignSelf: 'center'
+
   },
   title: {
     fontSize: 32,
