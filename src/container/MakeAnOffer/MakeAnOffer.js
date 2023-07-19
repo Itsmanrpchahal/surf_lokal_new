@@ -550,7 +550,7 @@ const styles = StyleSheet.create({
   input: {
 
     height: 40,
-    borderColor: Colors.grey,
+    borderColor: Colors.BorderColor,
     borderWidth: 1,
     borderRadius: 4,
     paddingHorizontal: 8,
@@ -563,7 +563,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 40,
     justifyContent: 'center',
-    borderColor: Colors.grey,
+    borderColor: Colors.BorderColor,
     borderWidth: 1,
     borderRadius: 4,
     paddingHorizontal: 8,

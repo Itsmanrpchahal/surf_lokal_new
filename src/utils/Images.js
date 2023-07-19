@@ -72,6 +72,9 @@ const Images = {
   reload: require(BaseUrl + 'reload.png'),
   // 24 Apr
   imageView: require(BaseUrl + 'imageView.png'),
+ locate: require(BaseUrl + 'location.png'),
+ lot: require(BaseUrl + 'lot.png'),
+
   detail: require(BaseUrl + 'detail.png'),
   features: require(BaseUrl + 'features.png'),
   nearBy: require(BaseUrl + 'nearBy.png'),
