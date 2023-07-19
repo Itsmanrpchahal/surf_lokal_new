@@ -4,11 +4,7 @@ import {url} from '../config/url';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const loginUser = createAsyncThunk('loginUser', async dispatch => {
-  console.log(
-    'value check',
-    'https://surf.topsearchrealty.com/' + 'wp-json/custom-plugin/login/',
-    dispatch,
-  );
+ 
   return await postAPI(
     'https://surf.topsearchrealty.com/' + 'wp-json/custom-plugin/login/',
     dispatch,
@@ -16,7 +12,6 @@ export const loginUser = createAsyncThunk('loginUser', async dispatch => {
     .then(async response => {
       const {data} = response;
       if (data.status) {
-        console.log('------...', data);
         const ids = data.data.ID;
         await AsyncStorage.setItem('userId', ids);
         await AsyncStorage.setItem('userDetails', JSON.stringify(data.data));
@@ -30,13 +25,9 @@ export const loginUser = createAsyncThunk('loginUser', async dispatch => {
       }
     })
     .catch(e => {
-      console.log(e);
       if (e.response) {
-        console.log('api issue', e.response);
       } else if (e.request) {
-        console.log('api issue', e.response);
       } else {
-        console.log('api issue', e.response);
       }
     });
 });

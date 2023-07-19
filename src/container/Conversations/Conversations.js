@@ -62,13 +62,10 @@ const Conversations = () => {
     chatGptApi();
   }, []);
 
-console.log(data,"data testing")
   const chatGptApi = () => {
     dispatch(chatGpt()).then(response => {
-      console.log('response', response.payload.data);
      const data = response.payload.data
      const dat = data.map(obj => obj.answer)
-     console.log("check res", dat)
 
      setdata(dat)
     });

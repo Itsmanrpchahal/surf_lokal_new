@@ -44,7 +44,6 @@ const ViewImage = props => {
   );
   const windowDimensions = useWindowDimensions();
   const image = props.route.params
-  console.log(image);
   useEffect(() => {
     const updateOrientation = () => {
       setIsLandscape(windowDimensions.width > windowDimensions.height);

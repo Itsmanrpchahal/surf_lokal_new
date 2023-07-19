@@ -241,7 +241,6 @@ const MakeAnOffer = () => {
             Alert.alert("Offer submitted");
             navigation.navigate("MyProfile");
           } else {
-            console.log(response.data);
             Alert.alert("Offer submit");
           }
         }

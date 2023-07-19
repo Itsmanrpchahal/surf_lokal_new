@@ -56,7 +56,6 @@ const SWIPE_THRESHOLD = 0.25 * width;
 const ViewPropertiy = (props, imageUrl) => {
 
   const postid = props.route.params
-  console.log("postidpostid", postid.item.ID)
   const [showCallout, setShowCallOut] = useState(false)
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -67,7 +66,6 @@ const ViewPropertiy = (props, imageUrl) => {
   const [reviewTitle, setReviewTitle] = useState('');
 
   const property = data[0];
-  console.log(property, "propertypropertyproperty");
   const [calData, setCalData] = useState([]);
   const [index, setIndex] = useState(0);
   const navigation = useNavigation();
@@ -99,7 +97,6 @@ const ViewPropertiy = (props, imageUrl) => {
     const offsetY = event.nativeEvent.contentOffset.y;
     setIsScrolled(offsetY > 0);
   };
-  console.log(region, "region")
 
   useEffect(() => {
     getPopertiesDetailsApiCall();
@@ -119,7 +116,6 @@ const ViewPropertiy = (props, imageUrl) => {
   const getPopertiesDetailsApiCall = () => {
     setLoading(true);
     dispatch(getPopertiesDetails(postid.item.ID)).then(response => {
-      console.log("api response getPopertiesDetails", response)
       setLoading(false);
       setData(response.payload.data);
       setCalData(response.payload.data[0].moartage || []);
@@ -148,7 +144,6 @@ const ViewPropertiy = (props, imageUrl) => {
   };
   const getRatingApicall = () => {
     dispatch(getRating()).then(response => {
-      console.log('MMM', response.payload.data)
       setRatingData(response.payload.data)
     })
   }
@@ -159,7 +154,6 @@ const ViewPropertiy = (props, imageUrl) => {
       userID: userID,
       post_id: post_id,
     };
-    console.log('tarsh payload', payload);
 
     await dispatch(addToFavorite(payload)).then(response => {
       if (response.payload.success) {
@@ -171,7 +165,6 @@ const ViewPropertiy = (props, imageUrl) => {
   };
   const getAgentApicall = () => {
     dispatch(getAgent()).then(response => {
-      console.log('rrrohan', response.payload.data);
       setAgentData(response.payload.data);
 
 
@@ -185,8 +178,6 @@ const ViewPropertiy = (props, imageUrl) => {
       userID: userID,
       post_id: post_id,
     };
-    console.log('tarsh payload', payload);
-
     await dispatch(addRemoveTrash(payload)).then(response => {
       if (response.payload.success) {
         // Alert.alert('Alert', response.payload.message);
@@ -212,9 +203,7 @@ const ViewPropertiy = (props, imageUrl) => {
     formData.append('price_review_stars', rating);
     formData.append('interest_review_stars', rating);
     formData.append('reviewtitle', reviewTitle)
-    console.log(formData, "rkrkrk");
     dispatch(postUpdateRating(formData)).then((response) => {
-      console.log('kkk', response.payload);
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
@@ -238,9 +227,7 @@ const ViewPropertiy = (props, imageUrl) => {
     formData.append('price_review_stars', rating);
     formData.append('interest_review_stars', rating);
     formData.append('reviewtitle', reviewTitle)
-    console.log(formData, "formdataformdata");
     dispatch(postRating(formData)).then(response => {
-      console.log('res', response.payload);
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
@@ -337,7 +324,6 @@ const ViewPropertiy = (props, imageUrl) => {
 
     const handleCalloutPress = () => {
       // Code to handle the press event on the callout
-      console.log('Callout pressed!');
     };
 
     return (
@@ -444,10 +430,8 @@ const ViewPropertiy = (props, imageUrl) => {
     return (
       <>
         <View style={styles.addresss}>
-          {console.log('url ===>', walk?.walkscore_details)}
           <WebView
             source={{ uri: walk?.walkscore_details }}
-            onLoad={console.log("loaded")}
             style={{ width: "100%" }}
           />
         </View>
@@ -485,7 +469,6 @@ const ViewPropertiy = (props, imageUrl) => {
               scrollEnabled={true}
               nestedScrollEnabled
               source={{ uri: calData?.moartage_details }}
-              onLoad={console.log("loaded")}
             />
 
           </View>

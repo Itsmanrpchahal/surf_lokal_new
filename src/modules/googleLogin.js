@@ -11,7 +11,6 @@ export const googleUser = createAsyncThunk('googleUser', async dispatch => {
   )
     .then(async response => {
       const {data} = response;
-      console.log('------...', data);
       if (data.success) {
         const ids = data.data[0].userID;
         await AsyncStorage.setItem('userId', ids + '');
@@ -23,13 +22,9 @@ export const googleUser = createAsyncThunk('googleUser', async dispatch => {
       }
     })
     .catch(e => {
-      console.log(e);
       if (e.response) {
-        console.log('api issue', e.response);
       } else if (e.request) {
-        console.log('api issue', e.response);
       } else {
-        console.log('api issue', e.response);
       }
     });
 });

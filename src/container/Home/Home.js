@@ -90,7 +90,6 @@ const Home = () => {
           userID: user_ID,
           SearchParameters: adress,
         };
-        console.log("payload", payload)
         await getPopertiesApiCall({ type: 2, data: payload, lntLng })
         setKeyboardStatus('first')
       }
@@ -151,7 +150,6 @@ const Home = () => {
 
   useEffect(() => {
     getID()
-    console.log('store.getState() ==> ', store.getState())
   }, [])
 
   const getID = async () => {
@@ -226,11 +224,9 @@ const Home = () => {
       userID: user_ID,
       post_id: item,
     };
-    console.log("payload", payload)
 
 
     await dispatch(addToFavorite(payload)).then(response => {
-      console.log('response.payload ', response.payload)
       if (response.payload.success) {
         // Alert.alert('Alert', response.payload.message);
       } else {
@@ -245,7 +241,6 @@ const Home = () => {
       userID: user_ID,
       post_id: post_id,
     };
-    console.log("payload", payload)
 
     await dispatch(addRemoveTrash(payload)).then(response => {
       if (response.payload.success) {
@@ -314,7 +309,6 @@ const Home = () => {
       userID: user_ID,
       SearchParameters: adress,
     };
-    console.log("payload", payload)
 
 
   }

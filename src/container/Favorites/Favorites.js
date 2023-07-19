@@ -55,7 +55,6 @@ const Home = () => {
   }, []);
   const getFavoritePropertiesApiCall = () => {
     dispatch(getFavoriteProperties()).then(response => {
-      console.log('res-ppp', response.payload);
       setHomeData(response.payload.data);
     });
   };

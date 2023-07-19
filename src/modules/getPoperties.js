@@ -2,16 +2,13 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {getAPI, uploadImageAPI} from '../config/apiMethod';
 
 export const getPoperties = createAsyncThunk('getPoperties', async type => {
-  console.log(JSON.stringify(type) + '======', 'typppppppppppppp');
   return type.type === 0
     ? await getAPI('https://surf.topsearchrealty.com/webapi/v1/property')
         .then(async response => {
           const {data} = response;
-          console.log('property datat', response.data.data);
           return data;
         })
         .catch(e => {
-          console.log(e, 'getPoperties');
         })
     : type.type === 1
     ? await uploadImageAPI(
@@ -20,11 +17,9 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
       )
         .then(async response => {
           const {data} = response;
-          console.log('value1', response.data);
           return data;
         })
         .catch(e => {
-          console.log('tyep 1', e, 'nearby gps');
         })
     : await uploadImageAPI(
         'https://surf.topsearchrealty.com/wp-json/search/websearch',
@@ -35,7 +30,6 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
           return data;
         })
         .catch(e => {
-          console.log(e, 'search');
         });
 });
 

@@ -93,7 +93,6 @@ const ContactMyAgent = () => {
 
   const fetchAgentData = async () => {
     const id = await AsyncStorage.getItem('userId');
-    console.log(id, "Agenyt id");
 
     try {
       const response = await axios.get(
@@ -101,11 +100,9 @@ const ContactMyAgent = () => {
       );
       if (response.data.success) {
         const agentData = response.data.data[0];
-        console.log('Agent Data:', agentData);
         setAgentData(agentData);
       }
     } catch (error) {
-      console.log('Error fetching agent data:', error);
     }
   };
   const makePhoneCall = () => {
@@ -144,7 +141,6 @@ const ContactMyAgent = () => {
     };
     axios.request(config)
       .then(response => {
-        console.log(response.data);
         Alert.alert('Your data send Successfully');
         setAddress("")
         setMessage("")

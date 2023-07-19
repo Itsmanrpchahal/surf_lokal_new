@@ -81,9 +81,7 @@ const RecycleBin = () => {
     formData.append('price_review_stars', rating);
     formData.append('interest_review_stars', rating);
     formData.append('reviewtitle', reviewTitle)
-    console.log(formData, "rkrkrk");
     dispatch(postUpdateRating(formData)).then((response) => {
-      console.log('kkk', response.payload);
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
@@ -106,9 +104,7 @@ const RecycleBin = () => {
     formData.append('price_review_stars', rating);
     formData.append('interest_review_stars', rating);
     formData.append('reviewtitle', reviewTitle)
-    console.log(formData, "formdataformdata");
     dispatch(postRating(formData)).then(response => {
-      console.log('res', response.payload);
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
@@ -135,7 +131,6 @@ const RecycleBin = () => {
   }, [isFocused]);
   const getTrashApiCall = () => {
     dispatch(getTrash()).then(response => {
-      console.log('res--', response.payload.data);
       if (response.payload.data === 'Record not found!') {
         setShowNoDataMessage(true);
       } else {
@@ -146,15 +141,11 @@ const RecycleBin = () => {
   };
   const getAgentApicall = () => {
     dispatch(getAgent()).then(response => {
-      console.log('rrrohan', response.payload.data);
       setAgentData(response.payload.data);
-
-
     });
   }
   const getRatingApicall = () => {
     dispatch(getRating()).then(response => {
-      console.log('MMM', response.payload.data)
       setRatingData(response.payload.data)
     })
   }

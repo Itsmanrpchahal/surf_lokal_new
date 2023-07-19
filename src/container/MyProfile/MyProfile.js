@@ -176,12 +176,10 @@ const MyFavorites = () => {
       let type = res.mime;
       saveFile(uriResponse, name, type);
     }).catch(error => {
-      console.log('Image picking failed:', error);
     });
   };
   const getProfileApiCall = () => {
     dispatch(getProfile()).then(response => {
-      console.log('getProfile', response.payload.data);
       setLoading(false);
       setDetails(response.payload.data);
     });
@@ -198,7 +196,6 @@ const MyFavorites = () => {
       type: type,
       name: name,
     });
-    console.log(data, "pyloaddddddddd");
     try {
       var res = await axios.post(
         'https://surf.topsearchrealty.com/webapi/v1/profile/',
@@ -210,18 +207,13 @@ const MyFavorites = () => {
         }
       );
 
-      // console.log('--ppp', res);
-      // console.log('--ppp', typeof res.status);
-
       if (res.status === 200) {
-        console.log('hello', res.data);
         getProfileApiCall();
       } else {
         Alert.alert('something went wrong!.');
         setLoading(false);
       }
     } catch (err) {
-      console.log('err', err);
       setLoading(false);
     }
   };

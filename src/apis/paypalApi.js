@@ -59,12 +59,10 @@ const generateToken = () => {
   fetch(baseUrl + '/v1/oauth2/token', requestOptions)
    .then(response => response.text())
    .then(result => {
-    console.log('result print', result);
     const {access_token} = JSON.parse(result);
     resolve(access_token);
    })
    .catch(error => {
-    console.log('error raised', error);
     reject(error);
    });
  });
@@ -84,14 +82,12 @@ const createOrder = (token = '', orderDetail) => {
   fetch(baseUrl + '/v2/checkout/orders', requestOptions)
    .then(response => response.text())
    .then(result => {
-    console.log('result print', result);
     const res = JSON.parse(result);
 
     resolve(res);
     setData(res.id);
    })
    .catch(error => {
-    console.log('error raised', error);
     reject(error);
    });
  });
@@ -110,19 +106,16 @@ const capturePayment = (id, token = '') => {
   fetch(baseUrl + `/v2/checkout/orders/${id}/capture`, requestOptions)
    .then(response => response.text())
    .then(result => {
-    console.log('result print', result);
     const res = JSON.parse(result);
     resolve(res);
    })
    .catch(error => {
-    console.log('error raised', error);
     reject(error);
    });
  });
 };
 const setData = async id => {
  await AsyncStorage.setItem('trId', id);
- console.log('value', id);
 };
 export default {
  generateToken,

@@ -49,7 +49,6 @@ const MyFavorites = ({ navigation }) => {
 
   const getSavedApiCall = () => {
     dispatch(getSavedSearch()).then(response => {
-      console.log('res', response.payload);
       if (response.payload.data === 'Record not found!') {
         setShowNoDataMessage(true);
       } else {
@@ -64,7 +63,6 @@ const MyFavorites = ({ navigation }) => {
       postID: postId,
     };
     dispatch(deleteSearch(data)).then(response => {
-      console.log('res', response.payload);
       getSavedApiCall();
     });
   };
@@ -76,7 +74,6 @@ const MyFavorites = ({ navigation }) => {
       SearchParameters: updatedParameter,
     };
     dispatch(editSearch(data)).then(response => {
-      console.log('res', response.payload);
       getSavedApiCall();
     });
   };

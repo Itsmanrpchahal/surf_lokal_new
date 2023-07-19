@@ -7,17 +7,12 @@ export const chat = createAsyncThunk("chat", async (payload) => {
         "https://surf.topsearchrealty.com/wp-json/chatbot/chatgpt";
     try {
         const response = await postAPI(urlDynamic, payload);
-        console.log(response, "chat res");
         const { data } = response;
         return data;
     } catch (error) {
-        console.log(error);
         if (error.response) {
-            console.log("API issue", error.response);
         } else if (error.request) {
-            console.log("API issue", error.request);
         } else {
-            console.log("API issue", error.message);
         }
         throw error;
     }
