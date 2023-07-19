@@ -18,7 +18,7 @@ import {
   Button,
   Linking,
   Share,
-
+  TouchableHighlight,
   ActivityIndicator,
   useWindowDimensions
 } from 'react-native';
@@ -34,7 +34,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Rating } from 'react-native-ratings';
 import { getPopertiesDetails } from '../../modules/getPopertiesDetails';
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import MapView, { PROVIDER_GOOGLE, Circle, Marker } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Callout, Circle, Marker } from "react-native-maps";
 import { getRating } from '../../modules/getRating';
 import { postUpdateRating } from '../../modules/postUpdateRating';
 import { store } from '../../redux/store';
@@ -42,6 +42,7 @@ import { addToFavorite } from '../../modules/addToFavorite';
 import { addRemoveTrash } from '../../modules/addRemoveTrash';
 import { colors } from 'react-native-swiper-flatlist/src/themes';
 import { getAgent } from '../../modules/getAgent';
+import * as Animatable from 'react-native-animatable';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -56,7 +57,7 @@ const ViewPropertiy = (props, imageUrl) => {
 
   const postid = props.route.params
   console.log("postidpostid", postid.item.ID)
-
+  const [showCallout, setShowCallOut] = useState(false)
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -310,6 +311,7 @@ const ViewPropertiy = (props, imageUrl) => {
       // setFilterData(response.payload.data);
     });
   };
+
   const Details = () => {
     return (
       <>
@@ -393,6 +395,11 @@ const ViewPropertiy = (props, imageUrl) => {
   }
   const Address = () => {
 
+    const handleCalloutPress = () => {
+      // Code to handle the press event on the callout
+      console.log('Callout pressed!');
+    };
+
     return (
       <>
         <View style={{ width: "100%", paddingVertical: 16 }}>
@@ -421,15 +428,40 @@ const ViewPropertiy = (props, imageUrl) => {
                 longitudeDelta: 0.0121,
               }}
             >
-              <Marker coordinate={{ latitude: parseFloat(pin.latitude), longitude: parseFloat(pin.longitude) }} />
 
-              <Circle
-                center={{ latitude: parseFloat(pin.latitude), longitude: parseFloat(pin.longitude) }}
-                radius={100}
-                fillColor="rgba(255, 0, 0, 0.2)"
-                strokeColor="rgba(255, 0, 0, 0.5)"
-                strokeWidth={2}
-              />
+              <Marker
+                showCallout={true}
+                coordinate={{ latitude: parseFloat(pin.latitude), longitude: parseFloat(pin.longitude) }}
+              >
+                <Image source={Images.lot} style={{ height: 50, width: 100, resizeMode: 'contain' }} />
+
+                <Callout style={{height:70,alignItems:"center",alignSelf:"center"}}>
+
+                  <View style={{ flexDirection: 'row', alignItems: 'center', alignContent: 'center' ,
+             
+                  }}>
+                    <Text style={{
+                      position:"relative",height:100,
+                      borderRadius:100,top:-30
+                       }}><Image style={{ height:100, width: 100,borderRadius:100,resizeMode:"stretch", }} source={{ uri: property?.featured_image_src }} resizeMethod='auto' />
+                    </Text>
+                    <View style={{flexWrap:"wrap" ,top:-5 }}>
+                      <Text style={{ color: 'black', marginLeft: 10, fontWeight: '500', flexWrap:"wrap"  }}>{property?.address.property_address.address} | {property?.address.property_address.state_county}</Text>
+                      <Text style={{ color: Colors.primaryBlue, marginLeft: 10, fontWeight: '500' }}>{data.map((item) => item.details.property_details.price)}</Text>
+                      <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                        <Text>{store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bedrooms.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bedrooms : 0}
+                          {' Beds'}    </Text>
+                        <Text >{store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bathroomsfull.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bathroomsfull : 0}
+                          {' Baths'}   </Text>
+                        <Text>{store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.property_size.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.property_size : 0}
+                          {' sq ft'}   </Text>
+                      </View>
+                    </View>
+                  </View>
+                </Callout>
+              </Marker>
+
+             
 
 
             </MapView>
