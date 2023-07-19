@@ -115,59 +115,6 @@ const ViewPropertiy = (props, imageUrl) => {
   const opacity = useRef(new Animated.Value(1)).current;
   const scale = useRef(new Animated.Value(0.9)).current;
 
-  const _panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderMove: (event, gesture) => {
-        animation.setValue({ x: gesture.dx, y: gesture.dy });
-      },
-      onPanResponderRelease: (e, { dx, dy, vx, vy }) => {
-        let velocity;
-        if (vx >= 0) {
-          velocity = clamp(vx, 4, 5);
-        } else if (vx < 0) {
-          velocity = clamp(Math.abs(vx), 4, 5) * -1;
-        }
-        if (Math.abs(dx) > SWIPE_THRESHOLD) {
-          Animated.parallel([
-            Animated.spring(animation, {
-              toValue: { x: 0, y: 0 },
-              friction: 4,
-              useNativeDriver: false,
-            }),
-            Animated.spring(scale, {
-              toValue: 0.9,
-              friction: 4,
-              useNativeDriver: false,
-            }),
-          ]).start();
-          if (velocity > 0) {
-
-            console.log(
-              'right',
-              (
-                idPost = store.getState().getPopertiesDetails.getPopertiesDetails.data[0].ID)
-            );
-            savefile(idPost);
-          } else {
-            console.log(
-              'left',
-              (
-                idPost = store.getState().getPopertiesDetails.getPopertiesDetails.data[0].ID)
-            );
-            trashfile(idPost);
-
-          }
-        } else {
-          Animated.spring(animation, {
-            toValue: { x: 0, y: 0 },
-            friction: 4,
-            useNativeDriver: false,
-          }).start();
-        }
-      },
-    }),
-  ).current;
   const getPopertiesDetailsApiCall = () => {
     setLoading(true);
     dispatch(getPopertiesDetails(postid.item.ID)).then(response => {
@@ -180,14 +127,7 @@ const ViewPropertiy = (props, imageUrl) => {
       setWalk(response.payload.data[0].walkscore);
       setMap(response.payload.data[0].address.property_address);
       setPin({ latitude: response.payload.data[0].address.property_address.property_latitude, longitude: response.payload.data[0].address.property_address.property_longitude })
-      const res = [
-        {
-          ID: productId,
-          property_longitude: map.property_longitude.toString(),
-          property_latitude: map.property_latitude.toString(),
-          // other properties
-        }
-      ];
+     
       const property = res[0];
       latitude = parseFloat(property.property_latitude);
       longitude = parseFloat(property.property_longitude);
@@ -577,26 +517,6 @@ const ViewPropertiy = (props, imageUrl) => {
               .slice(0, 2)
               .reverse()
               .map((item, index, items) => {
-                const isLastItem = index === items.length - 1;
-                const panHandlers = isLastItem
-                  ? { ..._panResponder.panHandlers }
-                  : {};
-                const isSecondToLast = index === items.length - 2;
-                const rotate = animation.x.interpolate({
-                  inputRange: [-200, 0, 200],
-                  outputRange: ['-30deg', '0deg', '30deg'],
-                  extrapolate: 'clamp',
-                });
-                const animatedCardStyles = {
-                  transform: [{ rotate }, ...animation.getTranslateTransform()],
-                  opacity,
-                };
-                const cardStyle = animatedCardStyles;
-                const nextStyle = isSecondToLast && {
-                  transform: [{ scale: scale }],
-                  borderRadius: 5,
-                };
-
                 return (
                   <>
                     <View style={{ position: 'relative', width: '100%' }}>
@@ -607,17 +527,15 @@ const ViewPropertiy = (props, imageUrl) => {
                           <Image source={Images.downArrow} style={styles.imagedata}></Image>
                         </TouchableOpacity>
                       </View>
-                      <Animated.View
-                        {...panHandlers}
-                        style={[styles.card, cardStyle, nextStyle]}
-                        key={item.id}>
+                      <View
+                        >
                         <View>
                           <View onPress={() => navigation.navigate('ViewPropertiyImage', { postid: postid.item.ID })} >
                             <Image
                               source={{ uri: property?.featured_image_src }} style={styles.slide} />
                           </View>
                         </View>
-                      </Animated.View>
+                      </View>
                       <View
                         style={{
                           flexDirection: 'row',

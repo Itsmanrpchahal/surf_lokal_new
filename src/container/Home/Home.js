@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useIsFocused } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -42,6 +42,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Geolocation from '@react-native-community/geolocation';
 import MapView, { PROVIDER_GOOGLE, Circle, Marker } from "react-native-maps";
 import Collapsible from 'react-native-collapsible';
+import { useIsFocused } from '@react-navigation/native';
 
 
 const { width } = Dimensions.get('screen');
@@ -60,6 +61,8 @@ const markers = [{
   },
 }]
 const Home = () => {
+  const isFocused = useIsFocused();
+
   const [keyboardStatus, setKeyboardStatus] = useState('first');
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -83,7 +86,12 @@ const Home = () => {
   const updateKeyboard = async () => {
     if (keyboardStatus === 'Keyboard Hidden') {
       if (adress.length > 0) {
-        await getPopertiesApiCall({ type: 2, data: adress, lntLng })
+        let payload = {
+          userID: user_ID,
+          SearchParameters: adress,
+        };
+        console.log("payload", payload)
+        await getPopertiesApiCall({ type: 2, data: payload, lntLng })
         setKeyboardStatus('first')
       }
     }
@@ -152,14 +160,16 @@ const Home = () => {
   }
 
   useEffect(() => {
-    Promise.all[
-      getFilterApicall(),
-      getRatingApicall(),
-      getPopertiesApiCall({ type: 0, data: '', lntLng })
-    ]
+    if(isFocused)
+    {
+      Promise.all[
+        getFilterApicall(),
+        getRatingApicall(),
+        getPopertiesApiCall({ type: 0, data: '', lntLng })
+      ]
+    }
 
-
-  }, []);
+  }, [isFocused]);
   const getFilterApicall = () => {
     dispatch(getFilter()).then(response => {
       setFilterData(response.payload.data)
@@ -299,6 +309,15 @@ const Home = () => {
       }
     });
   };
+  const sendSearchBarText =async(adress)=>{
+    let payload = {
+      userID: user_ID,
+      SearchParameters: adress,
+    };
+    console.log("payload", payload)
+
+
+  }
   const renderFillterItem = ({ item }) => {
     const isSelected = selectedItem === item.counter_id;
 
@@ -382,7 +401,7 @@ const Home = () => {
               alignItems: 'center',
             }}>
             <TouchableOpacity
-              onPress={() => getPopertiesApiCall({ type: 2, data: adress, lntLng })}
+            // onPress={sendSearchBarText(adress)}
               style={{
                 height: 40,
                 width: 40,
@@ -406,6 +425,7 @@ const Home = () => {
                 keyboardType='web-search'
                 placeholder={'Surf... powered by Cynthia'}
                 returnKeyType="done"
+                value={adress}
                 onSubmitEditing={Keyboard.dismiss}
                 onChangeText={text => setAddres(text)}
                 style={{
@@ -1499,12 +1519,13 @@ const Home = () => {
                   <Image source={Images.graylocation} style={styles.locationpic}></Image>
 
                 </View>
+                <View style={{position:"absolute",zIndex:99,right:12,top:60}}>
                 <TouchableOpacity style={styles.coverlocation1} onPress={() => { setIsCollapsed(!isCollapsed) }}>
                   <Image source={Images.layers} style={styles.locationpic}></Image>
 
                 </TouchableOpacity>
-                <Collapsible collapsed={!isCollapsed}>
-                  <View >
+                <Collapsible collapsed={!isCollapsed} style={{backgroundColor:Colors.white,alignItems:"center",justifyContent:"center",position:"relative",paddingVertical:12}}>
+                  <View style={{backgroundColor:Colors.white,alignItems:"center",justifyContent:"center",}}>
                     <TouchableOpacity onPress={() => { setMapType('satellite') }}><Image tintColor={mapType === 'satellite' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.layers} style={styles.locationpic}></Image></TouchableOpacity>
                     <TouchableOpacity onPress={() => { setMapType('hybrid') }}><Image tintColor={mapType === 'hybrid' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.layers} style={styles.locationpic}></Image></TouchableOpacity>
                     <TouchableOpacity onPress={() => { setMapType('terrain') }}><Image tintColor={mapType === 'terrain' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.layers} style={styles.locationpic}></Image></TouchableOpacity>
@@ -1512,6 +1533,7 @@ const Home = () => {
                   </View>
 
                 </Collapsible>
+                </View>
                 <MapView
                   provider={PROVIDER_GOOGLE}
                   style={styles.map}
@@ -1582,10 +1604,11 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   coverlocation1: {
-    backgroundColor: "rgba(255,255,255,.8)", height: 38, width: 35, position: "absolute", top: 55, zIndex: 99,
+    backgroundColor: "rgba(255,255,255,.8)", height: 38, width: 35, 
+    //position: "absolute", top: 55, zIndex: 99,
     alignItems: "center",
     justifyContent: "center", borderRadius: 3,
-    right: 12,
+   // right: 12,
     shadowOffset: { width: -2, height: 4 },
     shadowColor: '#171717',
     shadowOpacity: 0.2,

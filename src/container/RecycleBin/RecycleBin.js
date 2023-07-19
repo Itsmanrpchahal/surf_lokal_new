@@ -34,6 +34,8 @@ import { getAgent } from '../../modules/getAgent';
 import { getRating } from '../../modules/getRating';
 import { postUpdateRating } from '../../modules/postUpdateRating';
 import * as Animatable from 'react-native-animatable';
+import { useIsFocused } from '@react-navigation/native';
+
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -45,6 +47,8 @@ const imageSizeRation = screenHeight / 1000;
 
 
 const RecycleBin = () => {
+  const isFocused = useIsFocused();
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [data, setHomeData] = useState([]);
   const [index, setIndex] = useState(0);
@@ -119,21 +123,23 @@ const RecycleBin = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    getTrashApiCall();
-    getAgentApicall();
-
-  }, []);
-  useEffect(() => {
-    getRatingApicall();
-  }, [])
-
+    if(isFocused)
+    {
+      Promise.all[
+        getTrashApiCall(),
+        getAgentApicall(),
+        getRatingApicall
+      ]
+    }
+    
+  }, [isFocused]);
   const getTrashApiCall = () => {
     dispatch(getTrash()).then(response => {
       console.log('res--', response.payload.data);
       if (response.payload.data === 'Record not found!') {
         setShowNoDataMessage(true);
       } else {
-        setHomeData(response.payload.data);
+        setHomeData(response.payload.data).reverse();
       }
     });
 
@@ -786,7 +792,7 @@ const RecycleBin = () => {
                 color: Colors.textColorDark,
                 fontFamily: 'Poppins-Regular',
               }}>
-              No favourite file data found!
+              No Bin file data found!
             </Text>
           </View>
         ) : (

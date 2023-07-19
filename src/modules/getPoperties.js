@@ -26,8 +26,8 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
         .catch(e => {
           console.log('tyep 1', e, 'nearby gps');
         })
-    : await getAPI(
-        'https://surf.topsearchrealty.com/webapi/v1/search/insert_search.php',
+    : await uploadImageAPI(
+        'https://surf.topsearchrealty.com/wp-json/search/websearch',
         type.data,
       )
         .then(async response => {

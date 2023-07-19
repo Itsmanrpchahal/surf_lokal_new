@@ -36,12 +36,15 @@ import { getAgent } from '../../modules/getAgent';
 import { getRating } from '../../modules/getRating';
 import { postUpdateRating } from '../../modules/postUpdateRating';
 import * as Animatable from 'react-native-animatable';
+import { useIsFocused } from '@react-navigation/native';
 
 const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
 
 const MyFavorites = () => {
+  const isFocused = useIsFocused();
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [adress, setAddres] = useState('');
   const [index, setIndex] = useState(0);
@@ -121,10 +124,16 @@ const MyFavorites = () => {
   };
 
   useEffect(() => {
-    getFavoritePropertiesApiCall();
-    getAgentApicall();
-    getRatingApicall
-  }, []);
+    if(isFocused)
+    {
+      Promise.all[
+        getFavoritePropertiesApiCall(),
+        getAgentApicall(),
+        getRatingApicall
+      ]
+    }
+    
+  }, [isFocused]);
   const getFavoritePropertiesApiCall = () => {
     dispatch(getFavoriteProperties()).then(response => {
       console.log('res-ppp', response.payload);
@@ -132,7 +141,7 @@ const MyFavorites = () => {
       if (response.payload.data === 'Record not found!') {
         setShowNoDataMessage(true);
       } else {
-        setHomeData(response.payload.data);
+        setHomeData(response.payload.data).reverse();
       }
     });
   }
@@ -183,7 +192,7 @@ const MyFavorites = () => {
 
 
   const renderItem = ({ item }) => (
-    <View style={styles.slideOuter}>
+    <View style={[styles.slideOuter]}>
       {/* <FlatList
         data={data}
         horizontal
@@ -777,8 +786,7 @@ const MyFavorites = () => {
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
-          marginLeft: 0
-
+          marginLeft: 0,
         }}>
         <Text style={{ fontSize: 20, color: Colors.black }}>Favorties</Text>
         <TouchableOpacity
@@ -830,6 +838,7 @@ const MyFavorites = () => {
         ) : (
           <FlatList
             data={data}
+            
             keyExtractor={item => item.id}
             renderItem={renderItem}
             ListFooterComponent={<View style={{ height: 70 }}></View>}
