@@ -1,14 +1,8 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {getAPI, uploadImageAPI} from '../config/apiMethod';
-import {url} from '../config/url';
-import AsyncStorage from '@react-native-community/async-storage';
 
-let latLng = {
-  latitude: 26.4898,
-  longitude: -80.174854,
-};
 export const getPoperties = createAsyncThunk('getPoperties', async type => {
-  console.log(JSON.stringify(type.type) + '======', 'typppppppppppppp');
+  console.log(JSON.stringify(type) + '======', 'typppppppppppppp');
   return type.type === 0
     ? await getAPI('https://surf.topsearchrealty.com/webapi/v1/property')
         .then(async response => {
@@ -22,7 +16,7 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
     : type.type === 1
     ? await uploadImageAPI(
         'https://surf.topsearchrealty.com/webapi/v1/nearby/',
-        latLng,
+        type.latLng,
       )
         .then(async response => {
           const {data} = response;

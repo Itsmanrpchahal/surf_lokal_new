@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect,  } from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,7 +13,6 @@ import {
   Modal,
   ActivityIndicator,
   KeyboardAvoidingView,
-  Button,
   Share,
   Linking
 } from 'react-native';
@@ -35,7 +34,6 @@ import CardsSwipe from 'react-native-cards-swipe';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-import clamp from 'clamp';
 
 import { store } from '../../redux/store';
 import { addToFavorite } from '../../modules/addToFavorite';
@@ -113,14 +111,7 @@ const Home = () => {
   const [showMap, setShowMap] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [mapType, setMapType] = useState('satellite')
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setBinIcon(false);
-      setFavIcon(false);
-    }, 1000);
 
-    return () => clearTimeout(timer);
-  }, [binIcon]);
 
   useEffect(() => {
     getID()
@@ -133,13 +124,7 @@ const Home = () => {
     setUser_ID(id)
   }
 
-  useEffect(() => {
-    const icontime = setTimeout(() => {
-      setFavIcon(false);
-    }, 1000);
 
-    return () => clearTimeout(icontime);
-  }, [favIcon]);
 
   useEffect(() => {
     getFilterApicall()
@@ -449,7 +434,6 @@ const Home = () => {
             width: '92%',
             alignSelf: 'center',
             justifyContent: 'center',
-            // marginBottom: 12,
           }}>
           <FlatList
             data={filterData}
@@ -532,22 +516,11 @@ const Home = () => {
                   <ScrollView style={{ width: "100%" }}>
                     <View
                       style={{
-                        //height: '10%',
                         width: '100%',
                         flexDirection: 'row',
-                        // justifyContent: 'space-between',
                         alignItems: 'center',
                       }}>
-                      {/* <TouchableOpacity
-                          onPress={() => navigation.goBack()}
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginLeft: 10,
-                          }}>
-                          <Text style={{ fontSize: 12, color: Colors.gray }}></Text>
-                        </TouchableOpacity> */}
+                    
                       <View
                         style={{
                           justifyContent: 'center',
@@ -977,11 +950,10 @@ const Home = () => {
                               }
 
                             </View>
-                            <TouchableOpacity onPress={() => {
-                              navigation.navigate('ViewPropertiy', { item: item.ID })
+                            <TouchableOpacity 
+                            onPress={() => {
+                              navigation.navigate('ViewPropertiy',{ item } )
                             }}>
-
-
                               <Image
                                 style={{
                                   width: width - 16,
@@ -1052,9 +1024,6 @@ const Home = () => {
                             </Text>
                           </View>
                           <Text
-                            onPress={() =>
-                              navigation.navigate('ViewPropertiy', { item })
-                            }
                             style={{
                               fontSize: 20,
                               color: Colors.primaryBlue,
@@ -1064,7 +1033,6 @@ const Home = () => {
                             {property?.property_price}
                           </Text>
                           <TouchableOpacity onPress={() => handleShare()}>
-
                             <Image
                               source={Images.send}
                               style={{
@@ -1083,9 +1051,6 @@ const Home = () => {
                             paddingHorizontal: 12,
                           }}>
                           <Text
-                            onPress={() =>
-                              navigation.navigate('ViewPropertiy', { item })
-                            }
                             style={{
                               fontSize: 15,
                               color: Colors.black,
