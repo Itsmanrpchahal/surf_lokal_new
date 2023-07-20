@@ -36,12 +36,15 @@ import { getAgent } from '../../modules/getAgent';
 import { getRating } from '../../modules/getRating';
 import { postUpdateRating } from '../../modules/postUpdateRating';
 import * as Animatable from 'react-native-animatable';
+import { useIsFocused } from '@react-navigation/native';
 
 const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
 
 const MyFavorites = () => {
+  const isFocused = useIsFocused();
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [adress, setAddres] = useState('');
   const [index, setIndex] = useState(0);
@@ -79,9 +82,7 @@ const MyFavorites = () => {
     formData.append('price_review_stars', rating);
     formData.append('interest_review_stars', rating);
     formData.append('reviewtitle', reviewTitle)
-    console.log(formData, "rkrkrk");
     dispatch(postUpdateRating(formData)).then((response) => {
-      console.log('kkk', response.payload);
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
@@ -104,9 +105,7 @@ const MyFavorites = () => {
     formData.append('price_review_stars', rating);
     formData.append('interest_review_stars', rating);
     formData.append('reviewtitle', reviewTitle)
-    console.log(formData, "formdataformdata");
     dispatch(postRating(formData)).then(response => {
-      console.log('res', response.payload);
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
@@ -121,25 +120,29 @@ const MyFavorites = () => {
   };
 
   useEffect(() => {
-    getFavoritePropertiesApiCall();
-    getAgentApicall();
-    getRatingApicall
-  }, []);
+    if(isFocused)
+    {
+      Promise.all[
+        getFavoritePropertiesApiCall(),
+        getAgentApicall(),
+        getRatingApicall
+      ]
+    }
+    
+  }, [isFocused]);
   const getFavoritePropertiesApiCall = () => {
     dispatch(getFavoriteProperties()).then(response => {
-      console.log('res-ppp', response.payload);
 
       if (response.payload.data === 'Record not found!') {
         setShowNoDataMessage(true);
       } else {
-        setHomeData(response.payload.data);
+        setHomeData(response.payload.data).reverse();
       }
     });
   }
 
   const getAgentApicall = () => {
     dispatch(getAgent()).then(response => {
-      console.log('rrrohan', response.payload.data);
       setAgentData(response.payload.data);
 
 
@@ -147,7 +150,6 @@ const MyFavorites = () => {
   }
   const getRatingApicall = () => {
     dispatch(getRating()).then(response => {
-      console.log('MMM', response.payload.data)
       setRatingData(response.payload.data)
     })
   }
@@ -183,7 +185,7 @@ const MyFavorites = () => {
 
 
   const renderItem = ({ item }) => (
-    <View style={styles.slideOuter}>
+    <View style={[styles.slideOuter]}>
       {/* <FlatList
         data={data}
         horizontal
@@ -193,7 +195,7 @@ const MyFavorites = () => {
       /> */}
       <TouchableOpacity
         onPress={() => navigation.navigate('ViewPropertiy', { item })}>
-        <Image source={{ uri: item?.featured_image_src }} style={styles.slide} />
+        <Image source={{ uri: item?.featured_image_src[0].guid }} style={styles.slide} />
       </TouchableOpacity>
 
       <View
@@ -777,8 +779,7 @@ const MyFavorites = () => {
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
-          marginLeft: 0
-
+          marginLeft: 0,
         }}>
         <Text style={{ fontSize: 20, color: Colors.black }}>Favorties</Text>
         <TouchableOpacity
@@ -830,6 +831,7 @@ const MyFavorites = () => {
         ) : (
           <FlatList
             data={data}
+            
             keyExtractor={item => item.id}
             renderItem={renderItem}
             ListFooterComponent={<View style={{ height: 70 }}></View>}

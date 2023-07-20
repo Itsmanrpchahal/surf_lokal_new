@@ -1,4 +1,4 @@
-import React, { useState, useEffect,  } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -14,7 +14,7 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Share,
-  Linking
+  Keyboard
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler';
@@ -34,7 +34,6 @@ import CardsSwipe from 'react-native-cards-swipe';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-
 import { store } from '../../redux/store';
 import { addToFavorite } from '../../modules/addToFavorite';
 import { addRemoveTrash } from '../../modules/addRemoveTrash';
@@ -43,6 +42,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Geolocation from '@react-native-community/geolocation';
 import MapView, { PROVIDER_GOOGLE, Circle, Marker } from "react-native-maps";
 import Collapsible from 'react-native-collapsible';
+import { useIsFocused } from '@react-navigation/native';
+import { getMoreFilter } from '../../modules/getMoreFilter';
 
 
 const { width } = Dimensions.get('screen');
@@ -61,6 +62,40 @@ const markers = [{
   },
 }]
 const Home = () => {
+  const isFocused = useIsFocused();
+
+  const [keyboardStatus, setKeyboardStatus] = useState('first');
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardStatus('Keyboard Shown');
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardStatus('Keyboard Hidden');
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    updateKeyboard()
+
+  }, [keyboardStatus])
+
+  const updateKeyboard = async () => {
+    if (keyboardStatus === 'Keyboard Hidden') {
+      if (adress.length > 0) {
+        let payload = {
+          userID: user_ID,
+          SearchParameters: adress,
+        };
+        await getPopertiesApiCall({ type: 2, data: payload, lntLng })
+        setKeyboardStatus('first')
+      }
+    }
+  }
   const bedRoomData = [
     { label: 'Any', value: 'any' },
     { label: '1', value: '1' },
@@ -87,6 +122,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [adress, setAddres] = useState('');
   const [filterData, setFilterData] = useState([]);
+  const [moreFilterData, setMoreFilterData] = useState([])
   const [selectedItem, setSelectedItem] = useState(null);
   const navigation = useNavigation();
   const [productId, setProductId] = useState();
@@ -95,28 +131,23 @@ const Home = () => {
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [review, setReview] = useState('');
   const [rating, setRating] = useState(0);
-  const [showIcon, setShowIcon] = useState(false);
   const [ratingData, setRatingData] = useState([])
   const [isSelected, setIsSelected] = useState(false)
-  const [Icon, setIcon] = useState(false);
   const [bedroomitem, setBedroomItem] = useState(-1)
   const [bathRoom, setBathRoomItem] = useState(-1)
   const [selected, setSelected] = useState([]);
   const [imageIndex, setImageIndex] = useState(0)
-  const [binIcon, setBinIcon] = useState(false)
-  const [favIcon, setFavIcon] = useState(false)
   const [viewHeight, setViewHeight] = useState(80)
   const [user_ID, setUser_ID] = useState()
   const [lntLng, setLatLng] = useState({ latitude: 0.0, longitude: 0.0 })
   const [showMap, setShowMap] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [mapType, setMapType] = useState('satellite')
-
-
+  const [isEditing, setIsEditing] = useState(false)
+  const [moreFilter, setMoreFilter] = useState(false)
+  let selectionData = [];
   useEffect(() => {
     getID()
-
-    console.log('store.getState() ==> ', store.getState())
   }, [])
 
   const getID = async () => {
@@ -124,15 +155,25 @@ const Home = () => {
     setUser_ID(id)
   }
 
-
-
   useEffect(() => {
-    getFilterApicall()
-    getRatingApicall()
-  }, []);
+    if (isFocused) {
+      Promise.all[
+        getFilterApicall(),
+        getRatingApicall(),
+        getMoreFilterApiCall(),
+        getPopertiesApiCall({ type: 0, data: '', lntLng, })
+      ]
+    }
+
+  }, [isFocused]);
   const getFilterApicall = () => {
     dispatch(getFilter()).then(response => {
       setFilterData(response.payload.data)
+    })
+  }
+  const getMoreFilterApiCall = () => {
+    dispatch(getMoreFilter()).then(response => {
+      setMoreFilterData(response.payload.data)
     })
   }
   const getRatingApicall = () => {
@@ -140,7 +181,6 @@ const Home = () => {
       setRatingData(response.payload.data)
     })
   }
-
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
@@ -181,17 +221,11 @@ const Home = () => {
   };
 
   const savefile = async item => {
-    // const userID = await AsyncStorage.getItem('userId');
-
     let payload = {
       userID: user_ID,
       post_id: item,
     };
-    console.log("payload", payload)
-
-
     await dispatch(addToFavorite(payload)).then(response => {
-      console.log('response.payload ', response.payload)
       if (response.payload.success) {
         // Alert.alert('Alert', response.payload.message);
       } else {
@@ -206,7 +240,6 @@ const Home = () => {
       userID: user_ID,
       post_id: post_id,
     };
-    console.log("payload", payload)
 
     await dispatch(addRemoveTrash(payload)).then(response => {
       if (response.payload.success) {
@@ -235,10 +268,8 @@ const Home = () => {
     );
 
   }
-  const property = homeData[0];
 
   useEffect(() => {
-    getPopertiesApiCall({ type: 0, data: '', lntLng })
   }, []);
 
   const getPopertiesApiCall = async type => {
@@ -246,7 +277,7 @@ const Home = () => {
     await dispatch(getPoperties(type));
     typeof store.getState().getPoperties.getPopertiesData?.data === 'object' ?
       store.getState().getPoperties.getPopertiesData?.data &&
-      setHomeData(store.getState().getPoperties.getPopertiesData?.data) : setHomeData('')
+      setHomeData(store.getState().getPoperties.getPopertiesData?.data) : setHomeData([])
     setLoading(false);
   };
   const updateReview = async (post_id) => {
@@ -288,12 +319,12 @@ const Home = () => {
               alignItems: 'center',
               marginLeft: 5,
               marginRight: 5,
-              // width: 110
-              paddingRight: 10
+              paddingRight: 10,
+              marginBottom: 8
             }}>
             <SvgUri
-              height={30}
-              width={30}
+              height={25}
+              width={25}
               uri={item.term_icon_url}
               fontWeight="bold"
               fill={isSelected ? Colors.darbluec : "black"}
@@ -352,38 +383,38 @@ const Home = () => {
               borderColor: Colors.BorderColor,
               flexDirection: 'row',
               alignItems: 'center',
+              shadowColor: "#000",
+              backgroundColor: Colors.white,
+              shadowOffset: {
+                width: 0,
+                height: 3,
+              },
+              shadowOpacity: 0.6,
+              shadowRadius: 15.19,
+              elevation: 6,
             }}>
-            <TouchableOpacity
-              onPress={() => getPopertiesApiCall({ type: 2, data: adress, lntLng })}
-              style={{
-                height: 40,
-                width: 40,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Image
-                source={Images.search}
-                style={{
-                  height: 20,
-                  width: 20,
-                  resizeMode: 'contain',
-                  marginLeft: 5,
-                }}></Image>
-            </TouchableOpacity>
-            <View style={{ width: '65%' }}>
+            <View style={{ width: '78%' }}>
               <TextInput
                 allowFontScaling={false}
-                placeholderTextColor={"#494949"}
+                placeholderTextColor={"#858383"}
                 fontFamily={'Poppins-Regular'}
-                placeholder={'Surf... powered by Cynthia'}
+                keyboardType='web-search'
+                placeholder={'Surf local...'}
                 returnKeyType="done"
+                value={adress}
+                onSubmitEditing={Keyboard.dismiss}
                 onChangeText={text => setAddres(text)}
                 style={{
-                  fontSize: 14,
+                  fontSize: 12,
+                  letterSpacing: 1,
                   color: '#000',
-                  marginLeft: 7,
+                  marginLeft: 1,
                   position: "relative",
-                  top: 3
+                  top: 3,
+                  // backgroundColor:"red",
+                  width: '100%',
+                  marginLeft: 15
+                  // alignItems: "flex-start"
                 }}
               />
             </View>
@@ -415,6 +446,7 @@ const Home = () => {
               <TouchableOpacity
                 onPress={async () => {
                   await getCurretLocation()
+                  setShowMap(false)
                 }}
                 style={{}}>
                 <Image
@@ -444,30 +476,41 @@ const Home = () => {
           />
         </View>
         {
-          isSelected && <View >
-            <View style={{ width: '100%', flexDirection: "row", justifyContent: 'space-evenly', marginBottom: 10 }}>
+          isSelected &&
+          <View >
+            <View style={{
+              width: '100%', flexDirection: "row",
+              justifyContent: 'space-evenly', marginBottom: 10
+            }}>
               <TouchableOpacity
                 style={[
                   styles.rew,
                   {
                     backgroundColor: 'white',
-                    borderColor: 'black',
+                    borderColor: Colors.gray,
+                    borderRadius: 10
                   },
                 ]}
               >
                 <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Save Search</Text>
               </TouchableOpacity>
+
               <TouchableOpacity
                 onPress={() => filtertoggleModal()}
                 style={[
                   styles.rew,
                   {
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
                     backgroundColor: 'white',
-                    borderColor: 'black',
+                    borderColor: Colors.gray,
+                    borderRadius: 10
+
                   },
                 ]}
               >
-                <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Filters</Text>
+                <Image source={Images.filtericon} style={{ height: 10, width: 10 }} />
+                <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>  Filters    </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
@@ -478,7 +521,8 @@ const Home = () => {
                   styles.rew,
                   {
                     backgroundColor: "white",
-                    borderColor: 'black',
+                    borderColor: Colors.gray,
+                    borderRadius: 10
                   },
                 ]}
               >
@@ -486,64 +530,74 @@ const Home = () => {
               </TouchableOpacity>
 
             </View>
+
             <KeyboardAvoidingView >
 
               <Modal
                 transparent={true}
                 animationType="slide"
-                visible={modalVisible}
-                onRequestClose={toggleModal}>
+                visible={filterModalVisible}
+                onRequestClose={filtertoggleModal}>
 
                 <View
                   style={{
                     // marginTop: 40,
-                    // height: '95%',
+                    height: '95%',
                     width: '100%',
-                    left: 0,
-                    right: 0,
-                    paddingHorizontal: 16,
+                    paddingHorizontal: 8,
                     alignItems: 'center',
                     alignContent: 'center',
                     backgroundColor: Colors.white,
                     position: 'absolute',
                     bottom: 0,
+                    left: 0,
+                    right: 0,
+                    justifyContent: "center",
                     borderTopLeftRadius: 20,
                     borderTopRightRadius: 20,
                     borderWidth: 1,
-                    borderColor: Colors.gray,
-                    flexWrap: "wrap",
+                    borderColor: Colors.BorderColor,
                   }}>
-                  <ScrollView style={{ width: "100%" }}>
+                  <ScrollView style={{
+                    //s height: '10%',
+                    width: '99%',
+
+                  }}>
+                    <View style={{ alignItems: "center", justifyContent: "center" }}>
+                      <TouchableOpacity
+                        onPress={() => setFilterModalVisible(false)}>
+
+                        <View
+                          style={{
+                            width: 80,
+                            height: 7,
+                            backgroundColor: Colors.gray,
+                            marginTop: 8,
+                            justifyContent: 'center',
+                            borderRadius: 100,
+                            margin: 12,
+                          }}></View>
+                      </TouchableOpacity>
+
+                    </View>
                     <View
                       style={{
                         width: '100%',
                         flexDirection: 'row',
+                        justifyContent: 'flex-end',
                         alignItems: 'center',
+
                       }}>
-                    
                       <View
                         style={{
+                          width: '100%',
                           justifyContent: 'center',
                           alignItems: 'center',
-                          marginTop: 10,
-                          paddingVertical: 12,
-                          position: "relative",
-                          width: "100%",
-                          textAlign: "center"
                         }}>
-
-                        <Text
-                          style={{
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontFamily: "Poppins-SemiBold"
-                          }}>
-                          Rate and Review
-                        </Text>
                       </View>
 
-                      <TouchableOpacity
-                        onPress={() => setModalVisible(false)}
+                      {/* <TouchableOpacity
+                        onPress={() => setFilterModalVisible(false)}
                         style={{
                           backgroundColor: Colors.surfblur,
                           height: 37,
@@ -551,9 +605,9 @@ const Home = () => {
                           borderRadius: 100,
                           alignItems: "center",
                           justifyContent: "center",
-                          //margin: 12,
-                          position: "absolute",
-                          right: 0,
+                          margin: 12,
+                          marginBottom: 0
+
                         }}>
                         <Image
                           style={{
@@ -565,206 +619,208 @@ const Home = () => {
                             transform: [{ rotate: '45deg' }],
                           }}
                           source={Images.plus}></Image>
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
                     </View>
-                    <View
-                      style={{
-                        width: '100%',
-                        height: 1,
-                        backgroundColor: Colors.gray,
-                        marginTop: 10,
-                        justifyContent: 'center',
-                      }}></View>
-                    <View style={{}}>
-                      <Text
-                        style={{
-                          fontSize: 18,
-                          fontFamily: "Poppins-SemiBold",
-                          color: Colors.black,
-                          marginTop: 10,
-                          // marginRight: 180
-                        }}>
-                        Your Review
-                      </Text>
-                      <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text>
-                      {!isEditing && (
-                        <TouchableOpacity
-                          onPress={() => setIsEditing(true)}
-                          style={{ marginTop: 10 }}>
-                          <Text style={{ fontSize: 12, color: Colors.darbluec, fontFamily: "Poppins-Regular" }}>Edit</Text>
-                        </TouchableOpacity>
-                      )}
-                    </View>
-                    <View style={{ width: '100%', }}>
-                      <View style={{ width: '100%', alignSelf: 'center' }}>
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            marginTop: 10,
-                          }}>
-                          <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                            Photos Quality Rating :
-                          </Text>
-                          <Rating
-                            type="custom"
-                            ratingCount={5}
-                            imageSize={18}
-                            startingValue={ratingData[0]?.photo_wuality_rating
-                            }
-                            ratingBackgroundColor="#c8c7c8"
-                            onFinishRating={setRating}
-                            style={styles.rating}
-                            ratingColor={Colors.surfblur}
-                          //tintColor="#f1f3f4"
-                          />
+
+
+                    <View style={{
+                      width: '99%',
+                    }}>
+
+                      <View>
+
+                        <Text style={{ color: 'black', fontFamily: 'Poppins-Regular', width: "99%", marginBottom: 8 }}>Choose your city </Text>
+                        <MultiSelect
+                          style={styles.dropdown}
+                          placeholderStyle={styles.placeholderStyle}
+                          selectedTextStyle={styles.selectedTextStyle}
+                          inputSearchStyle={styles.inputSearchStyle}
+                          iconStyle={styles.iconStyle}
+                          placeholderTextColor="red"
+                          data={moreFilterData.City}
+                          search
+                          maxHeight={300}
+                          labelField="data_name"
+                          valueField="value"
+                          placeholder="Select item"
+                          searchPlaceholder="Search..."
+                          value={selected}
+                          onChange={item => {
+                            // setSelected(item);
+                          }}
+
+                        />
+
+                        <View style={{ marginBottom: 12 }}>
+
+                          <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Bedrooms</Text>
+                          <FlatList
+                            data={moreFilterData.bedroom}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            renderItem={({ item, index }) => {
+                              return (
+                                <TouchableOpacity onPress={() => { setBedroomItem(index) }}>
+                                  <View style={{ width: 70, height: 40, marginTop: 8, marginHorizontal: 3, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.BorderColor, backgroundColor: bedroomitem === index ? Colors.newgray : Colors.white }}>
+                                    <Text style={{ fontFamily: 'Poppins-Regular', color: bedroomitem === index ? Colors.white : Colors.newgray }}>{item?.data_name}</Text>
+                                  </View>
+                                </TouchableOpacity>
+                              )
+                            }}
+                          >
+
+                          </FlatList>
                         </View>
-                      </View>
+                        <View>
 
-                      <View style={{ width: '100%', alignSelf: 'center' }}>
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                          }}>
-                          <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                            Description & Details :
-                          </Text>
-                          <Rating
-                            type="custom"
-                            ratingCount={5}
-                            imageSize={18}
-                            startingValue={ratingData[0]?.description_review_stars
-                            }
-                            ratingBackgroundColor="#c8c7c8"
-                            onFinishRating={setRating}
-                            style={styles.rating}
-                            ratingColor={Colors.surfblur}
-                          //tintColor="#f1f3f4"
-                          />
+
+                          <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Bathrooms</Text>
+                          <FlatList
+                            data={moreFilterData.bathroom}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            renderItem={({ item, index }) => {
+                              return (
+                                <TouchableOpacity onPress={() => { setBathRoomItem(index) }}>
+                                  <View style={{ width: 70, height: 40, marginTop: 8, marginHorizontal: 3, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.BorderColor, backgroundColor: bathRoom === index ? Colors.newgray : Colors.white }}>
+                                    <Text style={{ fontFamily: 'Poppins-Regular', color: bathRoom === index ? Colors.white : Colors.newgray }}>{item?.data_name}</Text>
+                                  </View>
+                                </TouchableOpacity>
+                              )
+                            }}
+                          ></FlatList>
                         </View>
-                      </View>
-                      <View style={{ width: '100%', alignSelf: 'center' }}>
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                          }}>
-                          <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                            Price Of Property :
-                          </Text>
-                          <Rating
-                            type="custom"
-                            ratingCount={5}
-                            imageSize={18}
-                            startingValue={ratingData[0]?.price_review_stars
-                            }
-                            ratingBackgroundColor="#c8c7c8"
-                            onFinishRating={setRating}
-                            style={styles.rating}
-                            ratingColor={Colors.surfblur}
-                          //tintColor="#f1f3f4"
-                          />
-                        </View>
-                      </View>
 
-                      <View style={{ width: '100%', alignSelf: 'center' }}>
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                          }}>
-                          <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                            General Interest in the property :
-                          </Text>
-                          <Rating
-                            type="custom"
-                            ratingCount={5}
-                            imageSize={18}
-                            startingValue={ratingData[0]?.interest_review_stars
-                            }
-                            ratingBackgroundColor="#c8c7c8"
-                            onFinishRating={setRating}
-                            style={styles.rating}
-                            ratingColor={Colors.surfblur}
-                          //tintColor="#f1f3f4"
-                          />
-                        </View>
-                      </View>
+                        <View>
 
+                          <Text style={{ color: 'black', fontFamily: 'Poppins-Regular', marginTop: 12 }}>Square Feet</Text>
 
+                          <View style={{ flexDirection: 'column', justifyContent: 'space-between', marginTop: 8 }}>
 
-                      <View style={{ width: '100%', alignSelf: 'center', overflow: "hidden" }}>
-                        <Text
-                          style={{
-                            fontSize: 18,
-                            fontFamily: "Poppins-SemiBold",
-                            color: Colors.black,
-                            marginTop: 10,
-                            // marginRight: 180
-                          }}>
-                          Review
-                        </Text>
-                        <View
-                          style={{
-                            width: '100%',
-                            //height: 100,
-                            marginTop: 0,
-                            //justifyContent: 'center',
-                            flexWrap: "wrap",
-                            whiteSpace: "pre-wrap",
-                            wordWrap: "break-word", height: 100, width: "100%", flexWrap: "wrap", overflow: "hidden"
-                          }}>
-
-
-                          {isEditing ? (
                             <TextInput
-                              multiline={true}
-                              style={{
-                                verticalAlign: "top",
-                                borderWidth: 1, borderColor: Colors.BorderColor, borderRadius: 8, paddingHorizontal: 12,
-                                fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", height: 100,
-                                width: "100%"
-                              }}
-                              value={review}
-                              onChangeText={text => setReview(text)}
-                              autoFocus
-                            />
-                          ) : (
-                            <TextInput
+                              style={{ borderWidth: 1, fontSize: 12, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
+                              placeholder='Min square'
+                              placeholderTextColor="#424242"
 
-                              multiline={true}
-                              style={{
-                                verticalAlign: "top",
-                                borderWidth: 1, borderColor: Colors.BorderColor, borderRadius: 8, paddingHorizontal: 12,
-                                fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", height: 100,
-                                width: "100%"
+                              keyboardType='numeric'>
 
-                              }}>
-                              {ratingData[0]?.comment_content}
+
                             </TextInput>
-                          )}
+                            <TextInput
+                              style={{ borderWidth: 1, fontSize: 12, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
+                              placeholder='Max Square'
+                              placeholderTextColor="#494949"
+                              keyboardType='numeric'>
+
+                            </TextInput>
+                          </View>
                         </View>
-                      </View>
-                      <View style={{
+                        <View style={{ marginTop: 12 }}>
 
-                        width: '100%',
+                          <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Price Range</Text>
 
-                        flexDirection: 'row',
-                        alignItems: "center",
-                        justifyContent: "flex-end",
-                        //s paddingHorizontal: 10
-                      }}>
-                        {isEditing ? (
+                          <View style={{ flexDirection: "column", justifyContent: 'space-between', marginTop: 8 }}>
+
+                            <MultiSelect
+                              style={{ borderWidth: 1, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
+                              placeholderStyle={styles.placeholderStyle}
+                              selectedTextStyle={styles.selectedTextStyle}
+                              inputSearchStyle={styles.inputSearchStyle}
+                              iconStyle={styles.iconStyle}
+                              data={moreFilterData.min_price}
+                              search
+                              maxHeight={300}
+                              labelField="data_name"
+                              valueField="value"
+                              placeholder="Min Price"
+                              searchPlaceholder="Search..."
+                              value={selected}
+                              onChange={item => {
+                                setSelected(item);
+                              }}
+
+                            />
+                            <MultiSelect
+                              style={{ borderWidth: 1, marginBottom: 8, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12 }}
+
+                              placeholderStyle={styles.placeholderStyle}
+                              selectedTextStyle={styles.selectedTextStyle}
+                              inputSearchStyle={styles.inputSearchStyle}
+                              iconStyle={styles.iconStyle}
+                              data={moreFilterData.max_price}
+                              search
+                              maxHeight={300}
+                              labelField="data_name"
+                              valueField="value"
+                              placeholder="Max Price"
+                              searchPlaceholder="Search..."
+                              value={selected}
+                              onChange={item => {
+                                setSelected(item);
+                              }}
+
+                            />
+                          </View>
+                        </View>
+                        <View style={{ width: '100%', justifyContent: 'center', alignItems: "center" }}>
+                          <TouchableOpacity onPress={() => { setMoreFilter(!moreFilter) }}>
+                            <Text style={{ color: Colors.white, padding: 10, borderRadius: 25, textAlign: 'center', width: 150, fontSize: 16, fontWeight: 700, backgroundColor: Colors.black }}>More Filters</Text>
+
+                          </TouchableOpacity>
+                        </View>
+                        <Collapsible collapsed={!moreFilter}>
                           <View style={{
-                            justifyContent: "flex-end", width: '100%',
-                            alignItems: "flex-end",
+                            alignContent: 'center', width: '100%',
+                            justifyContent: 'center', alignItems: 'center'
                           }}>
-                            <TouchableOpacity onPress={() => updateReview()} style={{
+                            <FlatList
+                              data={data}
+                              style={{ alignContent: 'center' }}
+                              nestedScrollEnabled
+                              numColumns={3}
+                              renderItem={({ item }) => {
+                                return (
+                                  <TouchableOpacity style={{
+                                    width: '30%', margin: 5, borderRadius: 20, borderWidth: 1,
+                                    borderColor: Colors.black, padding: 10,
+                                  }} onPress={() => {
+                                    let renderData = [...data];
+                                    for (let data of renderData) {
+                                      if (data.label == item.label) {
+                                        data.selected = (data.selected == null) ? true : !data.selected;
+                                        break;
+                                      }
+
+                                    }
+                                  }}>
+                                    <Text style={{
+                                      color: item.selected ? Colors.white : Colors.black,
+                                      textAlign: 'center',
+                                      backgroundColor: item.selected ? Colors.black : Colors.white
+                                    }} numberOfLines={1}>
+                                      Text
+                                    </Text>
+                                  </TouchableOpacity>
+                                )
+                              }}>
+
+                            </FlatList>
+
+                          </View>
+                        </Collapsible>
+                        <View style={{
+                          width: '100%',
+                          flexDirection: 'row',
+                          alignItems: "center",
+                          justifyContent: "flex-end",
+                          // paddingHorizontal: 10
+                        }}>
+
+                          <TouchableOpacity
+                            // onPress={() => addReview()}
+                            onPress={() => setFilterModalVisible(false)}
+                            // onPress={Alert.alert("Hyy")}
+                            style={{
                               height: 50,
                               width: '40%',
                               borderRadius: 100,
@@ -774,53 +830,25 @@ const Home = () => {
                               alignItems: "center",
                               justifyContent: "center",
                               marginBottom: 40
+
                             }}>
-                              <Text style={{
+                            <Text
+                              style={{
                                 fontSize: 16,
                                 // fontWeight: '700',
                                 color: Colors.white,
                                 fontFamily: "Poppins-Regular",
-                              }}>Update</Text>
-                            </TouchableOpacity>
-                          </View>
-                        ) : (
-
-                          <View style={{
-                            justifyContent: "flex-end", width: '100%',
-                            alignItems: "flex-end",
-                          }}>
-                            <TouchableOpacity
-                              onPress={() => addReview()}
-                              // onPress={() => setModalVisible(false)}
-                              // onPress={Alert.alert("Hyy")}
-                              style={{
-                                height: 50,
-                                width: '45%',
-                                borderRadius: 100,
-                                backgroundColor: Colors.surfblur,
-                                marginTop: 10,
-                                flexDirection: 'row',
-                                alignItems: "center",
-                                justifyContent: "center",
-                                marginBottom: 20
-
                               }}>
-                              <Text
-                                style={{
-                                  fontSize: 16,
-                                  // fontWeight: '700',
-                                  color: Colors.white,
-                                  fontFamily: "Poppins-Regular",
-                                }}>
-                                Submit
-                              </Text>
-                            </TouchableOpacity>
-                          </View>
-                        )}
-                      </View>
+                              Apply
+                            </Text>
+                          </TouchableOpacity>
 
+                        </View>
+                      </View>
                     </View>
+
                   </ScrollView>
+
                 </View>
 
               </Modal>
@@ -829,8 +857,10 @@ const Home = () => {
           </View>
         }
         {
-          homeData && !showMap ?
+          !showMap && homeData.length != 0 ?
+
             <View style={{ height: width, width: width, marginTop: 10 }}>
+              {/* <Text>{JSON.stringify(homeData.length)}</Text> */}
               <CardsSwipe style={{
                 position: "relative", width: "100%",
                 height: "100%", overflow: "hidden"
@@ -919,8 +949,6 @@ const Home = () => {
                     <SwiperFlatList
                       //style={{ height: width, width: width - 10, }}
                       index={imageIndex}
-                      // autoplay={true}
-                      showPagination={false}
                       data={item?.featured_image_src}
                       refer={index}
                       renderItem={({ item1, index }) =>
@@ -933,27 +961,33 @@ const Home = () => {
                               marginTop: 1
                             }}
                           >
-                            <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", zIndex: 99, top: width / 2.5 }}>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", zIndex: 99, }}>
                               {
 
-                                <TouchableOpacity disabled={imageIndex > 0 ? false : true} onPress={() => { setImageIndex(imageIndex - 1) }} >
+                                <TouchableOpacity disabled={imageIndex > 0 ? false : true} onPress={() => { setImageIndex(imageIndex - 1) }} style={{ height: "100%", width: 30, backgroundColor: "red", position: "relative", left: 10 }} >
+                                  <View style={{ height: width, width: 40, position: "absolute", zIndex: 999, }}>
 
-                                  <Image style={{ height: 30, width: 30, position: "absolute", left: 15 }} source={Images.leftarrow} />
+                                  </View>
+                                  {/* <Image style={{ height: 30, width: 30, position: "absolute", left: 15 }} source={Images.leftarrow} /> */}
                                 </TouchableOpacity>
                               }
 
                               {
-                                <TouchableOpacity disabled={item?.featured_image_src?.length - 1 === imageIndex ? true : favIcon} onPress={() => { setImageIndex(imageIndex + 1) }}>
+                                <TouchableOpacity disabled={item?.featured_image_src?.length - 1 === imageIndex ? true : false} onPress={() => {
+                                  setImageIndex(imageIndex + 1)
+                                }}>
+                                  <View style={{ height: width, width: 40, position: "absolute", zIndex: 999, right: 10 }}>
 
-                                  <Image style={{ height: 30, width: 30, position: "absolute", right: 15 }} source={Images.rightarrow} />
+                                    {/* <Image style={{ height: 30, width: 30, position: "absolute", right: 10 }} source={Images.rightarrow} /> */}
+                                  </View>
                                 </TouchableOpacity>
                               }
 
                             </View>
-                            <TouchableOpacity 
-                            onPress={() => {
-                              navigation.navigate('ViewPropertiy',{ item } )
-                            }}>
+                            <TouchableOpacity
+                              onPress={() => {
+                                navigation.navigate('ViewPropertiy', { item })
+                              }}>
                               <Image
                                 style={{
                                   width: width - 16,
@@ -1020,17 +1054,18 @@ const Home = () => {
                                 marginLeft: 5,
                                 fontFamily: 'Poppins-SemiBold',
                               }}>
-                              {property?.total_average_rating}
+                              {item?.total_average_rating}
                             </Text>
                           </View>
                           <Text
+                            onPress={() => { navigation.navigate('ViewPropertiy', { item }) }}
                             style={{
                               fontSize: 20,
                               color: Colors.primaryBlue,
                               fontWeight: '500',
                               fontFamily: 'Poppins-SemiBold',
                             }}>
-                            {property?.property_price}
+                            {item?.property_price}
                           </Text>
                           <TouchableOpacity onPress={() => handleShare()}>
                             <Image
@@ -1043,6 +1078,296 @@ const Home = () => {
                             />
                           </TouchableOpacity>
                         </View>
+                        <KeyboardAvoidingView >
+
+                          <Modal
+                            transparent={true}
+                            animationType="slide"
+                            visible={modalVisible}
+                            onRequestClose={toggleModal}>
+
+                            <View
+                              style={{
+                                width: '100%',
+                                left: 0,
+                                right: 0,
+                                paddingHorizontal: 16,
+                                alignItems: 'center',
+                                alignContent: 'center',
+                                backgroundColor: Colors.white,
+                                position: 'absolute',
+                                bottom: 0,
+                                borderTopLeftRadius: 20,
+                                borderTopRightRadius: 20,
+                                borderWidth: 1,
+                                borderColor: Colors.gray,
+                                flexWrap: "wrap",
+                              }}>
+                              <ScrollView style={{ width: "100%" }}>
+                                <View style={{ alignItems: "center", justifyContent: "center" }}>
+                                  <TouchableOpacity onPress={toggleModal}>
+                                    <View
+                                      style={{
+                                        width: 80,
+                                        height: 7,
+                                        backgroundColor: Colors.gray,
+                                        marginTop: 8,
+                                        justifyContent: 'center',
+                                        borderRadius: 100
+                                      }}></View>
+                                  </TouchableOpacity>
+
+                                </View>
+                                <View style={{}}>
+                                  <Text
+                                    style={{
+                                      fontSize: 18,
+                                      fontFamily: "Poppins-SemiBold",
+                                      color: Colors.black,
+                                      marginTop: 10,
+                                      // marginRight: 180
+                                    }}>
+                                    Your Review
+                                  </Text>
+                                  <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text>
+                                  {!isEditing && (
+                                    <TouchableOpacity
+                                      onPress={() => setIsEditing(true)}
+                                      style={{ marginTop: 10 }}>
+                                      <Text style={{ fontSize: 12, color: Colors.darbluec, fontFamily: "Poppins-Regular" }}>Edit</Text>
+                                    </TouchableOpacity>
+                                  )}
+                                </View>
+                                <View style={{ width: '100%', }}>
+                                  <View style={{ width: '100%', alignSelf: 'center' }}>
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        marginTop: 10,
+                                      }}>
+                                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
+                                        Photos Quality Rating :
+                                      </Text>
+                                      <Rating
+                                        type="custom"
+                                        ratingCount={5}
+                                        imageSize={18}
+                                        startingValue={ratingData[0]?.photo_wuality_rating
+                                        }
+                                        ratingBackgroundColor="#c8c7c8"
+                                        onFinishRating={setRating}
+                                        style={styles.rating}
+                                        ratingColor={Colors.surfblur}
+                                      //tintColor="#f1f3f4"
+                                      />
+                                    </View>
+                                  </View>
+
+                                  <View style={{ width: '100%', alignSelf: 'center' }}>
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                      }}>
+                                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
+                                        Description & Details :
+                                      </Text>
+                                      <Rating
+                                        type="custom"
+                                        ratingCount={5}
+                                        imageSize={18}
+                                        startingValue={ratingData[0]?.description_review_stars
+                                        }
+                                        ratingBackgroundColor="#c8c7c8"
+                                        onFinishRating={setRating}
+                                        style={styles.rating}
+                                        ratingColor={Colors.surfblur}
+                                      //tintColor="#f1f3f4"
+                                      />
+                                    </View>
+                                  </View>
+                                  <View style={{ width: '100%', alignSelf: 'center' }}>
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                      }}>
+                                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
+                                        Price Of Property :
+                                      </Text>
+                                      <Rating
+                                        type="custom"
+                                        ratingCount={5}
+                                        imageSize={18}
+                                        startingValue={ratingData[0]?.price_review_stars
+                                        }
+                                        ratingBackgroundColor="#c8c7c8"
+                                        onFinishRating={setRating}
+                                        style={styles.rating}
+                                        ratingColor={Colors.surfblur}
+                                      //tintColor="#f1f3f4"
+                                      />
+                                    </View>
+                                  </View>
+
+                                  <View style={{ width: '100%', alignSelf: 'center' }}>
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                      }}>
+                                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
+                                        General Interest in the property :
+                                      </Text>
+                                      <Rating
+                                        type="custom"
+                                        ratingCount={5}
+                                        imageSize={18}
+                                        startingValue={ratingData[0]?.interest_review_stars
+                                        }
+                                        ratingBackgroundColor="#c8c7c8"
+                                        onFinishRating={setRating}
+                                        style={styles.rating}
+                                        ratingColor={Colors.surfblur}
+                                      //tintColor="#f1f3f4"
+                                      />
+                                    </View>
+                                  </View>
+
+
+
+                                  <View style={{ width: '100%', alignSelf: 'center', overflow: "hidden" }}>
+                                    <Text
+                                      style={{
+                                        fontSize: 18,
+                                        fontFamily: "Poppins-SemiBold",
+                                        color: Colors.black,
+                                        marginTop: 10,
+                                        // marginRight: 180
+                                      }}>
+                                      Review
+                                    </Text>
+                                    <View
+                                      style={{
+                                        width: '100%',
+                                        //height: 100,
+                                        marginTop: 0,
+                                        //justifyContent: 'center',
+                                        flexWrap: "wrap",
+                                        whiteSpace: "pre-wrap",
+                                        wordWrap: "break-word", height: 100, width: "100%", flexWrap: "wrap", overflow: "hidden"
+                                      }}>
+
+
+                                      {isEditing ? (
+                                        <TextInput
+                                          multiline={true}
+                                          style={{
+                                            verticalAlign: "top",
+                                            borderWidth: 1, borderColor: Colors.BorderColor, borderRadius: 8, paddingHorizontal: 12,
+                                            fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", height: 100,
+                                            width: "100%"
+                                          }}
+                                          value={review}
+                                          onChangeText={text => setReview(text)}
+                                          autoFocus
+                                        />
+                                      ) : (
+                                        <TextInput
+
+                                          multiline={true}
+                                          style={{
+                                            verticalAlign: "top",
+                                            borderWidth: 1, borderColor: Colors.BorderColor, borderRadius: 8, paddingHorizontal: 12,
+                                            fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", height: 100,
+                                            width: "100%"
+
+                                          }}>
+                                          {ratingData[0]?.comment_content}
+                                        </TextInput>
+                                      )}
+                                    </View>
+                                  </View>
+                                  <View style={{
+
+                                    width: '100%',
+
+                                    flexDirection: 'row',
+                                    alignItems: "center",
+                                    justifyContent: "flex-end",
+                                    //s paddingHorizontal: 10
+                                  }}>
+                                    {isEditing ? (
+                                      <View style={{
+                                        justifyContent: "flex-end", width: '100%',
+                                        alignItems: "flex-end",
+                                      }}>
+                                        <TouchableOpacity onPress={() => updateReview()} style={{
+                                          height: 50,
+                                          width: '40%',
+                                          borderRadius: 100,
+                                          backgroundColor: Colors.surfblur,
+                                          marginTop: 10,
+                                          flexDirection: 'row',
+                                          alignItems: "center",
+                                          justifyContent: "center",
+                                          marginBottom: 40
+                                        }}>
+                                          <Text style={{
+                                            fontSize: 16,
+                                            // fontWeight: '700',
+                                            color: Colors.white,
+                                            fontFamily: "Poppins-Regular",
+                                          }}>Update</Text>
+                                        </TouchableOpacity>
+                                      </View>
+                                    ) : (
+
+                                      <View style={{
+                                        justifyContent: "flex-end", width: '100%',
+                                        alignItems: "flex-end",
+                                      }}>
+                                        <TouchableOpacity
+                                          onPress={() => addReview()}
+                                          style={{
+                                            height: 50,
+                                            width: '45%',
+                                            borderRadius: 100,
+                                            backgroundColor: Colors.surfblur,
+                                            marginTop: 10,
+                                            flexDirection: 'row',
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            marginBottom: 20
+
+                                          }}>
+                                          <Text
+                                            style={{
+                                              fontSize: 16,
+                                              // fontWeight: '700',
+                                              color: Colors.white,
+                                              fontFamily: "Poppins-Regular",
+                                            }}>
+                                            Submit
+                                          </Text>
+                                        </TouchableOpacity>
+                                      </View>
+                                    )}
+                                  </View>
+
+                                </View>
+                              </ScrollView>
+                            </View>
+
+                          </Modal>
+
+                        </KeyboardAvoidingView>
+
                         <View
                           style={{
                             width: '100%',
@@ -1051,6 +1376,7 @@ const Home = () => {
                             paddingHorizontal: 12,
                           }}>
                           <Text
+
                             style={{
                               fontSize: 15,
                               color: Colors.black,
@@ -1074,197 +1400,188 @@ const Home = () => {
                         backgroundColor: 'white',
                         justifyContent: 'space-between',
                       }}>
-                      {property?.property_bedrooms != '' ? (
-                        <View
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}>
+                        <Image
+                          source={Images.bed}
                           style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                          }}>
-                          <Image
-                            source={Images.bed}
-                            style={{
-                              height: 20,
-                              width: 20,
-                              resizeMode: 'contain',
-                            }}></Image>
-                          <Text
-                            style={{
-                              fontSize: 11,
-                              color: Colors.black,
-                              textAlign: 'center',
-                              fontFamily: 'Poppins-Regular',
-                            }}>
-                            {property?.property_bedrooms} {'Beds'}
-                          </Text>
-                        </View>
-                      ) : null}
-                      {property?.bathroomsfull != '' ? (
-                        <View
+                            height: 20,
+                            width: 20,
+                            resizeMode: 'contain',
+                          }}></Image>
+                        <Text
                           style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
+                            fontSize: 11,
+                            color: Colors.black,
+                            textAlign: 'center',
+                            fontFamily: 'Poppins-Regular',
                           }}>
-                          <Image
-                            source={Images.bath}
-                            style={{
-                              height: 20,
-                              width: 20,
-                              resizeMode: 'contain',
-                            }}></Image>
-                          <Text
-                            style={{
-                              fontSize: 11,
-                              color: Colors.black,
-                              textAlign: 'center',
-                              fontFamily: 'Poppins-Regular',
-                            }}>
-                            {item?.bathroomsfull} {'Baths'}
-                          </Text>
-                        </View>
-                      ) : null}
-                      {property?.property_size != '' ? (
-                        <View
+                          {item?.property_bedrooms.length > 1 ? item?.property_bedrooms : 0}
+                          {' Beds'}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}>
+                        <Image
+                          source={Images.bath}
                           style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                          }}>
-                          <Image
-                            source={Images.measuring}
-                            style={{
-                              height: 20,
-                              width: 20,
-                              resizeMode: 'contain',
-                            }}></Image>
-                          <Text
-                            style={{
-                              fontSize: 11,
-                              color: Colors.black,
-                              textAlign: 'center',
-                              fontFamily: 'Poppins-Regular',
-                            }}>
-                            {property?.property_size}
-                            {'sq ft'}
-                          </Text>
-                        </View>
-                      ) : null}
-                      {property?.associationfee != '' ? (
-                        <View
+                            height: 20,
+                            width: 20,
+                            resizeMode: 'contain',
+                          }}></Image>
+                        <Text
                           style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
+                            fontSize: 11,
+                            color: Colors.black,
+                            textAlign: 'center',
+                            fontFamily: 'Poppins-Regular',
                           }}>
-                          <Text
-                            style={{
-                              fontSize: 12,
-                              color: Colors.black,
-                              textAlign: 'center',
-                              fontWeight: 'bold',
-                            }}>
-                            {'HOA'}
-                          </Text>
-                          <Text
-                            style={{
-                              fontSize: 11,
-                              color: Colors.black,
-                              marginTop: 6,
-                              textAlign: 'center',
-                              fontFamily: 'Poppins-Regular',
-                            }}>
-                            {item?.associationfee == null
-                              ? 0
-                              : item?.associationfee}{"0"}
-                          </Text>
-                        </View>
-                      ) : null}
-                      {item?.property_size != '' ? (
-                        <View
+                          {item?.bathroomsfull.length > 1 ? item?.bathroomsfull : 0}
+
+                          {' Baths'}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}>
+                        <Image
+                          source={Images.measuring}
                           style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
+                            height: 20,
+                            width: 20,
+                            resizeMode: 'contain',
+                          }}></Image>
+                        <Text
+                          style={{
+                            fontSize: 11,
+                            color: Colors.black,
+                            textAlign: 'center',
+                            fontFamily: 'Poppins-Regular',
                           }}>
-                          <Image
-                            source={Images.tax}
-                            style={{
-                              height: 20,
-                              width: 20,
-                              marginTop: 0,
-                              resizeMode: 'contain',
-                            }}></Image>
-                          <Text
-                            style={{
-                              fontSize: 11,
-                              color: Colors.black,
-                              textAlign: 'center',
-                              fontFamily: 'Poppins-Regular',
-                            }}>
-                            {property?.taxannualamount == null
-                              ? 0
-                              : property?.taxannualamount}
-                          </Text>
-                        </View>
-                      ) : null}
+                          {item?.property_size.length > 1 ? item?.property_size : 0}{" sq ft"}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}>
+                        <Text
+                          style={{
+                            fontSize: 12,
+                            color: Colors.black,
+                            textAlign: 'center',
+                            fontWeight: 'bold',
+                          }}>
+                          {'HOA'}
+                        </Text>
+                        <Text
+                          style={{
+                            fontSize: 11,
+                            color: Colors.black,
+                            marginTop: 6,
+                            textAlign: 'center',
+                            fontFamily: 'Poppins-Regular',
+                          }}>
+                          {item?.associationfee.length > 1 ? item?.associationfee : "$" + 0}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}>
+                        <Image
+                          source={Images.tax}
+                          style={{
+                            height: 20,
+                            width: 20,
+                            marginTop: 0,
+                            resizeMode: 'contain',
+                          }}></Image>
+                        <Text
+                          style={{
+                            fontSize: 11,
+                            color: Colors.black,
+                            textAlign: 'center',
+                            fontFamily: 'Poppins-Regular',
+                          }}>
+                          {item?.taxannualamount.length > 1 ? item?.taxannualamount : "$" + 0}
+
+                        </Text>
+                      </View>
                     </View>
                   </View>
                 )}
               />
-            </View> :
-            <View style={{ height: '100%', width: width, marginTop: 10 }}>
-              <View style={styles.coverlocation}>
-                <Image source={Images.graylocation} style={styles.locationpic}></Image>
+            </View> : showMap ?
+              <View style={{ height: '100%', width: width, marginTop: 10 }}>
+                <View style={styles.coverlocation}>
+                  <Image source={Images.graylocation} style={styles.locationpic}></Image>
 
-              </View>
-              <TouchableOpacity style={styles.coverlocation1} onPress={() => { setIsCollapsed(!isCollapsed) }}>
-                <Image source={Images.layers} style={styles.locationpic}></Image>
-
-              </TouchableOpacity>
-              <Collapsible collapsed={!isCollapsed}>
-                <View >
-                  <TouchableOpacity onPress={() => { setMapType('satellite') }}><Image tintColor={mapType === 'satellite' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.layers} style={styles.locationpic}></Image></TouchableOpacity>
-                  <TouchableOpacity onPress={() => { setMapType('hybrid') }}><Image tintColor={mapType === 'hybrid' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.layers} style={styles.locationpic}></Image></TouchableOpacity>
-                  <TouchableOpacity onPress={() => { setMapType('terrain') }}><Image tintColor={mapType === 'terrain' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.layers} style={styles.locationpic}></Image></TouchableOpacity>
-                  <TouchableOpacity onPress={() => { setMapType('standard') }}><Image tintColor={mapType === 'standard' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.layers} style={styles.locationpic}></Image></TouchableOpacity>
                 </View>
+                <View style={{ position: "absolute", zIndex: 99, right: 12, top: 60 }}>
+                  <TouchableOpacity style={styles.coverlocation1} onPress={() => { setIsCollapsed(!isCollapsed) }}>
+                    <Image source={Images.layers} style={styles.locationpic}></Image>
 
-              </Collapsible>
-              <MapView
-                provider={PROVIDER_GOOGLE}
-                style={styles.map}
-                zoomControlEnabled={true}
-                showsCompass={true}
-                mapType={mapType}
-                showsMyLocationButton={true}
-                region={{
-                  latitude: parseFloat(markers[0].coordinates.latitude),
-                  longitude: parseFloat(markers[0].coordinates.longitude),
-                  latitudeDelta: 0.015,
-                  longitudeDelta: 0.0121,
-                }}
-              >
+                  </TouchableOpacity>
+                  <Collapsible collapsed={!isCollapsed} style={{ backgroundColor: Colors.white, alignItems: "center", justifyContent: "center", position: "relative", paddingVertical: 12 }}>
+                    <View style={{ backgroundColor: Colors.white, alignItems: "center", justifyContent: "center", }}>
+                      <TouchableOpacity onPress={() => { setMapType('satellite') }}><Image tintColor={mapType === 'satellite' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.layers} style={styles.locationpic}></Image></TouchableOpacity>
+                      <TouchableOpacity onPress={() => { setMapType('hybrid') }}><Image tintColor={mapType === 'hybrid' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.layers} style={styles.locationpic}></Image></TouchableOpacity>
+                      <TouchableOpacity onPress={() => { setMapType('terrain') }}><Image tintColor={mapType === 'terrain' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.layers} style={styles.locationpic}></Image></TouchableOpacity>
+                      <TouchableOpacity onPress={() => { setMapType('standard') }}><Image tintColor={mapType === 'standard' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.layers} style={styles.locationpic}></Image></TouchableOpacity>
+                    </View>
 
-                {
-                  markers.map((item) => {
-                    return (
-                      <Marker coordinate={{ latitude: item.coordinates.latitude, longitude: item.coordinates.longitude }} />
-                    )
-                  })
-                }
+                  </Collapsible>
+                </View>
+                <MapView
+                  provider={PROVIDER_GOOGLE}
+                  style={styles.map}
+                  zoomControlEnabled={true}
+                  showsCompass={true}
+                  mapType={mapType}
+                  showsMyLocationButton={true}
+                  region={{
+                    latitude: parseFloat(markers[0].coordinates.latitude),
+                    longitude: parseFloat(markers[0].coordinates.longitude),
+                    latitudeDelta: 0.015,
+                    longitudeDelta: 0.0121,
+                  }}
+                >
 
-                {
-                  markers.map((item) => {
-                    return (
-                      <Circle
-                        center={{ latitude: item.coordinates.latitude, longitude: item.coordinates.longitude }}
-                        radius={100}
-                        fillColor="rgba(255, 0, 0, 0.2)"
-                        strokeColor="rgba(255, 0, 0, 0.5)"
-                        strokeWidth={2}
-                      />
-                    )
-                  })
-                }
+                  {
+                    markers.map((item) => {
+                      return (
+                        <Marker coordinate={{ latitude: item.coordinates.latitude, longitude: item.coordinates.longitude }} />
+                      )
+                    })
+                  }
 
-              </MapView>
-            </View>
+                  {
+                    markers.map((item) => {
+                      return (
+                        <Circle
+                          center={{ latitude: item.coordinates.latitude, longitude: item.coordinates.longitude }}
+                          radius={100}
+                          fillColor="rgba(255, 0, 0, 0.2)"
+                          strokeColor="rgba(255, 0, 0, 0.5)"
+                          strokeWidth={2}
+                        />
+                      )
+                    })
+                  }
+
+                </MapView>
+              </View> : null
         }
 
       </View>
@@ -1296,10 +1613,11 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   coverlocation1: {
-    backgroundColor: "rgba(255,255,255,.8)", height: 38, width: 35, position: "absolute", top: 55, zIndex: 99,
+    backgroundColor: "rgba(255,255,255,.8)", height: 38, width: 35,
+    //position: "absolute", top: 55, zIndex: 99,
     alignItems: "center",
     justifyContent: "center", borderRadius: 3,
-    right: 12,
+    // right: 12,
     shadowOffset: { width: -2, height: 4 },
     shadowColor: '#171717',
     shadowOpacity: 0.2,
@@ -1344,8 +1662,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   slideOuter: {
-    // width: screenWidth,
-    // height: 300,Platform.select({
     android: {
       elevation: 1,
     },
@@ -1407,7 +1723,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  //fliter
   filter: {
     height: 60,
   },
@@ -1436,11 +1751,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#0065C4",
   },
   cardContainer: {
-    // flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // overflow: 'hidden',
-    // Adjust the margin-bottom as needed to create spacing between cards
     zIndex: 1,
   },
   card: {

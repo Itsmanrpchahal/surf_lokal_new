@@ -84,13 +84,11 @@ const Settings = props => {
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
   const detials = props.route.params.data;
-  console.log('value check', detials);
 
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
     setToggle(!isEnabled);
   }
-  console.log(toggle)
   useEffect(() => {
     setUserName(detials[0].username);
     setAddres(detials[0].address);
@@ -110,15 +108,11 @@ const Settings = props => {
     data.append('user_address', address);
     data.append('mobile', mob);
     data.append('email_notification', toggle)
-    console.log(data, "jnjjnijj")
     try {
       var res = await axios.post(
         'https://surf.topsearchrealty.com/webapi/v1/userprofile/profileupdate.php',
         data,
       );
-
-      console.log('--ppp', res.data);
-      // console.log('--ppp', typeof res.status);
 
       if (res.status == 200) {
         setLoading(false);
@@ -130,7 +124,6 @@ const Settings = props => {
       }
     } catch (err) {
       setLoading(false);
-      console.log('err', err);
     }
   };
 

@@ -54,12 +54,9 @@ export default function ForgotPassword({navigation}) {
         email: emailId,
       };
       dispatch(emailCheck(data)).then(response => {
-        console.log('res', response);
-        console.log('res', response.payload);
         if (response.payload.success) {
           setresetPasswordScreen(false);
           setUserId(response.payload.data.UserID);
-          console.log('user id', response.payload.data.UserID);
         } else {
           Alert.alert('Alert', 'Yor are not register with us please register ');
         }
@@ -80,8 +77,6 @@ export default function ForgotPassword({navigation}) {
         confirm_pass: confirmPassword,
       };
       dispatch(forgotPassword(data)).then(response => {
-        console.log('res', response);
-        console.log('res', response.payload);
         if (response.payload.success) {
           navigation.goBack();
         } else {

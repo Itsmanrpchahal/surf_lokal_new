@@ -66,10 +66,7 @@ const ViewPropertiyImage = props => {
     setIsScrolled(offsetY > 0);
   };
   const postID = props.route.params;
-  console.log(postID.postid, 'ViewPropertiyImage Props');
   const property = data[0];
-  console.log(property, 'ViewPropertiyImage dataa');
-
   useEffect(() => {
     getPopertiesDetailsApiCall();
     getAgentApicall();
@@ -93,15 +90,12 @@ const ViewPropertiyImage = props => {
   const getPopertiesDetailsApiCall = () => {
     setLoading(true);
     dispatch(getPopertiesDetails(postID.postid)).then(response => {
-      console.log('ViewPropertiyImage Response', response);
       setLoading(false);
       setData(response.payload.data);
-      console.log(data, 'dddddddddddddddddddddd');
     });
   };
   const getAgentApicall = () => {
     dispatch(getAgent()).then(response => {
-      console.log('rrrohan', response.payload.data);
       setAgentData(response.payload.data);
     });
   };
@@ -128,9 +122,7 @@ const ViewPropertiyImage = props => {
     formData.append('price_review_stars', rating);
     formData.append('interest_review_stars', rating);
     formData.append('reviewtitle', reviewTitle);
-    console.log(formData, 'rkrkrk');
     dispatch(postUpdateRating(formData)).then(response => {
-      console.log('kkk', response.payload);
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
@@ -153,9 +145,7 @@ const ViewPropertiyImage = props => {
     formData.append('price_review_stars', rating);
     formData.append('interest_review_stars', rating);
     formData.append('reviewtitle', reviewTitle);
-    console.log(formData, 'formdataformdata');
     dispatch(postRating(formData)).then(response => {
-      console.log('res', response.payload);
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
@@ -188,7 +178,6 @@ const ViewPropertiyImage = props => {
             <WebView
               style={{ height: 400, width: '100%' }}
               source={{ uri: property?.property_gallery.property_video }}
-              // onLoad={console.log("loaded")}
               mediaPlaybackRequiresUserAction={false}
             />
 

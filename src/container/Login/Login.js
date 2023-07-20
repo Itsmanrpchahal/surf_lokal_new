@@ -86,7 +86,6 @@ export default function Login({ navigation }) {
   };
   const getCountryApiCall = () => {
     dispatch(getCountry()).then(response => {
-      //console.log('res', response);
       setCountries(response.payload.data);
     });
   };
@@ -110,8 +109,6 @@ export default function Login({ navigation }) {
 
       setLoading(true);
       dispatch(googleUser(formdata)).then(response => {
-        // console.log('res', response);
-        // console.log('res', response.payload);
 
         if (response.payload.success) {
           setLoading(false);
@@ -147,15 +144,12 @@ export default function Login({ navigation }) {
     //   'This is an email login without a password.',
     // )
     //   .then(() => {
-    //     console.log('Email sent successfully!');
     //   })
     //   .catch(error => {
-    //     console.log('Error:', error);
     //   });
     setWithEmail(true);
   };
   const handleAppleLogin = async () => {
-    console.log('apple login');
     // try {
     //   const appleAuthRequestResponse = await AppleAuth.performRequest({
     //     requestedOperation: AppleAuthRequestOperation.LOGIN,
@@ -166,10 +160,8 @@ export default function Login({ navigation }) {
     //   });
 
     //   // handle success
-    //   console.log(appleAuthRequestResponse);
     // } catch (error) {
     //   // handle error
-    //   console.log(error);
     // }
   };
 
@@ -190,9 +182,7 @@ export default function Login({ navigation }) {
       }
       const { accessToken } = data;
       // Use the access token to make requests to the Facebook API
-      console.log(accessToken);
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -208,8 +198,6 @@ export default function Login({ navigation }) {
         };
         setLoading(true);
         dispatch(loginUser(data)).then(response => {
-          console.log('res', response);
-          console.log('res', response.payload);
 
           if (response.payload.status) {
             setLoading(false);
@@ -221,7 +209,6 @@ export default function Login({ navigation }) {
         });
       } else {
         setLoading(false);
-        console.log(phoneNumber.current);
         // navigation.navigate('OtpScreen');
       }
     } else Alert.alert('Alert', 'Enter email and password');
@@ -300,7 +287,6 @@ export default function Login({ navigation }) {
                   returnKeyType="done"
                   secureTextEntry={false}
                   maxLength={12}
-                  onChangeText={text => console.log(text)}
                 />
               </View>
             </View>

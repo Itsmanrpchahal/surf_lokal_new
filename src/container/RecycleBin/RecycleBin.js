@@ -34,6 +34,8 @@ import { getAgent } from '../../modules/getAgent';
 import { getRating } from '../../modules/getRating';
 import { postUpdateRating } from '../../modules/postUpdateRating';
 import * as Animatable from 'react-native-animatable';
+import { useIsFocused } from '@react-navigation/native';
+
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -45,6 +47,8 @@ const imageSizeRation = screenHeight / 1000;
 
 
 const RecycleBin = () => {
+  const isFocused = useIsFocused();
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [data, setHomeData] = useState([]);
   const [index, setIndex] = useState(0);
@@ -77,9 +81,7 @@ const RecycleBin = () => {
     formData.append('price_review_stars', rating);
     formData.append('interest_review_stars', rating);
     formData.append('reviewtitle', reviewTitle)
-    console.log(formData, "rkrkrk");
     dispatch(postUpdateRating(formData)).then((response) => {
-      console.log('kkk', response.payload);
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
@@ -102,9 +104,7 @@ const RecycleBin = () => {
     formData.append('price_review_stars', rating);
     formData.append('interest_review_stars', rating);
     formData.append('reviewtitle', reviewTitle)
-    console.log(formData, "formdataformdata");
     dispatch(postRating(formData)).then(response => {
-      console.log('res', response.payload);
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
@@ -119,36 +119,33 @@ const RecycleBin = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    getTrashApiCall();
-    getAgentApicall();
-
-  }, []);
-  useEffect(() => {
-    getRatingApicall();
-  }, [])
-
+    if(isFocused)
+    {
+      Promise.all[
+        getTrashApiCall(),
+        getAgentApicall(),
+        getRatingApicall
+      ]
+    }
+    
+  }, [isFocused]);
   const getTrashApiCall = () => {
     dispatch(getTrash()).then(response => {
-      console.log('res--', response.payload.data);
       if (response.payload.data === 'Record not found!') {
         setShowNoDataMessage(true);
       } else {
-        setHomeData(response.payload.data);
+        setHomeData(response.payload.data).reverse();
       }
     });
 
   };
   const getAgentApicall = () => {
     dispatch(getAgent()).then(response => {
-      console.log('rrrohan', response.payload.data);
       setAgentData(response.payload.data);
-
-
     });
   }
   const getRatingApicall = () => {
     dispatch(getRating()).then(response => {
-      console.log('MMM', response.payload.data)
       setRatingData(response.payload.data)
     })
   }
@@ -179,15 +176,11 @@ const RecycleBin = () => {
   };
 
 
-  // const [data, setData] = useState(images);
-
-
-
   const renderItem = ({ item }) => (
 
     <View style={styles.slideOuter}>
       <TouchableOpacity onPress={() => { navigation.navigate('ViewPropertiy', { item }) }}>
-        <Image source={{ uri: item.featured_image_src }} style={styles.slide} />
+        <Image source={{ uri: item.featured_image_src[0].guid }} style={styles.slide} />
       </TouchableOpacity>
 
       <View
@@ -786,7 +779,7 @@ const RecycleBin = () => {
                 color: Colors.textColorDark,
                 fontFamily: 'Poppins-Regular',
               }}>
-              No favourite file data found!
+              No Bin file data found!
             </Text>
           </View>
         ) : (

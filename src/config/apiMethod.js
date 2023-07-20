@@ -12,7 +12,6 @@ export const postAPI = async (
   const connection = true;
   /* If successfully connected */
   if (connection) {
-    // console.log(data, 'apidata');
     return axios({
       method: 'post',
       url: url,
@@ -55,7 +54,6 @@ export const getAPI = async (
   Authorization = {},
 ) => {
   /* Checking for Internet connection */
-  console.log('print value', url, header, Authorization);
   const connection = true;
   /* If successfully connected */
   if (connection) {

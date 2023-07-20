@@ -70,10 +70,8 @@ export default function Register({navigation}) {
       } else {
         if (emailId == '') {
           Alert.alert('Enter Email Address');
-          console.log('Enter Email Address');
         } else {
           Alert.alert('Email is Invalid');
-          console.log('Email is invalid');
         }
       }
       //
@@ -88,8 +86,6 @@ export default function Register({navigation}) {
       password: password,
     };
     dispatch(register(data)).then(response => {
-      console.log('res', response);
-      console.log('res', response.payload);
       if (response.payload.success == true) {
         Alert.alert(response.payload.message);
         navigation.goBack();

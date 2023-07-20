@@ -1,17 +1,16 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {getAPI, uploadImageAPI} from '../config/apiMethod';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const getPoperties = createAsyncThunk('getPoperties', async type => {
-  console.log(JSON.stringify(type) + '======', 'typppppppppppppp');
+  const id = await AsyncStorage.getItem('userId')
   return type.type === 0
-    ? await getAPI('https://surf.topsearchrealty.com/webapi/v1/property')
+    ? await getAPI('https://surf.topsearchrealty.com/webapi/v1/property?userID='+id)
         .then(async response => {
           const {data} = response;
-          console.log('property datat', response.data.data);
           return data;
         })
         .catch(e => {
-          console.log(e, 'getPoperties');
         })
     : type.type === 1
     ? await uploadImageAPI(
@@ -20,14 +19,12 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
       )
         .then(async response => {
           const {data} = response;
-          console.log('value1', response.data);
           return data;
         })
         .catch(e => {
-          console.log('tyep 1', e, 'nearby gps');
         })
-    : await getAPI(
-        'https://surf.topsearchrealty.com/webapi/v1/search/insert_search.php',
+    : await uploadImageAPI(
+        'https://surf.topsearchrealty.com/wp-json/search/websearch',
         type.data,
       )
         .then(async response => {
@@ -35,7 +32,6 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
           return data;
         })
         .catch(e => {
-          console.log(e, 'search');
         });
 });
 

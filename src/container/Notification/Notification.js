@@ -25,15 +25,12 @@ const Notification = () => {
 
   const fetchNotifications = async () => {
     const id = await AsyncStorage.getItem('userId');
-    console.log(id, "Agent id");
     try {
       const response = await axios.get('https://surf.topsearchrealty.com/webapi/v1/notifications/?userID=' + id);
       const responseData = response.data;
       const nestedData = responseData.data[0];
       setData(nestedData);
-      console.log(nestedData);
     } catch (error) {
-      console.log(error);
     }
   };
 

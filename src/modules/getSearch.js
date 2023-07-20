@@ -18,13 +18,9 @@ export const getSearch = createAsyncThunk('getSearch', async dispatch => {
       return data;
     })
     .catch(e => {
-      console.log(e);
       if (e.response) {
-        console.log('api issue', e.response);
       } else if (e.request) {
-        console.log('api issue', e.response);
       } else {
-        console.log('api issue', e.response);
       }
     });
 });

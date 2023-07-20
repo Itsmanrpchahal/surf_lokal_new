@@ -5,7 +5,6 @@ import { url } from "../config/url";
 export const getPopertiesDetails = createAsyncThunk(
   "getPropertiesDetails",
   async (postid) => {
-    console.log(postid, "getPropertiesDetails postid");
     const urlDynamic =
       "https://surf.topsearchrealty.com/webapi/v1/singleproperty/?Post_Id=" + postid;
     return await getAPI(urlDynamic)
@@ -14,13 +13,9 @@ export const getPopertiesDetails = createAsyncThunk(
         return data;
       })
       .catch((e) => {
-        console.log(e);
         if (e.response) {
-          console.log("api issue", e.response);
         } else if (e.request) {
-          console.log("api issue", e.response);
         } else {
-          console.log("api issue", e.response);
         }
       });
   }
