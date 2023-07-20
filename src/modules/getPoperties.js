@@ -1,9 +1,11 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {getAPI, uploadImageAPI} from '../config/apiMethod';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const getPoperties = createAsyncThunk('getPoperties', async type => {
+  const id = await AsyncStorage.getItem('userId')
   return type.type === 0
-    ? await getAPI('https://surf.topsearchrealty.com/webapi/v1/property')
+    ? await getAPI('https://surf.topsearchrealty.com/webapi/v1/property?userID='+id)
         .then(async response => {
           const {data} = response;
           return data;

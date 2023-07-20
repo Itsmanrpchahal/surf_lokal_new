@@ -176,15 +176,11 @@ const RecycleBin = () => {
   };
 
 
-  // const [data, setData] = useState(images);
-
-
-
   const renderItem = ({ item }) => (
 
     <View style={styles.slideOuter}>
       <TouchableOpacity onPress={() => { navigation.navigate('ViewPropertiy', { item }) }}>
-        <Image source={{ uri: item.featured_image_src }} style={styles.slide} />
+        <Image source={{ uri: item.featured_image_src[0].guid }} style={styles.slide} />
       </TouchableOpacity>
 
       <View

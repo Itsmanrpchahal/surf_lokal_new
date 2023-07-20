@@ -24,6 +24,7 @@ import chatGptReducer from '../modules/chatGpt';
 import makeOfferReducer from '../modules/makeOffer';
 import addFavoriteReducer from '../modules/addToFavorite';
 import addRemoveTrash from '../modules/addRemoveTrash';
+import getMoreFilter from '../modules/getMoreFilter'
 export const store = configureStore({
   reducer: {
     loginUser: loginUserReducer,
@@ -51,6 +52,7 @@ export const store = configureStore({
     makeOffer: makeOfferReducer,
     addFavorite: addFavoriteReducer,
     addRemoveTrash: addRemoveTrash,
+    getMoreFilter:getMoreFilter
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

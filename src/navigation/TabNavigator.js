@@ -161,7 +161,8 @@ function CustomTabBar({ state, descriptors, navigation }) {
     <View
       style={{
         width: '100%',
-        height: "11%",
+        // height:50,
+        height: "9%",
         backgroundColor: Colors.white,
         justifyContent: 'center',
         borderTopColor: Colors.gray,
@@ -217,16 +218,17 @@ function CustomTabBar({ state, descriptors, navigation }) {
           const getIconStyle = () => {
             if (route.name === 'Home') {
               return {
-                height: 65,
-                width: 60,
+                height: 55,
+                width: 45,
+                marginTop:10,
 
                 tintColor: isFocused ? Colors.primaryBlue : Colors.textColorDark,
 
               };
             }
             return {
-              height: 28,
-              width: 28,
+              height: 25,
+              width: 25,
               tintColor: isFocused ? Colors.primaryBlue : Colors.textColorDark,
             };
           };
@@ -265,6 +267,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
                 style={{
                   color: isFocused ? Colors.primaryBlue : Colors.textColorDark,
                   fontSize: 12, fontFamily: 'Poppins-Regular',
+                  marginBottom:8
                 }}>
                 {label}
               </Text>
