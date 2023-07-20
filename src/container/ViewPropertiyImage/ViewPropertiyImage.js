@@ -230,7 +230,7 @@ const ViewPropertiyImage = props => {
               alignItems: "center",
               justifyContent: "center",
             }}
-            onPress={() => navigation.navigate("MyProfile")}
+            onPress={() => navigation.goBack()}
           >
             <Animatable.Image
               source={Images.whiteclose}
@@ -250,9 +250,9 @@ const ViewPropertiyImage = props => {
         style={{
           flexDirection: 'row',
           width: '100%',
-          height: 70,
+          height: 50,
           marginTop: 10,
-          justifyContent: 'center',
+          justifyContent: 'space-between',
           borderTopWidth: 1,
 
           borderTopColor: Colors.textColorLight,
@@ -261,7 +261,7 @@ const ViewPropertiyImage = props => {
         }}>
         <View
           style={{
-            justifyContent: 'space-evenly',
+            justifyContent: 'space-around',
             alignItems: 'center',
             alignContent: 'center',
             width: '50%',
@@ -278,6 +278,7 @@ const ViewPropertiyImage = props => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 alignContent: 'center',
+                marginRight:10
               }}
               onPress={() => {
                 // setProductId(postID.postid.ID);
@@ -288,7 +289,7 @@ const ViewPropertiyImage = props => {
               <Image
                 source={Images.call}
                 style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
-              <Text
+              {/* <Text
                 style={{
                   fontSize: 14,
                   color: Colors.black,
@@ -297,7 +298,7 @@ const ViewPropertiyImage = props => {
                   fontFamily: 'Poppins-Regular',
                 }}>
                 Call
-              </Text>
+              </Text> */}
             </TouchableOpacity>
           </View>
           <View
@@ -316,7 +317,7 @@ const ViewPropertiyImage = props => {
               <Image
                 source={Images.chat}
                 style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
-              <Text
+              {/* <Text
                 style={{
                   fontSize: 14,
                   color: Colors.black,
@@ -325,7 +326,7 @@ const ViewPropertiyImage = props => {
                   fontFamily: 'Poppins-Regular',
                 }}>
                 Chat
-              </Text>
+              </Text> */}
             </TouchableOpacity>
           </View>
         </View>
@@ -345,10 +346,11 @@ const ViewPropertiyImage = props => {
               justifyContent: 'center',
               alignItems: 'center',
               flexDirection: 'row',
-              backgroundColor: Colors.primaryBlue,
-              borderRadius: 14,
+              backgroundColor: Colors.surfblur,
+              borderRadius: 20,
               height: 40,
               width: '80%',
+              marginLeft:20
             }}
           >
             <Image
