@@ -226,8 +226,8 @@ const ViewPropertiyImage = props => {
               top: -6,
 
               backgroundColor: Colors.surfblur,
-              height: 37,
-              width: 37,
+              height: 25,
+              width: 25,
               borderRadius: 100,
               alignItems: "center",
               justifyContent: "center",
@@ -237,8 +237,8 @@ const ViewPropertiyImage = props => {
             <Animatable.Image
               source={Images.whiteclose}
               style={{
-                height: 12,
-                width: 12,
+                height: 10,
+                width: 10,
                 resizeMode: 'contain',
                 tintColor: Colors.white,
               }}
@@ -337,12 +337,8 @@ const ViewPropertiyImage = props => {
             </TouchableOpacity>
           </View>
         </View>
-        <View
-          style={{
-
-           // width: '50%',
-          }}>
-          <TouchableOpacity
+       
+        <TouchableOpacity
             onPress={() => {
               navigation.navigate('ChatSearch', {
                 initialMessage: 'When would you like to schedule a showing?',
@@ -353,13 +349,12 @@ const ViewPropertiyImage = props => {
               justifyContent: 'center',
               alignItems: 'center',
               flexDirection: 'row',
+              alignSelf:'center',
               backgroundColor: Colors.surfblur,
               borderRadius: 20,
-             // height: 40,
-             // width: '80%',
-             // marginLeft:20,
-              paddingVertical:6,
-              paddingHorizontal:12,paddingBottom:10,
+            paddingVertical:8,
+              paddingHorizontal:12,
+              lineHeight:12,
               marginRight:6
             }}
           >
@@ -372,18 +367,21 @@ const ViewPropertiyImage = props => {
             />
             <Text
               style={{
-                fontSize: 10,
+                fontSize: 12,
                 color: Colors.white,
                 textAlign: 'center',
                 marginLeft: 5,
                 fontFamily: 'Poppins-Regular',
+              //  paddingTop:2
+              position:"relative",
+              top:2
               }}
             >
               SCHEDULE A SHOWING
             </Text>
           </TouchableOpacity>
 
-        </View>
+      
       </View>
       <Modal
         transparent={true}
@@ -760,7 +758,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     // backgroundColor: "yellow"
-    backgroundColor: Colors.PrimaryColor,
+    backgroundColor: Colors.primaryBlue,
   },
 });
 
