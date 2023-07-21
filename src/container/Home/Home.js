@@ -1021,7 +1021,7 @@ const Home = () => {
                                   // borderRadius: 8
                                   overflow: "hidden"
                                 }}
-                                source={{ uri: item.featured_image_src[imageIndex].guid }}
+                                source={{ uri: item?.featured_image_src[imageIndex]?.guid }}
                               />
                             </TouchableOpacity>
 

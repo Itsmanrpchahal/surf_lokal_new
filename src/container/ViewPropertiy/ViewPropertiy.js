@@ -667,10 +667,10 @@ const ViewPropertiy = (props, imageUrl) => {
                                 style={{
                                   top: 0,
                                   // marginLeft: 8,
-                                  height: width - (viewHeight - 22), width: width, backgroundColor: "green",
+                                  height: width - (viewHeight -20), width: width, backgroundColor: "green",
                                   // paddingHorizontal: 8,
                                   //  borderTopLeftRadius: 8, borderTopRightRadius: 8, marginTop: -5, 
-                                  overflow: "hidden", position: "absolute", top: 0
+                                  overflow: "hidden", position: "absolute", top: -47
                                 }}>
                                 <View style={{
                                   position: "absolute",
@@ -712,7 +712,8 @@ const ViewPropertiy = (props, imageUrl) => {
                                   // borderTopLeftRadius: 8, borderTopRightRadius: 8,
                                   //   marginTop: -5, 
 
-                                  overflow: "hidden"
+                                  overflow: "hidden",
+                                  top:-48
                                 }}>
                                 <View style={{
                                   position: "absolute",
@@ -747,7 +748,7 @@ const ViewPropertiy = (props, imageUrl) => {
                             }}
                             onSwipedRight={() => { savefile(property.ID) }}
                             renderCard={(item, index) => (
-                              <View style={styles.shadowProp}>
+                              <View>
                                 <TouchableOpacity
                                   onPress={() => navigation.navigate('ViewPropertiyImage', { postid: postid.item.ID })}>
                                   <Image
@@ -765,23 +766,14 @@ const ViewPropertiy = (props, imageUrl) => {
                                     source={{ uri: property?.featured_image_src }}
                                   />
                                 </TouchableOpacity>
-                              </View>
-                            )}
-                          />
-
-                        </View>
-                      
-
-                        
-
-                          <View
+                                <View
                             style={{
                               flexDirection: 'row',
-                              width: '100%',
+                              width: width,
                               justifyContent: 'space-between',
                               alignItems: 'center',
                               backgroundColor: Colors.white,
-                              paddingHorizontal: 12,
+                           paddingHorizontal: 12,
                               paddingVertical: 12,
                             }}>
                             <View
@@ -837,6 +829,7 @@ const ViewPropertiy = (props, imageUrl) => {
                               />
                             </TouchableOpacity>
                           </View>
+                          
                           <View
                             style={{
                               justifyContent: 'space-between',
@@ -859,15 +852,26 @@ const ViewPropertiy = (props, imageUrl) => {
                                   textAlign: 'center',
                                   fontFamily: 'Poppins-Medium',
                                 }}>
-                                {item.title}
+                                {property.title}
                               </Text>
                             </View>
 
                         </View>
 
+                              </View>
+                            )}
+                          />
+
+                        </View>
+                      
+
+                        
+
+                 
+
                       </View>
 
-                      <KeyboardAvoidingView >
+                     <KeyboardAvoidingView >
 
                         <Modal
                           transparent={true}
@@ -1155,7 +1159,7 @@ const ViewPropertiy = (props, imageUrl) => {
 
                         </Modal>
 
-                      </KeyboardAvoidingView>
+                      </KeyboardAvoidingView> 
 
                       <View style={{
                         flexDirection: 'row',
@@ -1173,7 +1177,7 @@ const ViewPropertiy = (props, imageUrl) => {
                               //paddingHorizontal: 12,
                               justifyContent: 'space-between',
                               // marginBottom: 12,
-
+marginTop:40,
                               width: "100%",
                               alignSelf: "center"
                             }}>
