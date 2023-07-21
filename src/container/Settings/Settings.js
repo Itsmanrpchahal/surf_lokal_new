@@ -171,8 +171,8 @@ const Settings = props => {
             marginLeft: 12,
 
             backgroundColor: Colors.surfblur,
-            height: 37,
-            width: 37,
+            height: 25,
+            width: 25,
             borderRadius: 100,
             alignItems: "center",
             justifyContent: "center",
@@ -181,8 +181,8 @@ const Settings = props => {
         >
           <Animatable.Image source={Images.whiteclose}
             style={{
-              height: 12,
-              width: 12,
+              height: 10,
+              width: 10,
               resizeMode: 'contain',
               tintColor: Colors.white,
             }}

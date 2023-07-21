@@ -35,8 +35,8 @@ const ChatSearch = () => {
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={{
-            height: 37,
-            width: 37,
+            height: 25,
+            width: 25,
             borderRadius: 100,
             flexDirection: "row",
             justifyContent: "center",
@@ -47,8 +47,8 @@ const ChatSearch = () => {
         >
           <Image
             style={{
-              height: 12,
-              width: 12,
+              height: 10,
+              width: 10,
               resizeMode: "contain",
               tintColor: Colors.white,
             }}

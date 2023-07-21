@@ -25,6 +25,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useRoute } from '@react-navigation/native';
+import * as Animatable from 'react-native-animatable';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -66,19 +67,21 @@ console.log('video',videoView)
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ height: '100%', width: '100%', justifyContent: 'center' }}>
-        <View
+      <View
           style={{
             flexDirection: 'row',
             width: '90%',
             alignSelf: 'center',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
             overflow: 'visible',
             zIndex: 99,
             position: 'absolute',
             top: 10,
           }}>
-           <TouchableOpacity
+
+          <TouchableOpacity
             style={{
               alignItems: 'center',
               position: "absolute",
@@ -86,20 +89,24 @@ console.log('video',videoView)
               top: -6,
 
               backgroundColor: Colors.surfblur,
-              height: 37,
-              width: 37,
+              height: 25,
+              width: 25,
               borderRadius: 100,
               alignItems: "center",
               justifyContent: "center",
             }}
-            onPress={() => navigation.goBack()}>
-            <Image source={Images.whiteclose}
+            onPress={() => navigation.goBack()}
+          >
+            <Animatable.Image
+              source={Images.whiteclose}
               style={{
-                height: 12,
-                width: 12,
+                height: 10,
+                width: 10,
                 resizeMode: 'contain',
                 tintColor: Colors.white,
-              }}></Image>
+              }}
+              animation="flipInY"
+            />
           </TouchableOpacity>
         </View>
         <View style={{ height: 200, width: '100%' }}>

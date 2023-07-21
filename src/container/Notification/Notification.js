@@ -57,33 +57,48 @@ const Notification = () => {
     <View style={styles.container}>
       <View style={styles.viewStyle}>
         <Text style={{ fontSize: 20, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Notifications</Text>
-        <TouchableOpacity
+        <View
           style={{
-            alignItems: 'center',
-            position: "absolute",
-            right: 10,
-            rop: 10,
+            flexDirection: 'row',
+            width: '90%',
+            alignSelf: 'center',
 
-            backgroundColor: Colors.surfblur,
-            height: 37,
-            width: 37,
-            borderRadius: 100,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          onPress={() => navigation.navigate("MyProfile")}
-        >
-          <Animatable.Image
-            source={Images.whiteclose}
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+            overflow: 'visible',
+            zIndex: 99,
+            position: 'absolute',
+            top: 10,
+          }}>
+
+          <TouchableOpacity
             style={{
-              height: 12,
-              width: 12,
-              resizeMode: 'contain',
-              tintColor: Colors.white,
+              alignItems: 'center',
+              position: "absolute",
+              right:-12,
+              top: -6,
+
+              backgroundColor: Colors.surfblur,
+              height: 25,
+              width: 25,
+              borderRadius: 100,
+              alignItems: "center",
+              justifyContent: "center",
             }}
-            animation="flipInY"
-          />
-        </TouchableOpacity>
+            onPress={() => navigation.goBack()}
+          >
+            <Animatable.Image
+              source={Images.whiteclose}
+              style={{
+                height: 10,
+                width: 10,
+                resizeMode: 'contain',
+                tintColor: Colors.white,
+              }}
+              animation="flipInY"
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <View
         style={{

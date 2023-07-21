@@ -119,15 +119,14 @@ const RecycleBin = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    if(isFocused)
-    {
+    if (isFocused) {
       Promise.all[
         getTrashApiCall(),
         getAgentApicall(),
         getRatingApicall
       ]
     }
-    
+
   }, [isFocused]);
   const getTrashApiCall = () => {
     dispatch(getTrash()).then(response => {
@@ -263,8 +262,6 @@ const RecycleBin = () => {
 
           <View
             style={{
-              // marginTop: 40,
-              // height: '95%',
               width: '100%',
               left: 0,
               right: 0,
@@ -281,78 +278,20 @@ const RecycleBin = () => {
               flexWrap: "wrap",
             }}>
             <ScrollView style={{ width: "100%" }}>
-              <View
-                style={{
-                  //height: '10%',
-                  width: '100%',
-                  flexDirection: 'row',
-                  // justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                {/* <TouchableOpacity
-                          onPress={() => navigation.goBack()}
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginLeft: 10,
-                          }}>
-                          <Text style={{ fontSize: 12, color: Colors.gray }}></Text>
-                        </TouchableOpacity> */}
-                <View
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginTop: 10,
-                    paddingVertical: 12,
-                    position: "relative",
-                    width: "100%",
-                    textAlign: "center"
-                  }}>
-
-                  <Text
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                <TouchableOpacity onPress={toggleModal}>
+                  <View
                     style={{
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontFamily: "Poppins-SemiBold"
-                    }}>
-                    Rate and Review
-                  </Text>
-                </View>
-
-                <TouchableOpacity
-                  onPress={() => setModalVisible(false)}
-                  style={{
-                    backgroundColor: Colors.surfblur,
-                    height: 37,
-                    width: 37,
-                    borderRadius: 100,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    //margin: 12,
-                    position: "absolute",
-                    right: 0,
-                  }}>
-                  <Image
-                    style={{
-                      height: 16,
-                      width: 16,
-                      //margin: 12,
-                      resizeMode: 'contain',
-                      tintColor: Colors.white,
-                      transform: [{ rotate: '45deg' }],
-                    }}
-                    source={Images.plus}></Image>
+                      width: 80,
+                      height: 7,
+                      backgroundColor: Colors.gray,
+                      marginTop: 8,
+                      justifyContent: 'center',
+                      borderRadius: 100
+                    }}></View>
                 </TouchableOpacity>
+
               </View>
-              <View
-                style={{
-                  width: '100%',
-                  height: 1,
-                  backgroundColor: Colors.gray,
-                  marginTop: 10,
-                  justifyContent: 'center',
-                }}></View>
               <View style={{}}>
                 <Text
                   style={{
@@ -569,8 +508,6 @@ const RecycleBin = () => {
                     }}>
                       <TouchableOpacity
                         onPress={() => addReview()}
-                        // onPress={() => setModalVisible(false)}
-                        // onPress={Alert.alert("Hyy")}
                         style={{
                           height: 50,
                           width: '45%',
@@ -736,33 +673,48 @@ const RecycleBin = () => {
           marginLeft: 0
         }}>
         <Text style={{ fontSize: 20, color: Colors.black }}>Recycle Bin</Text>
-        <TouchableOpacity
+        <View
           style={{
-            alignItems: 'center',
-            position: "absolute",
-            right: 10,
-            rop: 10,
+            flexDirection: 'row',
+            width: '90%',
+            alignSelf: 'center',
 
-            backgroundColor: Colors.surfblur,
-            height: 37,
-            width: 37,
-            borderRadius: 100,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          onPress={() => navigation.navigate("MyProfile")}
-        >
-          <Animatable.Image
-            source={Images.whiteclose}
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+            overflow: 'visible',
+            zIndex: 99,
+            position: 'absolute',
+            top: 10,
+          }}>
+
+          <TouchableOpacity
             style={{
-              height: 12,
-              width: 12,
-              resizeMode: 'contain',
-              tintColor: Colors.white,
+              alignItems: 'center',
+              position: "absolute",
+              right: -12,
+              top: -6,
+
+              backgroundColor: Colors.surfblur,
+              height: 25,
+              width: 25,
+              borderRadius: 100,
+              alignItems: "center",
+              justifyContent: "center",
             }}
-            animation="flipInY"
-          />
-        </TouchableOpacity>
+            onPress={() => navigation.goBack()}
+          >
+            <Animatable.Image
+              source={Images.whiteclose}
+              style={{
+                height: 10,
+                width: 10,
+                resizeMode: 'contain',
+                tintColor: Colors.white,
+              }}
+              animation="flipInY"
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={{ height: '100%', width: '100%' }}>
         {showNoDataMessage ? (

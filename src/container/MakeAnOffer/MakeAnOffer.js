@@ -290,33 +290,48 @@ const MakeAnOffer = () => {
                   transform: [{ rotate: '90deg' }],
                 }}></Image>
             </TouchableOpacity> */}
-            <TouchableOpacity
-              style={{
-                alignItems: 'center',
-                position: "absolute",
-                right: 10,
-                rop: 10,
+            <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            alignSelf: 'center',
 
-                backgroundColor: Colors.surfblur,
-                height: 37,
-                width: 37,
-                borderRadius: 100,
-                alignItems: "center",
-                justifyContent: "center",
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+            overflow: 'visible',
+            zIndex: 99,
+            position: 'absolute',
+            top: 10,
+          }}>
+
+          <TouchableOpacity
+            style={{
+              alignItems: 'center',
+              position: "absolute",
+              right:-12,
+              top: -6,
+
+              backgroundColor: Colors.surfblur,
+              height: 25,
+              width: 25,
+              borderRadius: 100,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={() => navigation.goBack()}
+          >
+            <Animatable.Image
+              source={Images.whiteclose}
+              style={{
+                height: 10,
+                width: 10,
+                resizeMode: 'contain',
+                tintColor: Colors.white,
               }}
-              onPress={() => navigation.navigate("MyProfile")}
-            >
-              <Animatable.Image
-                source={Images.whiteclose}
-                style={{
-                  height: 12,
-                  width: 12,
-                  resizeMode: 'contain',
-                  tintColor: Colors.white,
-                }}
-                animation="flipInY"
-              />
-            </TouchableOpacity>
+              animation="flipInY"
+            />
+          </TouchableOpacity>
+        </View>
           </View>
           <View style={styles.formContainer}>
             <ScrollView
