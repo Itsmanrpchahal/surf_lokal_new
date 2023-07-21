@@ -559,9 +559,7 @@ const Home = () => {
                     borderColor: Colors.BorderColor,
                   }}>
                   <ScrollView style={{
-                    //s height: '10%',
                     width: '99%',
-
                   }}>
                     <View style={{ alignItems: "center", justifyContent: "center" }}>
                       <TouchableOpacity
@@ -636,15 +634,20 @@ const Home = () => {
                           selectedTextStyle={styles.selectedTextStyle}
                           inputSearchStyle={styles.inputSearchStyle}
                           iconStyle={styles.iconStyle}
+                          itemTextStyle={styles.itemTextStyle}
                           placeholderTextColor="red"
                           data={moreFilterData.City}
                           search
                           maxHeight={300}
                           labelField="data_name"
+                          labelFieldStyle={{ color: "red" }}
+                          valueFieldStyle={{ color: "red" }}
                           valueField="value"
                           placeholder="Select item"
                           searchPlaceholder="Search..."
                           value={selected}
+                          valuestyle={{ color: "red" }}
+
                           onChange={item => {
                             // setSelected(item);
                           }}
@@ -695,25 +698,51 @@ const Home = () => {
 
                           <Text style={{ color: 'black', fontFamily: 'Poppins-Regular', marginTop: 12 }}>Square Feet</Text>
 
-                          <View style={{ flexDirection: 'column', justifyContent: 'space-between', marginTop: 8 }}>
+                          <View style={{ flexDirection: "column", justifyContent: 'space-between', marginTop: 8 }}>
 
-                            <TextInput
-                              style={{ borderWidth: 1, fontSize: 12, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
-                              placeholder='Min square'
-                              placeholderTextColor="#424242"
+                            <Dropdown
+                              style={{ borderWidth: 1, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
+                              placeholderStyle={styles.placeholderStyle}
+                              selectedTextStyle={styles.selectedTextStyle}
+                              inputSearchStyle={styles.inputSearchStyle}
+                              iconStyle={styles.iconStyle}
+                              itemTextStyle={styles.itemTextStyle}
+                              data={moreFilterData.min_square}
+                              search
+                              maxHeight={300}
+                              labelField="data_name"
+                              valueField="value"
+                              placeholder="Min square"
+                              searchPlaceholder="Search..."
+                              value={selected}
+                              onChange={item => {
+                                setSelected(item);
+                              }}
 
-                              keyboardType='numeric'>
+                            />
+                            <Dropdown
+                              style={{ borderWidth: 1, marginBottom: 8, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12 }}
+                              placeholderStyle={styles.placeholderStyle}
+                              selectedTextStyle={styles.selectedTextStyle}
+                              inputSearchStyle={styles.inputSearchStyle}
+                              itemTextStyle={styles.itemTextStyle}
+                              iconStyle={styles.iconStyle}
+                              data={moreFilterData.max_square}
+                              search
+                              maxHeight={300}
+                              labelField="data_name"
+                              valueField="value"
+                              placeholder="Max Square"
+                              searchPlaceholder="Search..."
+                              value={selected}
+                              onChange={item => {
+                                setSelected(item);
+                              }}
 
-
-                            </TextInput>
-                            <TextInput
-                              style={{ borderWidth: 1, fontSize: 12, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
-                              placeholder='Max Square'
-                              placeholderTextColor="#494949"
-                              keyboardType='numeric'>
-
-                            </TextInput>
+                            />
                           </View>
+
+
                         </View>
                         <View style={{ marginTop: 12 }}>
 
@@ -721,12 +750,13 @@ const Home = () => {
 
                           <View style={{ flexDirection: "column", justifyContent: 'space-between', marginTop: 8 }}>
 
-                            <MultiSelect
+                            <Dropdown
                               style={{ borderWidth: 1, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
                               placeholderStyle={styles.placeholderStyle}
                               selectedTextStyle={styles.selectedTextStyle}
                               inputSearchStyle={styles.inputSearchStyle}
                               iconStyle={styles.iconStyle}
+                              itemTextStyle={styles.itemTextStyle}
                               data={moreFilterData.min_price}
                               search
                               maxHeight={300}
@@ -740,12 +770,12 @@ const Home = () => {
                               }}
 
                             />
-                            <MultiSelect
+                            <Dropdown
                               style={{ borderWidth: 1, marginBottom: 8, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12 }}
-
                               placeholderStyle={styles.placeholderStyle}
                               selectedTextStyle={styles.selectedTextStyle}
                               inputSearchStyle={styles.inputSearchStyle}
+                              itemTextStyle={styles.itemTextStyle}
                               iconStyle={styles.iconStyle}
                               data={moreFilterData.max_price}
                               search
@@ -774,7 +804,7 @@ const Home = () => {
                             justifyContent: 'center', alignItems: 'center'
                           }}>
                             <FlatList
-                              data={data}
+                              data={moreFilterData.more_filter_data}
                               style={{ alignContent: 'center' }}
                               nestedScrollEnabled
                               numColumns={3}
@@ -798,7 +828,7 @@ const Home = () => {
                                       textAlign: 'center',
                                       backgroundColor: item.selected ? Colors.black : Colors.white
                                     }} numberOfLines={1}>
-                                      Text
+                                      {item?.data_name}
                                     </Text>
                                   </TouchableOpacity>
                                 )
@@ -1419,7 +1449,7 @@ const Home = () => {
                             textAlign: 'center',
                             fontFamily: 'Poppins-Regular',
                           }}>
-                          {item?.property_bedrooms.length > 1 ? item?.property_bedrooms : 0}
+                          {item?.property_bedrooms.length > 0 ? item?.property_bedrooms : 0}
                           {' Beds'}
                         </Text>
                       </View>
@@ -1442,7 +1472,7 @@ const Home = () => {
                             textAlign: 'center',
                             fontFamily: 'Poppins-Regular',
                           }}>
-                          {item?.bathroomsfull.length > 1 ? item?.bathroomsfull : 0}
+                          {item?.bathroomsfull.length > 0 ? item?.bathroomsfull : 0}
 
                           {' Baths'}
                         </Text>
@@ -1837,6 +1867,10 @@ const styles = StyleSheet.create({
   placeholderStyle: {
     fontSize: 16,
   },
+  itemTextStyle: {
+    fontSize: 16,
+    color: Colors.black
+  },
   selectedTextStyle: {
     fontSize: 16,
   },
@@ -1847,5 +1881,6 @@ const styles = StyleSheet.create({
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
+    color: Colors.black
   },
 });
