@@ -716,7 +716,7 @@ const Home = () => {
                               searchPlaceholder="Search..."
                               value={selected}
                               onChange={item => {
-                                setSelected(item);
+                                // setSelected(item);
                               }}
 
                             />
@@ -736,7 +736,7 @@ const Home = () => {
                               searchPlaceholder="Search..."
                               value={selected}
                               onChange={item => {
-                                setSelected(item);
+                                // setSelected(item);
                               }}
 
                             />
@@ -766,7 +766,7 @@ const Home = () => {
                               searchPlaceholder="Search..."
                               value={selected}
                               onChange={item => {
-                                setSelected(item);
+                                // setSelected(item);
                               }}
 
                             />
@@ -786,7 +786,7 @@ const Home = () => {
                               searchPlaceholder="Search..."
                               value={selected}
                               onChange={item => {
-                                setSelected(item);
+                                // setSelected(item);
                               }}
 
                             />
