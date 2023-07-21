@@ -167,21 +167,23 @@ const ViewPropertiyImage = props => {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ height: '88%', width: '100%' }}>
+      <View style={{ 
+        height: '90%', 
+      width: '100%' }}>
         <ScrollView ref={scrollViewRef} onScroll={handleScroll}>
 
           <TouchableOpacity onPress={() => navigation.navigate('SingleImage', { imageUri: property?.featured_image_src })}>
             <Image source={{ uri: property?.featured_image_src }} style={styles.slide} />
           </TouchableOpacity>
-          <View style={{ height: 200, width: '100%' }}>
-
-            <WebView
-              style={{ height: 400, width: '100%' }}
-              source={{ uri: property?.property_gallery.property_video }}
-              mediaPlaybackRequiresUserAction={false}
-            />
-
-          </View>
+          <TouchableOpacity onPress={() => navigation.navigate('Videoplay', { videoView:property.property_gallery.property_video })}>
+            <Image source={{ uri: property?.featured_image_src }} style={styles.slide} />
+            <View style={{ position: 'absolute',
+    top: '40%', 
+    left: '40%', 
+    transform: [{ translateX: -12 }, { translateY: -12 }],}}>
+              <Image source={Images.VideoPlay} style={{ width: 80, height: 80,tintColor:'white' }} />
+            </View>
+          </TouchableOpacity>
           {property?.property_gallery.Gallery &&
             property?.property_gallery.Gallery.length > 0 ? (
             property?.property_gallery.Gallery.map((image, index) => (
@@ -220,8 +222,8 @@ const ViewPropertiyImage = props => {
             style={{
               alignItems: 'center',
               position: "absolute",
-              right: 10,
-              top: -10,
+              right:-12,
+              top: -6,
 
               backgroundColor: Colors.surfblur,
               height: 37,
@@ -250,12 +252,16 @@ const ViewPropertiyImage = props => {
         style={{
           flexDirection: 'row',
           width: '100%',
-          height: 50,
-          marginTop: 10,
+          position:'relative',
+        bottom:-10,
+     
           justifyContent: 'space-between',
           borderTopWidth: 1,
-
+        //  height:20,
+         // margin:20,
           borderTopColor: Colors.textColorLight,
+          paddingTop:6,
+       marginBottom:20,
           alignItems: 'center',
           alignContent: 'center',
         }}>
@@ -266,6 +272,7 @@ const ViewPropertiyImage = props => {
             alignContent: 'center',
             width: '50%',
             flexDirection: 'row',
+           
           }}>
           <View
             style={{
@@ -333,7 +340,7 @@ const ViewPropertiyImage = props => {
         <View
           style={{
 
-            width: '50%',
+           // width: '50%',
           }}>
           <TouchableOpacity
             onPress={() => {
@@ -348,14 +355,20 @@ const ViewPropertiyImage = props => {
               flexDirection: 'row',
               backgroundColor: Colors.surfblur,
               borderRadius: 20,
-              height: 40,
-              width: '80%',
-              marginLeft:20
+             // height: 40,
+             // width: '80%',
+             // marginLeft:20,
+              paddingVertical:6,
+              paddingHorizontal:12,paddingBottom:10,
+              marginRight:6
             }}
           >
             <Image
               source={Images.bookTour}
-              style={{ height: 20, width: 20, resizeMode: 'contain' }}
+              style={{ 
+
+                height: 15, width:15,
+                 resizeMode: 'contain' }}
             />
             <Text
               style={{
