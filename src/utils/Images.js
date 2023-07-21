@@ -102,7 +102,12 @@ const Images = {
   check: require(BaseUrl + 'check.png'),
   calendar: require(BaseUrl + "calendar.png"),
   loading: require(BaseUrl + "loading.gif"),
-  graylocation: require(BaseUrl + "graylocation.png")
+  graylocation: require(BaseUrl + "graylocation.png"),
+  next: require(BaseUrl + 'next.png'),
+  terrain:require(BaseUrl+ 'terrain.png'),
+  standard:require(BaseUrl+'standard.png'),
+  satellite:require(BaseUrl+'satellite.png'),
+  hybrid:require(BaseUrl+'hybrid.png'),
 
 };
 export default Images;

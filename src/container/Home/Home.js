@@ -40,13 +40,14 @@ import { addRemoveTrash } from '../../modules/addRemoveTrash';
 import { getRating } from '../../modules/getRating';
 import { ScrollView } from 'react-native-gesture-handler';
 import Geolocation from '@react-native-community/geolocation';
-import MapView, { PROVIDER_GOOGLE, Circle, Marker } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Circle, Marker, Callout } from "react-native-maps";
 import Collapsible from 'react-native-collapsible';
 import { useIsFocused } from '@react-navigation/native';
 import { getMoreFilter } from '../../modules/getMoreFilter';
 
 
 const { width } = Dimensions.get('screen');
+
 const markers = [{
   title: 'hello',
   coordinates: {
@@ -96,27 +97,6 @@ const Home = () => {
       }
     }
   }
-  const bedRoomData = [
-    { label: 'Any', value: 'any' },
-    { label: '1', value: '1' },
-    { label: '2', value: '2' },
-    { label: '3', value: '3' },
-    { label: '4', value: '4' },
-    { label: '5', value: '5' },
-    { label: '6', value: '6' },
-    { label: '7', value: '7' },
-    { label: '8+', value: '8' },
-  ]
-  const data = [
-    { label: 'Item 1', value: '1' },
-    { label: 'Item 2', value: '2' },
-    { label: 'Item 3', value: '3' },
-    { label: 'Item 4', value: '4' },
-    { label: 'Item 5', value: '5' },
-    { label: 'Item 6', value: '6' },
-    { label: 'Item 7', value: '7' },
-    { label: 'Item 8', value: '8' },
-  ];
   const dispatch = useDispatch();
   const [homeData, setHomeData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -142,10 +122,9 @@ const Home = () => {
   const [lntLng, setLatLng] = useState({ latitude: 0.0, longitude: 0.0 })
   const [showMap, setShowMap] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const [mapType, setMapType] = useState('satellite')
+  const [mapType, setMapType] = useState('standard')
   const [isEditing, setIsEditing] = useState(false)
   const [moreFilter, setMoreFilter] = useState(false)
-  let selectionData = [];
   useEffect(() => {
     getID()
   }, [])
@@ -389,9 +368,8 @@ const Home = () => {
                 width: 0,
                 height: 3,
               },
-              shadowOpacity: 0.6,
-              shadowRadius: 15.19,
-              elevation: 6,
+              elevation: 3,
+              shadowColor: '#52006A',
             }}>
             <View style={{ width: '78%' }}>
               <TextInput
@@ -977,42 +955,55 @@ const Home = () => {
                 renderCard={(item, index) => (
                   <View style={styles.shadowProp}>
                     <SwiperFlatList
-                      //style={{ height: width, width: width - 10, }}
                       index={imageIndex}
+                      autoPlay={true}
+                      autoplayDelay={3000}
                       data={item?.featured_image_src}
                       refer={index}
                       renderItem={({ item1, index }) =>
                       (
                         <>
-                          <View
-                            style={{
-                              height: width, width: width,
-                              position: "relative",
-                              marginTop: 1
-                            }}
-                          >
+                          <View style={{ height: width, width: width, position: "relative", marginTop: 1 }}>
                             <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", zIndex: 99, }}>
-                              {
-
-                                <TouchableOpacity disabled={imageIndex > 0 ? false : true} onPress={() => { setImageIndex(imageIndex - 1) }} style={{ height: "100%", width: 30, backgroundColor: "red", position: "relative", left: 10 }} >
-                                  <View style={{ height: width, width: 40, position: "absolute", zIndex: 999, }}>
-
+                              
+                                <TouchableOpacity disabled={imageIndex > 0 ? false : true} onPress={() => { setImageIndex(imageIndex - 1) }}
+                                  style={{ height: "100%", width: 30, backgroundColor: "red", position: "relative", left: 10 }} >
+                                  <View style={{ height: width, width: 40, position: "absolute", zIndex: 999,}}>
                                   </View>
-                                  {/* <Image style={{ height: 30, width: 30, position: "absolute", left: 15 }} source={Images.leftarrow} /> */}
                                 </TouchableOpacity>
-                              }
-
-                              {
+                            
                                 <TouchableOpacity disabled={item?.featured_image_src?.length - 1 === imageIndex ? true : false} onPress={() => {
                                   setImageIndex(imageIndex + 1)
+                                  {console.log("Image test",item.featured_image_src[imageIndex].guid)}
                                 }}>
-                                  <View style={{ height: width, width: 40, position: "absolute", zIndex: 999, right: 10 }}>
-
-                                    {/* <Image style={{ height: 30, width: 30, position: "absolute", right: 10 }} source={Images.rightarrow} /> */}
+                                  <View style={{ height: width, width: 40, position: "absolute", zIndex: 999, right: 10 , }}>
                                   </View>
                                 </TouchableOpacity>
-                              }
+                              
 
+                            </View>
+                            <View style={{ position: "absolute", zIndex: 9, top: "40%", justifyContent: "space-between", width: "100%" }}>
+                              <Image
+                                source={Images.next}
+                                style={{
+                                  height: 25,
+                                  width: 25,
+                                  tintColor: Colors.white,
+                                  transform: [{ rotate: '-180deg' }], // Specify the rotation angle here
+                                  position: "relative",
+                                  left: 12
+                                }}
+                              />
+                              <Image
+                                source={Images.next}
+                                style={{
+                                  height: 25,
+                                  width: 25,
+                                  tintColor: Colors.white,
+                                  position: "absolute",
+                                  right: 12
+                                }}
+                              />
                             </View>
                             <TouchableOpacity
                               onPress={() => {
@@ -1027,7 +1018,8 @@ const Home = () => {
                                   justifyContent: 'space-between',
                                   alignItems: 'center',
                                   flexDirection: 'row',
-                                  borderRadius: 8, overflow: "hidden"
+                                  // borderRadius: 8
+                                  overflow: "hidden"
                                 }}
                                 source={{ uri: item.featured_image_src[imageIndex].guid }}
                               />
@@ -1565,42 +1557,53 @@ const Home = () => {
                   </TouchableOpacity>
                   <Collapsible collapsed={!isCollapsed} style={{ backgroundColor: Colors.white, alignItems: "center", justifyContent: "center", position: "relative", paddingVertical: 12 }}>
                     <View style={{ backgroundColor: Colors.white, alignItems: "center", justifyContent: "center", }}>
-                      <TouchableOpacity onPress={() => { setMapType('satellite') }}><Image tintColor={mapType === 'satellite' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.layers} style={styles.locationpic}></Image></TouchableOpacity>
-                      <TouchableOpacity onPress={() => { setMapType('hybrid') }}><Image tintColor={mapType === 'hybrid' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.layers} style={styles.locationpic}></Image></TouchableOpacity>
-                      <TouchableOpacity onPress={() => { setMapType('terrain') }}><Image tintColor={mapType === 'terrain' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.layers} style={styles.locationpic}></Image></TouchableOpacity>
-                      <TouchableOpacity onPress={() => { setMapType('standard') }}><Image tintColor={mapType === 'standard' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.layers} style={styles.locationpic}></Image></TouchableOpacity>
+                      <TouchableOpacity onPress={() => { setMapType('satellite') }}><Image tintColor={mapType === 'satellite' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.satellite} style={styles.locationpic}></Image></TouchableOpacity>
+                      <TouchableOpacity onPress={() => { setMapType('hybrid') }}><Image tintColor={mapType === 'hybrid' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.hybrid} style={styles.locationpic}></Image></TouchableOpacity>
+                      <TouchableOpacity onPress={() => { setMapType('terrain') }}><Image tintColor={mapType === 'terrain' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.terrain} style={styles.locationpic}></Image></TouchableOpacity>
+                      <TouchableOpacity onPress={() => { setMapType('standard') }}><Image tintColor={mapType === 'standard' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.standard} style={styles.locationpic}></Image></TouchableOpacity>
                     </View>
-
                   </Collapsible>
+                </View>
+                <View>
                 </View>
                 <MapView
                   provider={PROVIDER_GOOGLE}
                   style={styles.map}
                   zoomControlEnabled={true}
                   showsCompass={true}
+                  moveOnMarkerPress={true}
                   mapType={mapType}
+                  showsUserLocation={true}
                   showsMyLocationButton={true}
                   region={{
-                    latitude: parseFloat(markers[0].coordinates.latitude),
-                    longitude: parseFloat(markers[0].coordinates.longitude),
+                    latitude: parseFloat(homeData[0].property_latitude),
+                    longitude: parseFloat(homeData[0].property_longitude),
                     latitudeDelta: 0.015,
                     longitudeDelta: 0.0121,
                   }}
                 >
-
                   {
-                    markers.map((item) => {
+                    homeData.map((item) => {
                       return (
-                        <Marker coordinate={{ latitude: item.coordinates.latitude, longitude: item.coordinates.longitude }} />
+                        <Marker
+                          showCallout={true}
+                          coordinate={{ latitude: parseFloat(item.property_latitude), longitude: parseFloat(item.property_longitude) }}>
+                          <Callout style={{ height: 70, alignItems: "center", alignSelf: "center" }}>
+                            <View style={{
+                              flexDirection: 'row', alignItems: 'center', alignContent: 'center',
+                            }}>
+                              <Text style={{ position: "relative", height: 100, top: -33 }}> Helllo</Text>
+                            </View>
+                          </Callout>
+                        </Marker>
                       )
                     })
                   }
-
                   {
-                    markers.map((item) => {
+                    homeData.map((item) => {
                       return (
                         <Circle
-                          center={{ latitude: item.coordinates.latitude, longitude: item.coordinates.longitude }}
+                          center={{ latitude: parseFloat(item.property_latitude), longitude: parseFloat(item.property_longitude) }}
                           radius={100}
                           fillColor="rgba(255, 0, 0, 0.2)"
                           strokeColor="rgba(255, 0, 0, 0.5)"
@@ -1622,7 +1625,10 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
-  locationpic: { resizeMode: "contain", width: 16, height: 16 },
+  locationpic: {
+    resizeMode: "contain", width: 16, height: 16,
+    paddingVertical: 12
+  },
 
   maincovermap: {
     justifyContent: "center", alignItems: "center",
@@ -1778,7 +1784,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "#0065C4",
+    backgroundColor: Colors.primaryBlue,
   },
   cardContainer: {
     zIndex: 1,

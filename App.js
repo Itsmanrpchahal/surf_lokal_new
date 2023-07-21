@@ -37,7 +37,7 @@ const App = () => {
         style={{
           flex: 1,
           justifyContent: 'center',
-          backgroundColor: Colors.PrimaryColor,
+          backgroundColor: Colors.primaryBlue,
         }}>
         <Provider store={store}>
           <NavigationContainer>
