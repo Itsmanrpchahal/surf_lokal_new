@@ -81,7 +81,7 @@ const images = [
   },
 
   {
-    image: Images.deletelike,
+    image: Images.downThumb,
     title: 'Recycle Bin',
     navigation: 'RecycleBin',
     image2: Images.fill
@@ -506,7 +506,7 @@ const MyFavorites = () => {
                 style={styles.viewstyle}>
                 <TouchableOpacity>
                   <Image
-                    source={isImageChanged ? Images.fill : Images.deletelike}
+                    source={isImageChanged ? Images.fill : Images.downThumb}
                     style={{ height: 25, width: 25, resizeMode: 'contain' }} />
                 </TouchableOpacity>
                 <Text style={styles.text}>Recycle Bin</Text>

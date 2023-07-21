@@ -445,10 +445,10 @@ const ViewPropertiy = (props, imageUrl) => {
                   }}>
                     <Text style={{
                       position: "relative", height: 100,
-                      top: -25
+                      top: -33
                     }}><Image style={{ height: 100, width: 100, resizeMode: "stretch", }} source={{ uri: property?.featured_image_src }} resizeMethod='auto' />
                     </Text>
-                    <View style={{ flexWrap: "wrap", }}>
+                    <View style={{ flexWrap: "wrap", top:-8}}>
                       <Text style={{ color: 'black', marginLeft: 10, fontWeight: '500', flexWrap: "wrap" }}>{property?.address.property_address.address} | {property?.address.property_address.state_county}</Text>
                       <Text style={{ color: Colors.primaryBlue, marginLeft: 10, fontWeight: '500' }}>{data.map((item) => item.details.property_details.price)}</Text>
                       <View style={{ flexDirection: 'row', marginLeft: 10, }}>
@@ -531,7 +531,7 @@ const ViewPropertiy = (props, imageUrl) => {
                 <Image style={{ color: "black", height: 30, width: 30 }} source={{ uri: weather?.current_condition_icon }} />
               </View>
             </View>
-            <Text style={styles.props}>Temperature: {weather.current_temp}</Text>
+            <Text style={styles.props}>Temperature: {weather.current_temp}{" ℉"}</Text>
           </View>
         </View>
       </>
@@ -1145,6 +1145,7 @@ const ViewPropertiy = (props, imageUrl) => {
                       <View style={{
                         flexDirection: 'row',
                         width: '100%',
+                        paddingHorizontal:13,
                         // alignItems: "flex-start", 
                         justifyContent: 'space-between',
 
@@ -1178,7 +1179,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                   justifyContent: 'flex-start',
                                   alignItems: 'flex-start',
                                   // backgroundColor: "red",
-                                  width: 70,
+                                  width: 60,
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
                                   <Image
@@ -1208,7 +1209,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                   justifyContent: 'flex-start',
                                   alignItems: 'flex-start',
 
-                                  width: 70,
+                                  width: 60,
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
                                   <Image
@@ -1239,7 +1240,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                   justifyContent: 'flex-start',
                                   alignItems: 'flex-start',
 
-                                  width: 70,
+                                  width: 60,
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
                                   <Image
@@ -1268,7 +1269,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                   justifyContent: 'flex-start',
                                   alignItems: 'flex-start',
 
-                                  width: 70,
+                                  width: 60,
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
                                   <Text
@@ -1300,7 +1301,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                   justifyContent: 'flex-start',
                                   alignItems: 'flex-start',
 
-                                  width: 70,
+                                  width: 60,
 
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -1330,7 +1331,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                   justifyContent: 'flex-start',
                                   alignItems: 'flex-start',
 
-                                  width: 70,
+                                  width: 60,
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
                                   <Image
@@ -2057,7 +2058,7 @@ const ViewPropertiy = (props, imageUrl) => {
         <View
           style={{
 
-            width: '50%',
+           // width: '50%',
           }}>
           <TouchableOpacity
             onPress={() => {
@@ -2072,14 +2073,20 @@ const ViewPropertiy = (props, imageUrl) => {
               flexDirection: 'row',
               backgroundColor: Colors.surfblur,
               borderRadius: 20,
-              height: 40,
-              width: '80%',
-              marginLeft: 20
+             // height: 40,
+             // width: '80%',
+             // marginLeft:20,
+              paddingVertical:6,
+              paddingHorizontal:12,paddingBottom:10,
+              marginRight:6
             }}
           >
             <Image
               source={Images.bookTour}
-              style={{ height: 20, width: 20, resizeMode: 'contain' }}
+              style={{ 
+
+                height: 15, width:15,
+                 resizeMode: 'contain' }}
             />
             <Text
               style={{

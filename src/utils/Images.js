@@ -57,7 +57,7 @@ const Images = {
   area: require(BaseUrl + 'area.png'),
   profile: require(BaseUrl + 'profile.png'),
   upsideArrow: require(BaseUrl + 'upsideArrow.png'),
-  correctThumb: require(BaseUrl + 'correctthumb.png'),
+  // correctThumb: require(BaseUrl + 'correctthumb.png'),
   // 20 Apr
   bigCahouna: require(BaseUrl + 'bigCahouna.png'),
   fastGun: require(BaseUrl + 'fastGun.png'),
