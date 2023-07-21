@@ -921,7 +921,7 @@ const Home = () => {
 
                         }}>
                         <Image
-                          source={Images.favlike}
+                          source={Images.ThumbUp}
                           style={{
                             height: 25,
                             width: 25,
@@ -958,7 +958,7 @@ const Home = () => {
 
                         }}>
                         <Image
-                          source={Images.favlike}
+                          source={Images.downThumb}
                           style={{
                             height: 25,
                             width: 25,

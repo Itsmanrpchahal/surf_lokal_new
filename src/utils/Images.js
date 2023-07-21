@@ -50,7 +50,7 @@ const Images = {
   chart: require(BaseUrl + 'chart.png'),
   favroites: require(BaseUrl + 'favroites.png'),
   downThumb: require(BaseUrl + 'downThumb.png'),
-  ThumbUp: require(BaseUrl + 'correctthumb.png'),
+  ThumbUp: require(BaseUrl + 'ThumbUp.png'),
   recycleBin: require(BaseUrl + 'recycleBin.png'),
   call: require(BaseUrl + 'call.png'),
   chatProp: require(BaseUrl + 'chatProp.png'),
