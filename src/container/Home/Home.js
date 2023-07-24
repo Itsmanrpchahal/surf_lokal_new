@@ -942,11 +942,11 @@ const Home = () => {
                       top: 0,
                       marginLeft: 8,
                       height: width - (viewHeight - 22), width: width, backgroundColor: "green", paddingHorizontal: 8,
-                      borderTopLeftRadius: 8, borderTopRightRadius: 8, marginTop: -5, overflow: "hidden", position: "absolute", top: 0
+                    borderRadius: 15, marginTop: -5, overflow: "hidden", position: "absolute", top: 0
                     }}>
                     <View style={{
                       position: "absolute",
-                      height: '100%', width: '100%', alignItems: 'center', justifyContent: "center"
+                      height: '92%', width: '100%', alignItems: 'center', justifyContent: "center"
                     }}>
                       <View
                         style={{
@@ -979,11 +979,11 @@ const Home = () => {
                       marginLeft: -width,
                       marginRight: 8,
                       height: width - (viewHeight - 22), width: width, backgroundColor: "red", paddingHorizontal: 8,
-                      borderTopLeftRadius: 8, borderTopRightRadius: 8, marginTop: -5, overflow: "hidden"
+                      borderRadius: 15, marginTop: -5, overflow: "hidden"
                     }}>
                     <View style={{
                       position: "absolute",
-                      width: "100%", height: '100%', justifyContent: "center", alignItems: 'center'
+                      width: "100%", height: '92%', justifyContent: "center", alignItems: 'center'
                     }}>
                       <View
                         style={{
@@ -997,7 +997,7 @@ const Home = () => {
 
                         }}>
                         <Image
-                          source={Images.downThumb}
+                          source={Images.deletethumb}
                           style={{
                             height: 25,
                             width: 25,
@@ -1073,13 +1073,14 @@ const Home = () => {
                               <Image
                                 style={{
                                   width: width - 16,
-                                  height: width,
+                                  height: "92%",
                                   borderRadius: 0,
                                   alignSelf: 'center',
                                   justifyContent: 'space-between',
                                   alignItems: 'center',
                                   flexDirection: 'row',
-                                  // borderRadius: 8
+                                  borderRadius: 15,
+
                                   overflow: "hidden"
                                 }}
                                 source={{ uri: item?.featured_image_src[imageIndex]?.guid }}

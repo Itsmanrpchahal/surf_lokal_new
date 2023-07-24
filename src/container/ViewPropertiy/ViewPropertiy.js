@@ -666,7 +666,7 @@ const ViewPropertiy = (props, imageUrl) => {
                             maxWidth: '70%',
                             marginLeft: 16,
                             marginTop: 12,
-                            backgroundColor: Colors.white
+                            backgroundColor: Colors.white, color:Colors.black
                         }}>typing</Text>
                         <TypingAnimation
                             dotColor="black"
@@ -683,7 +683,7 @@ const ViewPropertiy = (props, imageUrl) => {
 
                 <View style={{
           backgroundColor: Colors.white,
-          borderColor: Colors.boderColor,
+          borderColor: Colors.BorderColor,
           borderWidth: 1, borderRadius: 5,
           height: 45, margin: 16,
           paddingLeft: 8, paddingRight: 8,
@@ -691,9 +691,9 @@ const ViewPropertiy = (props, imageUrl) => {
           justifyContent: 'space-between'
         }}>
                     <TextInput
-                        style={{ width: '90%', backgroundColor: Colors.white, }}
+                        style={{ width: '90%', backgroundColor: Colors.white,color:Colors.black }}
                         placeholder="Type here"
-                        placeholderTextColor={'black'}
+                        placeholderTextColor={Colors.black}
                         value={message}
                         onChangeText={setMessage}>
                     </TextInput>
@@ -810,7 +810,7 @@ const ViewPropertiy = (props, imageUrl) => {
 
                 return (
                   <>
-                    <View style={{ position: 'relative', width: '100%', }}>
+                    <View style={{ position: 'relative', width: '100%',marginTop:54, }}>
                       <View style={styles.headerIcon}>
                         <TouchableOpacity
                           onPress={() => navigation.goBack()}
@@ -823,8 +823,8 @@ const ViewPropertiy = (props, imageUrl) => {
                         <View style={[styles.containerzzzs, { height: width - (viewHeight - 22), width: width }]}>
 
                           <CardsSwipe style={{
-                            position: "relative", width: "100%",
-                            height: "100%", overflow: "hidden"
+                            position: "relative", width: width,
+                            height: width - (viewHeight - 22), overflow: "hidden"
                           }}
                             cards={[property.featured_image_src]}
                             loop={true}
@@ -834,10 +834,14 @@ const ViewPropertiy = (props, imageUrl) => {
                                 style={{
                                   top: 0,
                                   // marginLeft: 8,
-                                  height: width - (viewHeight -20), width: width, backgroundColor: "green",
+                                  height: width - (viewHeight -20), width: width - 10, backgroundColor: "green",
                                   // paddingHorizontal: 8,
-                                  //  borderTopLeftRadius: 8, borderTopRightRadius: 8, marginTop: -5, 
-                                  overflow: "hidden", position: "absolute", top: -47
+                                  //  borderTopLeftRadius: 8, 
+                                  borderRadius: 15, 
+                                   marginTop: -5, 
+                                  overflow: "hidden", position: "absolute", top: -42,
+                                  left:5,
+                                  right: 0,
                                 }}>
                                 <View style={{
                                   position: "absolute",
@@ -873,14 +877,17 @@ const ViewPropertiy = (props, imageUrl) => {
                                 style={{
                                   marginLeft: -width,
                                   //  marginRight: 8,
-                                  height: width - (viewHeight - 22), width: width, backgroundColor: "red",
+                                  height: width - (viewHeight - 22), width: width - 10, backgroundColor: "red",
                                   // paddingHorizontal: 8,
 
-                                  // borderTopLeftRadius: 8, borderTopRightRadius: 8,
+                                 borderRadius: 15, 
+                                
                                   //   marginTop: -5, 
 
                                   overflow: "hidden",
-                                  top:-48
+                                  top:-47,
+                                  left:5,
+                                  right:0
                                 }}>
                                 <View style={{
                                   position: "absolute",
@@ -920,14 +927,14 @@ const ViewPropertiy = (props, imageUrl) => {
                                   onPress={() => navigation.navigate('ViewPropertiyImage', { postid: postid.item.ID })}>
                                   <Image
                                     style={{
-                                      width: width,
+                                      width: width -10,
                                       height: width - (viewHeight - 22),
                                       // borderRadius: 0,
                                       alignSelf: 'center',
                                       justifyContent: 'space-between',
                                       alignItems: 'center',
                                       flexDirection: 'row',
-                                      // borderRadius: 8,
+                                    borderRadius:15,
                                       overflow: "hidden"
                                     }}
                                     source={{ uri: property?.featured_image_src }}
@@ -2558,8 +2565,8 @@ const styles = StyleSheet.create({
     width: '100%',
     zIndex: 9,
     position: 'absolute',
-    top: 9,
-    left: 9
+    top: -35,
+    left: 15
   },
 
 
