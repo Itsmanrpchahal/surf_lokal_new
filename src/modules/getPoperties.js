@@ -23,7 +23,9 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
         })
         .catch(e => {
         })
-    : await uploadImageAPI(
+        : type.type === 2
+      ?
+       await uploadImageAPI(
         'https://surf.topsearchrealty.com/wp-json/search/websearch',
         type.data,
       )
@@ -32,7 +34,18 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
           return data;
         })
         .catch(e => {
-        });
+        })
+        : 
+        await getAPI(
+          'https://surf.topsearchrealty.com/webapi/v1/AppFilter',
+          type.data,
+        )
+          .then(async response => {
+            const {data} = response;
+            return data;
+          })
+          .catch(e => {
+          });
 });
 
 const getPopertiesSlice = createSlice({
