@@ -406,7 +406,7 @@ const MyFavorites = () => {
               }}>
               <View style={styles.viewstyle}>
                 <Image
-                  source={isImage ? Images.fillgreen : Images.ThumbUp}
+                  source={isImage ? Images.upgreen : Images.upthumb}
                   style={{ height: 25, width: 25, resizeMode: 'contain' }} />
                 <Text style={styles.text}>My Favorites</Text>
               </View>
@@ -506,7 +506,7 @@ const MyFavorites = () => {
                 style={styles.viewstyle}>
                 <TouchableOpacity>
                   <Image
-                    source={isImageChanged ? Images.fill : Images.downThumb}
+                    source={isImageChanged ? Images.redlike : Images.deletethumb}
                     style={{ height: 25, width: 25, resizeMode: 'contain' }} />
                 </TouchableOpacity>
                 <Text style={styles.text}>Recycle Bin</Text>

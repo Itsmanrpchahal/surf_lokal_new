@@ -25,6 +25,7 @@ import makeOfferReducer from '../modules/makeOffer';
 import addFavoriteReducer from '../modules/addToFavorite';
 import addRemoveTrash from '../modules/addRemoveTrash';
 import getMoreFilter from '../modules/getMoreFilter'
+import schoolChatReducer from '../modules/schoolChat';
 export const store = configureStore({
   reducer: {
     loginUser: loginUserReducer,
@@ -48,6 +49,7 @@ export const store = configureStore({
     getNearBy: getNearByReducer,
     editSearch: editSearchReducer,
     googleUser: googleUserReducer,
+    schoolChat : schoolChatReducer,
     chatGpt: chatGptReducer,
     makeOffer: makeOfferReducer,
     addFavorite: addFavoriteReducer,

@@ -112,7 +112,7 @@ const BottomTabNavigator = () => {
               Favorites
             </Text>
           ),
-          tabBarIcon: Images.ThumbUp,
+          tabBarIcon: Images.upthumb,
           keyboardHidesTabBar: true,
           tabBarHideOnKeyboard: true,
         }}
