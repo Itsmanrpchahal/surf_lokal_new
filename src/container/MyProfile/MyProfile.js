@@ -488,7 +488,7 @@ const MyFavorites = () => {
               }}>
               <View style={styles.viewstyle}>
                 <Image
-                  source={Images.chart}
+                  source={Images.surfShop}
                   style={{ height: 33, width: 29, resizeMode: 'contain' }} />
                 <Text style={styles.text}>Surf Shop</Text>
               </View>
