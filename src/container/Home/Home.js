@@ -44,6 +44,16 @@ import MapView, { PROVIDER_GOOGLE, Circle, Marker, Callout } from "react-native-
 import Collapsible from 'react-native-collapsible';
 import { useIsFocused } from '@react-navigation/native';
 import { getMoreFilter } from '../../modules/getMoreFilter';
+const data = [
+  { label: 'Item 1', value: '1' },
+  { label: 'Item 2', value: '2' },
+  { label: 'Item 3', value: '3' },
+  { label: 'Item 4', value: '4' },
+  { label: 'Item 5', value: '5' },
+  { label: 'Item 6', value: '6' },
+  { label: 'Item 7', value: '7' },
+  { label: 'Item 8', value: '8' },
+];
 
 
 const { width } = Dimensions.get('screen');
@@ -94,6 +104,7 @@ const Home = () => {
         };
         await getPopertiesApiCall({ type: 2, data: payload, lntLng })
         setKeyboardStatus('first')
+        setAddres("")
       }
     }
   }
@@ -104,6 +115,7 @@ const Home = () => {
   const [filterData, setFilterData] = useState([]);
   const [moreFilterData, setMoreFilterData] = useState([])
   const [selectedItem, setSelectedItem] = useState(null);
+  const [cities, setCities] = useState([])
   const navigation = useNavigation();
   const [productId, setProductId] = useState();
   const [reviewTitle, setReviewTitle] = useState('');
@@ -115,7 +127,6 @@ const Home = () => {
   const [isSelected, setIsSelected] = useState(false)
   const [bedroomitem, setBedroomItem] = useState(-1)
   const [bathRoom, setBathRoomItem] = useState(-1)
-  const [selected, setSelected] = useState([]);
   const [imageIndex, setImageIndex] = useState(0)
   const [viewHeight, setViewHeight] = useState(80)
   const [user_ID, setUser_ID] = useState()
@@ -125,6 +136,13 @@ const Home = () => {
   const [mapType, setMapType] = useState('standard')
   const [isEditing, setIsEditing] = useState(false)
   const [moreFilter, setMoreFilter] = useState(false)
+  const [city, setCity] = useState()
+  const [maxPriceRange, setMaxPriceRange] = useState()
+  const [minPricerange, setMinPricerange] = useState()
+  const [minSquareFeet, setMinSquareFeet] = useState()
+  const [maxSquareFeet, setMaxSquareFeet] = useState()
+  const [bathRoomCount, setBathRoomCount] = useState()
+  const [bedCount, setBedCount] = useState()
   useEffect(() => {
     getID()
   }, [])
@@ -247,7 +265,6 @@ const Home = () => {
     );
 
   }
-
   useEffect(() => {
   }, []);
 
@@ -287,11 +304,18 @@ const Home = () => {
     return (
       <View style={{}}>
         <TouchableOpacity
-
-          onPress={() => {
+          onPress={async () => {
             setSelectedItem(item.counter_id)
             setIsSelected(true)
-          }}>
+            await getPopertiesApiCall({
+              type: 3, data: {
+                userID: user_ID,
+                data_custom_taxonomy: item.data_customvalue,
+                data_customvalue: item.data_custom_taxonomy,
+              }, lntLng
+            })
+          }}
+        >
           <View
             style={{
               justifyContent: 'center',
@@ -494,6 +518,7 @@ const Home = () => {
                 onPress={() => {
                   setIsSelected(false)
                   setSelectedItem(null)
+                  getPopertiesApiCall({ type: 0, data: '', lntLng, })
                 }}
                 style={[
                   styles.rew,
@@ -604,9 +629,8 @@ const Home = () => {
                     }}>
 
                       <View>
-
                         <Text style={{ color: 'black', fontFamily: 'Poppins-Regular', width: "99%", marginBottom: 8 }}>Choose your city </Text>
-                        <MultiSelect
+                        {/* <MultiSelect
                           style={styles.dropdown}
                           placeholderStyle={styles.placeholderStyle}
                           selectedTextStyle={styles.selectedTextStyle}
@@ -616,20 +640,37 @@ const Home = () => {
                           placeholderTextColor="red"
                           data={moreFilterData.City}
                           search
+                          value={cities}
                           maxHeight={300}
                           labelField="data_name"
-                          labelFieldStyle={{ color: "red" }}
-                          valueFieldStyle={{ color: "red" }}
-                          valueField="value"
+                          valueField="data_customvalue"
                           placeholder="Select item"
                           searchPlaceholder="Search..."
-                          value={selected}
                           valuestyle={{ color: "red" }}
-
                           onChange={item => {
-                            // setSelected(item);
+                             setCities(item.data_customvalue)
                           }}
-
+                        /> */}
+                        <MultiSelect
+                          style={styles.dropdown}
+                          placeholderStyle={styles.placeholderStyle}
+                          selectedTextStyle={styles.selectedTextStyle}
+                          inputSearchStyle={styles.inputSearchStyle}
+                          iconStyle={styles.iconStyle}
+                          itemTextStyle={styles.itemTextStyle}
+                          placeholderTextColor="red"
+                          search
+                          data={moreFilterData.City}
+                          labelField="data_name"
+                          valueField="data_customvalue"
+                          placeholder="Select item"
+                          searchPlaceholder="Search..."
+                          value={cities}
+                          valuestyle={{ color: "red" }}
+                          onChange={item => {
+                            setCities(item);
+                          }}
+                          selectedStyle={styles.selectedStyle}
                         />
 
                         <View style={{ marginBottom: 12 }}>
@@ -641,7 +682,7 @@ const Home = () => {
                             showsHorizontalScrollIndicator={false}
                             renderItem={({ item, index }) => {
                               return (
-                                <TouchableOpacity onPress={() => { setBedroomItem(index) }}>
+                                <TouchableOpacity onPress={() => { setBedroomItem(index), setBedCount(item.data_name) }}>
                                   <View style={{ width: 70, height: 40, marginTop: 8, marginHorizontal: 3, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.BorderColor, backgroundColor: bedroomitem === index ? Colors.newgray : Colors.white }}>
                                     <Text style={{ fontFamily: 'Poppins-Regular', color: bedroomitem === index ? Colors.white : Colors.newgray }}>{item?.data_name}</Text>
                                   </View>
@@ -662,7 +703,10 @@ const Home = () => {
                             showsHorizontalScrollIndicator={false}
                             renderItem={({ item, index }) => {
                               return (
-                                <TouchableOpacity onPress={() => { setBathRoomItem(index) }}>
+                                <TouchableOpacity onPress={() => {
+                                  setBathRoomItem(index)
+                                  setBathRoomCount(item.data_name)
+                                }}>
                                   <View style={{ width: 70, height: 40, marginTop: 8, marginHorizontal: 3, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.BorderColor, backgroundColor: bathRoom === index ? Colors.newgray : Colors.white }}>
                                     <Text style={{ fontFamily: 'Poppins-Regular', color: bathRoom === index ? Colors.white : Colors.newgray }}>{item?.data_name}</Text>
                                   </View>
@@ -689,12 +733,12 @@ const Home = () => {
                               search
                               maxHeight={300}
                               labelField="data_name"
-                              valueField="value"
+                              valueField="data_name"
                               placeholder="Min square"
                               searchPlaceholder="Search..."
-                              value={selected}
+                              value={minSquareFeet}
                               onChange={item => {
-                                // setSelected(item);
+                                setMinSquareFeet(item.data_name);
                               }}
 
                             />
@@ -709,12 +753,12 @@ const Home = () => {
                               search
                               maxHeight={300}
                               labelField="data_name"
-                              valueField="value"
+                              valueField="data_name"
                               placeholder="Max Square"
                               searchPlaceholder="Search..."
-                              value={selected}
+                              value={maxSquareFeet}
                               onChange={item => {
-                                // setSelected(item);
+                                setMaxSquareFeet(item.data_name)
                               }}
 
                             />
@@ -739,12 +783,12 @@ const Home = () => {
                               search
                               maxHeight={300}
                               labelField="data_name"
-                              valueField="value"
+                              valueField="data_name"
                               placeholder="Min Price"
                               searchPlaceholder="Search..."
-                              value={selected}
+                              value={minPricerange}
                               onChange={item => {
-                                // setSelected(item);
+                                setMinPricerange(item.data_name)
                               }}
 
                             />
@@ -759,12 +803,12 @@ const Home = () => {
                               search
                               maxHeight={300}
                               labelField="data_name"
-                              valueField="value"
+                              valueField="data_name"
                               placeholder="Max Price"
                               searchPlaceholder="Search..."
-                              value={selected}
+                              value={maxPriceRange}
                               onChange={item => {
-                                // setSelected(item);
+                                setMaxPriceRange(item.data_name);
                               }}
 
                             />
@@ -792,14 +836,7 @@ const Home = () => {
                                     width: '30%', margin: 5, borderRadius: 20, borderWidth: 1,
                                     borderColor: Colors.black, padding: 10,
                                   }} onPress={() => {
-                                    let renderData = [...data];
-                                    for (let data of renderData) {
-                                      if (data.label == item.label) {
-                                        data.selected = (data.selected == null) ? true : !data.selected;
-                                        break;
-                                      }
 
-                                    }
                                   }}>
                                     <Text style={{
                                       color: item.selected ? Colors.white : Colors.black,
@@ -825,9 +862,34 @@ const Home = () => {
                         }}>
 
                           <TouchableOpacity
-                            // onPress={() => addReview()}
-                            onPress={() => setFilterModalVisible(false)}
-                            // onPress={Alert.alert("Hyy")}
+                            onPress={async () => {
+                              await getPopertiesApiCall({
+                                type: 3, data: {
+                                  userID: user_ID,
+                                  data_custom_taxonomy: item.data_customvalue,
+                                  data_customvalue: item.data_custom_taxonomy,
+                                  category_ids: 148,
+                                  action_ids: "",
+                                  city_ids: "",
+                                  bed_number: bedCount,
+                                  bath_number: bathRoomCount,
+                                  min_price: minPricerange,
+                                  max_price: maxPriceRange,
+                                  area_min: minSquareFeet,
+                                  area_max: maxSquareFeet,
+                                  luxury_properties: "",
+                                  area_ids: "",
+                                  state_ids: "",
+                                  status: "",
+                                  features: 184,
+                                  custom_waterfrontfeatures: "",
+                                  custom_AssociationAmenities: "",
+                                  custom_community: ""
+                                }, lntLng
+                              })
+                              setFilterModalVisible(false)
+                              // console.log("okk", cities, maxPriceRange, minPricerange, maxSquareFeet, minSquareFeet, bathRoomCount, bedCount)
+                            }}
                             style={{
                               height: 50,
                               width: '40%',
@@ -843,7 +905,6 @@ const Home = () => {
                             <Text
                               style={{
                                 fontSize: 16,
-                                // fontWeight: '700',
                                 color: Colors.white,
                                 fontFamily: "Poppins-Regular",
                               }}>
@@ -965,21 +1026,21 @@ const Home = () => {
                         <>
                           <View style={{ height: width, width: width, position: "relative", marginTop: 1 }}>
                             <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", zIndex: 99, }}>
-                              
-                                <TouchableOpacity disabled={imageIndex > 0 ? false : true} onPress={() => { setImageIndex(imageIndex - 1) }}
-                                  style={{ height: "100%", width: 30, backgroundColor: "red", position: "relative", left: 10 }} >
-                                  <View style={{ height: width, width: 40, position: "absolute", zIndex: 999,}}>
-                                  </View>
-                                </TouchableOpacity>
-                            
-                                <TouchableOpacity disabled={item?.featured_image_src?.length - 1 === imageIndex ? true : false} onPress={() => {
-                                  setImageIndex(imageIndex + 1)
-                                  {console.log("Image test",item.featured_image_src[imageIndex].guid)}
-                                }}>
-                                  <View style={{ height: width, width: 40, position: "absolute", zIndex: 999, right: 10 , }}>
-                                  </View>
-                                </TouchableOpacity>
-                              
+
+                              <TouchableOpacity disabled={imageIndex > 0 ? false : true} onPress={() => { setImageIndex(imageIndex - 1) }}
+                                style={{ height: "100%", width: 30, backgroundColor: "red", position: "relative", left: 10 }} >
+                                <View style={{ height: width, width: 40, position: "absolute", zIndex: 999, }}>
+                                </View>
+                              </TouchableOpacity>
+
+                              <TouchableOpacity disabled={item?.featured_image_src?.length - 1 === imageIndex ? true : false} onPress={() => {
+                                setImageIndex(imageIndex + 1)
+                                { console.log("Image test", item.featured_image_src[imageIndex].guid) }
+                              }}>
+                                <View style={{ height: width, width: 40, position: "absolute", zIndex: 999, right: 10, }}>
+                                </View>
+                              </TouchableOpacity>
+
 
                             </View>
                             <View style={{ position: "absolute", zIndex: 9, top: "40%", justifyContent: "space-between", width: "100%" }}>
@@ -1872,6 +1933,10 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 16,
+    color: "gray"
+  },
+  selectedStyle: {
+    borderRadius: 12,
   },
   itemTextStyle: {
     fontSize: 16,
@@ -1879,6 +1944,7 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     fontSize: 16,
+    color: Colors.black
   },
   iconStyle: {
     width: 20,
