@@ -18,6 +18,7 @@ import {
   Button,
   Linking,
   Share,
+ 
   TouchableHighlight,
   ActivityIndicator,
   useWindowDimensions
@@ -44,8 +45,29 @@ import { addToFavorite } from '../../modules/addToFavorite';
 import { addRemoveTrash } from '../../modules/addRemoveTrash';
 import { colors } from 'react-native-swiper-flatlist/src/themes';
 import { getAgent } from '../../modules/getAgent';
+import {AutoScrollFlatList} from "react-native-autoscroll-flatlist";
 import * as Animatable from 'react-native-animatable';
+import { TypingAnimation } from 'react-native-typing-animation';
+// import { schoolChat } from '../../modules/schoolChat';
+import { schoolChat } from '../../modules/schoolChat';
+// const data = [
+//   { label: 'Test', type: 0 },
+//   { label: 'Test', type: 0 },
+//   { label: 'Test', type: 1 },
+//   { label: 'Test', type: 0 },
+//   { label: 'Test', type: 1 },
+//   { label: 'Test', type: 1 },
+//   { label: 'Test', type: 1 },
+//   { label: 'Test', type: 0 },
+//   { label: 'Test', type: 1 },
+//   { label: 'Test', type: 1 },
+//   { label: 'Test', type: 0 },
+//   { label: 'Test', type: 0 },
+//   { label: 'Test', type: 0 },
+//   { label: 'Test', type: 1 },
+//   { label: 'Test', type: 0 },
 
+// ]
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const fontSizeRatio = screenHeight / 1000;
@@ -91,7 +113,7 @@ const ViewPropertiy = (props, imageUrl) => {
   const [Icon, setIcon] = useState(false)
   const [ratingData, setRatingData] = useState([])
   const [isEditing, setIsEditing] = useState(false);
-
+ 
   const [pin, setPin] = useState(null);
   const [region, setRegion] = useState(null);
   const scrollViewRef = useRef(null);
@@ -104,6 +126,8 @@ const ViewPropertiy = (props, imageUrl) => {
     setIsScrolled(offsetY > 0);
   };
 
+
+ 
 
   useEffect(() => {
     getPopertiesDetailsApiCall();
@@ -557,23 +581,166 @@ const ViewPropertiy = (props, imageUrl) => {
     )
   }
   const School = () => {
+    const [res,setRes]=useState([])
+ const[message,setMessage]=useState()
+ const [loading,setLoading]=useState(false)
+    useEffect(()=>{
+
+    },[res])
     return (
       <>
-        <View style={{ paddingHorizontal: 20 }}>
-          <View style={styles.address}>
-            {/* <View style={{ width: '50%' }}>
-              <Text style={styles.property}> Schools</Text>
-            </View> */}
-            <WebView
-              style={{ height:400, marginLeft: 20, marginRight: 20 }}
-              scrollEnabled={true}
-              nestedScrollEnabled
-              source={{ uri: schoolRating?. school_rating}}
-              onLoad={console.log("loaded")}
-            />
-          </View>
-
+    
+        <View style={{ paddingHorizontal: 20 ,height:500}}>
+        <View style={{flexDirection:'row',justifyContent:'space-between',
+        alignItems:'center',marginTop:10,borderBottomWidth:1,borderColor:Colors.gray}}>
+          <Image source={Images.train} style={{height:30,width:30}}/>
+         <Text style={{ fontSize: 19, fontWeight: "bold", color: Colors.black }}>Powered by Cynthia®</Text>
+         <TouchableOpacity
+          onPress={() => { setRes([]) }}
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            marginRight: 10,
+          }}
+        >
+          <Image
+            style={{
+              height: 25,
+              width: 25,
+              resizeMode: "contain",
+              tintColor: Colors.black,
+            }}
+            source={Images.reload}
+          ></Image>
+        </TouchableOpacity>
         </View>
+        
+        <Text style={{ fontSize: 16, borderRadius: 16, alignSelf: 'flex-start', maxWidth: '70%', marginLeft: 22, marginTop: 22, color: Colors.black }}>I'm Cynthia. How can I help you?</Text>
+        
+        <AutoScrollFlatList nestedScrollEnabled={true}
+                data={res}
+                threshold={20}
+                renderItem={({ item, index }) => {
+                    return (
+                        <Text style={{
+                            padding: 16,
+                            fontSize: 16,
+                            borderRadius: 16,
+                            backgroundColor: item.type === 0 ? Colors.surfblur : Colors.white,
+                            alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
+                            maxWidth: '70%',
+                            marginLeft: 8,
+                            marginRight: 8,
+                            marginTop: 8,
+                            marginBottom:50,
+                            color: item.type === 0 ? Colors.white : Colors.black
+                        }}>{item.message}</Text>
+                    )
+                }}>
+
+            </AutoScrollFlatList>
+            <View style={{ bottom: 0, position: 'absolute', zIndex: 99, left: 0, right: 0, backgroundColor: Colors.white }}>
+                {
+                    loading && <Text style={{
+                        padding: 16,
+                        fontSize: 16,
+                        borderRadius: 16,
+                        backgroundColor: Colors.surfblur,
+                        alignSelf: 'flex-end',
+                        maxWidth: '70%',
+                        marginLeft: 8,
+                        marginRight: 8,
+                        marginTop: 8,
+                        marginBottom:50,
+                        color: Colors.white
+                    }}>{message}</Text>
+                }
+               
+                {
+                    loading && <View style={{ flexDirection: 'row' }}>
+                        <Text style={{
+                            fontSize: 12,
+                            borderRadius: 16,
+                            alignSelf: 'flex-start',
+                            maxWidth: '70%',
+                            marginLeft: 16,
+                            marginTop: 12,
+                            backgroundColor: Colors.white
+                        }}>typing</Text>
+                        <TypingAnimation
+                            dotColor="black"
+                            dotMargin={3}
+                            dotAmplitude={2}
+                            dotSpeed={0.15}
+                            dotRadius={1}
+                            dotX={8}
+                            dotY={0}
+                            style={{ marginTop: 25, marginLeft: -3 }}
+                        />
+                    </View>
+                }
+
+                <View style={{
+          backgroundColor: Colors.white,
+          borderColor: Colors.boderColor,
+          borderWidth: 1, borderRadius: 5,
+          height: 45, margin: 16,
+          paddingLeft: 8, paddingRight: 8,
+          flexDirection: 'row',
+          justifyContent: 'space-between'
+        }}>
+                    <TextInput
+                        style={{ width: '90%', backgroundColor: Colors.white, }}
+                        placeholder="Type here"
+                        placeholderTextColor={'black'}
+                        value={message}
+                        onChangeText={setMessage}>
+                    </TextInput>
+                    <TouchableOpacity
+                        onPress={() => {
+                            setLoading(true)
+                            dispatch(schoolChat({ message: 'i want to know somthink about school' })).then((ress) => {
+                                setLoading(false)
+
+                                const newTodo1 = {
+
+                                    type: 0,
+                                    message: message,
+                                }
+                                const newTodo = {
+                                    type: 1,
+                                    message: ress.payload.data.text,
+                                };
+                                setMessage('')
+
+                                setRes([...res, newTodo1, newTodo])
+
+                            }).catch((e) => {
+                                alert('Error ==> ' + JSON.stringify(e))
+                            })
+                        }}
+                        style={{
+                            flexDirection: "row",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Image
+                            style={{
+                                height: 25,
+                                width: 25,
+                                resizeMode: "contain",
+                                tintColor: Colors.black,
+                            }}
+                            source={Images.sendm}
+                        ></Image>
+                    </TouchableOpacity>
+                </View>
+
+            </View>
+        </View>
+       
       </>
     )
   }
@@ -731,7 +898,7 @@ const ViewPropertiy = (props, imageUrl) => {
 
                                     }}>
                                     <Image
-                                      source={Images.downThumb}
+                                      source={Images.deletethumb}
                                       style={{
                                         height: 25,
                                         width: 25,

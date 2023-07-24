@@ -218,7 +218,9 @@ const App = () => {
                 labelColor: '#ffffff',
                 activeBarColor: '#5dba46',
               },
-            ]}
+            ]
+            }
+           
 
 
             //  needleImage={Images.meter}
@@ -226,18 +228,19 @@ const App = () => {
               justifyContent: 'center',
               alignItems: 'center',
               position: 'absolute',
-              left: 1,
+         
               zIndex: 10,
             }}
             imageStyle={{
-              tintColor: "black"
+              tintColor: 'black',
+          
+              resizeMode:'contain',
             }}
-
 
           />
         </View>
 
-        <View style={{ backgroundColor: Colors.white, justifyContent: 'center', marginTop: 30 }}>
+        {/* <View style={{ backgroundColor: Colors.white, justifyContent: 'center', marginTop: 30 }}>
           <Text
             style={{
               fontSize: 20,
@@ -248,7 +251,7 @@ const App = () => {
             }}>
             reaching next tier with  {'\n'}the numerical points tally
           </Text>
-        </View>
+        </View> */}
         {meterValue <= 3000 ? (
           <View
             style={{
@@ -256,9 +259,23 @@ const App = () => {
               justifyContent: 'center',
               alignSelf: 'center',
               alignItems: 'center',
-              marginTop: 20,
+              marginTop: 100,
             }}>
-
+              <View style={{}}>
+              <Image source={Images.base} style={{height:50,width:230,resizeMode:'stretch',position:'relative',top:20}}/>
+                <Image
+          source={getImageCall()}
+          resizeMode="contain"
+          style={{
+            height: 100,
+            width: '80%',
+            marginTop: 20,
+             alignSelf: 'center',
+            position:'absolute',
+            top:-90
+          }}></Image>
+            
+            </View>
             <View
               style={{
                 width: '100%',
@@ -267,6 +284,11 @@ const App = () => {
                 alignItems: 'center',
                 marginTop: 20,
               }}>
+                <Text  style={{ fontSize: 20,
+                fontWeight:'600',
+                  color: Colors.black,
+                  fontFamily: 'Poppins-Regular',
+                  textAlign: 'center',}}>Your surf level</Text>
               <Text
                 style={{
                   fontSize: 30,
@@ -280,30 +302,22 @@ const App = () => {
             </View>
           </View>
         ) : null}
-        <Image
-          source={getImageCall()}
-          resizeMode="contain"
-          style={{
-            height: 100,
-            width: '80%',
-            marginTop: 20,
-            alignSelf: 'center',
-          }}></Image>
+      
 
 
-        <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, }}>
+        <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10,top:-10 }}>
 
           <TouchableOpacity
             onPress={handlePress}
             style={[
               styles.rew,
               {
-                backgroundColor: isRewardsSelected ? 'green' : 'transparent',
-                borderColor: isRewardsSelected ? 'green' : 'black',
+                backgroundColor: isRewardsSelected ? 'trasnparent' : 'transparent',
+                borderColor: isRewardsSelected ?Colors.primaryBlue : Colors.primaryBlue,
               },
             ]}
           >
-            <Text style={[styles.text, { color: isRewardsSelected ? 'white' : 'black', fontFamily: 'Poppins-Regular' }]}>Rewards</Text>
+            <Text style={[styles.text, { color: isRewardsSelected ? Colors.primaryBlue :Colors.primaryBlue, fontFamily: 'Poppins-Regular' }]}>Rewards</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -311,12 +325,12 @@ const App = () => {
             style={[
               styles.rew,
               {
-                backgroundColor: isRewardsSelected ? 'transparent' : 'green',
-                borderColor: isRewardsSelected ? 'black' : 'green',
+                backgroundColor: isRewardsSelected ? 'transparent' : 'transparent',
+                borderColor: isRewardsSelected ? Colors.primaryBlue : Colors.primaryBlue ,
               },
             ]}
           >
-            <Text style={[styles.text, { color: isRewardsSelected ? 'black' : 'white', fontFamily: 'Poppins-Regular' }]}>Challenges</Text>
+            <Text style={[styles.text, { color: isRewardsSelected ?Colors.primaryBlue : Colors.primaryBlue, fontFamily: 'Poppins-Regular' }]}>Challenges</Text>
           </TouchableOpacity>
         </View>
 

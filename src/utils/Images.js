@@ -29,6 +29,7 @@ const Images = {
   send: require(BaseUrl + 'send.png'),
   hoa: require(BaseUrl + 'hoa.png'),
   star: require(BaseUrl + 'star.png'),
+  train: require(BaseUrl + 'train.png'),
   VideoPlay: require(BaseUrl + 'VideoPlay.png'),
 
   // Slides
@@ -60,8 +61,13 @@ const Images = {
   // correctThumb: require(BaseUrl + 'correctthumb.png'),
   // 20 Apr
   bigCahouna: require(BaseUrl + 'bigCahouna.png'),
+  deletethumb:require(BaseUrl + 'deletethumb.png'),
+  upthumb:require(BaseUrl + 'upthumb.png'),
+  upgreen:require(BaseUrl + 'upgreen.png'),
+ redlike:require(BaseUrl + 'redlike.png'),
   fastGun: require(BaseUrl + 'fastGun.png'),
   grommet: require(BaseUrl + 'grommet.png'),
+  base: require(BaseUrl + 'base.png'),
   longBoarder: require(BaseUrl + 'longBoarder.png'),
   agentInsta: require(BaseUrl + 'agentInsta.png'),
   agentPhone: require(BaseUrl + 'agentPhone.png'),
