@@ -37,10 +37,7 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
         })
         : 
         await getAPI(
-          'https://surf.topsearchrealty.com/webapi/v1/AppFilter',
-          {UserId:type.data.UserId,
-            data_custom_taxonomy:type.data.data_custom_taxonomy,
-            data_customvalue:type.data.data_customvalue},
+          `https://surf.topsearchrealty.com/webapi/v1/AppFilter?UserId=${type.data.UserId}&data_custom_taxonomy=${type.data.data_custom_taxonomy}&data_customvalue=${type.data.data_customvalue}`
         )
           .then(async response => {
             console.log("payload data",typeof type.data.data_custom_taxonomy)

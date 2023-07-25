@@ -311,8 +311,8 @@ const Home = () => {
             await getPopertiesApiCall({
               type: 3, data: {
                 UserId: user_ID,
-                data_custom_taxonomy: item.data_customvalue,
-                data_customvalue: item.data_custom_taxonomy,
+                data_custom_taxonomy: item.data_custom_taxonomy,
+                data_customvalue: item.data_customvalue
               }, lntLng
             })
 
@@ -656,8 +656,8 @@ const Home = () => {
                             setCities(item);
                             await getPopertiesApiCall({
                               type: 3, data: {
-                                userID: user_ID,
-                                data_custom_taxonomy: "property_features",
+                                UserId: user_ID,
+                                data_custom_taxonomy:"property_city",
                                 data_customvalue: item.toString(),
                               }, lntLng
                             })
