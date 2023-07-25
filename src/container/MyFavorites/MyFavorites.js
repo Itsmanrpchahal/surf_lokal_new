@@ -13,6 +13,7 @@ import {
   FlatList,
   ImageBackground,
   Animated,
+  PanResponder,
   Vibration,
   Linking,
   Share,
@@ -65,10 +66,49 @@ const MyFavorites = () => {
   const [review, setReview] = useState('');
   const [productId, setProductId] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
+ 
+  const slideAnimation = useRef(new Animated.Value(0)).current;
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (_, gestureState) => {
+        slideAnimation.setValue(gestureState.dy);
+      },
+      onPanResponderRelease: (_, gestureState) => {
+        if (gestureState.dy > 50) {
+          // If the swipe distance is greater than 50, close the modal
+          closeModal();
+        } else {
+          // Otherwise, reset the animation back to 0
+          Animated.spring(slideAnimation, {
+            toValue: 0,
+            useNativeDriver: false,
+          }).start();
+        }
+      },
+    })
+  ).current;
+
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
 
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  const handleModalAnimation = () => {
+    Animated.timing(slideAnimation, {
+      toValue: modalVisible ? 1 : 0,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  useEffect(() => {
+    handleModalAnimation();
+  }, [modalVisible]);
 
   const updateReview = async (post_id) => {
     const id = await AsyncStorage.getItem('userId');
@@ -203,7 +243,7 @@ const MyFavorites = () => {
           //width: 20,
           backgroundColor: Colors.white,
           position: 'absolute',
-          top: 30,
+          top: 8,
           right: 16,
           borderRadius: 5,
           justifyContent: 'center',
@@ -240,7 +280,7 @@ const MyFavorites = () => {
           <TouchableOpacity onPress={() => makePhoneCall()}>
             <Image
               source={Images.call}
-              style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
+              style={{ height: 20, width: 20, resizeMode: 'contain',marginRight:15 }}></Image>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -256,7 +296,7 @@ const MyFavorites = () => {
               fontSize: 20,
               color: Colors.primaryBlue,
               fontWeight: '500',
-              fontFamily: 'Poppins-SemiBold'
+              fontFamily: 'Poppins-SemiBold',marginTop:5
             }}>
 
             {item.property_price}
@@ -266,11 +306,14 @@ const MyFavorites = () => {
         <View
           style={{
             flexDirection: 'row',
-            width: '20%',
-            alignSelf: 'flex-end',
+            // width: '20%',
+            // alignSelf: 'flex-end',
             justifyContent: 'space-between',
             alignItems: 'center',
+           
           }}>
+              <View style={{ position:"relative",flexDirection:"row",
+            left:-10}}>
           <TouchableOpacity
             onPress={() => {
               setProductId(item.ID);
@@ -278,14 +321,17 @@ const MyFavorites = () => {
               toggleModal();
             }}
           >
+          
             <Image
               source={Images.star}
               style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
           </TouchableOpacity>
+          
           <Text
-            style={{ fontSize: 14, color: Colors.black, textAlign: 'left', marginRight: 10 }}>
+            style={{ fontSize: 14, color: Colors.black, textAlign: 'left', marginRight: 0 }}>
             {item.total_average_rating}
           </Text>
+          </View>
           <TouchableOpacity onPress={() => handleShare()}>
             <Image
               source={Images.send}
@@ -294,31 +340,35 @@ const MyFavorites = () => {
         </View>
       </View>
 
-      <KeyboardAvoidingView >
+      <KeyboardAvoidingView behavior="padding">
 
         <Modal
           transparent={true}
           animationType="slide"
           visible={modalVisible}
           onRequestClose={toggleModal}>
-
-          <View
-            style={{
-              width: '100%',
-              left: 0,
-              right: 0,
-              paddingHorizontal: 16,
-              alignItems: 'center',
-              alignContent: 'center',
-              backgroundColor: Colors.white,
-              position: 'absolute',
-              bottom: 0,
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-              borderWidth: 1,
-              borderColor: Colors.gray,
-              flexWrap: "wrap",
-            }}>
+            <View style={styles.modalContainer}>
+            <TouchableOpacity
+              activeOpacity={1}
+              style={styles.modalOverlay}
+              onPress={closeModal}
+            />
+          <Animated.View
+          {...panResponder.panHandlers}
+          style={[
+            styles.modalContent,
+            {
+              transform: [
+                {
+                  translateY: slideAnimation.interpolate({
+                    inputRange: [-300, 0],
+                    outputRange: [-300, 0],
+                  }),
+                },
+              ],
+            },
+          ]}
+        >
             <ScrollView style={{ width: "100%" }}>
               <View style={{ alignItems: "center", justifyContent: "center" }}>
                 <TouchableOpacity onPress={toggleModal}>
@@ -578,8 +628,8 @@ const MyFavorites = () => {
 
               </View>
             </ScrollView>
-          </View>
-
+          </Animated.View>
+           </View>
         </Modal>
 
       </KeyboardAvoidingView>
@@ -619,6 +669,7 @@ const MyFavorites = () => {
                 fontSize: 14,
                 color: Colors.black,
                 textAlign: 'center',
+                 fontFamily: 'Poppins-Regular'
               }}>
               {item.property_bedrooms.length > 0 ? item.property_bedrooms : 0} {'Beds'}
             </Text>
@@ -657,6 +708,7 @@ const MyFavorites = () => {
                 fontSize: 14,
                 color: Colors.black,
                 textAlign: 'center',
+                fontFamily: 'Poppins-Regular'
               }}>
               {item.property_size.length > 0 ? item.property_size : 0} {'sq ft'}
             </Text>
@@ -674,6 +726,7 @@ const MyFavorites = () => {
                 fontSize: 13,
                 color: Colors.black,
                 textAlign: 'center',
+                fontFamily: 'Poppins-Regular'
               }}>
               {"HOA"}
             </Text>
@@ -723,9 +776,9 @@ const MyFavorites = () => {
           justifyContent: 'center',
           width: '100%',
           marginLeft: 0,
-          marginBottom:4
+          marginBottom:0
         }}>
-        <Text style={{ fontSize: 20, color: Colors.black }}>Favorties</Text>
+        <Text style={{ fontSize: 20, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Favorties</Text>
         <View
           style={{
             flexDirection: 'row',
@@ -739,7 +792,6 @@ const MyFavorites = () => {
             position: 'absolute',
             top: 10,
           }}>
-
           <TouchableOpacity
             style={{
               alignItems: 'center',
@@ -822,9 +874,12 @@ const styles = StyleSheet.create({
   },
   slide: {
     width: screenWidth -16,
-    height: screenHeight / 3,
-    borderRadius: 18,
+    // height: screenHeight / 3,
+    height: screenWidth -100,
+    borderRadius: 12,
     margin: 20,
+    marginTop:0,
+    marginBottom:0
   },
   title: {
     fontSize: 32,
@@ -853,6 +908,21 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray',
     marginHorizontal: 5,
   },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    justifyContent: 'flex-end',
+  },
+  modalOverlay: {
+    flex: 1,
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 16,
+    maxHeight: '80%',
+  }, 
   paginationDotActive: {
     backgroundColor: 'blue',
   },

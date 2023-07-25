@@ -262,7 +262,7 @@ const MakeAnOffer = () => {
           marginLeft: 0,
           marginBottom:4
         }}>
-        <Text style={{ fontSize: 20, color: Colors.black }}>Make an offer</Text>
+        <Text style={{ fontSize: 20, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Make an offer</Text>
         <View
           style={{
             flexDirection: 'row',
@@ -325,6 +325,8 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Property Address"
+                 // lineHeight={40}
+                  fontFamily= 'Poppins-Regular'
                   placeholderTextColor={'gray'}
                   value={address}
                   onChangeText={(text) => setAddress(text)}
@@ -335,6 +337,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Offer Price"
+                  fontFamily= 'Poppins-Regular'
                   placeholderTextColor={'gray'}
                   keyboardType="default"
                   value={priceOffer}
@@ -349,6 +352,8 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Cash Loan"
+
+                  fontFamily= 'Poppins-Regular'
                   placeholderTextColor={'gray'}
                   keyboardType="default"
                   value={cashLoan}
@@ -372,6 +377,7 @@ const MakeAnOffer = () => {
                   <DateTimePicker
                     value={selectedDate || new Date()}
                     mode="date"
+                    fontFamily= 'Poppins-Regular'
                     is24Hour={true}
                     display="default"
                     onChange={handleDateChange}
@@ -386,6 +392,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Legal Name"
+                  fontFamily= 'Poppins-Regular'
                   placeholderTextColor={'gray'}
                   value={legalName}
                   onChangeText={(text) => setLegalName(text)}
@@ -399,6 +406,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Current Address"
+                  fontFamily= 'Poppins-Regular'
                   placeholderTextColor={'gray'}
                   value={currentAddress}
                   onChangeText={(text) => setCurrentAddress(text)}
@@ -412,6 +420,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Email"
+                  fontFamily= 'Poppins-Regular'
                   placeholderTextColor={'gray'}
                   value={email}
                   onChangeText={(text) => setEmail(text)}
@@ -425,6 +434,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Phone"
+                  fontFamily= 'Poppins-Regular'
                   placeholderTextColor={'gray'}
                   keyboardType="numeric"
                   value={phone}
@@ -456,18 +466,19 @@ const MakeAnOffer = () => {
                   borderRadius: 100,
                   backgroundColor: Colors.surfblur,
                   marginTop: 10,
-
+lineHeight:50,
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  marginBottom: 20
+                  marginBottom: 10
                 }}>
                 <Text
                   style={{
-                    fontSize: 14,
-                    fontWeight: '700',
+                    fontSize: 16,
+                   // fontWeight: '700',
                     color: Colors.white,
                     fontFamily: 'Poppins-Regular',
+                    
                   }}>
                   Submit
                 </Text>
@@ -553,21 +564,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     width: '100%',
     color: Colors.textColorDark,
-
+paddingBottom:5
 
   },
   datePickerContainer: {
     width: '100%',
-    height: 40,
+   //height: 40,
     justifyContent: 'center',
     borderColor: Colors.BorderColor,
     borderWidth: 1,
     borderRadius: 4,
     paddingHorizontal: 8,
+    fontFamily: 'Poppins-Regular',
+
   },
   datePickerText: {
     fontSize: 14,
-    color: 'gray'
+    color: 'gray',
+    fontFamily:'Poppins-Regular',
+    height:40,lineHeight:40
   },
   errorText: {
     color: 'red',
