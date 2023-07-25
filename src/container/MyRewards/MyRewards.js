@@ -120,7 +120,7 @@ const App = () => {
           marginLeft: 0,
           marginBottom:4
         }}>
-        <Text style={{ fontSize: 20, color: Colors.black }}>Surf Rewards</Text>
+        <Text style={{ fontSize: 20, color: Colors.black,   fontFamily: 'Poppins-Regular', }}>Surf Rewards</Text>
         <View
           style={{
             flexDirection: 'row',
@@ -225,7 +225,6 @@ const App = () => {
                 marginTop: 20,
               }}>
                 <Text  style={{ fontSize: 20,
-                fontWeight:'600',
                   color: Colors.black,
                   fontFamily: 'Poppins-Medium',
                   textAlign: 'center',

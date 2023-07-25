@@ -226,7 +226,7 @@ const MyFavorites = ({ navigation }) => {
           marginLeft: 0,
           marginBottom:4
         }}>
-        <Text style={{ fontSize: 20, color: Colors.black }}>Saved Searches</Text>
+        <Text style={{ fontSize: 20, color: Colors.black,   fontFamily: 'Poppins-Regular', }}>Saved Searches</Text>
         <View
           style={{
             flexDirection: 'row',

@@ -109,7 +109,7 @@ const Notification = () => {
           marginLeft: 0,
           marginBottom:4
         }}>
-        <Text style={{ fontSize: 20, color: Colors.black }}>Notifications</Text>
+        <Text style={{ fontSize: 20, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Notifications</Text>
         <View
           style={{
             flexDirection: 'row',
