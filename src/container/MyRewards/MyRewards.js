@@ -9,12 +9,12 @@ import {
   ScrollView,
   TouchableOpacity
 } from 'react-native';
-import RNSpeedometer from 'react-native-speedometer';
+// import RNSpeedometer from 'react-native-speedometer';
 import Images from '../../utils/Images';
 import { useNavigation } from '@react-navigation/native';
 import Colors from '../../utils/Colors';
 import * as Animatable from 'react-native-animatable';
-
+import Speedmeter  from '../../components/speedmeter';
 const App = () => {
   const navigation = useNavigation();
   const [meterValue, setMeterValue] = useState(300);
@@ -53,7 +53,7 @@ const App = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
-      <View style={{}}>
+      {/* <View style={{}}>
         <View
           style={{
             marginTop: 8,
@@ -110,134 +110,74 @@ const App = () => {
         </View>
 
         </View>
+      </View> */}
+        <View
+        style={{
+          marginTop: 4,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          width: '100%',
+          marginLeft: 0,
+          marginBottom:4
+        }}>
+        <Text style={{ fontSize: 20, color: Colors.black }}>Surf Rewards</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            alignSelf: 'center',
+
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+            overflow: 'visible',
+            zIndex: 99,
+            position: 'absolute',
+            top: 10,
+          }}>
+
+          <TouchableOpacity
+            style={{
+              alignItems: 'center',
+              position: "absolute",
+              right: -12,
+              top: -10,
+
+              backgroundColor: Colors.surfblur,
+              height: 25,
+              width: 25,
+              borderRadius: 100,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={() => navigation.goBack()}
+          >
+            <Animatable.Image
+              source={Images.whiteclose}
+              style={{
+                height: 10,
+                width: 10,
+                resizeMode: 'contain',
+                tintColor: Colors.white,
+              }}
+              animation="flipInY"
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <View>
 
 
         <View
           style={{ marginTop: 10, backgroundColor: Colors.white, width: '100%' }}>
-          <RNSpeedometer
-
-            value={meterValue}
-            size={200}
-            minValue={0}
-            maxValue={3000}
-
-            // needleColor="blue" 
-            allowedDecimals={0}
-
-            labels={[
-              {
-                name: '',
-                labelColor: '#ed2024',
-                activeBarColor: '#ec1a1e',
-              },
-              {
-                name: '',
-                labelColor: '#ee3323',
-                activeBarColor: '#ee3323',
-              },
-              {
-                name: '',
-                labelColor: '#f05622',
-                activeBarColor: '#f05622',
-              },
-              {
-                name: '',
-                labelColor: '#f36f21',
-                activeBarColor: '#f36f21',
-              },
-              {
-                name: '',
-                labelColor: '#f68620',
-                activeBarColor: '#f68620',
-              },
-              {
-                name: '',
-                labelColor: '#f99d1c',
-                activeBarColor: '#f99d1c',
-              },
-              {
-                name: '',
-                labelColor: '#fcb218',
-                activeBarColor: '#fcb218',
-              },
-              {
-                name: '',
-                labelColor: '#ffc907',
-                activeBarColor: '#ffc907',
-              },
-              {
-                name: '',
-                labelColor: '#fedf00',
-                activeBarColor: '#fedf00',
-              },
-              {
-                name: '',
-                labelColor: '#f7de00',
-                activeBarColor: '#f7de00',
-              },
-              {
-                name: '',
-                labelColor: '#e7dd1c',
-                activeBarColor: '#e7dd1c',
-              },
-              {
-                name: '',
-                labelColor: '#dadf26',
-                activeBarColor: '#dadf26',
-              },
-
-              {
-                name: '',
-                labelColor: '#c2d82f',
-                activeBarColor: '#c2d82f',
-              },
-              {
-                name: '',
-                labelColor: '#afd136',
-                activeBarColor: '#afd136',
-              },
-              {
-                name: '',
-                labelColor: '#9ccb3b',
-                activeBarColor: '#9ccb3b',
-              },
-              {
-                name: '',
-                labelColor: '#8bc63f',
-                activeBarColor: '#8bc63f',
-              },
-              {
-                name: '',
-                labelColor: '#7ac143',
-                activeBarColor: '#7ac143',
-              },
-              {
-                name: '',
-                labelColor: '#ffffff',
-                activeBarColor: '#5dba46',
-              },
-            ]
-            }
-           
-
-
-            //  needleImage={Images.meter}
-            imageWrapperStyle={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'absolute',
-         
-              zIndex: 10,
-            }}
-            imageStyle={{
-              tintColor: 'black',
-          
-              resizeMode:'contain',
-            }}
-
-          />
+           <Speedmeter
+                  minValue={0}
+                  defaultValue={0}
+                  allowedDecimals={0}
+                  size={200}
+                  needleImage={require('../../assets/images/needlecustom.png')}
+                  maxValue={100}
+                  labels={[{ name: 'Low', activeBarColor: 'green' }, { name: 'Medium', activeBarColor: 'yellow' }, { name: 'High', activeBarColor: 'red' }]}
+                  value={meterValue}></Speedmeter>
         </View>
 
         {/* <View style={{ backgroundColor: Colors.white, justifyContent: 'center', marginTop: 30 }}>
@@ -259,7 +199,7 @@ const App = () => {
               justifyContent: 'center',
               alignSelf: 'center',
               alignItems: 'center',
-              marginTop: 100,
+              marginTop: 80,
             }}>
               <View style={{}}>
               <Image source={Images.base} style={{height:50,width:230,resizeMode:'stretch',position:'relative',top:20}}/>
@@ -287,15 +227,17 @@ const App = () => {
                 <Text  style={{ fontSize: 20,
                 fontWeight:'600',
                   color: Colors.black,
-                  fontFamily: 'Poppins-Regular',
-                  textAlign: 'center',}}>Your surf level</Text>
+                  fontFamily: 'Poppins-Medium',
+                  textAlign: 'center',
+                  marginTop:15}}>Your surf level</Text>
               <Text
                 style={{
                   fontSize: 30,
                   color: Colors.black,
                   textAlign: 'center',
                   // fontWeight:"100%"
-                  fontFamily: 'Poppins-Regular'
+                  fontFamily: 'Poppins-SemiBold',
+                  lineHeight:33
                 }}>
                 {getLevelCall()}
               </Text>
@@ -305,7 +247,7 @@ const App = () => {
       
 
 
-        <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10,top:-10 }}>
+        <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'center', }}>
 
           <TouchableOpacity
             onPress={handlePress}
@@ -317,7 +259,7 @@ const App = () => {
               },
             ]}
           >
-            <Text style={[styles.text, { color: isRewardsSelected ? Colors.primaryBlue :Colors.primaryBlue, fontFamily: 'Poppins-Regular' }]}>Rewards</Text>
+            <Text style={[styles.text, { color: isRewardsSelected ? Colors.primaryBlue :Colors.primaryBlue, fontFamily: 'Poppins-Regular',fontSize:15}]}>Rewards</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -330,7 +272,7 @@ const App = () => {
               },
             ]}
           >
-            <Text style={[styles.text, { color: isRewardsSelected ?Colors.primaryBlue : Colors.primaryBlue, fontFamily: 'Poppins-Regular' }]}>Challenges</Text>
+            <Text style={[styles.text, { color: isRewardsSelected ?Colors.primaryBlue : Colors.primaryBlue, fontFamily: 'Poppins-Regular', fontSize:15 }]}>Challenges</Text>
           </TouchableOpacity>
         </View>
 
@@ -358,15 +300,16 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black',
   },
   rew: {
-    height: 50,
+    height: 45,
     width: 150,
-    borderRadius: 24,
+    borderRadius: 17,
     borderWidth: 1,
     paddingHorizontal: 10,
-    marginTop: 40,
+    marginTop: 18,
     // marginRight: '10%',
     backgroundColor: Colors.primaryBlue,
     justifyContent: 'center',
     alignItems: 'center',
+    marginHorizontal:8
   },
 });

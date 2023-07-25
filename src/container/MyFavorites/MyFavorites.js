@@ -199,8 +199,8 @@ const MyFavorites = () => {
 
       <View
         style={{
-          height: 30,
-          width: 170,
+        // height: 30,
+          //width: 20,
           backgroundColor: Colors.white,
           position: 'absolute',
           top: 30,
@@ -208,11 +208,17 @@ const MyFavorites = () => {
           borderRadius: 5,
           justifyContent: 'center',
           alignItems: 'center',
+          paddingHorizontal:8,
+          paddingVertical:4
+         
         }}>
         <Text
           style={{
-            fontSize: 18,
+            fontSize: 14,
             color: Colors.black,
+            fontFamily:"Poppins-Medium",
+            marginBottom:0,
+            lineHeight:19
           }}>
           {item?.ListingKey}
         </Text>
@@ -712,11 +718,12 @@ const MyFavorites = () => {
     <SafeAreaView style={styles.container}>
       <View
         style={{
-          marginTop: 8,
+          marginTop: 4,
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
           marginLeft: 0,
+          marginBottom:4
         }}>
         <Text style={{ fontSize: 20, color: Colors.black }}>Favorties</Text>
         <View
@@ -738,7 +745,7 @@ const MyFavorites = () => {
               alignItems: 'center',
               position: "absolute",
               right: -12,
-              top: -6,
+              top: -10,
 
               backgroundColor: Colors.surfblur,
               height: 25,
@@ -799,7 +806,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    position: "relative"
+    position: "relative",
+  
   },
   slideOuter: {
     width: "100%",
@@ -813,7 +821,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   slide: {
-    width: screenWidth,
+    width: screenWidth -16,
     height: screenHeight / 3,
     borderRadius: 18,
     margin: 20,
