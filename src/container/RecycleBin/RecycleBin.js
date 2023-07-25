@@ -761,7 +761,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
   },
   slide: {
-    width: screenWidth,
+    width: screenWidth -16,
     height: screenHeight / 3,
     borderRadius: 18,
     margin: 20,

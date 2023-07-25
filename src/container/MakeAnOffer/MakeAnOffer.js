@@ -253,44 +253,17 @@ const MakeAnOffer = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView
-        keyboardDismissMode="interactive"
-        showsVerticalScrollIndicator={false}
-        enableOnAndroid={true}
-        extraScrollHeight={90}
-      >
-        <View style={styles.cardContainer}>
-
-          <View
-            style={styles.viewStyle}>
-            <Text style={{
-              fontSize: 20, color: Colors.black,
-              fontFamily: 'Poppins-Regular'
-            }}>Make An Offer </Text>
-            {/* <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={{
-                alignItems: 'center',
-                position: "absolute",
-                right: 10,
-                rop: 10,
-                justifyContent: 'center',
-                height: 35,
-                width: 35,
-                borderRadius: 100,
-                backgroundColor: Colors.gray,
-              }}>
-              <Image
-                source={Images.close}
-                style={{
-                  height: 12,
-                  width: 12,
-                  resizeMode: 'contain',
-                  tintColor: Colors.black,
-                  transform: [{ rotate: '90deg' }],
-                }}></Image>
-            </TouchableOpacity> */}
-            <View
+        <View
+        style={{
+          marginTop: 4,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          width: '100%',
+          marginLeft: 0,
+          marginBottom:4
+        }}>
+        <Text style={{ fontSize: 20, color: Colors.black }}>Make an offer</Text>
+        <View
           style={{
             flexDirection: 'row',
             width: '90%',
@@ -308,8 +281,8 @@ const MakeAnOffer = () => {
             style={{
               alignItems: 'center',
               position: "absolute",
-              right:-12,
-              top: -6,
+              right: -12,
+              top: -10,
 
               backgroundColor: Colors.surfblur,
               height: 25,
@@ -332,7 +305,16 @@ const MakeAnOffer = () => {
             />
           </TouchableOpacity>
         </View>
-          </View>
+      </View>
+      <KeyboardAwareScrollView
+        keyboardDismissMode="interactive"
+        showsVerticalScrollIndicator={false}
+        enableOnAndroid={true}
+        extraScrollHeight={90}
+      >
+        <View style={styles.cardContainer}>
+
+      
           <View style={styles.formContainer}>
             <ScrollView
               showsVerticalScrollIndicator={false}
@@ -557,9 +539,10 @@ const styles = StyleSheet.create({
   },
   labelText: {
     fontSize: 16,
-    fontWeight: '700',
-    marginBottom: 8,
-    color: Colors.black
+   // fontWeight: '700',
+    marginBottom: 3,
+    color: Colors.black,
+    fontFamily:"Poppins-Medium"
   },
   input: {
 
