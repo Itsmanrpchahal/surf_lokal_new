@@ -115,7 +115,8 @@ const Home = () => {
   const [filterData, setFilterData] = useState([]);
   const [moreFilterData, setMoreFilterData] = useState([])
   const [selectedItem, setSelectedItem] = useState(null);
-  const [cities, setCities] = useState([])
+  const [cities, setCities] = useState()
+  const [dataCustomTaxonomy, setDataCustomTaxonomy] = useState([])
   const navigation = useNavigation();
   const [productId, setProductId] = useState();
   const [reviewTitle, setReviewTitle] = useState('');
@@ -630,27 +631,7 @@ const Home = () => {
 
                       <View>
                         <Text style={{ color: 'black', fontFamily: 'Poppins-Regular', width: "99%", marginBottom: 8 }}>Choose your city </Text>
-                        {/* <MultiSelect
-                          style={styles.dropdown}
-                          placeholderStyle={styles.placeholderStyle}
-                          selectedTextStyle={styles.selectedTextStyle}
-                          inputSearchStyle={styles.inputSearchStyle}
-                          iconStyle={styles.iconStyle}
-                          itemTextStyle={styles.itemTextStyle}
-                          placeholderTextColor="red"
-                          data={moreFilterData.City}
-                          search
-                          value={cities}
-                          maxHeight={300}
-                          labelField="data_name"
-                          valueField="data_customvalue"
-                          placeholder="Select item"
-                          searchPlaceholder="Search..."
-                          valuestyle={{ color: "red" }}
-                          onChange={item => {
-                             setCities(item.data_customvalue)
-                          }}
-                        /> */}
+
                         <MultiSelect
                           style={styles.dropdown}
                           placeholderStyle={styles.placeholderStyle}
@@ -667,8 +648,17 @@ const Home = () => {
                           searchPlaceholder="Search..."
                           value={cities}
                           valuestyle={{ color: "red" }}
-                          onChange={item => {
+                          onChange={async item => {
+                            console.log("total item", item)                            // setDataCustomTaxonomy(item)
+
                             setCities(item);
+                               await getPopertiesApiCall({
+                                type: 3, data: {
+                                  userID: user_ID,
+                                  data_custom_taxonomy: "property_features",
+                                  data_customvalue: item.toString(),
+                                }, lntLng
+                              })
                           }}
                           selectedStyle={styles.selectedStyle}
                         />
@@ -863,31 +853,16 @@ const Home = () => {
 
                           <TouchableOpacity
                             onPress={async () => {
-                              await getPopertiesApiCall({
-                                type: 3, data: {
-                                  userID: user_ID,
-                                  data_custom_taxonomy: item.data_customvalue,
-                                  data_customvalue: item.data_custom_taxonomy,
-                                  category_ids: 148,
-                                  action_ids: "",
-                                  city_ids: "",
-                                  bed_number: bedCount,
-                                  bath_number: bathRoomCount,
-                                  min_price: minPricerange,
-                                  max_price: maxPriceRange,
-                                  area_min: minSquareFeet,
-                                  area_max: maxSquareFeet,
-                                  luxury_properties: "",
-                                  area_ids: "",
-                                  state_ids: "",
-                                  status: "",
-                                  features: 184,
-                                  custom_waterfrontfeatures: "",
-                                  custom_AssociationAmenities: "",
-                                  custom_community: ""
-                                }, lntLng
-                              })
-                              setFilterModalVisible(false)
+                              console.log("cities check",dataCustomTaxonomy)
+                              // await getPopertiesApiCall({
+                              //   type: 3, data: {
+                              //     userID: user_ID,
+                              //     data_custom_taxonomy: item.data_customvalue,
+                              //     data_customvalue: cities,
+                            
+                              //   }, lntLng
+                              // })
+                              // setFilterModalVisible(false)
                               // console.log("okk", cities, maxPriceRange, minPricerange, maxSquareFeet, minSquareFeet, bathRoomCount, bedCount)
                             }}
                             style={{

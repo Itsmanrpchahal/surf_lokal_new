@@ -42,9 +42,12 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
         )
           .then(async response => {
             const {data} = response;
+            console.log("Filter Api response", JSON.stringify(response.data.data[0]))
             return data;
           })
           .catch(e => {
+            console.log("Filter Api errru",e)
+
           });
 });
 
