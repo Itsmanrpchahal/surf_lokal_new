@@ -33,7 +33,7 @@ const ChatSearch = () => {
     <View style={{ height: "100%", position: 'relative', paddingBottom: 100, }}>
       <View style={{ backgroundColor: Colors.gray, height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate('Home')}
           style={{
             height: 25,
             width: 25,

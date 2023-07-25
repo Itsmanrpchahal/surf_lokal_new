@@ -806,7 +806,7 @@ const MyFavorites = () => {
               alignItems: "center",
               justifyContent: "center",
             }}
-            onPress={() => navigation.goBack()}
+            onPress={() => navigation.navigate('Home')}
           >
             <Animatable.Image
               source={Images.whiteclose}
