@@ -38,16 +38,19 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
         : 
         await getAPI(
           'https://surf.topsearchrealty.com/webapi/v1/AppFilter',
-          type.data,
+          {UserId:type.data.UserId,
+            data_custom_taxonomy:type.data.data_custom_taxonomy,
+            data_customvalue:type.data.data_customvalue},
         )
           .then(async response => {
+            console.log("payload data",typeof type.data.data_custom_taxonomy)
+            console.log("payload type",type.type)
             const {data} = response;
-            console.log("Filter Api response", JSON.stringify(response.data.data[0]))
+            console.log("Filter Api response", JSON.stringify(response.data.data.length))
             return data;
           })
           .catch(e => {
-            console.log("Filter Api errru",e)
-
+            console.log("Filter Api error",e)
           });
 });
 

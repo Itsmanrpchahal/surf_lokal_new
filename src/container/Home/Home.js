@@ -115,7 +115,7 @@ const Home = () => {
   const [filterData, setFilterData] = useState([]);
   const [moreFilterData, setMoreFilterData] = useState([])
   const [selectedItem, setSelectedItem] = useState(null);
-  const [cities, setCities] = useState()
+  const [cities, setCities] = useState([])
   const [dataCustomTaxonomy, setDataCustomTaxonomy] = useState([])
   const navigation = useNavigation();
   const [productId, setProductId] = useState();
@@ -310,11 +310,12 @@ const Home = () => {
             setIsSelected(true)
             await getPopertiesApiCall({
               type: 3, data: {
-                userID: user_ID,
+                UserId: user_ID,
                 data_custom_taxonomy: item.data_customvalue,
                 data_customvalue: item.data_custom_taxonomy,
               }, lntLng
             })
+
           }}
         >
           <View
@@ -464,6 +465,7 @@ const Home = () => {
             )}
           </View>
         </View>
+     
         <View
           style={{
             width: '92%',
@@ -652,13 +654,13 @@ const Home = () => {
                             console.log("total item", item)                            // setDataCustomTaxonomy(item)
 
                             setCities(item);
-                               await getPopertiesApiCall({
-                                type: 3, data: {
-                                  userID: user_ID,
-                                  data_custom_taxonomy: "property_features",
-                                  data_customvalue: item.toString(),
-                                }, lntLng
-                              })
+                            await getPopertiesApiCall({
+                              type: 3, data: {
+                                userID: user_ID,
+                                data_custom_taxonomy: "property_features",
+                                data_customvalue: item.toString(),
+                              }, lntLng
+                            })
                           }}
                           selectedStyle={styles.selectedStyle}
                         />
@@ -853,15 +855,14 @@ const Home = () => {
 
                           <TouchableOpacity
                             onPress={async () => {
-                              console.log("cities check",dataCustomTaxonomy)
-                              // await getPopertiesApiCall({
-                              //   type: 3, data: {
-                              //     userID: user_ID,
-                              //     data_custom_taxonomy: item.data_customvalue,
-                              //     data_customvalue: cities,
-                            
-                              //   }, lntLng
-                              // })
+                              console.log("cities check", dataCustomTaxonomy)
+                              await getPopertiesApiCall({
+                                type: 3, data: {
+                                  UserId: user_ID,
+                                  data_custom_taxonomy: item.data_customvalue,
+                                  data_customvalue: cities,
+                                }, lntLng
+                              })
                               // setFilterModalVisible(false)
                               // console.log("okk", cities, maxPriceRange, minPricerange, maxSquareFeet, minSquareFeet, bathRoomCount, bedCount)
                             }}
@@ -917,7 +918,7 @@ const Home = () => {
                       top: 0,
                       marginLeft: 8,
                       height: width - (viewHeight - 22), width: width, backgroundColor: "green", paddingHorizontal: 8,
-                    borderRadius: 15, marginTop: -5, overflow: "hidden", position: "absolute", top: 0
+                      borderRadius: 15, marginTop: -5, overflow: "hidden", position: "absolute", top: 0
                     }}>
                     <View style={{
                       position: "absolute",
@@ -1625,18 +1626,35 @@ const Home = () => {
                         <Marker
                           showCallout={true}
                           coordinate={{ latitude: parseFloat(item.property_latitude), longitude: parseFloat(item.property_longitude) }}>
+                          <Image source={Images.lot} style={{ height: 50, width: 100, resizeMode: 'contain' }} />
                           <Callout style={{ height: 70, alignItems: "center", alignSelf: "center" }}>
                             <View style={{
                               flexDirection: 'row', alignItems: 'center', alignContent: 'center',
+
                             }}>
-                              <Text style={{ position: "relative", height: 100, top: -33 }}> Helllo</Text>
+                              <Text style={{
+                                position: "relative", height: 100,
+                                top: -33
+                              }}>
+                                <Image style={{ height: 100, width: 100, }} source={{ uri: homeData[0]?.featured_image_src[0]?.guid }} />
+                              </Text>
+                              <View style={{ flexWrap: "wrap", top: -8 }}>
+                                <Text style={{ color: 'black', paddingHorizontal: 10, fontWeight: '500', }}>{homeData[0].title}</Text>
+                                <Text style={{ color: Colors.surfblur, paddingHorizontal: 10, fontWeight: '500', }}>{homeData[0].property_price}</Text>
+                                <View style={{ flexDirection: 'row', paddingHorizontal: 10, }}>
+                                  <Text style={{ color: Colors.surfblur, marginleft: 10, fontWeight: '500', }}>{homeData[0].property_bedrooms} Beds  </Text>
+                                  <Text style={{ color: Colors.surfblur, marginleft: 10, fontWeight: '500', }}>{homeData[0].bathroomsfull} Baths  </Text>
+                                  <Text style={{ color: Colors.surfblur, marginleft: 10, fontWeight: '500', }}>{homeData[0].property_size} sq ft  </Text>
+                                </View>
+                              </View>
+
                             </View>
                           </Callout>
                         </Marker>
                       )
                     })
                   }
-                  {
+                  {/* {
                     homeData.map((item) => {
                       return (
                         <Circle
@@ -1648,7 +1666,7 @@ const Home = () => {
                         />
                       )
                     })
-                  }
+                  } */}
 
                 </MapView>
               </View> : null
