@@ -220,16 +220,16 @@ const ContactMyAgent = () => {
           </TouchableOpacity>
         </View>
       </View> */}
-        <View
+      <View
         style={{
           marginTop: 4,
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
           marginLeft: 0,
-          marginBottom:4
+          marginBottom: 4
         }}>
-        <Text style={{ fontSize: 20, color: Colors.black,   fontFamily: 'Poppins-Regular', }}>Contact Surf Lokal</Text>
+        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Contact Surf Lokal</Text>
         <View
           style={{
             flexDirection: 'row',
@@ -273,60 +273,60 @@ const ContactMyAgent = () => {
           </TouchableOpacity>
         </View>
       </View>
-    
+
       {agentData ? (
         <ScrollView style={{ height: '100%', width: '100%' }}>
 
-<View
-        style={{
-          // height: 70,
-          width: '90%',
-          //  alignSelf: 'center',
-          alignItems: 'center',
-          flexDirection: 'row',
-          marginHorizontal: 12,
-          borderBottomColor: Colors.BorderColor,
-          borderBottomWidth: 1,
+          <View
+            style={{
+              // height: 70,
+              width: '90%',
+              //  alignSelf: 'center',
+              alignItems: 'center',
+              flexDirection: 'row',
+              marginHorizontal: 12,
+              borderBottomColor: Colors.BorderColor,
+              borderBottomWidth: 1,
 
-        }}>
-        <TouchableOpacity
-          style={{
-            // height: 40,
-            // width: 40,
-            //justifyContent: 'center',
-            //  alignItems: 'center',
-
-          }}>
-          {!index ? (
-            <Image
-              source={Images.search}
-              style={{
-                height: 18, width: 18, resizeMode: 'contain'
-              }}></Image>
-          ) : (
-            <View
+            }}>
+            <TouchableOpacity
               style={{
                 // height: 40,
-                //  width: 40,
-                //  borderRadius: 50,
-                // backgroundColor: Colors.primaryBlue,
-                // justifyContent: 'center',
-                //alignItems: 'center',
-              }}>
-              <Image source={{ uri: agentData?.featured_image_url }} style={{ height: 55, width: 20 }} />
-            </View>
-          )}
-        </TouchableOpacity>
+                // width: 40,
+                //justifyContent: 'center',
+                //  alignItems: 'center',
 
-        <Text style={{
-          fontSize: 16,
-          color: Colors.newgray,
-          marginLeft: 8,
-          fontFamily: 'Poppins-Regular'
-        }}>
-          {agentData ? `${agentData?.agent_title} ${agentData?.last_name}` : 'No Agent Data'}
-        </Text>
-      </View>
+              }}>
+              {!index ? (
+                <Image
+                  source={Images.search}
+                  style={{
+                    height: 18, width: 18, resizeMode: 'contain'
+                  }}></Image>
+              ) : (
+                <View
+                  style={{
+                    // height: 40,
+                    //  width: 40,
+                    //  borderRadius: 50,
+                    // backgroundColor: Colors.primaryBlue,
+                    // justifyContent: 'center',
+                    //alignItems: 'center',
+                  }}>
+                  <Image source={{ uri: agentData?.featured_image_url }} style={{ height: 55, width: 20 }} />
+                </View>
+              )}
+            </TouchableOpacity>
+
+            <Text style={{
+              fontSize: 16,
+              color: Colors.newgray,
+              marginLeft: 8,
+              fontFamily: 'Poppins-Regular'
+            }}>
+              {agentData ? `${agentData?.agent_title} ${agentData?.last_name}` : 'No Agent Data'}
+            </Text>
+          </View>
 
           <View>
 

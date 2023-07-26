@@ -100,16 +100,16 @@ const Notification = () => {
           </TouchableOpacity>
         </View>
       </View> */}
-        <View
+      <View
         style={{
           marginTop: 4,
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
           marginLeft: 0,
-          marginBottom:4
+          marginBottom: 4
         }}>
-        <Text style={{ fontSize: 20, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Notifications</Text>
+        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Notifications</Text>
         <View
           style={{
             flexDirection: 'row',

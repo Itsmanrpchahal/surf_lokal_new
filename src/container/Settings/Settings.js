@@ -134,10 +134,11 @@ const Settings = props => {
           flexDirection: 'row',
           // marginLeft:80,
           width: '90%',
-          height: 60,
+          // height: 60,
           justifyContent: 'space-between',
           alignSelf: 'center',
           alignItems: 'center',
+          paddingVertical: 6
         }}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <View
@@ -163,7 +164,7 @@ const Settings = props => {
 
         </TouchableOpacity>
 
-        <Text style={{ fontSize: 20, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Settings</Text>
+        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Settings</Text>
 
         <TouchableOpacity
           style={{
@@ -196,14 +197,15 @@ const Settings = props => {
           style={{
             flexDirection: 'row',
             width: '90%',
-            marginTop: 20,
+            //marginTop: 20,
             alignSelf: 'center',
             justifyContent: 'space-between',
+            marginTop: 6
           }}>
           <Text
             style={{
-              fontSize: 20,
-              color: Colors.textColorLight,
+              fontSize: 16,
+              color: Colors.black,
               fontFamily: 'Poppins-Regular'
             }}>
             Allow Notfication
@@ -223,13 +225,13 @@ const Settings = props => {
           style={{
             flexDirection: 'row',
             width: '90%',
-            marginTop: 20,
+            marginTop: 6,
             alignSelf: 'center',
           }}>
           <Text
             style={{
-              fontSize: 20,
-              color: Colors.textColorLight,
+              fontSize: 16,
+              color: Colors.black,
               fontFamily: 'Poppins-Regular'
             }}>
             User Details
@@ -239,17 +241,21 @@ const Settings = props => {
           style={{
             flexDirection: 'row',
             width: '90%',
-            marginTop: 30,
-            height: 40,
+            marginTop: 12,
+            //  height: 40,
             alignItems: 'center',
             alignSelf: 'center',
             borderWidth: 1,
             borderColor: Colors.BorderColor,
+            borderRadius: 4,
+            fontFamily: 'Poppins-Regular',
+            paddingHorizontal: 8, paddingTop: 2
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{ marginLeft: 5, color: Colors.black, flex: 1, fontFamily: 'Poppins-Regular' }}
-            placeholderTextColor={Colors.textColorLight}
+            style={{ color: Colors.placeholderTextColor, flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
+            placeholderTextColor={Colors.placeholderTextColor}
+            fontSize={14}
             value={userName}
             keyboardType="default"
             returnKeyType="done"
@@ -261,16 +267,21 @@ const Settings = props => {
           style={{
             flexDirection: 'row',
             width: '90%',
-            marginTop: 20,
-            height: 40,
+            marginTop: 12,
+            //  height: 40,
             alignItems: 'center',
             alignSelf: 'center',
             borderWidth: 1,
             borderColor: Colors.BorderColor,
+            borderRadius: 4,
+            fontFamily: 'Poppins-Regular',
+            paddingHorizontal: 8,
+            paddingTop: 2
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
+            style={{ color: Colors.placeholderTextColor, flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
+
             placeholderTextColor={Colors.textColorLight}
             value={detials[0]?.user_email}
             keyboardType="default"
@@ -283,16 +294,21 @@ const Settings = props => {
           style={{
             flexDirection: 'row',
             width: '90%',
-            marginTop: 20,
-            height: 40,
+            marginTop: 12,
+            //  height: 40,
             alignItems: 'center',
             alignSelf: 'center',
             borderWidth: 1,
             borderColor: Colors.BorderColor,
+            borderRadius: 4,
+            fontFamily: 'Poppins-Regular',
+            paddingHorizontal: 8,
+            paddingTop: 2
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
+            style={{ color: Colors.placeholderTextColor, flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
+
             placeholderTextColor={Colors.textColorLight}
             value={address}
             keyboardType="default"
@@ -304,16 +320,21 @@ const Settings = props => {
           style={{
             flexDirection: 'row',
             width: '90%',
-            marginTop: 20,
-            height: 40,
+            marginTop: 12,
+            //  height: 40,
             alignItems: 'center',
             alignSelf: 'center',
             borderWidth: 1,
             borderColor: Colors.BorderColor,
+            borderRadius: 4,
+            fontFamily: 'Poppins-Regular',
+            paddingHorizontal: 8,
+            paddingTop: 2
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{ marginLeft: 5, color: Colors.black, fontFamily: 'Poppins-Regular' }}
+            style={{ color: Colors.placeholderTextColor, flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
+
             placeholderTextColor={Colors.textColorLight}
             value={mob}
             keyboardType="default"
@@ -323,60 +344,71 @@ const Settings = props => {
         </View>
 
 
-        <View style={{ marginTop: 20, justifyContent: 'flex-start', marginHorizontal: 20, width: "100%" }}>
+        <View style={{ paddingHorizontal: 22, marginTop: 20, justifyContent: 'space-between', marginHorizontal: 0, width: "100%", flexDirection: "row", alignItems: "center" }}>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}
-            style={{ flexDirection: 'row' }}>
-            <Image source={Images.signOut} style={{ height: 25, width: 25 }} />
-            <Text style={{ marginLeft: 10, fontSize: 20, color: "black", fontFamily: 'Poppins-Regular' }}>signOut</Text>
+            style={{ flexDirection: 'row', alignItems: "center" }}>
+            <Image source={Images.signOut} style={{ height: 20, width: 20 }} />
+            <Text style={{ marginLeft: 6, fontSize: 16, color: "black", fontFamily: 'Poppins-Regular' }}>Signout</Text>
+          </TouchableOpacity>
+
+
+
+
+          <TouchableOpacity
+            onPress={() => saveFile()}
+            style={{
+              height: 45,
+              width: 130,
+              borderRadius: 100,
+              backgroundColor: Colors.surfblur,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+
+
+            }}>
+            {loading ? (
+              <ActivityIndicator size={'small'} color={'#fff'} />
+            ) : (
+              <View
+                style={{
+                  width: '100%',
+
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingHorizontal: 10,
+
+                }}>
+
+                <Text
+                  style={{
+                    fontSize: 14,
+
+                    color: Colors.white,
+                    fontFamily: 'Poppins-Regular',
+                  }}>
+                  Submit
+                </Text>
+
+              </View>
+            )}
           </TouchableOpacity>
         </View>
 
 
 
-        <TouchableOpacity
-          onPress={() => saveFile()}
-          style={{
-            height: 50,
-            width: '45%',
-            borderRadius: 100,
-            backgroundColor: Colors.surfblur,
-            marginTop: 20,
-            marginHorizontal: 20,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
 
 
-          }}>
-          {loading ? (
-            <ActivityIndicator size={'small'} color={'#fff'} />
-          ) : (
-            <View
-              style={{
-                width: '100%',
 
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingHorizontal: 10,
 
-              }}>
 
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontWeight: '700',
-                  color: Colors.white,
-                  fontFamily: 'Poppins-Regular',
-                }}>
-                Submit
-              </Text>
 
-            </View>
-          )}
-        </TouchableOpacity>
 
-        <View style={{ height: 100 }}></View>
+
+
+
+
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );

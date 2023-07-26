@@ -168,7 +168,6 @@ function CustomTabBar({ state, descriptors, navigation }) {
         borderTopColor: Colors.gray,
         borderTopWidth: 1,
         alignItems: 'center',
-        marginTop: 10,
         marginBottom: 8,
         paddingTop: 10
       }}>
@@ -220,7 +219,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
               return {
                 height: 55,
                 width: 45,
-                marginTop:10,
+                marginTop: 10,
 
                 tintColor: isFocused ? Colors.primaryBlue : Colors.textColorDark,
 
@@ -267,7 +266,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
                 style={{
                   color: isFocused ? Colors.primaryBlue : Colors.textColorDark,
                   fontSize: 12, fontFamily: 'Poppins-Regular',
-                  marginBottom:8
+                  marginBottom: 8
                 }}>
                 {label}
               </Text>

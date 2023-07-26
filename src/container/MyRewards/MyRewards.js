@@ -14,7 +14,7 @@ import Images from '../../utils/Images';
 import { useNavigation } from '@react-navigation/native';
 import Colors from '../../utils/Colors';
 import * as Animatable from 'react-native-animatable';
-import Speedmeter  from '../../components/speedmeter';
+import Speedmeter from '../../components/speedmeter';
 const App = () => {
   const navigation = useNavigation();
   const [meterValue, setMeterValue] = useState(300);
@@ -111,16 +111,16 @@ const App = () => {
 
         </View>
       </View> */}
-        <View
+      <View
         style={{
           marginTop: 4,
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
           marginLeft: 0,
-          marginBottom:4
+          marginBottom: 4
         }}>
-        <Text style={{ fontSize: 20, color: Colors.black,   fontFamily: 'Poppins-Regular', }}>Surf Rewards</Text>
+        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Surf Rewards</Text>
         <View
           style={{
             flexDirection: 'row',
@@ -169,29 +169,18 @@ const App = () => {
 
         <View
           style={{ marginTop: 10, backgroundColor: Colors.white, width: '100%' }}>
-           <Speedmeter
-                  minValue={0}
-                  defaultValue={0}
-                  allowedDecimals={0}
-                  size={200}
-                  needleImage={require('../../assets/images/needlecustom.png')}
-                  maxValue={100}
-                  labels={[{ name: 'Low', activeBarColor: 'green' }, { name: 'Medium', activeBarColor: 'yellow' }, { name: 'High', activeBarColor: 'red' }]}
-                  value={meterValue}></Speedmeter>
+          <Speedmeter
+            minValue={0}
+            defaultValue={0}
+            allowedDecimals={0}
+            size={200}
+            needleImage={require('../../assets/images/needlecustom.png')}
+            maxValue={100}
+            labels={[{ name: 'Low', activeBarColor: 'green' }, { name: 'Medium', activeBarColor: 'yellow' }, { name: 'High', activeBarColor: 'red' }]}
+            value={meterValue}></Speedmeter>
         </View>
 
-        {/* <View style={{ backgroundColor: Colors.white, justifyContent: 'center', marginTop: 30 }}>
-          <Text
-            style={{
-              fontSize: 20,
-              color: Colors.textColorLight,
-              marginTop: 20,
-              textAlign: 'center',
-              fontFamily: 'Poppins-Regular'
-            }}>
-            reaching next tier with  {'\n'}the numerical points tally
-          </Text>
-        </View> */}
+
         {meterValue <= 3000 ? (
           <View
             style={{
@@ -201,20 +190,20 @@ const App = () => {
               alignItems: 'center',
               marginTop: 80,
             }}>
-              <View style={{}}>
-              <Image source={Images.base} style={{height:50,width:230,resizeMode:'stretch',position:'relative',top:20}}/>
-                <Image
-          source={getImageCall()}
-          resizeMode="contain"
-          style={{
-            height: 100,
-            width: '80%',
-            marginTop: 20,
-             alignSelf: 'center',
-            position:'absolute',
-            top:-90
-          }}></Image>
-            
+            <View style={{}}>
+              <Image source={Images.base} style={{ height: 50, width: 230, resizeMode: 'stretch', position: 'relative', top: 20 }} />
+              <Image
+                source={getImageCall()}
+                resizeMode="contain"
+                style={{
+                  height: 100,
+                  width: '80%',
+                  marginTop: 20,
+                  alignSelf: 'center',
+                  position: 'absolute',
+                  top: -90
+                }}></Image>
+
             </View>
             <View
               style={{
@@ -224,11 +213,13 @@ const App = () => {
                 alignItems: 'center',
                 marginTop: 20,
               }}>
-                <Text  style={{ fontSize: 20,
-                  color: Colors.black,
-                  fontFamily: 'Poppins-Medium',
-                  textAlign: 'center',
-                  marginTop:15}}>Your surf level</Text>
+              <Text style={{
+                fontSize: 20,
+                color: Colors.black,
+                fontFamily: 'Poppins-Medium',
+                textAlign: 'center',
+                marginTop: 15
+              }}>Your surf level</Text>
               <Text
                 style={{
                   fontSize: 30,
@@ -236,14 +227,14 @@ const App = () => {
                   textAlign: 'center',
                   // fontWeight:"100%"
                   fontFamily: 'Poppins-SemiBold',
-                  lineHeight:33
+                  lineHeight: 33
                 }}>
                 {getLevelCall()}
               </Text>
             </View>
           </View>
         ) : null}
-      
+
 
 
         <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'center', }}>
@@ -254,11 +245,11 @@ const App = () => {
               styles.rew,
               {
                 backgroundColor: isRewardsSelected ? 'trasnparent' : 'transparent',
-                borderColor: isRewardsSelected ?Colors.primaryBlue : Colors.primaryBlue,
+                borderColor: isRewardsSelected ? Colors.primaryBlue : Colors.primaryBlue,
               },
             ]}
           >
-            <Text style={[styles.text, { color: isRewardsSelected ? Colors.primaryBlue :Colors.primaryBlue, fontFamily: 'Poppins-Regular',fontSize:15}]}>Rewards</Text>
+            <Text style={[styles.text, { color: isRewardsSelected ? Colors.primaryBlue : Colors.primaryBlue, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>Rewards</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -267,11 +258,11 @@ const App = () => {
               styles.rew,
               {
                 backgroundColor: isRewardsSelected ? 'transparent' : 'transparent',
-                borderColor: isRewardsSelected ? Colors.primaryBlue : Colors.primaryBlue ,
+                borderColor: isRewardsSelected ? Colors.primaryBlue : Colors.primaryBlue,
               },
             ]}
           >
-            <Text style={[styles.text, { color: isRewardsSelected ?Colors.primaryBlue : Colors.primaryBlue, fontFamily: 'Poppins-Regular', fontSize:15 }]}>Challenges</Text>
+            <Text style={[styles.text, { color: isRewardsSelected ? Colors.primaryBlue : Colors.primaryBlue, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>Challenges</Text>
           </TouchableOpacity>
         </View>
 
@@ -300,7 +291,7 @@ const styles = StyleSheet.create({
   },
   rew: {
     height: 45,
-    width: 150,
+    width: 130,
     borderRadius: 17,
     borderWidth: 1,
     paddingHorizontal: 10,
@@ -309,6 +300,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primaryBlue,
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal:8
+    marginHorizontal: 8
   },
 });
