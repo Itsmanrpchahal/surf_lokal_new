@@ -217,16 +217,16 @@ const MyFavorites = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-          <View
+      <View
         style={{
           marginTop: 4,
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
           marginLeft: 0,
-          marginBottom:4
+          marginBottom: 4
         }}>
-        <Text style={{ fontSize: 20, color: Colors.black,   fontFamily: 'Poppins-Regular', }}>Saved Searches</Text>
+        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Saved Searches</Text>
         <View
           style={{
             flexDirection: 'row',

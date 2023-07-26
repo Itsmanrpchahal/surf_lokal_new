@@ -508,7 +508,7 @@ const ViewPropertiy = (props, imageUrl) => {
                   }}>
                     <Text style={{
                       position: "relative", height: 100,
-                      top: -33
+                      top: -22
                     }}><Image style={{ height: 100, width: 100, resizeMode: "stretch", }} source={{ uri: property?.featured_image_src }} resizeMethod='auto' />
                     </Text>
                     <View style={{ flexWrap: "wrap", top: -8 }}>
@@ -1117,17 +1117,18 @@ const ViewPropertiy = (props, imageUrl) => {
                             >
                               <ScrollView style={{ width: "100%" }}>
                                 <View style={{ alignItems: "center", justifyContent: "center" }}>
-                                  <TouchableOpacity onPress={toggleModal}>
-                                    <View
-                                      style={{
-                                        width: 80,
-                                        height: 7,
-                                        backgroundColor: Colors.gray,
-                                        marginTop: 8,
-                                        justifyContent: 'center',
-                                        borderRadius: 100
-                                      }}></View>
-                                  </TouchableOpacity>
+
+                                  <View
+                                    style={{
+                                      width: 50,
+                                      height: 5,
+                                      backgroundColor: "#bac1c3",
+                                      marginTop: 0,
+                                      justifyContent: 'center',
+                                      borderRadius: 100
+                                    }}>
+                                  </View>
+
 
                                 </View>
                                 <View style={{}}>
@@ -1875,17 +1876,17 @@ const ViewPropertiy = (props, imageUrl) => {
                     >
                       <ScrollView style={{ width: "100%" }}>
                         <View style={{ alignItems: "center", justifyContent: "center" }}>
-                          <TouchableOpacity onPress={toggleModal}>
-                            <View
-                              style={{
-                                width: 80,
-                                height: 7,
-                                backgroundColor: Colors.gray,
-                                marginTop: 8,
-                                justifyContent: 'center',
-                                borderRadius: 100
-                              }}></View>
-                          </TouchableOpacity>
+
+                          <View
+                            style={{
+                              width: 50,
+                              height: 5,
+                              backgroundColor: "#bac1c3",
+                              marginTop: 0,
+                              justifyContent: 'center',
+                              borderRadius: 100
+                            }}></View>
+
 
                         </View>
                         <View style={{}}>
@@ -2105,8 +2106,8 @@ const ViewPropertiy = (props, imageUrl) => {
                                 <TouchableOpacity
                                   onPress={() => addReview()}
                                   style={{
-                                    height: 50,
-                                    width: '45%',
+                                    height: 45,
+                                    width: 130,
                                     borderRadius: 100,
                                     backgroundColor: Colors.surfblur,
                                     marginTop: 10,
@@ -2118,8 +2119,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                   }}>
                                   <Text
                                     style={{
-                                      fontSize: 16,
-                                      // fontWeight: '700',
+                                      fontSize: 14,
                                       color: Colors.white,
                                       fontFamily: "Poppins-Regular",
                                     }}>
@@ -2156,10 +2156,9 @@ const ViewPropertiy = (props, imageUrl) => {
           flexDirection: 'row',
           width: '100%',
           height: 50,
-          marginTop: 10,
+          // marginTop: 10,
           justifyContent: 'space-between',
           borderTopWidth: 1,
-
           borderTopColor: Colors.textColorLight,
           alignItems: 'center',
           alignContent: 'center',

@@ -279,14 +279,11 @@ const MyFavorites = () => {
       <ScrollView>
         <View
           style={{
-            height: 70,
-
-            width: '87%',
+            //height: 70,
 
             width: '100%',
-
-            paddingHorizontal: 22,
-
+            paddingHorizontal: 15,
+            paddingTop: 15,
             justifyContent: 'space-between',
             alignSelf: 'center',
             alignItems: 'center',
@@ -302,10 +299,14 @@ const MyFavorites = () => {
               }}
               activeOpacity={0.5}
               style={{
-                height: 40,
-                width: 40,
+                height: 45,
+                width: 45,
                 justifyContent: 'center',
                 alignItems: 'center',
+                borderWidth: 1,
+                borderColor: Colors.primaryBlue,
+                borderRadius: 50
+
               }}>
               {!index ? (
                 <Image
@@ -314,6 +315,7 @@ const MyFavorites = () => {
                     height: 30,
                     width: 30,
                     resizeMode: 'contain',
+
                   }}></Image>
               ) : (
                 <View
@@ -347,16 +349,13 @@ const MyFavorites = () => {
                   left: 23,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  // shadowColor: 'black',
-                  // shadowOffset: { height: 5, width: 0 },
-                  // shadowOpacity: 0.5,
-                  // shadowRadius: 2,
+
                 }}>
 
               </View>
             </TouchableOpacity>
           </View>
-          <Text style={{ fontSize: 24, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
+          <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
             {details[0]?.username}
           </Text>
           <TouchableOpacity
@@ -380,14 +379,14 @@ const MyFavorites = () => {
             <Image
               source={Images.setting}
               style={{
-                height: 30,
-                width: 30,
+                height: 37,
+                width: 37,
                 resizeMode: 'contain',
 
               }}></Image>
           </TouchableOpacity>
         </View>
-        <View style={{ marginTop: 20, height: '100%' }}>
+        <View style={{ marginTop: 2, height: '100%' }}>
 
           {/* <FlatList
 
@@ -407,7 +406,7 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={isImage ? Images.upgreen : Images.upthumb}
-                  style={{ height: 25, width: 25, resizeMode: 'contain' }} />
+                  style={{ height: 20, width: 20, resizeMode: 'contain' }} />
                 <Text style={styles.text}>My Favorites</Text>
               </View>
               <View style={styles.line}></View>
@@ -424,7 +423,7 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.savedSearch}
-                  style={{ height: 25, width: 25, resizeMode: 'contain' }} />
+                  style={{ height: 20, width: 20, resizeMode: 'contain' }} />
                 <Text style={styles.text}>Saved Searches</Text>
               </View>
               <View style={styles.line}></View>
@@ -440,7 +439,7 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.notification}
-                  style={{ height: 25, width: 25, resizeMode: 'contain' }} />
+                  style={{ height: 20, width: 20, resizeMode: 'contain' }} />
                 <Text style={styles.text}>Notifications</Text>
               </View>
               <View style={styles.line}></View>
@@ -456,7 +455,7 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.contactAgent}
-                  style={{ height: 25, width: 25, resizeMode: 'contain' }} />
+                  style={{ height: 20, width: 20, resizeMode: 'contain' }} />
                 <Text style={styles.text}>Contact surf lokal</Text>
               </View>
               <View style={styles.line}></View>
@@ -472,7 +471,7 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.surfReward}
-                  style={{ height: 25, width: 25, resizeMode: 'contain' }} />
+                  style={{ height: 20, width: 20, resizeMode: 'contain' }} />
                 <Text style={styles.text}>Rewards</Text>
               </View>
               <View style={styles.line}></View>
@@ -489,7 +488,7 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.surfShop}
-                  style={{ height: 33, width: 29, resizeMode: 'contain' }} />
+                  style={{ height: 20, width: 20, resizeMode: 'contain' }} />
                 <Text style={styles.text}>Surf Shop</Text>
               </View>
               <View style={styles.line}></View>
@@ -507,7 +506,7 @@ const MyFavorites = () => {
                 <TouchableOpacity>
                   <Image
                     source={isImageChanged ? Images.redlike : Images.deletethumb}
-                    style={{ height: 25, width: 25, resizeMode: 'contain' }} />
+                    style={{ height: 20, width: 20, resizeMode: 'contain' }} />
                 </TouchableOpacity>
                 <Text style={styles.text}>Recycle Bin</Text>
               </View>
@@ -529,19 +528,21 @@ const styles = StyleSheet.create({
   viewstyle: {
     flexDirection: 'row',
     width: '100%',
-    paddingHorizontal: 30,
-    height: 60,
+    paddingHorizontal: 18,
+    // height: 60,
     alignItems: 'center',
+    paddingVertical: 18
   },
   line: {
     height: 1,
-    width: '100%',
+    width: '90%',
     backgroundColor: Colors.BorderColor,
+    // marginHorizontal: 50
   },
   text: {
-    fontSize: 18,
-    color: Colors.textColorLight,
-    marginLeft: 20,
+    fontSize: 14,
+    color: Colors.black,
+    marginLeft: 8,
     fontFamily: 'Poppins-Regular'
   },
   slideOuter: {
@@ -549,7 +550,7 @@ const styles = StyleSheet.create({
 
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors,
+    backgroundColor: Colors.white,
     borderRadius: 18,
   },
   slide: {

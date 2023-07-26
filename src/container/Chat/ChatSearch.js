@@ -55,7 +55,7 @@ const ChatSearch = () => {
             source={Images.whiteclose}
           ></Image>
         </TouchableOpacity>
-        <Text style={{ fontSize: 19, fontWeight: "bold", color: Colors.black }}>
+        <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: Colors.black }}>
           Powered by Chat GPT-4
         </Text>
         <TouchableOpacity
@@ -79,7 +79,10 @@ const ChatSearch = () => {
         </TouchableOpacity>
 
       </View>
-      <Text style={{ fontSize: 16, borderRadius: 16, alignSelf: 'flex-start', maxWidth: '70%', marginLeft: 22, marginTop: 22, color: Colors.black }}>Hi! What can I help you with?</Text>
+      <Text style={{
+        marginLeft: 15,
+        marginRight: 13, fontSize: 16, borderRadius: 16, alignSelf: 'flex-start', maxWidth: '100%', marginTop: 22, color: Colors.black, fontFamily: "Poppins-Medium",
+      }}>Hi! What can I help you with?</Text>
 
       <AutoScrollFlatList
         data={res}
@@ -87,16 +90,19 @@ const ChatSearch = () => {
         renderItem={({ item, index }) => {
           return (
             <Text style={{
-              padding: 16,
-              fontSize: 16,
-              borderRadius: 16,
-              backgroundColor: item.type === 0 ? Colors.PrimaryColor : Colors.white,
+              //padding: 16,
+              paddingHorizontal: 12,
+              paddingVertical: 6,
+              fontSize: 14,
+              borderRadius: 4,
+              backgroundColor: item.type === 0 ? Colors.surfblur : Colors.white,
               alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
-              maxWidth: '70%',
+              maxWidth: '100%',
               marginLeft: 8,
               marginRight: 8,
               marginTop: 8,
-
+              marginBottom: 22,
+              fontFamily: 'Poppins-Regular',
               color: item.type === 0 ? Colors.white : Colors.black
             }}>{item.message}</Text>
           )
@@ -123,13 +129,12 @@ const ChatSearch = () => {
         }
         <Text style={{
           fontSize: 16,
-          borderRadius: 16,
-          alignSelf: 'flex-start',
-          maxWidth: '70%',
+
           marginLeft: 16,
           color: Colors.black,
           marginTop: 12,
-          backgroundColor: Colors.white
+          backgroundColor: Colors.white,
+          fontFamily: 'Poppins-Regular'
         }}>Please reply on this chat box</Text>
         {
           loading && <View style={{ flexDirection: 'row' }}>
@@ -139,7 +144,7 @@ const ChatSearch = () => {
               alignSelf: 'flex-start',
               maxWidth: '70%',
               marginLeft: 16,
-              marginTop: 12,
+              marginTop: 6,
               color: Colors.black,
               backgroundColor: Colors.white
             }}>typing</Text>
@@ -158,7 +163,7 @@ const ChatSearch = () => {
 
         <View style={{
           backgroundColor: Colors.white,
-          borderColor: Colors.boderColor,
+          borderColor: Colors.BorderColor,
           borderWidth: 1, borderRadius: 5,
           height: 45, margin: 16,
           paddingLeft: 8, paddingRight: 8,
@@ -167,8 +172,9 @@ const ChatSearch = () => {
         }}>
           <TextInput
             style={{ width: '90%', backgroundColor: Colors.white, color: Colors.black }}
-            placeholder="Type here"
-            placeholderTextColor={'black'}
+            placeholder="Type here ....."
+            placeholderTextColor={Colors.textColorLight}
+            fontFamily="Poppins-Regular"
             value={message}
             onChangeText={setMessage}>
           </TextInput>
@@ -207,7 +213,7 @@ const ChatSearch = () => {
                 height: 25,
                 width: 25,
                 resizeMode: "contain",
-                tintColor: Colors.black,
+                tintColor: Colors.primaryBlue,
               }}
               source={Images.sendm}
             ></Image>
