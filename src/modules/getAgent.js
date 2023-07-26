@@ -1,15 +1,17 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {postAPI} from '../config/apiMethod';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { postAPI } from '../config/apiMethod';
 import AsyncStorage from '@react-native-community/async-storage';
+import BASEURl from '../services/Api'
+
 
 export const getAgent = createAsyncThunk('getAgent', async () => {
   const id = await AsyncStorage.getItem('userId');
 
   return await postAPI(
-    'https://surf.topsearchrealty.com/webapi/v1/agent/?userID='+ id,
+    BASEURl + 'webapi/v1/agent/?userID=' + id,
   )
     .then(async response => {
-      const {data} = response;
+      const { data } = response;
       return data;
     })
     .catch(e => {

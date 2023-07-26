@@ -1,13 +1,13 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {uploadImageAPI} from '../config/apiMethod';
-import {url} from '../config/url';
-import AsyncStorage from '@react-native-community/async-storage';
+import BASEURl from '../services/Api'
+
 
 export const forgotPassword = createAsyncThunk(
   'forgotPassword',
   async dispatch => {
     return await uploadImageAPI(
-      'https://surf.topsearchrealty.com/webapi/v1/password/reset_pass.php',
+      BASEURl+'webapi/v1/password/reset_pass.php',
       dispatch,
     )
       .then(async response => {

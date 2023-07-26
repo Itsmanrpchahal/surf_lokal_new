@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAPI } from "../config/apiMethod";
+import BASEURl from '../services/Api'
 
 export const getMoreFilter = createAsyncThunk(
     "getMoreFilter",
     async () => {
         const urlDynamic =
-            "https://surf.topsearchrealty.com/webapi/v1/SubFilter/";
+            BASEURl+"webapi/v1/SubFilter/";
         return await getAPI(urlDynamic)
             .then(async (response) => {
                 const { data } = response;

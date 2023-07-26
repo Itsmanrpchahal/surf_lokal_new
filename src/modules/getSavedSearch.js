@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {getAPI} from '../config/apiMethod';
-import {url} from '../config/url';
+import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const getSavedSearch = createAsyncThunk(
@@ -8,7 +8,7 @@ export const getSavedSearch = createAsyncThunk(
   async dispatch => {
     const id = await AsyncStorage.getItem('userId');
     return await getAPI(
-      'https://surf.topsearchrealty.com/webapi/v1/search/?userID=' + id,
+      BASEURl+'webapi/v1/search/?userID=' + id,
     )
       .then(async response => {
         const {data} = response;
