@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { uploadImageAPI } from '../config/apiMethod';
+import BASEURl from '../services/Api'
 
 export const schoolChat = createAsyncThunk('schoolChat', async payload => {
   return await uploadImageAPI(
-    'https://surf.topsearchrealty.com/wp-json/chatbot/SchoolChatBot',
+    BASEURl+'wp-json/chatbot/SchoolChatBot',
     payload,
   )
     .then(async response => {

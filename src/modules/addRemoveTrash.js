@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { uploadImageAPI } from '../config/apiMethod';
+import BASEURl from '../services/Api'
+
 
 export const addRemoveTrash = createAsyncThunk('addRemoveTrash', async dispatch => {
   return await uploadImageAPI(
-    'https://surf.topsearchrealty.com/webapi/v1/trashlist/addremovetrash.php',
+    BASEURl+'webapi/v1/trashlist/addremovetrash.php',
     dispatch,
   )
     .then(async response => {

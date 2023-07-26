@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {uploadImageAPI} from '../config/apiMethod';
-import {url} from '../config/url';
+import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const getSearch = createAsyncThunk('getSearch', async dispatch => {
@@ -10,7 +10,7 @@ export const getSearch = createAsyncThunk('getSearch', async dispatch => {
     SearchParameters: dispatch,
   };
   return await uploadImageAPI(
-    'https://surf.topsearchrealty.com/webapi/v1/search/insert_search.php',
+    BASEURl+'webapi/v1/search/insert_search.php',
     data,
   )
     .then(async response => {

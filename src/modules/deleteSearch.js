@@ -1,9 +1,10 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import BASEURl from '../services/Api'
 import {uploadImageAPI} from '../config/apiMethod';
 
 export const deleteSearch = createAsyncThunk('deleteSearch', async dispatch => {
   return await uploadImageAPI(
-    'https://surf.topsearchrealty.com/webapi/v1/search/delete_searchlist.php',
+    BASEURl+'webapi/v1/search/delete_searchlist.php',
     dispatch,
   )
     .then(async response => {

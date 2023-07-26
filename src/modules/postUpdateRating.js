@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { uploadImageAPI } from '../config/apiMethod';
+import BASEURl from '../services/Api'
 
 export const postUpdateRating = createAsyncThunk('postUpdateRating', async dispatch => {
   return await uploadImageAPI(
-    'https://surf.topsearchrealty.com/webapi/v1/rating/update_rating.php',
+    BASEURl+'webapi/v1/rating/update_rating.php',
     dispatch,
   )
     .then(async response => {

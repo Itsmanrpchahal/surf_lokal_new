@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { url } from "../config/url";
 import { postAPI } from "../config/apiMethod";
+import BASEURl from '../services/Api'
+
 
 export const chat = createAsyncThunk("chat", async (payload) => {
     const urlDynamic =
-        "https://surf.topsearchrealty.com/wp-json/chatbot/chatgpt";
+    BASEURl+"wp-json/chatbot/chatgpt";
     try {
         const response = await postAPI(urlDynamic, payload);
         const { data } = response;

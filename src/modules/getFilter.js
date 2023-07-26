@@ -1,9 +1,9 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {getAPI} from '../config/apiMethod';
-import {url} from '../config/url';
+import BASEURl from '../services/Api'
 
 export const getFilter = createAsyncThunk('getFilter', async () => {
-  return await getAPI('https://surf.topsearchrealty.com/webapi/v1/GetFilter')
+  return await getAPI(BASEURl+'webapi/v1/GetFilter')
     .then(async response => {
       const {data} = response;
 

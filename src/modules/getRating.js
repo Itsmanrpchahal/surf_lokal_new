@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAPI } from "../config/apiMethod";
-import { url } from "../config/url";
+import BASEURl from '../services/Api'
+
 
 export const getRating = createAsyncThunk(
   "getRating",
   async (post_id) => {
     const urlDynamic =
-      "https://surf.topsearchrealty.com/webapi/v1/rating/user_rating.php?userID=3&post_id=" + post_id;
+      BASEURl+"webapi/v1/rating/user_rating.php?userID=3&post_id=" + post_id;
     return await getAPI(urlDynamic)
       .then(async (response) => {
         const { data } = response;
