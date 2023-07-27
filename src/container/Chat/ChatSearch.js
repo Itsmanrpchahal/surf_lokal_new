@@ -118,7 +118,7 @@ const ChatSearch = () => {
             padding: 16,
             fontSize: 16,
             borderRadius: 16,
-            backgroundColor: Colors.PrimaryColor,
+            backgroundColor: Colors.surfblur,
             alignSelf: 'flex-end',
             maxWidth: '70%',
             marginLeft: 8,
@@ -132,7 +132,7 @@ const ChatSearch = () => {
 
           marginLeft: 16,
           color: Colors.black,
-          marginTop: 12,
+          marginTop: 8,
           backgroundColor: Colors.white,
           fontFamily: 'Poppins-Regular'
         }}>Please reply on this chat box</Text>
@@ -168,7 +168,8 @@ const ChatSearch = () => {
           height: 45, margin: 16,
           paddingLeft: 8, paddingRight: 8,
           flexDirection: 'row',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          marginTop: 8
         }}>
           <TextInput
             style={{ width: '90%', backgroundColor: Colors.white, color: Colors.black }}

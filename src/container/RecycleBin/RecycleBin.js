@@ -240,24 +240,24 @@ const RecycleBin = () => {
           <TouchableOpacity onPress={() => makePhoneCall()}>
             <Image
               source={Images.call}
-              style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
+              style={{ height: 18, width: 18, resizeMode: 'contain', marginRight: 15, position: "relative", left: -6 }}></Image>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => navigation.navigate('ChatSearch')}>
             <Image
               source={Images.chat}
-              style={{ height: 20, width: 20 }}></Image>
+              style={{ height: 18, width: 18 }}></Image>
           </TouchableOpacity>
         </View>
 
         <TouchableOpacity onPress={() => navigation.navigate('ViewPropertiy', { item })}>
           <Text
             style={{
-              fontSize: 20,
+              fontSize: 18,
               color: Colors.primaryBlue,
-              fontWeight: '500',
-              fontFamily: 'Poppins-SemiBold'
+              fontFamily: 'Poppins-SemiBold',
+              marginTop: 5
             }}>
             {item.property_price}
           </Text>
@@ -270,6 +270,7 @@ const RecycleBin = () => {
             // alignSelf: 'flex-end',
             justifyContent: 'space-between',
             alignItems: 'center',
+
           }}>
           <TouchableOpacity
             onPress={() => {
@@ -280,16 +281,16 @@ const RecycleBin = () => {
           >
             <Image
               source={Images.star}
-              style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
+              style={{ height: 18, width: 18, resizeMode: 'contain' }}></Image>
           </TouchableOpacity>
           <Text
-            style={{ fontSize: 14, color: Colors.black, textAlign: 'center', marginRight: 10 }}>
+            style={{ fontSize: 14, color: Colors.black, textAlign: 'left', marginRight: 0, position: "relative", left: 2 }}>
             {item.total_average_rating}
           </Text>
           <TouchableOpacity onPress={() => handleShare()}>
             <Image
               source={Images.send}
-              style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
+              style={{ height: 18, width: 18, resizeMode: 'contain', position: "relative", left: 8, marginLeft: 0 }}></Image>
           </TouchableOpacity>
         </View>
       </View>
@@ -586,11 +587,9 @@ const RecycleBin = () => {
         </Modal>
 
       </KeyboardAvoidingView>
-      {/* <Text style={{ fontSize: 16, color: Colors.black, textAlign: 'center', marginTop: 15 }}>
-        {item.title}</Text> */}
 
 
-      <ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false} >
+      {/* <ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false} >
         <View
           style={{
             flexDirection: 'row',
@@ -703,7 +702,207 @@ const RecycleBin = () => {
           </View>
 
         </View>
-      </ScrollView>
+      </ScrollView> */}
+
+      <View style={{
+        flexDirection: 'row',
+        width: '100%',
+        paddingHorizontal: 18,
+        justifyContent: 'space-between',
+
+      }}>
+        <ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}  >
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: "center",
+              justifyContent: 'space-between',
+              marginBottom: 20,
+              marginTop: 5,
+              width: "100%",
+              alignSelf: "center"
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: "center",
+                //paddingHorizontal: 12,
+                justifyContent: 'space-between',
+                marginBottom: 12,
+                width: "100%",
+                alignSelf: "center",
+
+              }}>
+
+              <View
+                style={{
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
+                  // backgroundColor: "red",
+                  width: 70,
+                }}>
+                <View style={{ justifyContent: "center", alignItems: "center" }}>
+                  <Image
+                    source={Images.bed}
+                    style={{
+                      height: 20,
+                      width: 20,
+                      resizeMode: 'contain',
+                      //backgroundColor: "green"
+                    }}></Image>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Regular'
+                    }}>
+                    {item.property_bedrooms.length > 0 ? item.property_bedrooms : 0} {'Beds'}
+                  </Text>
+                </View>
+              </View>
+
+
+              <View
+                style={{
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
+
+                  width: 70,
+                }}>
+                <View style={{ justifyContent: "center", alignItems: "center" }}>
+                  <Image
+                    source={Images.bath}
+                    style={{
+                      height: 20,
+                      width: 20,
+                      resizeMode: 'contain',
+                    }}></Image>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: Colors.black,
+                      textAlign: 'center',
+                    }}>
+                    {item.bathroomsfull.length > 0 ? item.bathroomsfull : 0} {'Baths'}
+                  </Text>
+                </View>
+              </View>
+
+
+
+              <View
+                style={{
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
+                  width: 70,
+                }}>
+                <View style={{ justifyContent: "center", alignItems: "center" }}>
+                  <Image
+                    source={Images.measuring}
+                    style={{
+                      height: 20,
+                      width: 20,
+                      resizeMode: 'contain',
+                    }}></Image>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Regular'
+                    }}>
+                    {item.property_size.length > 0 ? item.property_size : 0} {'sq ft'}
+                  </Text>
+                </View>
+              </View>
+
+
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: 70,
+                }}>
+                <View style={{ justifyContent: "center", alignItems: "center" }}>
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontWeight: 'bold',
+                    }}>
+                    {'HOA'}
+                  </Text>
+
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: Colors.black,
+                      textAlign: 'center',
+                    }}>
+                    {item.associationfee.length > 0 ? item.associationfee : 0}
+                  </Text>
+                </View>
+              </View>
+
+
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center', width: 70,
+
+                }}>
+                <View style={{ justifyContent: "center", alignItems: "center" }}>
+                  <Image
+                    source={Images.tax}
+                    style={{
+                      height: 20,
+                      width: 20,
+                      marginTop: 0,
+                      resizeMode: 'contain',
+                    }}></Image>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: Colors.black,
+                      textAlign: 'center',
+                    }}>
+                    {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
+                  </Text>
+                </View>
+
+              </View>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: 70,
+                }}>
+                <View style={{ justifyContent: "center", alignItems: "center" }}>
+                  <Image
+                    source={Images.calendar}
+                    style={{
+                      height: 20,
+                      width: 20,
+                      marginTop: 0,
+                      resizeMode: 'contain',
+                    }}></Image>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: Colors.black,
+                      textAlign: 'center',
+                    }}>
+                    {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
+                  </Text>
+                </View>
+              </View>
+            </View>
+
+          </View>
+        </ScrollView>
+      </View>
     </View>
   );
 
@@ -771,10 +970,7 @@ const RecycleBin = () => {
             }}>
             <Text
               style={{
-                fontSize: 18,
-
-                color: Colors.textColorDark,
-                fontFamily: 'Poppins-SemiBold',
+                fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium'
               }}>
               No Bin file data found!
             </Text>
