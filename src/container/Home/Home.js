@@ -93,16 +93,16 @@ const Home = () => {
   const [homeData, setHomeData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [adress, setAddres] = useState('');
-  // const flatListRef = useRef(null);
   const [filterData, setFilterData] = useState([]);
   const [moreFilterData, setMoreFilterData] = useState([])
   const [selectedItem, setSelectedItem] = useState(null);
   const [cities, setCities] = useState([])
-  const [dataCustomTaxonomy, setDataCustomTaxonomy] = useState([])
   const navigation = useNavigation();
   const [productId, setProductId] = useState();
   const [reviewTitle, setReviewTitle] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [tashModalVisiable, setTashModalVisiavle] = useState(false)
+  const [favModalVisiable, setfavModalVisiable] = useState(false)
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [review, setReview] = useState('');
   const [rating, setRating] = useState(0);
@@ -119,7 +119,6 @@ const Home = () => {
   const [mapType, setMapType] = useState('standard')
   const [isEditing, setIsEditing] = useState(false)
   const [moreFilter, setMoreFilter] = useState(false)
-  const [city, setCity] = useState()
   const [maxPriceRange, setMaxPriceRange] = useState()
   const [minPricerange, setMinPricerange] = useState()
   const [minSquareFeet, setMinSquareFeet] = useState()
@@ -227,9 +226,22 @@ const Home = () => {
   const filtertoggleModal = () => {
     setFilterModalVisible(!filterModalVisible);
   };
+  const trashToggleModal = () => {
+    setTashModalVisiavle(!tashModalVisiable)
+  }
+  const favToggleModal = () => {
+    setfavModalVisiable(!favModalVisiable)
+  }
   const closeModals = () => {
     setFilterModalVisible(false);
   };
+  const closeTrashModal = () => {
+    setTashModalVisiavle(false);
+  };
+  const closeFavModal = () => {
+    setfavModalVisiable(false);
+  };
+
 
   const handleModalAnimations = () => {
     Animated.timing(slideAnimations, {
@@ -280,7 +292,8 @@ const Home = () => {
       // console.log('favlistApi', store.getState().getFavoriteProperties.getFavoritePropertiesData.count)
 
     })
-  }
+  }        // Alert.alert('Aler', response.payload.message);
+
   const savefile = async item => {
     favlistApi()
     let payload = {
@@ -289,8 +302,10 @@ const Home = () => {
     };
     await dispatch(addToFavorite(payload)).then(response => {
       if (store.getState().getFavoriteProperties.getFavoritePropertiesData.count == 0) {
-        Alert.alert('Alert', response.payload.message);
+        favToggleModal()
+        // Alert.alert('Alert', response.payload.message);
       } else {
+        favToggleModal()
         // Alert.alert('Alert', response.payload.message);
       }
     });
@@ -311,8 +326,9 @@ const Home = () => {
     await dispatch(addRemoveTrash(payload)).then(response => {
 
       if (store.getState().getTrash.getTrashData.count == 0) {
-        Alert.alert('Alerttt', response.payload.message);
+        trashToggleModal()
       } else {
+        trashToggleModal()
         // Alert.alert('Alert1');
       }
     });
@@ -336,8 +352,6 @@ const Home = () => {
     );
 
   }
-  useEffect(() => {
-  }, []);
 
   const getPopertiesApiCall = async type => {
     setLoading(true);
@@ -435,6 +449,7 @@ const Home = () => {
       style={
         Platform.OS == 'android' ? styles.container : styles.containerIos
       }>
+
       <View
         style={{
         }}>
@@ -668,30 +683,6 @@ const Home = () => {
                           }}>
                         </View>
 
-                        {/* <TouchableOpacity
-                        onPress={() => setFilterModalVisible(false)}
-                        style={{
-                          backgroundColor: Colors.surfblur,
-                          height: 37,
-                          width: 37,
-                          borderRadius: 100,
-                          alignItems: "center",
-                          justifyContent: "center",
-                          margin: 12,
-                          marginBottom: 0
-
-                        }}>
-                        <Image
-                          style={{
-                            height: 16,
-                            width: 16,
-                            //margin: 12,
-                            resizeMode: 'contain',
-                            tintColor: Colors.white,
-                            transform: [{ rotate: '45deg' }],
-                          }}
-                          source={Images.plus}></Image>
-                      </TouchableOpacity> */}
                       </View>
 
 
@@ -931,7 +922,6 @@ const Home = () => {
                                     data_customvalue: cities,
                                   }, lntLng
                                 })
-                                // setFilterModalVisible(false)
                                 // console.log("okk", cities, maxPriceRange, minPricerange, maxSquareFeet, minSquareFeet, bathRoomCount, bedCount)
                               }}
                               style={{
@@ -967,6 +957,7 @@ const Home = () => {
               </Modal>
 
             </KeyboardAvoidingView>
+
           </View>
         }
         {
@@ -1083,8 +1074,6 @@ const Home = () => {
                                 <View style={{ height: width, width: 40, position: "absolute", zIndex: 999, right: 10, }}>
                                 </View>
                               </TouchableOpacity>
-
-
                             </View>
                             <View style={{ position: "absolute", zIndex: 9, top: "40%", justifyContent: "space-between", width: "100%" }}>
                               <Image
@@ -1205,6 +1194,123 @@ const Home = () => {
                             />
                           </TouchableOpacity>
                         </View>
+                        <KeyboardAvoidingView behavior="padding">
+                          <Modal
+                            transparent={true}
+                            animationType="slide"
+                            visible={tashModalVisiable}
+                            onRequestClose={closeTrashModal}>
+                            <View style={styles.modalContainer}>
+                              <TouchableOpacity
+                                activeOpacity={1}
+                                style={styles.modalOverlay}
+                                onPress={closeModal}
+                              />
+                              <View style={{ alignItems: "center", justifyContent: "center", width: "100%" }}>
+                                <Animated.View
+                                  {...panResponder.panHandlers}
+                                  style={[
+                                    styles.modalContent,
+                                    {
+                                      transform: [
+                                        {
+                                          translateY: slideAnimation.interpolate({
+                                            inputRange: [-300, 0],
+                                            outputRange: [-300, 0],
+                                          }),
+                                        },
+                                      ],
+                                    },
+                                  ]}
+                                >
+                                  <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
+
+                                    <View
+                                      style={{
+                                        width: 50,
+                                        height: 5,
+                                        backgroundColor: "#bac1c3",
+                                        marginTop: 0,
+                                        justifyContent: 'center',
+                                        borderRadius: 100
+                                      }}></View>
+
+                                  </View>
+                                  <Text style={{ fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 26 }}>You're on your way to locating your dream home.  You can review, rate, comment and dispose of your Favorited  properties by tapping on your Favorites below</Text>
+
+                                  <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 10, marginTop: 20 }}>
+
+                                    <Image
+                                      source={Images.downThumb}
+                                      style={{
+                                        height: 70,
+                                        width: 70,
+                                        tintColor: "red",
+                                        resizeMode: 'contain',
+                                      }}></Image></View>
+
+                                </Animated.View>
+                              </View>
+                            </View>
+                          </Modal>
+                        </KeyboardAvoidingView>
+                        <KeyboardAvoidingView behavior="padding">
+                          <Modal
+                            transparent={true}
+                            animationType="slide"
+                            visible={favModalVisiable}
+                            onRequestClose={closeFavModal}>
+                            <View style={styles.modalContainer}>
+                              <TouchableOpacity
+                                activeOpacity={1}
+                                style={styles.modalOverlay}
+                                onPress={closeModal}
+                              />
+                              <View style={{ alignItems: "center", justifyContent: "center", width: "100%" }}>
+                                <Animated.View
+                                  {...panResponder.panHandlers}
+                                  style={[
+                                    styles.modalContent,
+                                    {
+                                      transform: [
+                                        {
+                                          translateY: slideAnimation.interpolate({
+                                            inputRange: [-300, 0],
+                                            outputRange: [-300, 0],
+                                          }),
+                                        },
+                                      ],
+                                    },
+                                  ]}
+                                >
+                                  <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
+                                    <View
+                                      style={{
+                                        width: 50,
+                                        height: 5,
+                                        backgroundColor: "#bac1c3",
+                                        marginTop: 0,
+                                        justifyContent: 'center',
+                                        borderRadius: 100
+                                      }}></View>
+                                  </View>
+                                  <Text style={{ fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 26 }}>Congrats on your first surf swipe left! If you decide to change your mind, you can find this property in your Recycle Bin
+                                    <TouchableOpacity ><Text style={{ color: Colors.surfblur, fontFamily: 'Poppins-Regular', paddingHorizontal: 6, marginTop: -20, position: "relative", top: 8 }}>(hyperlinked)</Text></TouchableOpacity>
+                                    located in your Profile.  I'm here 24/7 if you need my assistance.  </Text>
+                                  <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
+                                    <Image
+                                      source={Images.ThumbUp}
+                                      style={{
+                                        height: 70,
+                                        width: 70,
+                                        tintColor: "green",
+                                        resizeMode: 'contain',
+                                      }}></Image></View>
+                                </Animated.View>
+                              </View>
+                            </View>
+                          </Modal>
+                        </KeyboardAvoidingView>
                         <KeyboardAvoidingView >
 
                           <Modal
@@ -1696,29 +1802,31 @@ const Home = () => {
                       return (
                         <Marker
                           showCallout={true}
-                          coordinate={{ latitude: parseFloat(item.property_latitude), longitude: parseFloat(item.property_longitude) }}>
+                          coordinate={{ latitude: parseFloat(item?.property_latitude), longitude: parseFloat(item?.property_longitude) }}>
                           <Image source={Images.lot} style={{ height: 50, width: 100, resizeMode: 'contain' }} />
                           <Callout onPress={() => { navigation.navigate('ViewPropertiy', { item }) }}
-                            style={{ height: 70, alignItems: "center", alignSelf: "center" }}>
+                            style={{
+                              height: 70, alignItems: "center", alignSelf: "center",
+                              marginLeft: 20, top: -15,
+                            }}>
                             <View
                               style={{
-                                flexDirection: 'row', alignItems: 'center', alignContent: 'center',
-
+                                flexDirection: 'row', alignItems: 'center', alignContent: 'center', marginLeft: 20, top: -12,
                               }}>
 
                               <Text style={{
                                 position: "relative", height: 100,
-                                top: -33
+                                top: -20
                               }}>
-                                <Image style={{ height: 100, width: 100, }} source={{ uri: homeData[0]?.featured_image_src[0]?.guid }} />
+                                <Image style={{ height: 80, width: 100, resizeMode: "stretch", }} source={{ uri: homeData[0]?.featured_image_src[0]?.guid }} />
                               </Text>
-                              <View style={{ flexWrap: "wrap", top: -8 }}>
+                              <View style={{ flexWrap: "wrap", top: -5 }}>
                                 <Text style={{ color: 'black', paddingHorizontal: 10, fontWeight: '500', }}>{homeData[0].title}</Text>
                                 <Text style={{ color: Colors.surfblur, paddingHorizontal: 10, fontWeight: '500', }}>{homeData[0].property_price}</Text>
                                 <View style={{ flexDirection: 'row', paddingHorizontal: 10, }}>
-                                  <Text style={{ color: Colors.surfblur, marginleft: 10, fontWeight: '500', }}>{homeData[0].property_bedrooms} Beds  </Text>
-                                  <Text style={{ color: Colors.surfblur, marginleft: 10, fontWeight: '500', }}>{homeData[0].bathroomsfull} Baths  </Text>
-                                  <Text style={{ color: Colors.surfblur, marginleft: 10, fontWeight: '500', }}>{homeData[0].property_size} sq ft  </Text>
+                                  <Text style={{ color: Colors.black, marginleft: 10, fontWeight: '500', }}>{homeData[0].property_bedrooms} Beds  </Text>
+                                  <Text style={{ color: Colors.black, marginleft: 10, fontWeight: '500', }}>{homeData[0].bathroomsfull} Baths  </Text>
+                                  <Text style={{ color: Colors.black, marginleft: 10, fontWeight: '500', }}>{homeData[0].property_size} sq ft  </Text>
                                 </View>
                               </View>
 
@@ -1728,20 +1836,6 @@ const Home = () => {
                       )
                     })
                   }
-                  {/* {
-                    homeData.map((item) => {
-                      return (
-                        <Circle
-                          center={{ latitude: parseFloat(item.property_latitude), longitude: parseFloat(item.property_longitude) }}
-                          radius={100}
-                          fillColor="rgba(255, 0, 0, 0.2)"
-                          strokeColor="rgba(255, 0, 0, 0.5)"
-                          strokeWidth={2}
-                        />
-                      )
-                    })
-                  } */}
-
                 </MapView>
               </View> : null
         }
@@ -1802,13 +1896,19 @@ const styles = StyleSheet.create({
   },
   modalOverlay: {
     flex: 1,
+    alignItems: "center", justifyContent: "center",
+    width: "98%",
+    boxShadow: "0 0 20px 0 rgba(0, 0, 0, 0.2)",
   },
   modalContent: {
     backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
-    maxHeight: '80%',
+    maxHeight: '100%',
+    width: "96%",
+    alignItems: "center", justifyContent: "center",
+    boxShadow: "0 0 20px 0 rgba(0, 0, 0, 0.2)",
   },
   shadowProp: {
     marginTop: 50,
