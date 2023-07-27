@@ -305,7 +305,7 @@ const Home = () => {
         favToggleModal()
         // Alert.alert('Alert', response.payload.message);
       } else {
-        favToggleModal()
+
         // Alert.alert('Alert', response.payload.message);
       }
     });
@@ -322,13 +322,11 @@ const Home = () => {
       userID: user_ID,
       post_id: post_id,
     };
-    // console.log('counttttt2', store.getState().getTrash.getTrashData.count)
     await dispatch(addRemoveTrash(payload)).then(response => {
 
       if (store.getState().getTrash.getTrashData.count == 0) {
         trashToggleModal()
       } else {
-        trashToggleModal()
         // Alert.alert('Alert1');
       }
     });
@@ -1295,7 +1293,7 @@ const Home = () => {
                                       }}></View>
                                   </View>
                                   <Text style={{ fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 26 }}>Congrats on your first surf swipe left! If you decide to change your mind, you can find this property in your Recycle Bin
-                                    <TouchableOpacity ><Text style={{ color: Colors.surfblur, fontFamily: 'Poppins-Regular', paddingHorizontal: 6, marginTop: -20, position: "relative", top: 8 }}>(hyperlinked)</Text></TouchableOpacity>
+                                    <TouchableOpacity  onPress={() => { navigation.navigate('MyFavorites') }}><Text style={{ color: Colors.surfblur, fontFamily: 'Poppins-Regular', paddingHorizontal: 6, marginTop: -20, position: "relative", top: 8 }}>Go to favorite</Text></TouchableOpacity>
                                     located in your Profile.  I'm here 24/7 if you need my assistance.  </Text>
                                   <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
                                     <Image
