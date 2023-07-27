@@ -118,7 +118,8 @@ const App = () => {
           justifyContent: 'center',
           width: '100%',
           marginLeft: 0,
-          marginBottom: 4
+
+          // marginBottom: 4
         }}>
         <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Surf Rewards</Text>
         <View
@@ -164,11 +165,19 @@ const App = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <View>
+      <View style={{
+        // backgroundColor: "red",
+        height: "100%",
+        alignItems: "center", justifyContent: "center"
+      }}>
 
 
         <View
-          style={{ marginTop: 10, backgroundColor: Colors.white, width: '100%' }}>
+          style={{
+            marginTop: 0, backgroundColor: Colors.white, width: '100%',
+
+            alignItems: "center", justifyContent: "center"
+          }}>
           <Speedmeter
             minValue={0}
             defaultValue={0}

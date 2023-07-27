@@ -498,30 +498,34 @@ const ViewPropertiy = (props, imageUrl) => {
                 showCallout={true}
                 coordinate={{ latitude: parseFloat(pin.latitude), longitude: parseFloat(pin.longitude) }}
               >
-                <Image source={Images.lot} style={{ height: 50, width: 100, resizeMode: 'contain' }} />
+                <Image source={Images.lot} style={{ height: 50, width: 100, resizeMode: 'contain', }} />
 
-                <Callout style={{ height: 70, alignItems: "center", alignSelf: "center" }}>
+                <Callout style={{
+                  height: 70, alignItems: "center", alignSelf: "center",
+                  marginLeft: 20, top: -15,
+                }}>
 
                   <View style={{
-                    flexDirection: 'row', alignItems: 'center', alignContent: 'center',
+                    flexDirection: 'row', alignItems: 'center', alignContent: 'center', marginLeft: 20, top: -12,
 
                   }}>
                     <Text style={{
                       position: "relative", height: 100,
-                      top: -22
-                    }}><Image style={{ height: 100, width: 100, resizeMode: "stretch", }} source={{ uri: property?.featured_image_src }} resizeMethod='auto' />
+                      top: -20
+                    }}><Image style={{ height: 80, width: 100, resizeMode: "stretch", }} source={{ uri: property?.featured_image_src }} resizeMethod='auto' />
                     </Text>
-                    <View style={{ flexWrap: "wrap", top: -8 }}>
+                    <View style={{ flexWrap: "wrap", top: -5 }}>
                       <Text style={{ color: 'black', marginLeft: 10, fontWeight: '500', flexWrap: "wrap" }}>{property?.address.property_address.address} | {property?.address.property_address.state_county}</Text>
                       <Text style={{ color: Colors.primaryBlue, marginLeft: 10, fontWeight: '500' }}>{data.map((item) => item.details.property_details.price)}</Text>
                       <View style={{ flexDirection: 'row', marginLeft: 10, }}>
-                        <Text>{store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bedrooms.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bedrooms : 0}
+                        <Text style={{ color: Colors.black }}>{store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bedrooms.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bedrooms : 0}
                           {' Beds'}    </Text>
-                        <Text >{store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bathroomsfull.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bathroomsfull : 0}
+                        <Text style={{ color: Colors.black }}>{store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bathroomsfull.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bathroomsfull : 0}
                           {' Baths'}   </Text>
-                        <Text>{store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.property_size.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.property_size : 0}
+                        <Text style={{ color: Colors.black }}>{store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.property_size.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.property_size : 0}
                           {' sq ft'}   </Text>
                       </View>
+
                     </View>
                   </View>
                 </Callout>
@@ -553,7 +557,7 @@ const ViewPropertiy = (props, imageUrl) => {
                       <Text style={{ color: "gray" }}>{item.unit_distance}</Text>
                     </View>
                     <View>
-                      <Image style={{ height: 15, width: 100, }} source={{ uri: item.image_url }} />
+                      <Image style={{ height: 15, width: 100, resizeMode: "contain" }} source={{ uri: item.image_url }} />
                     </View>
                   </View>
                 </>
@@ -822,8 +826,6 @@ const ViewPropertiy = (props, imageUrl) => {
               width: '100%',
               alignSelf: 'center',
               justifyContent: 'center',
-              //  paddingHorizontal:6,
-              //  paddingVertical:6
             }}>
             {data
               .slice(0, 2)
@@ -851,7 +853,7 @@ const ViewPropertiy = (props, imageUrl) => {
 
                 return (
                   <>
-                    <View style={{ position: 'relative', width: '100%', marginTop: 54, }}>
+                    <View style={{ position: 'relative', width: '100%', marginTop: 40, }}>
                       <View style={styles.headerIcon}>
                         <TouchableOpacity
                           onPress={() => navigation.goBack()}
@@ -880,7 +882,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                   //  borderTopLeftRadius: 8, 
                                   borderRadius: 15,
                                   marginTop: -5,
-                                  overflow: "hidden", position: "absolute", top: -42,
+                                  overflow: "hidden", position: "absolute", top: -30,
                                   left: 5,
                                   right: 0,
                                 }}>
@@ -922,11 +924,8 @@ const ViewPropertiy = (props, imageUrl) => {
                                   // paddingHorizontal: 8,
 
                                   borderRadius: 15,
-
-                                  //   marginTop: -5, 
-
                                   overflow: "hidden",
-                                  top: -47,
+                                  top: -38,
                                   left: 5,
                                   right: 0
                                 }}>
@@ -989,7 +988,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                     alignItems: 'center',
                                     backgroundColor: Colors.white,
                                     paddingHorizontal: 12,
-                                    paddingVertical: 12,
+                                    // paddingVertical: 12,
                                   }}>
                                   <View
                                     style={{
@@ -1009,7 +1008,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                           height: 20,
                                           width: 20,
                                           resizeMode: 'contain',
-                                          marginTop: -6,
+                                          // marginTop: -6,
                                         }}></Image>
                                     </TouchableOpacity>
                                     <Text
@@ -1059,7 +1058,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                       paddingHorizontal: 12,
                                     }}>
                                     <Text
-                                      // onPress={() => navigation.navigate('ViewPropertiyImage', { postid: postid.item.ID })}
+
                                       style={{
                                         fontSize: 14,
                                         color: Colors.black,
@@ -1384,20 +1383,19 @@ const ViewPropertiy = (props, imageUrl) => {
                       <View style={{
                         flexDirection: 'row',
                         width: '100%',
-                        paddingHorizontal: 13,
-                        // alignItems: "flex-start", 
+                        paddingHorizontal: 18,
+                        paddingBottom: 0,
                         justifyContent: 'space-between',
-
+                        marginTop: 30
+                        //  backgroundColor: "red"
                       }}>
                         <ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}  >
                           <View
                             style={{
                               flexDirection: 'row',
                               alignItems: "center",
-                              //paddingHorizontal: 12,
                               justifyContent: 'space-between',
-                              // marginBottom: 12,
-                              marginTop: 40,
+                              marginTop: 5,
                               width: "100%",
                               alignSelf: "center"
                             }}>
@@ -1418,7 +1416,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                   justifyContent: 'flex-start',
                                   alignItems: 'flex-start',
                                   // backgroundColor: "red",
-                                  width: 60,
+                                  width: 70,
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
                                   <Image
@@ -1448,7 +1446,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                   justifyContent: 'flex-start',
                                   alignItems: 'flex-start',
 
-                                  width: 60,
+                                  width: 70,
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
                                   <Image
@@ -1478,8 +1476,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                 style={{
                                   justifyContent: 'flex-start',
                                   alignItems: 'flex-start',
-
-                                  width: 60,
+                                  width: 70,
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
                                   <Image
@@ -1497,7 +1494,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                       fontFamily: 'Poppins-Regular',
                                     }}>
                                     {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.property_size.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.property_size : 0}
-                                    {' sq ft'}
+                                    {' sqft'}
                                   </Text>
                                 </View>
                               </View>
@@ -1507,8 +1504,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                 style={{
                                   justifyContent: 'flex-start',
                                   alignItems: 'flex-start',
-
-                                  width: 50,
+                                  width: 70,
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
                                   <Text
@@ -1570,7 +1566,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                   justifyContent: 'flex-start',
                                   alignItems: 'flex-start',
 
-                                  width: 60,
+                                  width: 70,
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
                                   <Image
@@ -2566,8 +2562,8 @@ const styles = StyleSheet.create({
     width: '100%',
     zIndex: 9,
     position: 'absolute',
-    top: -35,
-    left: 15
+    top: -30,
+    left: 10
   },
 
 
@@ -2579,14 +2575,16 @@ const styles = StyleSheet.create({
     color: Colors.black,
     marginTop: 20,
     paddingStart: 20,
-    fontWeight: 'bold'
+    fontFamily: "Poppins-SemiBold",
+    // fontWeight: 'bold'
   },
   addresss: { height: 1400 },
   propertyts: {
     fontSize: 18,
     color: Colors.black,
     marginTop: 20,
-    fontWeight: 'bold'
+    fontFamily: "Poppins-SemiBold",
+    // fontWeight: 'bold'
   },
   propsmain: { fontFamily: "Poppins-Medium", color: Colors.sitegray, paddingBottom: 4 },
   propsinnermain: { fontFamily: "Poppins-Regular" },
