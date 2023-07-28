@@ -972,7 +972,7 @@ const RecycleBin = () => {
               style={{
                 fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium'
               }}>
-              No Bin file data found!
+            No Property in Bin !!
             </Text>
           </View>
         ) : (
