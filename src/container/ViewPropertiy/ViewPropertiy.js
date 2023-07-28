@@ -630,61 +630,106 @@ const ViewPropertiy = (props, imageUrl) => {
     useEffect(() => {
 
     }, [res])
+    const getCurrentDateTime = () => {
+      const now = new Date();
+      const year = now.getFullYear().toString();
+      const month = (now.getMonth() + 1).toString().padStart(2, '0');
+      const date = now.getDate().toString().padStart(2, '0');
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const dateTimeString = `${year}-${month}-${date} ${hours}:${minutes}`;
+      return dateTimeString;
+    };
+  
     return (
       <>
-
         <View style={{ paddingHorizontal: 20, height: 500 }}>
-          <View style={{
-            flexDirection: 'row', justifyContent: 'space-between',
-            alignItems: 'center', marginTop: 10, borderBottomWidth: 1, borderColor: Colors.gray
-          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginTop: 10,
+              borderBottomWidth: 1,
+              borderColor: Colors.gray,
+            }}>
             <Image source={Images.train} style={{ height: 30, width: 30 }} />
-            <Text style={{ fontSize: 19, fontWeight: "bold", color: Colors.black }}>Powered by Cynthia®</Text>
+            <Text style={{ fontSize: 19, fontWeight: 'bold', color: Colors.black }}>
+              Powered by Cynthia®
+            </Text>
             <TouchableOpacity
-              onPress={() => { setRes([]) }}
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                marginRight: 10,
+              onPress={() => {
+                setRes([]);
+                
               }}
-            >
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginRight: 10,
+              }}>
               <Image
                 style={{
                   height: 25,
                   width: 25,
-                  resizeMode: "contain",
+                  resizeMode: 'contain',
                   tintColor: Colors.black,
                 }}
-                source={Images.reload}
-              ></Image>
+                source={Images.reload}></Image>
             </TouchableOpacity>
           </View>
-
-          <Text style={{ fontSize: 16, borderRadius: 16, alignSelf: 'flex-start', maxWidth: '70%', marginLeft: 22, marginTop: 22, color: Colors.black }}>I'm Cynthia. How can I help you?</Text>
-
-          <AutoScrollFlatList nestedScrollEnabled={true}
-            data={res}
-            threshold={20}
-            renderItem={({ item, index }) => {
-              return (
-                <Text style={{
-                  padding: 16,
-                  fontSize: 16,
-                  borderRadius: 16,
-                  backgroundColor: item.type === 0 ? Colors.surfblur : Colors.white,
-                  alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
-                  maxWidth: '70%',
-                  marginLeft: 8,
-                  marginRight: 8,
-                  marginTop: 8,
-                  marginBottom: 50,
-                  color: item.type === 0 ? Colors.white : Colors.black
-                }}>{item.message}</Text>
-              )
+  
+          <Text
+            style={{
+              fontSize: 16,
+              borderRadius: 16,
+              alignSelf: 'flex-start',
+              maxWidth: '70%',
+              marginLeft: 22,
+              marginTop: 22,
+              color: Colors.black,
             }}>
-
-          </AutoScrollFlatList>
+            I'm Cynthia. How can I help you?
+          </Text>
+  
+          <AutoScrollFlatList
+  nestedScrollEnabled={true}
+  data={res}
+  threshold={20}
+  renderItem={({ item, index }) => {
+    return (
+      <View>
+        <Text
+          style={{
+            padding: 8,
+            fontSize: 16,
+            borderRadius: 16,
+            backgroundColor: item.type === 0 ? Colors.surfblur : Colors.white,
+            alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
+            maxWidth: '70%',
+            marginLeft: 8,
+            marginRight: 8,
+            marginTop: 8,
+            marginBottom: 4,
+            color: item.type === 0 ? Colors.white : Colors.black,
+          }}>
+          {item.message}
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+            marginLeft: item.type === 0 ? 8 : 16,
+            marginRight: item.type === 0 ? 16 : 8,
+            marginBottom: 8,
+            alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
+            color: Colors.gray,
+          }}>
+          {item.date}
+        </Text>
+      </View>
+    );
+  }}
+/>
           <View style={{ bottom: 0, position: 'absolute', zIndex: 99, left: 0, right: 0, backgroundColor: Colors.white }}>
             {
               loading && <Text style={{
@@ -743,44 +788,44 @@ const ViewPropertiy = (props, imageUrl) => {
                 onChangeText={setMessage}>
               </TextInput>
               <TouchableOpacity
-                onPress={() => {
-                  setLoading(true)
-                  dispatch(schoolChat({ message: 'i want to know somthink about school' })).then((ress) => {
-                    setLoading(false)
+            onPress={() => {
+              setLoading(true);
+              dispatch(schoolChat({ message: 'i want to know something about school' })).then((ress) => {
+                setLoading(false);
 
-                    const newTodo1 = {
+                const newTodo1 = {
+                  type: 0,
+                  message: message,
+                  date: getCurrentDateTime(),
+                };
+                const newTodo = {
+                  type: 1,
+                  message: ress.payload.data.text,
+                  date: getCurrentDateTime(), 
+                };
+                setMessage('');
+                setRes([...res, newTodo1, newTodo]);
 
-                      type: 0,
-                      message: message,
-                    }
-                    const newTodo = {
-                      type: 1,
-                      message: ress.payload.data.text,
-                    };
-                    setMessage('')
-
-                    setRes([...res, newTodo1, newTodo])
-
-                  }).catch((e) => {
-                    alert('Error ==> ' + JSON.stringify(e))
-                  })
-                }}
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Image
-                  style={{
-                    height: 25,
-                    width: 25,
-                    resizeMode: "contain",
-                    tintColor: Colors.black,
-                  }}
-                  source={Images.sendm}
-                ></Image>
-              </TouchableOpacity>
+              }).catch((e) => {
+                alert('Error ==> ' + JSON.stringify(e))
+              });
+            }}
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              style={{
+                height: 25,
+                width: 25,
+                resizeMode: "contain",
+                tintColor: Colors.black,
+              }}
+              source={Images.sendm}
+            ></Image>
+          </TouchableOpacity>
             </View>
 
           </View>
