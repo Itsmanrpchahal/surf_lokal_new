@@ -94,9 +94,9 @@ const Challenges = () => {
           </TouchableOpacity>
         </View>
       </View>
-       <View style={{justifyContent:'center',alignContent:'center',alignItems:'center',paddingVertical:"30%"}}>
-       <Text style={{ fontSize: 24, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Challenges</Text>
-        <Text style={{fontSize:18,fontWeight:'500',marginTop:30}}>Q. DO you need health insurance? (1)</Text>
+       <View style={{justifyContent:'center',alignContent:'center',alignItems:'center',paddingVertical:"30%",color:Colors.black}}>
+       <Text style={{ fontSize: 24, color: Colors.black, fontFamily: 'Poppins-Medium' ,color:Colors.black}}>Challenges</Text>
+        <Text style={{fontSize:18,fontWeight:'500',marginTop:30, color:Colors.black}}>Q. DO you need health insurance? (1)</Text>
       
        <View style={{flexDirection:"row",justifyContent:'space-evenly',alignItems:'center',alignContent:'center',paddingHorizontal:130}} >
        <TouchableOpacity onPress={handleImagePress}
@@ -121,7 +121,6 @@ const Challenges = () => {
                   style={{ height: 50, width: 50, resizeMode: 'contain' }} />
            
               </View>
-              <View style={styles.line}></View>
             </TouchableOpacity>
        </View>
        </View>

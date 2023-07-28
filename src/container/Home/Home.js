@@ -1355,7 +1355,8 @@ const Home = () => {
                           <Modal
                             transparent={true}
                             animationType="slide"
-                            visible={tashModalVisiable}
+                            // visible={tashModalVisiable}
+                            visible={true}
                             onRequestClose={() => { setTrashModalVisiable(false) }}>
                             <View style={styles.modalContainer1}>
                               <TouchableOpacity
