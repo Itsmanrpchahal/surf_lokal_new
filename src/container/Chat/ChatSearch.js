@@ -28,7 +28,16 @@ const ChatSearch = () => {
       ]);
     }
   }, [route.params?.initialMessage, route.params?.agentReply]);
-
+  const getCurrentDateTime = () => {
+    const now = new Date();
+    const year = now.getFullYear().toString();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const date = now.getDate().toString().padStart(2, '0');
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const dateTimeString = `${year}-${month}-${date} ${hours}:${minutes}`;
+    return dateTimeString;
+  };
   return (
     <View style={{ height: "100%", position: 'relative', paddingBottom: 100, }}>
       <View style={{ backgroundColor: Colors.gray, height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -84,31 +93,45 @@ const ChatSearch = () => {
         marginRight: 13, fontSize: 16, borderRadius: 16, alignSelf: 'flex-start', maxWidth: '100%', marginTop: 22, color: Colors.black, fontFamily: "Poppins-Medium",
       }}>Hi! What can I help you with?</Text>
 
-      <AutoScrollFlatList
-        data={res}
-        threshold={20}
-        renderItem={({ item, index }) => {
-          return (
-            <Text style={{
-              //padding: 16,
-              paddingHorizontal: 12,
-              paddingVertical: 6,
-              fontSize: 14,
-              borderRadius: 4,
-              backgroundColor: item.type === 0 ? Colors.surfblur : Colors.white,
-              alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
-              maxWidth: '100%',
-              marginLeft: 8,
-              marginRight: 8,
-              marginTop: 8,
-              marginBottom: 22,
-              fontFamily: 'Poppins-Regular',
-              color: item.type === 0 ? Colors.white : Colors.black
-            }}>{item.message}</Text>
-          )
-        }}>
-
-      </AutoScrollFlatList>
+     
+<AutoScrollFlatList
+  nestedScrollEnabled={true}
+  data={res}
+  threshold={20}
+  renderItem={({ item, index }) => {
+    return (
+      <View>
+        <Text
+          style={{
+            padding: 8,
+            fontSize: 16,
+            borderRadius: 16,
+            backgroundColor: item.type === 0 ? Colors.surfblur : Colors.white,
+            alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
+            maxWidth: '70%',
+            marginLeft: 8,
+            marginRight: 8,
+            marginTop: 8,
+            marginBottom: 4,
+            color: item.type === 0 ? Colors.white : Colors.black,
+          }}>
+          {item.message}
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+            marginLeft: item.type === 0 ? 8 : 16,
+            marginRight: item.type === 0 ? 16 : 8,
+            marginBottom: 8,
+            alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
+            color: Colors.gray,
+          }}>
+          {item.date}
+        </Text>
+      </View>
+    );
+  }}
+/>
 
 
 
@@ -189,11 +212,12 @@ const ChatSearch = () => {
 
                   type: 0,
                   message: message,
+                  date: getCurrentDateTime(),
                 }
                 const newTodo = {
                   type: 1,
                   message: ress.payload.data.text,
-
+                  date: getCurrentDateTime(),
                 };
                 setMessage('')
 
