@@ -1053,7 +1053,7 @@ const MyFavorites = () => {
               style={{
                 fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium'
               }}>
-              No Favourite file  found!
+             No Property in Favorite !!
             </Text>
           </View>
         ) : (

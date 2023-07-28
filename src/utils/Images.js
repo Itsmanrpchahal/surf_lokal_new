@@ -6,7 +6,7 @@ const Images = {
   google: require(BaseUrl + 'google.png'),
   downArrow: require(BaseUrl + 'arrowDown.png'),
   apple: require(BaseUrl + 'apple.png'),
-
+  searcfrank: require(BaseUrl + "surfranking.png"),
   email: require(BaseUrl + 'email.png'),
   facebook: require(BaseUrl + 'facebook.png'),
   chat: require(BaseUrl + 'chat.png'),

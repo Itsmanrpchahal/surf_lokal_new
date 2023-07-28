@@ -14,10 +14,12 @@ import Images from '../../utils/Images';
 import { useNavigation } from '@react-navigation/native';
 import Colors from '../../utils/Colors';
 import * as Animatable from 'react-native-animatable';
+import Slider from 'react-native-slider';
 import Speedmeter from '../../components/speedmeter';
+import Fonts from '../../utils/Fonts';
 const App = () => {
   const navigation = useNavigation();
-  const [meterValue, setMeterValue] = useState(300);
+  const [meterValue, setMeterValue] = useState(300000);
   const [backgroundColor, setBackgroundColor] = useState('blue');
   const [textColor, setTextColor] = useState('white');
   const [borderColor, setBorderColor] = useState('black');
@@ -53,64 +55,7 @@ const App = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
-      {/* <View style={{}}>
-        <View
-          style={{
-            marginTop: 8,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            width: '100%',
-            marginLeft: 0
-          }}>
-          <Text style={{
-            fontSize: 20,
-            color: Colors.black, fontFamily: 'Poppins-Regular'
-          }}>Surf Rewards</Text>
-         <View
-          style={{
-            flexDirection: 'row',
-            width: '90%',
-            alignSelf: 'center',
 
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-            overflow: 'visible',
-            zIndex: 99,
-            position: 'absolute',
-            top: 10,
-          }}>
-
-          <TouchableOpacity
-            style={{
-              alignItems: 'center',
-              position: "absolute",
-              right:-12,
-              top: -6,
-
-              backgroundColor: Colors.surfblur,
-              height: 25,
-              width: 25,
-              borderRadius: 100,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            onPress={() => navigation.goBack()}
-          >
-            <Animatable.Image
-              source={Images.whiteclose}
-              style={{
-                height: 10,
-                width: 10,
-                resizeMode: 'contain',
-                tintColor: Colors.white,
-              }}
-              animation="flipInY"
-            />
-          </TouchableOpacity>
-        </View>
-
-        </View>
-      </View> */}
       <View
         style={{
           marginTop: 4,
@@ -165,104 +110,58 @@ const App = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{
-        // backgroundColor: "red",
-        height: "100%",
-        alignItems: "center", justifyContent: "center"
-      }}>
-
-
-        <View
-          style={{
-            marginTop: 0, backgroundColor: Colors.white, width: '100%',
-
-            alignItems: "center", justifyContent: "center"
-          }}>
-          <Speedmeter
-            minValue={0}
-            defaultValue={0}
-            allowedDecimals={0}
-            size={200}
-            needleImage={require('../../assets/images/needlecustom.png')}
-            maxValue={100}
-            labels={[{ name: 'Low', activeBarColor: 'green' }, { name: 'Medium', activeBarColor: 'yellow' }, { name: 'High', activeBarColor: 'red' }]}
-            value={meterValue}></Speedmeter>
-        </View>
-
-
-        {meterValue <= 3000 ? (
-          <View
-            style={{
-              width: '80%',
-              justifyContent: 'center',
-              alignSelf: 'center',
-              alignItems: 'center',
-              marginTop: 80,
-            }}>
-            <View style={{}}>
-              <Image source={Images.base} style={{ height: 50, width: 230, resizeMode: 'stretch', position: 'relative', top: 20 }} />
-              <Image
-                source={getImageCall()}
-                resizeMode="contain"
-                style={{
-                  height: 100,
-                  width: '80%',
-                  marginTop: 20,
-                  alignSelf: 'center',
-                  position: 'absolute',
-                  top: -90
-                }}></Image>
-
-            </View>
-            <View
-              style={{
-                width: '100%',
-                justifyContent: 'center',
-                alignSelf: 'center',
-                alignItems: 'center',
-                marginTop: 20,
-              }}>
-              <Text style={{
-                fontSize: 20,
-                color: Colors.black,
-                fontFamily: 'Poppins-Medium',
-                textAlign: 'center',
-                marginTop: 15
-              }}>Your surf level</Text>
-              <Text
-                style={{
-                  fontSize: 30,
-                  color: Colors.black,
-                  textAlign: 'center',
-                  // fontWeight:"100%"
-                  fontFamily: 'Poppins-SemiBold',
-                  lineHeight: 33
-                }}>
-                {getLevelCall()}
-              </Text>
+      <View style={{ height: "100%", }}>
+        <View style={{ marginTop: 30 }}>
+          <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: 20 }}>
+            <Text style={{ fontSize: 16, fontFamily: Fonts.regular, color: "black" }}>Purchase Price
+            </Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '90%' }}>
+              <Text style={{ fontSize: 14, fontFamily: Fonts.regular, color: "black" }}>$0</Text>
+              <Text style={{ fontSize: 22, fontFamily: Fonts.bold, color: "black" }}>  ${meterValue}</Text>
+              <Text style={{ fontSize: 14, fontFamily: Fonts.regular, color: "black" }}>$10MM</Text>
             </View>
           </View>
-        ) : null}
+          <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 40 }}>
+            <Slider
+              style={{ width: "90%", justifyContent: "center" }}
+              minimumValue={100000}
+              maximumValue={1000000}
+              minimumTrackTintColor={Colors.darbluec}
+              maximumTrackTintColor={Colors.gray}
+              thumbTintColor={Colors.white}
+
+              value={meterValue}
+              onValueChange={value => setMeterValue(value)}
+              step={2}
+              thumbStyle={{
+                width: 32,
+                height: 32,
+                borderRadius: 100,
+                borderWidth: 2, // Set the desired border width
+                borderColor: Colors.darbluec, // Set the desired border color
+              }}
+              trackStyle={{
+                height: 10, // Set the desired height of the track
+                borderRadius: 100
+              }}
+            />
+          </View>
+
+        </View>
+        <Text style={{ fontSize: 18, fontFamily: Fonts.regular, textAlign: 'center', color: "black", marginVertical: 0 }}>Your Rebate </Text>
+        <Text style={{ fontSize: 25, fontFamily: Fonts.bold, textAlign: 'center', color: "black", marginVertical: 0 }}>$960.00</Text>
 
 
 
-        <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'center', }}>
+
+
+
+
+        <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'center', marginTop: 30 }}>
+
 
           <TouchableOpacity
-            onPress={handlePress}
-            style={[
-              styles.rew,
-              {
-                backgroundColor: isRewardsSelected ? 'trasnparent' : 'transparent',
-                borderColor: isRewardsSelected ? Colors.primaryBlue : Colors.primaryBlue,
-              },
-            ]}
-          >
-            <Text style={[styles.text, { color: isRewardsSelected ? Colors.primaryBlue : Colors.primaryBlue, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>Rewards</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={handlePress}
+            onPress={() => { handlePress, navigation.navigate('Challenges') }}
             style={[
               styles.rew,
               {
@@ -273,13 +172,27 @@ const App = () => {
           >
             <Text style={[styles.text, { color: isRewardsSelected ? Colors.primaryBlue : Colors.primaryBlue, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>Challenges</Text>
           </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => { handlePress, navigation.navigate('Leaderboard') }}
+            style={[
+              styles.rew,
+              {
+                backgroundColor: isRewardsSelected ? 'trasnparent' : 'transparent',
+                borderColor: isRewardsSelected ? Colors.primaryBlue : Colors.primaryBlue,
+              },
+            ]}
+          >
+            <Text style={[styles.text, { color: isRewardsSelected ? Colors.primaryBlue : Colors.primaryBlue, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>Leaderboard</Text>
+          </TouchableOpacity>
+
         </View>
 
-
-
-
-
       </View>
+
+
+
+
     </SafeAreaView>
   );
 };

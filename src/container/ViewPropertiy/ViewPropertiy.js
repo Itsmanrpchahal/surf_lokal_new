@@ -479,10 +479,7 @@ const ViewPropertiy = (props, imageUrl) => {
 
           </View >
           <View style={styles.maincovermap} >
-            <View style={styles.coverlocation}>
-              <Image source={Images.graylocation} style={styles.locationpic}></Image>
-
-            </View>
+   
             <MapView
               provider={PROVIDER_GOOGLE}
               style={styles.map}
@@ -493,6 +490,7 @@ const ViewPropertiy = (props, imageUrl) => {
                 longitudeDelta: 0.0121,
               }}
             >
+              
 
               <Marker
                 showCallout={true}

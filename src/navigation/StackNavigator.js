@@ -14,6 +14,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import ChatSearch from '../container/Chat/ChatSearch';
 import SingleImage from '../container/ViewImage/SingleImage';
 import Videoplay from '../container/ViewPropertiy/Videoplay';
+import Leaderboard from '../container/MyRewards/Leaderboard';
+import Challenges from '../container/MyRewards/Challenges';
 
 const Stack = createStackNavigator();
 
@@ -51,6 +53,8 @@ const StackNavigator = () => {
       <Stack.Screen name="ChatSearch" component={ChatSearch} />
       <Stack.Screen name="SingleImage" component={SingleImage} />
       <Stack.Screen name="Videoplay" component={Videoplay} />
+      <Stack.Screen name="Challenges" component={Challenges} />
+      <Stack.Screen name="Leaderboard" component={Leaderboard} />
     </Stack.Navigator>
   ) : null;
 };
