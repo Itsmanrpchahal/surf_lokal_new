@@ -53,6 +53,7 @@ import { getFavoriteProperties } from '../../modules/getFavoriteProperties';
 
 const { width } = Dimensions.get('screen');
 
+
 const Home = () => {
   const isFocused = useIsFocused();
 
@@ -126,10 +127,24 @@ const Home = () => {
   const [bathRoomCount, setBathRoomCount] = useState()
   const [bedCount, setBedCount] = useState()
 
+  const [isPressed, setIsPressed] = useState(false);
+  const [isPressed1, setIsPressed1] = useState(false);
+  const [isPressed2, setIsPressed2] = useState(false);
   useEffect(() => {
     getID()
   }, [])
-
+  const handlePress = () => {
+    setIsPressed(!isPressed);
+    filtertoggleModal();
+  };
+  const handlePress1 = () => {
+    setIsPressed1(!isPressed1);
+    //filtertoggleModal();
+  };
+  const handlePress2 = () => {
+    setIsPressed2(!isPressed2);
+    filtertoggleModal();
+  };
   const getID = async () => {
     const id = await AsyncStorage.getItem('userId')
     setUser_ID(id)
@@ -305,6 +320,7 @@ const Home = () => {
         favToggleModal()
         // Alert.alert('Alert', response.payload.message);
       } else {
+        // favToggleModal()
 
         // Alert.alert('Alert', response.payload.message);
       }
@@ -327,6 +343,7 @@ const Home = () => {
       if (store.getState().getTrash.getTrashData.count == 0) {
         trashToggleModal()
       } else {
+        // trashToggleModal()
         // Alert.alert('Alert1');
       }
     });
@@ -568,54 +585,74 @@ const Home = () => {
           <View >
             <View style={{
               width: '100%', flexDirection: "row",
-              justifyContent: 'space-evenly', marginBottom: 10
+              justifyContent: 'center', marginBottom: 10
             }}>
-              <TouchableOpacity
+              <TouchableOpacity onPress={handlePress1}
                 style={[
                   styles.rew,
                   {
-                    backgroundColor: 'white',
+
                     borderColor: Colors.gray,
-                    borderRadius: 10
+                    borderRadius: 10,
+                    backgroundColor: isPressed1 ? 'black' : 'white', // Change background color on press
                   },
                 ]}
               >
-                <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Save Search</Text>
+                <Text style={{
+                  color: isPressed1 ? 'white' : 'black', // Change text color on press, 
+                  fontFamily: 'Poppins-Regular'
+
+                }}>Save Search</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => filtertoggleModal()}
+                onPress={handlePress}
                 style={[
                   styles.rew,
                   {
                     flexDirection: 'row',
-                    justifyContent: 'space-evenly',
-                    backgroundColor: 'white',
+                    //justifyContent: 'space-evenly',
+                    backgroundColor: isPressed ? 'black' : 'white', // Change background color on press
                     borderColor: Colors.gray,
-                    borderRadius: 10
-
+                    borderRadius: 10,
                   },
                 ]}
               >
-                <Image source={Images.filtericon} style={{ height: 10, width: 10 }} />
-                <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>  Filters    </Text>
+                <Image
+                  source={Images.filtericon}
+                  style={[
+                    {
+                      height: 10, width: 10, marginRight: 6
+                    },
+                    { tintColor: isPressed ? 'white' : 'black' }, // Change image tint color on press
+                  ]}
+                />
+                <Text
+                  style={{
+                    color: isPressed ? 'white' : 'black', // Change text color on press
+                    fontFamily: 'Poppins-Regular',
+                  }}
+                >
+                  Filters
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   setIsSelected(false)
+                  { handlePress2 }
                   setSelectedItem(null)
                   getPopertiesApiCall({ type: 0, data: '', lntLng, })
                 }}
                 style={[
                   styles.rew,
                   {
-                    backgroundColor: "white",
+                    backgroundColor: isPressed2 ? 'black' : 'white',
                     borderColor: Colors.gray,
                     borderRadius: 10
                   },
                 ]}
               >
-                <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Clear filters</Text>
+                <Text style={{ color: isPressed2 ? 'white' : 'black', fontFamily: 'Poppins-Regular' }}>Clear filters</Text>
               </TouchableOpacity>
 
             </View>
@@ -626,6 +663,8 @@ const Home = () => {
                 transparent={true}
                 animationType="slide"
                 visible={filterModalVisible}
+                showsHorizontalScrollIndicator={falses}
+
                 onRequestClose={filtertoggleModal}>
                 <View style={styles.modalContainer}>
                   <TouchableOpacity
@@ -1196,19 +1235,19 @@ const Home = () => {
                           <Modal
                             transparent={true}
                             animationType="slide"
-                            visible={tashModalVisiable}
+                            visible={favModalVisiable}
                             onRequestClose={closeTrashModal}>
-                            <View style={styles.modalContainer}>
+                            <View style={styles.modalContainer1}>
                               <TouchableOpacity
                                 activeOpacity={1}
-                                style={styles.modalOverlay}
+                                style={styles.modalOverlay1}
                                 onPress={closeModal}
                               />
                               <View style={{ alignItems: "center", justifyContent: "center", width: "100%" }}>
                                 <Animated.View
                                   {...panResponder.panHandlers}
                                   style={[
-                                    styles.modalContent,
+                                    styles.modalContent1,
                                     {
                                       transform: [
                                         {
@@ -1234,19 +1273,66 @@ const Home = () => {
                                       }}></View>
 
                                   </View>
-                                  <Text style={{ fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 26 }}>You're on your way to locating your dream home.  You can review, rate, comment and dispose of your Favorited  properties by tapping on your Favorites below</Text>
 
-                                  <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 10, marginTop: 20 }}>
+                                  <Text style={{ fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 26, flexWrap: "wrap", paddingHorizontal: 12, flexDirection: "row", alignItems: "center" }}> You're on your way to locating your dream home.  You can review, rate, comment and dispose of your Favorited  properties by tapping on your
+                                    <TouchableOpacity onPress={() => { navigation.navigate('MyFavorites') }} style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 6, }}><Text style={{ color: Colors.surfblur, fontFamily: 'Poppins-Regular', position: "relative", top: 9 }}>  Favorites</Text>
+                                      <Image
+                                        source={Images.ThumbUp}
+                                        style={{
+                                          height: 18,
+                                          width: 18,
+                                          tintColor: "green",
+                                          resizeMode: 'contain',
+                                          //marginTop: 3
+                                          position: "relative", top: 6,
+                                          marginLeft: 5
+                                        }}></Image></TouchableOpacity>
 
+                                    <Text style={{ color: Colors.black, fontFamily: 'Poppins-Regular', }}>
+                                      below.
+                                      I'm also available 24/7 to assist you with your search.  Simply type your search criteria into our chat or into the Surf bar at the top of the page and I will populate all the properties that match your requested criteria.   If you like that search criteria, feel free to save your search criteria
+                                      <TouchableOpacity><Image
+                                        source={Images.searchm}
+                                        style={{
+                                          height: 16,
+                                          width: 16,
+                                          tintColor: Colors.surfblur,
+                                          resizeMode: 'contain',
+                                          //marginTop: 3
+                                          marginHorizontal: 3, position: "relative", top: 4,
+                                        }}></Image>
+                                      </TouchableOpacity>
+                                      so you don't miss out on new listings that meet your saved search criteria.
+                                    </Text>
+
+                                  </Text>
+                                  {/* <Text style={{ fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 26 }}>
+                                    You're on your way to locating your dream home.  You can review, rate, comment and dispose of your Favorited  properties by tapping on your
+                                    <TouchableOpacity onPress={() => { navigation.navigate('MyFavorites') }}>
+                                      <Text style={{ color: Colors.surfblur, fontFamily: 'Poppins-Regular', paddingHorizontal: 6, marginTop: 10, position: "relative", top: 8 }}>
+                                        Favorites
+                                      </Text>
+
+                                    </TouchableOpacity>
                                     <Image
-                                      source={Images.downThumb}
+                                      source={Images.ThumbUp}
                                       style={{
-                                        height: 70,
-                                        width: 70,
-                                        tintColor: "red",
+                                        height: 18,
+                                        width: 18,
+                                        tintColor: "green",
                                         resizeMode: 'contain',
-                                      }}></Image></View>
+                                      }}></Image>
+                                    <View style={{ paddingLeft: 3 }}>
+                                      <Text style={{ color: Colors.black, fontFamily: 'Poppins-Regular', paddingHorizontal: 6, marginTop: 10, position: "relative", top: 8 }}>
+                                        below.
+                                        I'm also available 24/7 to assist you with your search.  Simply type your search criteria into our chat or into the Surf bar at the top of the page and I will populate all the properties that match your requested criteria.   If you like that search criteria, feel free to save your search criteria
+                                        {/* (show search Icon), */}
+                                  {/* so you don't miss out on new listings that meet your saved search criteria.
+                                      </Text>
+                                    </View>
 
+
+                                  </Text> */}
                                 </Animated.View>
                               </View>
                             </View>
@@ -1256,19 +1342,20 @@ const Home = () => {
                           <Modal
                             transparent={true}
                             animationType="slide"
-                            visible={favModalVisiable}
+                            visible={tashModalVisiable}
+                            // visible={true}
                             onRequestClose={closeFavModal}>
-                            <View style={styles.modalContainer}>
+                            <View style={styles.modalContainer1}>
                               <TouchableOpacity
                                 activeOpacity={1}
-                                style={styles.modalOverlay}
+                                style={styles.modalOverlay1}
                                 onPress={closeModal}
                               />
                               <View style={{ alignItems: "center", justifyContent: "center", width: "100%" }}>
                                 <Animated.View
                                   {...panResponder.panHandlers}
                                   style={[
-                                    styles.modalContent,
+                                    styles.modalContent1,
                                     {
                                       transform: [
                                         {
@@ -1292,18 +1379,26 @@ const Home = () => {
                                         borderRadius: 100
                                       }}></View>
                                   </View>
-                                  <Text style={{ fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 26 }}>Congrats on your first surf swipe left! If you decide to change your mind, you can find this property in your Recycle Bin
-                                    <TouchableOpacity  onPress={() => { navigation.navigate('MyFavorites') }}><Text style={{ color: Colors.surfblur, fontFamily: 'Poppins-Regular', paddingHorizontal: 6, marginTop: -20, position: "relative", top: 8 }}>Go to favorite</Text></TouchableOpacity>
-                                    located in your Profile.  I'm here 24/7 if you need my assistance.  </Text>
-                                  <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
-                                    <Image
-                                      source={Images.ThumbUp}
-                                      style={{
-                                        height: 70,
-                                        width: 70,
-                                        tintColor: "green",
-                                        resizeMode: 'contain',
-                                      }}></Image></View>
+                                  <Text style={{ fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 26, flexWrap: "wrap", paddingHorizontal: 12, flexDirection: "row", alignItems: "center" }}>Congrats on your first surf swipe left! If you decide to change your mind, you can find this property in your
+                                    <TouchableOpacity onPress={() => { navigation.navigate('RecycleBin') }} style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 6, }}><Text style={{ color: Colors.surfblur, fontFamily: 'Poppins-Regular', position: "relative", top: 9 }}>Recycle Bin</Text>
+                                      <Image
+                                        source={Images.downThumb}
+                                        style={{
+                                          height: 18,
+                                          width: 18,
+                                          tintColor: "red",
+                                          resizeMode: 'contain',
+                                          //marginTop: 3
+                                          position: "relative", top: 9,
+                                          marginLeft: 3
+                                        }}></Image></TouchableOpacity>
+
+                                    <Text style={{ color: Colors.black, fontFamily: 'Poppins-Regular', }}>
+                                      located in your Profile.  I'm here 24/7 if you need my assistance.
+                                    </Text>
+
+                                  </Text>
+
                                 </Animated.View>
                               </View>
                             </View>
@@ -1816,15 +1911,15 @@ const Home = () => {
                                 position: "relative", height: 100,
                                 top: -20
                               }}>
-                                <Image style={{ height: 80, width: 100, resizeMode: "stretch", }} source={{ uri: homeData[0]?.featured_image_src[0]?.guid }} />
+                                <Image style={{ height: 80, width: 100, resizeMode: "stretch", }} source={{ uri: item.featured_image_src[0]?.guid }} />
                               </Text>
                               <View style={{ flexWrap: "wrap", top: -5 }}>
-                                <Text style={{ color: 'black', paddingHorizontal: 10, fontWeight: '500', }}>{homeData[0].title}</Text>
-                                <Text style={{ color: Colors.surfblur, paddingHorizontal: 10, fontWeight: '500', }}>{homeData[0].property_price}</Text>
+                                <Text style={{ color: 'black', paddingHorizontal: 10, fontWeight: '500', }}>{item.title}</Text>
+                                <Text style={{ color: Colors.surfblur, paddingHorizontal: 10, fontWeight: '500', }}>{item.property_price}</Text>
                                 <View style={{ flexDirection: 'row', paddingHorizontal: 10, }}>
-                                  <Text style={{ color: Colors.black, marginleft: 10, fontWeight: '500', }}>{homeData[0].property_bedrooms} Beds  </Text>
-                                  <Text style={{ color: Colors.black, marginleft: 10, fontWeight: '500', }}>{homeData[0].bathroomsfull} Baths  </Text>
-                                  <Text style={{ color: Colors.black, marginleft: 10, fontWeight: '500', }}>{homeData[0].property_size} sq ft  </Text>
+                                  <Text style={{ color: Colors.black, marginleft: 10, fontWeight: '500', }}>{item.property_bedrooms} Beds  </Text>
+                                  <Text style={{ color: Colors.black, marginleft: 10, fontWeight: '500', }}>{item.bathroomsfull} Baths  </Text>
+                                  <Text style={{ color: Colors.black, marginleft: 10, fontWeight: '500', }}>{item.property_size} sq ft  </Text>
                                 </View>
                               </View>
 
@@ -1892,13 +1987,37 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     justifyContent: 'flex-end',
   },
-  modalOverlay: {
+  modalContainer1: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    justifyContent: 'flex-end',
+  },
+
+  modalOverlay1: {
     flex: 1,
     alignItems: "center", justifyContent: "center",
     width: "98%",
     boxShadow: "0 0 20px 0 rgba(0, 0, 0, 0.2)",
   },
+
+
+  modalOverlay: {
+    flex: 1,
+    alignItems: "center", justifyContent: "center",
+    width: "100%",
+    boxShadow: "0 0 20px 0 rgba(0, 0, 0, 0.2)",
+  },
   modalContent: {
+    backgroundColor: 'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 16,
+    maxHeight: '100%',
+    width: "100%",
+    alignItems: "center", justifyContent: "center",
+    boxShadow: "0 0 20px 0 rgba(0, 0, 0, 0.2)",
+  },
+  modalContent1: {
     backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,

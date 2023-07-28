@@ -61,10 +61,10 @@ const Images = {
   // correctThumb: require(BaseUrl + 'correctthumb.png'),
   // 20 Apr
   bigCahouna: require(BaseUrl + 'bigCahouna.png'),
-  deletethumb:require(BaseUrl + 'deletethumb.png'),
-  upthumb:require(BaseUrl + 'upthumb.png'),
-  upgreen:require(BaseUrl + 'upgreen.png'),
- redlike:require(BaseUrl + 'redlike.png'),
+  deletethumb: require(BaseUrl + 'deletethumb.png'),
+  upthumb: require(BaseUrl + 'upthumb.png'),
+  upgreen: require(BaseUrl + 'upgreen.png'),
+  redlike: require(BaseUrl + 'redlike.png'),
   fastGun: require(BaseUrl + 'fastGun.png'),
   grommet: require(BaseUrl + 'grommet.png'),
   base: require(BaseUrl + 'base.png'),
@@ -78,8 +78,8 @@ const Images = {
   reload: require(BaseUrl + 'reload.png'),
   // 24 Apr
   imageView: require(BaseUrl + 'imageView.png'),
- locate: require(BaseUrl + 'location.png'),
- lot: require(BaseUrl + 'lot.png'),
+  locate: require(BaseUrl + 'location.png'),
+  lot: require(BaseUrl + 'lot.png'),
 
   detail: require(BaseUrl + 'detail.png'),
   features: require(BaseUrl + 'features.png'),
@@ -108,12 +108,13 @@ const Images = {
   check: require(BaseUrl + 'check.png'),
   calendar: require(BaseUrl + "calendar.png"),
   loading: require(BaseUrl + "loading.gif"),
+  searchm: require(BaseUrl + "searchn.png"),
   graylocation: require(BaseUrl + "graylocation.png"),
   next: require(BaseUrl + 'next.png'),
-  terrain:require(BaseUrl+ 'terrain.png'),
-  standard:require(BaseUrl+'standard.png'),
-  satellite:require(BaseUrl+'satellite.png'),
-  hybrid:require(BaseUrl+'hybrid.png'),
+  terrain: require(BaseUrl + 'terrain.png'),
+  standard: require(BaseUrl + 'standard.png'),
+  satellite: require(BaseUrl + 'satellite.png'),
+  hybrid: require(BaseUrl + 'hybrid.png'),
 
 };
 export default Images;
