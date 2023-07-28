@@ -49,6 +49,7 @@ import { getMoreFilter } from '../../modules/getMoreFilter';
 import { useRef } from 'react';
 import { getTrash } from '../../modules/getTrash';
 import { getFavoriteProperties } from '../../modules/getFavoriteProperties';
+import { filterSearch } from '../../modules/filterSearch';
 
 
 const { width } = Dimensions.get('screen');
@@ -97,12 +98,13 @@ const Home = () => {
   const [filterData, setFilterData] = useState([]);
   const [moreFilterData, setMoreFilterData] = useState([])
   const [selectedItem, setSelectedItem] = useState(null);
+  const [termName, setTermName] = useState(null)
   const [cities, setCities] = useState([])
   const navigation = useNavigation();
   const [productId, setProductId] = useState();
   const [reviewTitle, setReviewTitle] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  const [tashModalVisiable, setTashModalVisiavle] = useState(false)
+  const [tashModalVisiable, setTrashModalVisiable] = useState(false)
   const [favModalVisiable, setfavModalVisiable] = useState(false)
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [review, setReview] = useState('');
@@ -139,7 +141,12 @@ const Home = () => {
   };
   const handlePress1 = () => {
     setIsPressed1(!isPressed1);
-    //filtertoggleModal();
+    const payload = {
+      userID: user_ID,
+      search_name: termName
+    }
+    dispatch(filterSearch(payload)).then(response => {
+    })
   };
   const handlePress2 = () => {
     setIsPressed2(!isPressed2);
@@ -189,6 +196,8 @@ const Home = () => {
         if (gestureState.dy > 50) {
           // If the swipe distance is greater than 50, close the modal
           closeModal();
+          closeFavModal();
+          closeTrashModal();
         } else {
           // Otherwise, reset the animation back to 0
           Animated.spring(slideAnimation, {
@@ -207,6 +216,24 @@ const Home = () => {
     setModalVisible(false);
   };
 
+  const filtertoggleModal = () => {
+    setFilterModalVisible(!filterModalVisible);
+  };
+  const trashToggleModal = () => {
+    setTrashModalVisiable(!tashModalVisiable)
+  }
+  const favToggleModal = () => {
+    setfavModalVisiable(!favModalVisiable)
+  }
+  const closeModals = () => {
+    setFilterModalVisible(false);
+  };
+  const closeTrashModal = () => {
+    setTrashModalVisiable(false);
+  };
+  const closeFavModal = () => {
+    setfavModalVisiable(false);
+  };
   const handleModalAnimation = () => {
     Animated.timing(slideAnimation, {
       toValue: modalVisible ? 1 : 0,
@@ -238,24 +265,6 @@ const Home = () => {
       },
     })
   ).current;
-  const filtertoggleModal = () => {
-    setFilterModalVisible(!filterModalVisible);
-  };
-  const trashToggleModal = () => {
-    setTashModalVisiavle(!tashModalVisiable)
-  }
-  const favToggleModal = () => {
-    setfavModalVisiable(!favModalVisiable)
-  }
-  const closeModals = () => {
-    setFilterModalVisible(false);
-  };
-  const closeTrashModal = () => {
-    setTashModalVisiavle(false);
-  };
-  const closeFavModal = () => {
-    setfavModalVisiable(false);
-  };
 
 
   const handleModalAnimations = () => {
@@ -343,24 +352,20 @@ const Home = () => {
       if (store.getState().getTrash.getTrashData.count == 0) {
         trashToggleModal()
       } else {
-        // trashToggleModal()
-        // Alert.alert('Alert1');
+
       }
     });
   };
 
   const getCurretLocation = () => {
     Geolocation.getCurrentPosition(
-      //Will give you the current location
       async (position) => {
-        //getting the Longitude from the location json
         const currentLongitude =
           JSON.stringify(position.coords.longitude);
         const currentLatitude =
           JSON.stringify(position.coords.latitude);
         setLatLng({ latitude: currentLatitude, longitude: currentLongitude })
         await getPopertiesApiCall({ type: 1, data: '', latLng: { latitude: currentLatitude, longitude: currentLongitude } })
-
       }, (error) => alert(error.message), {
       enableHighAccuracy: true, timeout: 20000, maximumAge: 1000
     }
@@ -407,6 +412,7 @@ const Home = () => {
           onPress={async () => {
             setSelectedItem(item.counter_id)
             setIsSelected(true)
+            setTermName(item.term_name)
             await getPopertiesApiCall({
               type: 3, data: {
                 UserId: user_ID,
@@ -515,10 +521,8 @@ const Home = () => {
                   marginLeft: 1,
                   position: "relative",
                   top: 3,
-                  // backgroundColor:"red",
                   width: '100%',
                   marginLeft: 15
-                  // alignItems: "flex-start"
                 }}
               />
             </View>
@@ -594,12 +598,18 @@ const Home = () => {
 
                     borderColor: Colors.gray,
                     borderRadius: 10,
-                    backgroundColor: isPressed1 ? 'black' : 'white', // Change background color on press
+                    // backgroundColor: isPressed1 ? 'black' : 'white', 
+                    backgroundColor: "white",
+
+                    // Change background color on press
                   },
                 ]}
               >
                 <Text style={{
-                  color: isPressed1 ? 'white' : 'black', // Change text color on press, 
+                  // color: isPressed1 ? 'white' : 'black',
+                  color: 'black',
+
+                  // Change text color on press, 
                   fontFamily: 'Poppins-Regular'
 
                 }}>Save Search</Text>
@@ -612,7 +622,10 @@ const Home = () => {
                   {
                     flexDirection: 'row',
                     //justifyContent: 'space-evenly',
-                    backgroundColor: isPressed ? 'black' : 'white', // Change background color on press
+                    // backgroundColor: isPressed ? 'black' : 'white', 
+                    backgroundColor: 'white',
+
+                    // Change background color on press
                     borderColor: Colors.gray,
                     borderRadius: 10,
                   },
@@ -624,12 +637,18 @@ const Home = () => {
                     {
                       height: 10, width: 10, marginRight: 6
                     },
-                    { tintColor: isPressed ? 'white' : 'black' }, // Change image tint color on press
+                    // { tintColor: isPressed ? 'white' : 'black' }, 
+                    { tintColor: 'black' },
+
+                    // Change image tint color on press
                   ]}
                 />
                 <Text
                   style={{
-                    color: isPressed ? 'white' : 'black', // Change text color on press
+                    // color: isPressed ? 'white' : 'black', 
+                    color: 'black',
+
+                    // Change text color on press
                     fontFamily: 'Poppins-Regular',
                   }}
                 >
@@ -663,8 +682,6 @@ const Home = () => {
                 transparent={true}
                 animationType="slide"
                 visible={filterModalVisible}
-                showsHorizontalScrollIndicator={falses}
-
                 onRequestClose={filtertoggleModal}>
                 <View style={styles.modalContainer}>
                   <TouchableOpacity
@@ -721,8 +738,6 @@ const Home = () => {
                         </View>
 
                       </View>
-
-
                       <View style={{
                         width: '99%',
                       }}>
@@ -764,54 +779,70 @@ const Home = () => {
                           <View style={{ marginBottom: 12 }}>
 
                             <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Bedrooms</Text>
-                            <FlatList
-                              data={moreFilterData.bedroom}
-                              horizontal={true}
-                              showsHorizontalScrollIndicator={false}
-                              renderItem={({ item, index }) => {
-                                return (
-                                  <TouchableOpacity onPress={() => { setBedroomItem(index), setBedCount(item.data_name) }}>
-                                    <View style={{ width: 70, height: 40, marginTop: 8, marginHorizontal: 3, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.BorderColor, backgroundColor: bedroomitem === index ? Colors.newgray : Colors.white }}>
-                                      <Text style={{ fontFamily: 'Poppins-Regular', color: bedroomitem === index ? Colors.white : Colors.newgray }}>{item?.data_name}</Text>
-                                    </View>
-                                  </TouchableOpacity>
-                                )
-                              }}
-                            >
+                            <View style={{
+                              alignContent: 'center', width: '100%',
+                              justifyContent: 'center', alignItems: 'center'
+                            }}>
+                              <FlatList
+                                data={moreFilterData.bedroom} style={{ flexDirection: "row", width: "100%", }}
+                                // horizontal={true}
+                                // showsHorizontalScrollIndicator={false}
+                                numColumns={4}
+                                renderItem={({ item, index }) => {
+                                  return (
 
-                            </FlatList>
+                                    <TouchableOpacity onPress={() => { setBedroomItem(index), setBedCount(item.data_name) }} style={{}}>
+
+                                      <View style={{ width: 75, height: 40, marginTop: 8, marginHorizontal: 3, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.BorderColor, backgroundColor: bedroomitem === index ? Colors.newgray : Colors.white }}>
+                                        <Text style={{ fontSize: 14, fontFamily: 'Poppins-Regular', color: bedroomitem === index ? Colors.white : Colors.newgray }}>{item?.data_name}</Text>
+                                      </View>
+
+                                    </TouchableOpacity>
+
+                                  )
+                                }}
+                              >
+
+                              </FlatList>
+                            </View>
                           </View>
                           <View>
 
 
                             <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Bathrooms</Text>
-                            <FlatList
-                              data={moreFilterData.bathroom}
-                              horizontal={true}
-                              showsHorizontalScrollIndicator={false}
-                              renderItem={({ item, index }) => {
-                                return (
-                                  <TouchableOpacity onPress={() => {
-                                    setBathRoomItem(index)
-                                    setBathRoomCount(item.data_name)
-                                  }}>
-                                    <View style={{ width: 70, height: 40, marginTop: 8, marginHorizontal: 3, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.BorderColor, backgroundColor: bathRoom === index ? Colors.newgray : Colors.white }}>
-                                      <Text style={{ fontFamily: 'Poppins-Regular', color: bathRoom === index ? Colors.white : Colors.newgray }}>{item?.data_name}</Text>
-                                    </View>
-                                  </TouchableOpacity>
-                                )
-                              }}
-                            ></FlatList>
+                            <View style={{
+                              alignContent: 'center', width: '100%',
+                              justifyContent: 'center', alignItems: 'center'
+                            }}>
+                              <FlatList
+                                data={moreFilterData.bathroom}
+                                numColumns={4}
+                                //horizontal={true}
+                                //showsHorizontalScrollIndicator={false}
+                                renderItem={({ item, index }) => {
+                                  return (
+                                    <TouchableOpacity onPress={() => {
+                                      setBathRoomItem(index)
+                                      setBathRoomCount(item.data_name)
+                                    }}>
+                                      <View style={{ width: 75, height: 40, marginTop: 8, marginHorizontal: 3, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.BorderColor, backgroundColor: bathRoom === index ? Colors.newgray : Colors.white }}>
+                                        <Text style={{ fontSize: 14, fontFamily: 'Poppins-Regular', color: bathRoom === index ? Colors.white : Colors.newgray }}>{item?.data_name}</Text>
+                                      </View>
+                                    </TouchableOpacity>
+                                  )
+                                }}
+                              ></FlatList>
+                            </View>
                           </View>
 
                           <View>
 
                             <Text style={{ color: 'black', fontFamily: 'Poppins-Regular', marginTop: 12 }}>Square Feet</Text>
 
-                            <View style={{ flexDirection: "column", justifyContent: 'space-between', marginTop: 8 }}>
+                            <View style={{ flexDirection: "row", justifyContent: 'space-between', marginTop: 8 }}>
 
                               <Dropdown
-                                style={{ borderWidth: 1, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
+                                style={{ borderWidth: 1, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '49%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8, }}
                                 placeholderStyle={styles.placeholderStyle}
                                 selectedTextStyle={styles.selectedTextStyle}
                                 inputSearchStyle={styles.inputSearchStyle}
@@ -831,7 +862,7 @@ const Home = () => {
 
                               />
                               <Dropdown
-                                style={{ borderWidth: 1, marginBottom: 8, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12 }}
+                                style={{ borderWidth: 1, marginBottom: 8, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '49%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12 }}
                                 placeholderStyle={styles.placeholderStyle}
                                 selectedTextStyle={styles.selectedTextStyle}
                                 inputSearchStyle={styles.inputSearchStyle}
@@ -858,10 +889,10 @@ const Home = () => {
 
                             <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Price Range</Text>
 
-                            <View style={{ flexDirection: "column", justifyContent: 'space-between', marginTop: 8 }}>
+                            <View style={{ flexDirection: "row", justifyContent: 'space-between', marginTop: 8 }}>
 
                               <Dropdown
-                                style={{ borderWidth: 1, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
+                                style={{ borderWidth: 1, fontSize: 14, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '49%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
                                 placeholderStyle={styles.placeholderStyle}
                                 selectedTextStyle={styles.selectedTextStyle}
                                 inputSearchStyle={styles.inputSearchStyle}
@@ -881,7 +912,7 @@ const Home = () => {
 
                               />
                               <Dropdown
-                                style={{ borderWidth: 1, marginBottom: 8, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '100%', height: 50, borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12 }}
+                                style={{ borderWidth: 1, marginBottom: 8, fontSize: 14, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '49%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12 }}
                                 placeholderStyle={styles.placeholderStyle}
                                 selectedTextStyle={styles.selectedTextStyle}
                                 inputSearchStyle={styles.inputSearchStyle}
@@ -904,7 +935,7 @@ const Home = () => {
                           </View>
                           <View style={{ width: '100%', justifyContent: 'center', alignItems: "center" }}>
                             <TouchableOpacity onPress={() => { setMoreFilter(!moreFilter) }}>
-                              <Text style={{ color: Colors.white, padding: 10, borderRadius: 25, textAlign: 'center', width: 150, fontSize: 16, fontWeight: 700, backgroundColor: Colors.black }}>More Filters</Text>
+                              <Text style={{ color: Colors.white, padding: 10, borderRadius: 25, textAlign: 'center', width: 130, fontSize: 14, fontWeight: 700, backgroundColor: Colors.black, marginVertical: 12, paddingVertical: 15 }}>More Filters</Text>
 
                             </TouchableOpacity>
                           </View>
@@ -1236,12 +1267,12 @@ const Home = () => {
                             transparent={true}
                             animationType="slide"
                             visible={favModalVisiable}
-                            onRequestClose={closeTrashModal}>
+                            onRequestClose={() => { setfavModalVisiable(false) }}>
                             <View style={styles.modalContainer1}>
                               <TouchableOpacity
                                 activeOpacity={1}
                                 style={styles.modalOverlay1}
-                                onPress={closeModal}
+                                onPress={() => { setfavModalVisiable(false) }}
                               />
                               <View style={{ alignItems: "center", justifyContent: "center", width: "100%" }}>
                                 <Animated.View
@@ -1274,8 +1305,15 @@ const Home = () => {
 
                                   </View>
 
-                                  <Text style={{ fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 26, flexWrap: "wrap", paddingHorizontal: 12, flexDirection: "row", alignItems: "center" }}> You're on your way to locating your dream home.  You can review, rate, comment and dispose of your Favorited  properties by tapping on your
-                                    <TouchableOpacity onPress={() => { navigation.navigate('MyFavorites') }} style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 6, }}><Text style={{ color: Colors.surfblur, fontFamily: 'Poppins-Regular', position: "relative", top: 9 }}>  Favorites</Text>
+                                  <Text style={{
+                                    fontSize: 13, fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row",
+                                    lineHeight: 22, flexWrap: "wrap", flexDirection: "row", textAlign: "justify"
+                                  }}>You're on your way to locating your dream home.  You can review, rate, comment and dispose of your Favorited  properties by tapping on your
+                                    <TouchableOpacity
+                                      style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 6, }}>
+                                      <Text onPress={() => { navigation.navigate('Favorites') }} style={{ color: Colors.surfblur, fontFamily: 'Poppins-Regular', position: "relative", top: 9 }}>
+                                        Favorites
+                                      </Text>
                                       <Image
                                         source={Images.ThumbUp}
                                         style={{
@@ -1288,51 +1326,26 @@ const Home = () => {
                                           marginLeft: 5
                                         }}></Image></TouchableOpacity>
 
-                                    <Text style={{ color: Colors.black, fontFamily: 'Poppins-Regular', }}>
+                                    <Text style={{
+                                      fontSize: 13, fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row",
+                                      lineHeight: 22, flexWrap: "wrap", flexDirection: "row", textAlign: "justify"
+                                    }}>
                                       below.
-                                      I'm also available 24/7 to assist you with your search.  Simply type your search criteria into our chat or into the Surf bar at the top of the page and I will populate all the properties that match your requested criteria.   If you like that search criteria, feel free to save your search criteria
+                                      I'm also available 24/7 to assist you with your search.  Simply type your search criteria into our chat or into the Surf bar at the top of the page and I will populate all the properties that match your requested criteria.
+                                      If you like that search criteria, feel free to save your search criteria
                                       <TouchableOpacity><Image
                                         source={Images.searchm}
                                         style={{
-                                          height: 16,
-                                          width: 16,
+                                          height: 12,
+                                          width: 12,
                                           tintColor: Colors.surfblur,
                                           resizeMode: 'contain',
                                           //marginTop: 3
-                                          marginHorizontal: 3, position: "relative", top: 4,
-                                        }}></Image>
-                                      </TouchableOpacity>
+                                          marginHorizontal: 4, position: "relative", top: 2, marginRight: 4, left: 2
+                                        }}></Image></TouchableOpacity>
                                       so you don't miss out on new listings that meet your saved search criteria.
                                     </Text>
-
                                   </Text>
-                                  {/* <Text style={{ fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 26 }}>
-                                    You're on your way to locating your dream home.  You can review, rate, comment and dispose of your Favorited  properties by tapping on your
-                                    <TouchableOpacity onPress={() => { navigation.navigate('MyFavorites') }}>
-                                      <Text style={{ color: Colors.surfblur, fontFamily: 'Poppins-Regular', paddingHorizontal: 6, marginTop: 10, position: "relative", top: 8 }}>
-                                        Favorites
-                                      </Text>
-
-                                    </TouchableOpacity>
-                                    <Image
-                                      source={Images.ThumbUp}
-                                      style={{
-                                        height: 18,
-                                        width: 18,
-                                        tintColor: "green",
-                                        resizeMode: 'contain',
-                                      }}></Image>
-                                    <View style={{ paddingLeft: 3 }}>
-                                      <Text style={{ color: Colors.black, fontFamily: 'Poppins-Regular', paddingHorizontal: 6, marginTop: 10, position: "relative", top: 8 }}>
-                                        below.
-                                        I'm also available 24/7 to assist you with your search.  Simply type your search criteria into our chat or into the Surf bar at the top of the page and I will populate all the properties that match your requested criteria.   If you like that search criteria, feel free to save your search criteria
-                                        {/* (show search Icon), */}
-                                  {/* so you don't miss out on new listings that meet your saved search criteria.
-                                      </Text>
-                                    </View>
-
-
-                                  </Text> */}
                                 </Animated.View>
                               </View>
                             </View>
@@ -1343,13 +1356,12 @@ const Home = () => {
                             transparent={true}
                             animationType="slide"
                             visible={tashModalVisiable}
-                            // visible={true}
-                            onRequestClose={closeFavModal}>
+                            onRequestClose={() => { setTrashModalVisiable(false) }}>
                             <View style={styles.modalContainer1}>
                               <TouchableOpacity
                                 activeOpacity={1}
                                 style={styles.modalOverlay1}
-                                onPress={closeModal}
+                                onPress={() => { setTrashModalVisiable(false) }}
                               />
                               <View style={{ alignItems: "center", justifyContent: "center", width: "100%" }}>
                                 <Animated.View
@@ -1379,8 +1391,8 @@ const Home = () => {
                                         borderRadius: 100
                                       }}></View>
                                   </View>
-                                  <Text style={{ fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 26, flexWrap: "wrap", paddingHorizontal: 12, flexDirection: "row", alignItems: "center" }}>Congrats on your first surf swipe left! If you decide to change your mind, you can find this property in your
-                                    <TouchableOpacity onPress={() => { navigation.navigate('RecycleBin') }} style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 6, }}><Text style={{ color: Colors.surfblur, fontFamily: 'Poppins-Regular', position: "relative", top: 9 }}>Recycle Bin</Text>
+                                  <Text style={{ fontSize: 13, fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 22, flexWrap: "wrap", flexDirection: "row", alignItems: "center", textAlign: "justify" }}>Congrats on your first surf swipe left! If you decide to change your mind, you can find this property in your
+                                    <TouchableOpacity onPress={() => { navigation.navigate('RecycleBin') }} style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 6, }}><Text style={{ fontSize: 13, color: Colors.surfblur, fontFamily: 'Poppins-Regular', position: "relative", top: 8 }}>Recycle Bin</Text>
                                       <Image
                                         source={Images.downThumb}
                                         style={{
@@ -1854,10 +1866,10 @@ const Home = () => {
               />
             </View> : showMap ?
               <View style={{ height: '100%', width: width, marginTop: 10 }}>
-                <View style={styles.coverlocation}>
+                {/* <View style={styles.coverlocation}>
                   <Image source={Images.graylocation} style={styles.locationpic}></Image>
 
-                </View>
+                </View> */}
                 <View style={{ position: "absolute", zIndex: 99, right: 12, top: 60 }}>
                   <TouchableOpacity style={styles.coverlocation1} onPress={() => { setIsCollapsed(!isCollapsed) }}>
                     <Image source={Images.layers} style={styles.locationpic}></Image>
