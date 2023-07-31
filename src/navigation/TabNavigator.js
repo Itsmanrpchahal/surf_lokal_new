@@ -151,7 +151,7 @@ const MyProfileTab = () => {
       <Stack.Screen name="MyRewards" component={MyRewards} />
       <Stack.Screen name="Notification" component={Notification} />
 
-      <Stack.Screen name="RecycleBin" component={RecycleBin} />
+      <Stack.Screen name="RecycleBinTab" component={RecycleBin} />
     </Stack.Navigator>
   );
 };
