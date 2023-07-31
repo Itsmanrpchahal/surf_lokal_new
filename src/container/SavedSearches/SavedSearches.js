@@ -23,6 +23,7 @@ import { getSavedSearch } from '../../modules/getSavedSearch';
 import { deleteSearch } from '../../modules/deleteSearch';
 import { editSearch } from '../../modules/editSearch';
 import * as Animatable from 'react-native-animatable';
+import { useIsFocused } from '@react-navigation/native';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -31,6 +32,8 @@ const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
 
 const MyFavorites = ({ navigation }) => {
+  const isFocused = useIsFocused();
+
   const dispatch = useDispatch();
   const [apiResponse, setApiResponse] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -44,8 +47,12 @@ const MyFavorites = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    getSavedApiCall();
-  }, []);
+    if (isFocused) {
+      Promise.all[
+    getSavedApiCall()
+  ]}
+
+  }, [isFocused]);
 
   const getSavedApiCall = () => {
     dispatch(getSavedSearch()).then(response => {

@@ -16,6 +16,7 @@ import SingleImage from '../container/ViewImage/SingleImage';
 import Videoplay from '../container/ViewPropertiy/Videoplay';
 import Leaderboard from '../container/MyRewards/Leaderboard';
 import Challenges from '../container/MyRewards/Challenges';
+import RecycleBin from '../container/RecycleBin/RecycleBin';
 
 const Stack = createStackNavigator();
 
@@ -55,6 +56,7 @@ const StackNavigator = () => {
       <Stack.Screen name="Videoplay" component={Videoplay} />
       <Stack.Screen name="Challenges" component={Challenges} />
       <Stack.Screen name="Leaderboard" component={Leaderboard} />
+      <Stack.Screen name="RecycleBin" component={RecycleBin}/>
     </Stack.Navigator>
   ) : null;
 };
