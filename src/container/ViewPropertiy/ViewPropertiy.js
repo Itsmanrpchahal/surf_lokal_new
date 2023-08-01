@@ -446,8 +446,8 @@ const ViewPropertiy = (props, imageUrl) => {
                     <View style={{ width: "100%", paddingHorizontal: 4, height: 30, flexDirection: "row", justifyContent: "flex-start", alignItems: "center" }}>
                       <Image
                         source={Images.check}
-                        style={{ height: 15, width: 15, resizeMode: 'contain', marginRight: 15 }}></Image>
-                      <Text style={{ color: "black" }}>{item}</Text>
+                        style={{ height: 15, width: 15, resizeMode: 'contain', marginRight: 5 }}></Image>
+                      <Text style={{ color: Colors.black,fontFamily:"Poppins-Regular" }}>{item}</Text>
                     </View>
                   </>
                 )}
@@ -498,7 +498,8 @@ const ViewPropertiy = (props, imageUrl) => {
               >
                 <Image source={Images.lot} style={{ height: 50, width: 100, resizeMode: 'contain', }} />
 
-                <Callout style={{
+                <Callout  onPress={()=>{navigation.navigate('ViewProperty2')} }
+                style={{
                   height: 70, alignItems: "center", alignSelf: "center",
                   marginLeft: 20, top: -15,
                 }}>
@@ -542,8 +543,9 @@ const ViewPropertiy = (props, imageUrl) => {
 
     return (
       <>
+        
+        <Text style={[styles.propertyt,{marginBottom:0,paddingBottom:0}]}>Nearby</Text>
         <View style={{ paddingHorizontal: 20 }}>
-          <Text style={styles.propertyts}>Nearby</Text>
           <View style={styles.address}>
             <FlatList
               data={property?.what_is_nearby}
@@ -642,13 +644,13 @@ const ViewPropertiy = (props, imageUrl) => {
              
               <>
             
-                <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', marginVertical: 5, justifyContent: 'space-between' }}>
+                <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', marginVertical: 5, justifyContent: 'space-between',borderBottomColor:Colors.BorderColor,borderBottomWidth:1,paddingBottom:15 ,marginBottom:10}}>
                   <View style={{ width: "100%" }}>
                     {/* <Text style={{ color: "black" }}>{item.schools_id}</Text> */}
-                  <Text style={{color:Colors.black,fontSize:16,fontFamily:"Poppins-Medium"}}>School Name :-<Text style={{ color:Colors.black,fontSize:14 ,}}>{item.schools_name}</Text></Text>
-                  <Text style={{color:Colors.black,fontSize:14,fontFamily:"Poppins-Medium"}}>Summary:-  <Text style={{ color: Colors.black,fontSize:13,fontFamily:"Poppins-Regular" }}>{item.school_summary}</Text></Text>
+                  <Text style={{color:Colors.black,fontSize:13,fontFamily:"Poppins-Medium"}}>School Name :-<Text style={{ color:Colors.black,fontSize:13 ,fontFamily:"Poppins-Regular"}}>{item.schools_name}</Text></Text>
+                  <Text style={{color:Colors.black,fontSize:13,fontFamily:"Poppins-Medium",lineHeight:23}}>Summary:-  <Text style={{ color: Colors.black,fontSize:13,fontFamily:"Poppins-Regular" }}>{item.school_summary}</Text></Text>
                     <TouchableOpacity onPress={()=>handleLinkPress(item.school_website)}>
-                   <Text style={{color:Colors.black,fontSize:16,fontFamily:"Poppins-Medium"}}>School link:-   <Text style={{ color: Colors.surfblur,fontSize:13,fontFamily:"Poppins-Regular" }}>{item.school_website}</Text></Text>
+                   <Text style={{color:Colors.black,fontSize:13,fontFamily:"Poppins-Medium"}}>School link:-   <Text style={{ color: Colors.surfblur,fontSize:12,fontFamily:"Poppins-Regular" }}>{item.school_website}</Text></Text>
 
                     </TouchableOpacity>
 
@@ -1514,7 +1516,7 @@ const ViewPropertiy = (props, imageUrl) => {
               </Text>
               <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", width: "100%" }}
                 onPress={() => setShowFullContent(!showFullContent)}>
-                <Text style={{ color: "darkblue", marginVertical: 10, fontSize: 14, fontFamily: "Poppins-Regular" }}>{showFullContent ? 'Show Less' : 'Read More'}</Text>
+                <Text style={{ color: Colors.darbluec, marginVertical: 10, fontSize: 13, fontFamily: "Poppins-Regular" }}>{showFullContent ? 'Show Less' : 'Read More'}</Text>
               </TouchableOpacity>
 
             </>
@@ -2396,7 +2398,7 @@ const styles = StyleSheet.create({
 
   },
   props: {
-    fontSize: 13,
+    fontSize: 12,
     color: Colors.black,
     marginTop: 5,
     fontFamily: "Poppins-Regular"
@@ -2463,10 +2465,10 @@ const styles = StyleSheet.create({
   },
   addresss: { height: 1400 },
   propertyts: {
-    fontSize: 18,
+    fontSize: 14,
     color: Colors.black,
     marginTop: 20,
-    fontFamily: "Poppins-SemiBold",
+    fontFamily: "Poppins-Medium",
     // fontWeight: 'bold'
   },
   propsmain: { fontFamily: "Poppins-Medium", color: Colors.sitegray, paddingBottom: 4 },
