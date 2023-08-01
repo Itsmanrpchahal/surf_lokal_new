@@ -13,7 +13,17 @@ const Notification = () => {
   const [isEnabled, setIsEnabled] = useState(false);
   const [toggle, setToggle] = useState(false);
   const flatListRef = useRef(null);
-
+  const datan = [
+    { 
+    name: 'Jessica Kent', 
+    description: 'Called about 221 Main St.', 
+    date: '07/21/2023' },
+    { 
+      name: 'Jessica Kent', 
+      description: 'Called about 221 Main St.', 
+      date: '07/21/2023' },
+  ];
+  
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
     setToggle(!isEnabled);
@@ -26,10 +36,11 @@ const Notification = () => {
   const fetchNotifications = async () => {
     const id = await AsyncStorage.getItem('userId');
     try {
-      const response = await axios.get('https://surf.topsearchrealty.com/webapi/v1/notifications/?userID=' + id);
+      const response = await axios.get('http://www.surflokal.com/webapi/v1/notifications/?userID=' + id);
       const responseData = response.data;
       const nestedData = responseData.data[0];
       setData(nestedData);
+      
     } catch (error) {
     }
   };
@@ -40,16 +51,24 @@ const Notification = () => {
     }
     return (
       <View style={styles.slideOuter}>
-        <View style={{ flexDirection: 'row', width: '95%', height: 50, alignItems: 'center', marginTop: 10 }}>
-          <Image
+         <Image
             source={{ uri: item.featured_image_url }}
-            style={{ height: 60, width: 70, resizeMode: 'cover', marginLeft: 10, borderRadius: 20 }}
+            style={{ height: 100, width: 90, resizeMode: 'contain', borderRadius: 4 ,marginRight:8}}
           />
-          <Text style={{ fontSize: 16, marginLeft: 5, color: Colors.textColorLight }}>{item.post_title}</Text>
-          <Text style={{ fontSize: 12, color: Colors.textColorLight, position: 'absolute', top: -5, right: 8 }}>
+        <View style={{flex:1,flexDirection: 'column', width: '100%', alignItems: 'flex-start',paddingVertical:8}}>
+         
+        
+          <Text style={{marginRight:8,width:"100%",fontSize: 14,color: Colors.black,fontFamily:"Poppins-Medium",}}>{item.post_title}</Text>
+          <Text   numberOfLines={2} style={{ width:"100%",fontSize: 13, color: Colors.textColorLight, fontFamily:"Poppins-Medium",}}>
+            {item.post_content}
+          </Text>
+         
+          <Text style={{ width:"100%",fontSize: 11, color: Colors.textColorLight, fontFamily:"Poppins-Regular",alignItems:"flex-end",justifyContent:"flex-end",textAlign:"right",marginTop:2}}>
             {item.post_date}
           </Text>
-        </View>
+       </View> 
+      
+       
       </View>
     );
   };
@@ -102,70 +121,122 @@ const Notification = () => {
       </View> */}
       <View
         style={{
-          marginTop: 4,
+          marginTop: 0,
           flexDirection: 'row',
-          justifyContent: 'center',
           width: '100%',
           marginLeft: 0,
-          marginBottom: 4
+          marginBottom: 4,
+          paddingHorizontal:12,
+          backgroundColor:Colors.surfblur,
+          paddingVertical:10,
+          justifyContent:"space-between",
+          alignItems:"center",
+          paddingRight:4
         }}>
-        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Notifications</Text>
-        <View
+           <View
           style={{
-            flexDirection: 'row',
-            width: '90%',
-            alignSelf: 'center',
-
+           
             justifyContent: 'flex-end',
             alignItems: 'flex-end',
-            overflow: 'visible',
-            zIndex: 99,
-            position: 'absolute',
-            top: 10,
+          
           }}>
 
-          <TouchableOpacity
+<TouchableOpacity
             style={{
               alignItems: 'center',
-              position: "absolute",
-              right: -12,
-              top: -10,
-
-              backgroundColor: Colors.surfblur,
-              height: 25,
-              width: 25,
-              borderRadius: 100,
+              // height: 25,
+              // width: 25,
               alignItems: "center",
               justifyContent: "center",
             }}
             onPress={() => navigation.goBack()}
           >
             <Animatable.Image
-              source={Images.whiteclose}
+              source={Images.toggle}
               style={{
-                height: 10,
-                width: 10,
+                height: 25,
+                width: 25,
                 resizeMode: 'contain',
                 tintColor: Colors.white,
               }}
-              animation="flipInY"
+             
+            />
+          </TouchableOpacity>
+        </View>
+        <Text style={{ fontSize: 18, color: Colors.white, fontFamily: 'Poppins-Medium' }}>Notifications</Text>
+        <View
+          style={{
+           
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+          
+          }}>
+
+          <TouchableOpacity
+            style={{
+              alignItems: 'center',
+         
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={() => navigation.goBack()}
+          >
+            <Animatable.Image
+              source={Images.surfplan}
+              style={{
+                height: 35,
+                width: 35,
+                resizeMode: 'contain',
+                tintColor: Colors.white,
+              }}
+             
             />
           </TouchableOpacity>
         </View>
       </View>
+
+{/* 
+<View style={{width:"100%",paddingHorizontal:12,flexDirection:"row",justifyContent:"space-between",paddingVertical:12}}>
+<Text style={{fontSize:14,color:Colors.black,fontFamily:"Poppins-Medium",flexBasis:"10%"}}>Type</Text>
+<Text style={{fontSize:14,color:Colors.black,fontFamily:"Poppins-Medium",flexBasis:"20%"}}>From</Text>
+<Text style={{fontSize:14,color:Colors.black,fontFamily:"Poppins-Medium",flexBasis:"30%"}}>Summary</Text>
+<Text style={{fontSize:14,color:Colors.black,fontFamily:"Poppins-Medium",flexBasis:"20%"}}>Date</Text>
+</View>
+
+
+      <FlatList
+      data={datan}
+      // renderItem={renderItem}
+      keyExtractor={(item, index) => index.toString()}
+      renderItem={({ item }) => (
+      
+          <View style={{ marginBottom: 15, borderBottomWidth: 1, borderBottomColor: Colors.BorderColor, width: '100%', paddingHorizontal: 12, flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 12, alignItems: 'flex-start' }}>
+            <Image source={Images.greenphone} style={{ height: 35, width: 35, resizeMode: 'contain', flexBasis: '10%' }} />
+            <Text style={{ fontSize: 13, color: Colors.black, fontFamily: 'Poppins-Medium', flexBasis: '20%' }}>{item.name}</Text>
+            <Text style={{ fontSize: 13, color: Colors.black, fontFamily: 'Poppins-Medium', flexBasis: '30%' }}>{item.description}</Text>
+            <Text style={{ fontSize: 13, color: Colors.black, fontFamily: 'Poppins-Medium', flexBasis: '20%' }}>{item.date}</Text>
+          </View>
+        )}
+    
+    />  */}
+
+
+
+
       <View
         style={{
           flexDirection: 'row',
-          width: '90%',
-          marginTop: 20,
+          width: '100%',
+          marginTop: 10,
           alignSelf: 'center',
           justifyContent: 'space-between',
+        marginHorizontal:12
         }}
       >
-        <Text style={{ fontSize: 20, color: Colors.textColorLight, fontFamily: 'Poppins-Regular' }}>
+        <Text style={{ fontSize: 16, color: Colors.black, fontFamily: 'Poppins-Medium',marginLeft:12}}>
           Allow Notification
         </Text>
-        <View>
+        <View style={{marginTop:-4}}>
           <Switch
             trackColor={{ false: '#767577', true: '#81b0ff' }}
             thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
@@ -175,9 +246,12 @@ const Notification = () => {
           />
         </View>
       </View>
-      <View style={{ flex: 1, marginTop: 20 }}>
+      <View style={{ flex: 1, marginTop: 10 }}>
         <FlatList data={data} keyExtractor={(item, index) => index.toString()} renderItem={renderItem} />
-      </View>
+      </View> 
+
+
+
     </View>
   );
 };
@@ -202,12 +276,18 @@ const styles = StyleSheet.create({
     marginLeft: 0
   },
   slideOuter: {
-    width: '95%',
-    height: 70,
+    paddingVertical:9,
+    paddingHorizontal:9,
+  width: '95%',
+  height: 110,
+    flex:1,
+flexDirection:"row",
     alignSelf: 'center',
-    borderRadius: 10,
+    alignItems:"center",
+    borderRadius: 4,
+    paddingLeft:4,
     overflow: 'hidden',
-    marginVertical: 10,
+  marginBottom:10,
     backgroundColor: Colors.white,
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 1 },

@@ -59,7 +59,7 @@ const { width } = Dimensions.get('screen');
 const Home = () => {
   const isFocused = useIsFocused();
 
-  const [keyboardStatus, setKeyboardStatus] = useState('first');
+  const [ keyboardStatus, setKeyboardStatus ] = useState('first');
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardStatus('Keyboard Shown');
@@ -75,74 +75,77 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    updateKeyboard()
+    updateKeyboard();
 
-  }, [keyboardStatus])
+  }, [ keyboardStatus ]);
 
   const updateKeyboard = async () => {
-    if (keyboardStatus === 'Keyboard Hidden') {
-      if (adress.length > 0) {
+    if (keyboardStatus === 'Keyboard Hidden')
+    {
+      if (adress.length > 0)
+      {
         let payload = {
           userID: user_ID,
           SearchParameters: adress,
         };
-        await getPopertiesApiCall({ type: 2, data: payload, lntLng })
-        setKeyboardStatus('first')
-        setAddres("")
+        await getPopertiesApiCall({ type: 2, data: payload, lntLng });
+        setKeyboardStatus('first');
+        setAddres("");
       }
     }
-  }
+  };
   const dispatch = useDispatch();
-  const [homeData, setHomeData] = useState([]);
-  const [selectedTabs, setSelectedTabs] = useState([]);
-  const [selected, setSelected] = useState(-1)
-  const [activity, setActivity] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [adress, setAddres] = useState('');
-  const [filterData, setFilterData] = useState([]);
-  const [moreFilterData, setMoreFilterData] = useState([])
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [termName, setTermName] = useState(null)
-  const [cities, setCities] = useState([])
+  const [ homeData, setHomeData ] = useState([]);
+  const [ selectedTabs, setSelectedTabs ] = useState([]);
+  const [ selected, setSelected ] = useState(-1);
+  const [ activity, setActivity ] = useState(false);
+  const [ loading, setLoading ] = useState(false);
+  const [ adress, setAddres ] = useState('');
+  const [ filterData, setFilterData ] = useState([]);
+  const [ moreFilterData, setMoreFilterData ] = useState([]);
+  const [ selectedItem, setSelectedItem ] = useState(null);
+  const [ termName, setTermName ] = useState(null);
+  const [ cities, setCities ] = useState([]);
   const navigation = useNavigation();
-  const [productId, setProductId] = useState();
-  const [reviewTitle, setReviewTitle] = useState('');
-  const [modalVisible, setModalVisible] = useState(false);
-  const [tashModalVisiable, setTrashModalVisiable] = useState(false)
-  const [favModalVisiable, setfavModalVisiable] = useState(false)
-  const [filterModalVisible, setFilterModalVisible] = useState(false);
-  const [review, setReview] = useState('');
-  const [rating, setRating] = useState(0);
-  const [ratingData, setRatingData] = useState([])
-  const [isSelected, setIsSelected] = useState(false)
-  const [bedroomitem, setBedroomItem] = useState(-1)
-  const [bathRoom, setBathRoomItem] = useState(-1)
-  const [imageIndex, setImageIndex] = useState(0)
-  const [viewHeight, setViewHeight] = useState(80)
-  const [user_ID, setUser_ID] = useState()
-  const [lntLng, setLatLng] = useState({ latitude: 0.0, longitude: 0.0 })
-  const [showMap, setShowMap] = useState(false)
-  const [isCollapsed, setIsCollapsed] = useState(false)
-  const [mapType, setMapType] = useState('standard')
-  const [isEditing, setIsEditing] = useState(false)
-  const [moreFilter, setMoreFilter] = useState(false)
-  const [maxPriceRange, setMaxPriceRange] = useState()
-  const [minPricerange, setMinPricerange] = useState()
-  const [minSquareFeet, setMinSquareFeet] = useState()
-  const [maxSquareFeet, setMaxSquareFeet] = useState()
-  const [bathRoomCount, setBathRoomCount] = useState()
-  const [bedCount, setBedCount] = useState()
+  const [ productId, setProductId ] = useState();
+  const [ reviewTitle, setReviewTitle ] = useState('');
+  const [ modalVisible, setModalVisible ] = useState(false);
+  const [ tashModalVisiable, setTrashModalVisiable ] = useState(false);
+  const [ saveModalVisible, setSaveModalVisible ] = useState(false);
+  const [ favModalVisiable, setfavModalVisiable ] = useState(false);
+  const [ filterModalVisible, setFilterModalVisible ] = useState(false);
+  const [ review, setReview ] = useState('');
+  const [ rating, setRating ] = useState(0);
+  const [ ratingData, setRatingData ] = useState([]);
+  const [ isSelected, setIsSelected ] = useState(false);
+  const [ bedroomitem, setBedroomItem ] = useState(-1);
+  const [ bathRoom, setBathRoomItem ] = useState(-1);
+  const [ imageIndex, setImageIndex ] = useState(0);
+  const [ viewHeight, setViewHeight ] = useState(80);
+  const [ user_ID, setUser_ID ] = useState();
+  const [ lntLng, setLatLng ] = useState({ latitude: 0.0, longitude: 0.0 });
+  const [ showMap, setShowMap ] = useState(false);
+  const [ isCollapsed, setIsCollapsed ] = useState(false);
+  const [ mapType, setMapType ] = useState('standard');
+  const [ isEditing, setIsEditing ] = useState(false);
+  const [ moreFilter, setMoreFilter ] = useState(false);
+  const [ maxPriceRange, setMaxPriceRange ] = useState();
+  const [ minPricerange, setMinPricerange ] = useState();
+  const [ minSquareFeet, setMinSquareFeet ] = useState();
+  const [ maxSquareFeet, setMaxSquareFeet ] = useState();
+  const [ bathRoomCount, setBathRoomCount ] = useState();
+  const [ bedCount, setBedCount ] = useState();
 
-  const [isPressed, setIsPressed] = useState(false);
-  const [isPressed1, setIsPressed1] = useState(false);
-  const [isPressed2, setIsPressed2] = useState(false);
+  const [ isPressed, setIsPressed ] = useState(false);
+  const [ isPressed1, setIsPressed1 ] = useState(false);
+  const [ isPressed2, setIsPressed2 ] = useState(false);
   useEffect(() => {
-    getID()
-  }, [])
+    getID();
+  }, []);
   const handlePress = () => {
     setIsPressed(!isPressed);
-    setIsPressed1(false)
-    setIsPressed2(false)
+    setIsPressed1(false);
+    setIsPressed2(false);
     filtertoggleModal();
   };
 
@@ -151,12 +154,13 @@ const Home = () => {
     filtertoggleModal();
   };
   const getID = async () => {
-    const id = await AsyncStorage.getItem('userId')
-    setUser_ID(id)
-  }
+    const id = await AsyncStorage.getItem('userId');
+    setUser_ID(id);
+  };
 
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused)
+    {
       Promise.all[
         getFilterApicall(),
         getRatingApicall(),
@@ -165,25 +169,25 @@ const Home = () => {
         getSavedApiCall(),
         getMoreFilterApiCall(),
         getPopertiesApiCall({ type: 0, data: '', lntLng, })
-      ]
+      ];
     }
 
-  }, [isFocused]);
+  }, [ isFocused ]);
   const getFilterApicall = () => {
     dispatch(getFilter()).then(response => {
-      setFilterData(response.payload.data)
-    })
-  }
+      setFilterData(response.payload.data);
+    });
+  };
   const getMoreFilterApiCall = () => {
     dispatch(getMoreFilter()).then(response => {
-      setMoreFilterData(response.payload.data)
-    })
-  }
+      setMoreFilterData(response.payload.data);
+    });
+  };
   const getRatingApicall = () => {
     dispatch(getRating()).then(response => {
-      setRatingData(response.payload.data)
-    })
-  }
+      setRatingData(response.payload.data);
+    });
+  };
   const slideAnimation = useRef(new Animated.Value(0)).current;
   const panResponder = useRef(
     PanResponder.create({
@@ -192,12 +196,15 @@ const Home = () => {
         slideAnimation.setValue(gestureState.dy);
       },
       onPanResponderRelease: (_, gestureState) => {
-        if (gestureState.dy > 50) {
+        if (gestureState.dy > 50)
+        {
           // If the swipe distance is greater than 50, close the modal
           closeModal();
           closeFavModal();
           closeTrashModal();
-        } else {
+          closeSaveModal();
+        } else
+        {
           // Otherwise, reset the animation back to 0
           Animated.spring(slideAnimation, {
             toValue: 0,
@@ -219,16 +226,22 @@ const Home = () => {
     setFilterModalVisible(!filterModalVisible);
   };
   const trashToggleModal = () => {
-    setTrashModalVisiable(!tashModalVisiable)
-  }
+    setTrashModalVisiable(!tashModalVisiable);
+  };
+  const saveToogleModal = () => {
+    setSaveModalVisible(!saveModalVisible);
+  };
   const favToggleModal = () => {
-    setfavModalVisiable(!favModalVisiable)
-  }
+    setfavModalVisiable(!favModalVisiable);
+  };
   const closeModals = () => {
     setFilterModalVisible(false);
   };
   const closeTrashModal = () => {
     setTrashModalVisiable(false);
+  };
+  const closeSaveModal = () => {
+    setSaveModalVisible(false);
   };
   const closeFavModal = () => {
     setfavModalVisiable(false);
@@ -242,7 +255,7 @@ const Home = () => {
   };
   useEffect(() => {
     handleModalAnimation();
-  }, [modalVisible]);
+  }, [ modalVisible ]);
   const slideAnimations = useRef(new Animated.Value(0)).current;
   const panResponders = useRef(
     PanResponder.create({
@@ -251,10 +264,12 @@ const Home = () => {
         slideAnimations.setValue(gestureState.dy);
       },
       onPanResponderRelease: (_, gestureState) => {
-        if (gestureState.dy > 50) {
+        if (gestureState.dy > 50)
+        {
           // If the swipe distance is greater than 50, close the modal
           closeModals();
-        } else {
+        } else
+        {
           // Otherwise, reset the animation back to 0
           Animated.spring(slideAnimations, {
             toValue: 0,
@@ -276,7 +291,7 @@ const Home = () => {
 
   useEffect(() => {
     handleModalAnimations();
-  }, [filterModalVisible]);
+  }, [ filterModalVisible ]);
 
   const handleShare = () => {
     Share.share({
@@ -301,10 +316,12 @@ const Home = () => {
       reviewtitle: reviewTitle,
     };
     dispatch(postRating(formdata)).then(response => {
-      if (response.payload.success) {
+      if (response.payload.success)
+      {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
-      } else {
+      } else
+      {
         toggleModal();
         Alert.alert('Alert', response.payload.message);
       }
@@ -317,20 +334,22 @@ const Home = () => {
   const favlistApi = () => {
     dispatch(getFavoriteProperties()).then(res => {
 
-    })
-  }
+    });
+  };
 
   const savefile = async item => {
-    favlistApi()
+    favlistApi();
     let payload = {
       userID: user_ID,
       post_id: item,
     };
     await dispatch(addToFavorite(payload)).then(response => {
-      if (store.getState().getFavoriteProperties.getFavoritePropertiesData.count == 0) {
-        favToggleModal()
+      if (store.getState().getFavoriteProperties.getFavoritePropertiesData.count == 0)
+      {
+        favToggleModal();
         // Alert.alert('Alert', response.payload.message);
-      } else {
+      } else
+      {
         // favToggleModal()
 
         // Alert.alert('Alert', response.payload.message);
@@ -341,18 +360,20 @@ const Home = () => {
     await dispatch(getTrash()).then(res => {
     });
 
-  }
+  };
   const trashfile = async post_id => {
-    getTrashApiCall()
+    getTrashApiCall();
     let payload = {
       userID: user_ID,
       post_id: post_id,
     };
     await dispatch(addRemoveTrash(payload)).then(response => {
 
-      if (store.getState().getTrash.getTrashData.count == 0) {
-        trashToggleModal()
-      } else {
+      if (store.getState().getTrash.getTrashData.count == 0)
+      {
+        trashToggleModal();
+      } else
+      {
 
       }
     });
@@ -365,21 +386,21 @@ const Home = () => {
           JSON.stringify(position.coords.longitude);
         const currentLatitude =
           JSON.stringify(position.coords.latitude);
-        setLatLng({ latitude: currentLatitude, longitude: currentLongitude })
-        await getPopertiesApiCall({ type: 1, data: '', latLng: { latitude: currentLatitude, longitude: currentLongitude } })
+        setLatLng({ latitude: currentLatitude, longitude: currentLongitude });
+        await getPopertiesApiCall({ type: 1, data: '', latLng: { latitude: currentLatitude, longitude: currentLongitude } });
       }, (error) => alert(error.message), {
       enableHighAccuracy: true, timeout: 20000, maximumAge: 1000
     }
     );
 
-  }
+  };
 
   const getPopertiesApiCall = async type => {
     setLoading(true);
     await dispatch(getPoperties(type));
     typeof store.getState().getPoperties.getPopertiesData?.data === 'object' ?
       store.getState().getPoperties.getPopertiesData?.data &&
-      setHomeData(store.getState().getPoperties.getPopertiesData?.data) : setHomeData([])
+      setHomeData(store.getState().getPoperties.getPopertiesData?.data) : setHomeData([]);
     setLoading(false);
   };
   const updateReview = async (post_id) => {
@@ -393,19 +414,21 @@ const Home = () => {
     formData.append('description_review_stars', rating);
     formData.append('price_review_stars', rating);
     formData.append('interest_review_stars', rating);
-    formData.append('reviewtitle', reviewTitle)
+    formData.append('reviewtitle', reviewTitle);
     dispatch(postUpdateRating(formData)).then((response) => {
-      if (response.payload.success) {
+      if (response.payload.success)
+      {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
-      } else {
+      } else
+      {
         toggleModal();
         Alert.alert('Alert', response.payload.message);
       }
     });
   };
   const renderFillterItem = ({ item, index }) => {
-    const { data_custom_taxonomy, data_customvalue } = item
+    const { data_custom_taxonomy, data_customvalue } = item;
     const isSelected = selectedTabs.filter((i) => i === data_customvalue).length > 0;
     // checking if the item is already selected
 
@@ -413,16 +436,18 @@ const Home = () => {
       <View style={{}}>
         <TouchableOpacity
           onPress={() => {
-            if (isSelected) {
+            if (isSelected)
+            {
               setSelectedTabs((prev) => prev.filter((i) => i !== data_customvalue));
-            } else {
-              setSelectedTabs(prev => [...prev, data_customvalue])
+            } else
+            {
+              setSelectedTabs(prev => [ ...prev, data_customvalue ]);
             }
-            setIsSelected(true)
-            setTermName(item.term_name)
-            setSelected(index)
-            setActivity(false)
-            setLoading(true)
+            setIsSelected(true);
+            setTermName(item.term_name);
+            setSelected(index);
+            setActivity(false);
+            setLoading(true);
             dispatch(getPoperties({
               type: 3, data: {
                 UserId: user_ID,
@@ -431,10 +456,10 @@ const Home = () => {
               },
 
             })).then((res) => {
-              setHomeData(res.payload.data)
-            })
-            setActivity(true)
-            setLoading(false)
+              setHomeData(res.payload.data);
+            });
+            setActivity(true);
+            setLoading(false);
           }}
         >
           <View
@@ -472,7 +497,8 @@ const Home = () => {
     );
   };
 
-  if (loading) {
+  if (loading)
+  {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="gray" />
@@ -543,7 +569,7 @@ const Home = () => {
             </View>
             <View style={{ width: '25%', alignItems: 'center' }}>
               <TouchableOpacity
-                onPress={() => { setShowMap(!showMap) }}
+                onPress={() => { setShowMap(!showMap); }}
                 style={{
                   height: 50,
                   justifyContent: 'center',
@@ -568,8 +594,8 @@ const Home = () => {
             ) : (
               <TouchableOpacity
                 onPress={async () => {
-                  await getCurretLocation()
-                  setShowMap(false)
+                  await getCurretLocation();
+                  setShowMap(false);
                 }}
                 style={{}}>
                 <Image
@@ -607,18 +633,23 @@ const Home = () => {
               justifyContent: 'center', marginBottom: 10
             }}>
               <TouchableOpacity onPress={() => {
-                getSavedApiCall()
+                getSavedApiCall();
                 setIsPressed1(!isPressed1);
-                setIsPressed(false)
+                setIsPressed(false);
                 const payload = {
                   userID: user_ID,
                   search_name: termName
-                }
+                };
                 dispatch(filterSearch(payload)).then(response => {
-                  if (store.getState().getSavedSearch.getSavedSearchData.count == 0) {
-                    alert(response.payload.Message)
+
+                  if (store.getState().getSavedSearch.getSavedSearchData.count == 0)
+                  {
+                    saveToogleModal();
+                  } else
+                  {
+
                   }
-                })
+                });
               }}
                 style={[
                   styles.rew,
@@ -682,13 +713,13 @@ const Home = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  setSelectedTabs([])
-                  setIsSelected(false)
-                  setIsPressed1(false)
-                  setIsPressed(false)
-                  { handlePress2 }
-                  setSelectedItem(null)
-                  getPopertiesApiCall({ type: 0, data: '', lntLng, })
+                  setSelectedTabs([]);
+                  setIsSelected(false);
+                  setIsPressed1(false);
+                  setIsPressed(false);
+                  { handlePress2; }
+                  setSelectedItem(null);
+                  getPopertiesApiCall({ type: 0, data: '', lntLng, });
                 }}
                 style={[
                   styles.rew,
@@ -725,8 +756,8 @@ const Home = () => {
                         transform: [
                           {
                             translateY: slideAnimations.interpolate({
-                              inputRange: [-300, 0],
-                              outputRange: [-300, 0],
+                              inputRange: [ -300, 0 ],
+                              outputRange: [ -300, 0 ],
                             }),
                           },
                         ],
@@ -790,18 +821,19 @@ const Home = () => {
                             value={cities}
                             valuestyle={{ color: "red" }}
                             onChange={async item => {
-                              console.log("total item", item)                            // setDataCustomTaxonomy(item)
+                              console.log("total item", item);                            // setDataCustomTaxonomy(item)
                               setFilterModalVisible(false);
-
                               setCities(item);
+                               setLoading(false);
                               await getPopertiesApiCall({
                                 type: 3, data: {
                                   UserId: user_ID,
                                   data_custom_taxonomy: "property_city",
-                                  data_customvalue: item.toString(),
+                                  data_customvalue: item.data_customvalue,
                                 }, lntLng
-                              })
+                              });
                             }}
+                            
                             selectedStyle={styles.selectedStyle}
                           />
 
@@ -829,15 +861,15 @@ const Home = () => {
                                             data_customvalue: item.data_customvalue,
                                           },
                                         })).then((res) => {
-                                          setHomeData(res.payload.data)
-                                        })
+                                          setHomeData(res.payload.data);
+                                        });
                                       setFilterModalVisible(false);
                                     }}>
                                       <View style={{ width: 70, height: 40, marginTop: 8, marginHorizontal: 3, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.BorderColor, backgroundColor: bedroomitem === index ? Colors.black : Colors.white }}>
                                         <Text style={{ fontFamily: 'poppins-regular', color: bedroomitem === index ? Colors.white : Colors.black }}>{item?.data_name}</Text>
                                       </View>
                                     </TouchableOpacity>
-                                  )
+                                  );
                                 }}
                               >
 
@@ -860,8 +892,8 @@ const Home = () => {
                                 renderItem={({ item, index }) => {
                                   return (
                                     <TouchableOpacity onPress={async () => {
-                                      setBathRoomItem(index)
-                                      setBathRoomCount(item.data_name)
+                                      setBathRoomItem(index);
+                                      setBathRoomCount(item.data_name);
                                       await dispatch(getPoperties({
                                         type: 3, data: {
                                           UserId: user_ID,
@@ -869,14 +901,14 @@ const Home = () => {
                                           data_customvalue: item.data_customvalue,
                                         },
                                       })).then((res) => {
-                                        setHomeData(res.payload.data)
-                                      })
+                                        setHomeData(res.payload.data);
+                                      });
                                     }}>
                                       <View style={{ width: 75, height: 40, marginTop: 8, marginHorizontal: 3, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.BorderColor, backgroundColor: bathRoom === index ? Colors.newgray : Colors.white }}>
                                         <Text style={{ fontSize: 14, fontFamily: 'Poppins-Regular', color: bathRoom === index ? Colors.white : Colors.newgray }}>{item?.data_name}</Text>
                                       </View>
                                     </TouchableOpacity>
-                                  )
+                                  );
                                 }}
                               ></FlatList>
                             </View>
@@ -903,8 +935,18 @@ const Home = () => {
                                 placeholder="Min square"
                                 searchPlaceholder="Search..."
                                 value={minSquareFeet}
-                                onChange={item => {
+                                onChange={async item => {
                                   setMinSquareFeet(item.data_name);
+                                  await dispatch(getPoperties({
+                                    type: 3, data: {
+                                      UserId: user_ID,
+                                      data_custom_taxonomy: "min_square",
+                                      data_customvalue: item.data_customvalue,
+                                    },
+                                  })).then((res) => {
+                                    setHomeData(res.payload.data);
+                                  });
+
                                 }}
 
                               />
@@ -923,8 +965,17 @@ const Home = () => {
                                 placeholder="Max Square"
                                 searchPlaceholder="Search..."
                                 value={maxSquareFeet}
-                                onChange={item => {
-                                  setMaxSquareFeet(item.data_name)
+                                onChange={async item => {
+                                  setMaxSquareFeet(item.data_name);
+                                  await dispatch(getPoperties({
+                                    type: 3, data: {
+                                      UserId: user_ID,
+                                      data_custom_taxonomy: "max_square",
+                                      data_customvalue: item.data_customvalue,
+                                    },
+                                  })).then((res) => {
+                                    setHomeData(res.payload.data);
+                                  });
                                 }}
 
                               />
@@ -953,8 +1004,18 @@ const Home = () => {
                                 placeholder="Min Price"
                                 searchPlaceholder="Search..."
                                 value={minPricerange}
-                                onChange={item => {
-                                  setMinPricerange(item.data_name)
+                                onChange={async item => {
+                                  setMinPricerange(item.data_name);
+                                  await dispatch(getPoperties({
+                                    type: 3, data: {
+                                      UserId: user_ID,
+                                      data_custom_taxonomy: "min_price",
+                                      data_customvalue: item.data_customvalue,
+                                    },
+                                  })).then((res) => {
+                                    setHomeData(res.payload.data);
+                                  });
+
                                 }}
 
                               />
@@ -973,15 +1034,25 @@ const Home = () => {
                                 placeholder="Max Price"
                                 searchPlaceholder="Search..."
                                 value={maxPriceRange}
-                                onChange={item => {
+                                onChange={async item => {
                                   setMaxPriceRange(item.data_name);
+                                  await dispatch(getPoperties({
+                                    type: 3, data: {
+                                      UserId: user_ID,
+                                      data_custom_taxonomy: "max_price",
+                                      data_customvalue: item.data_customvalue,
+                                    },
+                                  })).then((res) => {
+                                    setHomeData(res.payload.data);
+                                  });
+
                                 }}
 
                               />
                             </View>
                           </View>
                           <View style={{ width: '100%', justifyContent: 'center', alignItems: "center" }}>
-                            <TouchableOpacity onPress={() => { setMoreFilter(!moreFilter) }}>
+                            <TouchableOpacity onPress={() => { setMoreFilter(!moreFilter); }}>
                               <Text style={{ color: Colors.white, padding: 10, borderRadius: 25, textAlign: 'center', width: 130, fontSize: 14, fontWeight: 700, backgroundColor: Colors.black, marginVertical: 12, paddingVertical: 15 }}>More Filters</Text>
 
                             </TouchableOpacity>
@@ -1006,12 +1077,12 @@ const Home = () => {
                                         await dispatch(getPoperties({
                                           type: 3, data: {
                                             UserId: user_ID,
-                                            data_custom_taxonomy: "min_price",
+                                            data_custom_taxonomy: "more_filter_data",
                                             data_customvalue: item.data_customvalue,
                                           },
                                         })).then((res) => {
-                                          // setHomeData(res.payload.data)
-                                        })
+                                          setHomeData(res.payload.data);
+                                        });
                                       }
                                     }>
                                       <Text style={{
@@ -1022,7 +1093,7 @@ const Home = () => {
                                         {item?.data_name}
                                       </Text>
                                     </TouchableOpacity>
-                                  )
+                                  );
                                 }}>
 
                               </FlatList>
@@ -1037,17 +1108,19 @@ const Home = () => {
                           }}>
 
                             <TouchableOpacity
-                              onPress={async () => {
-                                console.log("cities check", cities)
-                                await getPopertiesApiCall({
+                              onPress={async ()=>{
+                                await dispatch(getPoperties({
                                   type: 3, data: {
                                     UserId: user_ID,
-                                    data_custom_taxonomy: item.data_customvalue,
-                                    data_customvalue: cities,
-                                  }, lntLng
-                                })
-                                // console.log("okk", cities, maxPriceRange, minPricerange, maxSquareFeet, minSquareFeet, bathRoomCount, bedCount)
-                              }}
+                                    data_custom_taxonomy: "more_filter_data",
+                                    data_customvalue: item.data_customvalue,
+                                  },
+                                })).then((res) => {
+                                  setHomeData(res.payload.data);
+                                });
+                              }
+                              
+                              }
                               style={{
                                 height: 50,
                                 width: '40%',
@@ -1168,9 +1241,9 @@ const Home = () => {
                       </View>
                     }
                     onSwipedLeft={(item) => {
-                      trashfile(homeData[item].ID)
+                      trashfile(homeData[ item ].ID);
                     }}
-                    onSwipedRight={(item) => { savefile(homeData[item].ID) }}
+                    onSwipedRight={(item) => { savefile(homeData[ item ].ID); }}
                     renderCard={(item, index) => (
                       <View style={styles.shadowProp}>
                         <SwiperFlatList
@@ -1185,15 +1258,15 @@ const Home = () => {
                               <View style={{ height: width, width: width, position: "relative", marginTop: 1 }}>
                                 <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", zIndex: 99, }}>
 
-                                  <TouchableOpacity disabled={imageIndex > 0 ? false : true} onPress={() => { setImageIndex(imageIndex - 1) }}
+                                  <TouchableOpacity disabled={imageIndex > 0 ? false : true} onPress={() => { setImageIndex(imageIndex - 1); }}
                                     style={{ height: "100%", width: 30, backgroundColor: "red", position: "relative", left: 10 }} >
                                     <View style={{ height: width, width: 40, position: "absolute", zIndex: 999, }}>
                                     </View>
                                   </TouchableOpacity>
 
                                   <TouchableOpacity disabled={item?.featured_image_src?.length - 1 === imageIndex ? true : false} onPress={() => {
-                                    setImageIndex(imageIndex + 1)
-                                    { console.log("Image test", item.featured_image_src[imageIndex].guid) }
+                                    setImageIndex(imageIndex + 1);
+                                    { console.log("Image test", item.featured_image_src[ imageIndex ].guid); }
                                   }}>
                                     <View style={{ height: width, width: 40, position: "absolute", zIndex: 999, right: 10, }}>
                                     </View>
@@ -1206,7 +1279,7 @@ const Home = () => {
                                       height: 25,
                                       width: 25,
                                       tintColor: Colors.white,
-                                      transform: [{ rotate: '-180deg' }], // Specify the rotation angle here
+                                      transform: [ { rotate: '-180deg' } ], // Specify the rotation angle here
                                       position: "relative",
                                       left: 12
                                     }}
@@ -1224,7 +1297,7 @@ const Home = () => {
                                 </View>
                                 <TouchableOpacity
                                   onPress={() => {
-                                    navigation.navigate('ViewPropertiy', { item })
+                                    navigation.navigate('ViewPropertiy', { item });
                                   }}>
                                   <Image
                                     style={{
@@ -1239,7 +1312,7 @@ const Home = () => {
 
                                       overflow: "hidden"
                                     }}
-                                    source={{ uri: item?.featured_image_src[imageIndex]?.guid }}
+                                    source={{ uri: item?.featured_image_src[ imageIndex ]?.guid }}
                                   />
                                 </TouchableOpacity>
 
@@ -1298,7 +1371,7 @@ const Home = () => {
                                 </Text>
                               </View>
                               <Text
-                                onPress={() => { navigation.navigate('ViewPropertiy', { item }) }}
+                                onPress={() => { navigation.navigate('ViewPropertiy', { item }); }}
                                 style={{
                                   fontSize: 20,
                                   color: Colors.primaryBlue,
@@ -1323,12 +1396,12 @@ const Home = () => {
                                 transparent={true}
                                 animationType="slide"
                                 visible={favModalVisiable}
-                                onRequestClose={() => { setfavModalVisiable(false) }}>
+                                onRequestClose={() => { setfavModalVisiable(false); }}>
                                 <View style={styles.modalContainer1}>
                                   <TouchableOpacity
                                     activeOpacity={1}
                                     style={styles.modalOverlay1}
-                                    onPress={() => { setfavModalVisiable(false) }}
+                                    onPress={() => { setfavModalVisiable(false); }}
                                   />
                                   <View style={{ alignItems: "center", justifyContent: "center", width: "100%" }}>
                                     <Animated.View
@@ -1339,8 +1412,8 @@ const Home = () => {
                                           transform: [
                                             {
                                               translateY: slideAnimation.interpolate({
-                                                inputRange: [-300, 0],
-                                                outputRange: [-300, 0],
+                                                inputRange: [ -300, 0 ],
+                                                outputRange: [ -300, 0 ],
                                               }),
                                             },
                                           ],
@@ -1367,7 +1440,7 @@ const Home = () => {
                                       }}>You're on your way to locating your dream home.  You can review, rate, comment and dispose of your Favorited  properties by tapping on your
                                         <TouchableOpacity
                                           style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 6, }}>
-                                          <Text onPress={() => { navigation.navigate('Favorites') }} style={{ color: Colors.surfblur, fontFamily: 'Poppins-Regular', position: "relative", top: 9 }}>
+                                          <Text onPress={() => { navigation.navigate('Favorites'); }} style={{ color: Colors.surfblur, fontFamily: 'Poppins-Regular', position: "relative", top: 9 }}>
                                             Favorites
                                           </Text>
                                           <Image
@@ -1413,12 +1486,12 @@ const Home = () => {
                                 animationType="slide"
                                 visible={tashModalVisiable}
                                 // visible={true}
-                                onRequestClose={() => { setTrashModalVisiable(false) }}>
+                                onRequestClose={() => { setTrashModalVisiable(false); }}>
                                 <View style={styles.modalContainer1}>
                                   <TouchableOpacity
                                     activeOpacity={1}
                                     style={styles.modalOverlay1}
-                                    onPress={() => { setTrashModalVisiable(false) }}
+                                    onPress={() => { setTrashModalVisiable(false); }}
                                   />
                                   <View style={{ alignItems: "center", justifyContent: "center", width: "100%" }}>
                                     <Animated.View
@@ -1429,8 +1502,8 @@ const Home = () => {
                                           transform: [
                                             {
                                               translateY: slideAnimation.interpolate({
-                                                inputRange: [-300, 0],
-                                                outputRange: [-300, 0],
+                                                inputRange: [ -300, 0 ],
+                                                outputRange: [ -300, 0 ],
                                               }),
                                             },
                                           ],
@@ -1450,7 +1523,7 @@ const Home = () => {
                                       </View>
                                       <Text style={{ fontSize: 13, fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 22, flexWrap: "wrap", flexDirection: "row", alignItems: "center", textAlign: "justify" }}>Congrats on your first surf swipe left! If you decide to change your mind, you can find this property in your
                                         <TouchableOpacity
-                                          onPress={() => { navigation.navigate('RecycleBin') }}
+                                          onPress={() => { navigation.navigate('RecycleBin'); }}
                                           style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 6, }}><Text style={{ fontSize: 13, color: Colors.surfblur, fontFamily: 'Poppins-Regular', position: "relative", top: 8 }}>Recycle Bin</Text>
                                           <Image
                                             source={Images.downThumb}
@@ -1469,6 +1542,72 @@ const Home = () => {
                                         </Text>
 
                                       </Text>
+
+                                    </Animated.View>
+                                  </View>
+                                </View>
+                              </Modal>
+                            </KeyboardAvoidingView>
+                            <KeyboardAvoidingView behavior="padding">
+                              <Modal
+                                transparent={true}
+                                animationType="slide"
+                                visible={saveModalVisible}
+                                // visible={true}
+                                onRequestClose={() => { setSaveModalVisible(false); }}>
+                                <View style={styles.modalContainer1}>
+                                  <TouchableOpacity
+                                    activeOpacity={1}
+                                    style={styles.modalOverlay1}
+                                    onPress={() => { setSaveModalVisible(false); }}
+                                  />
+                                  <View style={{ alignItems: "center", justifyContent: "center", width: "100%" }}>
+                                    <Animated.View
+                                      {...panResponder.panHandlers}
+                                      style={[
+                                        styles.modalContent1,
+                                        {
+                                          transform: [
+                                            {
+                                              translateY: slideAnimation.interpolate({
+                                                inputRange: [ -300, 0 ],
+                                                outputRange: [ -300, 0 ],
+                                              }),
+                                            },
+                                          ],
+                                        },
+                                      ]}
+                                    >
+                                      <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
+                                        <View
+                                          style={{
+                                            width: 50,
+                                            height: 5,
+                                            backgroundColor: "#bac1c3",
+                                            marginTop: 0,
+                                            justifyContent: 'center',
+                                            borderRadius: 100
+                                          }}></View>
+                                      </View>
+                                      {/* <Text style={{ fontSize: 13, fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 22, flexWrap: "wrap", flexDirection: "row", alignItems: "center", textAlign: "justify" }}>Congrats on your first surf swipe left! If you decide to change your mind, you can find this property in your */}
+                                        {/* <TouchableOpacity
+                                          onPress={() => { navigation.navigate('RecycleBin') }}
+                                          style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 6, }}><Text style={{ fontSize: 13, color: Colors.surfblur, fontFamily: 'Poppins-Regular', position: "relative", top: 8 }}>Recycle Bin</Text>
+                                          <Image
+                                            source={Images.downThumb}
+                                            style={{
+                                              height: 18,
+                                              width: 18,
+                                              tintColor: "red",
+                                              resizeMode: 'contain',
+                                              //marginTop: 3
+                                              position: "relative", top: 9,
+                                              marginLeft: 3
+                                            }}></Image></TouchableOpacity> */}
+
+                                        <Text style={{  fontSize: 13, fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 22, flexWrap: "wrap"}}>
+                                          Your Search will be Saved in your Profile
+                                        </Text>
 
                                     </Animated.View>
                                   </View>
@@ -1496,8 +1635,8 @@ const Home = () => {
                                         transform: [
                                           {
                                             translateY: slideAnimation.interpolate({
-                                              inputRange: [-300, 0],
-                                              outputRange: [-300, 0],
+                                              inputRange: [ -300, 0 ],
+                                              outputRange: [ -300, 0 ],
                                             }),
                                           },
                                         ],
@@ -1530,7 +1669,7 @@ const Home = () => {
                                           }}>
                                           Your Review
                                         </Text>
-                                        <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text>
+                                        <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[ 0 ]?.comment_content}</Text>
                                         {!isEditing && (
                                           <TouchableOpacity
                                             onPress={() => setIsEditing(true)}
@@ -1555,7 +1694,7 @@ const Home = () => {
                                               type="custom"
                                               ratingCount={5}
                                               imageSize={18}
-                                              startingValue={ratingData[0]?.photo_wuality_rating
+                                              startingValue={ratingData[ 0 ]?.photo_wuality_rating
                                               }
                                               ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
@@ -1580,7 +1719,7 @@ const Home = () => {
                                               type="custom"
                                               ratingCount={5}
                                               imageSize={18}
-                                              startingValue={ratingData[0]?.description_review_stars
+                                              startingValue={ratingData[ 0 ]?.description_review_stars
                                               }
                                               ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
@@ -1604,7 +1743,7 @@ const Home = () => {
                                               type="custom"
                                               ratingCount={5}
                                               imageSize={18}
-                                              startingValue={ratingData[0]?.price_review_stars
+                                              startingValue={ratingData[ 0 ]?.price_review_stars
                                               }
                                               ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
@@ -1629,7 +1768,7 @@ const Home = () => {
                                               type="custom"
                                               ratingCount={5}
                                               imageSize={18}
-                                              startingValue={ratingData[0]?.interest_review_stars
+                                              startingValue={ratingData[ 0 ]?.interest_review_stars
                                               }
                                               ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
@@ -1689,7 +1828,7 @@ const Home = () => {
                                                   width: "100%"
 
                                                 }}>
-                                                {ratingData[0]?.comment_content}
+                                                {ratingData[ 0 ]?.comment_content}
                                               </TextInput>
                                             )}
                                           </View>
@@ -1930,16 +2069,16 @@ const Home = () => {
   
                   </View> */}
                     <View style={{ position: "absolute", zIndex: 99, right: 12, top: 60 }}>
-                      <TouchableOpacity style={styles.coverlocation1} onPress={() => { setIsCollapsed(!isCollapsed) }}>
+                      <TouchableOpacity style={styles.coverlocation1} onPress={() => { setIsCollapsed(!isCollapsed); }}>
                         <Image source={Images.layers} style={styles.locationpic}></Image>
 
                       </TouchableOpacity>
                       <Collapsible collapsed={!isCollapsed} style={{ backgroundColor: Colors.white, alignItems: "center", justifyContent: "center", position: "relative", paddingVertical: 12 }}>
                         <View style={{ backgroundColor: Colors.white, alignItems: "center", justifyContent: "center", }}>
-                          <TouchableOpacity onPress={() => { setMapType('satellite') }}><Image tintColor={mapType === 'satellite' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.satellite} style={styles.locationpic}></Image></TouchableOpacity>
-                          <TouchableOpacity onPress={() => { setMapType('hybrid') }}><Image tintColor={mapType === 'hybrid' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.hybrid} style={styles.locationpic}></Image></TouchableOpacity>
-                          <TouchableOpacity onPress={() => { setMapType('terrain') }}><Image tintColor={mapType === 'terrain' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.terrain} style={styles.locationpic}></Image></TouchableOpacity>
-                          <TouchableOpacity onPress={() => { setMapType('standard') }}><Image tintColor={mapType === 'standard' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.standard} style={styles.locationpic}></Image></TouchableOpacity>
+                          <TouchableOpacity onPress={() => { setMapType('satellite'); }}><Image tintColor={mapType === 'satellite' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.satellite} style={styles.locationpic}></Image></TouchableOpacity>
+                          <TouchableOpacity onPress={() => { setMapType('hybrid'); }}><Image tintColor={mapType === 'hybrid' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.hybrid} style={styles.locationpic}></Image></TouchableOpacity>
+                          <TouchableOpacity onPress={() => { setMapType('terrain'); }}><Image tintColor={mapType === 'terrain' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.terrain} style={styles.locationpic}></Image></TouchableOpacity>
+                          <TouchableOpacity onPress={() => { setMapType('standard'); }}><Image tintColor={mapType === 'standard' ? Colors.PrimaryColor : Colors.placeholderTextColor} source={Images.standard} style={styles.locationpic}></Image></TouchableOpacity>
                         </View>
                       </Collapsible>
                     </View>
@@ -1955,8 +2094,8 @@ const Home = () => {
                       showsUserLocation={true}
                       showsMyLocationButton={true}
                       region={{
-                        latitude: parseFloat(homeData[0].property_latitude),
-                        longitude: parseFloat(homeData[0].property_longitude),
+                        latitude: parseFloat(homeData[ 0 ].property_latitude),
+                        longitude: parseFloat(homeData[ 0 ].property_longitude),
                         latitudeDelta: 0.015,
                         longitudeDelta: 0.0121,
                       }}
@@ -1968,7 +2107,7 @@ const Home = () => {
                               showCallout={true}
                               coordinate={{ latitude: parseFloat(item?.property_latitude), longitude: parseFloat(item?.property_longitude) }}>
                               <Image source={Images.lot} style={{ height: 50, width: 100, resizeMode: 'contain' }} />
-                              <Callout onPress={() => { navigation.navigate('ViewPropertiy', { item }) }}
+                              <Callout onPress={() => { navigation.navigate('ViewPropertiy', { item }); }}
                                 style={{
                                   height: 70, alignItems: "center", alignSelf: "center",
                                   marginLeft: 20, top: -15,
@@ -1982,7 +2121,7 @@ const Home = () => {
                                     position: "relative", height: 100,
                                     top: -20
                                   }}>
-                                    <Image style={{ height: 80, width: 100, resizeMode: "stretch", }} source={{ uri: item.featured_image_src[0]?.guid }} />
+                                    <Image style={{ height: 80, width: 100, resizeMode: "stretch", }} source={{ uri: item.featured_image_src[ 0 ]?.guid }} />
                                   </Text>
                                   <View style={{ flexWrap: "wrap", top: -5 }}>
                                     <Text style={{ color: 'black', paddingHorizontal: 10, fontWeight: '500', }}>{item.title}</Text>
@@ -1997,7 +2136,7 @@ const Home = () => {
                                 </View>
                               </Callout>
                             </Marker>
-                          )
+                          );
                         })
                       }
                     </MapView>
