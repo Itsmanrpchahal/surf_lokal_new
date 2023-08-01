@@ -198,6 +198,8 @@ export default function Login({ navigation }) {
         };
         setLoading(true);
         dispatch(loginUser(data)).then(response => {
+          // console.log('fkjdui',response)
+          // alert (JSON.stringify (response.payload.data))
 
           if (response.payload.status) {
             setLoading(false);

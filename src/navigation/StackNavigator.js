@@ -20,6 +20,7 @@ import Challenges from '../container/MyRewards/Challenges';
 import Schoolinfo from '../container/ViewPropertiy/Schoolinfo';
 
 import RecycleBin from '../container/RecycleBin/RecycleBin';
+import ViewProperty2 from '../container/ViewPropertiy/ViewProperty2';
 
 
 const Stack = createStackNavigator();
@@ -53,6 +54,7 @@ const StackNavigator = () => {
       <Stack.Screen name="OtpScreen" component={OtpScreen} />
       <Stack.Screen name="Tabs" component={TabNavigator} />
       <Stack.Screen name="ViewPropertiy" component={ViewPropertiy} />
+      <Stack.Screen name="ViewProperty2" component={ViewProperty2} />
       <Stack.Screen name="ViewPropertiyImage" component={ViewPropertiyImage} />
       <Stack.Screen name="ViewImage" component={ViewImage} />
       <Stack.Screen name="ChatSearch" component={ChatSearch} />
@@ -60,7 +62,7 @@ const StackNavigator = () => {
       <Stack.Screen name="Videoplay" component={Videoplay} />
       <Stack.Screen name="Challenges" component={Challenges} />
       <Stack.Screen name="Leaderboard" component={Leaderboard} />
-
+      
       <Stack.Screen name="Schoolinfo" component={Schoolinfo} />
 
       <Stack.Screen name="RecycleBin" component={RecycleBin}/>
