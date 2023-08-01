@@ -622,7 +622,6 @@ const ViewPropertiy = (props, imageUrl) => {
     )
   }
   const School = () => {
-     console.log("schoolRating===>",schoolRating?.school_Info)
      const handleLinkPress = (url) => {
       Linking.openURL(url).catch((error) => console.error('An error occurred: ', error));
     };
@@ -646,10 +645,10 @@ const ViewPropertiy = (props, imageUrl) => {
                 <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', marginVertical: 5, justifyContent: 'space-between' }}>
                   <View style={{ width: "100%" }}>
                     {/* <Text style={{ color: "black" }}>{item.schools_id}</Text> */}
-                  <Text style={{color:Colors.black,fontSize:20}}>School Name :-<Text style={{ color:Colors.gray,fontSize:16 }}>{item.schools_name}</Text></Text>
-                  <Text style={{color:Colors.black,fontSize:20}}>Summary:-  <Text style={{ color: Colors.gray,fontSize:20 }}>{item.school_summary}</Text></Text>
+                  <Text style={{color:Colors.black,fontSize:16,fontFamily:"Poppins-Medium"}}>School Name :-<Text style={{ color:Colors.black,fontSize:14 ,}}>{item.schools_name}</Text></Text>
+                  <Text style={{color:Colors.black,fontSize:14,fontFamily:"Poppins-Medium"}}>Summary:-  <Text style={{ color: Colors.black,fontSize:13,fontFamily:"Poppins-Regular" }}>{item.school_summary}</Text></Text>
                     <TouchableOpacity onPress={()=>handleLinkPress(item.school_website)}>
-                   <Text style={{color:Colors.black,fontSize:20}}>School link:-   <Text style={{ color:Colors.surfblur,fontSize:20 }}>{item.school_website}</Text></Text>
+                   <Text style={{color:Colors.black,fontSize:16,fontFamily:"Poppins-Medium"}}>School link:-   <Text style={{ color: Colors.surfblur,fontSize:13,fontFamily:"Poppins-Regular" }}>{item.school_website}</Text></Text>
 
                     </TouchableOpacity>
 
