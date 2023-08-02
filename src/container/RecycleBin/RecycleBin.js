@@ -256,7 +256,7 @@ const RecycleBin = () => {
             style={{
               fontSize: 18,
               color: Colors.primaryBlue,
-              fontFamily: 'Poppins-SemiBold',
+              fontFamily: 'Poppins-Medium',
               marginTop: 5
             }}>
             {item.property_price}

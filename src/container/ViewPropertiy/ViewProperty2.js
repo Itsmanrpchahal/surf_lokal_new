@@ -238,7 +238,7 @@ const ViewProperty2 = (props, imageUrl) => {
   ).current;
   const getPopertiesDetailsApiCall = () => {
     setLoading(true);
-    dispatch(getPopertiesDetails(postid.item.ID)).then(response => {
+    dispatch(getPopertiesDetails(postid.property.ID)).then(response => {
 
       setLoading(false);
       setData(response.payload.data);
@@ -532,12 +532,7 @@ const ViewProperty2 = (props, imageUrl) => {
 
 
             </MapView>
-            {isLoading && (
-        <View style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
-          <ActivityIndicator size="large" color="blue" />
-        </View>
-      )}
-          </View>
+            </View>
         </View >
       </>
     )
@@ -851,7 +846,7 @@ const ViewProperty2 = (props, imageUrl) => {
                             renderCard={(item, index) => (
                               <View>
                                 <TouchableOpacity
-                                  onPress={() => navigation.navigate('ViewPropertiyImage', { postid: postid.item.ID })}>
+                                  onPress={() => navigation.navigate('ViewPropertiyImage', { postid: postid.property.ID })}>
                                   <Image
                                     style={{
                                       width: width - 10,
