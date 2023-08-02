@@ -1,4 +1,4 @@
-package com.surflokalcrm;
+package surf.lokal;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

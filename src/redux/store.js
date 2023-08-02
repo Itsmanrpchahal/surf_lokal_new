@@ -27,6 +27,7 @@ import addRemoveTrash from '../modules/addRemoveTrash';
 import getMoreFilter from '../modules/getMoreFilter'
 import schoolChatReducer from '../modules/schoolChat';
 import filterSearch from '../modules/filterSearch';
+import clearFilter from '../modules/clearFilter';
 export const store = configureStore({
   reducer: {
     loginUser: loginUserReducer,
@@ -56,7 +57,8 @@ export const store = configureStore({
     addFavorite: addFavoriteReducer,
     addRemoveTrash: addRemoveTrash,
     getMoreFilter:getMoreFilter,
-    filterSearch:filterSearch
+    filterSearch:filterSearch,
+    clearFilter:clearFilter
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

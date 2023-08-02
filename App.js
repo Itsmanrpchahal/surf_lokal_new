@@ -8,6 +8,11 @@ import {Provider} from 'react-redux';
 import Colors from './src/utils/Colors';
 // Add Firebase
 import firebase from '@react-native-firebase/app';
+import messaging from '@react-native-firebase/messaging';
+  // Register background handler
+  messaging().setBackgroundMessageHandler(async remoteMessage => {
+    console.log('Message handled in the background!', remoteMessage);
+  });
 
 const App = () => {
   const [splash, setSplash] = useState(true);

@@ -1,4 +1,4 @@
-package com.surflokalcrm;
+package surf.lokal;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
@@ -8,6 +8,9 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
+import surf.lokal.BuildConfig;
+import com.surflokalcrm.ReactNativeFlipper;
+
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
