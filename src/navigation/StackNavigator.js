@@ -21,6 +21,7 @@ import Schoolinfo from '../container/ViewPropertiy/Schoolinfo';
 
 import RecycleBin from '../container/RecycleBin/RecycleBin';
 import ViewProperty2 from '../container/ViewPropertiy/ViewProperty2';
+import BookaTour from '../container/Chat/BookaTour';
 
 
 const Stack = createStackNavigator();
@@ -62,11 +63,11 @@ const StackNavigator = () => {
       <Stack.Screen name="Videoplay" component={Videoplay} />
       <Stack.Screen name="Challenges" component={Challenges} />
       <Stack.Screen name="Leaderboard" component={Leaderboard} />
-      
+
       <Stack.Screen name="Schoolinfo" component={Schoolinfo} />
 
-      <Stack.Screen name="RecycleBin" component={RecycleBin}/>
-
+      <Stack.Screen name="RecycleBin" component={RecycleBin} />
+      <Stack.Screen name="BookaTour" component={BookaTour} />
     </Stack.Navigator>
   ) : null;
 };

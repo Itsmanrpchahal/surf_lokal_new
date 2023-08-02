@@ -447,7 +447,7 @@ const ViewPropertiy = (props, imageUrl) => {
                       <Image
                         source={Images.check}
                         style={{ height: 15, width: 15, resizeMode: 'contain', marginRight: 5 }}></Image>
-                      <Text style={{ color: Colors.black,fontFamily:"Poppins-Regular" }}>{item}</Text>
+                      <Text style={{ color: Colors.black, fontFamily: "Poppins-Regular" }}>{item}</Text>
                     </View>
                   </>
                 )}
@@ -479,7 +479,7 @@ const ViewPropertiy = (props, imageUrl) => {
 
           </View >
           <View style={styles.maincovermap} >
-   
+
             <MapView
               provider={PROVIDER_GOOGLE}
               style={styles.map}
@@ -490,7 +490,7 @@ const ViewPropertiy = (props, imageUrl) => {
                 longitudeDelta: 0.0121,
               }}
             >
-              
+
 
               <Marker
                 showCallout={true}
@@ -498,11 +498,11 @@ const ViewPropertiy = (props, imageUrl) => {
               >
                 <Image source={Images.lot} style={{ height: 50, width: 100, resizeMode: 'contain', }} />
 
-                <Callout  onPress={()=>{navigation.navigate('ViewProperty2')} }
-                style={{
-                  height: 70, alignItems: "center", alignSelf: "center",
-                  marginLeft: 20, top: -15,
-                }}>
+                <Callout onPress={() => { navigation.navigate('ViewProperty2', { property }) }}
+                  style={{
+                    height: 70, alignItems: "center", alignSelf: "center",
+                    marginLeft: 20, top: -15,
+                  }}>
 
                   <View style={{
                     flexDirection: 'row', alignItems: 'center', alignContent: 'center', marginLeft: 20, top: -12,
@@ -543,8 +543,8 @@ const ViewPropertiy = (props, imageUrl) => {
 
     return (
       <>
-        
-        <Text style={[styles.propertyt,{marginBottom:0,paddingBottom:0}]}>Nearby</Text>
+
+        <Text style={[styles.propertyt, { marginBottom: 0, paddingBottom: 0 }]}>Nearby</Text>
         <View style={{ paddingHorizontal: 20 }}>
           <View style={styles.address}>
             <FlatList
@@ -624,53 +624,53 @@ const ViewPropertiy = (props, imageUrl) => {
     )
   }
   const School = () => {
-     const handleLinkPress = (url) => {
+    const handleLinkPress = (url) => {
       Linking.openURL(url).catch((error) => console.error('An error occurred: ', error));
     };
-  
+
     return (
-    
+
       <>
-        
+
         <View style={{ paddingHorizontal: 20 }}>
           <Text style={styles.propertyts}>Nearby Schools</Text>
           <View>
             <FlatList
-            
-            data={schoolRating.school_Info}
-            
-            renderItem={( {item }) => (  
- 
-             
-              <>
-            
-                <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', marginVertical: 5, justifyContent: 'space-between',borderBottomColor:Colors.BorderColor,borderBottomWidth:1,paddingBottom:15 ,marginBottom:10}}>
-                  <View style={{ width: "100%" }}>
-                    {/* <Text style={{ color: "black" }}>{item.schools_id}</Text> */}
-                  <Text style={{color:Colors.black,fontSize:13,fontFamily:"Poppins-Medium"}}>School Name :-<Text style={{ color:Colors.black,fontSize:13 ,fontFamily:"Poppins-Regular"}}>{item.schools_name}</Text></Text>
-                  <Text style={{color:Colors.black,fontSize:13,fontFamily:"Poppins-Medium",lineHeight:23}}>Summary:-  <Text style={{ color: Colors.black,fontSize:13,fontFamily:"Poppins-Regular" }}>{item.school_summary}</Text></Text>
-                    <TouchableOpacity onPress={()=>handleLinkPress(item.school_website)}>
-                   <Text style={{color:Colors.black,fontSize:13,fontFamily:"Poppins-Medium"}}>School link:-   <Text style={{ color: Colors.surfblur,fontSize:12,fontFamily:"Poppins-Regular" }}>{item.school_website}</Text></Text>
 
-                    </TouchableOpacity>
+              data={schoolRating.school_Info}
 
-                  </View>
-                  {/* <View>
+              renderItem={({ item }) => (
+
+
+                <>
+
+                  <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', marginVertical: 5, justifyContent: 'space-between', borderBottomColor: Colors.BorderColor, borderBottomWidth: 1, paddingBottom: 15, marginBottom: 10 }}>
+                    <View style={{ width: "100%" }}>
+                      {/* <Text style={{ color: "black" }}>{item.schools_id}</Text> */}
+                      <Text style={{ color: Colors.black, fontSize: 13, fontFamily: "Poppins-Medium" }}>School Name :-<Text style={{ color: Colors.black, fontSize: 13, fontFamily: "Poppins-Regular" }}>{item.schools_name}</Text></Text>
+                      <Text style={{ color: Colors.black, fontSize: 13, fontFamily: "Poppins-Medium", lineHeight: 23 }}>Summary:-  <Text style={{ color: Colors.black, fontSize: 13, fontFamily: "Poppins-Regular" }}>{item.school_summary}</Text></Text>
+                      <TouchableOpacity onPress={() => handleLinkPress(item.school_website)}>
+                        <Text style={{ color: Colors.black, fontSize: 13, fontFamily: "Poppins-Medium" }}>School link:-   <Text style={{ color: Colors.surfblur, fontSize: 12, fontFamily: "Poppins-Regular" }}>{item.school_website}</Text></Text>
+
+                      </TouchableOpacity>
+
+                    </View>
+                    {/* <View>
                     <Image style={{ height: 15, width: 100, resizeMode: "contain" }} source={{ uri: item.image_url }} />
                   </View> */}
-                </View>
-              </>
-            )}/>
+                  </View>
+                </>
+              )} />
 
           </View>
-       
-        <View style={{marginTop:10,justifyContent:'flex-end',alignContent:'flex-end',marginBottom:10}}>
-          <TouchableOpacity onPress={()=>{navigation.navigate('Schoolinfo')}}
-           style={{backgroundColor:Colors.surfblur,borderRadius:20,width:100,paddingVertical:10}}>
-          <Text style={{alignItems:'center',textAlign:'center',color:Colors.white}}>School Info</Text>
-          </TouchableOpacity>
-        </View>
+
+          <View style={{ marginTop: 10, justifyContent: 'flex-end', alignContent: 'flex-end', marginBottom: 10 }}>
+            <TouchableOpacity onPress={() => { navigation.navigate('Schoolinfo') }}
+              style={{ backgroundColor: Colors.surfblur, borderRadius: 20, width: 100, paddingVertical: 10 }}>
+              <Text style={{ alignItems: 'center', textAlign: 'center', color: Colors.white }}>School Info</Text>
+            </TouchableOpacity>
           </View>
+        </View>
       </>
     )
   }
@@ -2118,9 +2118,9 @@ const ViewPropertiy = (props, imageUrl) => {
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('ChatSearch', {
-              initialMessage: 'When would you like to schedule a showing?',
-              agentReply: 'A Lokal agent will confirm with you within the next 2 hours',
+            navigation.navigate('BookaTour', {
+              // initialMessage: 'When would you like to schedule a showing?',
+              // agentReply: 'A Lokal agent will confirm with you within the next 2 hours',
             });
           }}
           style={{
