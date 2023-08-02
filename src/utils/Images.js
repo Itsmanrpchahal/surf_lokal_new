@@ -107,6 +107,7 @@ const Images = {
   fillgreen: require(BaseUrl + 'fillgreen.png'),
   check: require(BaseUrl + 'check.png'),
   calendar: require(BaseUrl + "calendar.png"),
+  calendarnew: require(BaseUrl + "calendarnew.png"),
   loading: require(BaseUrl + "loading.gif"),
   searchm: require(BaseUrl + "searchn.png"),
   graylocation: require(BaseUrl + "graylocation.png"),
