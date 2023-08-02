@@ -29,7 +29,6 @@ async function getFCMToken() {
     }
     // }else {
     //     console.log('Errr to get FCM token1' ,fcmtoken)
-
     // }
 }
 

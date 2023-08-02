@@ -396,7 +396,7 @@ export default function Login({ navigation }) {
             </View>
             <View style={{ width: '85%', marginTop: 20 * viewSizeRatio }}>
               <Text allowFontScaling={false} style={Styles.alertText}>
-                Please enter your email & password registerd with us {'\n'}and
+                Please enter your email & password registerd with us and
                 start surfing
               </Text>
             </View>
