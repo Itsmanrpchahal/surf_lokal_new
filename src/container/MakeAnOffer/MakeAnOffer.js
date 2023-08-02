@@ -326,7 +326,8 @@ const MakeAnOffer = () => {
                   style={styles.input}
                   placeholder="Property Address"
                   // lineHeight={40}
-                  fontFamily='Poppins-Regular'
+                
+                  fontFamily='Poppins-Light'
                   placeholderTextColor={'gray'}
                   value={address}
                   onChangeText={(text) => setAddress(text)}
@@ -337,7 +338,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Offer Price"
-                  fontFamily='Poppins-Regular'
+                  fontFamily='Poppins-Light'
                   placeholderTextColor={'gray'}
                   keyboardType="default"
                   value={priceOffer}
@@ -353,7 +354,7 @@ const MakeAnOffer = () => {
                   style={styles.input}
                   placeholder="Cash Loan"
 
-                  fontFamily='Poppins-Regular'
+                  fontFamily='Poppins-Light'
                   placeholderTextColor={'gray'}
                   keyboardType="default"
                   value={cashLoan}
@@ -377,7 +378,7 @@ const MakeAnOffer = () => {
                   <DateTimePicker
                     value={selectedDate || new Date()}
                     mode="date"
-                    fontFamily='Poppins-Regular'
+                    fontFamily='Poppins-Light'
                     is24Hour={true}
                     display="default"
                     onChange={handleDateChange}
@@ -392,7 +393,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Legal Name"
-                  fontFamily='Poppins-Regular'
+                  fontFamily='Poppins-Light'
                   placeholderTextColor={'gray'}
                   value={legalName}
                   onChangeText={(text) => setLegalName(text)}
@@ -406,7 +407,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Current Address"
-                  fontFamily='Poppins-Regular'
+                  fontFamily='Poppins-Light'
                   placeholderTextColor={'gray'}
                   value={currentAddress}
                   onChangeText={(text) => setCurrentAddress(text)}
@@ -420,7 +421,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Email"
-                  fontFamily='Poppins-Regular'
+                  fontFamily='Poppins-Light'
                   placeholderTextColor={'gray'}
                   value={email}
                   onChangeText={(text) => setEmail(text)}
@@ -434,7 +435,7 @@ const MakeAnOffer = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Phone"
-                  fontFamily='Poppins-Regular'
+                  fontFamily='Poppins-Light'
                   placeholderTextColor={'gray'}
                   keyboardType="numeric"
                   value={phone}
@@ -561,7 +562,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     width: '100%',
     color: Colors.textColorDark,
-    paddingBottom: 5
+    paddingBottom: 5,
+    fontSize:12
 
   },
   datePickerContainer: {
@@ -576,9 +578,9 @@ const styles = StyleSheet.create({
 
   },
   datePickerText: {
-    fontSize: 14,
+    fontSize: 12,
     color: 'gray',
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins-Light',
     height: 40, lineHeight: 40
   },
   errorText: {

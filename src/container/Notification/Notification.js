@@ -59,11 +59,11 @@ const Notification = () => {
          
         
           <Text style={{marginRight:8,width:"100%",fontSize: 14,color: Colors.black,fontFamily:"Poppins-Medium",}}>{item.post_title}</Text>
-          <Text   numberOfLines={2} style={{ width:"100%",fontSize: 13, color: Colors.textColorLight, fontFamily:"Poppins-Medium",}}>
+          <Text   numberOfLines={2} style={{ width:"100%",fontSize: 13, color: Colors.textColorLight, fontFamily:"Poppins-Regular",}}>
             {item.post_content}
           </Text>
          
-          <Text style={{ width:"100%",fontSize: 11, color: Colors.textColorLight, fontFamily:"Poppins-Regular",alignItems:"flex-end",justifyContent:"flex-end",textAlign:"right",marginTop:2}}>
+          <Text style={{ width:"100%",fontSize: 11, color: Colors.textColorLight, fontFamily:"Poppins-Light",alignItems:"flex-end",justifyContent:"flex-end",textAlign:"right",marginTop:2}}>
             {item.post_date}
           </Text>
        </View> 

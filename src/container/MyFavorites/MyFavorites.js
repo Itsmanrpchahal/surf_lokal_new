@@ -248,11 +248,11 @@ const MyFavorites = () => {
         }}>
         <Text
           style={{
-            fontSize: 14,
+            fontSize: 12,
             color: Colors.black,
-            fontFamily: "Poppins-Medium",
+            fontFamily: "Poppins-Regular",
             marginBottom: 0,
-            lineHeight: 19
+            lineHeight: 14,paddingTop:4
           }}>
           {item?.ListingKey}
         </Text>
@@ -289,7 +289,7 @@ const MyFavorites = () => {
             style={{
               fontSize: 18,
               color: Colors.primaryBlue,
-              fontFamily: 'Poppins-SemiBold',
+              fontFamily: 'Poppins-Medium',
               marginTop: 5
             }}>
 
