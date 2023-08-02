@@ -1,2 +1,2 @@
-export default  BASEURL= "http://www.surflokal.com/"
+export default  BASEURL= "https://www.surflokal.com/"
 
