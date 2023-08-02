@@ -51,6 +51,7 @@ import { getTrash } from '../../modules/getTrash';
 import { getFavoriteProperties } from '../../modules/getFavoriteProperties';
 import { filterSearch } from '../../modules/filterSearch';
 import { getSavedSearch } from '../../modules/getSavedSearch';
+import { clearFilter } from '../../modules/clearFilter';
 
 
 const { width } = Dimensions.get('screen');
@@ -59,7 +60,7 @@ const { width } = Dimensions.get('screen');
 const Home = () => {
   const isFocused = useIsFocused();
 
-  const [ keyboardStatus, setKeyboardStatus ] = useState('first');
+  const [keyboardStatus, setKeyboardStatus] = useState('first');
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardStatus('Keyboard Shown');
@@ -77,13 +78,11 @@ const Home = () => {
   useEffect(() => {
     updateKeyboard();
 
-  }, [ keyboardStatus ]);
+  }, [keyboardStatus]);
 
   const updateKeyboard = async () => {
-    if (keyboardStatus === 'Keyboard Hidden')
-    {
-      if (adress.length > 0)
-      {
+    if (keyboardStatus === 'Keyboard Hidden') {
+      if (adress.length > 0) {
         let payload = {
           userID: user_ID,
           SearchParameters: adress,
@@ -95,50 +94,50 @@ const Home = () => {
     }
   };
   const dispatch = useDispatch();
-  const [ homeData, setHomeData ] = useState([]);
-  const [ selectedTabs, setSelectedTabs ] = useState([]);
-  const [ selected, setSelected ] = useState(-1);
-  const [ activity, setActivity ] = useState(false);
-  const [ loading, setLoading ] = useState(false);
-  const [ adress, setAddres ] = useState('');
-  const [ filterData, setFilterData ] = useState([]);
-  const [ moreFilterData, setMoreFilterData ] = useState([]);
-  const [ selectedItem, setSelectedItem ] = useState(null);
-  const [ termName, setTermName ] = useState(null);
-  const [ cities, setCities ] = useState([]);
+  const [homeData, setHomeData] = useState([]);
+  const [selectedTabs, setSelectedTabs] = useState([]);
+  const [selected, setSelected] = useState(-1);
+  const [activity, setActivity] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [adress, setAddres] = useState('');
+  const [filterData, setFilterData] = useState([]);
+  const [moreFilterData, setMoreFilterData] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [termName, setTermName] = useState(null);
+  const [cities, setCities] = useState([]);
   const navigation = useNavigation();
-  const [ productId, setProductId ] = useState();
-  const [ reviewTitle, setReviewTitle ] = useState('');
-  const [ modalVisible, setModalVisible ] = useState(false);
-  const [ tashModalVisiable, setTrashModalVisiable ] = useState(false);
-  const [ saveModalVisible, setSaveModalVisible ] = useState(false);
-  const [ favModalVisiable, setfavModalVisiable ] = useState(false);
-  const [ filterModalVisible, setFilterModalVisible ] = useState(false);
-  const [ review, setReview ] = useState('');
-  const [ rating, setRating ] = useState(0);
-  const [ ratingData, setRatingData ] = useState([]);
-  const [ isSelected, setIsSelected ] = useState(false);
-  const [ bedroomitem, setBedroomItem ] = useState(-1);
-  const [ bathRoom, setBathRoomItem ] = useState(-1);
-  const [ imageIndex, setImageIndex ] = useState(0);
-  const [ viewHeight, setViewHeight ] = useState(80);
-  const [ user_ID, setUser_ID ] = useState();
-  const [ lntLng, setLatLng ] = useState({ latitude: 0.0, longitude: 0.0 });
-  const [ showMap, setShowMap ] = useState(false);
-  const [ isCollapsed, setIsCollapsed ] = useState(false);
-  const [ mapType, setMapType ] = useState('standard');
-  const [ isEditing, setIsEditing ] = useState(false);
-  const [ moreFilter, setMoreFilter ] = useState(false);
-  const [ maxPriceRange, setMaxPriceRange ] = useState();
-  const [ minPricerange, setMinPricerange ] = useState();
-  const [ minSquareFeet, setMinSquareFeet ] = useState();
-  const [ maxSquareFeet, setMaxSquareFeet ] = useState();
-  const [ bathRoomCount, setBathRoomCount ] = useState();
-  const [ bedCount, setBedCount ] = useState();
+  const [productId, setProductId] = useState();
+  const [reviewTitle, setReviewTitle] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [tashModalVisiable, setTrashModalVisiable] = useState(false);
+  const [saveModalVisible, setSaveModalVisible] = useState(false);
+  const [favModalVisiable, setfavModalVisiable] = useState(false);
+  const [filterModalVisible, setFilterModalVisible] = useState(false);
+  const [review, setReview] = useState('');
+  const [rating, setRating] = useState(0);
+  const [ratingData, setRatingData] = useState([]);
+  const [isSelected, setIsSelected] = useState(false);
+  const [bedroomitem, setBedroomItem] = useState(-1);
+  const [bathRoom, setBathRoomItem] = useState(-1);
+  const [imageIndex, setImageIndex] = useState(0);
+  const [viewHeight, setViewHeight] = useState(80);
+  const [user_ID, setUser_ID] = useState();
+  const [lntLng, setLatLng] = useState({ latitude: 0.0, longitude: 0.0 });
+  const [showMap, setShowMap] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [mapType, setMapType] = useState('standard');
+  const [isEditing, setIsEditing] = useState(false);
+  const [moreFilter, setMoreFilter] = useState(false);
+  const [maxPriceRange, setMaxPriceRange] = useState();
+  const [minPricerange, setMinPricerange] = useState();
+  const [minSquareFeet, setMinSquareFeet] = useState();
+  const [maxSquareFeet, setMaxSquareFeet] = useState();
+  const [bathRoomCount, setBathRoomCount] = useState();
+  const [bedCount, setBedCount] = useState();
 
-  const [ isPressed, setIsPressed ] = useState(false);
-  const [ isPressed1, setIsPressed1 ] = useState(false);
-  const [ isPressed2, setIsPressed2 ] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
+  const [isPressed1, setIsPressed1] = useState(false);
+  const [isPressed2, setIsPressed2] = useState(false);
   useEffect(() => {
     getID();
   }, []);
@@ -159,8 +158,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (isFocused)
-    {
+    if (isFocused) {
       Promise.all[
         getFilterApicall(),
         getRatingApicall(),
@@ -172,7 +170,7 @@ const Home = () => {
       ];
     }
 
-  }, [ isFocused ]);
+  }, [isFocused]);
   const getFilterApicall = () => {
     dispatch(getFilter()).then(response => {
       setFilterData(response.payload.data);
@@ -196,15 +194,13 @@ const Home = () => {
         slideAnimation.setValue(gestureState.dy);
       },
       onPanResponderRelease: (_, gestureState) => {
-        if (gestureState.dy > 50)
-        {
+        if (gestureState.dy > 50) {
           // If the swipe distance is greater than 50, close the modal
           closeModal();
           closeFavModal();
           closeTrashModal();
           closeSaveModal();
-        } else
-        {
+        } else {
           // Otherwise, reset the animation back to 0
           Animated.spring(slideAnimation, {
             toValue: 0,
@@ -255,7 +251,7 @@ const Home = () => {
   };
   useEffect(() => {
     handleModalAnimation();
-  }, [ modalVisible ]);
+  }, [modalVisible]);
   const slideAnimations = useRef(new Animated.Value(0)).current;
   const panResponders = useRef(
     PanResponder.create({
@@ -264,12 +260,10 @@ const Home = () => {
         slideAnimations.setValue(gestureState.dy);
       },
       onPanResponderRelease: (_, gestureState) => {
-        if (gestureState.dy > 50)
-        {
+        if (gestureState.dy > 50) {
           // If the swipe distance is greater than 50, close the modal
           closeModals();
-        } else
-        {
+        } else {
           // Otherwise, reset the animation back to 0
           Animated.spring(slideAnimations, {
             toValue: 0,
@@ -291,7 +285,7 @@ const Home = () => {
 
   useEffect(() => {
     handleModalAnimations();
-  }, [ filterModalVisible ]);
+  }, [filterModalVisible]);
 
   const handleShare = () => {
     Share.share({
@@ -316,12 +310,10 @@ const Home = () => {
       reviewtitle: reviewTitle,
     };
     dispatch(postRating(formdata)).then(response => {
-      if (response.payload.success)
-      {
+      if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
-      } else
-      {
+      } else {
         toggleModal();
         Alert.alert('Alert', response.payload.message);
       }
@@ -344,12 +336,10 @@ const Home = () => {
       post_id: item,
     };
     await dispatch(addToFavorite(payload)).then(response => {
-      if (store.getState().getFavoriteProperties.getFavoritePropertiesData.count == 0)
-      {
+      if (store.getState().getFavoriteProperties.getFavoritePropertiesData.count == 0) {
         favToggleModal();
         // Alert.alert('Alert', response.payload.message);
-      } else
-      {
+      } else {
         // favToggleModal()
 
         // Alert.alert('Alert', response.payload.message);
@@ -369,11 +359,9 @@ const Home = () => {
     };
     await dispatch(addRemoveTrash(payload)).then(response => {
 
-      if (store.getState().getTrash.getTrashData.count == 0)
-      {
+      if (store.getState().getTrash.getTrashData.count == 0) {
         trashToggleModal();
-      } else
-      {
+      } else {
 
       }
     });
@@ -416,12 +404,10 @@ const Home = () => {
     formData.append('interest_review_stars', rating);
     formData.append('reviewtitle', reviewTitle);
     dispatch(postUpdateRating(formData)).then((response) => {
-      if (response.payload.success)
-      {
+      if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
-      } else
-      {
+      } else {
         toggleModal();
         Alert.alert('Alert', response.payload.message);
       }
@@ -436,12 +422,10 @@ const Home = () => {
       <View style={{}}>
         <TouchableOpacity
           onPress={() => {
-            if (isSelected)
-            {
+            if (isSelected) {
               setSelectedTabs((prev) => prev.filter((i) => i !== data_customvalue));
-            } else
-            {
-              setSelectedTabs(prev => [ ...prev, data_customvalue ]);
+            } else {
+              setSelectedTabs(prev => [...prev, data_customvalue]);
             }
             setIsSelected(true);
             setTermName(item.term_name);
@@ -497,8 +481,7 @@ const Home = () => {
     );
   };
 
-  if (loading)
-  {
+  if (loading) {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="gray" />
@@ -642,11 +625,9 @@ const Home = () => {
                 };
                 dispatch(filterSearch(payload)).then(response => {
 
-                  if (store.getState().getSavedSearch.getSavedSearchData.count == 0)
-                  {
+                  if (store.getState().getSavedSearch.getSavedSearchData.count == 0) {
                     saveToogleModal();
-                  } else
-                  {
+                  } else {
 
                   }
                 });
@@ -719,6 +700,7 @@ const Home = () => {
                   setIsPressed(false);
                   { handlePress2; }
                   setSelectedItem(null);
+                  dispatch(clearFilter())
                   getPopertiesApiCall({ type: 0, data: '', lntLng, });
                 }}
                 style={[
@@ -756,8 +738,8 @@ const Home = () => {
                         transform: [
                           {
                             translateY: slideAnimations.interpolate({
-                              inputRange: [ -300, 0 ],
-                              outputRange: [ -300, 0 ],
+                              inputRange: [-300, 0],
+                              outputRange: [-300, 0],
                             }),
                           },
                         ],
@@ -824,7 +806,7 @@ const Home = () => {
                               console.log("total item", item);                            // setDataCustomTaxonomy(item)
                               setFilterModalVisible(false);
                               setCities(item);
-                               setLoading(false);
+                              setLoading(false);
                               await getPopertiesApiCall({
                                 type: 3, data: {
                                   UserId: user_ID,
@@ -833,7 +815,7 @@ const Home = () => {
                                 }, lntLng
                               });
                             }}
-                            
+
                             selectedStyle={styles.selectedStyle}
                           />
 
@@ -1108,7 +1090,7 @@ const Home = () => {
                           }}>
 
                             <TouchableOpacity
-                              onPress={async ()=>{
+                              onPress={async () => {
                                 await dispatch(getPoperties({
                                   type: 3, data: {
                                     UserId: user_ID,
@@ -1119,7 +1101,7 @@ const Home = () => {
                                   setHomeData(res.payload.data);
                                 });
                               }
-                              
+
                               }
                               style={{
                                 height: 50,
@@ -1241,9 +1223,9 @@ const Home = () => {
                       </View>
                     }
                     onSwipedLeft={(item) => {
-                      trashfile(homeData[ item ].ID);
+                      trashfile(homeData[item].ID);
                     }}
-                    onSwipedRight={(item) => { savefile(homeData[ item ].ID); }}
+                    onSwipedRight={(item) => { savefile(homeData[item].ID); }}
                     renderCard={(item, index) => (
                       <View style={styles.shadowProp}>
                         <SwiperFlatList
@@ -1266,7 +1248,7 @@ const Home = () => {
 
                                   <TouchableOpacity disabled={item?.featured_image_src?.length - 1 === imageIndex ? true : false} onPress={() => {
                                     setImageIndex(imageIndex + 1);
-                                    { console.log("Image test", item.featured_image_src[ imageIndex ].guid); }
+                                    { console.log("Image test", item.featured_image_src[imageIndex].guid); }
                                   }}>
                                     <View style={{ height: width, width: 40, position: "absolute", zIndex: 999, right: 10, }}>
                                     </View>
@@ -1279,7 +1261,7 @@ const Home = () => {
                                       height: 25,
                                       width: 25,
                                       tintColor: Colors.white,
-                                      transform: [ { rotate: '-180deg' } ], // Specify the rotation angle here
+                                      transform: [{ rotate: '-180deg' }], // Specify the rotation angle here
                                       position: "relative",
                                       left: 12
                                     }}
@@ -1312,7 +1294,7 @@ const Home = () => {
 
                                       overflow: "hidden"
                                     }}
-                                    source={{ uri: item?.featured_image_src[ imageIndex ]?.guid }}
+                                    source={{ uri: item?.featured_image_src[imageIndex]?.guid }}
                                   />
                                 </TouchableOpacity>
 
@@ -1412,8 +1394,8 @@ const Home = () => {
                                           transform: [
                                             {
                                               translateY: slideAnimation.interpolate({
-                                                inputRange: [ -300, 0 ],
-                                                outputRange: [ -300, 0 ],
+                                                inputRange: [-300, 0],
+                                                outputRange: [-300, 0],
                                               }),
                                             },
                                           ],
@@ -1502,8 +1484,8 @@ const Home = () => {
                                           transform: [
                                             {
                                               translateY: slideAnimation.interpolate({
-                                                inputRange: [ -300, 0 ],
-                                                outputRange: [ -300, 0 ],
+                                                inputRange: [-300, 0],
+                                                outputRange: [-300, 0],
                                               }),
                                             },
                                           ],
@@ -1570,8 +1552,8 @@ const Home = () => {
                                           transform: [
                                             {
                                               translateY: slideAnimation.interpolate({
-                                                inputRange: [ -300, 0 ],
-                                                outputRange: [ -300, 0 ],
+                                                inputRange: [-300, 0],
+                                                outputRange: [-300, 0],
                                               }),
                                             },
                                           ],
@@ -1590,7 +1572,7 @@ const Home = () => {
                                           }}></View>
                                       </View>
                                       {/* <Text style={{ fontSize: 13, fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 22, flexWrap: "wrap", flexDirection: "row", alignItems: "center", textAlign: "justify" }}>Congrats on your first surf swipe left! If you decide to change your mind, you can find this property in your */}
-                                        {/* <TouchableOpacity
+                                      {/* <TouchableOpacity
                                           onPress={() => { navigation.navigate('RecycleBin') }}
                                           style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 6, }}><Text style={{ fontSize: 13, color: Colors.surfblur, fontFamily: 'Poppins-Regular', position: "relative", top: 8 }}>Recycle Bin</Text>
                                           <Image
@@ -1605,9 +1587,9 @@ const Home = () => {
                                               marginLeft: 3
                                             }}></Image></TouchableOpacity> */}
 
-                                        <Text style={{  fontSize: 13, fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 22, flexWrap: "wrap"}}>
-                                          Your Search will be Saved in your Profile
-                                        </Text>
+                                      <Text style={{ fontSize: 13, fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 22, flexWrap: "wrap" }}>
+                                        Your Search will be Saved in your Profile
+                                      </Text>
 
                                     </Animated.View>
                                   </View>
@@ -1635,8 +1617,8 @@ const Home = () => {
                                         transform: [
                                           {
                                             translateY: slideAnimation.interpolate({
-                                              inputRange: [ -300, 0 ],
-                                              outputRange: [ -300, 0 ],
+                                              inputRange: [-300, 0],
+                                              outputRange: [-300, 0],
                                             }),
                                           },
                                         ],
@@ -1669,7 +1651,7 @@ const Home = () => {
                                           }}>
                                           Your Review
                                         </Text>
-                                        <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[ 0 ]?.comment_content}</Text>
+                                        <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text>
                                         {!isEditing && (
                                           <TouchableOpacity
                                             onPress={() => setIsEditing(true)}
@@ -1694,7 +1676,7 @@ const Home = () => {
                                               type="custom"
                                               ratingCount={5}
                                               imageSize={18}
-                                              startingValue={ratingData[ 0 ]?.photo_wuality_rating
+                                              startingValue={ratingData[0]?.photo_wuality_rating
                                               }
                                               ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
@@ -1719,7 +1701,7 @@ const Home = () => {
                                               type="custom"
                                               ratingCount={5}
                                               imageSize={18}
-                                              startingValue={ratingData[ 0 ]?.description_review_stars
+                                              startingValue={ratingData[0]?.description_review_stars
                                               }
                                               ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
@@ -1743,7 +1725,7 @@ const Home = () => {
                                               type="custom"
                                               ratingCount={5}
                                               imageSize={18}
-                                              startingValue={ratingData[ 0 ]?.price_review_stars
+                                              startingValue={ratingData[0]?.price_review_stars
                                               }
                                               ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
@@ -1768,7 +1750,7 @@ const Home = () => {
                                               type="custom"
                                               ratingCount={5}
                                               imageSize={18}
-                                              startingValue={ratingData[ 0 ]?.interest_review_stars
+                                              startingValue={ratingData[0]?.interest_review_stars
                                               }
                                               ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
@@ -1828,7 +1810,7 @@ const Home = () => {
                                                   width: "100%"
 
                                                 }}>
-                                                {ratingData[ 0 ]?.comment_content}
+                                                {ratingData[0]?.comment_content}
                                               </TextInput>
                                             )}
                                           </View>
@@ -2094,8 +2076,8 @@ const Home = () => {
                       showsUserLocation={true}
                       showsMyLocationButton={true}
                       region={{
-                        latitude: parseFloat(homeData[ 0 ].property_latitude),
-                        longitude: parseFloat(homeData[ 0 ].property_longitude),
+                        latitude: parseFloat(homeData[0].property_latitude),
+                        longitude: parseFloat(homeData[0].property_longitude),
                         latitudeDelta: 0.015,
                         longitudeDelta: 0.0121,
                       }}
@@ -2121,7 +2103,7 @@ const Home = () => {
                                     position: "relative", height: 100,
                                     top: -20
                                   }}>
-                                    <Image style={{ height: 80, width: 100, resizeMode: "stretch", }} source={{ uri: item.featured_image_src[ 0 ]?.guid }} />
+                                    <Image style={{ height: 80, width: 100, resizeMode: "stretch", }} source={{ uri: item.featured_image_src[0]?.guid }} />
                                   </Text>
                                   <View style={{ flexWrap: "wrap", top: -5 }}>
                                     <Text style={{ color: 'black', paddingHorizontal: 10, fontWeight: '500', }}>{item.title}</Text>

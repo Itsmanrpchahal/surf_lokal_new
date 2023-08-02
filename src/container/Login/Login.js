@@ -39,6 +39,7 @@ import { loginUser } from '../../modules/loginUser';
 import { postRating } from '../../modules/postRating';
 import { cleanSingle } from 'react-native-image-crop-picker';
 import { googleUser } from '../../modules/googleLogin';
+import {requestUserPermission,NotificationListerner} from '../../utils/pushnotifications_helper'
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -62,6 +63,10 @@ export default function Login({ navigation }) {
     require('../../assets/images/CountryCodes.json'),
   );
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    requestUserPermission()
+    NotificationListerner()
+  }, []);
   useEffect(() => {
     GoogleSignin.configure({
       // Mandatory method to call before calling signIn()
