@@ -2119,9 +2119,12 @@ const ViewPropertiy = (props, imageUrl) => {
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('BookaTour', {
-              // initialMessage: 'When would you like to schedule a showing?',
-              // agentReply: 'A Lokal agent will confirm with you within the next 2 hours',
+              initialMessage: 'When would you like to schedule a showing?',
+              post_id: postid?.item?.ID,
+              // initialMessage2: 'A Lokal agent will confirm with you within the next 2 hours',
+              agentReply: <Image source={Images.calendar} style={{ height: 20, width: 20, justifyContent: 'center', alignContent: 'center', resizeMode: 'stretch' }} />,
             });
+            console.log("postid Cheack ", postid?.item?.ID)
           }}
           style={{
             justifyContent: 'center',
