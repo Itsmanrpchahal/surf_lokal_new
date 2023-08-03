@@ -701,7 +701,9 @@ const Home = () => {
                   { handlePress2; }
                   setSelectedItem(null);
                   dispatch(clearFilter())
-                  getPopertiesApiCall({ type: 0, data: '', lntLng, });
+                  dispatch(getPoperties({ type: 0, data: '', lntLng, }))
+
+                  // getPopertiesApiCall({ type: 0, data: '', lntLng, });
                 }}
                 style={[
                   styles.rew,
@@ -803,19 +805,17 @@ const Home = () => {
                             value={cities}
                             valuestyle={{ color: "red" }}
                             onChange={async item => {
-                              console.log("total item", item);                            // setDataCustomTaxonomy(item)
-                              setFilterModalVisible(false);
                               setCities(item);
-                              setLoading(false);
-                              await getPopertiesApiCall({
+                              await dispatch(getPoperties({
                                 type: 3, data: {
                                   UserId: user_ID,
                                   data_custom_taxonomy: "property_city",
-                                  data_customvalue: item.data_customvalue,
-                                }, lntLng
+                                  data_customvalue: item.toString(),
+                                },
+                              })).then((res) => {
+                                setHomeData(res.payload.data);
                               });
                             }}
-
                             selectedStyle={styles.selectedStyle}
                           />
 
@@ -845,7 +845,7 @@ const Home = () => {
                                         })).then((res) => {
                                           setHomeData(res.payload.data);
                                         });
-                                      setFilterModalVisible(false);
+                                      // setFilterModalVisible(false);
                                     }}>
                                       <View style={{ width: 70, height: 40, marginTop: 8, marginHorizontal: 3, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: Colors.BorderColor, backgroundColor: bedroomitem === index ? Colors.black : Colors.white }}>
                                         <Text style={{ fontFamily: 'poppins-regular', color: bedroomitem === index ? Colors.white : Colors.black }}>{item?.data_name}</Text>
@@ -1081,7 +1081,7 @@ const Home = () => {
                               </FlatList>
                             </View>
                           </Collapsible>
-                          <View style={{
+                          {/* <View style={{
                             width: '100%',
                             flexDirection: 'row',
                             alignItems: "center",
@@ -1125,7 +1125,7 @@ const Home = () => {
                               </Text>
                             </TouchableOpacity>
 
-                          </View>
+                          </View> */}
                         </View>
                       </View>
 
@@ -1941,7 +1941,7 @@ const Home = () => {
                                 textAlign: 'center',
                                 fontFamily: 'Poppins-Regular',
                               }}>
-                              {/* {item?.property_bedrooms.length > 0 ? item?.property_bedrooms : 0} */}
+                              {item?.property_bedrooms.length > 0 ? item?.property_bedrooms : 0}
                               {' Beds'}
                             </Text>
                           </View>
@@ -1964,7 +1964,7 @@ const Home = () => {
                                 textAlign: 'center',
                                 fontFamily: 'Poppins-Regular',
                               }}>
-                              {/* {item?.bathroomsfull.length > 0 ? item?.bathroomsfull : 0} */}
+                              {item?.bathroomsfull.length > 0 ? item?.bathroomsfull : 0}
 
                               {' Baths'}
                             </Text>
@@ -1988,7 +1988,7 @@ const Home = () => {
                                 textAlign: 'center',
                                 fontFamily: 'Poppins-Regular',
                               }}>
-                              {/* {item?.property_size.length > 1 ? item?.property_size : 0}{" sq ft"} */}
+                              {item?.property_size.length > 1 ? item?.property_size : 0}{" sq ft"}
                             </Text>
                           </View>
                           <View
@@ -2013,7 +2013,7 @@ const Home = () => {
                                 textAlign: 'center',
                                 fontFamily: 'Poppins-Regular',
                               }}>
-                              {/* {item?.associationfee.length > 1 ? item?.associationfee : "$" + 0} */}
+                              {item?.associationfee.length > 1 ? item?.associationfee : "$" + 0}
                             </Text>
                           </View>
                           <View
@@ -2036,7 +2036,7 @@ const Home = () => {
                                 textAlign: 'center',
                                 fontFamily: 'Poppins-Regular',
                               }}>
-                              {/* {item?.taxannualamount.length > 1 ? item?.taxannualamount : "$" + 0} */}
+                              {item?.taxannualamount.length > 1 ? item?.taxannualamount : "$" + 0}
 
                             </Text>
                           </View>
