@@ -39,7 +39,9 @@ import { loginUser } from '../../modules/loginUser';
 import { postRating } from '../../modules/postRating';
 import { cleanSingle } from 'react-native-image-crop-picker';
 import { googleUser } from '../../modules/googleLogin';
-import {requestUserPermission,NotificationListerner} from '../../utils/pushnotifications_helper'
+import { requestUserPermission, NotificationListerner, } from '../../utils/pushnotifications_helper'
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+import messaging from '@react-native-firebase/messaging';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -66,7 +68,25 @@ export default function Login({ navigation }) {
   useEffect(() => {
     requestUserPermission()
     NotificationListerner()
+
+
   }, []);
+  async function getFCMToken() {
+    // if(!fcmtoken)
+    // {
+    try {
+      const fcmtoken = await messaging().getToken()
+      if (fcmtoken) {
+        console.log('FCMTOken', fcmtoken)
+      }
+    } catch (error) {
+      console.log('Errr to get FCM token')
+    }
+    // }else {
+    //     console.log('Errr to get FCM token1' ,fcmtoken)
+    // }
+  }
+
   useEffect(() => {
     GoogleSignin.configure({
       // Mandatory method to call before calling signIn()
@@ -194,12 +214,15 @@ export default function Login({ navigation }) {
   // const accessRequestAction = () => {
   //   navigation.navigate('Tabs', {screen: 'Home'});
   // };
-  const accessRequestAction = () => {
+  const accessRequestAction = async () => {
+    const fcmtoken = await messaging().getToken()
     if (emailId && password != '') {
       if (withEmail) {
         let data = {
           username: emailId,
           password: password,
+          device_type: Platform.OS,
+          device_token: fcmtoken
         };
         setLoading(true);
         dispatch(loginUser(data)).then(response => {
@@ -241,8 +264,8 @@ export default function Login({ navigation }) {
         borderBottomWidth: 1,
         height: 40,
       }}>
-      <Text style={{ fontSize: 16, color: Colors.black, marginLeft: 10,fontFamily:'Poppins-Regular' }}>
-        <Text style={{ fontSize: 14, color: Colors.black ,fontFamily:'Poppins-Regular'}}>
+      <Text style={{ fontSize: 16, color: Colors.black, marginLeft: 10, fontFamily: 'Poppins-Regular' }}>
+        <Text style={{ fontSize: 14, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
           ({item.dial_code})
         </Text>{' '}
         {item.name}
@@ -351,7 +374,7 @@ export default function Login({ navigation }) {
                         fontWeight: '700',
                         color: Colors.black,
                         marginTop: 10,
-                        fontFamily:'Poppins-Regular'
+                        fontFamily: 'Poppins-Regular'
                       }}>
                       Select Country
                     </Text>
@@ -402,6 +425,7 @@ export default function Login({ navigation }) {
             </View>
           </View>
         )}
+
         <AppButton
           onPress={() => accessRequestAction()}
           // onPress={() => go()}
@@ -411,7 +435,7 @@ export default function Login({ navigation }) {
             fontSize: 20 * fontSizeRatio,
             fontWeight: '500',
             color: Colors.white,
-            fontFamily:'Poppins-Regular'
+            fontFamily: 'Poppins-Regular'
           }}
           btnStyle={{
             borderRadius: 6,
@@ -433,7 +457,7 @@ export default function Login({ navigation }) {
                 fontSize: 14,
                 fontWeight: '700',
                 color: Colors.primaryBlue,
-                fontFamily:'Poppins-Regular'
+                fontFamily: 'Poppins-Regular'
               }}>
               Sign Up
             </Text>
@@ -454,7 +478,7 @@ export default function Login({ navigation }) {
                 fontSize: 14,
                 fontWeight: '700',
                 color: Colors.primaryBlue,
-                fontFamily:'Poppins-Regular'
+                fontFamily: 'Poppins-Regular'
               }}>
               Forgot Password
             </Text>

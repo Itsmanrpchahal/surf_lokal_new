@@ -1,37 +1,85 @@
-import { View, Text, TouchableOpacity, Image, TextInput, StyleSheet } from 'react-native'
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
 import Colors from "../../utils/Colors";
-import Images from "../../utils/Images";
-import { useNavigation, useIsFocused, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
 import { chat } from "../../modules/chat";
-import { TypingAnimation } from 'react-native-typing-animation';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { Line } from 'react-native-svg';
+import { TypingAnimation } from "react-native-typing-animation";
+import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
+import Images from "../../utils/Images";
+import DateTimePicker from "@react-native-community/datetimepicker";
+
 const BookaTour = () => {
     const navigation = useNavigation();
-    const [closeDate, setCloseDate] = useState('');
-    const [showDatePicker, setShowDatePicker] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(null);
-    const showDatepicker = () => {
-        setShowDatePicker(true);
+    const route = useRoute();
+    const [message, setMessage] = useState();
+    const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
+    const [res, setRes] = useState([]);
+    const [isDatePickerVisible, setDatePickerVisible] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
+    useEffect(() => {
+        if (route.params?.initialMessage && route.params?.agentReply) {
+            const initialMessage = route.params.initialMessage;
+            const agentReply = route.params.agentReply;
+            setRes([
+                { type: 1, message: initialMessage },
+                { type: 0, message: agentReply },
+            ]);
+        }
+    }, [route.params?.initialMessage, route.params?.agentReply]);
+
+    const getCurrentDateTime = () => {
+        const now = new Date();
+        const year = now.getFullYear().toString();
+        const month = (now.getMonth() + 1).toString().padStart(2, "0");
+        const date = now.getDate().toString().padStart(2, "0");
+        const hours = now.getHours().toString().padStart(2, "0");
+        const minutes = now.getMinutes().toString().padStart(2, "0");
+        const dateTimeString = `${year}-${month}-${date} ${hours}:${minutes}`;
+        return dateTimeString;
     };
 
-    const hideDatePicker = () => {
-        setShowDatePicker(false);
-    };
-
-    const handleDateChange = (event, selectedDate) => {
-        const currentDate = selectedDate || closeDate;
-        setShowDatePicker(false);
+    const handleDateSelection = (event, selectedDate) => {
+        const currentDate = selectedDate || new Date();
         setSelectedDate(currentDate);
-        setCloseDate(currentDate);
+        setDatePickerVisible(false);
+        console.log('jfhjfjfj', selectedDate)
+        setMessage(""); // Clear the text input
+
+        // Replace the agent's reply with the selected date
+        const updatedRes = res.map((item) => {
+            if (item.type === 0) {
+                return {
+                    ...item,
+                    message: currentDate.toDateString(),
+                };
+            }
+            return item;
+        });
+
+        // Add the initial reply (type 1) after the user selects the date
+        const initialReply = {
+            type: 1,
+            message: "A Lokal agent will confirm with you within the next 2 hours",
+        };
+        setRes([...updatedRes, initialReply]);
     };
 
     return (
-        <View style={{ height: "100%", position: 'relative', paddingBottom: 100, }}>
-            <View style={{ backgroundColor: Colors.gray, height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <View style={{ height: "100%", position: "relative", paddingBottom: 100 }}>
+            <View
+                style={{
+                    backgroundColor: Colors.gray,
+                    height: 50,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                }}
+            >
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('ViewPropertiy')}
+                    onPress={() => navigation.goBack()}
                     style={{
                         height: 25,
                         width: 25,
@@ -51,13 +99,21 @@ const BookaTour = () => {
                             tintColor: Colors.white,
                         }}
                         source={Images.whiteclose}
-                    ></Image>
+                    />
                 </TouchableOpacity>
-                <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: Colors.black }}>
-                    Book a Tour
+                <Text
+                    style={{
+                        fontSize: 18,
+                        fontFamily: "Poppins-Medium",
+                        color: Colors.black,
+                    }}
+                >
+                    Book A Tour
                 </Text>
                 <TouchableOpacity
-                    onPress={() => { setRes([]) }}
+                    onPress={() => {
+                        setRes([]);
+                    }}
                     style={{
                         flexDirection: "row",
                         justifyContent: "center",
@@ -73,102 +129,131 @@ const BookaTour = () => {
                             tintColor: Colors.black,
                         }}
                         source={Images.reload}
-                    ></Image>
-                </TouchableOpacity>
-
-            </View>
-            <Text style={{
-                marginLeft: 15,
-                marginRight: 13, fontSize: 16, borderRadius: 16, alignSelf: 'flex-start', maxWidth: '100%', marginTop: 22, color: Colors.black, fontFamily: "Poppins-Medium",
-            }}>When would you like to Schedule...</Text>
-            <Text style={{
-
-                fontSize: 16,
-                borderRadius: 4,
-                backgroundColor: Colors.cream,
-                alignSelf: 'flex-end',
-                marginLeft: 8,
-                marginRight: 8,
-                marginTop: 8,
-                color: Colors.white,
-                // borderWidth: 1,
-                // borderColor: Colors.gray,
-                // backgroundColor: "green",
-                alignItems: "center",
-                // lineHeight: 40,
-            }}> <TouchableOpacity
-                style={styles.datePickerContainer}
-                onPress={showDatepicker}
-            >
-                    <Text style={styles.datePickerText}>
-
-                        <Text style={{ fontSize: 14, }}>{selectedDate ? selectedDate.toDateString() : <Image
-                            style={{
-                                height: 20,
-                                width: 20,
-                                resizeMode: "contain",
-                                tintColor: Colors.white,
-                                marginTop: 12
-                            }}
-                            source={Images.calendar}
-                        ></Image>}</Text>
-                    </Text>
-                </TouchableOpacity>
-                {showDatePicker && (
-                    <DateTimePicker
-                        value={selectedDate || new Date()}
-                        mode="date"
-                        fontFamily='Poppins-Regular'
-                        is24Hour={true}
-                        display="default"
-                        onChange={handleDateChange}
                     />
-                )}
+                </TouchableOpacity>
+            </View>
+            <Text
+                style={{
+                    marginLeft: 15,
+                    marginRight: 13,
+                    fontSize: 16,
+                    borderRadius: 16,
+                    alignSelf: "flex-start",
+                    maxWidth: "100%",
+                    marginTop: 22,
+                    color: Colors.black,
+                    fontFamily: "Poppins-Medium",
+                }}
+            >
+                Hi! What can I help you with?
             </Text>
 
+            <AutoScrollFlatList
+                nestedScrollEnabled={true}
+                data={res}
+                threshold={20}
+                renderItem={({ item }) => {
+                    return (
+                        <View>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (item.type === 0) {
+                                        // Show date picker for agent's reply
+                                        setDatePickerVisible(true);
+                                    }
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        padding: 8,
+                                        fontSize: 16,
+                                        borderRadius: 16,
+                                        backgroundColor: item.type === 0 ? Colors.surfblur : Colors.white,
+                                        alignSelf: item.type === 0 ? "flex-end" : "flex-start",
+                                        maxWidth: "70%",
+                                        marginLeft: 8,
+                                        marginRight: 8,
+                                        marginTop: 8,
+                                        marginBottom: 4,
+                                        color: item.type === 0 ? Colors.white : Colors.black,
+                                    }}
+                                >
+                                    {item.message}
+                                </Text>
+                            </TouchableOpacity>
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    marginLeft: item.type === 0 ? 8 : 16,
+                                    marginRight: item.type === 0 ? 16 : 8,
+                                    marginBottom: 8,
+                                    alignSelf: item.type === 0 ? "flex-end" : "flex-start",
+                                    color: Colors.gray,
+                                }}
+                            >
+                                {item.date}
+                            </Text>
+                        </View>
+                    );
+                }}
+            />
 
-
-
-
-
-
-            <View style={{ bottom: 0, position: 'absolute', zIndex: 99, left: 0, right: 0, backgroundColor: Colors.white }}>
-                {
-                    <Text style={{
-                        padding: 16,
-                        fontSize: 16,
-                        borderRadius: 16,
-                        backgroundColor: Colors.surfblur,
-                        alignSelf: 'flex-end',
-                        maxWidth: '70%',
-                        marginLeft: 8,
-                        marginRight: 8,
-                        marginTop: 8,
-                        color: Colors.white
-                    }}>Hello</Text>
-                }
-                <Text style={{
-                    fontSize: 16,
-
-                    marginLeft: 16,
-                    color: Colors.black,
-                    marginTop: 8,
+            <View
+                style={{
+                    bottom: 0,
+                    position: "absolute",
+                    zIndex: 99,
+                    left: 0,
+                    right: 0,
                     backgroundColor: Colors.white,
-                    fontFamily: 'Poppins-Regular'
-                }}>Please reply on this chat box</Text>
-                {
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={{
-                            fontSize: 12,
+                }}
+            >
+                {loading && (
+                    <Text
+                        style={{
+                            padding: 16,
+                            fontSize: 16,
                             borderRadius: 16,
-                            alignSelf: 'flex-start',
-                            maxWidth: '70%',
-                            marginLeft: 16,
-                            marginTop: 6,
-                            color: Colors.black,
-                            backgroundColor: Colors.white,
-                            fontFamily: 'Poppins-Regular'
-                        }}>Typing</Text>
+                            backgroundColor: Colors.surfblur,
+                            alignSelf: "flex-end",
+                            maxWidth: "70%",
+                            marginLeft: 8,
+                            marginRight: 8,
+                            marginTop: 8,
+                            color: Colors.white,
+                        }}
+                    >
+                        {message}
+                    </Text>
+                )}
+                <Text
+                    style={{
+                        fontSize: 16,
+                        marginLeft: 16,
+                        color: Colors.black,
+                        marginTop: 8,
+                        backgroundColor: Colors.white,
+                        fontFamily: "Poppins-Regular",
+                    }}
+                >
+                    Please reply on this chat box
+                </Text>
+                {loading && (
+                    <View style={{ flexDirection: "row" }}>
+                        <Text
+                            style={{
+                                fontSize: 12,
+                                borderRadius: 16,
+                                alignSelf: "flex-start",
+                                maxWidth: "70%",
+                                marginLeft: 16,
+                                marginTop: 6,
+                                color: Colors.black,
+                                backgroundColor: Colors.white,
+                            }}
+                        >
+                            typing
+                        </Text>
                         <TypingAnimation
                             dotColor="black"
                             dotMargin={3}
@@ -177,29 +262,58 @@ const BookaTour = () => {
                             dotRadius={1}
                             dotX={8}
                             dotY={0}
-                            style={{ marginTop: 15, marginLeft: -3 }}
+                            style={{ marginTop: 25, marginLeft: -3 }}
                         />
                     </View>
-                }
+                )}
 
-                <View style={{
-                    backgroundColor: Colors.white,
-                    borderColor: Colors.BorderColor,
-                    borderWidth: 1, borderRadius: 5,
-                    height: 45, margin: 16,
-                    paddingLeft: 8, paddingRight: 8,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    marginTop: 8
-                }}>
+                <View
+                    style={{
+                        backgroundColor: Colors.white,
+                        borderColor: Colors.BorderColor,
+                        borderWidth: 1,
+                        borderRadius: 5,
+                        height: 45,
+                        margin: 16,
+                        paddingLeft: 8,
+                        paddingRight: 8,
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        marginTop: 8,
+                    }}
+                >
                     <TextInput
-                        style={{ width: '90%', backgroundColor: Colors.white, color: Colors.black }}
+                        style={{ width: "90%", backgroundColor: Colors.white, color: Colors.black }}
                         placeholder="Type here ....."
                         placeholderTextColor={Colors.textColorLight}
-                        fontFamily="Poppins-Regular">
-                    </TextInput>
+                        fontFamily="Poppins-Regular"
+                        value={message}
+                        onChangeText={setMessage}
+                    />
                     <TouchableOpacity
+                        onPress={() => {
+                            setLoading(true);
+                            dispatch(chat({ message: "i want to know somthink about site" }))
+                                .then((ress) => {
+                                    setLoading(false);
 
+                                    const newTodo1 = {
+                                        type: 0,
+                                        message: message,
+                                        date: getCurrentDateTime(),
+                                    };
+                                    const newTodo = {
+                                        type: 1,
+                                        message: ress.payload.data.text,
+                                        date: getCurrentDateTime(),
+                                    };
+                                    setMessage("");
+                                    setRes([...res, newTodo1, newTodo]);
+                                })
+                                .catch((e) => {
+                                    alert("Error ==> " + JSON.stringify(e));
+                                });
+                        }}
                         style={{
                             flexDirection: "row",
                             justifyContent: "center",
@@ -214,39 +328,21 @@ const BookaTour = () => {
                                 tintColor: Colors.primaryBlue,
                             }}
                             source={Images.sendm}
-                        ></Image>
+                        />
                     </TouchableOpacity>
                 </View>
-
             </View>
+
+            {isDatePickerVisible && (
+                <DateTimePicker
+                    value={selectedDate}
+                    mode="date"
+                    display="default"
+                    onChange={handleDateSelection}
+                />
+            )}
         </View>
-    )
-}
+    );
+};
 
 export default BookaTour;
-
-const styles = StyleSheet.create({
-    datePickerText: {
-        fontSize: 14,
-        color: Colors.white,
-        fontFamily: 'Poppins-Regular',
-        height: 40,
-        width: "100%",
-        lineHeight: 35,
-        marginTop: 5,
-        backgroundColor: Colors.surfblur,
-        paddingHorizontal: 12, textAlign: "center", borderRadius: 8
-    },
-    datePickerContainer: {
-        width: '100%',
-        //height: 40,
-        justifyContent: 'center',
-        //borderColor: Colors.BorderColor,
-        // borderWidth: 1,
-        borderRadius: 4,
-        paddingHorizontal: 8,
-        fontFamily: 'Poppins-Regular',
-        color: Colors.white, borderRadius: 10
-
-    },
-})
