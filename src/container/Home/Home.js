@@ -88,8 +88,9 @@ const Home = () => {
           SearchParameters: adress,
         };
         dispatch(getPoperties({ type: 2, data: payload, lntLng, }))
-
-        // await getPopertiesApiCall({ type: 2, data: payload, lntLng });
+        .then((res) => {
+          setHomeData(res.payload.data);
+        });
         setKeyboardStatus('first');
         // setAddres("");
       }
@@ -170,7 +171,8 @@ const Home = () => {
         favlistApi(),
         getSavedApiCall(),
         getMoreFilterApiCall(),
-        getPopertiesApiCall({ type: 0, data: '', lntLng, })
+        getPopertiesApiCall({ type: 0, data: '', lntLng, }),
+        setAddres("")
       ];
     }
 
@@ -384,7 +386,6 @@ const Home = () => {
       enableHighAccuracy: true, timeout: 20000, maximumAge: 1000
     }
     );
-
   };
 
   const getPopertiesApiCall = async type => {
@@ -436,6 +437,7 @@ const Home = () => {
             setSelected(index);
             setActivity(false);
             setLoading(true);
+             setAddres("");
             dispatch(getPoperties({
               type: 3, data: {
                 UserId: user_ID,
