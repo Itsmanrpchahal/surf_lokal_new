@@ -47,7 +47,9 @@ const StackNavigator = () => {
         headerShown: false,
         cardStyle: { backgroundColor: Colors.white },
       }}
-      initialRouteName={route}>
+      initialRouteName={'Login'}
+      >
+            <Stack.Screen name="BookaTour" component={BookaTour} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
@@ -67,7 +69,7 @@ const StackNavigator = () => {
       <Stack.Screen name="Schoolinfo" component={Schoolinfo} />
 
       <Stack.Screen name="RecycleBin" component={RecycleBin} />
-      <Stack.Screen name="BookaTour" component={BookaTour} />
+  
     </Stack.Navigator>
   ) : null;
 };
