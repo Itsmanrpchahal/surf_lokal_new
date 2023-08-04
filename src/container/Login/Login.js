@@ -157,6 +157,7 @@ export default function Login({ navigation }) {
         // play services not available or outdated
       } else {
         // some other error happened
+        console.log('Error ==> ',error)
       }
     }
   };
