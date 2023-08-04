@@ -334,7 +334,10 @@ const MyFavorites = () => {
                       source={{ uri: details[0]?.user_image }}
                     />
                   ) : (
-                    <Text style={{ fontSize: 17, color: Colors.white, fontFamily: 'Poppins-Regular' }}>JD</Text>
+                    <Image
+                    style={{ height: 40, width: 40 }}
+                    source={Images.user}
+                  />
                   )}
                   <Loader loading={loading} />
                 </View>

@@ -87,15 +87,19 @@ const Home = () => {
           userID: user_ID,
           SearchParameters: adress,
         };
-        await getPopertiesApiCall({ type: 2, data: payload, lntLng });
+        dispatch(getPoperties({ type: 2, data: payload, lntLng, }))
+
+        // await getPopertiesApiCall({ type: 2, data: payload, lntLng });
         setKeyboardStatus('first');
-        setAddres("");
+        // setAddres("");
       }
     }
   };
   const dispatch = useDispatch();
   const [homeData, setHomeData] = useState([]);
   const [selectedTabs, setSelectedTabs] = useState([]);
+  const [selectedTabsMore, setSelectedTabsMore] = useState([]);
+
   const [selected, setSelected] = useState(-1);
   const [activity, setActivity] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -661,8 +665,8 @@ const Home = () => {
                   {
                     flexDirection: 'row',
                     //justifyContent: 'space-evenly',
-                    backgroundColor: isPressed ? 'black' : 'white',
-                    // backgroundColor: 'white',
+                    // backgroundColor: isPressed ? 'black' : 'white',
+                    backgroundColor: 'white',
 
                     // Change background color on press
                     borderColor: Colors.gray,
@@ -676,14 +680,16 @@ const Home = () => {
                     {
                       height: 10, width: 10, marginRight: 6
                     },
-                    { tintColor: isPressed ? 'white' : 'black' },
+                    { tintColor: "black" }
+                    // { tintColor: isPressed ? 'white' : 'black' },
 
                     // Change image tint color on press
                   ]}
                 />
                 <Text
                   style={{
-                    color: isPressed ? 'white' : 'black',
+                    // color: isPressed ? 'white' : 'black',
+                    color: 'black',
 
                     // Change text color on press
                     fontFamily: 'Poppins-Regular',
@@ -702,8 +708,6 @@ const Home = () => {
                   setSelectedItem(null);
                   dispatch(clearFilter())
                   dispatch(getPoperties({ type: 0, data: '', lntLng, }))
-
-                  // getPopertiesApiCall({ type: 0, data: '', lntLng, });
                 }}
                 style={[
                   styles.rew,
@@ -828,10 +832,10 @@ const Home = () => {
                             }}>
                               <FlatList
                                 data={moreFilterData?.bedroom}
-                                // horizontal={true}
-                                numColumns={4}
+                                horizontal={true}
+                                // numColumns={4}
 
-                                // showsHorizontalScrollIndicator={false}
+                                showsHorizontalScrollIndicator={false}
                                 renderItem={({ item, index }) => {
                                   return (
                                     <TouchableOpacity onPress={async () => {
@@ -868,9 +872,9 @@ const Home = () => {
                             }}>
                               <FlatList
                                 data={moreFilterData.bathroom}
-                                numColumns={4}
-                                //horizontal={true}
-                                //showsHorizontalScrollIndicator={false}
+                                // numColumns={4}
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
                                 renderItem={({ item, index }) => {
                                   return (
                                     <TouchableOpacity onPress={async () => {
@@ -1049,12 +1053,18 @@ const Home = () => {
                                 style={{ alignContent: 'center' }}
                                 nestedScrollEnabled
                                 numColumns={3}
-                                renderItem={({ item }) => {
+                                renderItem={({ item, index }) => {
+                                  const { data_custom_taxonomy, data_customvalue } = item;
+                                  const isSelected = selectedTabsMore.filter((i) => i === data_customvalue).length > 0;
+
                                   return (
                                     <TouchableOpacity style={{
                                       width: '30%', margin: 5, borderRadius: 20, borderWidth: 1,
-                                      borderColor: Colors.black, padding: 10,
+                                      borderColor: Colors.black,
+                                      backgroundColor: isSelected ? Colors.black : Colors.white,
+                                      padding: 10,
                                     }} onPress={
+
                                       async () => {
                                         await dispatch(getPoperties({
                                           type: 3, data: {
@@ -1065,12 +1075,16 @@ const Home = () => {
                                         })).then((res) => {
                                           setHomeData(res.payload.data);
                                         });
+                                        if (isSelected) {
+                                          setSelectedTabsMore((prev) => prev.filter((i) => i !== data_customvalue));
+                                        } else {
+                                          setSelectedTabsMore(prev => [...prev, data_customvalue]);
+                                        }
                                       }
                                     }>
                                       <Text style={{
-                                        color: item.selected ? Colors.white : Colors.black,
+                                        color: isSelected ? Colors.white : Colors.black,
                                         textAlign: 'center',
-                                        backgroundColor: item.selected ? Colors.black : Colors.white
                                       }} numberOfLines={1}>
                                         {item?.data_name}
                                       </Text>
@@ -1081,28 +1095,18 @@ const Home = () => {
                               </FlatList>
                             </View>
                           </Collapsible>
-                          {/* <View style={{
+                          <View style={{
                             width: '100%',
                             flexDirection: 'row',
                             alignItems: "center",
                             justifyContent: "flex-end",
-                            // paddingHorizontal: 10
                           }}>
 
                             <TouchableOpacity
                               onPress={async () => {
-                                await dispatch(getPoperties({
-                                  type: 3, data: {
-                                    UserId: user_ID,
-                                    data_custom_taxonomy: "more_filter_data",
-                                    data_customvalue: item.data_customvalue,
-                                  },
-                                })).then((res) => {
-                                  setHomeData(res.payload.data);
-                                });
-                              }
+                                setFilterModalVisible(false)
 
-                              }
+                              }}
                               style={{
                                 height: 50,
                                 width: '40%',
@@ -1125,7 +1129,7 @@ const Home = () => {
                               </Text>
                             </TouchableOpacity>
 
-                          </View> */}
+                          </View>
                         </View>
                       </View>
 
