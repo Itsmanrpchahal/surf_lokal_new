@@ -221,7 +221,7 @@ export default function Login({ navigation }) {
         let data = {
           username: emailId,
           password: password,
-          device_type: Platform.OS,
+          device_type: Platform.OS === 'android' ? 1 : 2,
           device_token: fcmtoken
         };
         setLoading(true);
