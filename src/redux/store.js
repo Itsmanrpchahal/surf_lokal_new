@@ -28,6 +28,8 @@ import getMoreFilter from '../modules/getMoreFilter'
 import schoolChatReducer from '../modules/schoolChat';
 import filterSearch from '../modules/filterSearch';
 import clearFilter from '../modules/clearFilter';
+// import getBookTour from '../modules/getBookTour';
+import getBookTour from '../modules/getBookTour';
 export const store = configureStore({
   reducer: {
     loginUser: loginUserReducer,
@@ -36,6 +38,7 @@ export const store = configureStore({
     getFavoriteProperties: getFavoritePropertiesReducer,
     getTrash: getTrashReducer,
     getProfile: getProfileReducer,
+    getBookTour:getBookTour,
     postRating: postRatingReducer,
     postUpdateRating: postUpdateRatingReducer,
     getPopertiesDetails: getPopertiesDetailsReducer,

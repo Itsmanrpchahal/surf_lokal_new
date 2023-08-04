@@ -253,8 +253,8 @@ const Settings = props => {
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{ color: Colors.placeholderTextColor, flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
-            placeholderTextColor={Colors.placeholderTextColor}
+            style={{ color: Colors.black, flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
+            placeholderTextColor={Colors.black}
             fontSize={14}
             value={userName}
             keyboardType="default"
@@ -280,9 +280,9 @@ const Settings = props => {
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{ color: Colors.placeholderTextColor, flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
+            style={{ color:'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
 
-            placeholderTextColor={Colors.textColorLight}
+            placeholderTextColor={Colors.black}
             value={detials[0]?.user_email}
             keyboardType="default"
             returnKeyType="done"
@@ -307,7 +307,7 @@ const Settings = props => {
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{ color: Colors.placeholderTextColor, flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
+            style={{ color: 'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
 
             placeholderTextColor={Colors.textColorLight}
             value={address}
@@ -333,9 +333,9 @@ const Settings = props => {
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{ color: Colors.placeholderTextColor, flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
+            style={{ color:'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
 
-            placeholderTextColor={Colors.textColorLight}
+            placeholderTextColor={'black'}
             value={mob}
             keyboardType="default"
             returnKeyType="done"
