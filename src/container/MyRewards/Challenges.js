@@ -8,40 +8,48 @@ import {
   ScrollView,
   TouchableOpacity
 } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Colors from '../../utils/Colors';
 import { useNavigation } from '@react-navigation/native';
 import Images from '../../utils/Images';
 import * as Animatable from 'react-native-animatable';
+import { useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
+import { getRewardListing } from '../../modules/getRewardListing';
+import { useIsFocused } from '@react-navigation/native';
+import { likeDisLike } from '../../modules/likeDislike';
+
 const Challenges = () => {
   const [isImageChanged, setIsImageChanged] = useState(false);
   const [isImage, setIsImage] = useState(false);
+  const [question, setQuestion] = useState([])
+  const [index, setindex] = useState(0)
+  const [postid, setPostid] = useState()
+  const [points, setPoints] = useState()
   const navigation = useNavigation();
+  const [user_ID, setUser_ID] = useState();
 
 
-  const handleImagePress = () => {
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
-    setIsImageChanged(true);
-    setIsImage(false)
+  useEffect(() => {
+    if (isFocused) {
+      Promise.all[
+        getRewardsChallengeApicall(),
+        getID()
+      ];
+    }
+  }, [isFocused]);
 
-
-
-    // Reset the image after 2 seconds
-    // setTimeout(() => {
-    //   setIsImageChanged(false);
-    // }, 1500);
+  const getID = async () => {
+    const id = await AsyncStorage.getItem('userId');
+    setUser_ID(id);
   };
-
-  const handleFavPress = () => {
-
-
-    setIsImage(true)
-    setIsImageChanged(false);
-
-    // Reset the image after 2 seconds
-    // setTimeout(() => {
-    //   setIsImage(false)
-    // }, 1500);
+  const getRewardsChallengeApicall = () => {
+    dispatch(getRewardListing()).then(response => {
+      setQuestion(response.payload.data)
+    });
   };
 
   return (
@@ -53,8 +61,6 @@ const Challenges = () => {
           justifyContent: 'center',
           width: '100%',
           marginLeft: 0,
-
-          // marginBottom: 4
         }}>
         <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}></Text>
         <View
@@ -102,10 +108,24 @@ const Challenges = () => {
       </View>
       <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', color: Colors.black, height: "100%", paddingBottom: 30 }}>
         <Text style={{ fontSize: 20, color: Colors.black, fontFamily: 'Poppins-Medium', color: Colors.black }}>Challenges</Text>
-        <Text style={{ fontSize: 16, fontWeight: '500', marginTop: 20, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Q. DO you need health insurance? (1)</Text>
+        <Text style={{ fontSize: 16, fontWeight: '500', marginTop: 20, color: Colors.black, fontFamily: 'Poppins-Regular' }}>{"Q."}{index + 1}{" : "}{question[index]?.post_title}</Text>
 
         <View style={{ flexDirection: "row", justifyContent: 'space-evenly', alignItems: 'center', alignContent: 'center', paddingHorizontal: 130 }} >
-          <TouchableOpacity onPress={handleImagePress}
+          <TouchableOpacity onPress={() => {
+            setIsImageChanged(true);
+            setIsImage(false)
+            const payload = {
+              user_id: user_ID,
+              title: question[index].post_title,
+              post_id: question[index].ID,
+              points: question[index].points
+            }
+            console.log("payload handleDislie Press", payload)
+            dispatch(likeDisLike(payload)).then(response => {
+              console.log(response)
+            });
+          }
+          }
             activeOpacity={0.8}
             style={{
               width: '100%',
@@ -115,7 +135,20 @@ const Challenges = () => {
               source={isImageChanged ? Images.redlike : Images.deletethumb}
               style={{ height: 50, width: 50, resizeMode: 'contain' }} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleFavPress}
+          <TouchableOpacity onPress={() => {
+            setIsImage(true)
+            setIsImageChanged(false)
+            const payload = {
+              user_id: user_ID,
+              title: question[index].post_title,
+              post_id: question[index].ID,
+              points: question[index].points
+            }
+            console.log("payload handleFavPress", payload)
+            dispatch(likeDisLike(payload)).then(response => {
+              console.log(response)
+            });
+          }}
             activeOpacity={0.8}
             style={{
               width: '100%',
@@ -129,6 +162,22 @@ const Challenges = () => {
             </View>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            setindex(index + 1)
+            setIsImage(false)
+            setIsImageChanged(false);
+          }} style={[styles.rew]}>
+          <Text style={[styles.text, { color: Colors.white, fontFamily: 'Poppins-Regular', fontSize: 14 }]}> Skip </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setindex(index - 1)
+          }}
+          style={[styles.rew,]}
+        >
+          <Text style={[styles.text, { color: Colors.white, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>Back </Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   )
@@ -210,6 +259,19 @@ const styles = StyleSheet.create({
   //fliter
   filter: {
     height: 60,
+  },
+  rew: {
+    height: 45,
+    // width: 130,
+    borderRadius: 17,
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    marginTop: 18,
+    // marginRight: '10%',
+    backgroundColor: Colors.primaryBlue,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 8
   },
 });
 export default Challenges
