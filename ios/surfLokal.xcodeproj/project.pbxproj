@@ -9,17 +9,17 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* surfLokalCRMTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* surfLokalCRMTests.m */; };
 		05354C0F50A24A919F6B04C7 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 67877FD6FD0D45E6BCB6D5D1 /* Poppins-ExtraLightItalic.ttf */; };
-		0C80B921A6F3F58F76C31292 /* libPods-surfLokalCRM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-surfLokalCRM.a */; };
 		0E4234CED4CD4C38B0330153 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D4D0801DB9044969DE13713 /* Poppins-ExtraBold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		181D7754860441D384D5A0EC /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C419F5D43044D7480828CB0 /* Poppins-Light.ttf */; };
+		2300A1E7176904A4E4CE1A6C /* libPods-surfLokal-surfLokalTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0806D20C6AB1683301CBFD93 /* libPods-surfLokal-surfLokalTests.a */; };
 		27C1AA40A8CA40DB9E9C1080 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A1A1E0365DF40CD9D04B120 /* Poppins-Medium.ttf */; };
 		2E6279E8D6A54EE389C86B85 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9E0C6EA90F34F0EB39816DE /* Poppins-SemiBold.ttf */; };
 		31CE8CA9F1644A56804D98A5 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA9671698E264E1EBCA640CB /* Poppins-ThinItalic.ttf */; };
+		4133F5D9A119B7A5E63EE380 /* libPods-surfLokal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FFA8331BE3D0F1B080D7BCF /* libPods-surfLokal.a */; };
 		51393FEF77A24DDA9C3FCB9A /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37D66FB07224A0095CCBC12 /* Poppins-BlackItalic.ttf */; };
-		7699B88040F8A987B510C191 /* libPods-surfLokalCRM-surfLokalCRMTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-surfLokalCRM-surfLokalCRMTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		85BEF810D01348BBABC8C457 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C397FBF73A564269B1BEBFD1 /* Poppins-Regular.ttf */; };
 		8BD08B32F468414294567C08 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8ECA9227E5224E9BBF6BE9CD /* Poppins-MediumItalic.ttf */; };
@@ -46,32 +46,34 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* surfLokalCRMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = surfLokalCRMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* surfLokalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = surfLokalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* surfLokalCRMTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = surfLokalCRMTests.m; sourceTree = "<group>"; };
+		0806D20C6AB1683301CBFD93 /* libPods-surfLokal-surfLokalTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-surfLokal-surfLokalTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0831768CDD044035AEDA8C42 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		0E4F738DDE1E4DC4AB01AC7D /* Poppins-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Italic.ttf"; path = "../src/assets/fonts/Poppins-Italic.ttf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* surfLokalCRM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = surfLokalCRM.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* surfLokal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = surfLokal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = surfLokalCRM/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = surfLokalCRM/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = surfLokalCRM/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = surfLokalCRM/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = surfLokalCRM/main.m; sourceTree = "<group>"; };
 		152261B24144433DA9ECCB30 /* Poppins-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Black.ttf"; path = "../src/assets/fonts/Poppins-Black.ttf"; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-surfLokalCRM-surfLokalCRMTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-surfLokalCRM-surfLokalCRMTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		25038C294F6CD431A133AF50 /* Pods-surfLokal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-surfLokal.debug.xcconfig"; path = "Target Support Files/Pods-surfLokal/Pods-surfLokal.debug.xcconfig"; sourceTree = "<group>"; };
 		3A1A1E0365DF40CD9D04B120 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../src/assets/fonts/Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-surfLokalCRM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-surfLokalCRM.debug.xcconfig"; path = "Target Support Files/Pods-surfLokalCRM/Pods-surfLokalCRM.debug.xcconfig"; sourceTree = "<group>"; };
+		3FFA8331BE3D0F1B080D7BCF /* libPods-surfLokal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-surfLokal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		407D8E4F99A942BDB7777776 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Thin.ttf"; path = "../src/assets/fonts/Poppins-Thin.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-surfLokalCRM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-surfLokalCRM.release.xcconfig"; path = "Target Support Files/Pods-surfLokalCRM/Pods-surfLokalCRM.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-surfLokalCRM-surfLokalCRMTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-surfLokalCRM-surfLokalCRMTests.debug.xcconfig"; path = "Target Support Files/Pods-surfLokalCRM-surfLokalCRMTests/Pods-surfLokalCRM-surfLokalCRMTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5C419F5D43044D7480828CB0 /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../src/assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-surfLokalCRM.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-surfLokalCRM.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64EA13F9615446FBB52FCF63 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-LightItalic.ttf"; path = "../src/assets/fonts/Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
 		67877FD6FD0D45E6BCB6D5D1 /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraLightItalic.ttf"; path = "../src/assets/fonts/Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = surfLokalCRM/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-surfLokalCRM-surfLokalCRMTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-surfLokalCRM-surfLokalCRMTests.release.xcconfig"; path = "Target Support Files/Pods-surfLokalCRM-surfLokalCRMTests/Pods-surfLokalCRM-surfLokalCRMTests.release.xcconfig"; sourceTree = "<group>"; };
 		8E7E02A8270D43EB9C319D71 /* Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraBoldItalic.ttf"; path = "../src/assets/fonts/Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		8ECA9227E5224E9BBF6BE9CD /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-MediumItalic.ttf"; path = "../src/assets/fonts/Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
+		8F564087836D7FA3F3514A91 /* Pods-surfLokal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-surfLokal.release.xcconfig"; path = "Target Support Files/Pods-surfLokal/Pods-surfLokal.release.xcconfig"; sourceTree = "<group>"; };
 		917BE09A29EFB4EB00E649C2 /* surfLokalCRM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = surfLokalCRM.entitlements; path = surfLokalCRM/surfLokalCRM.entitlements; sourceTree = "<group>"; };
 		9D4D0801DB9044969DE13713 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraBold.ttf"; path = "../src/assets/fonts/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
 		AB9FFA80C5E040528F6CEBE1 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-BoldItalic.ttf"; path = "../src/assets/fonts/Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -80,6 +82,8 @@
 		C9E0C6EA90F34F0EB39816DE /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../src/assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		CA9671698E264E1EBCA640CB /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ThinItalic.ttf"; path = "../src/assets/fonts/Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
 		D7B27D632A7A6B15003893E9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D805B0DC30F1505129425D41 /* Pods-surfLokal-surfLokalTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-surfLokal-surfLokalTests.debug.xcconfig"; path = "Target Support Files/Pods-surfLokal-surfLokalTests/Pods-surfLokal-surfLokalTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EBE753ED6F76A9F43F00E9F2 /* Pods-surfLokal-surfLokalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-surfLokal-surfLokalTests.release.xcconfig"; path = "Target Support Files/Pods-surfLokal-surfLokalTests/Pods-surfLokal-surfLokalTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F2DA8259126F466391FDEEE7 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBoldItalic.ttf"; path = "../src/assets/fonts/Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		F6C7BF1E23A547689A31713E /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraLight.ttf"; path = "../src/assets/fonts/Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -90,7 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-surfLokalCRM-surfLokalCRMTests.a in Frameworks */,
+				2300A1E7176904A4E4CE1A6C /* libPods-surfLokal-surfLokalTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-surfLokalCRM.a in Frameworks */,
+				4133F5D9A119B7A5E63EE380 /* libPods-surfLokal.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,7 +151,7 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* surfLokalCRM */ = {
+		13B07FAE1A68108700A75B9A /* surfLokal */ = {
 			isa = PBXGroup;
 			children = (
 				D7B27D632A7A6B15003893E9 /* GoogleService-Info.plist */,
@@ -159,15 +163,15 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = surfLokalCRM;
+			name = surfLokal;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-surfLokalCRM.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-surfLokalCRM-surfLokalCRMTests.a */,
+				3FFA8331BE3D0F1B080D7BCF /* libPods-surfLokal.a */,
+				0806D20C6AB1683301CBFD93 /* libPods-surfLokal-surfLokalTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -182,7 +186,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* surfLokalCRM */,
+				13B07FAE1A68108700A75B9A /* surfLokal */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* surfLokalCRMTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -198,8 +202,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* surfLokalCRM.app */,
-				00E356EE1AD99517003FC87E /* surfLokalCRMTests.xctest */,
+				13B07F961A680F5B00A75B9A /* surfLokal.app */,
+				00E356EE1AD99517003FC87E /* surfLokalTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -211,6 +215,10 @@
 				5709B34CF0A7D63546082F79 /* Pods-surfLokalCRM.release.xcconfig */,
 				5B7EB9410499542E8C5724F5 /* Pods-surfLokalCRM-surfLokalCRMTests.debug.xcconfig */,
 				89C6BE57DB24E9ADA2F236DE /* Pods-surfLokalCRM-surfLokalCRMTests.release.xcconfig */,
+				25038C294F6CD431A133AF50 /* Pods-surfLokal.debug.xcconfig */,
+				8F564087836D7FA3F3514A91 /* Pods-surfLokal.release.xcconfig */,
+				D805B0DC30F1505129425D41 /* Pods-surfLokal-surfLokalTests.debug.xcconfig */,
+				EBE753ED6F76A9F43F00E9F2 /* Pods-surfLokal-surfLokalTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -218,9 +226,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* surfLokalCRMTests */ = {
+		00E356ED1AD99517003FC87E /* surfLokalTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "surfLokalCRMTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "surfLokalTests" */;
 			buildPhases = (
 				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -233,14 +241,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = surfLokalCRMTests;
+			name = surfLokalTests;
 			productName = surfLokalCRMTests;
-			productReference = 00E356EE1AD99517003FC87E /* surfLokalCRMTests.xctest */;
+			productReference = 00E356EE1AD99517003FC87E /* surfLokalTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* surfLokalCRM */ = {
+		13B07F861A680F5B00A75B9A /* surfLokal */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "surfLokalCRM" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "surfLokal" */;
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -255,9 +263,9 @@
 			);
 			dependencies = (
 			);
-			name = surfLokalCRM;
+			name = surfLokal;
 			productName = surfLokalCRM;
-			productReference = 13B07F961A680F5B00A75B9A /* surfLokalCRM.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* surfLokal.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -277,7 +285,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "surfLokalCRM" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "surfLokal" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -290,8 +298,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* surfLokalCRM */,
-				00E356ED1AD99517003FC87E /* surfLokalCRMTests */,
+				13B07F861A680F5B00A75B9A /* surfLokal */,
+				00E356ED1AD99517003FC87E /* surfLokalTests */,
 			);
 		};
 /* End PBXProject section */
@@ -379,7 +387,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-surfLokalCRM-surfLokalCRMTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-surfLokal-surfLokalTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -401,7 +409,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-surfLokalCRM-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-surfLokal-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -414,15 +422,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-surfLokalCRM/Pods-surfLokalCRM-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-surfLokal/Pods-surfLokal-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-surfLokalCRM/Pods-surfLokalCRM-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-surfLokal/Pods-surfLokal-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-surfLokalCRM/Pods-surfLokalCRM-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-surfLokal/Pods-surfLokal-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
@@ -431,15 +439,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-surfLokalCRM-surfLokalCRMTests/Pods-surfLokalCRM-surfLokalCRMTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-surfLokal-surfLokalTests/Pods-surfLokal-surfLokalTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-surfLokalCRM-surfLokalCRMTests/Pods-surfLokalCRM-surfLokalCRMTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-surfLokal-surfLokalTests/Pods-surfLokal-surfLokalTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-surfLokalCRM-surfLokalCRMTests/Pods-surfLokalCRM-surfLokalCRMTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-surfLokal-surfLokalTests/Pods-surfLokal-surfLokalTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -486,7 +494,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* surfLokalCRM */;
+			target = 13B07F861A680F5B00A75B9A /* surfLokal */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -494,7 +502,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-surfLokalCRM-surfLokalCRMTests.debug.xcconfig */;
+			baseConfigurationReference = D805B0DC30F1505129425D41 /* Pods-surfLokal-surfLokalTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -515,13 +523,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/surfLokalCRM.app/surfLokalCRM";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/surfLokal.app/surfLokal";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-surfLokalCRM-surfLokalCRMTests.release.xcconfig */;
+			baseConfigurationReference = EBE753ED6F76A9F43F00E9F2 /* Pods-surfLokal-surfLokalTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -539,13 +547,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/surfLokalCRM.app/surfLokalCRM";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/surfLokal.app/surfLokal";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-surfLokalCRM.debug.xcconfig */;
+			baseConfigurationReference = 25038C294F6CD431A133AF50 /* Pods-surfLokal.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -556,6 +564,8 @@
 				DEVELOPMENT_TEAM = XRTYC56LWN;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = surfLokalCRM/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "surf lokal";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -567,17 +577,21 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = surf.lokal;
-				PRODUCT_NAME = surfLokalCRM;
+				PRODUCT_NAME = surfLokal;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-surfLokalCRM.release.xcconfig */;
+			baseConfigurationReference = 8F564087836D7FA3F3514A91 /* Pods-surfLokal.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -587,6 +601,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XRTYC56LWN;
 				INFOPLIST_FILE = surfLokalCRM/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "surf lokal";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -598,9 +614,13 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = surf.lokal;
-				PRODUCT_NAME = surfLokalCRM;
+				PRODUCT_NAME = surfLokal;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -745,7 +765,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "surfLokalCRMTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "surfLokalTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -754,7 +774,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "surfLokalCRM" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "surfLokal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -763,7 +783,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "surfLokalCRM" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "surfLokal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
