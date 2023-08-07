@@ -29,7 +29,8 @@ import schoolChatReducer from '../modules/schoolChat';
 import filterSearch from '../modules/filterSearch';
 import clearFilter from '../modules/clearFilter';
 // import getBookTour from '../modules/getBookTour';
-import getBookTour from '../modules/getBookTour';
+import getRewardListing from '../modules/getRewardListing';
+import  likeDisLike  from '../modules/likeDislike';
 import getLeaderboard from '../modules/getLeaderboard';
 export const store = configureStore({
   reducer: {
@@ -39,7 +40,6 @@ export const store = configureStore({
     getFavoriteProperties: getFavoritePropertiesReducer,
     getTrash: getTrashReducer,
     getProfile: getProfileReducer,
-    getBookTour:getBookTour,
     postRating: postRatingReducer,
     postUpdateRating: postUpdateRatingReducer,
     getPopertiesDetails: getPopertiesDetailsReducer,
@@ -63,6 +63,8 @@ export const store = configureStore({
     getMoreFilter:getMoreFilter,
     filterSearch:filterSearch,
     clearFilter:clearFilter,
+    getRewardListing:getRewardListing,
+    likeDisLike:likeDisLike,
     getLeaderboard:getLeaderboard
   },
   middleware: getDefaultMiddleware =>
