@@ -1,11 +1,30 @@
 import { View, Text,Image,SafeAreaView,ScrollView,TouchableOpacity, } from 'react-native'
-import React from 'react'
+import React,{useEffect} from 'react'
 import Colors from '../../utils/Colors'
 import Images from '../../utils/Images'
+import { useSelector, useDispatch } from 'react-redux';
+
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
+import {getLeaderboard} from '../../modules/getLeaderboard';
 const Leaderboard = () => {
+
+
+  useEffect(() => {
+    getLeaderboardApicall()
+  }, [])
+  
+
     const navigation = useNavigation();
+
+const dispatch = useDispatch();
+
+const getLeaderboardApicall =()=>{
+  dispatch(getLeaderboard()).then((response)=>{
+    console.log('getLeaderboard===>',response)
+  })
+}
+
   return (
  <SafeAreaView>
      <View

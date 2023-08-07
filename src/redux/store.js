@@ -31,6 +31,7 @@ import clearFilter from '../modules/clearFilter';
 // import getBookTour from '../modules/getBookTour';
 import getRewardListing from '../modules/getRewardListing';
 import  likeDisLike  from '../modules/likeDislike';
+import getLeaderboard from '../modules/getLeaderboard';
 export const store = configureStore({
   reducer: {
     loginUser: loginUserReducer,
@@ -63,7 +64,8 @@ export const store = configureStore({
     filterSearch:filterSearch,
     clearFilter:clearFilter,
     getRewardListing:getRewardListing,
-    likeDisLike:likeDisLike
+    likeDisLike:likeDisLike,
+    getLeaderboard:getLeaderboard
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
