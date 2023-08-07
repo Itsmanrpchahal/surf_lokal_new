@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/dev/Documents/GitHub/surf_lokal_new/ios/surfLokal.xcodeproj">
+      location = "group:surfLokal.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

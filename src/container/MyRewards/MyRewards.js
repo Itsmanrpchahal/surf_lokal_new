@@ -149,7 +149,7 @@ const App = () => {
 
         </View>
         <Text style={{ fontSize: 18, fontFamily: Fonts.regular, textAlign: 'center', color: "black", marginVertical: 0 }}>Your Rebate </Text>
-        <Text style={{ fontSize: 25, fontFamily: Fonts.bold, textAlign: 'center', color: "black", marginVertical: 0 }}>$960.00</Text>
+        <Text style={{ fontSize: 25, fontFamily: Fonts.bold, textAlign: 'center', color: "black", marginVertical: 0 }}>${meterValue*0.003}</Text>
 
 
 

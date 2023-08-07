@@ -4,21 +4,28 @@ import Colors from "../../utils/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { chat } from "../../modules/chat";
+import { store } from '../../redux/store';
 import { TypingAnimation } from "react-native-typing-animation";
 import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
 import Images from "../../utils/Images";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import AsyncStorage from '@react-native-community/async-storage';
+import {getBookTour} from "../../modules/getBookTour";
 
-const BookaTour = () => {
+const BookaTour = (props) => {
     const navigation = useNavigation();
     const route = useRoute();
     const [message, setMessage] = useState();
+    const[bookData,setBookData] =useState([])
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
     const [res, setRes] = useState([]);
     const [isDatePickerVisible, setDatePickerVisible] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [isTimePickerVisible, setTimePickerVisible] = useState(false);
 
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedTime, setSelectedTime] = useState(new Date());
+    const postid = props.route.params
     useEffect(() => {
         if (route.params?.initialMessage && route.params?.agentReply) {
             const initialMessage = route.params.initialMessage;
@@ -41,30 +48,72 @@ const BookaTour = () => {
         return dateTimeString;
     };
 
-    const handleDateSelection = (event, selectedDate) => {
+
+    useEffect(()=>{
+    },[])
+    const getBookTourAPicall = async () => {
+        const id = await AsyncStorage.getItem('userId');
+        // const formData =new FormData ();
+        // formData.append("propid",postid.post_id)
+        // formData.append('schedule_hour',selectedTime)
+        // formData.append('schedule_day',selectedDate)
+        // formData.append('user_mobile', store.getState().loginUser.loginData.metadata.mobile[0])
+        // console.log('forndata',JSON.stringify(store.getState().loginUser.loginData.metadata.mobile[0]))
+      const formData  ={
+        user_id:id,
+        propid:postid.post_id,
+        schedule_hour:selectedTime,
+        schedule_day:selectedDate,
+        user_mobile:  store.getState().loginUser.loginData.metadata.mobile[0]
+      }
+        // console.log('logodata',formData)
+        dispatch(getBookTour(formData)).then((response) => {
+            console.log("getBookTour response ",response)
+          });
+       
+    //     dispatch(getBookTour(formData)).then(response => {
+    //       setBookData(response);
+    // console.log('booktour',response)
+    
+    //     });
+      }
+    const handleDateSelection = async (event, selectedDate) => {
         const currentDate = selectedDate || new Date();
         setSelectedDate(currentDate);
+       
         setDatePickerVisible(false);
-        console.log('jfhjfjfj', selectedDate)
-        setMessage(""); // Clear the text input
+        // console.log('jfhjfjfj', selectedDate)
+        setMessage(""); 
+        setTimeout(() => {
+           setTimePickerVisible(true)
+        },300)
 
-        // Replace the agent's reply with the selected date
+      
+    };
+
+    const handleTimeSelection = (event, selectedTime) => {
+        const currentDate = selectedTime || new Date();
+        setSelectedTime(currentDate);
+        setTimePickerVisible(false)
+        console.log('jfhjfjfj11', selectedTime)
+        setMessage(""); 
         const updatedRes = res.map((item) => {
             if (item.type === 0) {
                 return {
                     ...item,
-                    message: currentDate.toDateString(),
+                    message: selectedDate.toDateString() +" , "+new Date(selectedTime).getHours() +":"+new Date(selectedTime).getMinutes(),
                 };
             }
             return item;
         });
 
-        // Add the initial reply (type 1) after the user selects the date
         const initialReply = {
             type: 1,
             message: "A Lokal agent will confirm with you within the next 2 hours",
         };
         setRes([...updatedRes, initialReply]);
+      getBookTourAPicall()
+
     };
 
     return (
@@ -339,6 +388,16 @@ const BookaTour = () => {
                     mode="date"
                     display="default"
                     onChange={handleDateSelection}
+                />
+            )}
+            
+            {isTimePickerVisible && (
+                <DateTimePicker
+                    value={selectedTime}
+                    mode="time"
+                    is24Hour={false}
+                    display="default"
+                    onChange={handleTimeSelection}
                 />
             )}
         </View>

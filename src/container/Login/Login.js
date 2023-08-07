@@ -22,6 +22,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import AppButton from '../../components/AppButton';
 import Styles from './Styles';
 import AsyncStorage from '@react-native-community/async-storage';
+import jwt_decode from "jwt-decode";
+
 // For Add Google SignIn
 import {
   GoogleSignin,
@@ -30,10 +32,8 @@ import {
 // Import FBSDK
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
 // Apple
-// import AppleAuth, {
-//   AppleAuthRequestScope,
-//   AppleAuthRequestOperation,
-// } from 'react-native-apple-authentication';
+import { appleAuth ,appleAuthAndroid} from '@invertase/react-native-apple-authentication';
+import CountryPicker, { DARK_THEME } from 'react-native-country-picker-modal'
 import { getCountry } from '../../modules/getCountry';
 import { loginUser } from '../../modules/loginUser';
 import { postRating } from '../../modules/postRating';
@@ -52,11 +52,13 @@ const imageSizeRation = screenHeight / 1000;
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
+  // const [emailId, setEmailId] = useState('');
   const [emailId, setEmailId] = useState('access@wpkraken.io');
+  // const [password, setPassword] = useState('');
   const [password, setPassword] = useState('CherryPicker1!');
   const [phone, setPhone] = useState('1');
-  const [countryName, setCountryName] = useState('United States');
-  const [countryCode, setCountryCode] = useState('1');
+  const [countryName, setCountryName] = useState('');
+  const [countryCode, setCountryCode] = useState('');
   const [profilePic, setProfilePic] = useState('');
   const [withEmail, setWithEmail] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
@@ -86,17 +88,24 @@ export default function Login({ navigation }) {
     //     console.log('Errr to get FCM token1' ,fcmtoken)
     // }
   }
+  useEffect(() => {
+    
+    // onCredentialRevoked returns a function that will remove the event listener. useEffect will call this function when the component unmounts
+    return  Platform.OS === 'ios' &&   appleAuthAndroid.isSupported &&  appleAuth.onCredentialRevoked(async () => {
+      console.warn('If this function executes, User Credentials have been Revoked');
+    });
+  }, []);
 
   useEffect(() => {
     GoogleSignin.configure({
       // Mandatory method to call before calling signIn()
-      scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+      // scopes: ['https://www.googleapis.com/auth/drive.readonly'],
       // Repleace with your webClientId
       // Generated from Firebase console
       iosClientId:
-        '763888395949-acs8edskutfrpsib7r3de0aeijfqohan.apps.googleusercontent.com',
+        '681904798882-imtrbvtauorckhqv4sibieoi51rasda4.apps.googleusercontent.com',
       webClientId:
-        '763888395949-acs8edskutfrpsib7r3de0aeijfqohan.apps.googleusercontent.com',
+        '681904798882-r41s7mipcih0gdmsau2ds4c21pq4p476.apps.googleusercontent.com',
     });
     // getCountryApiCall();
     //getData();
@@ -126,12 +135,15 @@ export default function Login({ navigation }) {
       // );
 
       // await auth().signInWithCredential(credential);
+    const fcmtoken = await messaging().getToken()
+
       var formdata = new FormData();
       formdata.append('email', userInfo.user.email);
       formdata.append('username', userInfo.user.name);
-      formdata.append('google_id', userInfo.user.id);
-      formdata.append('email_token', userInfo.idToken);
-
+      formdata.append('social_id', userInfo.user.id);
+      formdata.append('social_token', userInfo.idToken);
+      formdata.append('device_type',Platform.OS === 'android' ? 1 :2)
+      formdata.append('device_token',fcmtoken)
       setLoading(true);
       dispatch(googleUser(formdata)).then(response => {
 
@@ -157,6 +169,7 @@ export default function Login({ navigation }) {
         // play services not available or outdated
       } else {
         // some other error happened
+        console.log('Error ==> ', error)
       }
     }
   };
@@ -175,19 +188,47 @@ export default function Login({ navigation }) {
     setWithEmail(true);
   };
   const handleAppleLogin = async () => {
-    // try {
-    //   const appleAuthRequestResponse = await AppleAuth.performRequest({
-    //     requestedOperation: AppleAuthRequestOperation.LOGIN,
-    //     requestedScopes: [
-    //       AppleAuthRequestScope.EMAIL,
-    //       AppleAuthRequestScope.FULL_NAME,
-    //     ],
-    //   });
+    // performs login request
+    var formdata = new FormData();
+     const fcmtoken = await messaging().getToken()
+    Platform.OS === 'ios'
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: appleAuth.Operation.LOGIN,
+        // Note: it appears putting FULL_NAME first is important, see issue #293
+        requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
+      });
+     
+          // get current authentication state for user
+      // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
+      const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
+      console.log('credentialState', credentialState)
+  
+      // use credentialState response to ensure the user is authenticated
+      if (credentialState === appleAuth.State.AUTHORIZED) {
+        // user is authenticated
+        console.log('user is authenticated', credentialState)
+        console.log('appleAuthRequestResponse ===> ', appleAuthRequestResponse.identityToken)
+        var decoded = jwt_decode(appleAuthRequestResponse.identityToken);
+        formdata.append('email', decoded.email);
+        formdata.append('username', decoded.email);
+        formdata.append('social_id', decoded.nonce);
+        formdata.append('social_token', appleAuthRequestResponse.identityToken);
+        formdata.append('device_type',Platform.OS === 'android' ? 1 :2)
+        formdata.append('device_token',fcmtoken)
+        console.log('formData ',formdata)
+        dispatch(googleUser(formdata)).then(response => {
+          if (response.payload.success) {
+            setLoading(false);
+  
+            navigation.navigate('AppIntro');
+          } else {
+            setLoading(false);
+            Alert.alert('Alert', response.payload.message);
+          }
+        });
+      }
 
-    //   // handle success
-    // } catch (error) {
-    //   // handle error
-    // }
+  
   };
 
   const handleFacebookLogin = async () => {
@@ -197,7 +238,7 @@ export default function Login({ navigation }) {
         'email',
       ]);
 
-      Alert.alert('Alert', JSON.stringify(result));
+      Alert.alert('Alert-', JSON.stringify(result));
       if (result.isCancelled) {
         throw new Error('User cancelled the login process');
       }
@@ -285,23 +326,41 @@ export default function Login({ navigation }) {
           <View style={Styles.regionUpperView}>
             <View style={Styles.loginContainer}>
               <TouchableOpacity
-                onPress={() => setModalVisible(true)}
+                onPress={() => { setModalVisible(true) }}
                 style={Styles.regionView}>
                 <View style={{ width: '85%' }}>
                   <Text allowFontScaling={false} style={Styles.regionText}>
                     Country/Region
                   </Text>
-                  <Text
-                    allowFontScaling={false}
-                    style={Styles.selectRegionText}>
-                    {countryName}
-                    <Text
+                  <View style={{ flexDirection: 'row',width:"100%",alignItems:"center",justifyContent:"center" }}>
+                    {
+                      <CountryPicker
+                        containerButtonStyle={{width:300,marginLeft:25}}
+                        withFilter={true}
+                        withAlphaFilter={true}
+                        withCallingCode={true}
+                        onSelect={(data) => {
+                          setCountryName(data.name)
+                          setCountryCode(data.cca2)
+                        }}
+                        withModal={true}
+                        onClose={() => { setModalVisible(false) }}
+                        countryCode={countryCode}
+                      />
+                    }
+                    <Text 
                       allowFontScaling={false}
-                      style={Styles.selectRegionText}>
-                      {' '}
-                      ({countryCode})
+                      style={[Styles.selectRegionText,{position:"absolute",left:30,top:8}]}>
+                      {countryName}
+                      <Text
+                        allowFontScaling={false}
+                        style={Styles.selectRegionText}>
+                        {' '}
+                        ({countryCode})
+                      </Text>
                     </Text>
-                  </Text>
+                  </View>
+
                 </View>
                 <View>
                   <Image source={Images.downArrow} style={Styles.arrow}></Image>
@@ -309,7 +368,7 @@ export default function Login({ navigation }) {
               </TouchableOpacity>
               <View style={Styles.phoneInputView}>
                 <TextInput
-                  ref={phoneNumber}
+                  // ref={phoneNumber}
                   style={Styles.inputStyle}
                   placeholderTextColor={Colors.textColorLight}
                   placeholder={'Phone Number'}
@@ -326,69 +385,7 @@ export default function Login({ navigation }) {
                 message and data rates apply.
               </Text>
             </View>
-            <Modal
-              transparent={true}
-              animationType="slide"
-              visible={modalVisible}
-              onRequestClose={toggleModal}>
-              <View
-                style={{
-                  height: '65%',
-                  width: '100%',
-                  alignItems: 'center',
-                  alignContent: 'center',
-                  backgroundColor: Colors.white,
-                  position: 'absolute',
-                  bottom: 0,
-                  borderTopLeftRadius: 20,
-                  borderTopRightRadius: 20,
-                  justifyContent: 'center',
-                  borderWidth: 1,
-                  borderColor: Colors.gray,
-                }}>
-                <View
-                  style={{
-                    height: 60,
-                    width: '90%',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <View
-                    style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginTop: 10,
-                    }}>
-                    <TouchableOpacity
-                      onPress={() => setModalVisible(false)}
-                      style={{
-                        height: 5,
-                        width: 50,
-                        borderRadius: 8,
-                        backgroundColor: Colors.gray,
-                      }}></TouchableOpacity>
-                    <Text
-                      style={{
-                        fontSize: 18,
-                        fontWeight: '700',
-                        color: Colors.black,
-                        marginTop: 10,
-                        fontFamily: 'Poppins-Regular'
-                      }}>
-                      Select Country
-                    </Text>
-                  </View>
-                </View>
 
-                <FlatList
-                  data={countries}
-                  showsVerticalScrollIndicator={false}
-                  keyExtractor={item => item.id}
-                  renderItem={renderItem}
-                />
-              </View>
-            </Modal>
           </View>
         ) : (
           <View style={Styles.regionUpperView}>
@@ -484,13 +481,13 @@ export default function Login({ navigation }) {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={Styles.orView}>
+        {/* <View style={Styles.orView}>
           <View style={Styles.line}></View>
           <Text allowFontScaling={false} style={Styles.orText}>
             Or
           </Text>
           <View style={Styles.line}></View>
-        </View>
+        </View> */}
 
         {!withEmail ? (
           <TouchableOpacity

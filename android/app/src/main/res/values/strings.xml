@@ -2,9 +2,9 @@
     <string name="app_name">surfLokal</string>
 <!--    <string name="facebook_app_id">920469105870549</string>-->
 
-    <string name="facebook_app_id">259040939970013</string>
-    <string name="fb_login_protocol_scheme">fb259040939970013</string>
-    <string name="facebook_client_token">dda25910675df8d59cc12886421d4258</string>
+    <string name="facebook_app_id">1295226981364243</string>
+    <string name="fb_login_protocol_scheme">fb1295226981364243</string>
+    <string name="facebook_client_token">7706ba38d6000b94924be0b2c5a8f7f4</string>
 
 
 </resources>
