@@ -21,7 +21,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 $RNFirebaseAsStaticFramework = true
-target 'surfLokalCRM' do
+target 'surfLokal' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -45,7 +45,7 @@ target 'surfLokalCRM' do
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
-  target 'surfLokalCRMTests' do
+  target 'surfLokalTests' do
     inherit! :complete
     # Pods for testing
   end

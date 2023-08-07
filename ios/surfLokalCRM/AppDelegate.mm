@@ -4,6 +4,19 @@
 #import <Firebase.h>
 @implementation AppDelegate
 
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+
+  BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+    openURL:url
+    sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+    annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
+  ];
+  // Add any custom logic here.
+  return handled;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   self.moduleName = @"surfLokalCRM";
@@ -12,15 +25,10 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
   [[FBSDKApplicationDelegate sharedInstance] application:application
-  didFinishLaunchingWithOptions:launchOptions];
+      didFinishLaunchingWithOptions:launchOptions];
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
-];
-// Add any custom logic here.
-return handled;
-}
+
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
