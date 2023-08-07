@@ -30,6 +30,7 @@ import filterSearch from '../modules/filterSearch';
 import clearFilter from '../modules/clearFilter';
 // import getBookTour from '../modules/getBookTour';
 import getBookTour from '../modules/getBookTour';
+import getLeaderboard from '../modules/getLeaderboard';
 export const store = configureStore({
   reducer: {
     loginUser: loginUserReducer,
@@ -61,7 +62,8 @@ export const store = configureStore({
     addRemoveTrash: addRemoveTrash,
     getMoreFilter:getMoreFilter,
     filterSearch:filterSearch,
-    clearFilter:clearFilter
+    clearFilter:clearFilter,
+    getLeaderboard:getLeaderboard
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

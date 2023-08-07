@@ -204,7 +204,7 @@ const BookaTour = (props) => {
                 renderItem={({ item }) => {
                     return (
                         <View>
-                            <TouchableOpacity
+                            <TouchableOpacity style={{}}
                                 onPress={() => {
                                     if (item.type === 0) {
                                         // Show date picker for agent's reply
@@ -214,16 +214,20 @@ const BookaTour = (props) => {
                             >
                                 <Text
                                     style={{
-                                        padding: 8,
+                                       // padding: 8,
                                         fontSize: 16,
                                         borderRadius: 16,
                                         backgroundColor: item.type === 0 ? Colors.surfblur : Colors.white,
                                         alignSelf: item.type === 0 ? "flex-end" : "flex-start",
+                                     textAlignVertical:item ===0 ?'center': res[1]?.message?.props?.source ? null : 'center',
+                                        alignItems:'center',
+                                        justifyContent:'center',
+                                        alignContent:item.type===0 ? 'center'  : 'center',
                                         maxWidth: "70%",
                                         marginLeft: 8,
                                         marginRight: 8,
-                                        marginTop: 8,
-                                        marginBottom: 4,
+                                        paddingHorizontal:8,
+                                        minHeight:50,
                                         color: item.type === 0 ? Colors.white : Colors.black,
                                     }}
                                 >
@@ -235,7 +239,7 @@ const BookaTour = (props) => {
                                     fontSize: 12,
                                     marginLeft: item.type === 0 ? 8 : 16,
                                     marginRight: item.type === 0 ? 16 : 8,
-                                    marginBottom: 8,
+                                    // marginBottom: 8,
                                     alignSelf: item.type === 0 ? "flex-end" : "flex-start",
                                     color: Colors.gray,
                                 }}
@@ -249,7 +253,7 @@ const BookaTour = (props) => {
 
             <View
                 style={{
-                    bottom: 0,
+                    bottom: 10,
                     position: "absolute",
                     zIndex: 99,
                     left: 0,
@@ -260,15 +264,16 @@ const BookaTour = (props) => {
                 {loading && (
                     <Text
                         style={{
-                            padding: 16,
+                     padding: 16,
                             fontSize: 16,
                             borderRadius: 16,
-                            backgroundColor: Colors.surfblur,
+                          backgroundColor: Colors.surfblur,
+                         
                             alignSelf: "flex-end",
                             maxWidth: "70%",
                             marginLeft: 8,
                             marginRight: 8,
-                            marginTop: 8,
+                            marginTop:0,
                             color: Colors.white,
                         }}
                     >

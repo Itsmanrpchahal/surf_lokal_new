@@ -156,7 +156,7 @@ export default function Login({ navigation }) {
         console.warn('PLAY_SERVICES_NOT_AVAILABLE');
         // play services not available or outdated
       } else {
-        // some other error happened
+        // some other error happened      
         console.log('Error ==> ',error)
       }
     }
