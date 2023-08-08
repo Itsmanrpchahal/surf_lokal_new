@@ -41,7 +41,7 @@ const ChatSearch = () => {
   return (
     <View style={{ height: "100%", position: 'relative', paddingBottom: 100,backgroundColor:'white' }}>
       <View style={{ backgroundColor: Colors.white, height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',borderBottomWidth:1,borderColor:'#c9c9c5' }}>
-      
+      <View style={{flexDirection:'row',justifyContent:'flex-start',alignContent:'center',alignItems:'center'}}>
           <Image
             style={{
               height: 40,
@@ -54,9 +54,8 @@ const ChatSearch = () => {
             source={Images.logo}
           ></Image>
       
-        <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: Colors.black }}>
-          Powered by Cynthia
-        </Text>
+        <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: Colors.black }}> Powered by Cynthia</Text>
+        </View>
 
         <View  style={{flexDirection:'row',justifyContent:'space-around',marginRight:5}}>
         <TouchableOpacity
