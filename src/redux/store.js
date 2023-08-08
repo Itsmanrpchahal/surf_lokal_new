@@ -30,6 +30,8 @@ import filterSearch from '../modules/filterSearch';
 import clearFilter from '../modules/clearFilter';
 // import getBookTour from '../modules/getBookTour';
 import getBookTour from '../modules/getBookTour';
+import  loginPhoneUser  from '../modules/phonelogin';
+import verifyOTP from '../modules/verifyOTP';
 export const store = configureStore({
   reducer: {
     loginUser: loginUserReducer,
@@ -61,7 +63,9 @@ export const store = configureStore({
     addRemoveTrash: addRemoveTrash,
     getMoreFilter:getMoreFilter,
     filterSearch:filterSearch,
-    clearFilter:clearFilter
+    clearFilter:clearFilter,
+    loginPhoneUser:loginPhoneUser,
+    verifyOTP:verifyOTP
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

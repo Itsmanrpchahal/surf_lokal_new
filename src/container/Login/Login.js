@@ -34,13 +34,9 @@ import { LoginManager, AccessToken } from 'react-native-fbsdk';
 // Apple
 import { appleAuth ,appleAuthAndroid} from '@invertase/react-native-apple-authentication';
 import CountryPicker, { DARK_THEME } from 'react-native-country-picker-modal'
-import { getCountry } from '../../modules/getCountry';
 import { loginUser } from '../../modules/loginUser';
-import { postRating } from '../../modules/postRating';
-import { cleanSingle } from 'react-native-image-crop-picker';
-import { googleUser } from '../../modules/googleLogin';
+import  {loginPhoneUser} from '../../modules/phonelogin'
 import { requestUserPermission, NotificationListerner, } from '../../utils/pushnotifications_helper'
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import messaging from '@react-native-firebase/messaging';
 
 const screenHeight = Dimensions.get('window').height;
@@ -56,40 +52,20 @@ export default function Login({ navigation }) {
   const [emailId, setEmailId] = useState('access@wpkraken.io');
   // const [password, setPassword] = useState('');
   const [password, setPassword] = useState('CherryPicker1!');
-  const [phone, setPhone] = useState('1');
+  const [phone, setPhone] = useState('');
   const [countryName, setCountryName] = useState('');
   const [countryCode, setCountryCode] = useState('');
-  const [profilePic, setProfilePic] = useState('');
+  const [cc,setCC] = useState(0)
   const [withEmail, setWithEmail] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const [countries, setCountries] = useState(
-    require('../../assets/images/CountryCodes.json'),
-  );
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     requestUserPermission()
     NotificationListerner()
-
-
   }, []);
-  async function getFCMToken() {
-    // if(!fcmtoken)
-    // {
-    try {
-      const fcmtoken = await messaging().getToken()
-      if (fcmtoken) {
-        console.log('FCMTOken', fcmtoken)
-      }
-    } catch (error) {
-      console.log('Errr to get FCM token')
-    }
-    // }else {
-    //     console.log('Errr to get FCM token1' ,fcmtoken)
-    // }
-  }
+
   useEffect(() => {
-    
     // onCredentialRevoked returns a function that will remove the event listener. useEffect will call this function when the component unmounts
     return  Platform.OS === 'ios' &&   appleAuthAndroid.isSupported &&  appleAuth.onCredentialRevoked(async () => {
       console.warn('If this function executes, User Credentials have been Revoked');
@@ -98,43 +74,20 @@ export default function Login({ navigation }) {
 
   useEffect(() => {
     GoogleSignin.configure({
-      // Mandatory method to call before calling signIn()
-      // scopes: ['https://www.googleapis.com/auth/drive.readonly'],
-      // Repleace with your webClientId
-      // Generated from Firebase console
+     
       iosClientId:
         '681904798882-imtrbvtauorckhqv4sibieoi51rasda4.apps.googleusercontent.com',
       webClientId:
         '681904798882-r41s7mipcih0gdmsau2ds4c21pq4p476.apps.googleusercontent.com',
     });
-    // getCountryApiCall();
-    //getData();
-    //postRatingApiCall();
+   
   }, []);
-
-  const getData = async () => {
-    const id = await AsyncStorage.getItem('userId');
-    if (id !== null) {
-      navigation.navigate('Tabs', { screen: 'Home' });
-    }
-  };
-  const getCountryApiCall = () => {
-    dispatch(getCountry()).then(response => {
-      setCountries(response.payload.data);
-    });
-  };
 
   const googleLogin = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      // const {accessToken, idToken} = await GoogleSignin.signIn();
-      // const credential = auth.GoogleAuthProvider.credential(
-      //   idToken,
-      //   accessToken,
-      // );
-
-      // await auth().signInWithCredential(credential);
+    
     const fcmtoken = await messaging().getToken()
 
       var formdata = new FormData();
@@ -174,17 +127,6 @@ export default function Login({ navigation }) {
     }
   };
   const handleEmailLogin = () => {
-    // email(
-    //   'example@gmail.com',
-    //   'null',
-    //   'null',
-    //   'Email Login',
-    //   'This is an email login without a password.',
-    // )
-    //   .then(() => {
-    //   })
-    //   .catch(error => {
-    //   });
     setWithEmail(true);
   };
   const handleAppleLogin = async () => {
@@ -198,7 +140,7 @@ export default function Login({ navigation }) {
         requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
       });
      
-          // get current authentication state for user
+      // get current authentication state for user
       // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
       const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
       console.log('credentialState', credentialState)
@@ -277,42 +219,36 @@ export default function Login({ navigation }) {
             setLoading(false);
             Alert.alert('Alert', response.payload.message);
           }
+          
         });
       } else {
         setLoading(false);
-        // navigation.navigate('OtpScreen');
+        if(phone)
+        {
+          setLoading(true);
+        var formdata = new FormData();
+        formdata.append('county_code', cc);
+        formdata.append('phone_number', phone);
+        formdata.append('device_type',Platform.OS === 'android' ? 1 :2)
+        formdata.append('device_token',fcmtoken)
+        console.log('formData ',formdata)
+          dispatch(loginPhoneUser(formdata)).then(response => {
+            if (response.payload.success === true) {
+              setLoading(false);
+               navigation.navigate('OtpScreen',{cc:cc,phone:phone});
+            } else {
+              setLoading(false);
+              Alert.alert('Alert', response.payload.message);
+            }
+          });
+
+        } else {
+          alert('Enter Phone number')
+        }
       }
     } else Alert.alert('Alert', 'Enter email and password');
   };
 
-  const toggleModal = () => {
-    setModalVisible(!modalVisible);
-  };
-  const addDataFromPickr = (name, code) => {
-    setCountryName(name);
-    setCountryCode(code);
-    setModalVisible(false);
-  };
-  const renderItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => addDataFromPickr(item.name, item.dial_code)}
-      style={{
-        width: '100%',
-        alignSelf: 'center',
-        justifyContent: 'center',
-        marginTop: 10,
-        borderBottomColor: Colors.primaryBlue,
-        borderBottomWidth: 1,
-        height: 40,
-      }}>
-      <Text style={{ fontSize: 16, color: Colors.black, marginLeft: 10, fontFamily: 'Poppins-Regular' }}>
-        <Text style={{ fontSize: 14, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
-          ({item.dial_code})
-        </Text>{' '}
-        {item.name}
-      </Text>
-    </TouchableOpacity>
-  );
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       <ScrollView style={Styles.container}>
@@ -337,28 +273,21 @@ export default function Login({ navigation }) {
                       <CountryPicker
                         containerButtonStyle={{width:300,marginLeft:25}}
                         withFilter={true}
+                        withCallingCodeButton={true}
+                        withCountryNameButton={true}
                         withAlphaFilter={true}
                         withCallingCode={true}
                         onSelect={(data) => {
                           setCountryName(data.name)
                           setCountryCode(data.cca2)
+                          setCC(data.callingCode[0])
                         }}
                         withModal={true}
                         onClose={() => { setModalVisible(false) }}
                         countryCode={countryCode}
                       />
                     }
-                    <Text 
-                      allowFontScaling={false}
-                      style={[Styles.selectRegionText,{position:"absolute",left:30,top:8}]}>
-                      {countryName}
-                      <Text
-                        allowFontScaling={false}
-                        style={Styles.selectRegionText}>
-                        {' '}
-                        ({countryCode})
-                      </Text>
-                    </Text>
+
                   </View>
 
                 </View>
@@ -376,6 +305,8 @@ export default function Login({ navigation }) {
                   returnKeyType="done"
                   secureTextEntry={false}
                   maxLength={12}
+                  value={phone}
+                  onChangeText={value=>{setPhone(value)}}
                 />
               </View>
             </View>

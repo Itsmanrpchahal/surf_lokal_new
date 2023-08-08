@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   TextInput,
@@ -9,17 +9,26 @@ import {
   Dimensions,
   TouchableOpacity,
   Image,
+  Platform,
 } from 'react-native';
 import Colors from '../../utils/Colors';
 import Images from '../../utils/Images';
+import { verifyOTP } from '../../modules/verifyOTP'
 import AppButton from '../../components/AppButton';
+import { useSelector, useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
+import { loginPhoneUser } from '../../modules/phonelogin'
+import messaging from '@react-native-firebase/messaging';
+
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
-const OtpInput = ({navigation}) => {
+const OtpInput = (props) => {
+  const [loading, setLoading] = useState(false);
+  const { navigation } = props;
   const [otp, setOtp] = useState('');
   const input1 = useRef();
   const input2 = useRef();
@@ -27,7 +36,10 @@ const OtpInput = ({navigation}) => {
   const input4 = useRef();
   const input5 = useRef();
   const input6 = useRef();
-
+  const dispatch = useDispatch();
+  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [userID, setUserID] = useState()
   const handleOtpChange = (value, ref) => {
     setOtp(value);
     if (value.length == 1) {
@@ -42,9 +54,61 @@ const OtpInput = ({navigation}) => {
       input6.current.focus();
     }
   };
-  const verifyOTP = () => {
-    navigation.navigate('AppIntro');
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
+
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(interval);
+        } else {
+          setSeconds(59);
+          setMinutes(minutes - 1);
+        }
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  });
+
+  const resendOTP = () => {
+    setMinutes(1);
+    setSeconds(59);
   };
+  useEffect(() => {
+    getUsrID()
+  }, [])
+
+  const getUsrID = async () => {
+    const id = await AsyncStorage.getItem('userId');
+    setUserID(id)
+  }
+  const verify_OTP = () => {
+    setLoading(true)
+    var formdata = new FormData();
+    formdata.append('user_id', userID);
+    formdata.append('otp', otp);
+    dispatch(verifyOTP(formdata)).then(response => {
+      setLoading(false)
+      // console.log('fkjdui',response)
+      if (response.payload.success) {
+        navigation.navigate('AppIntro');
+      } else {
+        Alert.alert('Alert', response.payload.message);
+      }
+
+    });
+
+    // alert(JSON.stringify(otp))
+    // navigation.navigate('AppIntro');
+  };
+
+  useEffect(() => {
+  }, [])
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -61,7 +125,10 @@ const OtpInput = ({navigation}) => {
             flexDirection: 'row',
             alignContent: 'center',
           }}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() =>{
+            clearTimeout()
+            navigation.goBack()
+          }}>
             <Image
               source={Images.downArrow}
               style={{
@@ -69,7 +136,7 @@ const OtpInput = ({navigation}) => {
                 width: 20,
                 resizeMode: 'contain',
                 tintColor: Colors.black,
-                transform: [{rotate: '90deg'}],
+                transform: [{ rotate: '90deg' }],
               }}></Image>
           </TouchableOpacity>
           <Text
@@ -79,30 +146,30 @@ const OtpInput = ({navigation}) => {
               fontWeight: 'bold',
               textAlign: 'center',
               width: '60%',
-              fontFamily:'Poppins-Regular'
+              fontFamily: 'Poppins-Regular'
             }}>
             Surf Lokal CRM
           </Text>
         </View>
-        <View style={{width: '90%', alignSelf: 'center', marginTop: 100}}>
+        <View style={{ width: '90%', alignSelf: 'center', marginTop: 100 }}>
           <Text
             style={{
               fontSize: 24 * fontSizeRatio,
               color: Colors.black,
               fontWeight: 'bold',
-              fontFamily:'Poppins-Regular'
+              fontFamily: 'Poppins-Regular'
             }}>
-            Enter OTP sent to 8789879879
+            Enter OTP sent to +{props.route.params.cc} {props.route.params.phone}
           </Text>
         </View>
         <TouchableOpacity
-          style={{alignSelf: 'center', width: '90%', marginTop: 5}}>
+          style={{ alignSelf: 'center', width: '90%', marginTop: 5 }} onPress={() => { navigation.goBack() }}>
           <Text
             style={{
               fontSize: 20 * fontSizeRatio,
               fontWeight: '500',
               color: Colors.PrimaryColor,
-              fontFamily:'Poppins-Regular'
+              fontFamily: 'Poppins-Regular'
             }}>
             Change Number
           </Text>
@@ -168,26 +235,65 @@ const OtpInput = ({navigation}) => {
         </View>
 
         <TouchableOpacity
-          style={{alignSelf: 'center', width: '90%', marginTop: 10}}>
-          <Text
+        disabled={seconds > 0 || minutes > 0}
+          style={{ alignSelf: 'center', width: '90%', marginTop: 10 }} onPress={async () => {
+            const fcmtoken = await messaging().getToken()
+            resendOTP()
+            setLoading(true);
+            var formdata = new FormData();
+            formdata.append('county_code', props.route.params.cc);
+            formdata.append('phone_number', props.route.params.phone);
+            formdata.append('device_type', Platform.OS === 'android' ? 1 : 2)
+            formdata.append('device_token', fcmtoken)
+            console.log('formData ', formdata)
+            dispatch(loginPhoneUser(formdata)).then(response => {
+              if (response.payload.success === true) {
+                setLoading(false);
+                alert('Otp sent')
+              } else {
+                setLoading(false);
+                Alert.alert('Alert', response.payload.message);
+              }
+            });
+          }}>
+            <View style={{flexDirection:'row'}}>
+            <Text
             style={{
               fontSize: 20 * fontSizeRatio,
               fontWeight: '500',
               color: Colors.PrimaryColor,
-              fontFamily:'Poppins-Regular'
+              fontFamily: 'Poppins-Regular'
             }}>
-            Resend OTP
+             {seconds > 0 || minutes > 0 ? `Resend OTP again after`:'Resend OTP '}  
+            
           </Text>
+            {
+              seconds > 0 &&  <Text
+              style={{
+                fontSize: 20 * fontSizeRatio,
+                fontWeight: '500',
+                color: Colors.PrimaryColor,
+                fontFamily: 'Poppins-Regular',
+                marginLeft:10
+              }}>
+              {minutes}:{seconds}
+              
+            </Text>
+            }
+           
+            </View>
+         
         </TouchableOpacity>
         <AppButton
-          onPress={() => verifyOTP()}
+          onPress={() => verify_OTP()}
           // onPress={() => go()}
+          loading={loading}
           btnText={'Verify'}
           textStyle={{
             fontSize: 20 * fontSizeRatio,
             fontWeight: '500',
             color: Colors.white,
-            fontFamily:'Poppins-Regular'
+            fontFamily: 'Poppins-Regular'
           }}
           btnStyle={{
             borderRadius: 6,
@@ -213,7 +319,7 @@ const styles = StyleSheet.create({
     width: '14%',
     textAlign: 'center',
     color: Colors.PrimaryColor,
-    fontFamily:'Poppins-Regular'
+    fontFamily: 'Poppins-Regular'
   },
 });
 
