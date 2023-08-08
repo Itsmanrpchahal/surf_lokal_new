@@ -23,7 +23,7 @@ import AppButton from '../../components/AppButton';
 import Styles from './Styles';
 import AsyncStorage from '@react-native-community/async-storage';
 import jwt_decode from "jwt-decode";
-
+import { googleUser } from '../../modules/googleLogin';
 // For Add Google SignIn
 import {
   GoogleSignin,
