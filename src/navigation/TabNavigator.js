@@ -32,7 +32,7 @@ import Notification from '../container/Notification/Notification';
 import Styles from '../container/Rewards/Styles';
 import { store } from '../redux/store';
 import { useIsFocused } from '@react-navigation/native';
-import getUserScore from '../modules/getUserScore';
+
 
 
 const Tab = createBottomTabNavigator();
@@ -48,9 +48,9 @@ const BottomTabNavigator = () => {
   const isFocused = useIsFocused();
   const [data, setdata] = useState()
 
-  useEffect(()=>{
-setdata(store.getState()?.getUserScore?.getUserScoreData?.data?.points)
-  },[store.getState()?.getUserScore?.getUserScoreData?.data])
+  useEffect(() => {
+    setdata(store.getState()?.getUserScore?.getUserScoreData?.data?.points)
+  }, [store.getState()?.getUserScore?.getUserScoreData?.data])
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -61,7 +61,7 @@ setdata(store.getState()?.getUserScore?.getUserScoreData?.data?.points)
         component={MyProfileTab}
         options={{
           tabBarLabel: (
-            <Text style={{ fontSize: 10, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
+            <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
               Profile
             </Text>
           ),
@@ -83,16 +83,14 @@ setdata(store.getState()?.getUserScore?.getUserScoreData?.data?.points)
               <Text style={{
                 fontFamily: 'Poppins-Regular',
                 position: "absolute",
-                fontSize: 30, top: -45,
+                fontSize: 20, top: -35,
                 color: Colors.black,
-                paddingRight:40
 
-
+                marginLeft: 12
               }}
-                allowFontScaling={false}>{'0'}</Text>
-              <Text style={{ fontSize: 10, fontFamily: 'Poppins-Regular', color: isFocused ? Colors.textColorDark : null }} allowFontScaling={false}>
-                Rewards
-              </Text>
+
+                allowFontScaling={false}>{"0"}</Text>
+              <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular', color: isFocused ? Colors.textColorDark : null }} allowFontScaling={false}>  Rewards</Text>
 
             </View>
           ),
@@ -119,7 +117,7 @@ setdata(store.getState()?.getUserScore?.getUserScoreData?.data?.points)
         component={MyFavorites}
         options={{
           tabBarLabel: (
-            <Text style={{ fontSize: 10, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
+            <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
               Favorites
             </Text>
           ),
@@ -134,7 +132,7 @@ setdata(store.getState()?.getUserScore?.getUserScoreData?.data?.points)
         component={ChatSearch}
         options={{
           tabBarLabel: (
-            <Text style={{ fontSize: 10, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
+            <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
               Chat
             </Text>
           ),
@@ -180,7 +178,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
         borderTopWidth: 1,
         alignItems: 'center',
         marginBottom: 8,
-        paddingTop: 10
+        //paddingTop: 10
       }}>
       <View
         style={{
