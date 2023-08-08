@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import {getLeaderboard} from '../../modules/getLeaderboard';
+import { store } from '../../redux/store';
 const Leaderboard = () => {
      const [leaderboarddata, setleaderboarddata] = useState()
 
@@ -38,8 +39,13 @@ const createAbbreviation = (username) => {
   }
 };
 
-
-
+const loggedInUser = {
+  username: store.getState()?.getProfile?.getProfileData?.data[0]?.username,
+  userID : store.getState()?.getProfile?.getProfileData?.data[0]?.UserID,
+  // username:'john doe'
+  
+};
+console.log('loggedInuser===>',loggedInUser)
   return (
  <SafeAreaView>
      <View
@@ -102,8 +108,6 @@ backgroundColor:Colors.darbluec,
       <View style={{justifyContent:"center",alignItems:"center", width: "100%",}}>
         <Image source={Images.searcfrank} style={{ justifyContent:"center",alignItems:"center",height: 50, width: "90%",  marginTop: 2, resizeMode: "contain", marginHorizontal: 6 }} />
       </View>
-    
-
       <View style={{ width: "100%", marginTop: 12 }}>
   <View style={{ flexDirection: "row", marginBottom: 20, marginHorizontal: 14, alignItems: "flex-start" }}>
     <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign: "center" }}>Rank</Text>
@@ -111,15 +115,19 @@ backgroundColor:Colors.darbluec,
     <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign: "center" }}>Surfer</Text>
   </View>
   {sortedLeaderboard && sortedLeaderboard.map((user, index) => (
-    <View key={index} style={{ flexDirection: "row", marginBottom: 20, marginHorizontal: 14, alignItems: "flex-start" }}>
+    <View
+      key={index}
+      style={{
+        flexDirection: "row", marginBottom: 20, marginHorizontal: 14, alignItems: "flex-start" 
+       , backgroundColor: user.username === loggedInUser.username ? 'green' : null
+      }}
+    >
       <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign: "center" }}>{index + 1}</Text>
       <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign: "center" }}>{user.points}</Text>
-      <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign: "center" }}>{createAbbreviation(user.username)}</Text>
-
+      <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: user.username === loggedInUser.username ? Colors.white : Colors.white, fontFamily: 'Poppins-SemiBold', textAlign: "center" }}>{createAbbreviation(user.username)}</Text>
     </View>
   ))}
 </View>
-
         <View style={{justifyContent:"center",alignItems:"flex-end",width:"100%",height:"40%",}}>
         <Text style={{fontSize:14,color:Colors.white,textAlign:"center",fontFamily:"Poppins-Regular",textAlign:"center",width:"100%"}}>We think home buying should be fun! </Text>
         <Text style={{fontSize:14,color:Colors.white,textAlign:"center",fontFamily:"Poppins-Regular",textAlign:"center",width:"100%"}}>Here is where you rank.</Text>
