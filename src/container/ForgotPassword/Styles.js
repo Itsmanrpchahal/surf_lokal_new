@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import Colors from '../../utils/Colors';
 import Fonts from '../../utils/Fonts';
 
@@ -29,14 +29,14 @@ export default StyleSheet.create({
     color: Colors.textColorDark,
     fontWeight: 'bold',
     textAlign: 'center',
-    fontFamily:'Poppins-Regular'
+    fontFamily: 'Poppins-Regular'
   },
   signUpText: {
     fontSize: 24 * fontSizeRatio,
     color: Colors.primaryBlue,
     fontWeight: '400',
     textAlign: 'center',
-    fontFamily:'Poppins-Regular'
+    fontFamily: 'Poppins-Regular'
   },
   loginContainer: {
     height: 160 * viewSizeRatio,
@@ -78,6 +78,7 @@ export default StyleSheet.create({
     height: 80 * viewSizeRatio,
     color: Colors.textColorDark,
     fontSize: 18 * fontSizeRatio,
+    fontFamily: 'Poppins-Regular'
   },
   regionText: {
     color: Colors.textColorLight,

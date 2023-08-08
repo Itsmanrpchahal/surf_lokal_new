@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -15,7 +15,7 @@ import {
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import AppButton from '../../components/AppButton';
 import Styles from './Styles';
 import AppIntroSlider from 'react-native-app-intro-slider';
@@ -63,14 +63,14 @@ const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
 
-export default function AppIntro({navigation}) {
+export default function AppIntro({ navigation }) {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return <Image style={styles.image} source={item.image} />;
   };
   const onDone = () => {
-    navigation.navigate('Tabs', {screen: 'Home'});
+    navigation.navigate('Tabs', { screen: 'Home' });
   };
   return (
     <SafeAreaView
@@ -87,7 +87,7 @@ export default function AppIntro({navigation}) {
 const styles = StyleSheet.create({
   image: {
     width: screenWidth,
-    height: '100%',
-    resizeMode: 'stretch',
+    height: "100%",
+    resizeMode: 'cover',
   },
 });

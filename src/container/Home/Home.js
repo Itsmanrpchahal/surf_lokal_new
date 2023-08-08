@@ -52,7 +52,7 @@ import { getFavoriteProperties } from '../../modules/getFavoriteProperties';
 import { filterSearch } from '../../modules/filterSearch';
 import { getSavedSearch } from '../../modules/getSavedSearch';
 import { clearFilter } from '../../modules/clearFilter';
-import {getUserScore} from '../../modules/getUserScore';
+import { getUserScore } from '../../modules/getUserScore';
 
 
 const { width } = Dimensions.get('screen');
@@ -89,9 +89,9 @@ const Home = () => {
           SearchParameters: adress,
         };
         dispatch(getPoperties({ type: 2, data: payload, lntLng, }))
-        .then((res) => {
-          setHomeData(res.payload.data);
-        });
+          .then((res) => {
+            setHomeData(res.payload.data);
+          });
         setKeyboardStatus('first');
         // setAddres("");
       }
@@ -165,10 +165,10 @@ const Home = () => {
 
 
 
-  const getUserScoreApiCall =  () => {
+  const getUserScoreApiCall = () => {
     dispatch(getUserScore()).then(response => {
-      
-      console.log('getUserScoreApiCallresponse',response.payload.data.points)
+
+      console.log('getUserScoreApiCallresponse', response.payload.data.points)
     });
   };
   useEffect(() => {
@@ -447,7 +447,7 @@ const Home = () => {
             setSelected(index);
             setActivity(false);
             setLoading(true);
-             setAddres("");
+            setAddres("");
             dispatch(getPoperties({
               type: 3, data: {
                 UserId: user_ID,
@@ -1694,7 +1694,7 @@ const Home = () => {
                                               imageSize={18}
                                               startingValue={ratingData[0]?.photo_wuality_rating
                                               }
-                                              ratingBackgroundColor="#c8c7c8"
+                                              //ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
                                               style={styles.rating}
                                               ratingColor={Colors.surfblur}
@@ -1719,7 +1719,7 @@ const Home = () => {
                                               imageSize={18}
                                               startingValue={ratingData[0]?.description_review_stars
                                               }
-                                              ratingBackgroundColor="#c8c7c8"
+                                              // ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
                                               style={styles.rating}
                                               ratingColor={Colors.surfblur}
@@ -1743,7 +1743,7 @@ const Home = () => {
                                               imageSize={18}
                                               startingValue={ratingData[0]?.price_review_stars
                                               }
-                                              ratingBackgroundColor="#c8c7c8"
+                                              //ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
                                               style={styles.rating}
                                               ratingColor={Colors.surfblur}
@@ -1768,7 +1768,7 @@ const Home = () => {
                                               imageSize={18}
                                               startingValue={ratingData[0]?.interest_review_stars
                                               }
-                                              ratingBackgroundColor="#c8c7c8"
+                                              // ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
                                               style={styles.rating}
                                               ratingColor={Colors.surfblur}

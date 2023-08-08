@@ -302,7 +302,7 @@ const Home = () => {
                   <Text style={{ fontSize: 12, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
                     Photos Quality Rating :
                   </Text>
-                  <Rating
+                  {/* <Rating
                     type="custom"
                     ratingCount={5}
                     imageSize={25}
@@ -312,6 +312,17 @@ const Home = () => {
                     style={styles.rating}
                     ratingColor="#ffbe0b"
                   //tintColor="#f1f3f4"
+                  /> */}
+                  <Rating
+                    type="custom"
+                    ratingCount={5}
+                    imageSize={25}
+                    startingValue={rating}
+                    ratingBackgroundColor="#c8c7c8"
+                    onFinishRating={setRating}
+                    style={styles.rating}
+                    ratingColor="#ffbe0b"
+                    borderColor="blue" // Set the border color to blue
                   />
                 </View>
               </View>
@@ -443,8 +454,6 @@ const Home = () => {
 
                 <TouchableOpacity
                   onPress={() => addReview()}
-                  // onPress={() => setModalVisible(false)}
-                  // onPress={Alert.alert("Hyy")}
                   style={{
                     height: 35,
                     width: '45%',
@@ -649,6 +658,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: 'gray',
     marginHorizontal: 5,
+  },
+  rating: {
+    borderColor: 'blue', // Set the border color to blue
+    borderWidth: 2, // Set the border width as needed
+    borderRadius: 5, // Set the border radius as needed
+    // Add other styles if needed
   },
   paginationDotActive: {
     backgroundColor: 'blue',

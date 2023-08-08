@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import Colors from '../../utils/Colors';
 import Fonts from '../../utils/Fonts';
 
@@ -76,7 +76,7 @@ export default StyleSheet.create({
     height: 80 * viewSizeRatio,
     color: Colors.textColorDark,
     fontSize: 18 * fontSizeRatio,
-    fontFamily:'Poppins-Regular'
+    fontFamily: 'Poppins-Regular'
   },
   regionText: {
     color: Colors.textColorLight,
@@ -120,13 +120,13 @@ export default StyleSheet.create({
     marginTop: 20 * viewSizeRatio,
     alignItems: 'center',
     backgroundColor: Colors.white,
-    borderWidth: 1,
-    borderColor: Colors.textColorLight,
+    borderWidth: .7,
+    borderColor: Colors.gray,
     borderRadius: 8,
     alignSelf: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    fontFamily:'Poppins-Regular'
+    fontFamily: 'Poppins-Regular'
   },
 
   socialMediaButtonsText: {
