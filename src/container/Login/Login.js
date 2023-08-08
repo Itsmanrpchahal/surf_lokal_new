@@ -222,7 +222,6 @@ export default function Login({ navigation }) {
           
         });
       } else {
-        setLoading(false);
         if(phone)
         {
           setLoading(true);
@@ -231,9 +230,10 @@ export default function Login({ navigation }) {
         formdata.append('phone_number', phone);
         formdata.append('device_type',Platform.OS === 'android' ? 1 :2)
         formdata.append('device_token',fcmtoken)
-        console.log('formData ',formdata)
-          dispatch(loginPhoneUser(formdata)).then(response => {
-            if (response.payload.success === true) {
+         await dispatch(loginPhoneUser(formdata)).then(response => {
+          console.log('OTP SENT',response?.payload)
+
+            if (response?.payload?.success === true) {
               setLoading(false);
                navigation.navigate('OtpScreen',{cc:cc,phone:phone});
             } else {

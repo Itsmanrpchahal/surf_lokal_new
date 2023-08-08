@@ -1,17 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { postAPI } from '../config/apiMethod';
+import { uploadImageAPI } from '../config/apiMethod';
 // import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
 const BASEURL = "https://www.surflokal.com/"
 export const loginPhoneUser = createAsyncThunk('loginPhoneUser', async dispatch => {
-
-  return await postAPI(
+  return await uploadImageAPI(
     BASEURL + 'webapi/v1/login/send_otp.php',
     dispatch,
   )
     .then(async response => {
       const { data } = response;
-        console.log('loginrespo',data)
       if (data.success) {
         const ids = data.data.ID;
         await AsyncStorage.setItem('userId', ids);
@@ -26,6 +24,7 @@ export const loginPhoneUser = createAsyncThunk('loginPhoneUser', async dispatch 
       }
     })
     .catch(e => {
+        
       if (e.response) {
       } else if (e.request) {
       } else {

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { postAPI } from '../config/apiMethod';
+import { uploadImageAPI } from '../config/apiMethod';
 // import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
 const BASEURL = "https://www.surflokal.com/"
@@ -7,7 +7,7 @@ const BASEURL = "https://www.surflokal.com/"
 export const verifyOTP = createAsyncThunk('verifyOTP', async dispatch => {
     
  
-  return await postAPI(
+  return await uploadImageAPI(
     BASEURL + 'webapi/v1/login/verify_otp.php',
     dispatch,
   )
