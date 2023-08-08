@@ -69,7 +69,7 @@ export const store = configureStore({
     filterSearch:filterSearch,
     clearFilter:clearFilter,
     loginPhoneUser:loginPhoneUser,
-    verifyOTP:verifyOTP
+    verifyOTP:verifyOTP,
     getRewardListing:getRewardListing,
     likeDisLike:likeDisLike,
     getLeaderboard:getLeaderboard,
