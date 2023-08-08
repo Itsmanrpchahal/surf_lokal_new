@@ -61,13 +61,14 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+    fontSize:14
   },
   inputStyle: {
     width: '90%',
     borderRadius: 8,
     height: 80 * viewSizeRatio,
     color: Colors.textColorDark,
-    fontSize: 22 * fontSizeRatio,
+    fontSize: 18 * fontSizeRatio,
     fontFamily: 'Poppins-Regular'
   },
   regionText: {
@@ -77,12 +78,12 @@ export default StyleSheet.create({
   },
   selectRegionText: {
     color: Colors.black,
-    fontSize: 22 * fontSizeRatio,
+    fontSize: 18 * fontSizeRatio,
     fontFamily: 'Poppins-Regular'
   },
   arrow: {
-    height: 20 * imageSizeRatio,
-    width: 20 * imageSizeRatio,
+    height: 18 * imageSizeRatio,
+    width: 18 * imageSizeRatio,
     resizeMode: 'contain',
   },
   alertText: {

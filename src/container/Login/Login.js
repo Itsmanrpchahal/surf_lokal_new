@@ -32,10 +32,10 @@ import {
 // Import FBSDK
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
 // Apple
-import { appleAuth ,appleAuthAndroid} from '@invertase/react-native-apple-authentication';
+import { appleAuth, appleAuthAndroid } from '@invertase/react-native-apple-authentication';
 import CountryPicker, { DARK_THEME } from 'react-native-country-picker-modal'
 import { loginUser } from '../../modules/loginUser';
-import  {loginPhoneUser} from '../../modules/phonelogin'
+import { loginPhoneUser } from '../../modules/phonelogin'
 import { requestUserPermission, NotificationListerner, } from '../../utils/pushnotifications_helper'
 import messaging from '@react-native-firebase/messaging';
 
@@ -55,7 +55,7 @@ export default function Login({ navigation }) {
   const [phone, setPhone] = useState('');
   const [countryName, setCountryName] = useState('');
   const [countryCode, setCountryCode] = useState('');
-  const [cc,setCC] = useState(0)
+  const [cc, setCC] = useState(0)
   const [withEmail, setWithEmail] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -67,36 +67,36 @@ export default function Login({ navigation }) {
 
   useEffect(() => {
     // onCredentialRevoked returns a function that will remove the event listener. useEffect will call this function when the component unmounts
-    return  Platform.OS === 'ios' &&   appleAuthAndroid.isSupported &&  appleAuth.onCredentialRevoked(async () => {
+    return Platform.OS === 'ios' && appleAuthAndroid.isSupported && appleAuth.onCredentialRevoked(async () => {
       console.warn('If this function executes, User Credentials have been Revoked');
     });
   }, []);
 
   useEffect(() => {
     GoogleSignin.configure({
-     
+
       iosClientId:
         '681904798882-imtrbvtauorckhqv4sibieoi51rasda4.apps.googleusercontent.com',
       webClientId:
         '681904798882-r41s7mipcih0gdmsau2ds4c21pq4p476.apps.googleusercontent.com',
     });
-   
+
   }, []);
 
   const googleLogin = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-    
-    const fcmtoken = await messaging().getToken()
+
+      const fcmtoken = await messaging().getToken()
 
       var formdata = new FormData();
       formdata.append('email', userInfo.user.email);
       formdata.append('username', userInfo.user.name);
       formdata.append('social_id', userInfo.user.id);
       formdata.append('social_token', userInfo.idToken);
-      formdata.append('device_type',Platform.OS === 'android' ? 1 :2)
-      formdata.append('device_token',fcmtoken)
+      formdata.append('device_type', Platform.OS === 'android' ? 1 : 2)
+      formdata.append('device_token', fcmtoken)
       setLoading(true);
       dispatch(googleUser(formdata)).then(response => {
 
@@ -132,45 +132,45 @@ export default function Login({ navigation }) {
   const handleAppleLogin = async () => {
     // performs login request
     var formdata = new FormData();
-     const fcmtoken = await messaging().getToken()
+    const fcmtoken = await messaging().getToken()
     Platform.OS === 'ios'
-      const appleAuthRequestResponse = await appleAuth.performRequest({
-        requestedOperation: appleAuth.Operation.LOGIN,
-        // Note: it appears putting FULL_NAME first is important, see issue #293
-        requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
-      });
-     
-      // get current authentication state for user
-      // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
-      const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
-      console.log('credentialState', credentialState)
-  
-      // use credentialState response to ensure the user is authenticated
-      if (credentialState === appleAuth.State.AUTHORIZED) {
-        // user is authenticated
-        console.log('user is authenticated', credentialState)
-        console.log('appleAuthRequestResponse ===> ', appleAuthRequestResponse.identityToken)
-        var decoded = jwt_decode(appleAuthRequestResponse.identityToken);
-        formdata.append('email', decoded.email);
-        formdata.append('username', decoded.email);
-        formdata.append('social_id', decoded.nonce);
-        formdata.append('social_token', appleAuthRequestResponse.identityToken);
-        formdata.append('device_type',Platform.OS === 'android' ? 1 :2)
-        formdata.append('device_token',fcmtoken)
-        console.log('formData ',formdata)
-        dispatch(googleUser(formdata)).then(response => {
-          if (response.payload.success) {
-            setLoading(false);
-  
-            navigation.navigate('AppIntro');
-          } else {
-            setLoading(false);
-            Alert.alert('Alert', response.payload.message);
-          }
-        });
-      }
+    const appleAuthRequestResponse = await appleAuth.performRequest({
+      requestedOperation: appleAuth.Operation.LOGIN,
+      // Note: it appears putting FULL_NAME first is important, see issue #293
+      requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
+    });
 
-  
+    // get current authentication state for user
+    // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
+    const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
+    console.log('credentialState', credentialState)
+
+    // use credentialState response to ensure the user is authenticated
+    if (credentialState === appleAuth.State.AUTHORIZED) {
+      // user is authenticated
+      console.log('user is authenticated', credentialState)
+      console.log('appleAuthRequestResponse ===> ', appleAuthRequestResponse.identityToken)
+      var decoded = jwt_decode(appleAuthRequestResponse.identityToken);
+      formdata.append('email', decoded.email);
+      formdata.append('username', decoded.email);
+      formdata.append('social_id', decoded.nonce);
+      formdata.append('social_token', appleAuthRequestResponse.identityToken);
+      formdata.append('device_type', Platform.OS === 'android' ? 1 : 2)
+      formdata.append('device_token', fcmtoken)
+      console.log('formData ', formdata)
+      dispatch(googleUser(formdata)).then(response => {
+        if (response.payload.success) {
+          setLoading(false);
+
+          navigation.navigate('AppIntro');
+        } else {
+          setLoading(false);
+          Alert.alert('Alert', response.payload.message);
+        }
+      });
+    }
+
+
   };
 
   const handleFacebookLogin = async () => {
@@ -219,23 +219,22 @@ export default function Login({ navigation }) {
             setLoading(false);
             Alert.alert('Alert', response.payload.message);
           }
-          
+
         });
       } else {
-        if(phone)
-        {
+        if (phone) {
           setLoading(true);
-        var formdata = new FormData();
-        formdata.append('county_code', cc);
-        formdata.append('phone_number', phone);
-        formdata.append('device_type',Platform.OS === 'android' ? 1 :2)
-        formdata.append('device_token',fcmtoken)
-         await dispatch(loginPhoneUser(formdata)).then(response => {
-          console.log('OTP SENT',response?.payload)
+          var formdata = new FormData();
+          formdata.append('county_code', cc);
+          formdata.append('phone_number', phone);
+          formdata.append('device_type', Platform.OS === 'android' ? 1 : 2)
+          formdata.append('device_token', fcmtoken)
+          await dispatch(loginPhoneUser(formdata)).then(response => {
+            console.log('OTP SENT', response?.payload)
 
             if (response?.payload?.success === true) {
               setLoading(false);
-               navigation.navigate('OtpScreen',{cc:cc,phone:phone});
+              navigation.navigate('OtpScreen', { cc: cc, phone: phone });
             } else {
               setLoading(false);
               Alert.alert('Alert', response.payload.message);
@@ -252,12 +251,14 @@ export default function Login({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       <ScrollView style={Styles.container}>
-        <View style={Styles.loginView}>
+        <Image source={Images.appLogo} style={Styles.appLogo}></Image>
+
+        {/* <View style={Styles.loginView}>
           <Text style={Styles.loginText}>
             Login or sign up to start surfing
           </Text>
-        </View>
-        <View style={Styles.loginLine}></View>
+        </View> */}
+        {/* <View style={Styles.loginLine}></View> */}
         {!withEmail ? (
           <View style={Styles.regionUpperView}>
             <View style={Styles.loginContainer}>
@@ -268,10 +269,10 @@ export default function Login({ navigation }) {
                   <Text allowFontScaling={false} style={Styles.regionText}>
                     Country/Region
                   </Text>
-                  <View style={{ flexDirection: 'row',width:"100%",alignItems:"center",justifyContent:"center" }}>
+                  <View style={{ flexDirection: 'row', width: "100%", alignItems: "center", justifyContent: "center" }}>
                     {
                       <CountryPicker
-                        containerButtonStyle={{width:300,marginLeft:25}}
+                        containerButtonStyle={{ width: 300, marginLeft: 25, fontSize: 18 }}
                         withFilter={true}
                         withCallingCodeButton={true}
                         withCountryNameButton={true}
@@ -285,6 +286,7 @@ export default function Login({ navigation }) {
                         withModal={true}
                         onClose={() => { setModalVisible(false) }}
                         countryCode={countryCode}
+
                       />
                     }
 
@@ -306,7 +308,7 @@ export default function Login({ navigation }) {
                   secureTextEntry={false}
                   maxLength={12}
                   value={phone}
-                  onChangeText={value=>{setPhone(value)}}
+                  onChangeText={value => { setPhone(value) }}
                 />
               </View>
             </View>
@@ -383,7 +385,6 @@ export default function Login({ navigation }) {
             <Text
               style={{
                 fontSize: 14,
-                fontWeight: '700',
                 color: Colors.primaryBlue,
                 fontFamily: 'Poppins-Regular'
               }}>
@@ -393,9 +394,9 @@ export default function Login({ navigation }) {
           <View style={{ width: '5%', alignItems: 'center' }}>
             <View
               style={{
-                height: 15,
-                backgroundColor: Colors.PrimaryColor,
-                width: 2,
+                height: 12,
+                backgroundColor: Colors.surfblur,
+                width: 1,
               }}></View>
           </View>
 
@@ -404,7 +405,6 @@ export default function Login({ navigation }) {
             <Text
               style={{
                 fontSize: 14,
-                fontWeight: '700',
                 color: Colors.primaryBlue,
                 fontFamily: 'Poppins-Regular'
               }}>
@@ -484,7 +484,6 @@ export default function Login({ navigation }) {
           </Text>
         </TouchableOpacity>
 
-        <Image source={Images.appLogo} style={Styles.appLogo}></Image>
       </ScrollView>
     </SafeAreaView>
   );
