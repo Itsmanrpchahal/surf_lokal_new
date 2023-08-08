@@ -2,7 +2,7 @@ var BaseUrl = '../assets/images/';
 const Images = {
   dummySplash: require(BaseUrl + 'dummySplash.png'),
   layers: require(BaseUrl + 'layer.png'),
-  appLogo: require(BaseUrl + 'appLogo.png'),
+  appLogo: require(BaseUrl + 'surflogo.png'),
   google: require(BaseUrl + 'google.png'),
   downArrow: require(BaseUrl + 'arrowDown.png'),
   apple: require(BaseUrl + 'apple.png'),
@@ -17,6 +17,9 @@ const Images = {
   test: require(BaseUrl + 'test.jpg'),
   test1: require(BaseUrl + 'test1.jpg'),
   test2: require(BaseUrl + 'test2.jpg'),
+  cola: require(BaseUrl + 'cola.png'),
+  logo: require(BaseUrl + 'logo.png'),
+
   // new icons
   address: require(BaseUrl + 'address.png'),
   gps: require(BaseUrl + 'gps.png'),

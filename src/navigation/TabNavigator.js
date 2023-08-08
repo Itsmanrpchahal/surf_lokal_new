@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
@@ -30,7 +30,11 @@ import { ifIphoneX } from 'react-native-iphone-x-helper';
 import ChatSearch from '../container/Chat/ChatSearch';
 import Notification from '../container/Notification/Notification';
 import Styles from '../container/Rewards/Styles';
+import { store } from '../redux/store';
 import { useIsFocused } from '@react-navigation/native';
+import getUserScore from '../modules/getUserScore';
+
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -42,6 +46,11 @@ const imageSizeRatio = screenHeight / 1000;
 
 const BottomTabNavigator = () => {
   const isFocused = useIsFocused();
+  const [data, setdata] = useState()
+
+  useEffect(()=>{
+setdata(store.getState()?.getUserScore?.getUserScoreData?.data?.points)
+  },[store.getState()?.getUserScore?.getUserScoreData?.data])
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -74,8 +83,9 @@ const BottomTabNavigator = () => {
               <Text style={{
                 fontFamily: 'Poppins-Regular',
                 position: "absolute",
-                fontSize: 32, top: -50,
+                fontSize: 30, top: -45,
                 color: Colors.black,
+                paddingRight:40
 
 
               }}
@@ -83,6 +93,7 @@ const BottomTabNavigator = () => {
               <Text style={{ fontSize: 10, fontFamily: 'Poppins-Regular', color: isFocused ? Colors.textColorDark : null }} allowFontScaling={false}>
                 Rewards
               </Text>
+
             </View>
           ),
 

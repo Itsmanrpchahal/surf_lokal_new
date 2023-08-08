@@ -52,6 +52,7 @@ import { getFavoriteProperties } from '../../modules/getFavoriteProperties';
 import { filterSearch } from '../../modules/filterSearch';
 import { getSavedSearch } from '../../modules/getSavedSearch';
 import { clearFilter } from '../../modules/clearFilter';
+import {getUserScore} from '../../modules/getUserScore';
 
 
 const { width } = Dimensions.get('screen');
@@ -162,6 +163,14 @@ const Home = () => {
     setUser_ID(id);
   };
 
+
+
+  const getUserScoreApiCall =  () => {
+    dispatch(getUserScore()).then(response => {
+      
+      console.log('getUserScoreApiCallresponse',response.payload.data.points)
+    });
+  };
   useEffect(() => {
     if (isFocused) {
       Promise.all[
@@ -172,7 +181,8 @@ const Home = () => {
         getSavedApiCall(),
         getMoreFilterApiCall(),
         getPopertiesApiCall({ type: 0, data: '', lntLng, }),
-        setAddres("")
+        setAddres(""),
+        getUserScoreApiCall()
       ];
     }
 
