@@ -4,11 +4,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 import BASEURl from '../services/Api'
 
 
-export const getLeaderboard = createAsyncThunk('getLeaderboard', async () => {
+export const getUserScore = createAsyncThunk('getUserScore', async () => {
   const id = await AsyncStorage.getItem('userId');
 
   return await getAPI(
-    BASEURl + 'webapi/v1/rewards/leaderboard.php',
+    BASEURl + 'webapi/v1/rewards/user_leaderboard.php?user_id=' + id,
   )
     .then(async response => {
       const { data } = response;
@@ -22,24 +22,24 @@ export const getLeaderboard = createAsyncThunk('getLeaderboard', async () => {
     });
 });
 
-const getLeaderboardSlice = createSlice({
-  name: 'getLeaderboard',
+const getUserScoreSlice = createSlice({
+  name: 'getUserScore',
   initialState: {
-    getLeaderboardData: [],
+    getUserScoreData: [],
     status: null,
   },
   extraReducers: {
-    [getLeaderboard.pending]: (state, action) => {
+    [getUserScore.pending]: (state, action) => {
       state.status = 'loading';
     },
-    [getLeaderboard.fulfilled]: (state, action) => {
+    [getUserScore.fulfilled]: (state, action) => {
       state.status = 'success';
-      state.getLeaderboardData = action.payload;
+      state.getUserScoreData = action.payload;
     },
-    [getLeaderboard.rejected]: (state, action) => {
+    [getUserScore.rejected]: (state, action) => {
       state.status = 'failed';
     },
   },
 });
 
-export default getLeaderboardSlice.reducer;
+export default getUserScoreSlice.reducer;
