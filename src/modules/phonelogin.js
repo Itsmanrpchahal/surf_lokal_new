@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { uploadImageAPI } from '../config/apiMethod';
-// import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
 const BASEURL = "https://www.surflokal.com/"
 export const loginPhoneUser = createAsyncThunk('loginPhoneUser', async dispatch => {
