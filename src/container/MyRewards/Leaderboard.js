@@ -119,12 +119,12 @@ backgroundColor:Colors.darbluec,
       key={index}
       style={{
         flexDirection: "row", marginBottom: 20, marginHorizontal: 14, alignItems: "flex-start" 
-       , backgroundColor: user.username === loggedInUser.username ? 'green' : null
+      //  , backgroundColor: user.username === loggedInUser.username ? 'green' : null
       }}
     >
-      <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign: "center" }}>{index + 1}</Text>
-      <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign: "center" }}>{user.points}</Text>
-      <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: user.username === loggedInUser.username ? Colors.white : Colors.white, fontFamily: 'Poppins-SemiBold', textAlign: "center" }}>{createAbbreviation(user.username)}</Text>
+      <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: user.username === loggedInUser.username ? "#2fff05" : Colors.white, fontFamily: 'Poppins-Bold', textAlign: "center" }}>{index + 1}</Text>
+      <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: user.username === loggedInUser.username ? "#2fff05" : Colors.white, fontFamily: 'Poppins-Bold', textAlign: "center" }}>{user.points}</Text>
+      <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: user.username === loggedInUser.username ? "#2fff05" : Colors.white, fontFamily: 'Poppins-Bold', textAlign: "center" }}>{createAbbreviation(user.username)}</Text>
     </View>
   ))}
 </View>
