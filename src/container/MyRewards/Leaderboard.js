@@ -1,11 +1,31 @@
 import { View, Text,Image,SafeAreaView,ScrollView,TouchableOpacity, } from 'react-native'
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import Colors from '../../utils/Colors'
 import Images from '../../utils/Images'
+import { useSelector, useDispatch } from 'react-redux';
+
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
+import {getLeaderboard} from '../../modules/getLeaderboard';
 const Leaderboard = () => {
+     const [leaderboarddata, setleaderboarddata] = useState()
+
+  useEffect(() => {
+    getLeaderboardApicall()
+  }, [])
+  
+
     const navigation = useNavigation();
+
+const dispatch = useDispatch();
+
+const getLeaderboardApicall =()=>{
+  dispatch(getLeaderboard()).then((response)=>{
+    setleaderboarddata(response.payload.data)
+    console.log('getLeaderboard===>',leaderboarddata)
+  })
+}
+
   return (
  <SafeAreaView>
      <View
@@ -74,31 +94,7 @@ backgroundColor:Colors.darbluec,
             <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign:"center" }}>Score</Text>
             <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign:"center" }}>Surfer</Text>
           </View>
-          <View style={{ flexDirection: "row", justifyContent: "center", marginHorizontal: 14, alignItems: "center", marginBottom: 10, }}>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 20, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign:"center"}}>551</Text>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 20, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign:"center" }}>1,050</Text>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 20, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign:"center" }}>S.S</Text>
-          </View>
-          <View style={{ flexDirection: "row", justifyContent: "center", marginHorizontal: 14, alignItems: "center", marginBottom: 10 }}>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 20, color: "#00ff35", fontFamily: 'Poppins-SemiBold', textAlign:"center" }}>551</Text>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 20, color: "#00ff35", fontFamily: 'Poppins-SemiBold', textAlign:"center"  }}>1,050</Text>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 20, color: "#00ff35", fontFamily: 'Poppins-SemiBold', textAlign:"center"  }}>R.G</Text>
-          </View>
-          <View style={{ flexDirection: "row", justifyContent: "center", marginHorizontal: 14, alignItems: "center", marginBottom: 10, }}>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 20, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign:"center"}}>551</Text>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 20, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign:"center" }}>1,050</Text>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 20, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign:"center" }}>S.S</Text>
-          </View>
-          <View style={{ flexDirection: "row", justifyContent: "center", marginHorizontal: 14, alignItems: "center", marginBottom: 10, }}>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 20, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign:"center"}}>551</Text>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 20, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign:"center" }}>1,050</Text>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 20, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign:"center" }}>S.S</Text>
-          </View>
-          <View style={{ flexDirection: "row", justifyContent: "center", marginHorizontal: 14, alignItems: "center", marginBottom: 10, }}>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 20, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign:"center"}}>551</Text>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 20, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign:"center" }}>1,050</Text>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 20, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign:"center" }}>S.S</Text>
-          </View>
+          
         </View>
         <View style={{justifyContent:"center",alignItems:"flex-end",width:"100%",height:"40%",}}>
         <Text style={{fontSize:14,color:Colors.white,textAlign:"center",fontFamily:"Poppins-Regular",textAlign:"center",width:"100%"}}>We think home buying should be fun! </Text>

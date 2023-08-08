@@ -32,6 +32,11 @@ import clearFilter from '../modules/clearFilter';
 import getBookTour from '../modules/getBookTour';
 import  loginPhoneUser  from '../modules/phonelogin';
 import verifyOTP from '../modules/verifyOTP';
+
+import getRewardListing from '../modules/getRewardListing';
+import  likeDisLike  from '../modules/likeDislike';
+import getLeaderboard from '../modules/getLeaderboard';
+import getUserScore from '../modules/getUserScore';
 export const store = configureStore({
   reducer: {
     loginUser: loginUserReducer,
@@ -40,7 +45,6 @@ export const store = configureStore({
     getFavoriteProperties: getFavoritePropertiesReducer,
     getTrash: getTrashReducer,
     getProfile: getProfileReducer,
-    getBookTour:getBookTour,
     postRating: postRatingReducer,
     postUpdateRating: postUpdateRatingReducer,
     getPopertiesDetails: getPopertiesDetailsReducer,
@@ -66,6 +70,10 @@ export const store = configureStore({
     clearFilter:clearFilter,
     loginPhoneUser:loginPhoneUser,
     verifyOTP:verifyOTP
+    getRewardListing:getRewardListing,
+    likeDisLike:likeDisLike,
+    getLeaderboard:getLeaderboard,
+    getUserScore:getUserScore
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
