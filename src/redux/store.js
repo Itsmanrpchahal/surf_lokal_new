@@ -29,6 +29,10 @@ import schoolChatReducer from '../modules/schoolChat';
 import filterSearch from '../modules/filterSearch';
 import clearFilter from '../modules/clearFilter';
 // import getBookTour from '../modules/getBookTour';
+import getBookTour from '../modules/getBookTour';
+import  loginPhoneUser  from '../modules/phonelogin';
+import verifyOTP from '../modules/verifyOTP';
+
 import getRewardListing from '../modules/getRewardListing';
 import  likeDisLike  from '../modules/likeDislike';
 import getLeaderboard from '../modules/getLeaderboard';
@@ -64,6 +68,8 @@ export const store = configureStore({
     getMoreFilter:getMoreFilter,
     filterSearch:filterSearch,
     clearFilter:clearFilter,
+    loginPhoneUser:loginPhoneUser,
+    verifyOTP:verifyOTP
     getRewardListing:getRewardListing,
     likeDisLike:likeDisLike,
     getLeaderboard:getLeaderboard,

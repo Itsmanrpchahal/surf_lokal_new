@@ -17,9 +17,6 @@
       android:allowBackup="false"
       android:theme="@style/AppTheme">
 
-
-
-
         <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
          <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
