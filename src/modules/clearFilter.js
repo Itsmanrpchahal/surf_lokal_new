@@ -4,11 +4,12 @@ import BASEURl from '../services/Api'
 
 export const clearFilter = createAsyncThunk('clearFilter', async dispatch => {
   return await getAPI(
-    BASEURl+'webapi/v1/AppFilter/clearfilter.php?UserId=',
+    BASEURl+'webapi/v1/AppFilter/clearfilter.php?Userid=',
     dispatch,
   )
     .then(async response => {
       const { data } = response;
+      console.log("clearFilter response",response)
       return data;
     })
     .catch(e => {
