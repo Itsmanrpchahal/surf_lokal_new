@@ -39,71 +39,76 @@ const ChatSearch = () => {
     return dateTimeString;
   };
   return (
-    <View style={{ height: "100%", position: 'relative', paddingBottom: 100,backgroundColor:'white' }}>
-      <View style={{ backgroundColor: Colors.white, height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',borderBottomWidth:1,borderColor:'#c9c9c5' }}>
-      <View style={{flexDirection:'row',justifyContent:'flex-start',alignContent:'center',alignItems:'center'}}>
+    <View style={{ height: "100%", position: 'relative', paddingBottom: 100, backgroundColor: 'white' }}>
+      <View style={{ paddingVertical: 10, paddingHorizontal: 12, backgroundColor: Colors.white, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderColor: '#c9c9c5' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center' }}>
           <Image
             style={{
               height: 40,
               width: 40,
               resizeMode: "contain",
               borderRadius: 50,
-              marginLeft:2
+              // marginLeft: 2
               // tintColor: Colors.surfblur,
+              marginRight: 5,
+              borderColor: Colors.primaryBlue,
+              borderWidth: 1,
+
             }}
-            source={Images.logo}
+            source={Images.user}
           ></Image>
-      
-        <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: Colors.black }}> Powered by Cynthia</Text>
+
+          <Text style={{ fontSize: 15, fontFamily: 'Poppins-Medium', color: Colors.black }}> Powered by Cynthia</Text>
         </View>
 
-        <View  style={{flexDirection:'row',justifyContent:'space-around',marginRight:5}}>
-        <TouchableOpacity
-          onPress={() => { setRes([]) }}
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            marginRight: 10,
-          }}
-        >
-          <Image
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginRight: 0 }}>
+          <TouchableOpacity
+            onPress={() => { setRes([]) }}
             style={{
-              height: 25,
-              width: 25,
-              resizeMode: "contain",
-              tintColor: Colors.black,
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              marginRight: 5,
             }}
-            source={Images.reload}
-          ></Image>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Home')}
-          style={{
-        
-            height: 35,
-            width: 35,
-            borderRadius:100,
-            // backgroundColor: Colors.surfblur,
-            alignItems: "center",
-     
-  
-          }}
-        >
-              <Image
+          >
+            <Image
+              style={{
+                height: 25,
+                width: 25,
+                resizeMode: "contain",
+                tintColor: Colors.black,
+              }}
+              source={Images.reload}
+            ></Image>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
             style={{
-              height: 20,
-              width: 20,
-              top:7,
-              resizeMode: "contain",
-              borderRadius: 50,
-              marginLeft:2,
-              tintColor: Colors.black,
+
+              height: 35,
+              width: 35,
+              borderRadius: 100,
+              // backgroundColor: Colors.surfblur,
+              alignItems: "center",
+
+
             }}
-            source={Images.whiteclose}
-          ></Image>
-            </TouchableOpacity>
-            </View>
+          >
+            <Image
+              style={{
+                height: 20,
+                width: 20,
+                top: 7,
+                resizeMode: "contain",
+                borderRadius: 50,
+                marginLeft: 2,
+                tintColor: Colors.black,
+
+              }}
+              source={Images.close}
+            ></Image>
+          </TouchableOpacity>
+        </View>
       </View>
       <Text style={{
         marginLeft: 15,
@@ -167,7 +172,7 @@ const ChatSearch = () => {
             color: Colors.white
           }}>{message}</Text>
         }
-     
+
         {
           loading && <View style={{ flexDirection: 'row' }}>
             <Text style={{

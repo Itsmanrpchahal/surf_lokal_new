@@ -251,6 +251,7 @@ export default function Login({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       <ScrollView style={Styles.container}>
+
         <Image source={Images.appLogo} style={Styles.appLogo}></Image>
 
         {/* <View style={Styles.loginView}>
@@ -272,7 +273,7 @@ export default function Login({ navigation }) {
                   <View style={{ flexDirection: 'row', width: "100%", alignItems: "center", justifyContent: "center" }}>
                     {
                       <CountryPicker
-                        containerButtonStyle={{ width: 300, marginLeft: 25, fontSize: 18 }}
+                        containerButtonStyle={{ width: 300, marginLeft: 8, }}
                         withFilter={true}
                         withCallingCodeButton={true}
                         withCountryNameButton={true}
@@ -430,7 +431,7 @@ export default function Login({ navigation }) {
             <Text
               allowFontScaling={false}
               style={Styles.socialMediaButtonsText}>
-              Continue with email
+              Continue with Email
             </Text>
           </TouchableOpacity>
         ) : (
@@ -443,7 +444,7 @@ export default function Login({ navigation }) {
             <Text
               allowFontScaling={false}
               style={Styles.socialMediaButtonsText}>
-              Continue with phone
+              Continue with Phone
             </Text>
           </TouchableOpacity>
         )}
@@ -480,7 +481,7 @@ export default function Login({ navigation }) {
             source={Images.facebook}
             style={Styles.socialMediaButtonsImage}></Image>
           <Text allowFontScaling={false} style={Styles.socialMediaButtonsText}>
-            Continue with facebook
+            Continue with Facebook
           </Text>
         </TouchableOpacity>
 
