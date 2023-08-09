@@ -50,5 +50,7 @@ android:value="@string/facebook_app_id"/>
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+
+
     </application>
 </manifest> 

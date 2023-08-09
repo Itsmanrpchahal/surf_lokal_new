@@ -16,6 +16,12 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
     console.log('Message handled in the background!', remoteMessage);
   });
 
+  messaging().getInitialNotification().then(remoteMessage => {
+    if (remoteMessage) {
+        console.log('Notiction App Open on Quit State', remoteMessage.notification)
+    }
+})
+
 const App = () => {
   const [splash, setSplash] = useState(true);
 
