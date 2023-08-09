@@ -53,7 +53,7 @@ import { filterSearch } from '../../modules/filterSearch';
 import { getSavedSearch } from '../../modules/getSavedSearch';
 import { clearFilter } from '../../modules/clearFilter';
 import { getUserScore } from '../../modules/getUserScore';
-
+import dynamicLinks from '@react-native-firebase/dynamic-links';
 
 const { width } = Dimensions.get('screen');
 
@@ -307,12 +307,39 @@ const Home = () => {
     handleModalAnimations();
   }, [filterModalVisible]);
 
-  const handleShare = () => {
-    Share.share({
-      message: 'Check out this cool article I found!',
-      url: 'https://example.com/article',
-      title: 'Cool Article',
-    });
+  const generateLink = async (ID) => {
+    try {
+      const link = await dynamicLinks().buildShortLink({
+        link: `https://surflokal.page.link/property?propetyID=${ID}`,
+        domainUriPrefix: Platform.OS === 'android' ? 'https://surflokal.page.link/' : 'https://surflokal.page.link',
+        android: {
+          packageName: 'surf.lokal',
+        },
+        ios: {
+          appStoreId: '123456789',
+          bundleId: 'surf.lokal',
+        },
+        navigation: {
+          forcedRedirectEnabled: true,
+        }
+      }, dynamicLinks.ShortLinkType.SHORT)
+      console.log('link:', link)
+      return link
+    } catch (error) {
+      console.log('Generating Link Error:', error)
+    }
+  }
+  const handleShare = async (ID) => {
+    const link = await generateLink(ID)
+    try {
+      Share.share({
+        title: 'Please check this property',
+        message: link,
+        url: link
+      });
+    } catch (error) {
+      console.log('Sharing Error:', error)
+    }
   };
   const addReview = async post_id => {
     const id = await AsyncStorage.getItem('userId');
@@ -729,6 +756,9 @@ const Home = () => {
                   setMaxSquareFeet("")
                   setMinPricerange("")
                   setMaxPriceRange("")
+                  setMoreFilter(false)
+                  setCities("");
+
                   { handlePress2; }
                   dispatch(clearFilter())
                   dispatch(getPoperties({ type: 0, data: '', lntLng, }))
@@ -1306,7 +1336,7 @@ const Home = () => {
                                 </View>
                                 <TouchableOpacity
                                   onPress={() => {
-                                    navigation.navigate('ViewPropertiy', { item });
+                                    navigation.navigate('ViewPropertiy', { ID: item.ID });
                                   }}>
                                   <Image
                                     style={{
@@ -1380,7 +1410,7 @@ const Home = () => {
                                 </Text>
                               </View>
                               <Text
-                                onPress={() => { navigation.navigate('ViewPropertiy', { item }); }}
+                                onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }); }}
                                 style={{
                                   fontSize: 20,
                                   color: Colors.primaryBlue,
@@ -1389,7 +1419,7 @@ const Home = () => {
                                 }}>
                                 {item?.property_price}
                               </Text>
-                              <TouchableOpacity onPress={() => handleShare()}>
+                              <TouchableOpacity onPress={() => handleShare(item.ID)}>
                                 <Image
                                   source={Images.send}
                                   style={{
@@ -2116,7 +2146,7 @@ const Home = () => {
                               showCallout={true}
                               coordinate={{ latitude: parseFloat(item?.property_latitude), longitude: parseFloat(item?.property_longitude) }}>
                               <Image source={Images.lot} style={{ height: 50, width: 100, resizeMode: 'contain' }} />
-                              <Callout onPress={() => { navigation.navigate('ViewPropertiy', { item }); }}
+                              <Callout onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }); }}
                                 style={{
                                   height: 70, alignItems: "center", alignSelf: "center",
                                   marginLeft: 20, top: -15,
