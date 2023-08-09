@@ -288,7 +288,7 @@ const MyFavorites = () => {
           <Text
             style={{
               fontSize: 18,
-              color: Colors.primaryBlue,
+              color: Colors.surfblur,
               fontFamily: 'Poppins-Bold',
               marginTop: 5
             }}>
@@ -396,7 +396,7 @@ const MyFavorites = () => {
                     <TouchableOpacity
                       onPress={() => setIsEditing(true)}
                       style={{ marginTop: 0 }}>
-                      <Text style={{ fontSize: 12, color: Colors.darbluec, fontFamily: "Poppins-Regular" }}>Edit</Text>
+                      <Text style={{ fontSize: 12, color: Colors.surfblur, fontFamily: "Poppins-Regular" }}>Edit</Text>
                     </TouchableOpacity>
                   )}
                 </View>

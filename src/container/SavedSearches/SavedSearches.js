@@ -49,8 +49,9 @@ const MyFavorites = ({ navigation }) => {
   useEffect(() => {
     if (isFocused) {
       Promise.all[
-    getSavedApiCall()
-  ]}
+        getSavedApiCall()
+      ]
+    }
 
   }, [isFocused]);
 

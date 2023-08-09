@@ -266,14 +266,14 @@ export default function Login({ navigation }) {
               <TouchableOpacity
                 onPress={() => { setModalVisible(true) }}
                 style={Styles.regionView}>
-                <View style={{ width: '85%' }}>
+                <View style={{ width: '85%', position: "relative" }}>
                   <Text allowFontScaling={false} style={Styles.regionText}>
                     Country/Region
                   </Text>
                   <View style={{ flexDirection: 'row', width: "100%", alignItems: "center", justifyContent: "center" }}>
                     {
                       <CountryPicker
-                        containerButtonStyle={{ width: 300, marginLeft: 8, }}
+                        containerButtonStyle={{ width: 300, marginLeft: 8, fontSize: 12 }}
                         withFilter={true}
                         withCallingCodeButton={true}
                         withCountryNameButton={true}

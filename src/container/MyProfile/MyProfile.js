@@ -304,7 +304,7 @@ const MyFavorites = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 borderWidth: 1,
-                borderColor: Colors.primaryBlue,
+                borderColor: Colors.surfblur,
                 borderRadius: 50
 
               }}>
@@ -323,7 +323,7 @@ const MyFavorites = () => {
                     height: 40,
                     width: 40,
                     borderRadius: 20,
-                    backgroundColor: Colors.primaryBlue,
+                    backgroundColor: Colors.surfblur,
                     justifyContent: 'center',
                     alignItems: 'center',
                     overflow: 'hidden',

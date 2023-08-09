@@ -240,7 +240,7 @@ const RecycleBin = () => {
           <TouchableOpacity onPress={() => makePhoneCall()}>
             <Image
               source={Images.call}
-              style={{ height: 18, width: 18, resizeMode: 'contain', marginRight: 15, position: "relative", left: -6 }}></Image>
+              style={{ height: 18, width: 18, resizeMode: 'contain', marginRight: 15, position: "relative", left: 0, top: 1 }}></Image>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -255,8 +255,8 @@ const RecycleBin = () => {
           <Text
             style={{
               fontSize: 18,
-              color: Colors.primaryBlue,
-              fontFamily: 'Poppins-Medium',
+              color: Colors.surfblur,
+              fontFamily: 'Poppins-Bold',
               marginTop: 5
             }}>
             {item.property_price}
@@ -972,7 +972,7 @@ const RecycleBin = () => {
               style={{
                 fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium'
               }}>
-            No Property in Bin !!
+              No Property in Bin !!
             </Text>
           </View>
         ) : (

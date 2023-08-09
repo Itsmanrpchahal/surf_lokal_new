@@ -282,7 +282,7 @@ const MakeAnOffer = () => {
               alignItems: 'center',
               position: "absolute",
               right: -12,
-              top: -10,
+              top: -5,
 
               backgroundColor: Colors.surfblur,
               height: 25,
@@ -326,7 +326,7 @@ const MakeAnOffer = () => {
                   style={styles.input}
                   placeholder="Property Address"
                   // lineHeight={40}
-                
+
                   fontFamily='Poppins-Light'
                   placeholderTextColor={'gray'}
                   value={address}
@@ -563,7 +563,7 @@ const styles = StyleSheet.create({
     width: '100%',
     color: Colors.textColorDark,
     paddingBottom: 5,
-    fontSize:12
+    fontSize: 12
 
   },
   datePickerContainer: {
@@ -594,7 +594,7 @@ const styles = StyleSheet.create({
     width: 100,
     marginTop: 10,
     // marginRight: '5%',
-    backgroundColor: Colors.primaryBlue,
+    backgroundColor: Colors.surfblur,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'flex-end',

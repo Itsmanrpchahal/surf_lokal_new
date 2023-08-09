@@ -313,7 +313,7 @@ const ContactMyAgent = () => {
                     // justifyContent: 'center',
                     //alignItems: 'center',
                   }}>
-                  <Image source={{ uri: agentData?.featured_image_url }} style={{ height: 55, width: 20 }} />
+                  <Image source={{ uri: agentData?.featured_image_url }} style={{ height: 55, width: 20, tintColor: Colors.surfblur }} />
                 </View>
               )}
             </TouchableOpacity>
@@ -351,7 +351,7 @@ const ContactMyAgent = () => {
                   }}>
                   <Image
                     source={Images.call}
-                    style={{ height: 18, width: 18, resizeMode: 'contain' }}></Image>
+                    style={{ height: 18, width: 18, resizeMode: 'contain', tintColor: Colors.surfblur }}></Image>
 
                   <Text
                     style={{
@@ -388,7 +388,7 @@ const ContactMyAgent = () => {
                   }}>
                   <Image
                     source={Images.chat}
-                    style={{ height: 18, width: 18, resizeMode: 'contain' }}></Image>
+                    style={{ height: 18, width: 18, resizeMode: 'contain', tintColor: Colors.surfblur }}></Image>
 
                   <Text
                     style={{
@@ -424,7 +424,7 @@ const ContactMyAgent = () => {
                   }}>
                   <Image
                     source={Images.agentTel}
-                    style={{ height: 18, width: 18, resizeMode: 'contain' }}></Image>
+                    style={{ height: 18, width: 18, resizeMode: 'contain', tintColor: Colors.surfblur }}></Image>
 
                   <Text
                     style={{
@@ -529,7 +529,7 @@ const styles = StyleSheet.create({
   buttonview: {
     textAlign: "center",
     borderRadius: 100,
-    backgroundColor: "#1b74e4",
+    backgroundColor: Colors.surfblur,
     width: "100%",
     flexDirection: 'row',
     paddingVertical: 10,
