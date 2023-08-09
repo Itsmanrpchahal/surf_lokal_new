@@ -111,7 +111,7 @@ const Challenges = () => {
 
         {question[index]?.post_title ?
           <>
-            <View style={{ borderWidth: 1, borderColor: Colors.BorderColor, width: "95%", boxShadow: "0 0 20px 0 rgba(0, 0, 0, 0.2)", padding: 8, height: "40%", borderRadius: 12 }}>
+            <View style={{  width: "95%", boxShadow: "0 0 20px 0 rgba(0, 0, 0, 0.2)", padding: 8, height: "40%", borderRadius: 12 }}>
               <Text style={{ fontSize: 14, marginTop: 20, color: Colors.black, fontFamily: 'Poppins-Regular', width: "97%", height: 60, }}>{"Q."}{index + 1}{" : "}{question[index]?.post_title}</Text>
               <View style={{ flexDirection: "row", justifyContent: 'center', alignItems: 'center', alignContent: 'center', }} >
                 <TouchableOpacity onPress={() => {
@@ -187,7 +187,7 @@ const Challenges = () => {
                     setIsImageChanged(false);
                     setNextText(false)
                   }} style={[styles.rew, { position: "absolute", right: 0 }]}>
-                  <Text style={[styles.text, { color: Colors.primaryBlue, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>{isNextText ? "Next" : "Skip"}</Text>
+                  <Text style={[styles.text, { color: Colors.primaryBlue, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>{isNextText ?"Next":"Skip"}</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -286,8 +286,8 @@ const styles = StyleSheet.create({
     height: 60,
   },
   rew: {
-    height: 45,
-    width: 130,
+    height: 25,
+    width: 80,
     borderRadius: 17,
     borderWidth: 1,
     paddingHorizontal: 10,

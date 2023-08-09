@@ -93,7 +93,7 @@ const Home = () => {
             setHomeData(res.payload.data);
           });
         setKeyboardStatus('first');
-        // setAddres("");
+        setAddres("");
       }
     }
   };
@@ -168,7 +168,6 @@ const Home = () => {
   const getUserScoreApiCall = () => {
     dispatch(getUserScore()).then(response => {
 
-      console.log('getUserScoreApiCallresponse', response.payload.data.points)
     });
   };
   useEffect(() => {
@@ -451,8 +450,8 @@ const Home = () => {
             dispatch(getPoperties({
               type: 3, data: {
                 UserId: user_ID,
-                data_custom_taxonomy: item.data_custom_taxonomy,
-                data_customvalue: item.data_customvalue
+                data_custom_taxonomy: item.data_customvalue,
+                data_customvalue:item.data_custom_taxonomy, 
               },
 
             })).then((res) => {
@@ -825,8 +824,8 @@ const Home = () => {
                               await dispatch(getPoperties({
                                 type: 3, data: {
                                   UserId: user_ID,
-                                  data_custom_taxonomy: "property_city",
-                                  data_customvalue: item.toString(),
+                                  data_custom_taxonomy:item.toString(),
+                                  data_customvalue: "property_city",
                                 },
                               })).then((res) => {
                                 setHomeData(res.payload.data);
@@ -855,8 +854,8 @@ const Home = () => {
                                         await dispatch(getPoperties({
                                           type: 3, data: {
                                             UserId: user_ID,
-                                            data_custom_taxonomy: "bedroom",
-                                            data_customvalue: item.data_customvalue,
+                                            data_custom_taxonomy:item.data_customvalue,
+                                            data_customvalue: "bedroom",
                                           },
                                         })).then((res) => {
                                           setHomeData(res.payload.data);
@@ -895,8 +894,8 @@ const Home = () => {
                                       await dispatch(getPoperties({
                                         type: 3, data: {
                                           UserId: user_ID,
-                                          data_custom_taxonomy: "bathroom",
-                                          data_customvalue: item.data_customvalue,
+                                          data_custom_taxonomy:item.data_customvalue,
+                                          data_customvalue:"bathroom",
                                         },
                                       })).then((res) => {
                                         setHomeData(res.payload.data);
@@ -938,8 +937,8 @@ const Home = () => {
                                   await dispatch(getPoperties({
                                     type: 3, data: {
                                       UserId: user_ID,
-                                      data_custom_taxonomy: "min_square",
-                                      data_customvalue: item.data_customvalue,
+                                      data_custom_taxonomy: item.data_customvalue,
+                                      data_customvalue:"min_square",
                                     },
                                   })).then((res) => {
                                     setHomeData(res.payload.data);
@@ -968,8 +967,8 @@ const Home = () => {
                                   await dispatch(getPoperties({
                                     type: 3, data: {
                                       UserId: user_ID,
-                                      data_custom_taxonomy: "max_square",
-                                      data_customvalue: item.data_customvalue,
+                                      data_custom_taxonomy:item.data_customvalue,
+                                      data_customvalue:  "max_square",
                                     },
                                   })).then((res) => {
                                     setHomeData(res.payload.data);
@@ -1007,8 +1006,8 @@ const Home = () => {
                                   await dispatch(getPoperties({
                                     type: 3, data: {
                                       UserId: user_ID,
-                                      data_custom_taxonomy: "min_price",
-                                      data_customvalue: item.data_customvalue,
+                                      data_custom_taxonomy: item.data_customvalue,
+                                      data_customvalue:"min_price",
                                     },
                                   })).then((res) => {
                                     setHomeData(res.payload.data);
@@ -1037,8 +1036,8 @@ const Home = () => {
                                   await dispatch(getPoperties({
                                     type: 3, data: {
                                       UserId: user_ID,
-                                      data_custom_taxonomy: "max_price",
-                                      data_customvalue: item.data_customvalue,
+                                      data_custom_taxonomy:item.data_customvalue,
+                                      data_customvalue: "max_price",
                                     },
                                   })).then((res) => {
                                     setHomeData(res.payload.data);
@@ -1068,7 +1067,6 @@ const Home = () => {
                                 renderItem={({ item, index }) => {
                                   const { data_custom_taxonomy, data_customvalue } = item;
                                   const isSelected = selectedTabsMore.filter((i) => i === data_customvalue).length > 0;
-
                                   return (
                                     <TouchableOpacity style={{
                                       width: '30%', margin: 5, borderRadius: 20, borderWidth: 1,
@@ -1076,13 +1074,14 @@ const Home = () => {
                                       backgroundColor: isSelected ? Colors.black : Colors.white,
                                       padding: 10,
                                     }} onPress={
-
                                       async () => {
+                                        console.log("selectedTabsMore check",selectedTabsMore)
+
                                         await dispatch(getPoperties({
                                           type: 3, data: {
                                             UserId: user_ID,
-                                            data_custom_taxonomy: "more_filter_data",
-                                            data_customvalue: item.data_customvalue,
+                                            data_custom_taxonomy: item.data_customvalue,
+                                            data_customvalue: "more_filter_data",
                                           },
                                         })).then((res) => {
                                           setHomeData(res.payload.data);
@@ -1117,7 +1116,6 @@ const Home = () => {
                             <TouchableOpacity
                               onPress={async () => {
                                 setFilterModalVisible(false)
-
                               }}
                               style={{
                                 height: 50,
