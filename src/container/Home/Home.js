@@ -451,7 +451,7 @@ const Home = () => {
               type: 3, data: {
                 UserId: user_ID,
                 data_custom_taxonomy: item.data_customvalue,
-                data_customvalue:item.data_custom_taxonomy, 
+                data_customvalue: item.data_custom_taxonomy,
               },
 
             })).then((res) => {
@@ -526,7 +526,7 @@ const Home = () => {
           }}>
           <View
             style={{
-              height: 50,
+              height: 42,
               width: '85%',
               borderRadius: 100,
               borderWidth: 1,
@@ -569,7 +569,7 @@ const Home = () => {
               <TouchableOpacity
                 onPress={() => { setShowMap(!showMap); }}
                 style={{
-                  height: 50,
+                  height: 42,
                   justifyContent: 'center',
                   borderLeftWidth: 1,
                   borderLeftColor: Colors.BorderColor,
@@ -824,7 +824,7 @@ const Home = () => {
                               await dispatch(getPoperties({
                                 type: 3, data: {
                                   UserId: user_ID,
-                                  data_custom_taxonomy:item.toString(),
+                                  data_custom_taxonomy: item.toString(),
                                   data_customvalue: "property_city",
                                 },
                               })).then((res) => {
@@ -854,7 +854,7 @@ const Home = () => {
                                         await dispatch(getPoperties({
                                           type: 3, data: {
                                             UserId: user_ID,
-                                            data_custom_taxonomy:item.data_customvalue,
+                                            data_custom_taxonomy: item.data_customvalue,
                                             data_customvalue: "bedroom",
                                           },
                                         })).then((res) => {
@@ -894,8 +894,8 @@ const Home = () => {
                                       await dispatch(getPoperties({
                                         type: 3, data: {
                                           UserId: user_ID,
-                                          data_custom_taxonomy:item.data_customvalue,
-                                          data_customvalue:"bathroom",
+                                          data_custom_taxonomy: item.data_customvalue,
+                                          data_customvalue: "bathroom",
                                         },
                                       })).then((res) => {
                                         setHomeData(res.payload.data);
@@ -938,7 +938,7 @@ const Home = () => {
                                     type: 3, data: {
                                       UserId: user_ID,
                                       data_custom_taxonomy: item.data_customvalue,
-                                      data_customvalue:"min_square",
+                                      data_customvalue: "min_square",
                                     },
                                   })).then((res) => {
                                     setHomeData(res.payload.data);
@@ -967,8 +967,8 @@ const Home = () => {
                                   await dispatch(getPoperties({
                                     type: 3, data: {
                                       UserId: user_ID,
-                                      data_custom_taxonomy:item.data_customvalue,
-                                      data_customvalue:  "max_square",
+                                      data_custom_taxonomy: item.data_customvalue,
+                                      data_customvalue: "max_square",
                                     },
                                   })).then((res) => {
                                     setHomeData(res.payload.data);
@@ -1007,7 +1007,7 @@ const Home = () => {
                                     type: 3, data: {
                                       UserId: user_ID,
                                       data_custom_taxonomy: item.data_customvalue,
-                                      data_customvalue:"min_price",
+                                      data_customvalue: "min_price",
                                     },
                                   })).then((res) => {
                                     setHomeData(res.payload.data);
@@ -1036,7 +1036,7 @@ const Home = () => {
                                   await dispatch(getPoperties({
                                     type: 3, data: {
                                       UserId: user_ID,
-                                      data_custom_taxonomy:item.data_customvalue,
+                                      data_custom_taxonomy: item.data_customvalue,
                                       data_customvalue: "max_price",
                                     },
                                   })).then((res) => {
@@ -1075,7 +1075,7 @@ const Home = () => {
                                       padding: 10,
                                     }} onPress={
                                       async () => {
-                                        console.log("selectedTabsMore check",selectedTabsMore)
+                                        console.log("selectedTabsMore check", selectedTabsMore)
 
                                         await dispatch(getPoperties({
                                           type: 3, data: {
