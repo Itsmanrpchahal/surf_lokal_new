@@ -51,7 +51,7 @@ const ChatSearch = () => {
               // marginLeft: 2
               // tintColor: Colors.surfblur,
               marginRight: 5,
-              borderColor: Colors.primaryBlue,
+              borderColor: Colors.surfblur,
               borderWidth: 1,
 
             }}

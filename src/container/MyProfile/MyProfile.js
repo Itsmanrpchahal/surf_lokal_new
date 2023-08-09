@@ -87,6 +87,14 @@ const images = [
     image2: Images.fill
 
   },
+  {
+    image: Images.chat,
+    title: 'Chat History',
+    navigation: 'ChatHistory',
+    image2: Images.fill
+
+  },
+
 
   // {
   //   image: Images.setting,
@@ -120,7 +128,15 @@ const MyFavorites = () => {
       setIsImageChanged(false);
     }, 1500);
   };
+  const handleImagePress1 = () => {
+    navigation.navigate('ChatHistory');
+    setIsImageChanged(true);
 
+    // Reset the image after 2 seconds
+    setTimeout(() => {
+      setIsImageChanged(false);
+    }, 1500);
+  };
   const handleFavPress = () => {
     navigation.navigate('MyFavorites');
 
@@ -512,6 +528,25 @@ const MyFavorites = () => {
                     style={{ height: 20, width: 20, resizeMode: 'contain' }} />
                 </TouchableOpacity>
                 <Text style={styles.text}>Recycle Bin</Text>
+              </View>
+              <View style={styles.line}></View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.slideOuter}>
+            <TouchableOpacity onPress={handleImagePress1}
+              activeOpacity={0.8}
+              style={{
+                width: '100%',
+                alignItems: 'center',
+              }}>
+              <View
+                style={styles.viewstyle}>
+                <TouchableOpacity>
+                  <Image
+                    source={isImageChanged ? Images.redlike : Images.chat}
+                    style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+                </TouchableOpacity>
+                <Text style={styles.text}>Chat History</Text>
               </View>
               <View style={styles.line}></View>
             </TouchableOpacity>

@@ -631,9 +631,9 @@ const ViewPropertiy = (props, imageUrl) => {
     return (
 
       <>
+        <Text style={[styles.propertyt, { marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0 }]}>Nearby Schools</Text>
 
         <View style={{ paddingHorizontal: 20 }}>
-          <Text style={styles.propertyts}>Nearby Schools</Text>
           <View>
             <FlatList
 
@@ -2122,7 +2122,7 @@ const ViewPropertiy = (props, imageUrl) => {
               initialMessage: 'When would you like to schedule a showing?',
               post_id: postid?.item?.ID,
               // initialMessage2: 'A Lokal agent will confirm with you within the next 2 hours',
-              agentReply: <Image source={Images.cola} style={{width:40,height:30 ,}} />,
+              agentReply: <Image source={Images.cola} style={{ width: 40, height: 30, }} />,
             });
             console.log("postid Cheack ", postid?.item?.ID)
           }}
@@ -2131,11 +2131,11 @@ const ViewPropertiy = (props, imageUrl) => {
             alignItems: 'center',
             flexDirection: 'row',
             alignSelf: 'center',
-           backgroundColor: Colors.surfblur,
-           borderRadius: 20,
-           paddingVertical: 8,
-           paddingHorizontal: 12,
-           lineHeight: 12,
+            backgroundColor: Colors.surfblur,
+            borderRadius: 20,
+            paddingVertical: 8,
+            paddingHorizontal: 12,
+            lineHeight: 12,
             marginRight: 6
           }}
         >

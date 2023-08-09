@@ -22,6 +22,7 @@ import Schoolinfo from '../container/ViewPropertiy/Schoolinfo';
 import RecycleBin from '../container/RecycleBin/RecycleBin';
 import ViewProperty2 from '../container/ViewPropertiy/ViewProperty2';
 import BookaTour from '../container/Chat/BookaTour';
+import ChatHistory from '../container/ChatHistory/ChatHistory';
 
 
 const Stack = createStackNavigator();
@@ -48,8 +49,8 @@ const StackNavigator = () => {
         cardStyle: { backgroundColor: Colors.white },
       }}
       initialRouteName={'Login'}
-      >
-            <Stack.Screen name="BookaTour" component={BookaTour} />
+    >
+      <Stack.Screen name="BookaTour" component={BookaTour} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
@@ -69,7 +70,8 @@ const StackNavigator = () => {
       <Stack.Screen name="Schoolinfo" component={Schoolinfo} />
 
       <Stack.Screen name="RecycleBin" component={RecycleBin} />
-  
+      <Stack.Screen name="ChatHistory" component={ChatHistory} />
+
     </Stack.Navigator>
   ) : null;
 };
