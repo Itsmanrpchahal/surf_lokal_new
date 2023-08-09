@@ -169,8 +169,6 @@ export default function Login({ navigation }) {
           }
         });
       }
-
-  
   };
 
   const handleFacebookLogin = async () => {

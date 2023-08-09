@@ -52,7 +52,7 @@ import { getFavoriteProperties } from '../../modules/getFavoriteProperties';
 import { filterSearch } from '../../modules/filterSearch';
 import { getSavedSearch } from '../../modules/getSavedSearch';
 import { clearFilter } from '../../modules/clearFilter';
-
+import dynamicLinks from '@react-native-firebase/dynamic-links';
 
 const { width } = Dimensions.get('screen');
 
@@ -293,13 +293,40 @@ const Home = () => {
     handleModalAnimations();
   }, [filterModalVisible]);
 
-  const handleShare = () => {
+  const generateLink = async (ID) => {
+    try {
+        const link = await dynamicLinks().buildShortLink({
+            link: `https://surflokal.page.link/property?propetyID=${ID}`,
+            domainUriPrefix: Platform.OS === 'android' ?'https://surflokal.page.link/':'https://surflokal.page.link',
+            android: {
+                packageName: 'surf.lokal',
+            },
+            ios: {
+              appStoreId:'123456789',
+                bundleId: 'surf.lokal',
+            },
+            navigation: {
+              forcedRedirectEnabled: true,
+          }
+        }, dynamicLinks.ShortLinkType.SHORT)
+        console.log('link:', link)
+        return link
+    } catch (error) {
+        console.log('Generating Link Error:', error)
+    }
+}
+const handleShare = async (ID) => {
+  const link = await generateLink(ID)
+  try {
     Share.share({
-      message: 'Check out this cool article I found!',
-      url: 'https://example.com/article',
-      title: 'Cool Article',
+      title: 'Please check this property',
+        message:  link ,
+        url:link
     });
-  };
+} catch (error) {
+    console.log('Sharing Error:', error)
+}
+};
   const addReview = async post_id => {
     const id = await AsyncStorage.getItem('userId');
     let formdata = {
@@ -1243,7 +1270,7 @@ const Home = () => {
                           renderItem={({ item1, index }) =>
                           (
                             <>
-                              <View style={{ height: width, width: width, position: "relative", marginTop: 1 }}>
+                              <View style={{ height: width, width: width, position: "relative", marginTop: 1,backgroundColor:'white' }}>
                                 <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", zIndex: 99, }}>
 
                                   <TouchableOpacity disabled={imageIndex > 0 ? false : true} onPress={() => { setImageIndex(imageIndex - 1); }}
@@ -1285,7 +1312,7 @@ const Home = () => {
                                 </View>
                                 <TouchableOpacity
                                   onPress={() => {
-                                    navigation.navigate('ViewPropertiy', { item });
+                                    navigation.navigate('ViewPropertiy', { ID: item.ID });
                                   }}>
                                   <Image
                                     style={{
@@ -1368,7 +1395,7 @@ const Home = () => {
                                 }}>
                                 {item?.property_price}
                               </Text>
-                              <TouchableOpacity onPress={() => handleShare()}>
+                              <TouchableOpacity onPress={() => handleShare(item.ID)}>
                                 <Image
                                   source={Images.send}
                                   style={{
