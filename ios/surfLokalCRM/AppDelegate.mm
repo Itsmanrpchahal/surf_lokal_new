@@ -2,7 +2,10 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <React/RCTBundleURLProvider.h>
 #import <Firebase.h>
+#import <RNFBDynamicLinksAppDelegateInterceptor.h>  // add this line
+
 @implementation AppDelegate
+
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
@@ -21,6 +24,7 @@
 {
   self.moduleName = @"surfLokalCRM";
   [FIRApp configure];
+  [RNFBDynamicLinksAppDelegateInterceptor sharedInstance]; // add this line
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};

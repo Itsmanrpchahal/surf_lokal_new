@@ -1783,6 +1783,11 @@
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
+"@react-native-firebase/dynamic-links@^18.3.0":
+  version "18.3.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/dynamic-links/-/dynamic-links-18.3.0.tgz#7281c5938cd4ac958a8c8057662ab82d98a78b40"
+  integrity sha512-hcu/g4bYmarBho22323Ba+jkEwl0IXAyw9fhUsgFeSxJsEwU9E0KcG5/lJvWohyRWOLXPoS4PkjWFazWWJ7q3A==
+
 "@react-native-firebase/messaging@^18.3.0":
   version "18.3.0"
   resolved "https://registry.npmjs.org/@react-native-firebase/messaging/-/messaging-18.3.0.tgz"
@@ -6633,6 +6638,11 @@ react-native-deck-swiper@^2.0.14:
   integrity sha512-sYpm9WXte2LseLlWPGmTKRe358/kJIU35prjd5d/e/vuEOXSUv2gXtsYOdolJmP2FjuzOJuyNJuuPh+TSDF0UQ==
   dependencies:
     prop-types "15.5.10"
+
+react-native-device-info@^10.8.0:
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-10.8.0.tgz#c331c94d65542f86bac197f223ee064c7e10a9ec"
+  integrity sha512-DE4/X82ZVhdcnR1Y21iTP46WSSJA/rHK3lmeqWfGGq1RKLwXTIdxmfbZZnYwryqJ+esrw2l4ND19qlgxDGby8A==
 
 react-native-element-dropdown@^2.9.0:
   version "2.9.0"

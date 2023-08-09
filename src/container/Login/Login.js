@@ -168,8 +168,37 @@ export default function Login({ navigation }) {
           Alert.alert('Alert', response.payload.message);
         }
       });
-    }
 
+     
+      // get current authentication state for user
+      // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
+      const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
+      console.log('credentialState', credentialState)
+  
+      // use credentialState response to ensure the user is authenticated
+      if (credentialState === appleAuth.State.AUTHORIZED) {
+        // user is authenticated
+        console.log('user is authenticated', credentialState)
+        console.log('appleAuthRequestResponse ===> ', appleAuthRequestResponse.identityToken)
+        var decoded = jwt_decode(appleAuthRequestResponse.identityToken);
+        formdata.append('email', decoded.email);
+        formdata.append('username', decoded.email);
+        formdata.append('social_id', decoded.nonce);
+        formdata.append('social_token', appleAuthRequestResponse.identityToken);
+        formdata.append('device_type',Platform.OS === 'android' ? 1 :2)
+        formdata.append('device_token',fcmtoken)
+        console.log('formData ',formdata)
+        dispatch(googleUser(formdata)).then(response => {
+          if (response.payload.success) {
+            setLoading(false);
+  
+            navigation.navigate('AppIntro');
+          } else {
+            setLoading(false);
+            Alert.alert('Alert', response.payload.message);
+          }
+        });
+      }
 
   };
 
