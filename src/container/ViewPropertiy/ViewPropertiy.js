@@ -2135,7 +2135,7 @@ const handleShare = async () => {
               initialMessage: 'When would you like to schedule a showing?',
               post_id: postid?.ID,
               // initialMessage2: 'A Lokal agent will confirm with you within the next 2 hours',
-              agentReply: <Image source={Images.calendar} style={{ height: 20, width: 20, justifyContent: 'center', alignContent: 'center', resizeMode: 'stretch' }} />,
+              agentReply: <Image source={Images.cola} style={{width:40,height:30 ,}} />,
             });
             console.log("postid Cheack ", postid?.ID)
           }}
@@ -2144,11 +2144,11 @@ const handleShare = async () => {
             alignItems: 'center',
             flexDirection: 'row',
             alignSelf: 'center',
-            backgroundColor: Colors.surfblur,
-            borderRadius: 20,
-            paddingVertical: 8,
-            paddingHorizontal: 12,
-            lineHeight: 12,
+           backgroundColor: Colors.surfblur,
+           borderRadius: 20,
+           paddingVertical: 8,
+           paddingHorizontal: 12,
+           lineHeight: 12,
             marginRight: 6
           }}
         >

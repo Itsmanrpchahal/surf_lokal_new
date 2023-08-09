@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -18,7 +18,7 @@ import {
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import AppButton from '../../components/AppButton';
 import Styles from './Styles';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -28,9 +28,9 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 // Import FBSDK
-import {LoginManager, AccessToken} from 'react-native-fbsdk';
-import {emailCheck} from '../../modules/emailCheck';
-import {forgotPassword} from '../../modules/forgotPassword';
+import { LoginManager, AccessToken } from 'react-native-fbsdk';
+import { emailCheck } from '../../modules/emailCheck';
+import { forgotPassword } from '../../modules/forgotPassword';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -38,7 +38,7 @@ const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
 
-export default function ForgotPassword({navigation}) {
+export default function ForgotPassword({ navigation }) {
   const dispatch = useDispatch();
   const [emailId, setEmailId] = useState('tester1.webperfection@gmail.com');
   const [password, setPassword] = useState('');
@@ -46,7 +46,7 @@ export default function ForgotPassword({navigation}) {
   const [userId, setUserId] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [resetPasswordScreen, setresetPasswordScreen] = useState(true);
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const accessRequestAction = () => {
     if (emailId != '') {
@@ -96,7 +96,35 @@ export default function ForgotPassword({navigation}) {
   };
   const resetPassword = () => (
     <ScrollView style={Styles.container}>
-      <View style={Styles.loginView}>
+      <View style={{
+
+        width: '100%',
+        position: 'absolute',
+        top: 10,
+        left: 10
+
+      }}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 28,
+            width: 28,
+            borderRadius: 100,
+            backgroundColor: Colors.gray,
+          }}>
+          <Image source={Images.downArrow} style={{
+            height: 12,
+            width: 12,
+            resizeMode: 'contain',
+            tintColor: Colors.black,
+            transform: [{ rotate: '90deg' }],
+          }}></Image>
+        </TouchableOpacity>
+      </View>
+      {/* <View style={Styles.loginView}>
         <Text style={Styles.loginText}>
           Welcome to your local real estate search engine!
         </Text>
@@ -104,8 +132,8 @@ export default function ForgotPassword({navigation}) {
       <View style={Styles.loginLine}></View>
       <View style={Styles.loginView}>
         <Text style={Styles.signUpText}>Reset Password</Text>
-      </View>
-
+      </View> */}
+      <Image source={Images.appLogo} style={Styles.appLogo}></Image>
       <View style={Styles.socialMediaButtons}>
         <TextInput
           allowFontScaling={false}
@@ -125,8 +153,10 @@ export default function ForgotPassword({navigation}) {
         btnText={'Continue'}
         textStyle={{
           fontSize: 20 * fontSizeRatio,
-          fontWeight: '500',
+          // fontWeight: '500',
+
           color: Colors.white,
+          fontFamily: 'Poppins-Regular'
         }}
         btnStyle={{
           borderRadius: 6,
@@ -134,8 +164,8 @@ export default function ForgotPassword({navigation}) {
           marginTop: 50,
         }}
       />
- 
-      <Image source={Images.appLogo} style={Styles.appLogo}></Image>
+
+
     </ScrollView>
   );
   const changePassword = () => (
@@ -195,7 +225,7 @@ export default function ForgotPassword({navigation}) {
     </ScrollView>
   );
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Colors.white}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       {resetPasswordScreen ? resetPassword() : changePassword()}
     </SafeAreaView>
   );

@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import Colors from '../../utils/Colors';
 import Fonts from '../../utils/Fonts';
 
@@ -61,34 +61,35 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+    fontSize:14
   },
   inputStyle: {
     width: '90%',
     borderRadius: 8,
     height: 80 * viewSizeRatio,
     color: Colors.textColorDark,
-    fontSize: 22 * fontSizeRatio,
-    fontFamily:'Poppins-Regular'
+    fontSize: 18 * fontSizeRatio,
+    fontFamily: 'Poppins-Regular'
   },
   regionText: {
     color: Colors.textColorLight,
     fontSize: 16 * fontSizeRatio,
-    fontFamily:'Poppins-Regular'
+    fontFamily: 'Poppins-Regular'
   },
   selectRegionText: {
     color: Colors.black,
-    fontSize: 22 * fontSizeRatio,
-    fontFamily:'Poppins-Regular'
+    fontSize: 18 * fontSizeRatio,
+    fontFamily: 'Poppins-Regular'
   },
   arrow: {
-    height: 20 * imageSizeRatio,
-    width: 20 * imageSizeRatio,
+    height: 18 * imageSizeRatio,
+    width: 18 * imageSizeRatio,
     resizeMode: 'contain',
   },
   alertText: {
     color: Colors.black,
     fontSize: 16 * fontSizeRatio,
-    fontFamily:'Poppins-Regular'
+    fontFamily: 'Poppins-Regular'
   },
   orView: {
     flexDirection: 'row',
@@ -108,7 +109,7 @@ export default StyleSheet.create({
     color: Colors.black,
     fontSize: 20 * fontSizeRatio,
     textAlign: 'center',
-    fontFamily:'Poppins-Regular'
+    fontFamily: 'Poppins-Regular'
   },
   socialMediaButtons: {
     width: '85%',
@@ -128,7 +129,7 @@ export default StyleSheet.create({
     fontSize: 20 * fontSizeRatio,
     fontWeight: '500',
     marginLeft: 30,
-    fontFamily:'Poppins-Regular'
+    fontFamily: 'Poppins-Regular'
   },
   socialMediaButtonsImage: {
     height: 30 * viewSizeRatio,
@@ -137,7 +138,7 @@ export default StyleSheet.create({
     resizeMode: 'contain',
   },
   appLogo: {
-    height: 250 * imageSizeRatio,
+    height: 200 * imageSizeRatio,
     width: 250 * imageSizeRatio,
     alignSelf: 'center',
     resizeMode: 'contain',

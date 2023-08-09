@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
@@ -30,7 +30,11 @@ import { ifIphoneX } from 'react-native-iphone-x-helper';
 import ChatSearch from '../container/Chat/ChatSearch';
 import Notification from '../container/Notification/Notification';
 import Styles from '../container/Rewards/Styles';
+import { store } from '../redux/store';
 import { useIsFocused } from '@react-navigation/native';
+
+
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -42,6 +46,11 @@ const imageSizeRatio = screenHeight / 1000;
 
 const BottomTabNavigator = () => {
   const isFocused = useIsFocused();
+  const [data, setdata] = useState()
+
+  useEffect(() => {
+    setdata(store.getState()?.getUserScore?.getUserScoreData?.data?.points)
+  }, [store.getState()?.getUserScore?.getUserScoreData?.data])
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -52,7 +61,7 @@ const BottomTabNavigator = () => {
         component={MyProfileTab}
         options={{
           tabBarLabel: (
-            <Text style={{ fontSize: 10, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
+            <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
               Profile
             </Text>
           ),
@@ -74,15 +83,15 @@ const BottomTabNavigator = () => {
               <Text style={{
                 fontFamily: 'Poppins-Regular',
                 position: "absolute",
-                fontSize: 32, top: -50,
+                fontSize: 20, top: -35,
                 color: Colors.black,
 
-
+                marginLeft: 12
               }}
-                allowFontScaling={false}>{'0'}</Text>
-              <Text style={{ fontSize: 10, fontFamily: 'Poppins-Regular', color: isFocused ? Colors.textColorDark : null }} allowFontScaling={false}>
-                Rewards
-              </Text>
+
+                allowFontScaling={false}>{"0"}</Text>
+              <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular', color: isFocused ? Colors.textColorDark : null }} allowFontScaling={false}>  Rewards</Text>
+
             </View>
           ),
 
@@ -108,7 +117,7 @@ const BottomTabNavigator = () => {
         component={MyFavorites}
         options={{
           tabBarLabel: (
-            <Text style={{ fontSize: 10, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
+            <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
               Favorites
             </Text>
           ),
@@ -123,7 +132,7 @@ const BottomTabNavigator = () => {
         component={ChatSearch}
         options={{
           tabBarLabel: (
-            <Text style={{ fontSize: 10, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
+            <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
               Chat
             </Text>
           ),
@@ -169,7 +178,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
         borderTopWidth: 1,
         alignItems: 'center',
         marginBottom: 8,
-        paddingTop: 10
+        //paddingTop: 10
       }}>
       <View
         style={{

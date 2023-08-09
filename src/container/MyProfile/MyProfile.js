@@ -335,9 +335,9 @@ const MyFavorites = () => {
                     />
                   ) : (
                     <Image
-                    style={{ height: 40, width: 40 }}
-                    source={Images.user}
-                  />
+                      style={{ height: 40, width: 40 }}
+                      source={Images.user}
+                    />
                   )}
                   <Loader loading={loading} />
                 </View>

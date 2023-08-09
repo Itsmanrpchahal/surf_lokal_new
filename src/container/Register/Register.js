@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -18,12 +18,12 @@ import {
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import AppButton from '../../components/AppButton';
 import Styles from './Styles';
 import AsyncStorage from '@react-native-community/async-storage';
-import {LoginManager, AccessToken} from 'react-native-fbsdk';
-import {register} from '../../modules/register';
+import { LoginManager, AccessToken } from 'react-native-fbsdk';
+import { register } from '../../modules/register';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -31,7 +31,7 @@ const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
 
-export default function Register({navigation}) {
+export default function Register({ navigation }) {
   const dispatch = useDispatch();
   const [emailId, setEmailId] = useState('');
   const [password, setPassword] = useState('');
@@ -39,12 +39,12 @@ export default function Register({navigation}) {
   const [phone, setPhone] = useState('');
   const [userName, setUserName] = useState('');
   const [address, setAddress] = useState('');
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const getData = async () => {
     const id = await AsyncStorage.getItem('userId');
     if (id !== null) {
-      navigation.navigate('Tabs', {screen: 'Home'});
+      navigation.navigate('Tabs', { screen: 'Home' });
     }
   };
 
@@ -96,17 +96,47 @@ export default function Register({navigation}) {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Colors.white}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
+
       <ScrollView style={Styles.container}>
-        <View style={Styles.loginView}>
+        {/* <View style={Styles.loginView}>
           <Text style={Styles.loginText}>
             Welcome to your local real estate search engine!
           </Text>
-        </View>
-        <View style={Styles.loginLine}></View>
+        </View> */}
+        {/* <View style={Styles.loginLine}></View>
         <View style={Styles.loginView}>
           <Text style={Styles.signUpText}>Create an account</Text>
+        </View> */}
+        <View style={{
+
+          width: '100%',
+          position: 'absolute',
+          top: 10,
+          left: 10
+
+        }}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 28,
+              width: 28,
+              borderRadius: 100,
+              backgroundColor: Colors.gray,
+            }}>
+            <Image source={Images.downArrow} style={{
+              height: 12,
+              width: 12,
+              resizeMode: 'contain',
+              tintColor: Colors.black,
+              transform: [{ rotate: '90deg' }],
+            }}></Image>
+          </TouchableOpacity>
         </View>
+        <Image source={Images.appLogo} style={Styles.appLogo}></Image>
         <View style={Styles.socialMediaButtons}>
           <TextInput
             allowFontScaling={false}
@@ -142,7 +172,7 @@ export default function Register({navigation}) {
             onChangeText={phone => setPhone(phone)}
           />
         </View>
-        <View style={Styles.socialMediaButtons}>
+        {/* <View style={Styles.socialMediaButtons}>
           <TextInput
             allowFontScaling={false}
             style={Styles.inputStyle}
@@ -152,7 +182,7 @@ export default function Register({navigation}) {
             returnKeyType="done"
             onChangeText={address => setAddress(address)}
           />
-        </View>
+        </View> */}
         <View style={Styles.socialMediaButtons}>
           <TextInput
             allowFontScaling={false}
@@ -170,7 +200,7 @@ export default function Register({navigation}) {
             allowFontScaling={false}
             style={Styles.inputStyle}
             placeholderTextColor={Colors.textColorLight}
-            placeholder={'Retype Password'}
+            placeholder={'Confirm Password'}
             keyboardType="email-address"
             returnKeyType="done"
             secureTextEntry={true}
@@ -187,7 +217,7 @@ export default function Register({navigation}) {
             fontSize: 20 * fontSizeRatio,
             fontWeight: '500',
             color: Colors.white,
-            fontFamily:'Poppins-Regular'
+            fontFamily: 'Poppins-Regular'
           }}
           btnStyle={{
             borderRadius: 6,
@@ -196,7 +226,7 @@ export default function Register({navigation}) {
           }}
         />
 
-        <Image source={Images.appLogo} style={Styles.appLogo}></Image>
+        <Text style={{ marginTop: 20, fontFamily: "Poppins-Regular", fontSize: 15, textAlign: "center" }}>Already have an account? <Text style={{ textDecorationLine: "underline" }}>Sign-in here</Text></Text>
       </ScrollView>
     </SafeAreaView>
   );

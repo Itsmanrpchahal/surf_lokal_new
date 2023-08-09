@@ -52,7 +52,11 @@ import { getFavoriteProperties } from '../../modules/getFavoriteProperties';
 import { filterSearch } from '../../modules/filterSearch';
 import { getSavedSearch } from '../../modules/getSavedSearch';
 import { clearFilter } from '../../modules/clearFilter';
+
 import dynamicLinks from '@react-native-firebase/dynamic-links';
+
+import { getUserScore } from '../../modules/getUserScore';
+ 
 
 const { width } = Dimensions.get('screen');
 
@@ -87,12 +91,17 @@ const Home = () => {
           userID: user_ID,
           SearchParameters: adress,
         };
+        console.log("SearchParameters payload", payload)
         dispatch(getPoperties({ type: 2, data: payload, lntLng, }))
-        .then((res) => {
-          setHomeData(res.payload.data);
-        });
+          .then((res) => {
+            setHomeData(res.payload.data);
+          });
         setKeyboardStatus('first');
-        // setAddres("");
+        setIsSelected(false);
+        setIsPressed1(false);
+        setIsPressed(false);
+        setSelectedItem(null);
+        setSelectedTabs([])
       }
     }
   };
@@ -162,6 +171,13 @@ const Home = () => {
     setUser_ID(id);
   };
 
+
+
+  const getUserScoreApiCall = () => {
+    dispatch(getUserScore()).then(response => {
+
+    });
+  };
   useEffect(() => {
     if (isFocused) {
       Promise.all[
@@ -172,7 +188,8 @@ const Home = () => {
         getSavedApiCall(),
         getMoreFilterApiCall(),
         getPopertiesApiCall({ type: 0, data: '', lntLng, }),
-        setAddres("")
+        setAddres(""),
+        getUserScoreApiCall()
       ];
     }
 
@@ -464,12 +481,12 @@ const handleShare = async (ID) => {
             setSelected(index);
             setActivity(false);
             setLoading(true);
-             setAddres("");
+            setAddres("");
             dispatch(getPoperties({
               type: 3, data: {
                 UserId: user_ID,
-                data_custom_taxonomy: item.data_custom_taxonomy,
-                data_customvalue: item.data_customvalue
+                data_custom_taxonomy: item.data_customvalue,
+                data_customvalue: item.data_custom_taxonomy,
               },
 
             })).then((res) => {
@@ -544,7 +561,7 @@ const handleShare = async (ID) => {
           }}>
           <View
             style={{
-              height: 50,
+              height: 42,
               width: '85%',
               borderRadius: 100,
               borderWidth: 1,
@@ -587,7 +604,7 @@ const handleShare = async (ID) => {
               <TouchableOpacity
                 onPress={() => { setShowMap(!showMap); }}
                 style={{
-                  height: 50,
+                  height: 42,
                   justifyContent: 'center',
                   borderLeftWidth: 1,
                   borderLeftColor: Colors.BorderColor,
@@ -612,6 +629,7 @@ const handleShare = async (ID) => {
                 onPress={async () => {
                   await getCurretLocation();
                   setShowMap(false);
+                   setAddres("");
                 }}
                 style={{}}>
                 <Image
@@ -733,8 +751,8 @@ const handleShare = async (ID) => {
                   setIsSelected(false);
                   setIsPressed1(false);
                   setIsPressed(false);
-                  { handlePress2; }
                   setSelectedItem(null);
+                  { handlePress2; }
                   dispatch(clearFilter())
                   dispatch(getPoperties({ type: 0, data: '', lntLng, }))
                 }}
@@ -842,8 +860,8 @@ const handleShare = async (ID) => {
                               await dispatch(getPoperties({
                                 type: 3, data: {
                                   UserId: user_ID,
-                                  data_custom_taxonomy: "property_city",
-                                  data_customvalue: item.toString(),
+                                  data_custom_taxonomy: item.toString(),
+                                  data_customvalue: "property_city",
                                 },
                               })).then((res) => {
                                 setHomeData(res.payload.data);
@@ -872,8 +890,8 @@ const handleShare = async (ID) => {
                                         await dispatch(getPoperties({
                                           type: 3, data: {
                                             UserId: user_ID,
-                                            data_custom_taxonomy: "bedroom",
-                                            data_customvalue: item.data_customvalue,
+                                            data_custom_taxonomy: item.data_customvalue,
+                                            data_customvalue: "bedroom",
                                           },
                                         })).then((res) => {
                                           setHomeData(res.payload.data);
@@ -912,8 +930,8 @@ const handleShare = async (ID) => {
                                       await dispatch(getPoperties({
                                         type: 3, data: {
                                           UserId: user_ID,
-                                          data_custom_taxonomy: "bathroom",
-                                          data_customvalue: item.data_customvalue,
+                                          data_custom_taxonomy: item.data_customvalue,
+                                          data_customvalue: "bathroom",
                                         },
                                       })).then((res) => {
                                         setHomeData(res.payload.data);
@@ -955,8 +973,8 @@ const handleShare = async (ID) => {
                                   await dispatch(getPoperties({
                                     type: 3, data: {
                                       UserId: user_ID,
-                                      data_custom_taxonomy: "min_square",
-                                      data_customvalue: item.data_customvalue,
+                                      data_custom_taxonomy: item.data_customvalue,
+                                      data_customvalue: "min_square",
                                     },
                                   })).then((res) => {
                                     setHomeData(res.payload.data);
@@ -985,8 +1003,8 @@ const handleShare = async (ID) => {
                                   await dispatch(getPoperties({
                                     type: 3, data: {
                                       UserId: user_ID,
-                                      data_custom_taxonomy: "max_square",
-                                      data_customvalue: item.data_customvalue,
+                                      data_custom_taxonomy: item.data_customvalue,
+                                      data_customvalue: "max_square",
                                     },
                                   })).then((res) => {
                                     setHomeData(res.payload.data);
@@ -1024,8 +1042,8 @@ const handleShare = async (ID) => {
                                   await dispatch(getPoperties({
                                     type: 3, data: {
                                       UserId: user_ID,
-                                      data_custom_taxonomy: "min_price",
-                                      data_customvalue: item.data_customvalue,
+                                      data_custom_taxonomy: item.data_customvalue,
+                                      data_customvalue: "min_price",
                                     },
                                   })).then((res) => {
                                     setHomeData(res.payload.data);
@@ -1054,8 +1072,8 @@ const handleShare = async (ID) => {
                                   await dispatch(getPoperties({
                                     type: 3, data: {
                                       UserId: user_ID,
-                                      data_custom_taxonomy: "max_price",
-                                      data_customvalue: item.data_customvalue,
+                                      data_custom_taxonomy: item.data_customvalue,
+                                      data_customvalue: "max_price",
                                     },
                                   })).then((res) => {
                                     setHomeData(res.payload.data);
@@ -1085,7 +1103,6 @@ const handleShare = async (ID) => {
                                 renderItem={({ item, index }) => {
                                   const { data_custom_taxonomy, data_customvalue } = item;
                                   const isSelected = selectedTabsMore.filter((i) => i === data_customvalue).length > 0;
-
                                   return (
                                     <TouchableOpacity style={{
                                       width: '30%', margin: 5, borderRadius: 20, borderWidth: 1,
@@ -1093,13 +1110,14 @@ const handleShare = async (ID) => {
                                       backgroundColor: isSelected ? Colors.black : Colors.white,
                                       padding: 10,
                                     }} onPress={
-
                                       async () => {
+                                        console.log("selectedTabsMore check", selectedTabsMore)
+
                                         await dispatch(getPoperties({
                                           type: 3, data: {
                                             UserId: user_ID,
-                                            data_custom_taxonomy: "more_filter_data",
-                                            data_customvalue: item.data_customvalue,
+                                            data_custom_taxonomy: item.data_customvalue,
+                                            data_customvalue: "more_filter_data",
                                           },
                                         })).then((res) => {
                                           setHomeData(res.payload.data);
@@ -1134,7 +1152,6 @@ const handleShare = async (ID) => {
                             <TouchableOpacity
                               onPress={async () => {
                                 setFilterModalVisible(false)
-
                               }}
                               style={{
                                 height: 50,
@@ -1711,7 +1728,7 @@ const handleShare = async (ID) => {
                                               imageSize={18}
                                               startingValue={ratingData[0]?.photo_wuality_rating
                                               }
-                                              ratingBackgroundColor="#c8c7c8"
+                                              //ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
                                               style={styles.rating}
                                               ratingColor={Colors.surfblur}
@@ -1736,7 +1753,7 @@ const handleShare = async (ID) => {
                                               imageSize={18}
                                               startingValue={ratingData[0]?.description_review_stars
                                               }
-                                              ratingBackgroundColor="#c8c7c8"
+                                              // ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
                                               style={styles.rating}
                                               ratingColor={Colors.surfblur}
@@ -1760,7 +1777,7 @@ const handleShare = async (ID) => {
                                               imageSize={18}
                                               startingValue={ratingData[0]?.price_review_stars
                                               }
-                                              ratingBackgroundColor="#c8c7c8"
+                                              //ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
                                               style={styles.rating}
                                               ratingColor={Colors.surfblur}
@@ -1785,7 +1802,7 @@ const handleShare = async (ID) => {
                                               imageSize={18}
                                               startingValue={ratingData[0]?.interest_review_stars
                                               }
-                                              ratingBackgroundColor="#c8c7c8"
+                                              // ratingBackgroundColor="#c8c7c8"
                                               onFinishRating={setRating}
                                               style={styles.rating}
                                               ratingColor={Colors.surfblur}

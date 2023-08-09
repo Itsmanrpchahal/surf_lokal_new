@@ -35,63 +35,85 @@ const ChatSearch = () => {
     const date = now.getDate().toString().padStart(2, '0');
     const hours = now.getHours().toString().padStart(2, '0');
     const minutes = now.getMinutes().toString().padStart(2, '0');
-    const dateTimeString = `${year}-${month}-${date} ${hours}:${minutes}`;
+    const dateTimeString = `${month}/${date}/${year}    ${hours}:${minutes}`;
     return dateTimeString;
   };
   return (
-    <View style={{ height: "100%", position: 'relative', paddingBottom: 100, }}>
-      <View style={{ backgroundColor: Colors.gray, height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Home')}
-          style={{
-            height: 25,
-            width: 25,
-            borderRadius: 100,
-            flexDirection: "row",
-            justifyContent: "center",
-            backgroundColor: Colors.surfblur,
-            alignItems: "center",
-            marginLeft: 10,
-          }}
-        >
+    <View style={{ height: "100%", position: 'relative', paddingBottom: 100, backgroundColor: 'white' }}>
+      <View style={{ paddingVertical: 10, paddingHorizontal: 12, backgroundColor: Colors.white, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderColor: '#c9c9c5' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center' }}>
           <Image
             style={{
-              height: 10,
-              width: 10,
+              height: 40,
+              width: 40,
               resizeMode: "contain",
-              tintColor: Colors.white,
-            }}
-            source={Images.whiteclose}
-          ></Image>
-        </TouchableOpacity>
-        <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: Colors.black }}>
-          Powered by Chat GPT-4
-        </Text>
-        <TouchableOpacity
-          onPress={() => { setRes([]) }}
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            marginRight: 10,
-          }}
-        >
-          <Image
-            style={{
-              height: 25,
-              width: 25,
-              resizeMode: "contain",
-              tintColor: Colors.black,
-            }}
-            source={Images.reload}
-          ></Image>
-        </TouchableOpacity>
+              borderRadius: 50,
+              // marginLeft: 2
+              // tintColor: Colors.surfblur,
+              marginRight: 5,
+              borderColor: Colors.primaryBlue,
+              borderWidth: 1,
 
+            }}
+            source={Images.user}
+          ></Image>
+
+          <Text style={{ fontSize: 15, fontFamily: 'Poppins-Medium', color: Colors.black }}> Powered by Cynthia</Text>
+        </View>
+
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginRight: 0 }}>
+          <TouchableOpacity
+            onPress={() => { setRes([]) }}
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              marginRight: 5,
+            }}
+          >
+            <Image
+              style={{
+                height: 25,
+                width: 25,
+                resizeMode: "contain",
+                tintColor: Colors.black,
+              }}
+              source={Images.reload}
+            ></Image>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+            style={{
+
+              height: 35,
+              width: 35,
+              borderRadius: 100,
+              // backgroundColor: Colors.surfblur,
+              alignItems: "center",
+
+
+            }}
+          >
+            <Image
+              style={{
+                height: 20,
+                width: 20,
+                top: 7,
+                resizeMode: "contain",
+                borderRadius: 50,
+                marginLeft: 2,
+                tintColor: Colors.black,
+
+              }}
+              source={Images.close}
+            ></Image>
+          </TouchableOpacity>
+        </View>
       </View>
       <Text style={{
         marginLeft: 15,
         marginRight: 13, fontSize: 16, borderRadius: 16, alignSelf: 'flex-start', maxWidth: '100%', marginTop: 22, color: Colors.black, fontFamily: "Poppins-Medium",
-      }}>Hi! What can I help you with?</Text>
+      }}>Hi I'm Cynthia. What can I help you with today ?</Text>
 
 
       <AutoScrollFlatList
@@ -106,7 +128,7 @@ const ChatSearch = () => {
                   padding: 8,
                   fontSize: 16,
                   borderRadius: 16,
-                  backgroundColor: item.type === 0 ? Colors.surfblur : Colors.white,
+                  backgroundColor: item.type === 0 ? Colors.surfblur : '#D3D3D3',
                   alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
                   maxWidth: '70%',
                   marginLeft: 8,
@@ -150,15 +172,7 @@ const ChatSearch = () => {
             color: Colors.white
           }}>{message}</Text>
         }
-        <Text style={{
-          fontSize: 16,
 
-          marginLeft: 16,
-          color: Colors.black,
-          marginTop: 8,
-          backgroundColor: Colors.white,
-          fontFamily: 'Poppins-Regular'
-        }}>Please reply on this chat box</Text>
         {
           loading && <View style={{ flexDirection: 'row' }}>
             <Text style={{
