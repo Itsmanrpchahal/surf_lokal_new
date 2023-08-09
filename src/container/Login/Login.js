@@ -61,8 +61,9 @@ export default function Login({ navigation }) {
 
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    requestUserPermission()
     NotificationListerner()
+
+    requestUserPermission()
   }, []);
 
   useEffect(() => {
@@ -291,14 +292,16 @@ export default function Login({ navigation }) {
                 <TouchableOpacity
                   onPress={() => { setModalVisible(true) }}
                   style={Styles.regionView}>
-                  <View style={{ width: '85%' }}>
+
+                  <View style={{ width: '85%' ,position:"relative"}}>
                     <Text allowFontScaling={false} style={Styles.regionText}>
                       Country/Region
                     </Text>
-                    <View style={{ flexDirection: 'row', width: "100%", alignItems: "center", justifyContent: "center" }}>
+                    <View style={{ flexDirection: 'row', width: "100%", }}>
                       {
                         <CountryPicker
-                          containerButtonStyle={{ width: 300, marginLeft: 8, }}
+                          containerButtonStyle={{ width:"100%", marginLeft: 0, }}
+
                           withFilter={true}
                           withCallingCodeButton={true}
                           withCountryNameButton={true}
