@@ -97,6 +97,7 @@ export default function Register({ navigation }) {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
+
       <ScrollView style={Styles.container}>
         {/* <View style={Styles.loginView}>
           <Text style={Styles.loginText}>
@@ -107,6 +108,34 @@ export default function Register({ navigation }) {
         <View style={Styles.loginView}>
           <Text style={Styles.signUpText}>Create an account</Text>
         </View> */}
+        <View style={{
+
+          width: '100%',
+          position: 'absolute',
+          top: 10,
+          left: 10
+
+        }}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 28,
+              width: 28,
+              borderRadius: 100,
+              backgroundColor: Colors.gray,
+            }}>
+            <Image source={Images.downArrow} style={{
+              height: 12,
+              width: 12,
+              resizeMode: 'contain',
+              tintColor: Colors.black,
+              transform: [{ rotate: '90deg' }],
+            }}></Image>
+          </TouchableOpacity>
+        </View>
         <Image source={Images.appLogo} style={Styles.appLogo}></Image>
         <View style={Styles.socialMediaButtons}>
           <TextInput

@@ -235,7 +235,7 @@ const MyFavorites = () => {
         style={{
           // height: 30,
           //width: 20,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.surfblur,
           position: 'absolute',
           top: 8,
           right: 16,
@@ -249,10 +249,10 @@ const MyFavorites = () => {
         <Text
           style={{
             fontSize: 12,
-            color: Colors.black,
+            color: Colors.white,
             fontFamily: "Poppins-Regular",
             marginBottom: 0,
-            lineHeight: 14,paddingTop:4
+            lineHeight: 14, paddingTop: 4
           }}>
           {item?.ListingKey}
         </Text>
@@ -274,7 +274,7 @@ const MyFavorites = () => {
           <TouchableOpacity onPress={() => makePhoneCall()}>
             <Image
               source={Images.call}
-              style={{ height: 18, width: 18, resizeMode: 'contain', marginRight: 15, position: "relative", left: -6 }}></Image>
+              style={{ height: 18, width: 18, resizeMode: 'contain', marginRight: 15, position: "relative", left: 0, top: 1 }}></Image>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -289,7 +289,7 @@ const MyFavorites = () => {
             style={{
               fontSize: 18,
               color: Colors.primaryBlue,
-              fontFamily: 'Poppins-Medium',
+              fontFamily: 'Poppins-Bold',
               marginTop: 5
             }}>
 
@@ -331,7 +331,7 @@ const MyFavorites = () => {
           <TouchableOpacity onPress={() => handleShare()}>
             <Image
               source={Images.send}
-              style={{ height: 18, width: 18, resizeMode: 'contain', position: "relative", left: 8 }}></Image>
+              style={{ height: 18, width: 18, resizeMode: 'contain', position: "relative", left: 8, top: 1 }}></Image>
           </TouchableOpacity>
         </View>
       </View>
@@ -1053,7 +1053,7 @@ const MyFavorites = () => {
               style={{
                 fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium'
               }}>
-             No Property in Favorite !!
+              No Property in Favorite !!
             </Text>
           </View>
         ) : (
