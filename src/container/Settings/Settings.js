@@ -140,7 +140,18 @@ const Settings = props => {
           alignItems: 'center',
           paddingVertical: 6
         }}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={{
+            height: 45,
+            width: 45,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderWidth: 1,
+            borderColor: Colors.primaryBlue,
+            borderRadius: 50
+
+          }}>
           <View
             style={{
               height: 40,
@@ -280,7 +291,7 @@ const Settings = props => {
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{ color:'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
+            style={{ color: 'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
 
             placeholderTextColor={Colors.black}
             value={detials[0]?.user_email}
@@ -333,7 +344,7 @@ const Settings = props => {
           }}>
           <TextInput
             allowFontScaling={false}
-            style={{ color:'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
+            style={{ color: 'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
 
             placeholderTextColor={'black'}
             value={mob}

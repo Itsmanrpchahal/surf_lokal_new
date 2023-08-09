@@ -88,12 +88,17 @@ const Home = () => {
           userID: user_ID,
           SearchParameters: adress,
         };
+        console.log("SearchParameters payload", payload)
         dispatch(getPoperties({ type: 2, data: payload, lntLng, }))
           .then((res) => {
             setHomeData(res.payload.data);
           });
         setKeyboardStatus('first');
-        // setAddres("");
+        setIsSelected(false);
+        setIsPressed1(false);
+        setIsPressed(false);
+        setSelectedItem(null);
+        setSelectedTabs([])
       }
     }
   };
@@ -168,7 +173,6 @@ const Home = () => {
   const getUserScoreApiCall = () => {
     dispatch(getUserScore()).then(response => {
 
-      console.log('getUserScoreApiCallresponse', response.payload.data.points)
     });
   };
   useEffect(() => {
@@ -451,8 +455,8 @@ const Home = () => {
             dispatch(getPoperties({
               type: 3, data: {
                 UserId: user_ID,
-                data_custom_taxonomy: item.data_custom_taxonomy,
-                data_customvalue: item.data_customvalue
+                data_custom_taxonomy: item.data_customvalue,
+                data_customvalue: item.data_custom_taxonomy,
               },
 
             })).then((res) => {
@@ -527,7 +531,7 @@ const Home = () => {
           }}>
           <View
             style={{
-              height: 50,
+              height: 42,
               width: '85%',
               borderRadius: 100,
               borderWidth: 1,
@@ -570,7 +574,7 @@ const Home = () => {
               <TouchableOpacity
                 onPress={() => { setShowMap(!showMap); }}
                 style={{
-                  height: 50,
+                  height: 42,
                   justifyContent: 'center',
                   borderLeftWidth: 1,
                   borderLeftColor: Colors.BorderColor,
@@ -595,6 +599,7 @@ const Home = () => {
                 onPress={async () => {
                   await getCurretLocation();
                   setShowMap(false);
+                  setAddres("");
                 }}
                 style={{}}>
                 <Image
@@ -716,8 +721,15 @@ const Home = () => {
                   setIsSelected(false);
                   setIsPressed1(false);
                   setIsPressed(false);
-                  { handlePress2; }
                   setSelectedItem(null);
+                  // setCities(null)
+                  setBedroomItem(null)
+                  setBathRoomItem(null);
+                  setMinSquareFeet("")
+                  setMaxSquareFeet("")
+                  setMinPricerange("")
+                  setMaxPriceRange("")
+                  { handlePress2; }
                   dispatch(clearFilter())
                   dispatch(getPoperties({ type: 0, data: '', lntLng, }))
                 }}
@@ -1068,7 +1080,6 @@ const Home = () => {
                                 renderItem={({ item, index }) => {
                                   const { data_custom_taxonomy, data_customvalue } = item;
                                   const isSelected = selectedTabsMore.filter((i) => i === data_customvalue).length > 0;
-
                                   return (
                                     <TouchableOpacity style={{
                                       width: '30%', margin: 5, borderRadius: 20, borderWidth: 1,
@@ -1076,8 +1087,9 @@ const Home = () => {
                                       backgroundColor: isSelected ? Colors.black : Colors.white,
                                       padding: 10,
                                     }} onPress={
-
                                       async () => {
+                                        console.log("selectedTabsMore check", selectedTabsMore)
+
                                         await dispatch(getPoperties({
                                           type: 3, data: {
                                             UserId: user_ID,
@@ -1117,7 +1129,6 @@ const Home = () => {
                             <TouchableOpacity
                               onPress={async () => {
                                 setFilterModalVisible(false)
-
                               }}
                               style={{
                                 height: 50,

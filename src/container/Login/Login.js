@@ -168,8 +168,37 @@ export default function Login({ navigation }) {
           Alert.alert('Alert', response.payload.message);
         }
       });
-    }
 
+     
+      // get current authentication state for user
+      // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
+      const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
+      console.log('credentialState', credentialState)
+  
+      // use credentialState response to ensure the user is authenticated
+      if (credentialState === appleAuth.State.AUTHORIZED) {
+        // user is authenticated
+        console.log('user is authenticated', credentialState)
+        console.log('appleAuthRequestResponse ===> ', appleAuthRequestResponse.identityToken)
+        var decoded = jwt_decode(appleAuthRequestResponse.identityToken);
+        formdata.append('email', decoded.email);
+        formdata.append('username', decoded.email);
+        formdata.append('social_id', decoded.nonce);
+        formdata.append('social_token', appleAuthRequestResponse.identityToken);
+        formdata.append('device_type',Platform.OS === 'android' ? 1 :2)
+        formdata.append('device_token',fcmtoken)
+        console.log('formData ',formdata)
+        dispatch(googleUser(formdata)).then(response => {
+          if (response.payload.success) {
+            setLoading(false);
+  
+            navigation.navigate('AppIntro');
+          } else {
+            setLoading(false);
+            Alert.alert('Alert', response.payload.message);
+          }
+        });
+      }
 
   };
 
@@ -251,6 +280,7 @@ export default function Login({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       <ScrollView style={Styles.container}>
+
         <Image source={Images.appLogo} style={Styles.appLogo}></Image>
 
         {/* <View style={Styles.loginView}>
@@ -265,14 +295,14 @@ export default function Login({ navigation }) {
               <TouchableOpacity
                 onPress={() => { setModalVisible(true) }}
                 style={Styles.regionView}>
-                <View style={{ width: '85%' }}>
+                <View style={{ width: '85%', position: "relative" }}>
                   <Text allowFontScaling={false} style={Styles.regionText}>
                     Country/Region
                   </Text>
                   <View style={{ flexDirection: 'row', width: "100%", alignItems: "center", justifyContent: "center" }}>
                     {
                       <CountryPicker
-                        containerButtonStyle={{ width: 300, marginLeft: 25, fontSize: 18 }}
+                        containerButtonStyle={{ width: 300, marginLeft: 8, fontSize: 12 }}
                         withFilter={true}
                         withCallingCodeButton={true}
                         withCountryNameButton={true}
@@ -430,7 +460,7 @@ export default function Login({ navigation }) {
             <Text
               allowFontScaling={false}
               style={Styles.socialMediaButtonsText}>
-              Continue with email
+              Continue with Email
             </Text>
           </TouchableOpacity>
         ) : (
@@ -443,7 +473,7 @@ export default function Login({ navigation }) {
             <Text
               allowFontScaling={false}
               style={Styles.socialMediaButtonsText}>
-              Continue with phone
+              Continue with Phone
             </Text>
           </TouchableOpacity>
         )}
@@ -480,7 +510,7 @@ export default function Login({ navigation }) {
             source={Images.facebook}
             style={Styles.socialMediaButtonsImage}></Image>
           <Text allowFontScaling={false} style={Styles.socialMediaButtonsText}>
-            Continue with facebook
+            Continue with Facebook
           </Text>
         </TouchableOpacity>
 

@@ -23,7 +23,7 @@ import {
 } from 'react-native';
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import { postRating } from '../../modules/postRating';
-
+import dynamicLinks from '@react-native-firebase/dynamic-links';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
@@ -90,6 +90,40 @@ const RecycleBin = () => {
     })
   ).current;
 
+  const generateLink = async (ID) => {
+    try {
+        const link = await dynamicLinks().buildShortLink({
+            link: `https://surflokal.page.link/property?propetyID=${ID}`,
+            domainUriPrefix: Platform.OS === 'android' ?'https://surflokal.page.link/':'https://surflokal.page.link',
+            android: {
+                packageName: 'surf.lokal',
+            },
+            ios: {
+              appStoreId:'123456789',
+                bundleId: 'surf.lokal',
+            },
+            navigation: {
+              forcedRedirectEnabled: true,
+          }
+        }, dynamicLinks.ShortLinkType.SHORT)
+        console.log('link:', link)
+        return link
+    } catch (error) {
+        console.log('Generating Link Error:', error)
+    }
+}
+const handleShare = async (ID) => {
+  const link = await generateLink(ID)
+  try {
+    Share.share({
+      title: 'Please check this property',
+        message:  link ,
+        url:link
+    });
+} catch (error) {
+    console.log('Sharing Error:', error)
+}
+};
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
@@ -207,13 +241,6 @@ const RecycleBin = () => {
     let message = 'Hello from my app!';
     Linking.openURL(`sms:${phoneNumber}`);
   };
-  const handleShare = () => {
-    Share.share({
-      message: 'Check out this cool article I found!',
-      url: 'https://example.com/article',
-      title: 'Cool Article',
-    });
-  };
 
 
   const renderItem = ({ item }) => (
@@ -240,7 +267,7 @@ const RecycleBin = () => {
           <TouchableOpacity onPress={() => makePhoneCall()}>
             <Image
               source={Images.call}
-              style={{ height: 18, width: 18, resizeMode: 'contain', marginRight: 15, position: "relative", left: -6 }}></Image>
+              style={{ height: 18, width: 18, resizeMode: 'contain', marginRight: 15, position: "relative", left: 0, top: 1 }}></Image>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -255,8 +282,8 @@ const RecycleBin = () => {
           <Text
             style={{
               fontSize: 18,
-              color: Colors.primaryBlue,
-              fontFamily: 'Poppins-Medium',
+              color: Colors.surfblur,
+              fontFamily: 'Poppins-Bold',
               marginTop: 5
             }}>
             {item.property_price}
@@ -287,7 +314,7 @@ const RecycleBin = () => {
             style={{ fontSize: 14, color: Colors.black, textAlign: 'left', marginRight: 0, position: "relative", left: 2 }}>
             {item.total_average_rating}
           </Text>
-          <TouchableOpacity onPress={() => handleShare()}>
+          <TouchableOpacity onPress={() => handleShare(item.ID)}>
             <Image
               source={Images.send}
               style={{ height: 18, width: 18, resizeMode: 'contain', position: "relative", left: 8, marginLeft: 0 }}></Image>
@@ -972,7 +999,7 @@ const RecycleBin = () => {
               style={{
                 fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium'
               }}>
-            No Property in Bin !!
+              No Property in Bin !!
             </Text>
           </View>
         ) : (

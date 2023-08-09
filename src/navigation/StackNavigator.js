@@ -36,7 +36,9 @@ const StackNavigator = () => {
       setRoute('Login');
     }
   };
-
+ 
+  useEffect(()=>{
+  },[])
   useEffect(() => {
     changeScreen();
   }, []);

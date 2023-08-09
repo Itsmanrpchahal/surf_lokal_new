@@ -80,6 +80,24 @@ export default StyleSheet.create({
     fontSize: 18 * fontSizeRatio,
     fontFamily: 'Poppins-Regular'
   },
+  screen: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 28,
+    width: 28,
+    borderRadius: 100,
+    backgroundColor: Colors.gray,
+  },
+
+  headerIcon: {
+    width: '100%',
+    zIndex: 9,
+    position: 'absolute',
+    top: -30,
+    left: 10
+  },
+
   regionText: {
     color: Colors.textColorLight,
     fontSize: 16 * fontSizeRatio,
