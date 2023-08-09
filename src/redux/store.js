@@ -37,6 +37,7 @@ import getRewardListing from '../modules/getRewardListing';
 import  likeDisLike  from '../modules/likeDislike';
 import getLeaderboard from '../modules/getLeaderboard';
 import getUserScore from '../modules/getUserScore';
+import bookChat from '../modules/bookChat';
 export const store = configureStore({
   reducer: {
     loginUser: loginUserReducer,
@@ -73,7 +74,8 @@ export const store = configureStore({
     getRewardListing:getRewardListing,
     likeDisLike:likeDisLike,
     getLeaderboard:getLeaderboard,
-    getUserScore:getUserScore
+    getUserScore:getUserScore,
+    bookChat:bookChat
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
