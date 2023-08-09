@@ -83,13 +83,14 @@ const BottomTabNavigator = () => {
               <Text style={{
                 fontFamily: 'Poppins-Regular',
                 position: "absolute",
-                fontSize: 20, top: -35,
+                fontSize: 20, top: -30,
                 color: Colors.black,
+                // backgroundColor:'red',
 
                 marginLeft: 12
               }}
 
-                allowFontScaling={false}>{"0"}</Text>
+                allowFontScaling={true}>0</Text>
               <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular', color: isFocused ? Colors.textColorDark : null }} allowFontScaling={false}>  Rewards</Text>
 
             </View>
@@ -171,7 +172,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
       style={{
         width: '100%',
         // height:50,
-        height: "9%",
+        height: "8%",
         backgroundColor: Colors.white,
         justifyContent: 'center',
         borderTopColor: Colors.gray,
@@ -228,7 +229,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
               return {
                 height: 55,
                 width: 45,
-                marginTop: 10,
+                marginTop: 17,
 
                 tintColor: isFocused ? Colors.primaryBlue : Colors.textColorDark,
 
@@ -236,6 +237,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
             }
             return {
               height: 25,
+              marginTop:15,
               width: 25,
               tintColor: isFocused ? Colors.primaryBlue : Colors.textColorDark,
             };
@@ -249,7 +251,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
               onPress={onPress}
               onLongPress={onLongPress}
               style={{
-                width: "30%",
+                width: "25%",
                 maxHeight: 100,
                 alignItems: 'center',
                 justifyContent: 'center',

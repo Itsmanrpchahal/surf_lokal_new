@@ -11,6 +11,7 @@ import Images from "../../utils/Images";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import AsyncStorage from '@react-native-community/async-storage';
 import {getBookTour} from "../../modules/getBookTour";
+import {bookChat} from "../../modules/bookChat";
 
 const BookaTour = (props) => {
     const navigation = useNavigation();
@@ -280,18 +281,7 @@ const BookaTour = (props) => {
                         {message}
                     </Text>
                 )}
-                <Text
-                    style={{
-                        fontSize: 16,
-                        marginLeft: 16,
-                        color: Colors.black,
-                        marginTop: 8,
-                        backgroundColor: Colors.white,
-                        fontFamily: "Poppins-Regular",
-                    }}
-                >
-                    Please reply on this chat box
-                </Text>
+          
                 {loading && (
                     <View style={{ flexDirection: "row" }}>
                         <Text
@@ -347,7 +337,7 @@ const BookaTour = (props) => {
                     <TouchableOpacity
                         onPress={() => {
                             setLoading(true);
-                            dispatch(chat({ message: "i want to know somthink about site" }))
+                            dispatch(bookChat({ message: "i want to know somthink about site" }))
                                 .then((ress) => {
                                     setLoading(false);
 

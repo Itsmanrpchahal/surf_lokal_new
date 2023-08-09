@@ -292,6 +292,7 @@ export default function Login({ navigation }) {
                 <TouchableOpacity
                   onPress={() => { setModalVisible(true) }}
                   style={Styles.regionView}>
+
                   <View style={{ width: '85%' ,position:"relative"}}>
                     <Text allowFontScaling={false} style={Styles.regionText}>
                       Country/Region
@@ -300,6 +301,7 @@ export default function Login({ navigation }) {
                       {
                         <CountryPicker
                           containerButtonStyle={{ width:"100%", marginLeft: 0, }}
+
                           withFilter={true}
                           withCallingCodeButton={true}
                           withCountryNameButton={true}
