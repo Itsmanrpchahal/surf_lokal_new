@@ -56,9 +56,12 @@ export default function Register({ navigation }) {
       if (reg.test(emailId) === true) {
         if (phone == '') {
           Alert.alert('Please enter phone number');
-        } else if (address == '') {
-          Alert.alert('Please enter your address');
-        } else if (password == '') {
+          // } else 
+          // if (address == '') {
+          //   Alert.alert('Please enter your address');
+          // 
+        }
+        else if (password == '') {
           Alert.alert('Please enter passoword');
         } else if (confirmPassword == '') {
           Alert.alert('Retype password');

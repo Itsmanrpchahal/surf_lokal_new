@@ -126,7 +126,7 @@ const App = () => {
               style={{ width: "90%", justifyContent: "center" }}
               minimumValue={100000}
               maximumValue={1000000}
-              minimumTrackTintColor={Colors.darbluec}
+              minimumTrackTintColor={Colors.surfblur}
               maximumTrackTintColor={Colors.gray}
               thumbTintColor={Colors.white}
 
@@ -138,7 +138,7 @@ const App = () => {
                 height: 32,
                 borderRadius: 100,
                 borderWidth: 2, // Set the desired border width
-                borderColor: Colors.darbluec, // Set the desired border color
+                borderColor: Colors.surfblur, // Set the desired border color
               }}
               trackStyle={{
                 height: 10, // Set the desired height of the track
@@ -149,7 +149,7 @@ const App = () => {
 
         </View>
         <Text style={{ fontSize: 18, fontFamily: Fonts.regular, textAlign: 'center', color: "black", marginVertical: 0 }}>Your Rebate </Text>
-        <Text style={{ fontSize: 25, fontFamily: Fonts.bold, textAlign: 'center', color: "black", marginVertical: 0 }}>${meterValue*0.003}</Text>
+        <Text style={{ fontSize: 25, fontFamily: Fonts.bold, textAlign: 'center', color: "black", marginVertical: 0 }}>${meterValue * 0.003}</Text>
 
 
 
@@ -166,11 +166,11 @@ const App = () => {
               styles.rew,
               {
                 backgroundColor: isRewardsSelected ? 'transparent' : 'transparent',
-                borderColor: isRewardsSelected ? Colors.primaryBlue : Colors.primaryBlue,
+                borderColor: isRewardsSelected ? Colors.surfblur : Colors.surfblur,
               },
             ]}
           >
-            <Text style={[styles.text, { color: isRewardsSelected ? Colors.primaryBlue : Colors.primaryBlue, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>Challenges</Text>
+            <Text style={[styles.text, { color: isRewardsSelected ? Colors.surfblur : Colors.surfblur, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>Challenges</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -179,11 +179,11 @@ const App = () => {
               styles.rew,
               {
                 backgroundColor: isRewardsSelected ? 'trasnparent' : 'transparent',
-                borderColor: isRewardsSelected ? Colors.primaryBlue : Colors.primaryBlue,
+                borderColor: isRewardsSelected ? Colors.surfblur : Colors.surfblur,
               },
             ]}
           >
-            <Text style={[styles.text, { color: isRewardsSelected ? Colors.primaryBlue : Colors.primaryBlue, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>Leaderboard</Text>
+            <Text style={[styles.text, { color: isRewardsSelected ? Colors.surfblur : Colors.surfblur, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>Leaderboard</Text>
           </TouchableOpacity>
 
         </View>
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 18,
     // marginRight: '10%',
-    backgroundColor: Colors.primaryBlue,
+    backgroundColor: Colors.surfblur,
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 8
