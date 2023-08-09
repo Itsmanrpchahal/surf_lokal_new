@@ -106,7 +106,7 @@ const Home = () => {
   const [homeData, setHomeData] = useState([]);
   const [selectedTabs, setSelectedTabs] = useState([]);
   const [selectedTabsMore, setSelectedTabsMore] = useState([]);
-
+  // const [selectedMoreCity, setselectedMoreCity] = useState([])
   const [selected, setSelected] = useState(-1);
   const [activity, setActivity] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -152,6 +152,22 @@ const Home = () => {
   useEffect(() => {
     getID();
   }, []);
+
+  useEffect(() => {
+    if (selectedTabsMore) {
+      dispatch(getPoperties({
+        type: 3, data: {
+          UserId: user_ID,
+          data_custom_taxonomy: "more_filter_data",
+          data_customvalue: selectedTabsMore.toString(),
+        },
+      })).then((res) => {
+        setHomeData(res.payload.data);
+      });
+    }
+  }, [selectedTabsMore])
+
+
   const handlePress = () => {
     setIsPressed(!isPressed);
     setIsPressed1(false);
@@ -758,6 +774,7 @@ const Home = () => {
                   setMaxPriceRange("")
                   setMoreFilter(false)
                   setCities("");
+                  // setSelectedTabsMore("")
 
                   { handlePress2; }
                   dispatch(clearFilter())
@@ -1109,27 +1126,17 @@ const Home = () => {
                                 numColumns={3}
                                 renderItem={({ item, index }) => {
                                   const { data_custom_taxonomy, data_customvalue } = item;
-                                  const isSelected = selectedTabsMore.filter((i) => i === data_customvalue).length > 0;
+                                  const isSelectedMore = selectedTabsMore.filter((i) => i === data_customvalue).length > 0;
                                   return (
                                     <TouchableOpacity style={{
                                       width: '30%', margin: 5, borderRadius: 20, borderWidth: 1,
                                       borderColor: Colors.black,
-                                      backgroundColor: isSelected ? Colors.black : Colors.white,
+                                      backgroundColor: isSelectedMore ? Colors.black : Colors.white,
                                       padding: 10,
                                     }} onPress={
                                       async () => {
-                                        console.log("selectedTabsMore check", selectedTabsMore)
 
-                                        await dispatch(getPoperties({
-                                          type: 3, data: {
-                                            UserId: user_ID,
-                                            data_custom_taxonomy: "more_filter_data",
-                                            data_customvalue: item.data_customvalue,
-                                          },
-                                        })).then((res) => {
-                                          setHomeData(res.payload.data);
-                                        });
-                                        if (isSelected) {
+                                        if (isSelectedMore) {
                                           setSelectedTabsMore((prev) => prev.filter((i) => i !== data_customvalue));
                                         } else {
                                           setSelectedTabsMore(prev => [...prev, data_customvalue]);
@@ -1137,7 +1144,7 @@ const Home = () => {
                                       }
                                     }>
                                       <Text style={{
-                                        color: isSelected ? Colors.white : Colors.black,
+                                        color: isSelectedMore ? Colors.white : Colors.black,
                                         textAlign: 'center',
                                       }} numberOfLines={1}>
                                         {item?.data_name}
