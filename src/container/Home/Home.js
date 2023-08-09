@@ -88,12 +88,17 @@ const Home = () => {
           userID: user_ID,
           SearchParameters: adress,
         };
+        console.log("SearchParameters payload", payload)
         dispatch(getPoperties({ type: 2, data: payload, lntLng, }))
           .then((res) => {
             setHomeData(res.payload.data);
           });
         setKeyboardStatus('first');
-        setAddres("");
+        setIsSelected(false);
+        setIsPressed1(false);
+        setIsPressed(false);
+        setSelectedItem(null);
+        setSelectedTabs([])
       }
     }
   };
@@ -594,6 +599,7 @@ const Home = () => {
                 onPress={async () => {
                   await getCurretLocation();
                   setShowMap(false);
+                   setAddres("");
                 }}
                 style={{}}>
                 <Image
@@ -715,8 +721,8 @@ const Home = () => {
                   setIsSelected(false);
                   setIsPressed1(false);
                   setIsPressed(false);
-                  { handlePress2; }
                   setSelectedItem(null);
+                  { handlePress2; }
                   dispatch(clearFilter())
                   dispatch(getPoperties({ type: 0, data: '', lntLng, }))
                 }}
