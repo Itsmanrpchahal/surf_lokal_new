@@ -87,7 +87,9 @@ export default function AppIntro({ navigation }) {
 const styles = StyleSheet.create({
   image: {
     width: screenWidth,
-    height: "100%",
-    resizeMode: 'cover',
+
+    height: '100%',
+    resizeMode: 'contain' 
+
   },
 });
