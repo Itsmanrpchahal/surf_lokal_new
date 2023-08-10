@@ -6,7 +6,7 @@ PODS:
   - AppAuth/ExternalUserAgent (1.6.2):
     - AppAuth/Core
   - boost (1.76.0)
-  - BVLinearGradient (2.8.1):
+  - BVLinearGradient (2.8.2):
     - React-Core
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.71.6)
@@ -550,10 +550,10 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.23.0):
+  - RNScreens (3.24.0):
     - React-Core
     - React-RCTImage
-  - RNSVG (13.10.0):
+  - RNSVG (13.11.0):
     - React-Core
   - TOCropViewController (2.6.1)
   - Yoga (1.14.0)
@@ -756,7 +756,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
-  BVLinearGradient: 421743791a59d259aec53f4c58793aad031da2ca
+  BVLinearGradient: 916632041121a658c704df89d99f04acb038de0f
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: a83ceaa8a8581003a623facdb3c44f6d4f342ac5
   FBReactNativeSpec: 85eee79837cb797ab6176f0243a2b40511c09158
@@ -826,8 +826,8 @@ SPEC CHECKSUMS:
   RNGoogleSignin: c15bdaa7e8a9e190b6169d9c96a4e8380a740f22
   RNImageCropPicker: 14fe1c29298fb4018f3186f455c475ab107da332
   RNReanimated: f186e85d9f28c9383d05ca39e11dd194f59093ec
-  RNScreens: 6a8a3c6b808aa48dca1780df7b73ea524f602c63
-  RNSVG: 80584470ff1ffc7994923ea135a3e5ad825546b9
+  RNScreens: b21dc57dfa2b710c30ec600786a3fc223b1b92e7
+  RNSVG: 03e4d258ca355d7836a0a5dd4d4dc63c1eb49cbb
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   Yoga: ba09b6b11e6139e3df8229238aa794205ca6a02a
 

@@ -1,5 +1,6 @@
 import messaging from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-community/async-storage';
+import { navigationRef } from '../navigation/RootNavigation';
 
 
 export async function requestUserPermission() {
@@ -35,6 +36,8 @@ async function getFCMToken() {
 
 export const NotificationListerner = () => {
     messaging().onNotificationOpenedApp(remoteMessage => {
+        if (remoteMessage.notification.title) {
+        }
         console.log('Notiction App Open', remoteMessage.notification)
     })
 
