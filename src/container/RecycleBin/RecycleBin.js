@@ -36,6 +36,7 @@ import { getRating } from '../../modules/getRating';
 import { postUpdateRating } from '../../modules/postUpdateRating';
 import * as Animatable from 'react-native-animatable';
 import { useIsFocused } from '@react-navigation/native';
+import { store } from '../../redux/store';
 
 
 const screenHeight = Dimensions.get('window').height;
@@ -246,7 +247,7 @@ const handleShare = async (ID) => {
   const renderItem = ({ item }) => (
 
     <View style={styles.slideOuter}>
-      <TouchableOpacity onPress={() => { navigation.navigate('ViewPropertiy', { item }) }}>
+      <TouchableOpacity onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }) }}>
         <Image source={{ uri: item.featured_image_src[0].guid }} style={styles.slide} />
       </TouchableOpacity>
 
@@ -616,121 +617,6 @@ const handleShare = async (ID) => {
       </KeyboardAvoidingView>
 
 
-      {/* <ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false} >
-        <View
-          style={{
-            flexDirection: 'row',
-            width: 400,
-            margin: 10,
-
-            alignSelf: 'center',
-            justifyContent: 'space-between',
-          }}>
-
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Image
-              source={Images.bed}
-              style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
-
-            <Text
-              style={{
-                fontSize: 14,
-                color: Colors.black,
-                textAlign: 'center',
-              }}>
-              {item.property_bedrooms.length > 0 ? item.property_bedrooms : 0} {'Beds'}
-            </Text>
-          </View>
-
-
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Image
-              source={Images.bath}
-              style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
-            <Text
-              style={{
-                fontSize: 14,
-                color: Colors.black,
-                textAlign: 'center',
-              }}>
-              {item.bathroomsfull.length > 0 ? item.bathroomsfull : 0} {'Bath'}
-            </Text>
-          </View>
-
-
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Image
-              source={Images.measuring}
-              style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
-            <Text
-              style={{
-                fontSize: 14,
-                color: Colors.black,
-                textAlign: 'center',
-              }}>
-              {item.property_size.length > 0 ? item.property_size : 0} {'sq ft'}
-            </Text>
-          </View>
-
-
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-
-            <Text
-              style={{
-                fontSize: 13,
-                color: Colors.black,
-                textAlign: 'center',
-              }}>
-              {"HOA"}
-            </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                color: Colors.black,
-                textAlign: 'center',
-              }}>
-              {item.associationfee.length > 0 ? item.associationfee : 0}
-            </Text>
-          </View>
-
-
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Image
-              source={Images.tax}
-              style={{ height: 20, width: 20, marginTop: 5, resizeMode: 'contain' }}></Image>
-            <Text
-              style={{
-                fontSize: 14,
-                color: Colors.black,
-                textAlign: 'center',
-              }}>
-              {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
-            </Text>
-          </View>
-
-        </View>
-      </ScrollView> */}
-
       <View style={{
         flexDirection: 'row',
         width: '100%',
@@ -921,7 +807,7 @@ const handleShare = async (ID) => {
                       color: Colors.black,
                       textAlign: 'center',
                     }}>
-                    {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
+                    {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].yearbuilt.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].yearbuilt : 0}
                   </Text>
                 </View>
               </View>

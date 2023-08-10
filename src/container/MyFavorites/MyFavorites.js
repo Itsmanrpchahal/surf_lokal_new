@@ -40,6 +40,8 @@ import * as Animatable from 'react-native-animatable';
 import { useIsFocused } from '@react-navigation/native';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import DeviceInfo from 'react-native-device-info';
+import { store } from '../../redux/store';
+
 
 const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
@@ -256,7 +258,7 @@ const handleShare = async (ID) => {
     <View style={[styles.slideOuter]}>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('ViewPropertiy', { item })}>
+        onPress={() => navigation.navigate('ViewPropertiy', {ID: item.ID })}>
         <Image source={{ uri: item?.featured_image_src[0].guid }} style={styles.slide} />
       </TouchableOpacity>
 
@@ -1042,7 +1044,7 @@ const handleShare = async (ID) => {
                        color: Colors.black,
                        textAlign: 'center',
                      }}>
-                     {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
+                      {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].yearbuilt.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].yearbuilt : 0}
                    </Text>
                  </View>
                </View>
