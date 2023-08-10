@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, TouchableOpacity, Image, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, Image, TextInput, SafeAreaView } from 'react-native'
 import Colors from "../../utils/Colors";
 import { useNavigation, useIsFocused, useRoute } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
@@ -39,7 +39,8 @@ const ChatSearch = () => {
     return dateTimeString;
   };
   return (
-    <View style={{ height: "100%", position: 'relative', paddingBottom: 100, backgroundColor: 'white' }}>
+    <SafeAreaView>
+      <View style={{ height: "100%", position: 'relative', paddingBottom: 100, backgroundColor: 'white' }}>
       <View style={{ paddingVertical: 10, paddingHorizontal: 12, backgroundColor: Colors.white, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderColor: '#c9c9c5' }}>
         <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center' }}>
           <Image
@@ -261,6 +262,7 @@ const ChatSearch = () => {
 
       </View>
     </View>
+    </SafeAreaView>
   )
 }
 

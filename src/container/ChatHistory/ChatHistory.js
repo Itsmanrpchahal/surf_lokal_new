@@ -16,7 +16,7 @@ const ChatHistory = () => {
     return (
         <SafeAreaView>
             <View style={{ backgroundColor: "#f5f5f5", height: "100%" }}>
-                <View style={{ paddingVertical: 10, paddingHorizontal: 13, backgroundColor: Colors.white, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderColor: '#c9c9c5' }}>
+                <View style={{ paddingVertical: 10, paddingHorizontal: 12, backgroundColor: Colors.white, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderColor: '#c9c9c5' }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center' }}>
                         <Image
                             style={{
@@ -43,6 +43,7 @@ const ChatHistory = () => {
                     data={data}
                     renderItem={(item) => {
                         return (
+
                             <View style={{ padding: 22, height: "100%" }}>
                                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', borderBottomColor: Colors.BorderColor, borderBottomWidth: 1, marginBottom: 12, paddingBottom: 12 }}>
                                     <View style={{

@@ -18,10 +18,10 @@ import {
   Button,
   Linking,
   Share,
-
   TouchableHighlight,
   ActivityIndicator,
-  useWindowDimensions
+  useWindowDimensions,
+  Platform
 } from 'react-native';
 import clamp from 'clamp';
 import CardsSwipe from 'react-native-cards-swipe';
@@ -48,26 +48,9 @@ import { getAgent } from '../../modules/getAgent';
 import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
 import * as Animatable from 'react-native-animatable';
 import { TypingAnimation } from 'react-native-typing-animation';
-// import { schoolChat } from '../../modules/schoolChat';
 import { schoolChat } from '../../modules/schoolChat';
-// const data = [
-//   { label: 'Test', type: 0 },
-//   { label: 'Test', type: 0 },
-//   { label: 'Test', type: 1 },
-//   { label: 'Test', type: 0 },
-//   { label: 'Test', type: 1 },
-//   { label: 'Test', type: 1 },
-//   { label: 'Test', type: 1 },
-//   { label: 'Test', type: 0 },
-//   { label: 'Test', type: 1 },
-//   { label: 'Test', type: 1 },
-//   { label: 'Test', type: 0 },
-//   { label: 'Test', type: 0 },
-//   { label: 'Test', type: 0 },
-//   { label: 'Test', type: 1 },
-//   { label: 'Test', type: 0 },
+import dynamicLinks from '@react-native-firebase/dynamic-links';
 
-// ]
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const fontSizeRatio = screenHeight / 1000;
@@ -127,6 +110,42 @@ const ViewPropertiy = (props, imageUrl) => {
   };
   const slideAnimation = useRef(new Animated.Value(0)).current;
 
+  useEffect(()=>{
+  },[])
+  const generateLink = async () => {
+    try {
+        const link = await dynamicLinks().buildShortLink({
+            link: `https://surflokal.page.link/property?propetyID=${postid.ID}`,
+            domainUriPrefix: Platform.OS === 'android' ?'https://surflokal.page.link/':'https://surflokal.page.link',
+            android: {
+                packageName: 'surf.lokal',
+            },
+            ios: {
+              appStoreId:'123456789',
+                bundleId: 'surf.lokal',
+            },
+            navigation: {
+              forcedRedirectEnabled: true,
+          }
+        }, dynamicLinks.ShortLinkType.SHORT)
+        console.log('link:', link)
+        return link
+    } catch (error) {
+        console.log('Generating Link Error:', error)
+    }
+}
+const handleShare = async () => {
+  const link = await generateLink()
+  try {
+    Share.share({
+      title: 'Please check this property',
+        message:  link ,
+        url:link
+    });
+} catch (error) {
+    console.log('Sharing Error:', error)
+}
+};
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -238,7 +257,7 @@ const ViewPropertiy = (props, imageUrl) => {
   ).current;
   const getPopertiesDetailsApiCall = () => {
     setLoading(true);
-    dispatch(getPopertiesDetails(postid.item.ID)).then(response => {
+    dispatch(getPopertiesDetails(postid.ID)).then(response => {
 
       setLoading(false);
       setData(response.payload.data);
@@ -267,13 +286,7 @@ const ViewPropertiy = (props, imageUrl) => {
     let phoneNumber = agentData[0]?.agent_phone;
     Linking.openURL(`tel:${phoneNumber}`);
   };
-  const handleShare = () => {
-    Share.share({
-      message: 'Check out this cool article I found!',
-      url: 'https://example.com/article',
-      title: 'Cool Article',
-    });
-  };
+
   const getRatingApicall = () => {
     dispatch(getRating()).then(response => {
 
@@ -329,7 +342,7 @@ const ViewPropertiy = (props, imageUrl) => {
     const id = await AsyncStorage.getItem('userId');
     const formData = new FormData();
     formData.append('userID', id);
-    formData.append('postid', productId);
+    formData.append('postid', postid.ID);
     formData.append('comment_content', review);
     formData.append('review_title', reviewTitle);
     formData.append('review_stars', rating);
@@ -355,7 +368,7 @@ const ViewPropertiy = (props, imageUrl) => {
     const id = await AsyncStorage.getItem('userId');
     const formData = new FormData();
     formData.append('userID', id);
-    formData.append('postid', productId);
+    formData.append('postid', postid.ID);
     formData.append('comment_content', review);
     formData.append('review_title', reviewTitle);
     formData.append('review_stars', rating);
@@ -849,7 +862,7 @@ const ViewPropertiy = (props, imageUrl) => {
                             renderCard={(item, index) => (
                               <View>
                                 <TouchableOpacity
-                                  onPress={() => navigation.navigate('ViewPropertiyImage', { postid: postid.item.ID })}>
+                                  onPress={() => navigation.navigate('ViewPropertiyImage', { postid: postid.ID })}>
                                   <Image
                                     style={{
                                       width: width - 10,
@@ -2120,11 +2133,11 @@ const ViewPropertiy = (props, imageUrl) => {
           onPress={() => {
             navigation.navigate('BookaTour', {
               initialMessage: 'When would you like to schedule a showing?',
-              post_id: postid?.item?.ID,
+              post_id: postid?.ID,
               // initialMessage2: 'A Lokal agent will confirm with you within the next 2 hours',
               agentReply: <Image source={Images.cola} style={{ width: 40, height: 30, }} />,
             });
-            console.log("postid Cheack ", postid?.item?.ID)
+            console.log("postid Cheack ", postid?.ID)
           }}
           style={{
             justifyContent: 'center',

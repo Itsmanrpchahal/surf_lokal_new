@@ -39,6 +39,8 @@ const StackNavigator = () => {
   };
 
   useEffect(() => {
+  }, [])
+  useEffect(() => {
     changeScreen();
   }, []);
 

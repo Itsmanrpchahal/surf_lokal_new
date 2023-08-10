@@ -61,8 +61,9 @@ export default function Login({ navigation }) {
 
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    requestUserPermission()
     NotificationListerner()
+
+    requestUserPermission()
   }, []);
 
   useEffect(() => {
@@ -74,7 +75,6 @@ export default function Login({ navigation }) {
 
   useEffect(() => {
     GoogleSignin.configure({
-
       iosClientId:
         '681904798882-imtrbvtauorckhqv4sibieoi51rasda4.apps.googleusercontent.com',
       webClientId:
@@ -168,11 +168,43 @@ export default function Login({ navigation }) {
           Alert.alert('Alert', response.payload.message);
         }
       });
-    }
 
 
-  };
+      // get current authentication state for user
+      // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
+      const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
+      console.log('credentialState', credentialState)
 
+      // use credentialState response to ensure the user is authenticated
+      if (credentialState === appleAuth.State.AUTHORIZED) {
+        // user is authenticated
+        console.log('user is authenticated', credentialState)
+        console.log('appleAuthRequestResponse ===> ', appleAuthRequestResponse.identityToken)
+        var decoded = jwt_decode(appleAuthRequestResponse.identityToken);
+        formdata.append('email', decoded.email);
+        formdata.append('username', decoded.email);
+        formdata.append('social_id', decoded.nonce);
+        formdata.append('social_token', appleAuthRequestResponse.identityToken);
+        formdata.append('device_type', Platform.OS === 'android' ? 1 : 2)
+        formdata.append('device_token', fcmtoken)
+        console.log('formData ', formdata)
+        dispatch(googleUser(formdata)).then(response => {
+          if (response.payload.success) {
+            setLoading(false);
+
+            navigation.navigate('AppIntro');
+          } else {
+            setLoading(false);
+            Alert.alert('Alert', response.payload.message);
+          }
+        });
+      }
+
+    };
+  
+  }
+
+  
   const handleFacebookLogin = async () => {
     try {
       const result = await LoginManager.logInWithPermissions([
@@ -246,244 +278,235 @@ export default function Login({ navigation }) {
         }
       }
     } else Alert.alert('Alert', 'Enter email and password');
-  };
+  }; 
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       <ScrollView style={Styles.container}>
+        <View style={{ flex: 1 }}>
+          <Image source={Images.appLogo} style={Styles.appLogo}></Image>
 
-        <Image source={Images.appLogo} style={Styles.appLogo}></Image>
+          {!withEmail ? (
+            <View style={Styles.regionUpperView}>
+              <View style={Styles.loginContainer}>
+                <TouchableOpacity
+                  onPress={() => { setModalVisible(true) }}
+                  style={Styles.regionView}>
 
-        {/* <View style={Styles.loginView}>
-          <Text style={Styles.loginText}>
-            Login or sign up to start surfing
-          </Text>
-        </View> */}
-        {/* <View style={Styles.loginLine}></View> */}
-        {!withEmail ? (
-          <View style={Styles.regionUpperView}>
-            <View style={Styles.loginContainer}>
-              <TouchableOpacity
-                onPress={() => { setModalVisible(true) }}
-                style={Styles.regionView}>
-                <View style={{ width: '85%', position: "relative" }}>
-                  <Text allowFontScaling={false} style={Styles.regionText}>
-                    Country/Region
-                  </Text>
-                  <View style={{ flexDirection: 'row', width: "100%", alignItems: "center", justifyContent: "center" }}>
-                    {
-                      <CountryPicker
-                        containerButtonStyle={{ width: 300, marginLeft: 8, fontSize: 12 }}
-                        withFilter={true}
-                        withCallingCodeButton={true}
-                        withCountryNameButton={true}
-                        withAlphaFilter={true}
-                        withCallingCode={true}
-                        onSelect={(data) => {
-                          setCountryName(data.name)
-                          setCountryCode(data.cca2)
-                          setCC(data.callingCode[0])
-                        }}
-                        withModal={true}
-                        onClose={() => { setModalVisible(false) }}
-                        countryCode={countryCode}
+                  <View style={{ width: '85%' ,position:"relative"}}>
+                    <Text allowFontScaling={false} style={Styles.regionText}>
+                      Country/Region
+                    </Text>
+                    <View style={{ flexDirection: 'row', width: "100%", }}>
+                      {
+                        <CountryPicker
+                          containerButtonStyle={{ width:"100%", marginLeft: 0, }}
 
-                      />
-                    }
+                          withFilter={true}
+                          withCallingCodeButton={true}
+                          withCountryNameButton={true}
+                          withAlphaFilter={true}
+                          withCallingCode={true}
+                          onSelect={(data) => {
+                            setCountryName(data.name)
+                            setCountryCode(data.cca2)
+                            setCC(data.callingCode[0])
+                          }}
+                          withModal={true}
+                          onClose={() => { setModalVisible(false) }}
+                          countryCode={countryCode}
+
+                        />
+                      }
+
+                    </View>
 
                   </View>
-
+                  <View>
+                    <Image source={Images.downArrow} style={Styles.arrow}></Image>
+                  </View>
+                </TouchableOpacity>
+                <View style={Styles.phoneInputView}>
+                  <TextInput
+                    // ref={phoneNumber}
+                    style={Styles.inputStyle}
+                    placeholderTextColor={Colors.textColorLight}
+                    placeholder={'Phone Number'}
+                    keyboardType="number-pad"
+                    returnKeyType="done"
+                    secureTextEntry={false}
+                    maxLength={12}
+                    value={phone}
+                    onChangeText={value => { setPhone(value) }}
+                  />
                 </View>
-                <View>
-                  <Image source={Images.downArrow} style={Styles.arrow}></Image>
-                </View>
-              </TouchableOpacity>
-              <View style={Styles.phoneInputView}>
-                <TextInput
-                  // ref={phoneNumber}
-                  style={Styles.inputStyle}
-                  placeholderTextColor={Colors.textColorLight}
-                  placeholder={'Phone Number'}
-                  keyboardType="number-pad"
-                  returnKeyType="done"
-                  secureTextEntry={false}
-                  maxLength={12}
-                  value={phone}
-                  onChangeText={value => { setPhone(value) }}
-                />
               </View>
-            </View>
-            <View style={{ width: '85%', marginTop: 20 * viewSizeRatio }}>
-              <Text allowFontScaling={false} style={Styles.alertText}>
-                We''ll call or text to confirm your number. Standard {'\n'}
-                message and data rates apply.
-              </Text>
-            </View>
+              <View style={{ width: '85%', marginTop: 20 * viewSizeRatio }}>
+                <Text allowFontScaling={false} style={Styles.alertText}>
+                  We''ll call or text to confirm your number. Standard {'\n'}
+                  message and data rates apply.
+                </Text>
+              </View>
 
-          </View>
-        ) : (
-          <View style={Styles.regionUpperView}>
-            <View style={Styles.loginContainer}>
-              <TextInput
-                allowFontScaling={false}
-                style={Styles.inputStyle}
-                placeholderTextColor={Colors.textColorLight}
-                placeholder={'Email'}
-                keyboardType="default"
-                returnKeyType="done"
-                value={emailId}
-                onChangeText={emailId => setEmailId(emailId)}
-              />
-              <View style={Styles.phoneInputView}>
+            </View>
+          ) : (
+            <View style={Styles.regionUpperView}>
+              <View style={Styles.loginContainer}>
                 <TextInput
                   allowFontScaling={false}
                   style={Styles.inputStyle}
                   placeholderTextColor={Colors.textColorLight}
-                  placeholder={'Password'}
+                  placeholder={'Email'}
                   keyboardType="default"
                   returnKeyType="done"
-                  value={password}
-                  secureTextEntry={true}
-                  onChangeText={password => setPassword(password)}
+                  value={emailId}
+                  onChangeText={emailId => setEmailId(emailId)}
                 />
+                <View style={Styles.phoneInputView}>
+                  <TextInput
+                    allowFontScaling={false}
+                    style={Styles.inputStyle}
+                    placeholderTextColor={Colors.textColorLight}
+                    placeholder={'Password'}
+                    keyboardType="default"
+                    returnKeyType="done"
+                    value={password}
+                    secureTextEntry={true}
+                    onChangeText={password => setPassword(password)}
+                  />
+                </View>
+              </View>
+              <View style={{ width: '85%', marginTop: 20 * viewSizeRatio }}>
+                <Text allowFontScaling={false} style={Styles.alertText}>
+                  Please enter your email & password registerd with us and
+                  start surfing
+                </Text>
               </View>
             </View>
-            <View style={{ width: '85%', marginTop: 20 * viewSizeRatio }}>
-              <Text allowFontScaling={false} style={Styles.alertText}>
-                Please enter your email & password registerd with us and
-                start surfing
+          )}
+
+          <AppButton
+            onPress={() => accessRequestAction()}
+            // onPress={() => go()}
+            loading={loading}
+            btnText={'Continue'}
+            textStyle={{
+              fontSize: 20 * fontSizeRatio,
+              fontWeight: '500',
+              color: Colors.white,
+              fontFamily: 'Poppins-Regular'
+            }}
+            btnStyle={{
+              borderRadius: 6,
+              backgroundColor: Colors.primaryBlue,
+            }}
+          />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '85%',
+              marginTop: 20 * viewSizeRatio,
+              alignSelf: 'center',
+            }}>
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: Colors.primaryBlue,
+                  fontFamily: 'Poppins-Regular'
+                }}>
+                Sign Up
               </Text>
+            </TouchableOpacity>
+            <View style={{ width: '5%', alignItems: 'center' }}>
+              <View
+                style={{
+                  height: 12,
+                  backgroundColor: Colors.surfblur,
+                  width: 1,
+                }}></View>
             </View>
-          </View>
-        )}
 
-        <AppButton
-          onPress={() => accessRequestAction()}
-          // onPress={() => go()}
-          loading={loading}
-          btnText={'Continue'}
-          textStyle={{
-            fontSize: 20 * fontSizeRatio,
-            fontWeight: '500',
-            color: Colors.white,
-            fontFamily: 'Poppins-Regular'
-          }}
-          btnStyle={{
-            borderRadius: 6,
-            backgroundColor: Colors.primaryBlue,
-          }}
-        />
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '85%',
-            marginTop: 20 * viewSizeRatio,
-            alignSelf: 'center',
-          }}>
-          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text
-              style={{
-                fontSize: 14,
-                color: Colors.primaryBlue,
-                fontFamily: 'Poppins-Regular'
-              }}>
-              Sign Up
-            </Text>
-          </TouchableOpacity>
-          <View style={{ width: '5%', alignItems: 'center' }}>
-            <View
-              style={{
-                height: 12,
-                backgroundColor: Colors.surfblur,
-                width: 1,
-              }}></View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ForgotPassword')}>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: Colors.primaryBlue,
+                  fontFamily: 'Poppins-Regular'
+                }}>
+                Forgot Password
+              </Text>
+            </TouchableOpacity>
           </View>
+
+          {!withEmail ? (
+            <TouchableOpacity
+              onPress={() => handleEmailLogin()}
+              style={Styles.socialMediaButtons}>
+              <Image
+                source={Images.email}
+                style={Styles.socialMediaButtonsImage}></Image>
+              <Text
+                allowFontScaling={false}
+                style={Styles.socialMediaButtonsText}>
+                Continue with Email
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => setWithEmail(false)}
+              style={Styles.socialMediaButtons}>
+              <Image
+                source={Images.contactAgent}
+                style={Styles.socialMediaButtonsImage}></Image>
+              <Text
+                allowFontScaling={false}
+                style={Styles.socialMediaButtonsText}>
+                Continue with Phone
+              </Text>
+            </TouchableOpacity>
+          )}
+
+          {Platform.OS != 'android' ? (
+            <TouchableOpacity
+              onPress={() => handleAppleLogin()}
+              style={Styles.socialMediaButtons}>
+              <Image
+                source={Images.apple}
+                style={Styles.socialMediaButtonsImage}></Image>
+              <Text
+                allowFontScaling={false}
+                style={Styles.socialMediaButtonsText}>
+                Continue with Apple
+              </Text>
+            </TouchableOpacity>
+          ) : null}
 
           <TouchableOpacity
-            onPress={() => navigation.navigate('ForgotPassword')}>
-            <Text
-              style={{
-                fontSize: 14,
-                color: Colors.primaryBlue,
-                fontFamily: 'Poppins-Regular'
-              }}>
-              Forgot Password
+            onPress={() => googleLogin()}
+            style={Styles.socialMediaButtons}>
+            <Image
+              source={Images.google}
+              style={Styles.socialMediaButtonsImage}></Image>
+            <Text allowFontScaling={false} style={Styles.socialMediaButtonsText}>
+              Continue with Google
             </Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => handleFacebookLogin()}
+            style={Styles.socialMediaButtons}>
+            <Image
+              source={Images.facebook}
+              style={Styles.socialMediaButtonsImage}></Image>
+            <Text allowFontScaling={false} style={Styles.socialMediaButtonsText}>
+              Continue with Facebook
+            </Text>
+          </TouchableOpacity>
+
         </View>
-        {/* <View style={Styles.orView}>
-          <View style={Styles.line}></View>
-          <Text allowFontScaling={false} style={Styles.orText}>
-            Or
-          </Text>
-          <View style={Styles.line}></View>
-        </View> */}
-
-        {!withEmail ? (
-          <TouchableOpacity
-            onPress={() => handleEmailLogin()}
-            style={Styles.socialMediaButtons}>
-            <Image
-              source={Images.email}
-              style={Styles.socialMediaButtonsImage}></Image>
-            <Text
-              allowFontScaling={false}
-              style={Styles.socialMediaButtonsText}>
-              Continue with Email
-            </Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            onPress={() => setWithEmail(false)}
-            style={Styles.socialMediaButtons}>
-            <Image
-              source={Images.contactAgent}
-              style={Styles.socialMediaButtonsImage}></Image>
-            <Text
-              allowFontScaling={false}
-              style={Styles.socialMediaButtonsText}>
-              Continue with Phone
-            </Text>
-          </TouchableOpacity>
-        )}
-
-        {Platform.OS != 'android' ? (
-          <TouchableOpacity
-            onPress={() => handleAppleLogin()}
-            style={Styles.socialMediaButtons}>
-            <Image
-              source={Images.apple}
-              style={Styles.socialMediaButtonsImage}></Image>
-            <Text
-              allowFontScaling={false}
-              style={Styles.socialMediaButtonsText}>
-              Continue with Apple
-            </Text>
-          </TouchableOpacity>
-        ) : null}
-
-        <TouchableOpacity
-          onPress={() => googleLogin()}
-          style={Styles.socialMediaButtons}>
-          <Image
-            source={Images.google}
-            style={Styles.socialMediaButtonsImage}></Image>
-          <Text allowFontScaling={false} style={Styles.socialMediaButtonsText}>
-            Continue with Google
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => handleFacebookLogin()}
-          style={Styles.socialMediaButtons}>
-          <Image
-            source={Images.facebook}
-            style={Styles.socialMediaButtonsImage}></Image>
-          <Text allowFontScaling={false} style={Styles.socialMediaButtonsText}>
-            Continue with Facebook
-          </Text>
-        </TouchableOpacity>
 
       </ScrollView>
     </SafeAreaView>
