@@ -543,7 +543,7 @@ const MyFavorites = () => {
                 style={styles.viewstyle}>
                 <TouchableOpacity>
                   <Image
-                    source={ Images.chat}
+                    source={isImageChanged ? Images.redlike : Images.chat}
                     style={{ height: 20, width: 20, resizeMode: 'contain' }} />
                 </TouchableOpacity>
                 <Text style={styles.text}>Chat History</Text>

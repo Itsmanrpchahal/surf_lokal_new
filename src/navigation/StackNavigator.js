@@ -37,9 +37,9 @@ const StackNavigator = () => {
       setRoute('Login');
     }
   };
- 
-  useEffect(()=>{
-  },[])
+
+  useEffect(() => {
+  }, [])
   useEffect(() => {
     changeScreen();
   }, []);
@@ -51,8 +51,8 @@ const StackNavigator = () => {
         cardStyle: { backgroundColor: Colors.white },
       }}
       initialRouteName={'Login'}
-      >
-            <Stack.Screen name="BookaTour" component={BookaTour} />
+    >
+      <Stack.Screen name="BookaTour" component={BookaTour} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
@@ -74,8 +74,6 @@ const StackNavigator = () => {
       <Stack.Screen name="RecycleBin" component={RecycleBin} />
       <Stack.Screen name="ChatHistory" component={ChatHistory} />
 
-      
-  
     </Stack.Navigator>
   ) : null;
 };
