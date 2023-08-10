@@ -2298,6 +2298,8 @@ const styles = StyleSheet.create({
     marginTop: 50,
     width: "100%",
     alignContent: 'center',
+    backgroundColor:"white"
+
   },
   container: {
     flex: 1,
