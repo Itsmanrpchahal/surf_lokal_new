@@ -90,7 +90,7 @@ const BottomTabNavigator = () => {
                 marginLeft: 12
               }}
 
-                allowFontScaling={true}>{!data?data:0}</Text>
+                allowFontScaling={true}>{data ? data : 0}</Text>
               <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular', color: isFocused ? Colors.textColorDark : null }} allowFontScaling={false}>  Rewards</Text>
 
             </View>
@@ -237,7 +237,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
             }
             return {
               height: 25,
-              marginTop:15,
+              marginTop: 15,
               width: 25,
               tintColor: isFocused ? Colors.primaryBlue : Colors.textColorDark,
             };

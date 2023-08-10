@@ -70,7 +70,7 @@ const ChatHistory = ({ navigation }) => {
                         return (
                             <View >
                                 <TouchableOpacity onPress={() => {
-                                    navigation.navigate('BookaTour', { ID: item?.item?.ID })
+                                    navigation.navigate('BookaTour', { ID: item?.item?.chat_id })
                                 }}>
                                     <View style={{
                                         width: '100%',

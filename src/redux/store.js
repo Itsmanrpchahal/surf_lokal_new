@@ -1,4 +1,4 @@
-import {configureStore} from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import loginUserReducer from '../modules/loginUser';
 import googleUserReducer from '../modules/googleLogin';
 import getCountryReducer from '../modules/getCountry';
@@ -30,16 +30,17 @@ import filterSearch from '../modules/filterSearch';
 import clearFilter from '../modules/clearFilter';
 // import getBookTour from '../modules/getBookTour';
 import getBookTour from '../modules/getBookTour';
-import  loginPhoneUser  from '../modules/phonelogin';
+import loginPhoneUser from '../modules/phonelogin';
 import verifyOTP from '../modules/verifyOTP';
 
 import getRewardListing from '../modules/getRewardListing';
-import  likeDisLike  from '../modules/likeDislike';
+import likeDisLike from '../modules/likeDislike';
 import getLeaderboard from '../modules/getLeaderboard';
 import getUserScore from '../modules/getUserScore';
 import bookChat from '../modules/bookChat';
 import { propertyChatList } from '../modules/propertyChats';
 import { sendMessage } from '../modules/send_message';
+import isRead from '../modules/isRead';
 export const store = configureStore({
   reducer: {
     loginUser: loginUserReducer,
@@ -63,23 +64,24 @@ export const store = configureStore({
     getNearBy: getNearByReducer,
     editSearch: editSearchReducer,
     googleUser: googleUserReducer,
-    schoolChat : schoolChatReducer,
+    schoolChat: schoolChatReducer,
     chatGpt: chatGptReducer,
     makeOffer: makeOfferReducer,
     addFavorite: addFavoriteReducer,
     addRemoveTrash: addRemoveTrash,
-    getMoreFilter:getMoreFilter,
-    filterSearch:filterSearch,
-    clearFilter:clearFilter,
-    loginPhoneUser:loginPhoneUser,
-    verifyOTP:verifyOTP,
-    getRewardListing:getRewardListing,
-    likeDisLike:likeDisLike,
-    getLeaderboard:getLeaderboard,
-    getUserScore:getUserScore,
-    bookChat:bookChat,
-    sendMessage:sendMessage,
-    propertyChatList:propertyChatList
+    getMoreFilter: getMoreFilter,
+    filterSearch: filterSearch,
+    clearFilter: clearFilter,
+    loginPhoneUser: loginPhoneUser,
+    verifyOTP: verifyOTP,
+    getRewardListing: getRewardListing,
+    likeDisLike: likeDisLike,
+    getLeaderboard: getLeaderboard,
+    getUserScore: getUserScore,
+    bookChat: bookChat,
+    sendMessage: sendMessage,
+    propertyChatList: propertyChatList,
+    isRead: isRead
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
