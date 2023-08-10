@@ -2,84 +2,118 @@ import React, { useEffect, useRef, useState } from "react";
 import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView } from 'react-native'
 import Colors from "../../utils/Colors";
 import Images from "../../utils/Images";
+import { propertyChatList } from '../../modules/propertyChats'
+import { useDispatch } from 'react-redux';
+import { url } from "../../config/url";
+import { useIsFocused } from "@react-navigation/native";
+
+const ChatHistory = ({ navigation }) => {
+    const dispatch = useDispatch();
+    const [propertyChat, setPropertyChat] = useState([])
+    const isFocused = useIsFocused();
 
 
-const ChatHistory = () => {
-    const data = [
-        {
-            title: 'Title One',
-            subtitle: 'Subtitle One',
-            date: 'Current Date',
-        },
-        // Add more items as needed
-    ];
+    useEffect(() => {
+        if (isFocused) {
+            dispatch(propertyChatList()).then((res) => {
+                // setPropertyChat(res?.payload?.data)
+                if (res.payload.success) {
+                    setPropertyChat(res?.payload?.data)
+                } else {
+                    setPropertyChat([])
+                }
+            }).catch((e) => {
+                setPropertyChat([])
+                alert('Error ' + e)
+            })
+        }
+    }, [isFocused])
+
     return (
         <SafeAreaView>
             <View style={{ backgroundColor: "#f5f5f5", height: "100%" }}>
-                <View style={{ paddingVertical: 10, paddingHorizontal: 12, backgroundColor: Colors.white, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderColor: '#c9c9c5' }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center' }}>
-                        <Image
-                            style={{
-                                width: 14,
-                                height: 14,
-                                resizeMode: "contain",
-                                position: "absolute",
-                                left: 0,
-                                transform: [{ rotate: '90deg' }]
+                <View style={{
+                    paddingVertical: 10,
+                    paddingHorizontal: 12,
+                    backgroundColor: Colors.white,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    borderBottomWidth: 1,
+                    borderColor: '#c9c9c5'
+                }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center', width: '100%' }}>
+                        <TouchableOpacity style={{ bottom: 8 }} onPress={() => { navigation.goBack() }}>
+                            <Image
+                                style={{
+                                    width: 14,
+                                    height: 14,
+                                    resizeMode: "contain",
+                                    position: "absolute",
+                                    left: 0,
+                                    transform: [{ rotate: '90deg' }]
+                                }}
+                                source={Images.downArrow}
+                            ></Image>
+                        </TouchableOpacity>
+                        <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: Colors.black, textAlign: "center" }}> Chat History</Text>
+                        <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: Colors.black, textAlign: "center" }}></Text>
 
-
-                            }}
-                            source={Images.downArrow}
-                        ></Image>
-
-                        <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: Colors.black, textAlign: "center", width: "100%" }}> Chat History</Text>
                     </View>
 
 
                 </View>
 
-
                 <FlatList
-                    data={data}
+                    data={propertyChat}
                     renderItem={(item) => {
                         return (
-
-                            <View style={{ padding: 22, height: "100%" }}>
-                                <View style={{ justifyContent: 'space-between', flexDirection: 'row', borderBottomColor: Colors.BorderColor, borderBottomWidth: 1, marginBottom: 12, paddingBottom: 12 }}>
+                            <View >
+                                <TouchableOpacity onPress={() => {
+                                    navigation.navigate('BookaTour', { ID: item?.item?.ID })
+                                }}>
                                     <View style={{
+                                        width: '100%',
+                                        flexDirection: 'row',
+                                        borderBottomColor: Colors.BorderColor,
+                                        justifyContent: 'space-between',
+                                        borderBottomWidth: 1,
 
                                     }}>
-                                        <Text style={{ color: Colors.black, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize', fontSize: 18, lineHeight: 18 }}>{item.item.title}</Text>
-                                        <Text style={{ color: Colors.black, fontFamily: 'Poppins-Medium', textTransform: 'capitalize', fontSize: 15, lineHeight: 18 }}>{item.item.subtitle}</Text>
-                                        <Text style={{ color: Colors.black, fontFamily: 'Poppins-Regular', textTransform: 'capitalize', fontSize: 12 }}>{item.item.date}</Text>
+                                        <View style={{
+                                            padding: 16,
+                                            maxWidth: '80%',
+                                        }}>
+                                            <Text numberOfLines={1} style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-Regular', textTransform: 'capitalize', fontSize: 16, lineHeight: 18 }}>{item?.item?.post_title}</Text>
+                                            <Text style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-Medium', textTransform: 'capitalize', fontSize: 15, lineHeight: 18 }}>${item?.item?.property_price}</Text>
+                                            <Text style={{ color: Colors.newgray, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-Regular', textTransform: 'capitalize', fontSize: 12 }}>{item.item.post_date}</Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            <Image
+                                                style={{
+                                                    height: 40,
+                                                    width: 40,
+                                                    resizeMode: 'contain',
+                                                    borderRadius: 50,
+                                                    marginRight: 5,
+                                                    borderColor: Colors.surfblur,
+                                                    borderWidth: 1,
+                                                }}
+                                                source={{ uri: item?.item?.image }}
+                                            />
+                                            <Image
+                                                style={{
+                                                    width: 14,
+                                                    height: 14,
+                                                    resizeMode: 'contain',
+                                                    marginRight: 12,
+                                                    transform: [{ rotate: '-90deg' }],
+                                                }}
+                                                source={Images.downArrow}
+                                            />
+                                        </View>
                                     </View>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
-                                        <Image
-                                            style={{
-                                                height: 40,
-                                                width: 40,
-                                                resizeMode: 'contain',
-                                                borderRadius: 50,
-                                                marginRight: 5,
-                                                borderColor: Colors.surfblur,
-                                                borderWidth: 1,
-                                            }}
-                                            source={Images.user}
-                                        />
-                                        <Image
-                                            style={{
-                                                width: 14,
-                                                height: 14,
-                                                resizeMode: 'contain',
-                                                marginLeft: 12,
-                                                transform: [{ rotate: '-90deg' }],
-                                            }}
-                                            source={Images.downArrow}
-                                        />
-                                    </View>
-                                </View>
-
-
+                                </TouchableOpacity>
                             </View>
                         )
                     }}

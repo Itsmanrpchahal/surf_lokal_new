@@ -38,6 +38,8 @@ import  likeDisLike  from '../modules/likeDislike';
 import getLeaderboard from '../modules/getLeaderboard';
 import getUserScore from '../modules/getUserScore';
 import bookChat from '../modules/bookChat';
+import { propertyChatList } from '../modules/propertyChats';
+import { sendMessage } from '../modules/send_message';
 export const store = configureStore({
   reducer: {
     loginUser: loginUserReducer,
@@ -75,7 +77,9 @@ export const store = configureStore({
     likeDisLike:likeDisLike,
     getLeaderboard:getLeaderboard,
     getUserScore:getUserScore,
-    bookChat:bookChat
+    bookChat:bookChat,
+    sendMessage:sendMessage,
+    propertyChatList:propertyChatList
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

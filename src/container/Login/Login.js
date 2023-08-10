@@ -62,7 +62,6 @@ export default function Login({ navigation }) {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     NotificationListerner()
-
     requestUserPermission()
   }, []);
 
@@ -201,10 +200,10 @@ export default function Login({ navigation }) {
       }
 
     };
-  
+
   }
 
-  
+
   const handleFacebookLogin = async () => {
     try {
       const result = await LoginManager.logInWithPermissions([
@@ -278,7 +277,7 @@ export default function Login({ navigation }) {
         }
       }
     } else Alert.alert('Alert', 'Enter email and password');
-  }; 
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
@@ -293,14 +292,14 @@ export default function Login({ navigation }) {
                   onPress={() => { setModalVisible(true) }}
                   style={Styles.regionView}>
 
-                  <View style={{ width: '85%' ,position:"relative"}}>
+                  <View style={{ width: '85%', position: "relative" }}>
                     <Text allowFontScaling={false} style={Styles.regionText}>
                       Country/Region
                     </Text>
                     <View style={{ flexDirection: 'row', width: "100%", }}>
                       {
                         <CountryPicker
-                          containerButtonStyle={{ width:"100%", marginLeft: 0, }}
+                          containerButtonStyle={{ width: "100%", marginLeft: 0, }}
 
                           withFilter={true}
                           withCallingCodeButton={true}

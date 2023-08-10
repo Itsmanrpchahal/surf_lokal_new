@@ -1,40 +1,33 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import StackNavigator from './src/navigation/StackNavigator';
 import Splash from './src/components/Splash';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {store} from './src/redux/store';
-import {Provider} from 'react-redux';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { store } from './src/redux/store';
+import { Provider } from 'react-redux';
 import Colors from './src/utils/Colors';
 // Add Firebase
 import firebase from '@react-native-firebase/app';
 import messaging from '@react-native-firebase/messaging';
-
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-  // Register background handler
-  messaging().setBackgroundMessageHandler(async remoteMessage => {
-    console.log('Message handled in the background!', remoteMessage);
-  });
+import { navigationRef } from './src/navigation/RootNavigation';
+// Register background handler
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  console.log('Message handled in the background!', remoteMessage);
+});
 
-  messaging().getInitialNotification().then(remoteMessage => {
-    if (remoteMessage) {
-        console.log('Notiction App Open on Quit State', remoteMessage.notification)
-    }
-})
 
 const App = () => {
   const [splash, setSplash] = useState(true);
 
-  const HandleDeepLinking =  () => {
-  const navigation = useNavigation()
-    const handleDynamicLinks = async (link) => {
-      console.log('Foreground link handling:', link)
-      let productId = link.url.split('=').pop()
-      console.log('productId:', productId,)
-      navigation.navigate('ViewPropertiy', { ID: productId });
+  const HandleDeepLinking = () => {
+    const navigation = useNavigation()
 
-        // navigate('ProductDetail', { productId: productId })
+    const handleDynamicLinks = async (link) => {
+      let productId = link.url.split('=').pop()
+      navigation.navigate('ViewPropertiy', { ID: productId });
     }
+
     useEffect(() => {
       const unsubscribe = dynamicLinks().onLink(handleDynamicLinks)
       return () => unsubscribe()
@@ -42,6 +35,20 @@ const App = () => {
 
     return null
   }
+  useEffect(() => {
+    messaging().onNotificationOpenedApp(remoteMessage => {
+      if (remoteMessage.notification.title) {
+      }
+      console.log('Notiction App Open1', remoteMessage.notification)
+    })
+    messaging().getInitialNotification().then(remoteMessage => {
+      if (remoteMessage.notification) {
+        console.log('Notiction App.js on Quit State')
+      }
+    })
+
+  }, [])
+
 
   useEffect(() => {
     const firebaseConfig = {
@@ -63,7 +70,7 @@ const App = () => {
   if (splash == true) {
     return <Splash />;
   } else {
-    
+
     return (
       <SafeAreaView
         style={{
@@ -72,13 +79,14 @@ const App = () => {
           backgroundColor: Colors.primaryBlue,
         }}>
         <Provider store={store}>
-          <NavigationContainer>
-            <HandleDeepLinking/>
+          <NavigationContainer ref={navigationRef} >
+            <HandleDeepLinking />
+
             <StackNavigator />
-            
+
           </NavigationContainer>
         </Provider>
-      </SafeAreaView>
+      </SafeAreaView >
     );
   }
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
+import { View, Text, TouchableOpacity, Image, TextInput, SafeAreaView } from "react-native";
 import Colors from "../../utils/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
@@ -38,6 +38,9 @@ const BookaTour = (props) => {
         }
     }, [route.params?.initialMessage, route.params?.agentReply]);
 
+    useEffect(()=>{
+        alert(JSON.stringify(props?.route?.params?.ID))
+    },[])
     const getCurrentDateTime = () => {
         const now = new Date();
         const year = now.getFullYear().toString();
@@ -118,7 +121,8 @@ const BookaTour = (props) => {
     };
 
     return (
-        <View style={{ height: "100%", position: "relative", paddingBottom: 100 }}>
+     <SafeAreaView>
+           <View style={{ height: "100%", position: "relative", paddingBottom: 100 }}>
             <View
                 style={{
                     backgroundColor: Colors.gray,
@@ -396,6 +400,7 @@ const BookaTour = (props) => {
                 />
             )}
         </View>
+     </SafeAreaView>
     );
 };
 
