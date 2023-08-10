@@ -39,7 +39,7 @@ const BookaTour = (props) => {
     }, [route.params?.initialMessage, route.params?.agentReply]);
 
     useEffect(()=>{
-        alert(JSON.stringify(props?.route?.params?.ID))
+        // alert(JSON.stringify(props?.route?.params?.ID))
     },[])
     const getCurrentDateTime = () => {
         const now = new Date();

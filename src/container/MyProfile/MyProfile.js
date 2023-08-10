@@ -533,7 +533,7 @@ const MyFavorites = () => {
             </TouchableOpacity>
           </View>
           <View style={styles.slideOuter}>
-            <TouchableOpacity onPress={handleImagePress1}
+            <TouchableOpacity onPress={() => navigation.navigate('ChatHistory')}
               activeOpacity={0.8}
               style={{
                 width: '100%',
@@ -543,7 +543,7 @@ const MyFavorites = () => {
                 style={styles.viewstyle}>
                 <TouchableOpacity>
                   <Image
-                    source={isImageChanged ? Images.redlike : Images.chat}
+                    source={isImageChanged ? Images.chat : Images.chat}
                     style={{ height: 20, width: 20, resizeMode: 'contain' }} />
                 </TouchableOpacity>
                 <Text style={styles.text}>Chat History</Text>

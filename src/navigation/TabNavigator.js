@@ -90,7 +90,7 @@ const BottomTabNavigator = () => {
                 marginLeft: 12
               }}
 
-                allowFontScaling={true}>0</Text>
+                allowFontScaling={true}>{!data?data:0}</Text>
               <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular', color: isFocused ? Colors.textColorDark : null }} allowFontScaling={false}>  Rewards</Text>
 
             </View>
