@@ -23,6 +23,10 @@ const Images = {
   slideImage1: require(BaseUrl + 'slideImage1.png'),
   slideImage2: require(BaseUrl + 'slideImage2.png'),
   slideImage3: require(BaseUrl + 'slideImage3.png'),
+  tab1: require(BaseUrl + 'tab1.png'),
+  tab2: require(BaseUrl + 'tab2.png'),
+  tab3: require(BaseUrl + 'tab3.png'),
+  tab4: require(BaseUrl + 'tab4.png'),
 
   // new icons
   address: require(BaseUrl + 'address.png'),

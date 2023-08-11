@@ -20,33 +20,34 @@ import AppButton from '../../components/AppButton';
 import Styles from './Styles';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { color } from 'react-native-reanimated';
+import DeviceInfo from 'react-native-device-info';
 const slides = [
   {
     key: 1,
     title: 'Title 1',
     text: 'Description.\nSay something cool',
-    image: Images.slideImage0,
+    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab1 : Images.slideImage0,
     backgroundColor: '#59b2ab',
   },
   {
     key: 2,
     title: 'Title 2',
     text: 'Other cool stuff',
-    image: Images.slideImage1,
+    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab2 : Images.slideImage1,
     backgroundColor: '#febe29',
   },
   {
     key: 3,
     title: 'Rocket guy',
     text: "I'm already out of descriptions\n\nLorem ipsum bla bla bla",
-    image: Images.slideImage2,
+    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab3 : Images.slideImage2,
     backgroundColor: '#22bcb5',
   },
   {
     key: 4,
     title: 'Title 1',
     text: 'Description.\nSay something cool',
-    image: Images.slideImage3,
+    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab4 : Images.slideImage3,
     backgroundColor: 'black',
   },
   // {
@@ -68,23 +69,39 @@ export default function AppIntro({ navigation }) {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const renderItem = ({ item }) => {
-    return <Image style={{height:screenHeight,width:screenWidth}} source={item.image} />;
+    return <Image style={{ height: screenHeight, width: screenWidth }} source={item.image} />;
   };
   const onDone = () => {
-       
+
     navigation.navigate('Tabs', { screen: 'Home' });
 
   };
+
+  const renderNext = () => {
+    return (
+      <Text style={{ color: Colors.PrimaryColor, marginRight: 16, fontSize: 16, marginTop: 10 }}
+      >Next</Text>
+    )
+  }
+
+  const renderDone = () => {
+    return (
+      <TouchableOpacity onPress={() => { onDone() }}>
+        <Text style={{ color: Colors.PrimaryColor, marginRight: 16, fontSize: 16, marginTop: 10 }}
+        >Done</Text>
+      </TouchableOpacity>
+    )
+  }
   return (
     <SafeAreaView
       style={{
         height: '100%',
         width: '100%',
         justifyContent: 'center',
-        
+
         //backgroundColor: Colors.primaryBlue,
       }}>
-      <AppIntroSlider renderItem={renderItem} data={slides} onDone={onDone}   />
+      <AppIntroSlider renderItem={renderItem} data={slides} activeDotStyle={{ backgroundColor: Colors.PrimaryColor }} renderNextButton={renderNext} renderDoneButton={renderDone} />
     </SafeAreaView>
   );
 }
@@ -93,7 +110,7 @@ const styles = StyleSheet.create({
     width: screenWidth,
 
     height: '100%',
-    resizeMode: 'contain' 
+    resizeMode: 'contain'
 
   },
 });
