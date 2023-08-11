@@ -19,6 +19,10 @@ const Images = {
   test2: require(BaseUrl + 'test2.jpg'),
   cola: require(BaseUrl + 'cola.png'),
   logo: require(BaseUrl + 'logo.png'),
+  slideImage0: require(BaseUrl + 'slideImage0.png'),
+  slideImage1: require(BaseUrl + 'slideImage1.png'),
+  slideImage2: require(BaseUrl + 'slideImage2.png'),
+  slideImage3: require(BaseUrl + 'slideImage3.png'),
 
   // new icons
   address: require(BaseUrl + 'address.png'),

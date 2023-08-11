@@ -19,42 +19,43 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AppButton from '../../components/AppButton';
 import Styles from './Styles';
 import AppIntroSlider from 'react-native-app-intro-slider';
+import { color } from 'react-native-reanimated';
 const slides = [
   {
     key: 1,
     title: 'Title 1',
     text: 'Description.\nSay something cool',
-    image: Images.slide1,
+    image: Images.slideImage0,
     backgroundColor: '#59b2ab',
   },
   {
     key: 2,
     title: 'Title 2',
     text: 'Other cool stuff',
-    image: Images.slide2,
+    image: Images.slideImage1,
     backgroundColor: '#febe29',
   },
   {
     key: 3,
     title: 'Rocket guy',
     text: "I'm already out of descriptions\n\nLorem ipsum bla bla bla",
-    image: Images.slide3,
+    image: Images.slideImage2,
     backgroundColor: '#22bcb5',
   },
   {
     key: 4,
     title: 'Title 1',
     text: 'Description.\nSay something cool',
-    image: Images.slide4,
-    backgroundColor: '#59b2ab',
+    image: Images.slideImage3,
+    backgroundColor: 'black',
   },
-  {
-    key: 5,
-    title: 'Title 2',
-    text: 'Other cool stuff',
-    image: Images.slide5,
-    backgroundColor: '#febe29',
-  },
+  // {
+  //   key: 5,
+  //   title: 'Title 2',
+  //   text: 'Other cool stuff',
+  //   image: Images.slide5,
+  //   backgroundColor: '#febe29',
+  // },
 ];
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -67,10 +68,12 @@ export default function AppIntro({ navigation }) {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const renderItem = ({ item }) => {
-    return <Image style={styles.image} source={item.image} />;
+    return <Image style={{height:screenHeight,width:screenWidth}} source={item.image} />;
   };
   const onDone = () => {
+       
     navigation.navigate('Tabs', { screen: 'Home' });
+
   };
   return (
     <SafeAreaView
@@ -78,9 +81,10 @@ export default function AppIntro({ navigation }) {
         height: '100%',
         width: '100%',
         justifyContent: 'center',
+        
         //backgroundColor: Colors.primaryBlue,
       }}>
-      <AppIntroSlider renderItem={renderItem} data={slides} onDone={onDone} />
+      <AppIntroSlider renderItem={renderItem} data={slides} onDone={onDone}   />
     </SafeAreaView>
   );
 }
