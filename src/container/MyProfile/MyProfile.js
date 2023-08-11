@@ -214,7 +214,7 @@ const MyFavorites = () => {
     });
     try {
       var res = await axios.post(
-        'https://surf.topsearchrealty.com/webapi/v1/profile/',
+        'https://www.surflokal.com/webapi/v1/profile/',
         data,
         {
           headers: {
