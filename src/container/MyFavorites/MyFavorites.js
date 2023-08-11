@@ -1044,7 +1044,7 @@ const handleShare = async (ID) => {
                        color: Colors.black,
                        textAlign: 'center',
                      }}>
-                      {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].yearbuilt.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].yearbuilt : 0}
+                      {item.yearbuilt.length > 0 ? item.yearbuilt : 0}
                    </Text>
                  </View>
                </View>
