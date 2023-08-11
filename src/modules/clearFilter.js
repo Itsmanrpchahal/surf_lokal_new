@@ -1,15 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getAPI } from '../config/apiMethod';
+import {getAPI} from '../config/apiMethod';
+import AsyncStorage from '@react-native-community/async-storage';
 import BASEURl from '../services/Api'
 
-export const clearFilter = createAsyncThunk('clearFilter', async dispatch => {
-  return await getAPI(
-    BASEURl+'webapi/v1/AppFilter/clearfilter.php?Userid=',
-    dispatch,
-  )
+export const clearFilter = createAsyncThunk('clearFilter', async () => {
+  const id = await AsyncStorage.getItem('userId');
+  console.log("AsyncStorage Id response",id)
+  
+  return await getAPI( BASEURl + 'webapi/v1/AppFilter/clearfilter.php?Userid=' + id,)
     .then(async response => {
       const { data } = response;
-      console.log("clearFilter response",response)
+       console.log("clearFilter response",response)
       return data;
     })
     .catch(e => {
