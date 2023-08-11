@@ -15,6 +15,9 @@ import { bookChat } from "../../modules/bookChat";
 import { isRead } from "../../modules/isRead"
 import { getChatDetail } from "../../modules/getChatDetail"
 import { sendMessage } from "../../modules/sendMessage";
+import DatePicker from 'react-native-date-picker'
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+
 const BookaTour = (props) => {
     const navigation = useNavigation();
     const route = useRoute();
@@ -29,49 +32,31 @@ const BookaTour = (props) => {
     const [userID, setUserID] = useState()
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedTime, setSelectedTime] = useState(new Date());
+    const [date, setDate] = useState(new Date())
+    const [open, setOpen] = useState(false)
     const postid = props.route.params
-    useEffect(() => {
-        if (route.params?.initialMessage && route.params?.agentReply) {
-            const initialMessage = route.params.initialMessage;
-            const agentReply = route.params.agentReply;
-            setRes([
-                { type: 1, message: initialMessage },
-                { type: 0, message: agentReply },
-            ]);
-        }
-    }, [route.params?.initialMessage, route.params?.agentReply]);
 
+    useEffect(() => {
+        // alert(JSON.stringify(postid))
+    }, [])
     useEffect(() => {
         getUserID()
-        if (props?.route?.params?.ID) {
-            Promise.all([dispatch(isRead({ ID: props?.route?.params?.ID })),
-            dispatch(getChatDetail({ ID: props?.route?.params?.PropID })).then((res) => {
-                setGetMessg(res?.payload?.data)
-            }).catch((e) => {
+        // if (props?.route?.params?.ID) {
+        Promise.all([dispatch(isRead({ ID: props?.route?.params?.ID })),
+        dispatch(getChatDetail({ ID: props?.route?.params?.PropID })).then((res) => {
+            setGetMessg(res?.payload?.data)
+        }).catch((e) => {
 
-            })])
+        })])
 
-        }
+        // }
     }, [])
 
     const getUserID = async () => {
         const id = await AsyncStorage.getItem('userId');
         setUserID(id)
     }
-    const getCurrentDateTime = () => {
-        const now = new Date();
-        const year = now.getFullYear().toString();
-        const month = (now.getMonth() + 1).toString().padStart(2, "0");
-        const date = now.getDate().toString().padStart(2, "0");
-        const hours = now.getHours().toString().padStart(2, "0");
-        const minutes = now.getMinutes().toString().padStart(2, "0");
-        const dateTimeString = `${year}-${month}-${date} ${hours}:${minutes}`;
-        return dateTimeString;
-    };
 
-
-    useEffect(() => {
-    }, [])
     const getBookTourAPicall = async () => {
         const id = await AsyncStorage.getItem('userId');
         // const formData =new FormData ();
@@ -116,19 +101,7 @@ const BookaTour = (props) => {
 
         //     });
     }
-    const handleDateSelection = async (event, selectedDate) => {
-        const currentDate = selectedDate || new Date();
-        setSelectedDate(currentDate);
 
-        setDatePickerVisible(false);
-        // console.log('jfhjfjfj', selectedDate)
-        setMessage("");
-        setTimeout(() => {
-            setTimePickerVisible(true)
-        }, 300)
-
-
-    };
 
     const handleTimeSelection = (event, selectedTime) => {
         const currentDate = selectedTime || new Date();
@@ -151,8 +124,7 @@ const BookaTour = (props) => {
             message: "A Lokal agent will confirm with you within the next 2 hours",
         };
         setRes([...updatedRes, initialReply]);
-        alert('he')
-        // getBookTourAPicall()
+        getBookTourAPicall()
 
     };
 
@@ -211,7 +183,7 @@ const BookaTour = (props) => {
                             marginRight: 10,
                         }}
                     >
-                        <Image
+                        {/* <Image
                             style={{
                                 height: 25,
                                 width: 25,
@@ -219,7 +191,7 @@ const BookaTour = (props) => {
                                 tintColor: Colors.black,
                             }}
                             source={Images.reload}
-                        />
+                        /> */}
                     </TouchableOpacity>
                 </View>
                 <Text
@@ -238,96 +210,68 @@ const BookaTour = (props) => {
                     Hi! What can I help you with?
                 </Text>
 
-                {
-                    props?.route?.params?.ID ? <AutoScrollFlatList
-                        nestedScrollEnabled={true}
-                        inverted
-                        data={getMesg}
-                        threshold={20}
-                        renderItem={({ item }) => {
-                            return (
-                                <View style={{ marginBottom: 5 }}>
-                                    <Text
+                <AutoScrollFlatList
+                    nestedScrollEnabled={true}
+                    inverted
+                    data={getMesg}
+                    threshold={20}
+                    renderItem={({ item, index }) => {
+                        return (
+                            <View style={{ marginBottom: 5 }}>
+
+                                {
+                                    item.message === 'A Lokal agent will confirm with you within the next 2 hours' ? <Text
                                         style={{
                                             // padding: 8,
                                             fontSize: 16,
                                             borderRadius: 16,
-                                            backgroundColor: item.user_id === userID ? Colors.surfblur : Colors.white,
-                                            alignSelf: item.user_id === userID ? "flex-end" : "flex-start",
+                                            backgroundColor: Colors.white,
+                                            alignSelf: "flex-start",
                                             textAlignVertical: 'center',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            alignContent: item.user_id === userID ? 'center' : 'center',
+                                            alignContent: 'center',
                                             maxWidth: "70%",
                                             marginLeft: 8,
                                             marginRight: 8,
                                             paddingHorizontal: 8,
                                             minHeight: 50,
-                                            color: item.user_id === userID ? Colors.white : Colors.black,
+                                            color: Colors.black,
                                         }}
                                     >
                                         {item.message}
-                                    </Text>
-                                </View>
-                            )
-                        }}
-                    >
-
-                    </AutoScrollFlatList> :
-                        <AutoScrollFlatList
-                            nestedScrollEnabled={true}
-                            data={res}
-                            threshold={20}
-                            renderItem={({ item }) => {
-                                return (
-                                    <View>
-                                        <TouchableOpacity style={{}}
-                                            onPress={() => {
-                                                if (item.type === 0) {
-                                                    // Show date picker for agent's reply
-                                                    setDatePickerVisible(true);
-                                                }
-                                            }}
-                                        >
-                                            <Text
-                                                style={{
-                                                    // padding: 8,
-                                                    fontSize: 16,
-                                                    borderRadius: 16,
-                                                    backgroundColor: item.type === 0 ? Colors.surfblur : Colors.white,
-                                                    alignSelf: item.type === 0 ? "flex-end" : "flex-start",
-                                                    textAlignVertical: item === 0 ? 'center' : res[1]?.message?.props?.source ? null : 'center',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    alignContent: item.type === 0 ? 'center' : 'center',
-                                                    maxWidth: "70%",
-                                                    marginLeft: 8,
-                                                    marginRight: 8,
-                                                    paddingHorizontal: 8,
-                                                    minHeight: 50,
-                                                    color: item.type === 0 ? Colors.white : Colors.black,
-                                                }}
-                                            >
-                                                {item.message}
-                                            </Text>
-                                        </TouchableOpacity>
+                                    </Text> :
                                         <Text
                                             style={{
-                                                fontSize: 12,
-                                                marginLeft: item.type === 0 ? 8 : 16,
-                                                marginRight: item.type === 0 ? 16 : 8,
-                                                // marginBottom: 8,
-                                                alignSelf: item.type === 0 ? "flex-end" : "flex-start",
-                                                color: Colors.gray,
+                                                // padding: 8,
+                                                fontSize: 16,
+                                                borderRadius: 16,
+                                                backgroundColor: item.user_id === userID ? Colors.surfblur : Colors.white,
+                                                alignSelf: item.user_id === userID ? "flex-end" : "flex-start",
+                                                textAlignVertical: 'center',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                alignContent: item.user_id === userID ? 'center' : 'center',
+                                                maxWidth: "70%",
+                                                marginLeft: 8,
+                                                marginRight: 8,
+                                                paddingHorizontal: 8,
+                                                minHeight: 50,
+                                                color: item.user_id === userID ? Colors.white : Colors.black,
                                             }}
                                         >
-                                            {item.date}
+                                            {item.message}
                                         </Text>
-                                    </View>
-                                );
-                            }}
-                        />
-                }
+                                }
+
+
+                            </View>
+                        )
+                    }}
+                >
+
+                </AutoScrollFlatList>
+
 
 
                 <View
@@ -340,7 +284,7 @@ const BookaTour = (props) => {
                         backgroundColor: Colors.white,
                     }}
                 >
-                    {loading && (
+                    {loading && getMesg?.length > 2 && (
                         <Text
                             style={{
                                 padding: 16,
@@ -360,7 +304,7 @@ const BookaTour = (props) => {
                         </Text>
                     )}
 
-                    {loading && (
+                    {loading && getMesg?.length > 2 && (
                         <View style={{ flexDirection: "row" }}>
                             <Text
                                 style={{
@@ -405,65 +349,133 @@ const BookaTour = (props) => {
                         }}
                     >
                         <TextInput
-                            style={{ width: "90%", backgroundColor: Colors.white, color: Colors.black }}
-                            placeholder="Type here ....."
+                            style={{ width: "80%", backgroundColor: Colors.white, color: Colors.black }}
+                            placeholder={props?.route?.params?.ID === '' ? 'Select Date from Calender' : ' Type here ....'}
                             placeholderTextColor={Colors.textColorLight}
                             fontFamily="Poppins-Regular"
                             value={message}
-                            editable={props?.route?.params?.user_id ? true : false}
+                            editable={getMesg.length <= 2 ? false : true}
                             onChangeText={setMessage}
                         />
-                        <TouchableOpacity
-                            disabled={props?.route?.params?.user_id ? false : true}
-                            onPress={() => {
-                                setLoading(true);
-                                {
-                                    dispatch(sendMessage({
-                                        user_id: props?.route?.params?.user_id ? props?.route?.params?.user_id : userID,
-                                        propid: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.post_id,
-                                        user2_id: props?.route?.params?.user2_id ? props?.route?.params?.user2_id : '',
-                                        message: message
-                                    })).then((res) => {
-                                        setLoading(false)
-                                        setMessage('')
-                                        if (res.payload.success) {
-                                            dispatch(getChatDetail({ ID: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.post_id })).then((res) => {
-                                                setGetMessg(res?.payload?.data)
-                                            }).catch((e) => {
+                        {
+                            props?.route?.params?.ID === '' && <TouchableOpacity
+                                disabled={getMesg.length < 2 ? false : true}
+                                onPress={() => {
+                                    setOpen(true)
+                                    setDate(new Date())
+                                }} style={{
+                                    flexDirection: "row",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}>
+                                <Image
+                                    style={{
+                                        height: 25,
+                                        width: 25,
+                                        resizeMode: "contain",
+                                    }}
+                                    source={Images.cola}
+                                />
+                            </TouchableOpacity>
+                        }
 
-                                            })
-                                        }
-                                    }).catch((e) => {
-                                        alert(JSON.stringify(e))
-                                    })
-                                }
 
-                            }}
-                            style={{
-                                flexDirection: "row",
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
-                            <Image
-                                style={{
-                                    height: 25,
-                                    width: 25,
-                                    resizeMode: "contain",
-                                    tintColor: Colors.primaryBlue,
+                        {
+                            props?.route?.params?.ID != '' &&
+                            <TouchableOpacity
+                                disabled={getMesg?.length > 2 ? false : true}
+                                onPress={() => {
+                                    setLoading(true);
+                                    {
+                                        dispatch(sendMessage({
+                                            user_id: props?.route?.params?.user_id ? props?.route?.params?.user_id : userID,
+                                            propid: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.PropID,
+                                            user2_id: props?.route?.params?.user2_id ? props?.route?.params?.user2_id : '',
+                                            message: message
+                                        })).then((res) => {
+                                            setLoading(false)
+                                            setMessage('')
+                                            if (res.payload.success) {
+                                                dispatch(getChatDetail({ ID: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.PropID })).then((res) => {
+                                                    setGetMessg(res?.payload?.data)
+                                                }).catch((e) => {
+
+                                                })
+                                            }
+                                        }).catch((e) => {
+                                            alert(JSON.stringify(e))
+                                        })
+                                    }
+
                                 }}
-                                source={Images.sendm}
-                            />
-                        </TouchableOpacity>
+                                style={{
+                                    flexDirection: "row",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Image
+                                    style={{
+                                        height: 25,
+                                        width: 25,
+                                        resizeMode: "contain",
+                                        tintColor: Colors.primaryBlue,
+                                    }}
+                                    source={Images.sendm}
+                                />
+                            </TouchableOpacity>
+                        }
+
+
                     </View>
+                    <DatePicker
+                        modal
+                        open={open}
+                        date={date}
+                        accessibilityLiveRegion="en"
+                        // androidVariant='iosClone'
+                        minimumDate={new Date()}
+                        locale="en-GB"
+                        theme="auto"
+                        mode="datetime"
+                        onConfirm={(date) => {
+                            setOpen(false)
+                            const now = date.toDateString()
+                            const time = date.getHours() + ":" + date.getMinutes()
+                            setLoading(true);
+                            {
+                                dispatch(sendMessage({
+                                    user_id: userID,
+                                    propid: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.PropID,
+                                    user2_id: props?.route?.params?.user2_id ? props?.route?.params?.user2_id : '',
+                                    message: now + "," + time
+                                })).then((res) => {
+                                    setLoading(false)
+                                    setMessage('')
+                                    if (res.payload.success) {
+                                        dispatch(getChatDetail({ ID: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.post_id })).then((res) => {
+                                            setGetMessg(res?.payload?.data)
+                                        }).catch((e) => {
+
+                                        })
+                                    }
+                                }).catch((e) => {
+                                    alert(JSON.stringify(e))
+                                })
+                            }
+                        }}
+                        onCancel={() => {
+                            setOpen(false)
+                        }}
+                    />
                 </View>
 
-                {isDatePickerVisible && (
+
+                {/* {isDatePickerVisible && (
                     <DateTimePicker
                         value={selectedDate}
-                        mode="date"
                         display="default"
-                        onChange={handleDateSelection}
+                    // onChange={handleDateSelection}
                     />
                 )}
 
@@ -473,9 +485,9 @@ const BookaTour = (props) => {
                         mode="time"
                         is24Hour={false}
                         display="default"
-                        onChange={handleTimeSelection}
+                        // onChange={handleTimeSelection}
                     />
-                )}
+                )} */}
             </View>
         </SafeAreaView>
     );
