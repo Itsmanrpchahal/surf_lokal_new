@@ -114,38 +114,38 @@ const ViewPropertiy = (props, imageUrl) => {
   },[])
   const generateLink = async () => {
     try {
-        const link = await dynamicLinks().buildShortLink({
-            link: `https://surflokal.page.link/property?propetyID=${postid.ID}`,
+      const link = await dynamicLinks().buildShortLink({
+        link: `https://surflokal.page.link/property?propetyID=${postid.ID}`,
             domainUriPrefix: Platform.OS === 'android' ?'https://surflokal.page.link/':'https://surflokal.page.link',
-            android: {
-                packageName: 'surf.lokal',
-            },
-            ios: {
+        android: {
+          packageName: 'surf.lokal',
+        },
+        ios: {
               appStoreId:'123456789',
-                bundleId: 'surf.lokal',
-            },
-            navigation: {
-              forcedRedirectEnabled: true,
-          }
-        }, dynamicLinks.ShortLinkType.SHORT)
-        console.log('link:', link)
-        return link
+          bundleId: 'surf.lokal',
+        },
+        navigation: {
+          forcedRedirectEnabled: true,
+        }
+      }, dynamicLinks.ShortLinkType.SHORT)
+      console.log('link:', link)
+      return link
     } catch (error) {
-        console.log('Generating Link Error:', error)
+      console.log('Generating Link Error:', error)
     }
-}
-const handleShare = async () => {
-  const link = await generateLink()
-  try {
-    Share.share({
-      title: 'Please check this property',
+  }
+  const handleShare = async () => {
+    const link = await generateLink()
+    try {
+      Share.share({
+        title: 'Please check this property',
         message:  link ,
         url:link
-    });
-} catch (error) {
-    console.log('Sharing Error:', error)
-}
-};
+      });
+    } catch (error) {
+      console.log('Sharing Error:', error)
+    }
+  };
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -716,8 +716,8 @@ const handleShare = async () => {
   }
   return (
     <>
-      <ScrollView >
-        <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView >
 
           <View
             style={{
@@ -2041,9 +2041,9 @@ const handleShare = async () => {
 
 
 
-        </SafeAreaView >
+        </ScrollView >
+      </SafeAreaView >
 
-      </ScrollView >
 
       <View
         style={{

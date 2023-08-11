@@ -97,7 +97,7 @@ const Home = () => {
         setIsSelected(false);
         setIsPressed1(false);
         setIsPressed(false);
-        setSelectedItem(null);
+        // setSelectedItem(null);
         setSelectedTabs([])
       }
     }
@@ -759,12 +759,12 @@ const Home = () => {
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => {
+                onPress={async () => {
                   setSelectedTabs([]);
                   setIsSelected(false);
                   setIsPressed1(false);
                   setIsPressed(false);
-                  setSelectedItem(null);
+                  // setSelectedItem(null);
                   // setCities(null)
                   setBedroomItem(null)
                   setBathRoomItem(null);
@@ -778,7 +778,10 @@ const Home = () => {
 
                   { handlePress2; }
                   dispatch(clearFilter())
-                  dispatch(getPoperties({ type: 0, data: '', lntLng, }))
+                 await dispatch(getPoperties({ type: 0, data: '', lntLng, })).then((response) => {
+                    setHomeData(response.payload.data)
+                    console.log("getPoperties  Home clear response", data)
+                  })
                 }}
                 style={[
                   styles.rew,
@@ -890,7 +893,8 @@ const Home = () => {
                               })).then((res) => {
                                 setHomeData(res.payload.data);
                               });
-                            }}
+                            }
+                            }
                             selectedStyle={styles.selectedStyle}
                           />
 
@@ -1077,12 +1081,12 @@ const Home = () => {
 
                               />
                               <Dropdown
-                                style={{ borderWidth: 1, marginBottom: 8, fontSize: 14, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '49%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12 }}
+                                style={{ borderWidth: 1, fontSize: 14, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '49%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
                                 placeholderStyle={styles.placeholderStyle}
                                 selectedTextStyle={styles.selectedTextStyle}
                                 inputSearchStyle={styles.inputSearchStyle}
-                                itemTextStyle={styles.itemTextStyle}
                                 iconStyle={styles.iconStyle}
+                                itemTextStyle={styles.itemTextStyle}
                                 data={moreFilterData.max_price}
                                 search
                                 maxHeight={300}
@@ -1092,7 +1096,7 @@ const Home = () => {
                                 searchPlaceholder="Search..."
                                 value={maxPriceRange}
                                 onChange={async item => {
-                                  setMaxPriceRange(item.data_name);
+                                  setMinPricerange(item.data_name);
                                   await dispatch(getPoperties({
                                     type: 3, data: {
                                       UserId: user_ID,
@@ -1635,22 +1639,6 @@ const Home = () => {
                                             borderRadius: 100
                                           }}></View>
                                       </View>
-                                      {/* <Text style={{ fontSize: 13, fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 22, flexWrap: "wrap", flexDirection: "row", alignItems: "center", textAlign: "justify" }}>Congrats on your first surf swipe left! If you decide to change your mind, you can find this property in your */}
-                                      {/* <TouchableOpacity
-                                          onPress={() => { navigation.navigate('RecycleBin') }}
-                                          style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 6, }}><Text style={{ fontSize: 13, color: Colors.surfblur, fontFamily: 'Poppins-Regular', position: "relative", top: 8 }}>Recycle Bin</Text>
-                                          <Image
-                                            source={Images.downThumb}
-                                            style={{
-                                              height: 18,
-                                              width: 18,
-                                              tintColor: "red",
-                                              resizeMode: 'contain',
-                                              //marginTop: 3
-                                              position: "relative", top: 9,
-                                              marginLeft: 3
-                                            }}></Image></TouchableOpacity> */}
-
                                       <Text style={{ fontSize: 13, fontFamily: 'Poppins-Regular', color: 'black', alignItems: "center", flexDirection: "row", lineHeight: 22, flexWrap: "wrap" }}>
                                         Your Search will be Saved in your Profile
                                       </Text>
@@ -2298,7 +2286,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     width: "100%",
     alignContent: 'center',
-    backgroundColor:"white"
+    backgroundColor: "white"
 
   },
   container: {
