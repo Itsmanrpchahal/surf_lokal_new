@@ -13,7 +13,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { getBookTour } from "../../modules/getBookTour";
 import { bookChat } from "../../modules/bookChat";
 import { isRead } from "../../modules/isRead"
-
+import { getChatDetail } from "../../modules/getChatDetail"
+import { sendMessage } from "../../modules/sendMessage";
 const BookaTour = (props) => {
     const navigation = useNavigation();
     const route = useRoute();
@@ -24,7 +25,8 @@ const BookaTour = (props) => {
     const [res, setRes] = useState([]);
     const [isDatePickerVisible, setDatePickerVisible] = useState(false);
     const [isTimePickerVisible, setTimePickerVisible] = useState(false);
-
+    const [getMesg, setGetMessg] = useState([])
+    const [userID, setUserID] = useState()
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedTime, setSelectedTime] = useState(new Date());
     const postid = props.route.params
@@ -40,8 +42,22 @@ const BookaTour = (props) => {
     }, [route.params?.initialMessage, route.params?.agentReply]);
 
     useEffect(() => {
-        dispatch(isRead({ ID: props?.route?.params?.ID }))
+        getUserID()
+        if (props?.route?.params?.ID) {
+            Promise.all([dispatch(isRead({ ID: props?.route?.params?.ID })),
+            dispatch(getChatDetail({ ID: props?.route?.params?.PropID })).then((res) => {
+                setGetMessg(res?.payload?.data)
+            }).catch((e) => {
+
+            })])
+
+        }
     }, [])
+
+    const getUserID = async () => {
+        const id = await AsyncStorage.getItem('userId');
+        setUserID(id)
+    }
     const getCurrentDateTime = () => {
         const now = new Date();
         const year = now.getFullYear().toString();
@@ -69,12 +85,30 @@ const BookaTour = (props) => {
             propid: postid.post_id,
             schedule_hour: selectedTime,
             schedule_day: selectedDate,
-            user_mobile: store.getState().loginUser.loginData.metadata.mobile[0]
+            user_mobile: store.getState()?.loginUser?.loginData?.metadata?.mobile[0]
         }
         // console.log('logodata',formData)
-        dispatch(getBookTour(formData)).then((response) => {
-            console.log("getBookTour response ", response)
-        });
+        dispatch(sendMessage({
+            user_id: props?.route?.params?.user_id ? props?.route?.params?.user_id : userID,
+            propid: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.post_id,
+            user2_id: props?.route?.params?.user2_id ? props?.route?.params?.user2_id : '',
+            message: selectedDate.getDate() + '/' + selectedDate.getMonth() + '/' + selectedDate.getFullYear() + ',' + selectedTime.getHours() + ':' + selectedDate.getMinutes()
+        })).then((res) => {
+            setLoading(false)
+            setMessage('')
+            if (res.payload.success) {
+                dispatch(getChatDetail({ ID: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.post_id })).then((res) => {
+                    setGetMessg(res?.payload?.data)
+                    dispatch(getBookTour(formData)).then((response) => {
+                        console.log("getBookTour response ", response)
+                    });
+                }).catch((e) => {
+                })
+            }
+        }).catch((e) => {
+            alert(JSON.stringify(e))
+        })
+
 
         //     dispatch(getBookTour(formData)).then(response => {
         //       setBookData(response);
@@ -117,7 +151,8 @@ const BookaTour = (props) => {
             message: "A Lokal agent will confirm with you within the next 2 hours",
         };
         setRes([...updatedRes, initialReply]);
-        getBookTourAPicall()
+        alert('he')
+        // getBookTourAPicall()
 
     };
 
@@ -203,59 +238,97 @@ const BookaTour = (props) => {
                     Hi! What can I help you with?
                 </Text>
 
-                <AutoScrollFlatList
-                    nestedScrollEnabled={true}
-                    data={res}
-                    threshold={20}
-                    renderItem={({ item }) => {
-                        return (
-                            <View>
-                                <TouchableOpacity style={{}}
-                                    onPress={() => {
-                                        if (item.type === 0) {
-                                            // Show date picker for agent's reply
-                                            setDatePickerVisible(true);
-                                        }
-                                    }}
-                                >
+                {
+                    props?.route?.params?.ID ? <AutoScrollFlatList
+                        nestedScrollEnabled={true}
+                        inverted
+                        data={getMesg}
+                        threshold={20}
+                        renderItem={({ item }) => {
+                            return (
+                                <View style={{ marginBottom: 5 }}>
                                     <Text
                                         style={{
                                             // padding: 8,
                                             fontSize: 16,
                                             borderRadius: 16,
-                                            backgroundColor: item.type === 0 ? Colors.surfblur : Colors.white,
-                                            alignSelf: item.type === 0 ? "flex-end" : "flex-start",
-                                            textAlignVertical: item === 0 ? 'center' : res[1]?.message?.props?.source ? null : 'center',
+                                            backgroundColor: item.user_id === userID ? Colors.surfblur : Colors.white,
+                                            alignSelf: item.user_id === userID ? "flex-end" : "flex-start",
+                                            textAlignVertical: 'center',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            alignContent: item.type === 0 ? 'center' : 'center',
+                                            alignContent: item.user_id === userID ? 'center' : 'center',
                                             maxWidth: "70%",
                                             marginLeft: 8,
                                             marginRight: 8,
                                             paddingHorizontal: 8,
                                             minHeight: 50,
-                                            color: item.type === 0 ? Colors.white : Colors.black,
+                                            color: item.user_id === userID ? Colors.white : Colors.black,
                                         }}
                                     >
                                         {item.message}
                                     </Text>
-                                </TouchableOpacity>
-                                <Text
-                                    style={{
-                                        fontSize: 12,
-                                        marginLeft: item.type === 0 ? 8 : 16,
-                                        marginRight: item.type === 0 ? 16 : 8,
-                                        // marginBottom: 8,
-                                        alignSelf: item.type === 0 ? "flex-end" : "flex-start",
-                                        color: Colors.gray,
-                                    }}
-                                >
-                                    {item.date}
-                                </Text>
-                            </View>
-                        );
-                    }}
-                />
+                                </View>
+                            )
+                        }}
+                    >
+
+                    </AutoScrollFlatList> :
+                        <AutoScrollFlatList
+                            nestedScrollEnabled={true}
+                            data={res}
+                            threshold={20}
+                            renderItem={({ item }) => {
+                                return (
+                                    <View>
+                                        <TouchableOpacity style={{}}
+                                            onPress={() => {
+                                                if (item.type === 0) {
+                                                    // Show date picker for agent's reply
+                                                    setDatePickerVisible(true);
+                                                }
+                                            }}
+                                        >
+                                            <Text
+                                                style={{
+                                                    // padding: 8,
+                                                    fontSize: 16,
+                                                    borderRadius: 16,
+                                                    backgroundColor: item.type === 0 ? Colors.surfblur : Colors.white,
+                                                    alignSelf: item.type === 0 ? "flex-end" : "flex-start",
+                                                    textAlignVertical: item === 0 ? 'center' : res[1]?.message?.props?.source ? null : 'center',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    alignContent: item.type === 0 ? 'center' : 'center',
+                                                    maxWidth: "70%",
+                                                    marginLeft: 8,
+                                                    marginRight: 8,
+                                                    paddingHorizontal: 8,
+                                                    minHeight: 50,
+                                                    color: item.type === 0 ? Colors.white : Colors.black,
+                                                }}
+                                            >
+                                                {item.message}
+                                            </Text>
+                                        </TouchableOpacity>
+                                        <Text
+                                            style={{
+                                                fontSize: 12,
+                                                marginLeft: item.type === 0 ? 8 : 16,
+                                                marginRight: item.type === 0 ? 16 : 8,
+                                                // marginBottom: 8,
+                                                alignSelf: item.type === 0 ? "flex-end" : "flex-start",
+                                                color: Colors.gray,
+                                            }}
+                                        >
+                                            {item.date}
+                                        </Text>
+                                    </View>
+                                );
+                            }}
+                        />
+                }
+
 
                 <View
                     style={{
@@ -337,31 +410,34 @@ const BookaTour = (props) => {
                             placeholderTextColor={Colors.textColorLight}
                             fontFamily="Poppins-Regular"
                             value={message}
+                            editable={props?.route?.params?.user_id ? true : false}
                             onChangeText={setMessage}
                         />
                         <TouchableOpacity
+                            disabled={props?.route?.params?.user_id ? false : true}
                             onPress={() => {
                                 setLoading(true);
-                                dispatch(bookChat({ message: "i want to know somthink about site" }))
-                                    .then((ress) => {
-                                        setLoading(false);
+                                {
+                                    dispatch(sendMessage({
+                                        user_id: props?.route?.params?.user_id ? props?.route?.params?.user_id : userID,
+                                        propid: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.post_id,
+                                        user2_id: props?.route?.params?.user2_id ? props?.route?.params?.user2_id : '',
+                                        message: message
+                                    })).then((res) => {
+                                        setLoading(false)
+                                        setMessage('')
+                                        if (res.payload.success) {
+                                            dispatch(getChatDetail({ ID: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.post_id })).then((res) => {
+                                                setGetMessg(res?.payload?.data)
+                                            }).catch((e) => {
 
-                                        const newTodo1 = {
-                                            type: 0,
-                                            message: message,
-                                            date: getCurrentDateTime(),
-                                        };
-                                        const newTodo = {
-                                            type: 1,
-                                            message: ress.payload.data.text,
-                                            date: getCurrentDateTime(),
-                                        };
-                                        setMessage("");
-                                        setRes([...res, newTodo1, newTodo]);
+                                            })
+                                        }
+                                    }).catch((e) => {
+                                        alert(JSON.stringify(e))
                                     })
-                                    .catch((e) => {
-                                        alert("Error ==> " + JSON.stringify(e));
-                                    });
+                                }
+
                             }}
                             style={{
                                 flexDirection: "row",
