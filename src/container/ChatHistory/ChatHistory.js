@@ -17,7 +17,7 @@ const ChatHistory = ({ navigation }) => {
         if (isFocused) {
             dispatch(propertyChatList()).then((res) => {
                 // setPropertyChat(res?.payload?.data)
-                if (res.payload.success) {
+                if (res?.payload?.success) {
                     setPropertyChat(res?.payload?.data)
                 } else {
                     setPropertyChat([])

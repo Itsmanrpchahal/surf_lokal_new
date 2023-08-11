@@ -110,18 +110,18 @@ const ViewPropertiy = (props, imageUrl) => {
   };
   const slideAnimation = useRef(new Animated.Value(0)).current;
 
-  useEffect(()=>{
-  },[])
+  useEffect(() => {
+  }, [])
   const generateLink = async () => {
     try {
       const link = await dynamicLinks().buildShortLink({
         link: `https://surflokal.page.link/property?propetyID=${postid.ID}`,
-            domainUriPrefix: Platform.OS === 'android' ?'https://surflokal.page.link/':'https://surflokal.page.link',
+        domainUriPrefix: Platform.OS === 'android' ? 'https://surflokal.page.link/' : 'https://surflokal.page.link',
         android: {
           packageName: 'surf.lokal',
         },
         ios: {
-              appStoreId:'123456789',
+          appStoreId: '123456789',
           bundleId: 'surf.lokal',
         },
         navigation: {
@@ -139,8 +139,8 @@ const ViewPropertiy = (props, imageUrl) => {
     try {
       Share.share({
         title: 'Please check this property',
-        message:  link ,
-        url:link
+        message: link,
+        url: link
       });
     } catch (error) {
       console.log('Sharing Error:', error)
@@ -716,8 +716,8 @@ const ViewPropertiy = (props, imageUrl) => {
   }
   return (
     <>
-      <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView >
+      <ScrollView >
+        <SafeAreaView style={{ flex: 1 }}>
 
           <View
             style={{
@@ -2041,9 +2041,9 @@ const ViewPropertiy = (props, imageUrl) => {
 
 
 
-        </ScrollView >
-      </SafeAreaView >
+        </SafeAreaView >
 
+      </ScrollView >
 
       <View
         style={{
@@ -2131,13 +2131,7 @@ const ViewPropertiy = (props, imageUrl) => {
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('BookaTour', {
-              initialMessage: 'When would you like to schedule a showing?',
-              post_id: postid?.ID,
-              // initialMessage2: 'A Lokal agent will confirm with you within the next 2 hours',
-              agentReply: <Image source={Images.cola} style={{ width: 40, height: 30, }} />,
-            });
-            console.log("postid Cheack ", postid?.ID)
+            navigation.navigate('BookaTour', { ID: '', PropID: postid?.ID, user_id: '', user2_id: '' })
           }}
           style={{
             justifyContent: 'center',
