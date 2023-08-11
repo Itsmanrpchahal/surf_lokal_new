@@ -498,8 +498,8 @@ const Home = () => {
             dispatch(getPoperties({
               type: 3, data: {
                 UserId: user_ID,
-                data_custom_taxonomy: item.data_customvalue,
-                data_customvalue: item.data_custom_taxonomy,
+                data_custom_taxonomy: item.data_custom_taxonomy,
+                data_customvalue: item.data_customvalue,
               },
 
             })).then((res) => {
