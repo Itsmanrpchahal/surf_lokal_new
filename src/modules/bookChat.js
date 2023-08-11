@@ -8,7 +8,7 @@ import BASEURl from '../services/Api'
 export const bookChat = createAsyncThunk("bookChat", async (payload) => {
     const id = await AsyncStorage.getItem('userId');
     const urlDynamic =
-    "https://www.surflokal.com/wp-json/chatbot/chatgpt?user_id="+id;
+        "https://www.surflokal.com/wp-json/chatbot/chatgpt?user_id=" + id;
     try {
         const response = await postAPI(urlDynamic, payload);
         const { data } = response;

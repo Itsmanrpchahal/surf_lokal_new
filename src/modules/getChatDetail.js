@@ -3,17 +3,14 @@ import { uploadImageAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
 
-
-export const sendMessage = createAsyncThunk('sendMessage', async dispatch => {
+export const getChatDetail = createAsyncThunk('getChatDetail', async dispatch => {
     const id = await AsyncStorage.getItem('userId')
-    const formdata = new FormData()
-    formdata.append('user_id',id)
-    formdata.append('user2_id',id)
-    formdata.append('propid',id)
-    formdata.append('message',id)
+    const formData = new FormData()
+    formData.append('user_id', id)
+    formData.append('propid', dispatch.ID)
     return await uploadImageAPI(
-        BASEURl + 'webapi/v1/chat/send_message.php',
-       formdata,
+        BASEURl + 'webapi/v1/chat/chatByproperty.php',
+        formData,
     )
         .then(async response => {
             const { data } = response;
@@ -27,24 +24,24 @@ export const sendMessage = createAsyncThunk('sendMessage', async dispatch => {
         });
 });
 
-const sendMessageSlice = createSlice({
-    name: 'sendMessage',
+const getChatDetailSlice = createSlice({
+    name: 'getChatDetail',
     initialState: {
-        sendMessageData: [],
+        getChatDetailData: [],
         status: null,
     },
     extraReducers: {
-        [sendMessage.pending]: (state, action) => {
+        [getChatDetail.pending]: (state, action) => {
             state.status = 'loading';
         },
-        [sendMessage.fulfilled]: (state, action) => {
+        [getChatDetail.fulfilled]: (state, action) => {
             state.status = 'success';
-            state.likeDisLikeData = action.payload;
+            state.isReadData = action.payload;
         },
-        [sendMessage.rejected]: (state, action) => {
+        [getChatDetail.rejected]: (state, action) => {
             state.status = 'failed';
         },
     },
 });
 
-export default sendMessageSlice.reducer;
+export default getChatDetailSlice.reducer;

@@ -39,7 +39,7 @@ import getLeaderboard from '../modules/getLeaderboard';
 import getUserScore from '../modules/getUserScore';
 import bookChat from '../modules/bookChat';
 import { propertyChatList } from '../modules/propertyChats';
-import { sendMessage } from '../modules/send_message';
+import { sendMessage } from '../modules/sendMessage';
 import isRead from '../modules/isRead';
 export const store = configureStore({
   reducer: {
@@ -81,7 +81,7 @@ export const store = configureStore({
     bookChat: bookChat,
     sendMessage: sendMessage,
     propertyChatList: propertyChatList,
-    isRead: isRead
+    isRead: isRead,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
