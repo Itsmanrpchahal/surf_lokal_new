@@ -170,7 +170,7 @@ const BookaTour = (props) => {
                             color: Colors.black,
                         }}
                     >
-                        Book A Tour
+                        Schedule a Showing
                     </Text>
                     <TouchableOpacity
                         onPress={() => {

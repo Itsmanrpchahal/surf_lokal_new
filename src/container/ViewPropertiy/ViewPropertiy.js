@@ -230,21 +230,21 @@ const ViewPropertiy = (props, imageUrl) => {
               useNativeDriver: false,
             }),
           ]).start();
-          if (velocity > 0) {
+          // if (velocity > 0) {
 
 
-            (
-              idPost = store.getState().getPopertiesDetails.getPopertiesDetails.data[0].ID)
+          //   (
+          //     idPost = store.getState().getPopertiesDetails.getPopertiesDetails.data[0].ID)
 
-            savefile(idPost);
-          } else {
+          //   savefile(idPost);
+          // } else {
 
-            (
-              idPost = store.getState().getPopertiesDetails.getPopertiesDetails.data[0].ID)
+          //   (
+          //     idPost = store.getState().getPopertiesDetails.getPopertiesDetails.data[0].ID)
 
-            trashfile(idPost);
+          //   trashfile(idPost);
 
-          }
+          // }
         } else {
           Animated.spring(animation, {
             toValue: { x: 0, y: 0 },
@@ -296,13 +296,12 @@ const ViewPropertiy = (props, imageUrl) => {
   const savefile = async post_id => {
     const userID = await AsyncStorage.getItem('userId');
 
-    let payload = {
-      userID: userID,
-      post_id: post_id,
-    };
+    const formData = new FormData()
+    formData.append('userID', userID)
+    formData.append('post_id', post_id)
 
 
-    await dispatch(addToFavorite(payload)).then(response => {
+    await dispatch(addToFavorite(formData)).then(response => {
       if (response.payload.success) {
         // Alert.alert('Alert', response.payload.message);
       } else {
@@ -322,12 +321,12 @@ const ViewPropertiy = (props, imageUrl) => {
   const trashfile = async post_id => {
     const userID = await AsyncStorage.getItem('userId');
 
-    let payload = {
-      userID: userID,
-      post_id: post_id,
-    };
+    const formData = new FormData()
+    formData.append('userID', userID)
+    formData.append('post_id', post_id)
 
-    await dispatch(addRemoveTrash(payload)).then(response => {
+
+    await dispatch(addRemoveTrash(formData)).then(response => {
       if (response.payload.success) {
         // Alert.alert('Alert', response.payload.message);
       } else {
@@ -436,7 +435,7 @@ const ViewPropertiy = (props, imageUrl) => {
           <View style={{ width: '60%', marginTop: 30 }}>
             <Text style={styles.property}>Miscellaneous Details</Text>
             <Text style={styles.props}>Driving Directions:{data.map((item) => item.details.miscellaneous_details.driving_directions)} </Text>
-            <Text style={styles.props}>Listing Office: {data.map((item) => item.details.miscellaneous_details.listing_office)} sq ft </Text>
+            <Text style={styles.props}>Listing Office: {data.map((item) => item.details.miscellaneous_details.listing_office)}  </Text>
 
           </View>
         </View>
@@ -611,7 +610,7 @@ const ViewPropertiy = (props, imageUrl) => {
                 <Image style={{ color: "black", height: 30, width: 30 }} source={{ uri: weather?.current_condition_icon }} />
               </View>
             </View>
-            <Text style={styles.props}>Temperature: {weather.current_temp}{" ℉"}</Text>
+            <Text style={styles.props}>Temperature: {(+weather.current_temp * 9 / 5 + 32).toFixed(2)}{" ℉"}</Text>
           </View>
         </View>
       </>
@@ -642,7 +641,6 @@ const ViewPropertiy = (props, imageUrl) => {
     };
 
     return (
-
       <>
         <Text style={[styles.propertyt, { marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0 }]}>Nearby Schools</Text>
 
@@ -716,9 +714,8 @@ const ViewPropertiy = (props, imageUrl) => {
   }
   return (
     <>
-      <ScrollView >
-        <SafeAreaView style={{ flex: 1 }}>
-
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView >
           <View
             style={{
               width: '100%',
@@ -770,7 +767,6 @@ const ViewPropertiy = (props, imageUrl) => {
                             cards={[property.featured_image_src]}
                             loop={true}
                             renderYep={() => (
-
                               <View
                                 style={{
                                   top: 0,
@@ -853,7 +849,6 @@ const ViewPropertiy = (props, imageUrl) => {
                                   </View>
                                 </View>
                               </View>
-
                             }
                             onSwipedLeft={() => {
                               trashfile(property.ID)
@@ -882,6 +877,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                   style={{
                                     flexDirection: 'row',
                                     width: width,
+                                    marginTop: 20,
                                     justifyContent: 'space-between',
                                     alignItems: 'center',
                                     backgroundColor: Colors.white,
@@ -973,14 +969,7 @@ const ViewPropertiy = (props, imageUrl) => {
                               </View>
                             )}
                           />
-
                         </View>
-
-
-
-
-
-
                       </View>
 
                       <KeyboardAvoidingView behavior="padding">
@@ -1311,8 +1300,8 @@ const ViewPropertiy = (props, imageUrl) => {
 
                               <View
                                 style={{
-                                  justifyContent: 'flex-start',
-                                  alignItems: 'flex-start',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
                                   // backgroundColor: "red",
                                   width: 70,
                                 }}>
@@ -1338,11 +1327,10 @@ const ViewPropertiy = (props, imageUrl) => {
                                 </View>
                               </View>
 
-
                               <View
                                 style={{
-                                  justifyContent: 'flex-start',
-                                  alignItems: 'flex-start',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
 
                                   width: 70,
                                 }}>
@@ -1372,8 +1360,8 @@ const ViewPropertiy = (props, imageUrl) => {
 
                               <View
                                 style={{
-                                  justifyContent: 'flex-start',
-                                  alignItems: 'flex-start',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
                                   width: 70,
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -1400,8 +1388,8 @@ const ViewPropertiy = (props, imageUrl) => {
 
                               <View
                                 style={{
-                                  justifyContent: 'flex-start',
-                                  alignItems: 'flex-start',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
                                   width: 70,
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -1431,11 +1419,9 @@ const ViewPropertiy = (props, imageUrl) => {
 
                               <View
                                 style={{
-                                  justifyContent: 'flex-start',
-                                  alignItems: 'flex-start',
-
-                                  width: 60,
-
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  width: 70,
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
                                   <Image
@@ -1461,8 +1447,8 @@ const ViewPropertiy = (props, imageUrl) => {
                               </View>
                               <View
                                 style={{
-                                  justifyContent: 'flex-start',
-                                  alignItems: 'flex-start',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
 
                                   width: 70,
                                 }}>
@@ -1498,8 +1484,6 @@ const ViewPropertiy = (props, imageUrl) => {
                 );
               })}
           </View>
-
-
           <View style={{
             width: '100%',
             paddingLeft: 16,
@@ -1611,7 +1595,7 @@ const ViewPropertiy = (props, imageUrl) => {
                         color: selectedTab == 2 ? Colors.primaryBlue : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
-                      }}>Map</Text>
+                      }}>Property Location</Text>
                     </TouchableOpacity>
                   </View>
                   <View style={styles.featuersComtainer}>
@@ -2040,10 +2024,10 @@ const ViewPropertiy = (props, imageUrl) => {
           }
 
 
+        </ScrollView >
 
-        </SafeAreaView >
+      </SafeAreaView >
 
-      </ScrollView >
 
       <View
         style={{
@@ -2111,7 +2095,7 @@ const ViewPropertiy = (props, imageUrl) => {
                 alignContent: 'center',
               }}
 
-              onPress={() => navigation.navigate('ChatSearch')}>
+              onPress={() => navigation.navigate('ChatSearch', { from: 'detail' })}>
               <Image
                 source={Images.chat}
                 style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
@@ -2318,8 +2302,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 28,
-    width: 28,
+    height: 40,
+    width: 40,
     borderRadius: 100,
     backgroundColor: Colors.gray,
   },

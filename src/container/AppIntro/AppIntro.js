@@ -19,8 +19,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AppButton from '../../components/AppButton';
 import Styles from './Styles';
 import AppIntroSlider from 'react-native-app-intro-slider';
+
 import { color } from 'react-native-reanimated';
 import DeviceInfo from 'react-native-device-info';
+import { CommonActions, StackActions } from '@react-navigation/native';
 const slides = [
   {
     key: 1,
@@ -50,6 +52,7 @@ const slides = [
     image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab4 : Images.slideImage3,
     backgroundColor: 'black',
   },
+
   // {
   //   key: 5,
   //   title: 'Title 2',
@@ -73,8 +76,11 @@ export default function AppIntro({ navigation }) {
   };
   const onDone = () => {
 
-    navigation.navigate('Tabs', { screen: 'Home' });
-
+    const resetAction = CommonActions.reset({
+      index: 1,
+      routes: [{ name: 'Tabs', params: { screen: 'Home' } }]
+    });
+    navigation.dispatch(resetAction);
   };
 
   const renderNext = () => {
@@ -101,7 +107,12 @@ export default function AppIntro({ navigation }) {
 
         //backgroundColor: Colors.primaryBlue,
       }}>
-      <AppIntroSlider renderItem={renderItem} data={slides} activeDotStyle={{ backgroundColor: Colors.PrimaryColor }} renderNextButton={renderNext} renderDoneButton={renderDone} />
+      <AppIntroSlider renderItem={renderItem}
+        data={slides}
+        activeDotStyle={{ backgroundColor: Colors.PrimaryColor }}
+        dotClickEnabled={true}
+        renderDoneButton={renderDone}
+      />
     </SafeAreaView>
   );
 }

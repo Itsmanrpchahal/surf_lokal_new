@@ -25,6 +25,7 @@ import FormData from 'form-data';
 import { idText } from 'typescript';
 import AsyncStorage from '@react-native-community/async-storage';
 import * as Animatable from 'react-native-animatable';
+import BASEURl from '../../services/Api'
 
 
 const screenHeight = Dimensions.get('window').height;
@@ -96,7 +97,7 @@ const ContactMyAgent = () => {
 
     try {
       const response = await axios.get(
-        'https://surf.topsearchrealty.com/webapi/v1/agent/?userID=' + id
+        BASEURl + 'webapi/v1/agent/?userID=' + id
       );
       if (response.data.success) {
         const agentData = response.data.data[0];
@@ -164,62 +165,7 @@ const ContactMyAgent = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <View
-        style={{
-          marginTop: 8,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          width: '100%',
-          marginLeft: 0,
-          alignItems: "center",
-          paddingVertical: 12
-        }}>
-        <Text style={{ fontSize: 20, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
-          Contact Surf Lokal
-        </Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            width: '90%',
-            alignSelf: 'center',
 
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-            overflow: 'visible',
-            zIndex: 99,
-            position: 'absolute',
-            top: 10,
-          }}>
-
-          <TouchableOpacity
-            style={{
-              alignItems: 'center',
-              position: "absolute",
-              right:-12,
-              top: -6,
-
-              backgroundColor: Colors.surfblur,
-              height: 25,
-              width: 25,
-              borderRadius: 100,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            onPress={() => navigation.goBack()}
-          >
-            <Animatable.Image
-              source={Images.whiteclose}
-              style={{
-                height: 10,
-                width: 10,
-                resizeMode: 'contain',
-                tintColor: Colors.white,
-              }}
-              animation="flipInY"
-            />
-          </TouchableOpacity>
-        </View>
-      </View> */}
       <View
         style={{
           marginTop: 4,

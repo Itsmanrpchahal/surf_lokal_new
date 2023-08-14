@@ -10,7 +10,7 @@ import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
 import Images from "../../utils/Images";
 import { sendMessage } from '../../modules/send_message'
 
-const ChatSearch = () => {
+const ChatSearch = (props) => {
   const navigation = useNavigation();
   const route = useRoute();
   const [message, setMessage] = useState();
@@ -34,9 +34,14 @@ const ChatSearch = () => {
     const year = now.getFullYear().toString();
     const month = (now.getMonth() + 1).toString().padStart(2, '0');
     const date = now.getDate().toString().padStart(2, '0');
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const dateTimeString = `${month}/${date}/${year}    ${hours}:${minutes}`;
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    const dateTimeString = `${month}/${date}/${year}    ${hours}:${minutes} ${ampm}`;
     return dateTimeString;
   };
   return (
@@ -84,7 +89,7 @@ const ChatSearch = () => {
               ></Image>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate('Home')}
+              onPress={() => { props.route?.params?.from === 'detail' ? navigation.goBack() : navigation.navigate('Home') }}
               style={{
 
                 height: 35,
@@ -219,6 +224,7 @@ const ChatSearch = () => {
               onChangeText={setMessage}>
             </TextInput>
             <TouchableOpacity
+              disabled={message === '' && true}
               onPress={() => {
                 setLoading(true)
                 dispatch(chat({ message: 'i want to know somthink about site' })).then((ress) => {

@@ -47,7 +47,7 @@ const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
 
-const MyFavorites = () => {
+const MyFavorites = (props) => {
   const isFocused = useIsFocused();
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -175,11 +175,11 @@ const MyFavorites = () => {
   }, [isFocused]);
   const getFavoritePropertiesApiCall = () => {
     dispatch(getFavoriteProperties()).then(response => {
-
       if (response.payload.data === 'Record not found!') {
         setShowNoDataMessage(true);
       } else {
-        setHomeData(response.payload.data).reverse();
+        setShowNoDataMessage(false)
+        setHomeData(response.payload.data);
       }
     });
   }
@@ -187,8 +187,6 @@ const MyFavorites = () => {
   const getAgentApicall = () => {
     dispatch(getAgent()).then(response => {
       setAgentData(response.payload.data);
-
-
     });
   }
   const getRatingApicall = () => {
@@ -196,12 +194,7 @@ const MyFavorites = () => {
       setRatingData(response.payload.data)
     })
   }
-  // useEffect(() => {
-  //   Orientation.lockToPortrait();
-  //   return () => {
-  //     Orientation.unlockAllOrientations();
-  //   };
-  // }, []);
+
   const makePhoneCall = () => {
     let phoneNumber = agentData[0]?.agent_phone;
     Linking.openURL(`tel:${phoneNumber}`);
@@ -220,45 +213,45 @@ const MyFavorites = () => {
   };
   const generateLink = async (ID) => {
     try {
-        const link = await dynamicLinks().buildShortLink({
-            link: `https://surflokal.page.link/property?propetyID=${ID}`,
-            domainUriPrefix: Platform.OS === 'android' ?'https://surflokal.page.link/':'https://surflokal.page.link',
-            android: {
-                packageName: 'surf.lokal',
-            },
-            ios: {
-              appStoreId:'123456789',
-                bundleId: 'surf.lokal',
-            },
-            navigation: {
-              forcedRedirectEnabled: true,
-          }
-        }, dynamicLinks.ShortLinkType.SHORT)
-        console.log('link:', link)
-        return link
+      const link = await dynamicLinks().buildShortLink({
+        link: `https://surflokal.page.link/property?propetyID=${ID}`,
+        domainUriPrefix: Platform.OS === 'android' ? 'https://surflokal.page.link/' : 'https://surflokal.page.link',
+        android: {
+          packageName: 'surf.lokal',
+        },
+        ios: {
+          appStoreId: '123456789',
+          bundleId: 'surf.lokal',
+        },
+        navigation: {
+          forcedRedirectEnabled: true,
+        }
+      }, dynamicLinks.ShortLinkType.SHORT)
+      console.log('link:', link)
+      return link
     } catch (error) {
-        console.log('Generating Link Error:', error)
+      console.log('Generating Link Error:', error)
     }
-}
-const handleShare = async (ID) => {
-  const link = await generateLink(ID)
-  try {
-    Share.share({
-      title: 'Please check this property',
-        message:  link ,
-        url:link
-    });
-} catch (error) {
-    console.log('Sharing Error:', error)
-}
-};
+  }
+  const handleShare = async (ID) => {
+    const link = await generateLink(ID)
+    try {
+      Share.share({
+        title: 'Please check this property',
+        message: link,
+        url: link
+      });
+    } catch (error) {
+      console.log('Sharing Error:', error)
+    }
+  };
 
 
   const renderItem = ({ item }) => (
     <View style={[styles.slideOuter]}>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('ViewPropertiy', {ID: item.ID })}>
+        onPress={() => navigation.navigate('ViewPropertiy', { ID: item.ID })}>
         <Image source={{ uri: item?.featured_image_src[0].guid }} style={styles.slide} />
       </TouchableOpacity>
 
@@ -665,396 +658,396 @@ const handleShare = async (ID) => {
       <View style={{
         flexDirection: 'row',
         width: '100%',
-        alignItems:'center',
-        justifyContent:'center',
+        alignItems: 'center',
+        justifyContent: 'center',
         paddingHorizontal: 18,
 
       }}>
         {
-          DeviceInfo.getDeviceType() === 'Tablet' ? 
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: "center",
-              justifyContent: 'space-between',
-              marginBottom: 20,
-              marginTop: 5,
-              width: "100%",
-              alignSelf: "center"
-            }}>
+          DeviceInfo.getDeviceType() === 'Tablet' ?
             <View
               style={{
                 flexDirection: 'row',
                 alignItems: "center",
-                //paddingHorizontal: 12,
                 justifyContent: 'space-between',
-                marginBottom: 12,
+                marginBottom: 20,
+                marginTop: 5,
                 width: "100%",
-                alignSelf: "center",
-
+                alignSelf: "center"
               }}>
-
               <View
                 style={{
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-start',
-                  // backgroundColor: "red",
-                  width: 70,
+                  flexDirection: 'row',
+                  alignItems: "center",
+                  //paddingHorizontal: 12,
+                  justifyContent: 'space-between',
+                  marginBottom: 12,
+                  width: "100%",
+                  alignSelf: "center",
+
                 }}>
-                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                  <Image
-                    source={Images.bed}
-                    style={{
-                      height: 20,
-                      width: 20,
-                      resizeMode: 'contain',
-                      //backgroundColor: "green"
-                    }}></Image>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Regular'
-                    }}>
-                    {item.property_bedrooms.length > 0 ? item.property_bedrooms : 0} {'Beds'}
-                  </Text>
+
+                <View
+                  style={{
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+                    // backgroundColor: "red",
+                    width: 70,
+                  }}>
+                  <View style={{ justifyContent: "center", alignItems: "center" }}>
+                    <Image
+                      source={Images.bed}
+                      style={{
+                        height: 20,
+                        width: 20,
+                        resizeMode: 'contain',
+                        //backgroundColor: "green"
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        color: Colors.black,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Regular'
+                      }}>
+                      {item.property_bedrooms.length > 0 ? item.property_bedrooms : 0} {'Beds'}
+                    </Text>
+                  </View>
+                </View>
+
+
+                <View
+                  style={{
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+
+                    width: 70,
+                  }}>
+                  <View style={{ justifyContent: "center", alignItems: "center" }}>
+                    <Image
+                      source={Images.bath}
+                      style={{
+                        height: 20,
+                        width: 20,
+                        resizeMode: 'contain',
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        color: Colors.black,
+                        textAlign: 'center',
+                      }}>
+                      {item.bathroomsfull.length > 0 ? item.bathroomsfull : 0} {'Baths'}
+                    </Text>
+                  </View>
+                </View>
+
+
+
+                <View
+                  style={{
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+                    width: 70,
+                  }}>
+                  <View style={{ justifyContent: "center", alignItems: "center" }}>
+                    <Image
+                      source={Images.measuring}
+                      style={{
+                        height: 20,
+                        width: 20,
+                        resizeMode: 'contain',
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        color: Colors.black,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Regular'
+                      }}>
+                      {item.property_size.length > 0 ? item.property_size : 0} {'sq ft'}
+                    </Text>
+                  </View>
+                </View>
+
+
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 70,
+                  }}>
+                  <View style={{ justifyContent: "center", alignItems: "center" }}>
+                    <Text
+                      style={{
+                        fontSize: 13,
+                        color: Colors.black,
+                        textAlign: 'center',
+                        fontWeight: 'bold',
+                      }}>
+                      {'HOA'}
+                    </Text>
+
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        color: Colors.black,
+                        textAlign: 'center',
+                      }}>
+                      {item.associationfee.length > 0 ? item.associationfee : 0}
+                    </Text>
+                  </View>
+                </View>
+
+
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center', width: 70,
+
+                  }}>
+                  <View style={{ justifyContent: "center", alignItems: "center" }}>
+                    <Image
+                      source={Images.tax}
+                      style={{
+                        height: 20,
+                        width: 20,
+                        marginTop: 0,
+                        resizeMode: 'contain',
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        color: Colors.black,
+                        textAlign: 'center',
+                      }}>
+                      {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
+                    </Text>
+                  </View>
+
+                </View>
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 70,
+                  }}>
+                  <View style={{ justifyContent: "center", alignItems: "center" }}>
+                    <Image
+                      source={Images.calendar}
+                      style={{
+                        height: 20,
+                        width: 20,
+                        marginTop: 0,
+                        resizeMode: 'contain',
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        color: Colors.black,
+                        textAlign: 'center',
+                      }}>
+                      {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
+                    </Text>
+                  </View>
                 </View>
               </View>
 
-
+            </View> :
+            <ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}  >
               <View
                 style={{
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-start',
-
-                  width: 70,
+                  flexDirection: 'row',
+                  alignItems: "center",
+                  justifyContent: 'space-between',
+                  marginBottom: 20,
+                  marginTop: 5,
+                  width: "100%",
+                  alignSelf: "center"
                 }}>
-                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                  <Image
-                    source={Images.bath}
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: "center",
+                    //paddingHorizontal: 12,
+                    justifyContent: 'space-between',
+                    marginBottom: 12,
+                    width: "100%",
+                    alignSelf: "center",
+
+                  }}>
+
+                  <View
                     style={{
-                      height: 20,
-                      width: 20,
-                      resizeMode: 'contain',
-                    }}></Image>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: Colors.black,
-                      textAlign: 'center',
+                      justifyContent: 'flex-start',
+                      alignItems: 'flex-start',
+                      // backgroundColor: "red",
+                      width: 70,
                     }}>
-                    {item.bathroomsfull.length > 0 ? item.bathroomsfull : 0} {'Baths'}
-                  </Text>
+                    <View style={{ justifyContent: "center", alignItems: "center" }}>
+                      <Image
+                        source={Images.bed}
+                        style={{
+                          height: 20,
+                          width: 20,
+                          resizeMode: 'contain',
+                          //backgroundColor: "green"
+                        }}></Image>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: Colors.black,
+                          textAlign: 'center',
+                          fontFamily: 'Poppins-Regular'
+                        }}>
+                        {item.property_bedrooms.length > 0 ? item.property_bedrooms : 0} {'Beds'}
+                      </Text>
+                    </View>
+                  </View>
+
+
+                  <View
+                    style={{
+                      justifyContent: 'flex-start',
+                      alignItems: 'flex-start',
+
+                      width: 70,
+                    }}>
+                    <View style={{ justifyContent: "center", alignItems: "center" }}>
+                      <Image
+                        source={Images.bath}
+                        style={{
+                          height: 20,
+                          width: 20,
+                          resizeMode: 'contain',
+                        }}></Image>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: Colors.black,
+                          textAlign: 'center',
+                        }}>
+                        {item.bathroomsfull.length > 0 ? item.bathroomsfull : 0} {'Baths'}
+                      </Text>
+                    </View>
+                  </View>
+
+
+
+                  <View
+                    style={{
+                      justifyContent: 'flex-start',
+                      alignItems: 'flex-start',
+                      width: 70,
+                    }}>
+                    <View style={{ justifyContent: "center", alignItems: "center" }}>
+                      <Image
+                        source={Images.measuring}
+                        style={{
+                          height: 20,
+                          width: 20,
+                          resizeMode: 'contain',
+                        }}></Image>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: Colors.black,
+                          textAlign: 'center',
+                          fontFamily: 'Poppins-Regular'
+                        }}>
+                        {item.property_size.length > 0 ? item.property_size : 0} {'sq ft'}
+                      </Text>
+                    </View>
+                  </View>
+
+
+                  <View
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: 70,
+                    }}>
+                    <View style={{ justifyContent: "center", alignItems: "center" }}>
+                      <Text
+                        style={{
+                          fontSize: 13,
+                          color: Colors.black,
+                          textAlign: 'center',
+                          fontWeight: 'bold',
+                        }}>
+                        {'HOA'}
+                      </Text>
+
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: Colors.black,
+                          textAlign: 'center',
+                        }}>
+                        {item.associationfee.length > 0 ? item.associationfee : 0}
+                      </Text>
+                    </View>
+                  </View>
+
+
+                  <View
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center', width: 70,
+
+                    }}>
+                    <View style={{ justifyContent: "center", alignItems: "center" }}>
+                      <Image
+                        source={Images.tax}
+                        style={{
+                          height: 20,
+                          width: 20,
+                          marginTop: 0,
+                          resizeMode: 'contain',
+                        }}></Image>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: Colors.black,
+                          textAlign: 'center',
+                        }}>
+                        {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
+                      </Text>
+                    </View>
+
+                  </View>
+                  <View
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: 70,
+                    }}>
+                    <View style={{ justifyContent: "center", alignItems: "center" }}>
+                      <Image
+                        source={Images.calendar}
+                        style={{
+                          height: 20,
+                          width: 20,
+                          marginTop: 0,
+                          resizeMode: 'contain',
+                        }}></Image>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: Colors.black,
+                          textAlign: 'center',
+                        }}>
+                        {item.yearbuilt.length > 0 ? item.yearbuilt : 0}
+                      </Text>
+                    </View>
+                  </View>
                 </View>
-              </View>
-
-
-
-              <View
-                style={{
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-start',
-                  width: 70,
-                }}>
-                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                  <Image
-                    source={Images.measuring}
-                    style={{
-                      height: 20,
-                      width: 20,
-                      resizeMode: 'contain',
-                    }}></Image>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Regular'
-                    }}>
-                    {item.property_size.length > 0 ? item.property_size : 0} {'sq ft'}
-                  </Text>
-                </View>
-              </View>
-
-
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: 70,
-                }}>
-                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontWeight: 'bold',
-                    }}>
-                    {'HOA'}
-                  </Text>
-
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: Colors.black,
-                      textAlign: 'center',
-                    }}>
-                    {item.associationfee.length > 0 ? item.associationfee : 0}
-                  </Text>
-                </View>
-              </View>
-
-
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center', width: 70,
-
-                }}>
-                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                  <Image
-                    source={Images.tax}
-                    style={{
-                      height: 20,
-                      width: 20,
-                      marginTop: 0,
-                      resizeMode: 'contain',
-                    }}></Image>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: Colors.black,
-                      textAlign: 'center',
-                    }}>
-                    {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
-                  </Text>
-                </View>
 
               </View>
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: 70,
-                }}>
-                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                  <Image
-                    source={Images.calendar}
-                    style={{
-                      height: 20,
-                      width: 20,
-                      marginTop: 0,
-                      resizeMode: 'contain',
-                    }}></Image>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: Colors.black,
-                      textAlign: 'center',
-                    }}>
-                    {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
-                  </Text>
-                </View>
-              </View>
-            </View>
-
-          </View> : 
-           <ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}  >
-           <View
-             style={{
-               flexDirection: 'row',
-               alignItems: "center",
-               justifyContent: 'space-between',
-               marginBottom: 20,
-               marginTop: 5,
-               width: "100%",
-               alignSelf: "center"
-             }}>
-             <View
-               style={{
-                 flexDirection: 'row',
-                 alignItems: "center",
-                 //paddingHorizontal: 12,
-                 justifyContent: 'space-between',
-                 marginBottom: 12,
-                 width: "100%",
-                 alignSelf: "center",
- 
-               }}>
- 
-               <View
-                 style={{
-                   justifyContent: 'flex-start',
-                   alignItems: 'flex-start',
-                   // backgroundColor: "red",
-                   width: 70,
-                 }}>
-                 <View style={{ justifyContent: "center", alignItems: "center" }}>
-                   <Image
-                     source={Images.bed}
-                     style={{
-                       height: 20,
-                       width: 20,
-                       resizeMode: 'contain',
-                       //backgroundColor: "green"
-                     }}></Image>
-                   <Text
-                     style={{
-                       fontSize: 12,
-                       color: Colors.black,
-                       textAlign: 'center',
-                       fontFamily: 'Poppins-Regular'
-                     }}>
-                     {item.property_bedrooms.length > 0 ? item.property_bedrooms : 0} {'Beds'}
-                   </Text>
-                 </View>
-               </View>
- 
- 
-               <View
-                 style={{
-                   justifyContent: 'flex-start',
-                   alignItems: 'flex-start',
- 
-                   width: 70,
-                 }}>
-                 <View style={{ justifyContent: "center", alignItems: "center" }}>
-                   <Image
-                     source={Images.bath}
-                     style={{
-                       height: 20,
-                       width: 20,
-                       resizeMode: 'contain',
-                     }}></Image>
-                   <Text
-                     style={{
-                       fontSize: 12,
-                       color: Colors.black,
-                       textAlign: 'center',
-                     }}>
-                     {item.bathroomsfull.length > 0 ? item.bathroomsfull : 0} {'Baths'}
-                   </Text>
-                 </View>
-               </View>
- 
- 
- 
-               <View
-                 style={{
-                   justifyContent: 'flex-start',
-                   alignItems: 'flex-start',
-                   width: 70,
-                 }}>
-                 <View style={{ justifyContent: "center", alignItems: "center" }}>
-                   <Image
-                     source={Images.measuring}
-                     style={{
-                       height: 20,
-                       width: 20,
-                       resizeMode: 'contain',
-                     }}></Image>
-                   <Text
-                     style={{
-                       fontSize: 12,
-                       color: Colors.black,
-                       textAlign: 'center',
-                       fontFamily: 'Poppins-Regular'
-                     }}>
-                     {item.property_size.length > 0 ? item.property_size : 0} {'sq ft'}
-                   </Text>
-                 </View>
-               </View>
- 
- 
-               <View
-                 style={{
-                   justifyContent: 'center',
-                   alignItems: 'center',
-                   width: 70,
-                 }}>
-                 <View style={{ justifyContent: "center", alignItems: "center" }}>
-                   <Text
-                     style={{
-                       fontSize: 13,
-                       color: Colors.black,
-                       textAlign: 'center',
-                       fontWeight: 'bold',
-                     }}>
-                     {'HOA'}
-                   </Text>
- 
-                   <Text
-                     style={{
-                       fontSize: 12,
-                       color: Colors.black,
-                       textAlign: 'center',
-                     }}>
-                     {item.associationfee.length > 0 ? item.associationfee : 0}
-                   </Text>
-                 </View>
-               </View>
- 
- 
-               <View
-                 style={{
-                   justifyContent: 'center',
-                   alignItems: 'center', width: 70,
- 
-                 }}>
-                 <View style={{ justifyContent: "center", alignItems: "center" }}>
-                   <Image
-                     source={Images.tax}
-                     style={{
-                       height: 20,
-                       width: 20,
-                       marginTop: 0,
-                       resizeMode: 'contain',
-                     }}></Image>
-                   <Text
-                     style={{
-                       fontSize: 12,
-                       color: Colors.black,
-                       textAlign: 'center',
-                     }}>
-                     {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
-                   </Text>
-                 </View>
- 
-               </View>
-               <View
-                 style={{
-                   justifyContent: 'center',
-                   alignItems: 'center',
-                   width: 70,
-                 }}>
-                 <View style={{ justifyContent: "center", alignItems: "center" }}>
-                   <Image
-                     source={Images.calendar}
-                     style={{
-                       height: 20,
-                       width: 20,
-                       marginTop: 0,
-                       resizeMode: 'contain',
-                     }}></Image>
-                   <Text
-                     style={{
-                       fontSize: 12,
-                       color: Colors.black,
-                       textAlign: 'center',
-                     }}>
-                      {item.yearbuilt.length > 0 ? item.yearbuilt : 0}
-                   </Text>
-                 </View>
-               </View>
-             </View>
- 
-           </View>
-         </ScrollView>
+            </ScrollView>
         }
-        
-      </View> 
+
+      </View>
     </View>
 
   );
@@ -1098,7 +1091,7 @@ const handleShare = async (ID) => {
               alignItems: "center",
               justifyContent: "center",
             }}
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => { props?.route?.params?.from === 'menu' ? navigation.goBack() : navigation.navigate('Home') }}
           >
             <Animatable.Image
               source={Images.whiteclose}
@@ -1131,7 +1124,6 @@ const handleShare = async (ID) => {
         ) : (
           <FlatList
             data={data}
-
             keyExtractor={item => item.id}
             renderItem={renderItem}
             ListFooterComponent={<View style={{ height: 70 }}></View>}

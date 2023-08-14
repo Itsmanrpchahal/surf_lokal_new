@@ -4,8 +4,10 @@ import BASEURl from '../services/Api'
 
 
 export const addRemoveTrash = createAsyncThunk('addRemoveTrash', async dispatch => {
+  console.log(JSON.stringify(dispatch))
+
   return await uploadImageAPI(
-    BASEURl+'webapi/v1/trashlist/addremovetrash.php',
+    BASEURl + 'webapi/v1/trashlist/addremovetrash.php',
     dispatch,
   )
     .then(async response => {
@@ -13,6 +15,7 @@ export const addRemoveTrash = createAsyncThunk('addRemoveTrash', async dispatch 
       return data;
     })
     .catch(e => {
+      console.log('Error ', e)
       if (e.response) {
       } else if (e.request) {
       } else {

@@ -55,6 +55,7 @@ import { getUserScore } from '../../modules/getUserScore';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import GetLocation from 'react-native-get-location'
 
+
 const { width } = Dimensions.get('screen');
 
 
@@ -900,6 +901,7 @@ const Home = () => {
                             selectedTextStyle={styles.selectedTextStyle}
                             inputSearchStyle={styles.inputSearchStyle}
                             iconStyle={styles.iconStyle}
+                            visibleSelectedItem={true}
                             itemTextStyle={styles.itemTextStyle}
                             placeholderTextColor="red"
                             search
@@ -1750,7 +1752,9 @@ const Home = () => {
                                               }}>
                                               Your Review
                                             </Text>
+
                                             {/* <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text> */}
+
                                             {!isEditing && (
                                               <TouchableOpacity
                                                 onPress={() => setIsEditing(true)}
@@ -1769,7 +1773,9 @@ const Home = () => {
                                                   marginTop: 10,
                                                 }}>
                                                 <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
+
                                                   Photos :
+
                                                 </Text>
                                                 <Rating
                                                   type="custom"
@@ -1794,7 +1800,9 @@ const Home = () => {
                                                   alignItems: 'center',
                                                 }}>
                                                 <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
+
                                                   Description Accuracy  :
+
                                                 </Text>
                                                 <Rating
                                                   type="custom"
@@ -1818,7 +1826,9 @@ const Home = () => {
                                                   alignItems: 'center',
                                                 }}>
                                                 <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
+
                                                   Price  :
+
                                                 </Text>
                                                 <Rating
                                                   type="custom"
@@ -1843,7 +1853,9 @@ const Home = () => {
                                                   alignItems: 'center',
                                                 }}>
                                                 <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
+
                                                   Interest in Property :
+
                                                 </Text>
                                                 <Rating
                                                   type="custom"
@@ -1909,7 +1921,9 @@ const Home = () => {
                                                       width: "100%"
 
                                                     }}>
+
                                                     {/* {ratingData[0]?.comment_content} */}
+
                                                   </TextInput>
                                                 )}
                                               </View>
@@ -1965,6 +1979,7 @@ const Home = () => {
                                                       alignItems: "center",
                                                       justifyContent: "center",
                                                       marginBottom: 20
+
                                                     }}>
                                                     <Text
                                                       style={{
@@ -2020,7 +2035,7 @@ const Home = () => {
                                 backgroundColor: 'white',
                                 justifyContent: 'space-between',
                               }}>
-                              <View
+                           <View
                                 style={{
                                   justifyContent: 'center',
                                   alignItems: 'center',
@@ -2049,6 +2064,7 @@ const Home = () => {
                                   alignItems: 'center',
                                 }}>
                                 <Image
+
                                   source={Images.bath}
                                   style={{
                                     height: 20,

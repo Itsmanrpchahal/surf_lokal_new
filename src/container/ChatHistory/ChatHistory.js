@@ -84,6 +84,9 @@ const ChatHistory = ({ navigation }) => {
                                             padding: 16,
                                             maxWidth: '80%',
                                         }}>
+                                            {
+
+                                            }
                                             <Text numberOfLines={1} style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-Regular', textTransform: 'capitalize', fontSize: 16, lineHeight: 18 }}>{item?.item?.post_title}</Text>
                                             <Text style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-Medium', textTransform: 'capitalize', fontSize: 15, lineHeight: 18 }}>${item?.item?.property_price}</Text>
                                             <Text style={{ color: Colors.newgray, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-Regular', textTransform: 'capitalize', fontSize: 12 }}>{item.item.post_date}</Text>

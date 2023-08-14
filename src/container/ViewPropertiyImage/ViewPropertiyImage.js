@@ -167,21 +167,24 @@ const ViewPropertiyImage = props => {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ 
-        height: '90%', 
-      width: '100%' }}>
+      <View style={{
+        height: '100%',
+        width: '100%'
+      }}>
         <ScrollView ref={scrollViewRef} onScroll={handleScroll}>
 
           <TouchableOpacity onPress={() => navigation.navigate('SingleImage', { imageUri: property?.featured_image_src })}>
             <Image source={{ uri: property?.featured_image_src }} style={styles.slide} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Videoplay', { videoView:property.property_gallery.property_video })}>
+          <TouchableOpacity onPress={() => navigation.navigate('Videoplay', { videoView: property.property_gallery.property_video })}>
             <Image source={{ uri: property?.featured_image_src }} style={styles.slide} />
-            <View style={{ position: 'absolute',
-    top: '40%', 
-    left: '40%', 
-    transform: [{ translateX: -12 }, { translateY: -12 }],}}>
-              <Image source={Images.VideoPlay} style={{ width: 80, height: 80,tintColor:'white' }} />
+            <View style={{
+              position: 'absolute',
+              top: '40%',
+              left: '40%',
+              transform: [{ translateX: -12 }, { translateY: -12 }],
+            }}>
+              <Image source={Images.VideoPlay} style={{ width: 80, height: 80, tintColor: 'white' }} />
             </View>
           </TouchableOpacity>
           {property?.property_gallery.Gallery &&
@@ -201,7 +204,7 @@ const ViewPropertiyImage = props => {
         </ScrollView>
         {isScrolled && (
           <TouchableOpacity onPress={scrollToTop} style={styles.buttonscroll} >
-            <Image source={Images.upsideArrow} style={{ width: 18, height: 18, tintColor: Colors.white, resizeMode: "contain" }} />
+            <Image source={Images.downArrow} style={{ transform: [{ rotate: '180deg' }], width: 12, height: 12, tintColor: Colors.black, resizeMode: "contain" }} />
           </TouchableOpacity>
         )}
         <View
@@ -209,7 +212,6 @@ const ViewPropertiyImage = props => {
             flexDirection: 'row',
             width: '90%',
             alignSelf: 'center',
-
             justifyContent: 'flex-end',
             alignItems: 'flex-end',
             overflow: 'visible',
@@ -222,7 +224,7 @@ const ViewPropertiyImage = props => {
             style={{
               alignItems: 'center',
               position: "absolute",
-              right:-12,
+              right: -12,
               top: -6,
 
               backgroundColor: Colors.surfblur,
@@ -252,16 +254,15 @@ const ViewPropertiyImage = props => {
         style={{
           flexDirection: 'row',
           width: '100%',
-          position:'relative',
-        bottom:-10,
-     
+          position: 'relative',
           justifyContent: 'space-between',
           borderTopWidth: 1,
-        //  height:20,
-         // margin:20,
+          bottom: 16,
+          //  height:20,
+          backgroundColor: Colors.white,
+          // margin:20,
           borderTopColor: Colors.textColorLight,
-          paddingTop:6,
-       marginBottom:20,
+          paddingTop: 6,
           alignItems: 'center',
           alignContent: 'center',
         }}>
@@ -272,7 +273,7 @@ const ViewPropertiyImage = props => {
             alignContent: 'center',
             width: '50%',
             flexDirection: 'row',
-           
+
           }}>
           <View
             style={{
@@ -285,7 +286,7 @@ const ViewPropertiyImage = props => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 alignContent: 'center',
-                marginRight:10
+                marginRight: 10
               }}
               onPress={() => {
                 // setProductId(postID.postid.ID);
@@ -337,51 +338,52 @@ const ViewPropertiyImage = props => {
             </TouchableOpacity>
           </View>
         </View>
-       
+
         <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('ChatSearch', {
-                initialMessage: 'When would you like to schedule a showing?',
-                agentReply: 'A Lokal agent will confirm with you within the next 2 hours',
-              });
-            }}
+          onPress={() => {
+            navigation.navigate('ChatSearch', {
+              initialMessage: 'When would you like to schedule a showing?',
+              agentReply: 'A Lokal agent will confirm with you within the next 2 hours',
+            });
+          }}
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+            alignSelf: 'center',
+            backgroundColor: Colors.surfblur,
+            borderRadius: 20,
+            paddingVertical: 8,
+            paddingHorizontal: 12,
+            lineHeight: 12,
+            marginRight: 6
+          }}
+        >
+          <Image
+            source={Images.bookTour}
             style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-              alignSelf:'center',
-              backgroundColor: Colors.surfblur,
-              borderRadius: 20,
-            paddingVertical:8,
-              paddingHorizontal:12,
-              lineHeight:12,
-              marginRight:6
+
+              height: 15, width: 15,
+              resizeMode: 'contain'
+            }}
+          />
+          <Text
+            style={{
+              fontSize: 12,
+              color: Colors.white,
+              textAlign: 'center',
+              marginLeft: 5,
+              fontFamily: 'Poppins-Regular',
+              //  paddingTop:2
+              position: "relative",
+              top: 2
             }}
           >
-            <Image
-              source={Images.bookTour}
-              style={{ 
+            SCHEDULE A SHOWING
+          </Text>
+        </TouchableOpacity>
 
-                height: 15, width:15,
-                 resizeMode: 'contain' }}
-            />
-            <Text
-              style={{
-                fontSize: 12,
-                color: Colors.white,
-                textAlign: 'center',
-                marginLeft: 5,
-                fontFamily: 'Poppins-Regular',
-              //  paddingTop:2
-              position:"relative",
-              top:2
-              }}
-            >
-              SCHEDULE A SHOWING
-            </Text>
-          </TouchableOpacity>
 
-      
       </View>
       <Modal
         transparent={true}
@@ -724,11 +726,11 @@ const styles = StyleSheet.create({
   },
   buttonscroll: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 30,
     right: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.primaryBlue,
+    backgroundColor: Colors.gray,
     borderRadius: 20,
     height: 40,
     width: 40,

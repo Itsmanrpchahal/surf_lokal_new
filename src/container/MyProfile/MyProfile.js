@@ -138,7 +138,7 @@ const MyFavorites = () => {
     }, 1500);
   };
   const handleFavPress = () => {
-    navigation.navigate('MyFavorites');
+    navigation.navigate('MyFavorites', { from: 'menu' });
 
     setIsImage(true)
 
@@ -272,7 +272,7 @@ const MyFavorites = () => {
 
           <Text
             style={{
-              fontSize: 18,
+              fontSize: 28,
               color: Colors.textColorLight,
               marginLeft: 20,
               fontFamily: 'Poppins-Regular'
@@ -374,7 +374,7 @@ const MyFavorites = () => {
               </View>
             </TouchableOpacity>
           </View>
-          <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
+          <Text style={{ fontSize: 28, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
             {details[0]?.username}
           </Text>
           <TouchableOpacity
@@ -481,7 +481,7 @@ const MyFavorites = () => {
             </TouchableOpacity>
           </View>
           <View style={styles.slideOuter}>
-            <TouchableOpacity onPress={() => navigation.navigate('MyRewards')}
+            <TouchableOpacity onPress={() => navigation.navigate('MyRewards', { from: 'menu' })}
               activeOpacity={0.8}
               style={{
                 width: '100%',
@@ -496,7 +496,7 @@ const MyFavorites = () => {
               <View style={styles.line}></View>
             </TouchableOpacity>
           </View>
-          <View style={styles.slideOuter}>
+          {/* <View style={styles.slideOuter}>
             <TouchableOpacity onPress={() => navigation.navigate('MakeAnOffer')}
 
               activeOpacity={0.8}
@@ -512,7 +512,7 @@ const MyFavorites = () => {
               </View>
               <View style={styles.line}></View>
             </TouchableOpacity>
-          </View>
+          </View> */}
           <View style={styles.slideOuter}>
             <TouchableOpacity onPress={handleImagePress}
               activeOpacity={0.8}

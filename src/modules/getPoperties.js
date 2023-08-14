@@ -14,13 +14,15 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
       .catch(e => {
       })
     : type.type === 1
-      ? await uploadImageAPI(
+      ?
+      await uploadImageAPI(
         BASEURl + 'webapi/v1/nearby/',
         type.latLng,
       )
         .then(async response => {
           console.log("payload latLng", type.latLng)
           const { data } = response;
+          console.log('latlng ===+> ', data)
           return data;
         })
         .catch(e => {
