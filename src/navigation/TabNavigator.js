@@ -95,7 +95,6 @@ const BottomTabNavigator = () => {
 
             </View>
           ),
-
           keyboardHidesTabBar: true,
           tabBarHideOnKeyboard: true,
         }}

@@ -25,6 +25,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import * as Animatable from 'react-native-animatable';
+import ImagePicker from 'react-native-image-crop-picker';
+import { getProfile } from '../../modules/getProfile';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -78,13 +80,72 @@ const Settings = props => {
   const [mob, setMob] = useState('');
   const [email, setEmail] = useState('');
   const [toggle, setToggle] = useState(false);
-
+  const [details, setDetails] = useState([]);
   const flatListRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
+  const [image, setImage] = useState('')
   const detials = props.route.params.data;
 
+  const _pickImage = () => {
+    ImagePicker.openPicker({
+      mediaType: 'photo',
+      width: 300,
+      height: 400,
+      cropping: true,
+      includeBase64: true,
+      freeStyleCropEnabled: true,
+    }).then(res => {
+      let uriResponse = res.path;
+      let name = res.path.split('/').pop();
+      let type = res.mime;
+      setImage(uriResponse)
+      uploadFile(uriResponse, name, type);
+    }).catch(error => {
+    });
+  };
+
+  const getProfileApiCall = () => {
+    dispatch(getProfile()).then(response => {
+      setLoading(false);
+    }).catch((e) => {
+    });
+  };
+  const uploadFile = async (uriResponse, name, type,) => {
+    // setLoading(true);
+    const userID = await AsyncStorage.getItem('userId');
+
+    let data = new FormData();
+    data.append("userID", userID)
+    data.append('userimage', {
+      uri: uriResponse,
+      type: type,
+      name: name,
+    });
+    try {
+      var res = await axios.post(
+        'https://www.surflokal.com/webapi/v1/profile/',
+        data,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      ).then((res) => {
+        if (res.status === 200) {
+          getProfileApiCall();
+        } else {
+          Alert.alert('something went wrong!.');
+          setLoading(false);
+        }
+      });
+
+
+    } catch (err) {
+      setLoading(false);
+    }
+  };
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
     setToggle(!isEnabled);
@@ -93,6 +154,7 @@ const Settings = props => {
     setUserName(detials[0].username);
     setAddres(detials[0].address);
     setMob(detials[0].mobile);
+    setImage(detials[0]?.user_image)
   }, []);
 
 
@@ -110,7 +172,7 @@ const Settings = props => {
     data.append('email_notification', toggle)
     try {
       var res = await axios.post(
-        'https://surf.topsearchrealty.com/webapi/v1/userprofile/profileupdate.php',
+        'https://www.surflokal.com/webapi/v1/userprofile/profileupdate.php',
         data,
       );
 
@@ -141,6 +203,7 @@ const Settings = props => {
           paddingVertical: 6
         }}>
         <TouchableOpacity
+          onPress={() => { _pickImage() }}
           activeOpacity={0.5}
           style={{
             height: 45,
@@ -162,10 +225,10 @@ const Settings = props => {
               alignItems: 'center',
               overflow: 'hidden',
             }}>
-            {detials[0]?.user_image != null ? (
+            {image != null ? (
               <Image
                 style={{ height: 40, width: 40 }}
-                source={{ uri: detials[0]?.user_image }}
+                source={{ uri: image }}
               />
             ) : (
               <Text style={{ fontSize: 17, color: Colors.white }}>JD</Text>
@@ -252,6 +315,22 @@ const Settings = props => {
           style={{
             flexDirection: 'row',
             width: '90%',
+            marginTop: 6,
+            alignSelf: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: Colors.black,
+              fontFamily: 'Poppins-Regular'
+            }}>
+            First name
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
             marginTop: 12,
             //  height: 40,
             alignItems: 'center',
@@ -272,6 +351,65 @@ const Settings = props => {
             returnKeyType="done"
             onChangeText={userName => setUserName(userName)}
           />
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            marginTop: 6,
+            alignSelf: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: Colors.black,
+              fontFamily: 'Poppins-Regular'
+            }}>
+            Last name
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            marginTop: 12,
+            //  height: 40,
+            alignItems: 'center',
+            alignSelf: 'center',
+            borderWidth: 1,
+            borderColor: Colors.BorderColor,
+            borderRadius: 4,
+            fontFamily: 'Poppins-Regular',
+            paddingHorizontal: 8, paddingTop: 2
+          }}>
+          <TextInput
+            allowFontScaling={false}
+            style={{ color: Colors.black, flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
+            placeholderTextColor={Colors.black}
+            fontSize={14}
+            value={userName}
+            keyboardType="default"
+            returnKeyType="done"
+            onChangeText={userName => setUserName(userName)}
+          />
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            marginTop: 6,
+            alignSelf: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: Colors.black,
+              fontFamily: 'Poppins-Regular'
+            }}>
+            Email
+          </Text>
         </View>
 
         <View
@@ -305,6 +443,22 @@ const Settings = props => {
           style={{
             flexDirection: 'row',
             width: '90%',
+            marginTop: 6,
+            alignSelf: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: Colors.black,
+              fontFamily: 'Poppins-Regular'
+            }}>
+            Phone
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
             marginTop: 12,
             //  height: 40,
             alignItems: 'center',
@@ -326,6 +480,23 @@ const Settings = props => {
             returnKeyType="done"
             onChangeText={address => setAddres(address)}
           />
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            marginTop: 6,
+            alignSelf: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: Colors.black,
+              fontFamily: 'Poppins-Regular'
+            }}>
+            Address
+          </Text>
         </View>
         <View
           style={{
@@ -351,6 +522,170 @@ const Settings = props => {
             keyboardType="default"
             returnKeyType="done"
             onChangeText={mob => setMob(mob)}
+          />
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            marginTop: 6,
+            alignSelf: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: Colors.black,
+              fontFamily: 'Poppins-Regular'
+            }}>
+            Facebook
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            marginTop: 12,
+            //  height: 40,
+            alignItems: 'center',
+            alignSelf: 'center',
+            borderWidth: 1,
+            borderColor: Colors.BorderColor,
+            borderRadius: 4,
+            fontFamily: 'Poppins-Regular',
+            paddingHorizontal: 8,
+            paddingTop: 2
+          }}>
+          <TextInput
+            allowFontScaling={false}
+            style={{ color: 'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
+            placeholder='Facebook'
+            placeholderTextColor={Colors.placeholderTextColor}
+            keyboardType="default"
+            returnKeyType="done"
+          />
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            marginTop: 6,
+            alignSelf: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: Colors.black,
+              fontFamily: 'Poppins-Regular'
+            }}>
+            Twitter
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            marginTop: 12,
+            //  height: 40,
+            alignItems: 'center',
+            alignSelf: 'center',
+            borderWidth: 1,
+            borderColor: Colors.BorderColor,
+            borderRadius: 4,
+            fontFamily: 'Poppins-Regular',
+            paddingHorizontal: 8,
+            paddingTop: 2
+          }}>
+          <TextInput
+            allowFontScaling={false}
+            style={{ color: 'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
+            placeholder='Twitter'
+            placeholderTextColor={Colors.placeholderTextColor}
+            keyboardType="default"
+            returnKeyType="done"
+          />
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            marginTop: 6,
+            alignSelf: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: Colors.black,
+              fontFamily: 'Poppins-Regular'
+            }}>
+            Instagram
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            marginTop: 12,
+            //  height: 40,
+            alignItems: 'center',
+            alignSelf: 'center',
+            borderWidth: 1,
+            borderColor: Colors.BorderColor,
+            borderRadius: 4,
+            fontFamily: 'Poppins-Regular',
+            paddingHorizontal: 8,
+            paddingTop: 2
+          }}>
+          <TextInput
+            allowFontScaling={false}
+            style={{ color: 'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
+            placeholder='Instagram'
+            placeholderTextColor={Colors.placeholderTextColor}
+            keyboardType="default"
+            returnKeyType="done"
+          />
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            marginTop: 6,
+            alignSelf: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: Colors.black,
+              fontFamily: 'Poppins-Regular'
+            }}>
+            Threads
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            marginTop: 12,
+            //  height: 40,
+            alignItems: 'center',
+            alignSelf: 'center',
+            borderWidth: 1,
+            borderColor: Colors.BorderColor,
+            borderRadius: 4,
+            fontFamily: 'Poppins-Regular',
+            paddingHorizontal: 8,
+            paddingTop: 2
+          }}>
+          <TextInput
+            allowFontScaling={false}
+            style={{ color: 'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
+            placeholder='Threads'
+            placeholderTextColor={Colors.placeholderTextColor}
+            keyboardType="default"
+            returnKeyType="done"
           />
         </View>
 
@@ -399,7 +734,7 @@ const Settings = props => {
                     color: Colors.white,
                     fontFamily: 'Poppins-Regular',
                   }}>
-                  Submit
+                  Update
                 </Text>
 
               </View>

@@ -170,7 +170,7 @@ const BookaTour = (props) => {
                             color: Colors.black,
                         }}
                     >
-                        Book A Tour
+                        Schedule a Showing
                     </Text>
                     <TouchableOpacity
                         onPress={() => {
@@ -436,7 +436,7 @@ const BookaTour = (props) => {
                         // androidVariant='iosClone'
                         minimumDate={new Date()}
                         locale="en-GB"
-                        theme="auto"
+                        theme="light"
                         mode="datetime"
                         onConfirm={(date) => {
                             setOpen(false)
