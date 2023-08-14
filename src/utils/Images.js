@@ -42,7 +42,8 @@ const Images = {
   star: require(BaseUrl + 'star.png'),
   train: require(BaseUrl + 'train.png'),
   VideoPlay: require(BaseUrl + 'VideoPlay.png'),
-
+  Edit: require(BaseUrl + 'pencil.png'),
+  Trash: require(BaseUrl + 'trash.png'),
   // Slides
   slide1: require(BaseUrl + 'slide1.png'),
   slide2: require(BaseUrl + 'slide2.jpg'),
