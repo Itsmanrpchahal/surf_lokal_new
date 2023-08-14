@@ -49,9 +49,9 @@ const imageSizeRation = screenHeight / 1000;
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
   // const [emailId, setEmailId] = useState('');
-  const [emailId, setEmailId] = useState('sourav@yopmail.com');
+  const [emailId, setEmailId] = useState('access@wpkraken.io');
   // const [password, setPassword] = useState('');
-  const [password, setPassword] = useState('sourav@123');
+  const [password, setPassword] = useState('CherryPicker1!');
   const [phone, setPhone] = useState('');
   const [countryName, setCountryName] = useState('');
   const [countryCode, setCountryCode] = useState('');
@@ -102,7 +102,7 @@ export default function Login({ navigation }) {
         if (response.payload.success) {
           setLoading(false);
 
-          navigation.navigate('AppIntro');
+          navigation.replace('AppIntro');
         } else {
           setLoading(false);
           Alert.alert('Alert', response.payload.message);

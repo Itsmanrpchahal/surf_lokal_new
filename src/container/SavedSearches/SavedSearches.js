@@ -66,11 +66,11 @@ const MyFavorites = ({ navigation }) => {
   };
 
   const deleteSearchApiCall = (userId, postId) => {
-    let data = {
-      userID: userId,
-      postID: postId,
-    };
-    dispatch(deleteSearch(data)).then(response => {
+    const formData = new FormData()
+    formData.append('userID', userId)
+    formData.append('postID', postId)
+
+    dispatch(deleteSearch(formData)).then(response => {
       getSavedApiCall();
     });
   };

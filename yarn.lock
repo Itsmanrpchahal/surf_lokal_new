@@ -6660,6 +6660,11 @@ react-native-gesture-handler@^2.9.0:
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
+react-native-get-location@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-get-location/-/react-native-get-location-3.0.1.tgz#cd6854f00b97d6d369fc748f533332a272389d95"
+  integrity sha512-yfb7j++upbrBvIqgN2U6qOcBuwRh7kaOJfTH4ShN3ZXoMKeDk0PLNStg1C0Co+N+LVehHlQJdazFZJAmabazaw==
+
 react-native-google-places-autocomplete@^2.5.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/react-native-google-places-autocomplete/-/react-native-google-places-autocomplete-2.5.1.tgz#93d5ac3e34e3e8f594aae5349f9e2d3e0b87484e"

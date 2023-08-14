@@ -93,38 +93,38 @@ const RecycleBin = () => {
 
   const generateLink = async (ID) => {
     try {
-        const link = await dynamicLinks().buildShortLink({
-            link: `https://surflokal.page.link/property?propetyID=${ID}`,
-            domainUriPrefix: Platform.OS === 'android' ?'https://surflokal.page.link/':'https://surflokal.page.link',
-            android: {
-                packageName: 'surf.lokal',
-            },
-            ios: {
-              appStoreId:'123456789',
-                bundleId: 'surf.lokal',
-            },
-            navigation: {
-              forcedRedirectEnabled: true,
-          }
-        }, dynamicLinks.ShortLinkType.SHORT)
-        console.log('link:', link)
-        return link
+      const link = await dynamicLinks().buildShortLink({
+        link: `https://surflokal.page.link/property?propetyID=${ID}`,
+        domainUriPrefix: Platform.OS === 'android' ? 'https://surflokal.page.link/' : 'https://surflokal.page.link',
+        android: {
+          packageName: 'surf.lokal',
+        },
+        ios: {
+          appStoreId: '123456789',
+          bundleId: 'surf.lokal',
+        },
+        navigation: {
+          forcedRedirectEnabled: true,
+        }
+      }, dynamicLinks.ShortLinkType.SHORT)
+      console.log('link:', link)
+      return link
     } catch (error) {
-        console.log('Generating Link Error:', error)
+      console.log('Generating Link Error:', error)
     }
-}
-const handleShare = async (ID) => {
-  const link = await generateLink(ID)
-  try {
-    Share.share({
-      title: 'Please check this property',
-        message:  link ,
-        url:link
-    });
-} catch (error) {
-    console.log('Sharing Error:', error)
-}
-};
+  }
+  const handleShare = async (ID) => {
+    const link = await generateLink(ID)
+    try {
+      Share.share({
+        title: 'Please check this property',
+        message: link,
+        url: link
+      });
+    } catch (error) {
+      console.log('Sharing Error:', error)
+    }
+  };
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
@@ -209,7 +209,8 @@ const handleShare = async (ID) => {
       if (response.payload.data === 'Record not found!') {
         setShowNoDataMessage(true);
       } else {
-        setHomeData(response.payload.data).reverse();
+        setShowNoDataMessage(false)
+        setHomeData(response.payload.data);
       }
     });
 
@@ -807,7 +808,7 @@ const handleShare = async (ID) => {
                       color: Colors.black,
                       textAlign: 'center',
                     }}>
-                    {item.yearbuilt.length > 0 ? item.yearbuilt: 0}
+                    {item.yearbuilt.length > 0 ? item.yearbuilt : 0}
                   </Text>
                 </View>
               </View>
