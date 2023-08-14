@@ -436,7 +436,7 @@ const BookaTour = (props) => {
                         // androidVariant='iosClone'
                         minimumDate={new Date()}
                         locale="en-GB"
-                        theme="auto"
+                        theme="light"
                         mode="datetime"
                         onConfirm={(date) => {
                             setOpen(false)

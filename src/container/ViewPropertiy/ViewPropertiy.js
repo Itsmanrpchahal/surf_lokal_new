@@ -37,7 +37,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Rating } from 'react-native-ratings';
 import { getPopertiesDetails } from '../../modules/getPopertiesDetails';
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import MapView, { PROVIDER_GOOGLE, Callout, Circle, Marker } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Callout, Circle, Marker, PROVIDER_DEFAULT } from "react-native-maps";
 import { getRating } from '../../modules/getRating';
 import { postUpdateRating } from '../../modules/postUpdateRating';
 import { store } from '../../redux/store';
@@ -494,7 +494,7 @@ const ViewPropertiy = (props, imageUrl) => {
           <View style={styles.maincovermap} >
 
             <MapView
-              provider={PROVIDER_GOOGLE}
+              provider={PROVIDER_DEFAULT}
               style={styles.map}
               region={{
                 latitude: parseFloat(pin.latitude),
