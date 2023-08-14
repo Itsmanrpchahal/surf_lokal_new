@@ -132,13 +132,12 @@ const MyFavorites = ({ navigation }) => {
     return (
       <View style={styles.slideOuter}>
         <View style={{ width: '100%', alignItems: 'center' }}>
-          <View style={{ height: 170, width: '90%', alignSelf: 'center', marginTop: 3 }}>
+          <View style={{
+            //height: 170, 
+            width: '90%', alignSelf: 'center', marginTop: 3, marginBottom: 12
+          }}>
             <View>
-              {item.propertycity && (
-                <Text style={{ fontSize: 20, color: Colors.textColorLight, fontFamily: 'Poppins-Regular' }}>
-                  City:
-                </Text>
-              )}
+
               {item.propertycity && (
                 <Text
                   style={{ fontSize: 20, fontWeight: '500', color: Colors.textColorDark, fontFamily: 'Poppins-Regular' }}>
@@ -146,7 +145,7 @@ const MyFavorites = ({ navigation }) => {
                 </Text>
               )}
             </View>
-            <Text style={{ fontSize: 20, marginTop: 10, color: Colors.textColorLight, fontFamily: 'Poppins-Regular' }}>
+            <Text style={{ fontSize: 14, marginTop: 10, color: Colors.textColorLight, fontFamily: 'Poppins-Regular' }}>
               Parameters:
             </Text>
 
@@ -154,7 +153,11 @@ const MyFavorites = ({ navigation }) => {
               <TextInput
                 key={parameterIndex.toString()}
                 value={updatedParameters[item.ID]?.[parameterIndex] ?? parameter}
-                style={{ color: 'black' }}
+                style={{
+                  color: 'black',
+                  height: isEditing ? 40 : 40, borderColor: isEditing ? Colors.white : Colors.BorderColor, borderWidth: 1, padding: 12, borderRadius: 7, verticalAlign: "top",
+                  marginBottom: 12
+                }}
                 onChangeText={text => {
                   handleChangeText(item.ID, parameterIndex, text);
                 }}
@@ -165,23 +168,26 @@ const MyFavorites = ({ navigation }) => {
             <View
               style={{
                 flexDirection: 'row',
-                justifyContent: 'space-between',
-                width: '60%',
+                justifyContent: 'flex-end',
+                // width: '60%',
                 alignSelf: 'flex-end',
-                marginTop: 10,
+                alignItems: "center",
+                //marginTop: 10,
+                // backgroundColor: "red"
+                marginHorizontal: 5
               }}>
               {isEditing ? (
                 <TouchableOpacity
                   onPress={() => handleSavePress(item)}
                   style={{
-                    height: 30,
-                    borderRadius: 8,
-                    width: 80,
-                    backgroundColor: 'green',
+                    height: 40,
+                    borderRadius: 40,
+                    width: 70,
+                    backgroundColor: Colors.surfblur,
                     justifyContent: 'center',
-                    alignItems: 'center',
+                    alignItems: 'center', marginHorizontal: 5
                   }}>
-                  <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white, fontFamily: 'Poppins-Regular' }}>
+                  <Text style={{ marginHorizontal: 5, fontSize: 16, fontWeight: '600', color: Colors.white, fontFamily: 'Poppins-Regular' }}>
                     Save
                   </Text>
                 </TouchableOpacity>
@@ -189,35 +195,52 @@ const MyFavorites = ({ navigation }) => {
                 <TouchableOpacity
                   onPress={() => handleEditPress(item)}
                   style={{
-                    height: 30,
-                    borderRadius: 8,
-                    width: 80,
-                    backgroundColor: 'green',
+                    height: 40,
+                    borderRadius: 40,
+                    width: 70,
+                    backgroundColor: Colors.surfblur,
                     justifyContent: 'center',
-                    alignItems: 'center',
+                    alignItems: 'center', marginHorizontal: 5
                   }}>
                   <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white, fontFamily: 'Poppins-Regular' }}>
                     Edit
                   </Text>
+                  {/* <Image
+                    style={{
+                      width: 14,
+                      height: 14,
+                      resizeMode: "contain",
+                      tintColor: Colors.white
+
+                    }}
+                    source={Images.Edit}
+                  ></Image> */}
                 </TouchableOpacity>
               )}
               <TouchableOpacity
                 onPress={() => deleteSearchApiCall(item.UserID, item.ID)}
                 style={{
-                  height: 30,
-                  borderRadius: 8,
-                  width: 100,
+                  height: 40,
+                  borderRadius: 40,
+                  width: 40,
                   backgroundColor: 'red',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white, fontFamily: 'Poppins-Regular' }}>
-                  Delete
-                </Text>
+                <Image
+                  style={{
+                    width: 14,
+                    height: 14,
+                    resizeMode: "contain",
+                    tintColor: Colors.white
+
+                  }}
+                  source={Images.Trash}
+                ></Image>
               </TouchableOpacity>
             </View>
           </View>
-          <View style={{ height: 1, width: '90%', backgroundColor: Colors.BorderColor }}></View>
+          {/* <View style={{ height: 1, width: '90%', backgroundColor: Colors.BorderColor }}></View> */}
         </View>
       </View>
     );
