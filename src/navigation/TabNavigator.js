@@ -91,7 +91,7 @@ const BottomTabNavigator = () => {
               }}
 
                 allowFontScaling={true}>{data ? data : 0}</Text>
-              <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular', color: isFocused ? Colors.textColorDark : null }} allowFontScaling={false}>  Rewards</Text>
+              <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular', color: isFocused ? Colors.textColorDark : null }} allowFontScaling={false}>Rebate</Text>
 
             </View>
           ),

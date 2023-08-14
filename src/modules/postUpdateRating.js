@@ -9,6 +9,7 @@ export const postUpdateRating = createAsyncThunk('postUpdateRating', async dispa
   )
     .then(async response => {
       const { data } = response;
+      console.log("dispatch",dispatch)
       return data;
     })
     .catch(e => {

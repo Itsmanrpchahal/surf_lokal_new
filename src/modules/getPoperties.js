@@ -20,6 +20,7 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
         type.latLng,
       )
         .then(async response => {
+          console.log("payload latLng", type.latLng)
           const { data } = response;
           console.log('latlng ===+> ', data)
           return data;

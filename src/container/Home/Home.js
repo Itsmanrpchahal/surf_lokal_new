@@ -471,6 +471,7 @@ const Home = () => {
     formData.append('price_review_stars', rating);
     formData.append('interest_review_stars', rating);
     formData.append('reviewtitle', reviewTitle);
+    console.log("postUpdateRating",formData)
     dispatch(postUpdateRating(formData)).then((response) => {
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
@@ -577,11 +578,13 @@ const Home = () => {
             alignItems: 'center',
             flexDirection: 'row',
             backgroundColor: '#fff',
+            // paddingHorizontal: 12,
+            paddingLeft: 10,
           }}>
           <View
             style={{
               height: 42,
-              width: '85%',
+              width: '90%',
               borderRadius: 100,
               borderWidth: 1,
               borderColor: Colors.BorderColor,
@@ -589,6 +592,8 @@ const Home = () => {
               alignItems: 'center',
               shadowColor: "#000",
               backgroundColor: Colors.white,
+
+
               shadowOffset: {
                 width: 0,
                 height: 3,
@@ -596,7 +601,7 @@ const Home = () => {
               elevation: 3,
               shadowColor: '#52006A',
             }}>
-            <View style={{ width: '78%' }}>
+            <View style={{ width: '85%', }}>
               <TextInput
                 allowFontScaling={false}
                 placeholderTextColor={"#858383"}
@@ -619,28 +624,47 @@ const Home = () => {
                 }}
               />
             </View>
-            <View style={{ width: '25%', alignItems: 'center' }}>
+            <View style={{
+              alignItems: 'center',
+              width: "15%",
+              height: "100%", justifyContent: "center",
+              //backgroundColor: "red"
+              height: 42,
+              // paddingHorizontal: 12,
+              position: "relative",
+              justifyContent: 'center',
+              borderLeftWidth: 1,
+              borderLeftColor: Colors.BorderColor,
+            }}>
               <TouchableOpacity
                 onPress={() => { setShowMap(!showMap); }}
-                style={{
-                  height: 42,
-                  justifyContent: 'center',
-                  borderLeftWidth: 1,
-                  borderLeftColor: Colors.BorderColor,
-                }}>
+                style={{ flex: 1, width: "100%", alignItems: "center", justifyContent: "center" }}
+              >
                 <Image
                   source={Images.address}
                   tintColor={showMap ? Colors.PrimaryColor : Colors.black}
                   style={{
                     height: 20,
                     width: 20,
-                    marginLeft: 8,
+                    // marginLeft: 8,
+                    // position: "absolute",
+                    // right: 0,
+                    // left: 0,
+                    // flex: 1,
+                    // top: 10,
+
+                    alignItems: "center", justifyContent: "center",
                     resizeMode: 'contain',
                   }}></Image>
               </TouchableOpacity>
             </View>
           </View>
-          <View>
+          <View style={{
+            width: "10%",
+            ///backgroundColor: "red",
+            // flex: 1,
+            alignItems: "center", justifyContent: "center"
+          }}>
             {loading ? (
               <ActivityIndicator size="small" color="blue" />
             ) : (
@@ -650,20 +674,19 @@ const Home = () => {
                   setShowMap(false);
                   setAddres("");
                 }}
-                style={{}}>
+              >
                 <Image
                   source={Images.gps}
                   style={{
                     height: 25,
                     width: 25,
-                    marginLeft: 12,
+                    //marginLeft: 12,
                     resizeMode: 'contain',
                   }}></Image>
               </TouchableOpacity>
             )}
           </View>
         </View>
-
         <View
           style={{
             width: '92%',
@@ -1119,20 +1142,20 @@ const Home = () => {
                               />
                             </View>
                           </View>
-                          <View style={{ width: '100%', justifyContent: 'center', alignItems: "center" }}>
+                          {/* <View style={{ width: '100%', justifyContent: 'center', alignItems: "center" }}>
                             <TouchableOpacity onPress={() => { setMoreFilter(!moreFilter); }}>
                               <Text style={{ color: Colors.white, padding: 10, borderRadius: 25, textAlign: 'center', width: 130, fontSize: 14, fontWeight: 700, backgroundColor: Colors.black, marginVertical: 12, paddingVertical: 15 }}>More Filters</Text>
 
                             </TouchableOpacity>
-                          </View>
-                          <Collapsible collapsed={!moreFilter}>
+                          </View> */}
+                          <Collapsible collapsed={moreFilter}>
                             <View style={{
                               alignContent: 'center', width: '100%',
                               justifyContent: 'center', alignItems: 'center'
                             }}>
                               <FlatList
                                 data={moreFilterData?.more_filter_data}
-                                style={{ alignContent: 'center' }}
+                                style={{ alignContent: 'center', margin:-6,  }}
                                 nestedScrollEnabled
                                 numColumns={3}
                                 renderItem={({ item, index }) => {
@@ -1729,7 +1752,9 @@ const Home = () => {
                                               }}>
                                               Your Review
                                             </Text>
-                                            <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text>
+
+                                            {/* <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text> */}
+
                                             {!isEditing && (
                                               <TouchableOpacity
                                                 onPress={() => setIsEditing(true)}
@@ -1748,7 +1773,9 @@ const Home = () => {
                                                   marginTop: 10,
                                                 }}>
                                                 <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                                                  Photos Quality Rating :
+
+                                                  Photos :
+
                                                 </Text>
                                                 <Rating
                                                   type="custom"
@@ -1773,7 +1800,9 @@ const Home = () => {
                                                   alignItems: 'center',
                                                 }}>
                                                 <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                                                  Description & Details :
+
+                                                  Description Accuracy  :
+
                                                 </Text>
                                                 <Rating
                                                   type="custom"
@@ -1797,7 +1826,9 @@ const Home = () => {
                                                   alignItems: 'center',
                                                 }}>
                                                 <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                                                  Price Of Property :
+
+                                                  Price  :
+
                                                 </Text>
                                                 <Rating
                                                   type="custom"
@@ -1822,7 +1853,9 @@ const Home = () => {
                                                   alignItems: 'center',
                                                 }}>
                                                 <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                                                  General Interest in the property :
+
+                                                  Interest in Property :
+
                                                 </Text>
                                                 <Rating
                                                   type="custom"
@@ -1888,7 +1921,9 @@ const Home = () => {
                                                       width: "100%"
 
                                                     }}>
-                                                    {ratingData[0]?.comment_content}
+
+                                                    {/* {ratingData[0]?.comment_content} */}
+
                                                   </TextInput>
                                                 )}
                                               </View>
@@ -2000,7 +2035,7 @@ const Home = () => {
                                 backgroundColor: 'white',
                                 justifyContent: 'space-between',
                               }}>
-                              <View
+                           <View
                                 style={{
                                   justifyContent: 'center',
                                   alignItems: 'center',
@@ -2029,6 +2064,7 @@ const Home = () => {
                                   alignItems: 'center',
                                 }}>
                                 <Image
+
                                   source={Images.bath}
                                   style={{
                                     height: 20,
