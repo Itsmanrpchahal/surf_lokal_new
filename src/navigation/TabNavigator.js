@@ -53,6 +53,8 @@ const BottomTabNavigator = () => {
   }, [store.getState()?.getUserScore?.getUserScoreData?.data])
   return (
     <Tab.Navigator
+      tabBarHideOnKeyboard={true}
+
       initialRouteName="Home"
       screenOptions={{ headerShown: false, keyboardHidesTabBar: true }}
       tabBar={props => <CustomTabBar {...props} />}>
@@ -83,14 +85,13 @@ const BottomTabNavigator = () => {
               <Text style={{
                 fontFamily: 'Poppins-Regular',
                 position: "absolute",
-                fontSize: 20, top: -30,
+                fontSize: 15, top: -30,
                 color: Colors.black,
                 // backgroundColor:'red',
 
-                marginLeft: 12
               }}
 
-                allowFontScaling={true}>{data ? data : 0}</Text>
+                allowFontScaling={true}>{data ? '$' + data : '$' + 0}</Text>
               <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular', color: isFocused ? Colors.textColorDark : null }} allowFontScaling={false}>Rebate</Text>
 
             </View>

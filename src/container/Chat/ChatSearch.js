@@ -227,7 +227,7 @@ const ChatSearch = (props) => {
               disabled={message === '' && true}
               onPress={() => {
                 setLoading(true)
-                dispatch(chat({ message: 'i want to know somthink about site' })).then((ress) => {
+                dispatch(chat({ message: message })).then((ress) => {
                   setLoading(false)
 
                   const newTodo1 = {

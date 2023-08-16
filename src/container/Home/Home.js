@@ -607,7 +607,7 @@ const Home = () => {
                 placeholderTextColor={"#858383"}
                 fontFamily={'Poppins-Regular'}
                 keyboardType='web-search'
-                placeholder={'Surf local...'}
+                placeholder={'surf lokal...'}
                 returnKeyType="done"
                 value={adress}
                 onSubmitEditing={Keyboard.dismiss}
@@ -1363,15 +1363,16 @@ const Home = () => {
                                         </View>
                                       </TouchableOpacity>
 
+
                                       <TouchableOpacity disabled={item?.featured_image_src?.length - 1 === imageIndex ? true : false} onPress={() => {
                                         setImageIndex(imageIndex + 1);
-                                        { console.log("Image test", item.featured_image_src[imageIndex].guid); }
                                       }}>
                                         <View style={{ height: width, width: 40, position: "absolute", zIndex: 999, right: 10, }}>
                                         </View>
                                       </TouchableOpacity>
                                     </View>
-                                    <View style={{ position: "absolute", zIndex: 9, top: "40%", justifyContent: "space-between", width: "100%" }}>
+
+                                    <View style={{ opacity: 0, position: "absolute", zIndex: 9, top: "40%", justifyContent: "space-between", width: "100%", height: "100%", }}>
                                       <Image
                                         source={Images.next}
                                         style={{
@@ -1380,9 +1381,15 @@ const Home = () => {
                                           tintColor: Colors.white,
                                           transform: [{ rotate: '-180deg' }], // Specify the rotation angle here
                                           position: "relative",
-                                          left: 12
+                                          left: 12,
+                                          backgroundColor: "pink",
+                                          alignItems: "center",
+                                          justifyContent: "center",
+                                          zIndex: 999
                                         }}
                                       />
+
+
                                       <Image
                                         source={Images.next}
                                         style={{
@@ -1394,9 +1401,11 @@ const Home = () => {
                                         }}
                                       />
                                     </View>
+
                                     <TouchableOpacity
+
                                       onPress={() => {
-                                        navigation.navigate('ViewPropertiy', { ID: item.ID });
+                                        navigation.navigate('ViewPropertiy', { ID: item.ID, from: 'Home' });
                                       }}>
                                       <Image
                                         style={{
@@ -1758,13 +1767,13 @@ const Home = () => {
 
                                             {/* <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text> */}
 
-                                            {!isEditing && (
+                                            {/* {!isEditing && (
                                               <TouchableOpacity
                                                 onPress={() => setIsEditing(true)}
                                                 style={{ marginTop: 10 }}>
                                                 <Text style={{ fontSize: 12, color: Colors.darbluec, fontFamily: "Poppins-Regular" }}>Edit</Text>
                                               </TouchableOpacity>
-                                            )}
+                                            )} */}
                                           </View>
                                           <View style={{ width: '100%', }}>
                                             <View style={{ width: '100%', alignSelf: 'center' }}>

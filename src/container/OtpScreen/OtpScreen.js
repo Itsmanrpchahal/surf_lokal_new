@@ -148,7 +148,7 @@ const OtpInput = (props) => {
               width: '60%',
               fontFamily: 'Poppins-Regular'
             }}>
-            Surf Lokal CRM
+            surf lokal CRM
           </Text>
         </View>
         <View style={{ width: '90%', alignSelf: 'center', marginTop: 100 }}>

@@ -248,7 +248,7 @@ const RecycleBin = () => {
   const renderItem = ({ item }) => (
 
     <View style={styles.slideOuter}>
-      <TouchableOpacity onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }) }}>
+      <TouchableOpacity onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID, from: 'RecycleBin' }) }}>
         <Image source={{ uri: item.featured_image_src[0].guid }} style={styles.slide} />
       </TouchableOpacity>
 
@@ -322,6 +322,25 @@ const RecycleBin = () => {
               style={{ height: 18, width: 18, resizeMode: 'contain', position: "relative", left: 8, marginLeft: 0 }}></Image>
           </TouchableOpacity>
         </View>
+
+      </View>
+      <View
+        style={{
+          width: '100%',
+          alignSelf: 'center',
+          justifyContent: 'center',
+          paddingHorizontal: 12,
+        }}>
+        <Text
+
+          style={{
+            fontSize: 15,
+            color: Colors.black,
+            textAlign: 'center',
+            fontFamily: 'Poppins-Medium',
+          }}>
+          {item?.title}
+        </Text>
       </View>
       <KeyboardAvoidingView behavior="padding">
 
@@ -379,13 +398,13 @@ const RecycleBin = () => {
                     Your Review
                   </Text>
                   <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text>
-                  {!isEditing && (
+                  {/* {!isEditing && (
                     <TouchableOpacity
                       onPress={() => setIsEditing(true)}
                       style={{ marginTop: 10 }}>
                       <Text style={{ fontSize: 12, color: Colors.darbluec, fontFamily: "Poppins-Regular" }}>Edit</Text>
                     </TouchableOpacity>
-                  )}
+                  )} */}
                 </View>
                 <View style={{ width: '100%', }}>
                   <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -397,7 +416,7 @@ const RecycleBin = () => {
                         marginTop: 10,
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Photos Quality Rating :
+                        Photos :
                       </Text>
                       <Rating
                         type="custom"
@@ -422,7 +441,7 @@ const RecycleBin = () => {
                         alignItems: 'center',
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Description & Details :
+                        Description Accuracy :
                       </Text>
                       <Rating
                         type="custom"
@@ -446,7 +465,7 @@ const RecycleBin = () => {
                         alignItems: 'center',
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Price Of Property :
+                        Price :
                       </Text>
                       <Rating
                         type="custom"
@@ -471,7 +490,7 @@ const RecycleBin = () => {
                         alignItems: 'center',
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        General Interest in the property :
+                        Interest in Property :
                       </Text>
                       <Rating
                         type="custom"

@@ -308,6 +308,7 @@ const ViewPropertiy = (props, imageUrl) => {
         // Alert.alert('Alert', response.payload.message);
       }
     });
+    navigation.goBack()
   };
   const getAgentApicall = () => {
     dispatch(getAgent()).then(response => {
@@ -320,7 +321,6 @@ const ViewPropertiy = (props, imageUrl) => {
 
   const trashfile = async post_id => {
     const userID = await AsyncStorage.getItem('userId');
-
     const formData = new FormData()
     formData.append('userID', userID)
     formData.append('post_id', post_id)
@@ -333,9 +333,9 @@ const ViewPropertiy = (props, imageUrl) => {
         // Alert.alert('Alert', response.payload.message);
       }
     });
+
+    navigation.goBack()
   };
-
-
 
   const updateReview = async (post_id) => {
     const id = await AsyncStorage.getItem('userId');
@@ -417,7 +417,7 @@ const ViewPropertiy = (props, imageUrl) => {
             <View style={{ width: '50%' }}>
               <Text style={styles.property}>Interior Features
               </Text>
-              <Text style={styles.props}>A/C: {data.map((item) => item.details.interior_features.A_C)} </Text>
+              <Text style={styles.props}>A/C: {"\n"}{data.map((item) => item.details.interior_features.A_C)} </Text>
               <Text style={styles.props}>Heating: {data.map((item) => item.details.interior_features.heating)}</Text>
               <Text style={styles.props}>Flooring: {data.map((item) => item.details.interior_features.flooring)} </Text>
               <Text style={styles.props}>Property Rooms: {data.map((item) => item.details.interior_features.property_rooms)} </Text>
@@ -767,7 +767,7 @@ const ViewPropertiy = (props, imageUrl) => {
                             cards={[property.featured_image_src]}
                             loop={true}
                             renderYep={() => (
-                              <View
+                              props.route.params.from === 'RecycleBin' || props.route.params.from === 'Home' ? <View
                                 style={{
                                   top: 0,
                                   // marginLeft: 8,
@@ -805,55 +805,57 @@ const ViewPropertiy = (props, imageUrl) => {
                                     />
                                   </View>
                                 </View>
-                              </View>
+                              </View> : null
                             )}
 
-                            renderNope={() =>
+                            renderNope={() => (
+                              props.route.params.from === 'MyFavorites' || props.route.params.from === 'Home' ?
+                                <View
+                                  style={{
+                                    marginLeft: -width,
+                                    //  marginRight: 8,
+                                    height: width - (viewHeight - 22), width: width - 10, backgroundColor: "red",
+                                    // paddingHorizontal: 8,
 
-                              <View
-                                style={{
-                                  marginLeft: -width,
-                                  //  marginRight: 8,
-                                  height: width - (viewHeight - 22), width: width - 10, backgroundColor: "red",
-                                  // paddingHorizontal: 8,
-
-                                  borderRadius: 15,
-                                  overflow: "hidden",
-                                  top: -38,
-                                  left: 5,
-                                  right: 0
-                                }}>
-                                <View style={{
-                                  position: "absolute",
-                                  width: "100%", height: '100%', justifyContent: "center", alignItems: 'center'
-                                }}>
-                                  <View
-                                    style={{
-                                      backgroundColor: Colors.white,
-                                      height: 50,
-                                      width: 50,
-                                      borderRadius: 100,
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-
-
-                                    }}>
-                                    <Image
-                                      source={Images.deletethumb}
+                                    borderRadius: 15,
+                                    overflow: "hidden",
+                                    top: -38,
+                                    left: 5,
+                                    right: 0
+                                  }}>
+                                  <View style={{
+                                    position: "absolute",
+                                    width: "100%", height: '100%', justifyContent: "center", alignItems: 'center'
+                                  }}>
+                                    <View
                                       style={{
-                                        height: 25,
-                                        width: 25,
-                                        tintColor: "red",
-                                      }}
-                                    />
+                                        backgroundColor: Colors.white,
+                                        height: 50,
+                                        width: 50,
+                                        borderRadius: 100,
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+
+
+                                      }}>
+                                      <Image
+                                        source={Images.deletethumb}
+                                        style={{
+                                          height: 25,
+                                          width: 25,
+                                          tintColor: "red",
+                                        }}
+                                      />
+                                    </View>
                                   </View>
-                                </View>
-                              </View>
+                                </View> : null
+                            )
+
                             }
                             onSwipedLeft={() => {
-                              trashfile(property.ID)
+                              props.route.params.from === 'MyFavorites' || props.route.params.from === 'Home' ? trashfile(property.ID) : null
                             }}
-                            onSwipedRight={() => { savefile(property.ID) }}
+                            onSwipedRight={() => { props.route.params.from === 'RecycleBin' || props.route.params.from === 'Home' ? savefile(property.ID) : null }}
                             renderCard={(item, index) => (
                               <View>
                                 <TouchableOpacity
@@ -960,7 +962,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                         textAlign: 'center',
                                         fontFamily: 'Poppins-Medium',
                                       }}>
-                                      {property.title}
+                                      {property.title} {props.route.params.from}
                                     </Text>
                                   </View>
 
@@ -973,7 +975,6 @@ const ViewPropertiy = (props, imageUrl) => {
                       </View>
 
                       <KeyboardAvoidingView behavior="padding">
-
                         <Modal
                           transparent={true}
                           animationType="slide"
@@ -1028,14 +1029,14 @@ const ViewPropertiy = (props, imageUrl) => {
                                     }}>
                                     Your Review
                                   </Text>
-                                  <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text>
-                                  {!isEditing && (
+                                  {/* <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text> */}
+                                  {/* {!isEditing && (
                                     <TouchableOpacity
                                       onPress={() => setIsEditing(true)}
                                       style={{ marginTop: 10 }}>
                                       <Text style={{ fontSize: 12, color: Colors.darbluec, fontFamily: "Poppins-Regular" }}>Edit</Text>
                                     </TouchableOpacity>
-                                  )}
+                                  )} */}
                                 </View>
                                 <View style={{ width: '100%', }}>
                                   <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -1047,7 +1048,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                         marginTop: 10,
                                       }}>
                                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                                        Photos Quality Rating :
+                                        Photos :
                                       </Text>
                                       <Rating
                                         type="custom"
@@ -1187,7 +1188,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                             width: "100%"
 
                                           }}>
-                                          {ratingData[0]?.comment_content}
+                                          {/* {ratingData[0]?.comment_content} */}
                                         </TextInput>
                                       )}
                                     </View>
@@ -1778,14 +1779,14 @@ const ViewPropertiy = (props, imageUrl) => {
                             }}>
                             Your Review
                           </Text>
-                          <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text>
-                          {!isEditing && (
+                          {/* <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text> */}
+                          {/* {!isEditing && (
                             <TouchableOpacity
                               onPress={() => setIsEditing(true)}
                               style={{ marginTop: 10 }}>
                               <Text style={{ fontSize: 12, color: Colors.darbluec, fontFamily: "Poppins-Regular" }}>Edit</Text>
                             </TouchableOpacity>
-                          )}
+                          )} */}
                         </View>
                         <View style={{ width: '100%', }}>
                           <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -1797,7 +1798,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                 marginTop: 10,
                               }}>
                               <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                                Photos Quality Rating :
+                                Photos :
                               </Text>
                               <Rating
                                 type="custom"
@@ -1937,7 +1938,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                     width: "100%"
 
                                   }}>
-                                  {ratingData[0]?.comment_content}
+                                  {/* {ratingData[0]?.comment_content} */}
                                 </TextInput>
                               )}
                             </View>

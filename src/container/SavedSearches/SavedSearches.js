@@ -155,6 +155,7 @@ const MyFavorites = ({ navigation }) => {
                 value={updatedParameters[item.ID]?.[parameterIndex] ?? parameter}
                 style={{
                   color: 'black',
+                  backgroundColor: isEditing ? Colors.gray : Colors.white,
                   height: isEditing ? 40 : 40, borderColor: isEditing ? Colors.white : Colors.BorderColor, borderWidth: 1, padding: 12, borderRadius: 7, verticalAlign: "top",
                   marginBottom: 12
                 }}

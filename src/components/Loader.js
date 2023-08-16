@@ -1,11 +1,11 @@
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import Colors from '../utils/Colors';
 
 interface Iprops {
   loading: Boolean;
 }
-const Loader = ({loading}: Iprops) => {
+const Loader = ({ loading }: Iprops) => {
   return loading ? (
     <View style={styles.container}>
       <ActivityIndicator size={'small'} color={Colors.PrimaryColor} />

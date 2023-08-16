@@ -26,6 +26,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import Loader from '../../components/Loader';
 import { ScrollView } from 'react-native-gesture-handler';
+import { propertyChatList } from '../../modules/propertyChats'
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -105,7 +106,7 @@ const images = [
 ];
 
 const MyFavorites = () => {
-
+  const [propertyChat, setPropertyChat] = useState([])
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [details, setDetails] = useState([]);
@@ -128,6 +129,21 @@ const MyFavorites = () => {
       setIsImageChanged(false);
     }, 1500);
   };
+
+  useEffect(() => {
+    dispatch(propertyChatList()).then((res) => {
+      // setPropertyChat(res?.payload?.data)
+      if (res?.payload?.success) {
+        setPropertyChat(res?.payload?.data)
+      } else {
+        setPropertyChat([])
+      }
+    }).catch((e) => {
+      setPropertyChat([])
+      alert('Error ' + e)
+    })
+  }, [])
+
   const handleImagePress1 = () => {
     navigation.navigate('ChatHistory');
     setIsImageChanged(true);
@@ -532,25 +548,27 @@ const MyFavorites = () => {
               <View style={styles.line}></View>
             </TouchableOpacity>
           </View>
-          <View style={styles.slideOuter}>
-            <TouchableOpacity onPress={() => navigation.navigate('ChatHistory')}
-              activeOpacity={0.8}
-              style={{
-                width: '100%',
-                alignItems: 'center',
-              }}>
-              <View
-                style={styles.viewstyle}>
-                <TouchableOpacity>
-                  <Image
-                    source={isImageChanged ? Images.chat : Images.chat}
-                    style={{ height: 20, width: 20, resizeMode: 'contain' }} />
-                </TouchableOpacity>
-                <Text style={styles.text}>Chat History</Text>
-              </View>
-              <View style={styles.line}></View>
-            </TouchableOpacity>
-          </View>
+          {
+            propertyChat.length > 0 && <View style={styles.slideOuter}>
+              <TouchableOpacity onPress={() => navigation.navigate('ChatHistory')}
+                activeOpacity={0.8}
+                style={{
+                  width: '100%',
+                  alignItems: 'center',
+                }}>
+                <View
+                  style={styles.viewstyle}>
+                  <TouchableOpacity>
+                    <Image
+                      source={isImageChanged ? Images.chat : Images.chat}
+                      style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+                  </TouchableOpacity>
+                  <Text style={styles.text}>Chat History</Text>
+                </View>
+                <View style={styles.line}></View>
+              </TouchableOpacity>
+            </View>
+          }
         </View>
 
       </ScrollView>
