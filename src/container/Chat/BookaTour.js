@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Image, TextInput, SafeAreaView } from "react-native";
+import {
+    View, Text, TouchableOpacity, Image, TextInput, SafeAreaView, StyleSheet, Animatable,
+    PanResponder,
+} from "react-native";
 import Colors from "../../utils/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
@@ -133,34 +136,35 @@ const BookaTour = (props) => {
             <View style={{ height: "100%", position: "relative", paddingBottom: 100 }}>
                 <View
                     style={{
-                        backgroundColor: Colors.gray,
+                        // backgroundColor: Colors.gray,
                         height: 50,
                         flexDirection: "row",
-                        justifyContent: "space-between",
+                        justifyContent: "center",
                         alignItems: "center",
+                        borderBottomColor: Colors.BorderColor,
+                        borderBottomWidth: 1
                     }}
                 >
                     <TouchableOpacity
-                        onPress={() => navigation.goBack()}
                         style={{
-                            height: 25,
-                            width: 25,
+                            alignItems: 'center',
+                            position: "absolute",
+                            right: 10,
+                            top: 2,
+
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: 40,
+                            width: 40,
                             borderRadius: 100,
-                            flexDirection: "row",
-                            justifyContent: "center",
-                            backgroundColor: Colors.surfblur,
-                            alignItems: "center",
-                            marginLeft: 10,
+                            backgroundColor: Colors.gray,
                         }}
-                    >
+                        onPress={() => navigation.goBack()}  >
                         <Image
-                            style={{
-                                height: 10,
-                                width: 10,
-                                resizeMode: "contain",
-                                tintColor: Colors.white,
-                            }}
                             source={Images.whiteclose}
+                            style={styles.imagedata}
+                            animation="flipInY"
                         />
                     </TouchableOpacity>
                     <Text
@@ -494,3 +498,25 @@ const BookaTour = (props) => {
 };
 
 export default BookaTour;
+
+
+
+
+const styles = StyleSheet.create({
+    screen1: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 40,
+        width: 40,
+        borderRadius: 100,
+        backgroundColor: Colors.gray,
+    },
+    imagedata: {
+        height: 12,
+        width: 12,
+        resizeMode: 'contain',
+        tintColor: Colors.black,
+        // transform: [{ rotate: '90deg' }],
+    },
+});

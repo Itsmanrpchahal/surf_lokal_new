@@ -471,7 +471,7 @@ const Home = () => {
     formData.append('price_review_stars', rating);
     formData.append('interest_review_stars', rating);
     formData.append('reviewtitle', reviewTitle);
-    console.log("postUpdateRating",formData)
+    console.log("postUpdateRating", formData)
     dispatch(postUpdateRating(formData)).then((response) => {
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
@@ -1155,7 +1155,7 @@ const Home = () => {
                             }}>
                               <FlatList
                                 data={moreFilterData?.more_filter_data}
-                                style={{ alignContent: 'center', margin:-6,  }}
+                                style={{ alignContent: 'center', margin: -6, }}
                                 nestedScrollEnabled
                                 numColumns={3}
                                 renderItem={({ item, index }) => {
@@ -1448,6 +1448,9 @@ const Home = () => {
                                         setProductId(item.ID);
                                         setReviewTitle(item.title);
                                         toggleModal();
+                                        dispatch(getRating(productId)).then((response) => {
+                                          console.log(" getRating response", response?.payload)
+                                        })
                                       }}>
                                       <Image
                                         source={Images.star}
@@ -1780,7 +1783,7 @@ const Home = () => {
                                                 <Rating
                                                   type="custom"
                                                   ratingCount={5}
-                                                  imageSize={18}
+                                                  imageSize={20}
                                                   startingValue={ratingData[0]?.photo_wuality_rating
                                                   }
                                                   //ratingBackgroundColor="#c8c7c8"
@@ -1807,7 +1810,7 @@ const Home = () => {
                                                 <Rating
                                                   type="custom"
                                                   ratingCount={5}
-                                                  imageSize={18}
+                                                  imageSize={20}
                                                   startingValue={ratingData[0]?.description_review_stars
                                                   }
                                                   // ratingBackgroundColor="#c8c7c8"
@@ -1833,7 +1836,7 @@ const Home = () => {
                                                 <Rating
                                                   type="custom"
                                                   ratingCount={5}
-                                                  imageSize={18}
+                                                  imageSize={20}
                                                   startingValue={ratingData[0]?.price_review_stars
                                                   }
                                                   //ratingBackgroundColor="#c8c7c8"
@@ -1860,7 +1863,7 @@ const Home = () => {
                                                 <Rating
                                                   type="custom"
                                                   ratingCount={5}
-                                                  imageSize={18}
+                                                  imageSize={20}
                                                   startingValue={ratingData[0]?.interest_review_stars
                                                   }
                                                   // ratingBackgroundColor="#c8c7c8"
@@ -2035,7 +2038,7 @@ const Home = () => {
                                 backgroundColor: 'white',
                                 justifyContent: 'space-between',
                               }}>
-                           <View
+                              <View
                                 style={{
                                   justifyContent: 'center',
                                   alignItems: 'center',

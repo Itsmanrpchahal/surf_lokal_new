@@ -42,19 +42,25 @@ const ChatHistory = ({ navigation }) => {
                     borderBottomWidth: 1,
                     borderColor: '#c9c9c5'
                 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center', width: '100%' }}>
-                        <TouchableOpacity style={{ bottom: 8 }} onPress={() => { navigation.goBack() }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '100%' }}>
+                        <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", position: "absolute", left: 0, justifyContent: "center", top: 3 }} onPress={() => { navigation.goBack() }}>
                             <Image
                                 style={{
-                                    width: 14,
-                                    height: 14,
+                                    width: 11,
+                                    height: 11,
                                     resizeMode: "contain",
-                                    position: "absolute",
-                                    left: 0,
+                                    // position: "absolute",
+                                    // left: 0,
+                                    marginTop: -1,
                                     transform: [{ rotate: '90deg' }]
                                 }}
                                 source={Images.downArrow}
                             ></Image>
+                            <Text style={{
+                                fontSize: 14,
+                                color: Colors.black,
+                                fontFamily: 'Poppins-Regular', marginLeft: 5
+                            }}>Back</Text>
                         </TouchableOpacity>
                         <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: Colors.black, textAlign: "center" }}> Chat History</Text>
                         <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: Colors.black, textAlign: "center" }}></Text>

@@ -240,7 +240,7 @@ const Settings = props => {
 
         <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Settings</Text>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             alignItems: 'center',
             marginLeft: 12,
@@ -261,6 +261,28 @@ const Settings = props => {
               resizeMode: 'contain',
               tintColor: Colors.white,
             }}
+            animation="flipInY"
+          />
+        </TouchableOpacity> */}
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            // position: "absolute",
+            ///right: 10,
+            // top: 2,
+
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 40,
+            width: 40,
+            borderRadius: 100,
+            backgroundColor: Colors.gray,
+          }}
+          onPress={() => navigation.goBack()}>
+          <Animatable.Image
+            source={Images.whiteclose}
+            style={styles.imagedata}
             animation="flipInY"
           />
         </TouchableOpacity>
@@ -817,6 +839,21 @@ const styles = StyleSheet.create({
   //fliter
   filter: {
     height: 60,
+  }, screen1: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: 40,
+    borderRadius: 100,
+    backgroundColor: Colors.gray,
+  },
+  imagedata: {
+    height: 12,
+    width: 12,
+    resizeMode: 'contain',
+    tintColor: Colors.black,
+    // transform: [{ rotate: '90deg' }],
   },
 });
 

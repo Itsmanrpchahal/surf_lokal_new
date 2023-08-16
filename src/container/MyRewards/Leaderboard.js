@@ -1,4 +1,4 @@
-import { View, Text, Image, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, SafeAreaView, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Colors from '../../utils/Colors';
 import Images from '../../utils/Images';
@@ -51,7 +51,7 @@ const Leaderboard = () => {
 
   return (
     <SafeAreaView>
-      <View
+      {/* <View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
@@ -102,8 +102,62 @@ const Leaderboard = () => {
             />
           </TouchableOpacity>
         </View>
+      </View> */}
+      <View
+        style={{
+          paddingTop: 9,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: "center",
+          width: '100%',
+          marginLeft: 0,
+          backgroundColor: Colors.darbluec
+        }}>
+        <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", position: "absolute", left: 8, justifyContent: "center", top: 14 }} onPress={() => { navigation.goBack() }}>
+          <Image
+            style={{
+              width: 11,
+              height: 11,
+              resizeMode: "contain",
+              // position: "absolute",
+              // left: 0,
+              marginTop: -1,
+              tintColor: Colors.white,
+              transform: [{ rotate: '90deg' }]
+            }}
+            source={Images.downArrow}
+          ></Image>
+          <Text style={{
+            fontSize: 14,
+            color: Colors.white,
+            fontFamily: 'Poppins-Regular', marginLeft: 5
+          }}>Back</Text>
+        </TouchableOpacity>
+        <Text style={{ fontSize: 20, color: Colors.white, fontFamily: 'Poppins-Medium', textAlign: "center" }}>LeaderBorad</Text>
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            position: "absolute",
+            right: 10,
+            top: 2,
+
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 40,
+            width: 40,
+            borderRadius: 100,
+            backgroundColor: Colors.gray,
+          }}
+          onPress={() => navigation.goBack()}  >
+          <Animatable.Image
+            source={Images.whiteclose}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
       </View>
-      <View style={{ backgroundColor: Colors.darbluec, height: '100%', width: '100%', alignItems: 'flex-start' }}>
+      <View style={{ paddingTop: 12, backgroundColor: Colors.darbluec, height: '100%', width: '100%', alignItems: 'flex-start' }}>
         <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>
           <Image
             source={Images.searcfrank}
@@ -185,5 +239,22 @@ const Leaderboard = () => {
     </SafeAreaView>
   );
 };
-
+const styles = StyleSheet.create({
+  screen1: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: 40,
+    borderRadius: 100,
+    backgroundColor: Colors.gray,
+  },
+  imagedata: {
+    height: 12,
+    width: 12,
+    resizeMode: 'contain',
+    tintColor: Colors.black,
+    // transform: [{ rotate: '90deg' }],
+  },
+});
 export default Leaderboard;

@@ -822,7 +822,7 @@ const RecycleBin = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View
+      {/* <View
         style={{
           marginTop: 4,
           flexDirection: 'row',
@@ -873,6 +873,63 @@ const RecycleBin = () => {
             />
           </TouchableOpacity>
         </View>
+      </View> */}
+
+      <View
+        style={{
+          marginTop: 0,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          width: '100%',
+          marginLeft: 0,
+          marginBottom: 0,
+          height: 45,
+          alignItems: "center",
+
+        }}>
+        <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", position: "absolute", left: 8, justifyContent: "center", top: 12 }} onPress={() => { navigation.goBack() }}>
+          <Image
+            style={{
+              width: 11,
+              height: 11,
+              resizeMode: "contain",
+              // position: "absolute",
+              // left: 0,
+              marginTop: -1,
+              transform: [{ rotate: '90deg' }]
+            }}
+            source={Images.downArrow}
+          ></Image>
+          <Text style={{
+            fontSize: 14,
+            color: Colors.black,
+            fontFamily: 'Poppins-Regular', marginLeft: 5
+          }}>Back</Text>
+        </TouchableOpacity>
+        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Recycle Bin</Text>
+
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            position: "absolute",
+            right: 10,
+            top: 2,
+
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 40,
+            width: 40,
+            borderRadius: 100,
+            backgroundColor: Colors.gray,
+          }}
+          onPress={() => navigation.goBack()}  >
+          <Animatable.Image
+            source={Images.whiteclose}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
       </View>
       <View style={{ height: '100%', width: '100%' }}>
         {showNoDataMessage ? (
@@ -914,6 +971,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 18,
+  },
+  screen1: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: 40,
+    borderRadius: 100,
+    backgroundColor: Colors.gray,
+  },
+  imagedata: {
+    height: 12,
+    width: 12,
+    resizeMode: 'contain',
+    tintColor: Colors.black,
+    // transform: [{ rotate: '90deg' }],
   },
   slide: {
     width: screenWidth - 16,
