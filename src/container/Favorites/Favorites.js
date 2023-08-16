@@ -281,6 +281,13 @@ const Home = () => {
                   }}
                   source={Images.plus}></Image>
               </TouchableOpacity>
+              <View style={styles.headerIcon}>
+                <TouchableOpacity
+                  onPress={() => navigation.goBack()}
+                  style={styles.screen1}>
+                  <Image source={Images.downArrow} style={styles.imagedata}></Image>
+                </TouchableOpacity>
+              </View>
             </View>
             <View
               style={{
@@ -672,7 +679,22 @@ const styles = StyleSheet.create({
   filter: {
     height: 60,
   },
-
+  screen1: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: 40,
+    borderRadius: 100,
+    backgroundColor: Colors.gray,
+  },
+  imagedata: {
+    height: 12,
+    width: 12,
+    resizeMode: 'contain',
+    tintColor: Colors.black,
+    // transform: [{ rotate: '90deg' }],
+  },
 });
 
 export default Home;

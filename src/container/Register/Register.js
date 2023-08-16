@@ -125,8 +125,8 @@ export default function Register({ navigation }) {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              height: 28,
-              width: 28,
+              height: 40,
+              width: 40,
               borderRadius: 100,
               backgroundColor: Colors.gray,
             }}>
