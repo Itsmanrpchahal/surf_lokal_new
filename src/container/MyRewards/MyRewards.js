@@ -19,7 +19,7 @@ import Speedmeter from '../../components/speedmeter';
 import Fonts from '../../utils/Fonts';
 const App = (props) => {
   const navigation = useNavigation();
-  const [meterValue, setMeterValue] = useState(300000);
+  const [meterValue, setMeterValue] = useState(500);
   const [backgroundColor, setBackgroundColor] = useState('blue');
   const [textColor, setTextColor] = useState('white');
   const [borderColor, setBorderColor] = useState('black');
@@ -130,8 +130,8 @@ const App = (props) => {
             </View>
             <Slider
               style={{ width: "90%", justifyContent: "center" }}
-              minimumValue={100000}
-              maximumValue={1000000}
+              minimumValue={1000}
+              maximumValue={10000}
               minimumTrackTintColor={Colors.surfblur}
               maximumTrackTintColor={Colors.gray}
               thumbTintColor={Colors.white}
@@ -158,7 +158,7 @@ const App = (props) => {
           <Text style={{ fontSize: 22, fontFamily: Fonts.regular, textAlign: 'center', color: "black", }}>Your Rebate </Text>
           <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center' }}>
             <Text style={{ fontSize: 66, fontFamily: Fonts.bold, color: "black", }}>$</Text>
-            <Text style={{ fontSize: 22, fontFamily: Fonts.bold, color: "black", marginTop: 44 }}>{meterValue * 0.003}</Text>
+            <Text style={{ fontSize: 22, fontFamily: Fonts.bold, color: "black", marginTop: 44 }}>{Math.round(meterValue * 0.003)}</Text>
 
           </View>
         </View>

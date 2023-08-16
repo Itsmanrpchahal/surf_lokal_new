@@ -138,7 +138,7 @@ const Challenges = () => {
                       width: screenWidth
                     }}
                   >
-                    <Text style={{ paddingHorizontal: 12, width: screenWidth, fontSize: 14, marginTop: 20, color: Colors.black, fontFamily: 'Poppins-Regular', height: 60, }}>{"Q."}{index + 1}{" : "}{item?.post_title}</Text>
+                    <Text style={{ textAlign: "center", justifyContent: "center", alignItems: "center", paddingHorizontal: 12, width: screenWidth, fontSize: 18, marginTop: 20, color: Colors.black, fontFamily: 'Poppins-Regular', height: 60, }}>{"Q."}{index + 1}{" : "}{item?.post_title}</Text>
                     <View style={{ flexDirection: "row", justifyContent: 'center', alignItems: 'center', alignContent: 'center', }} >
                       <TouchableOpacity onPress={() => {
                         if (isSelected) {
@@ -151,17 +151,19 @@ const Challenges = () => {
                         // setIsImageChanged(true);
                         // setIsImage(false)
                         // setNextText(true)
-                        const payload = {
-                          user_id: user_ID,
-                          title: item.post_title,
-                          post_id: item.ID,
-                          points: item.points
-                        }
+
+                        const formData = new FormData()
+                        formData.append('user_id', user_ID)
+                        formData.append('title', item.post_title)
+                        formData.append('post_id', item.ID)
+                        formData.append('points', item.points)
                         console.log(" likeDisLike selectedTabsMore", selectedTabsMore)
                         console.log(" likeDisLike selectedTabsMore2", selectedTabsMore2)
 
-                        dispatch(likeDisLike(payload)).then(response => {
-                          console.log(response)
+                        dispatch(likeDisLike(formData)).then((response) => {
+                          console.log('Questoon response', response.payload)
+                        }).catch((e) => {
+                          console.log('error ', e)
                         });
                       }}
                         activeOpacity={0.8}

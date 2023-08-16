@@ -23,6 +23,7 @@ import RecycleBin from '../container/RecycleBin/RecycleBin';
 import ViewProperty2 from '../container/ViewPropertiy/ViewProperty2';
 import BookaTour from '../container/Chat/BookaTour';
 import ChatHistory from '../container/ChatHistory/ChatHistory';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 
 const Stack = createStackNavigator();
@@ -45,36 +46,39 @@ const StackNavigator = () => {
   }, []);
 
   return route != null ? (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        cardStyle: { backgroundColor: Colors.white },
-      }}
-      initialRouteName={'Login'}
-    >
-      <Stack.Screen name="BookaTour" component={BookaTour} />
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Register" component={Register} />
-      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-      <Stack.Screen name="AppIntro" component={AppIntro} />
-      <Stack.Screen name="OtpScreen" component={OtpScreen} />
-      <Stack.Screen name="Tabs" component={TabNavigator} />
-      <Stack.Screen name="ViewPropertiy" component={ViewPropertiy} />
-      <Stack.Screen name="ViewProperty2" component={ViewProperty2} />
-      <Stack.Screen name="ViewPropertiyImage" component={ViewPropertiyImage} />
-      <Stack.Screen name="ViewImage" component={ViewImage} />
-      <Stack.Screen name="ChatSearch" component={ChatSearch} />
-      <Stack.Screen name="SingleImage" component={SingleImage} />
-      <Stack.Screen name="Videoplay" component={Videoplay} />
-      <Stack.Screen name="Challenges" component={Challenges} />
-      <Stack.Screen name="Leaderboard" component={Leaderboard} />
+    <SafeAreaProvider style={{ backgroundColor: 'white' }}>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+          cardStyle: { backgroundColor: Colors.white },
+        }}
+        initialRouteName={'Login'}
+      >
+        <Stack.Screen name="BookaTour" component={BookaTour} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+        <Stack.Screen name="AppIntro" component={AppIntro} />
+        <Stack.Screen name="OtpScreen" component={OtpScreen} />
+        <Stack.Screen name="Tabs" component={TabNavigator} />
+        <Stack.Screen name="ViewPropertiy" component={ViewPropertiy} />
+        <Stack.Screen name="ViewProperty2" component={ViewProperty2} />
+        <Stack.Screen name="ViewPropertiyImage" component={ViewPropertiyImage} />
+        <Stack.Screen name="ViewImage" component={ViewImage} />
+        <Stack.Screen name="ChatSearch" component={ChatSearch} />
+        <Stack.Screen name="SingleImage" component={SingleImage} />
+        <Stack.Screen name="Videoplay" component={Videoplay} />
+        <Stack.Screen name="Challenges" component={Challenges} />
+        <Stack.Screen name="Leaderboard" component={Leaderboard} />
 
-      <Stack.Screen name="Schoolinfo" component={Schoolinfo} />
+        <Stack.Screen name="Schoolinfo" component={Schoolinfo} />
 
-      <Stack.Screen name="RecycleBin" component={RecycleBin} />
-      <Stack.Screen name="ChatHistory" component={ChatHistory} />
+        <Stack.Screen name="RecycleBin" component={RecycleBin} />
+        <Stack.Screen name="ChatHistory" component={ChatHistory} />
 
-    </Stack.Navigator>
+      </Stack.Navigator>
+    </SafeAreaProvider>
+
   ) : null;
 };
 export default StackNavigator;

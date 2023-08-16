@@ -125,7 +125,7 @@ const OtpInput = (props) => {
             flexDirection: 'row',
             alignContent: 'center',
           }}>
-          <TouchableOpacity onPress={() =>{
+          <TouchableOpacity onPress={() => {
             clearTimeout()
             navigation.goBack()
           }}>
@@ -148,7 +148,7 @@ const OtpInput = (props) => {
               width: '60%',
               fontFamily: 'Poppins-Regular'
             }}>
-            Surf Lokal CRM
+            surf lokal CRM
           </Text>
         </View>
         <View style={{ width: '90%', alignSelf: 'center', marginTop: 100 }}>
@@ -235,7 +235,7 @@ const OtpInput = (props) => {
         </View>
 
         <TouchableOpacity
-        disabled={seconds > 0 || minutes > 0}
+          disabled={seconds > 0 || minutes > 0}
           style={{ alignSelf: 'center', width: '90%', marginTop: 10 }} onPress={async () => {
             const fcmtoken = await messaging().getToken()
             resendOTP()
@@ -256,33 +256,33 @@ const OtpInput = (props) => {
               }
             });
           }}>
-            <View style={{flexDirection:'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Text
-            style={{
-              fontSize: 20 * fontSizeRatio,
-              fontWeight: '500',
-              color: Colors.PrimaryColor,
-              fontFamily: 'Poppins-Regular'
-            }}>
-             {seconds > 0 || minutes > 0 ? `Resend OTP again after`:'Resend OTP '}  
-            
-          </Text>
-            {
-              seconds > 0 &&  <Text
               style={{
                 fontSize: 20 * fontSizeRatio,
                 fontWeight: '500',
                 color: Colors.PrimaryColor,
-                fontFamily: 'Poppins-Regular',
-                marginLeft:10
+                fontFamily: 'Poppins-Regular'
               }}>
-              {minutes}:{seconds}
-              
+              {seconds > 0 || minutes > 0 ? `Resend OTP again after` : 'Resend OTP '}
+
             </Text>
+            {
+              seconds > 0 && <Text
+                style={{
+                  fontSize: 20 * fontSizeRatio,
+                  fontWeight: '500',
+                  color: Colors.PrimaryColor,
+                  fontFamily: 'Poppins-Regular',
+                  marginLeft: 10
+                }}>
+                {minutes}:{seconds}
+
+              </Text>
             }
-           
-            </View>
-         
+
+          </View>
+
         </TouchableOpacity>
         <AppButton
           onPress={() => verify_OTP()}

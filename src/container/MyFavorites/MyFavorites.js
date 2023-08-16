@@ -251,7 +251,7 @@ const MyFavorites = (props) => {
     <View style={[styles.slideOuter]}>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('ViewPropertiy', { ID: item.ID })}>
+        onPress={() => navigation.navigate('ViewPropertiy', { ID: item.ID, from: 'MyFavorites' })}>
         <Image source={{ uri: item?.featured_image_src[0].guid }} style={styles.slide} />
       </TouchableOpacity>
 
@@ -321,6 +321,7 @@ const MyFavorites = (props) => {
           </Text>
         </TouchableOpacity>
 
+
         <View
           style={{
             flexDirection: 'row',
@@ -358,8 +359,26 @@ const MyFavorites = (props) => {
               style={{ height: 18, width: 18, resizeMode: 'contain', position: "relative", left: 8, top: 1 }}></Image>
           </TouchableOpacity>
         </View>
-      </View>
 
+      </View>
+      <View
+        style={{
+          width: '100%',
+          alignSelf: 'center',
+          justifyContent: 'center',
+          paddingHorizontal: 12,
+        }}>
+        <Text
+          numberOfLines={1}
+          style={{
+            fontSize: 15,
+            color: Colors.black,
+            textAlign: 'center',
+            fontFamily: 'Poppins-Medium',
+          }}>
+          {item?.title}
+        </Text>
+      </View>
       <KeyboardAvoidingView behavior="padding">
 
         <Modal
@@ -416,13 +435,13 @@ const MyFavorites = (props) => {
                     Your Review
                   </Text>
                   <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text>
-                  {!isEditing && (
+                  {/* {!isEditing && (
                     <TouchableOpacity
                       onPress={() => setIsEditing(true)}
                       style={{ marginTop: 0 }}>
                       <Text style={{ fontSize: 12, color: Colors.surfblur, fontFamily: "Poppins-Regular" }}>Edit</Text>
                     </TouchableOpacity>
-                  )}
+                  )} */}
                 </View>
                 <View style={{ width: '100%', }}>
                   <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -434,7 +453,7 @@ const MyFavorites = (props) => {
                         marginTop: 10,
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Photos Quality Rating :
+                        Photos :
                       </Text>
                       <Rating
                         type="custom"
@@ -459,7 +478,7 @@ const MyFavorites = (props) => {
                         alignItems: 'center',
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Description & Details :
+                        Description Accuracy :
                       </Text>
                       <Rating
                         type="custom"
@@ -483,7 +502,7 @@ const MyFavorites = (props) => {
                         alignItems: 'center',
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Price Of Property :
+                        Price :
                       </Text>
                       <Rating
                         type="custom"
@@ -509,7 +528,7 @@ const MyFavorites = (props) => {
                         alignItems: 'center',
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        General Interest in the property :
+                        Interest in Property :
                       </Text>
                       <Rating
                         type="custom"
