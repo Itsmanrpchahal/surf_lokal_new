@@ -55,10 +55,11 @@ const Schoolinfo = () => {
     <SafeAreaView>
       <View style={{
         height: '100%', width: '100%',
+       
         // justifyContent: 'center',
 
       }} >
-        <View style={{ paddingVertical: 10, paddingHorizontal: 12, backgroundColor: Colors.white, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderColor: '#c9c9c5' }}>
+        <View style={{ paddingVertical: 10, paddingHorizontal: 12, backgroundColor: Colors.white, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderColor: '#c9c9c5' ,}}>
           <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center' }}>
             <Image
               style={{
@@ -97,7 +98,7 @@ const Schoolinfo = () => {
               ></Image>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate('Home')}
+              onPress={() => navigation.goBack()}
               style={{
 
                 height: 35,
@@ -132,7 +133,7 @@ const Schoolinfo = () => {
             marginTop: 12,
             justifyContent: 'flex-end',
             alignItems: 'flex-end',
-            paddingHorizontal: 12
+            paddingHorizontal: 12, 
           }}>
 
           {/* <TouchableOpacity
@@ -164,6 +165,7 @@ const Schoolinfo = () => {
           //  paddingHorizontal: 20,
           position: "relative",
           height: '100%', width: '100%',
+         
         }}>
 
 
@@ -234,7 +236,7 @@ const Schoolinfo = () => {
                 maxWidth: '70%',
                 marginLeft: 8,
                 marginRight: 8,
-                marginTop: 8,
+                marginTop: 88,
                 marginBottom: 50,
                 color: Colors.white
               }}>{message}</Text>
@@ -265,16 +267,20 @@ const Schoolinfo = () => {
             }
 
             <View style={{
-              backgroundColor: Colors.white,
-              borderColor: Colors.BorderColor,
-              borderWidth: 1, borderRadius: 5,
-              height: 45, margin: 16,
-              paddingLeft: 8, paddingRight: 8,
-              flexDirection: 'row',
-              justifyContent: 'space-between'
+            backgroundColor: Colors.white,
+            borderColor: Colors.BorderColor,
+            borderWidth: 1, borderRadius: 5,
+           // height: 45
+             margin: 16,
+            paddingLeft: 8, paddingRight: 8,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginTop: 0,
+   
+             
             }}>
               <TextInput
-                style={{ width: '90%', backgroundColor: Colors.white, color: Colors.black, fontFamily: 'Poppins-Regular', }}
+                style={{ width: '90%', backgroundColor: Colors.white, color: Colors.black }}
                 placeholder="Type here"
                 placeholderTextColor={Colors.black}
                 value={message}
@@ -283,7 +289,7 @@ const Schoolinfo = () => {
               <TouchableOpacity
                 onPress={() => {
                   setLoading(true);
-                  dispatch(schoolChat({ message: 'i want to know something about school' })).then((ress) => {
+                  dispatch(schoolChat({ message: message })).then((ress) => {
                     setLoading(false);
 
                     const newTodo1 = {
@@ -307,6 +313,7 @@ const Schoolinfo = () => {
                   flexDirection: "row",
                   justifyContent: "center",
                   alignItems: "center",
+                  
                 }}
               >
                 <Image

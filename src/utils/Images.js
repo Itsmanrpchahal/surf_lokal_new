@@ -30,6 +30,10 @@ const Images = {
 
   // new icons
   address: require(BaseUrl + 'address.png'),
+  locationss: require(BaseUrl + 'location.png'),
+  Whatsapp: require(BaseUrl + 'Whatsapp.png'),
+
+
   gps: require(BaseUrl + 'gps.png'),
   search: require(BaseUrl + 'search.png'),
   searchnew: require(BaseUrl + 'searchnew.png'),

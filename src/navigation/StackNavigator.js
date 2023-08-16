@@ -23,6 +23,7 @@ import RecycleBin from '../container/RecycleBin/RecycleBin';
 import ViewProperty2 from '../container/ViewPropertiy/ViewProperty2';
 import BookaTour from '../container/Chat/BookaTour';
 import ChatHistory from '../container/ChatHistory/ChatHistory';
+import ContactSurf from '../container/ContactMyAgent/ContactSurf';
 
 
 const Stack = createStackNavigator();
@@ -73,6 +74,8 @@ const StackNavigator = () => {
 
       <Stack.Screen name="RecycleBin" component={RecycleBin} />
       <Stack.Screen name="ChatHistory" component={ChatHistory} />
+      <Stack.Screen name="ContactSurf" component={ContactSurf} />
+
 
     </Stack.Navigator>
   ) : null;

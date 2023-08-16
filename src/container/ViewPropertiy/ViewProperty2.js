@@ -494,7 +494,7 @@ const ViewProperty2 = (props, imageUrl) => {
                 showCallout={true}
                 coordinate={{ latitude: parseFloat(pin.latitude), longitude: parseFloat(pin.longitude) }}
               >
-                <Image source={Images.lot} style={{ height: 50, width: 100, resizeMode: 'contain', }} />
+                <Image source={Images.locationss} style={{ height: 50, width: 100, resizeMode: 'contain', }} />
 
                 <Callout  onPress={()=>{} }
                 style={{
