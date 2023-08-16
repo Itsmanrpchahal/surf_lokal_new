@@ -27,59 +27,26 @@ import AsyncStorage from '@react-native-community/async-storage';
 import * as Animatable from 'react-native-animatable';
 import ImagePicker from 'react-native-image-crop-picker';
 import { getProfile } from '../../modules/getProfile';
+import { useSelector, useDispatch } from 'react-redux';
+import { propertyChatList } from '../../modules/propertyChats'
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
-const fontSizeRatio = screenHeight / 1000;
-const viewSizeRatio = screenHeight / 1000;
-const imageSizeRation = screenHeight / 1000;
-
-const images = [
-  {
-    image: Images.favroites,
-    title: '',
-    navigation: 'Settings',
-  },
-  {
-    image: Images.savedSearch,
-    title: 'Saved Searches',
-    navigation: 'SavedSearches',
-  },
-  {
-    image: Images.inbox,
-    title: 'Conversations',
-    navigation: 'Conversations',
-  },
-  {
-    image: Images.contactAgent,
-    title: 'Contact My Agent',
-    navigation: 'Settings',
-  },
-  {
-    image: Images.makeOffer,
-    title: 'Make An Offer',
-    navigation: 'Settings',
-  },
-  {
-    image: Images.reward,
-    title: 'My Rewards',
-    navigation: 'MyRewards',
-  },
-  {
-    image: Images.recycleBin,
-    title: 'Recycle Bin',
-    navigation: 'RecycleBin',
-  },
-];
 
 const Settings = props => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [address, setAddres] = useState('');
-  const [userName, setUserName] = useState('');
   const [mob, setMob] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [toggle, setToggle] = useState(false);
+  const [facebook, setFacebook] = useState('')
+  const [twitter, setTwitter] = useState('')
+  const [linkedin, setLinkedin] = useState('')
+  const [instagram, setInstagram] = useState('')
+  const [threads, setThreads] = useState('')
   const [details, setDetails] = useState([]);
   const flatListRef = useRef(null);
   const [loading, setLoading] = useState(false);
@@ -87,6 +54,8 @@ const Settings = props => {
   const [isEnabled, setIsEnabled] = useState(false);
   const [image, setImage] = useState('')
   const detials = props.route.params.data;
+  const dispatch = useDispatch();
+  const [propertyChat, setPropertyChat] = useState([])
 
   const _pickImage = () => {
     ImagePicker.openPicker({
@@ -109,9 +78,27 @@ const Settings = props => {
   const getProfileApiCall = () => {
     dispatch(getProfile()).then(response => {
       setLoading(false);
+      setFirstName(response.payload.data[0].first_name);
+      setLastName(response.payload.data[0].last_name);
+      setAddres(response.payload.data[0].address);
+      setEmail(response.payload.data[0].user_email)
+      setMob(response.payload.data[0].mobile);
+      setImage(response.payload.data[0]?.user_image)
+      setFacebook(response.payload.data[0]?.facebook)
+      setInstagram(response.payload.data[0]?.instagram)
+      setThreads(response.payload.data[0]?.threads)
+      setTwitter(response.payload.data[0]?.twitter)
+      setLinkedin(response.payload.data[0]?.linkedin)
+      console.log(JSON.stringify(response))
     }).catch((e) => {
     });
   };
+
+  useEffect(() => {
+    getProfileApiCall()
+  }, [])
+
+
   const uploadFile = async (uriResponse, name, type,) => {
     // setLoading(true);
     const userID = await AsyncStorage.getItem('userId');
@@ -151,10 +138,7 @@ const Settings = props => {
     setToggle(!isEnabled);
   }
   useEffect(() => {
-    setUserName(detials[0].username);
-    setAddres(detials[0].address);
-    setMob(detials[0].mobile);
-    setImage(detials[0]?.user_image)
+
   }, []);
 
 
@@ -166,10 +150,16 @@ const Settings = props => {
     };
     let data = new FormData();
     data.append('UserID', userID);
-    data.append('username', userName);
+    data.append('first_name', firstName);
+    data.append('last_name', lastName);
     data.append('user_address', address);
     data.append('mobile', mob);
     data.append('email_notification', toggle)
+    data.append('facebook', facebook)
+    data.append('twitter', twitter)
+    data.append('linkedin', linkedin)
+    data.append('instagram', instagram)
+    data.append('threads', threads)
     try {
       var res = await axios.post(
         'https://www.surflokal.com/webapi/v1/userprofile/profileupdate.php',
@@ -240,7 +230,7 @@ const Settings = props => {
 
         <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Settings</Text>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             alignItems: 'center',
             marginLeft: 12,
@@ -261,6 +251,28 @@ const Settings = props => {
               resizeMode: 'contain',
               tintColor: Colors.white,
             }}
+            animation="flipInY"
+          />
+        </TouchableOpacity> */}
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            // position: "absolute",
+            ///right: 10,
+            // top: 2,
+
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 40,
+            width: 40,
+            borderRadius: 100,
+            backgroundColor: Colors.gray,
+          }}
+          onPress={() => navigation.goBack()}>
+          <Animatable.Image
+            source={Images.whiteclose}
+            style={styles.imagedata}
             animation="flipInY"
           />
         </TouchableOpacity>
@@ -327,31 +339,27 @@ const Settings = props => {
             First name
           </Text>
         </View>
-        <View
+
+        <TextInput
+          allowFontScaling={false}
           style={{
-            flexDirection: 'row',
-            width: '90%',
-            marginTop: 12,
-            //  height: 40,
-            alignItems: 'center',
-            alignSelf: 'center',
-            borderWidth: 1,
-            borderColor: Colors.BorderColor,
-            borderRadius: 4,
+            color: Colors.black,
+            flex: 1,
+            marginLeft: 16,
+            marginRight: 16,
+            borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            paddingHorizontal: 8, paddingTop: 2
-          }}>
-          <TextInput
-            allowFontScaling={false}
-            style={{ color: Colors.black, flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
-            placeholderTextColor={Colors.black}
-            fontSize={14}
-            value={userName}
-            keyboardType="default"
-            returnKeyType="done"
-            onChangeText={userName => setUserName(userName)}
-          />
-        </View>
+            fontSize: 14,
+            padding: 10,
+            borderColor: Colors.BorderColor,
+            borderWidth: 1
+          }}
+          placeholderTextColor={Colors.black}
+          value={firstName}
+          keyboardType="default"
+          returnKeyType="done"
+          onChangeText={firstName => setFirstName(firstName)}
+        />
 
         <View
           style={{
@@ -369,31 +377,29 @@ const Settings = props => {
             Last name
           </Text>
         </View>
-        <View
+
+        <TextInput
+          allowFontScaling={false}
           style={{
-            flexDirection: 'row',
-            width: '90%',
-            marginTop: 12,
-            //  height: 40,
-            alignItems: 'center',
-            alignSelf: 'center',
-            borderWidth: 1,
-            borderColor: Colors.BorderColor,
-            borderRadius: 4,
+            color: Colors.black,
+            flex: 1,
+            marginLeft: 16,
+            marginRight: 16,
+            borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            paddingHorizontal: 8, paddingTop: 2
-          }}>
-          <TextInput
-            allowFontScaling={false}
-            style={{ color: Colors.black, flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
-            placeholderTextColor={Colors.black}
-            fontSize={14}
-            value={userName}
-            keyboardType="default"
-            returnKeyType="done"
-            onChangeText={userName => setUserName(userName)}
-          />
-        </View>
+            fontSize: 14,
+            padding: 10,
+            borderColor: Colors.BorderColor,
+            borderWidth: 1
+          }}
+          placeholderTextColor={Colors.black}
+          fontSize={14}
+          value={lastName}
+          keyboardType="default"
+          returnKeyType="done"
+          onChangeText={lastName => setLastName(lastName)}
+        />
+
 
         <View
           style={{
@@ -412,32 +418,30 @@ const Settings = props => {
           </Text>
         </View>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            width: '90%',
-            marginTop: 12,
-            //  height: 40,
-            alignItems: 'center',
-            alignSelf: 'center',
-            borderWidth: 1,
-            borderColor: Colors.BorderColor,
-            borderRadius: 4,
-            fontFamily: 'Poppins-Regular',
-            paddingHorizontal: 8,
-            paddingTop: 2
-          }}>
-          <TextInput
-            allowFontScaling={false}
-            style={{ color: 'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
 
-            placeholderTextColor={Colors.black}
-            value={detials[0]?.user_email}
-            keyboardType="default"
-            returnKeyType="done"
-            editable={false}
-          />
-        </View>
+        <TextInput
+          allowFontScaling={false}
+          style={{
+            color: Colors.black,
+            flex: 1,
+            marginLeft: 16,
+            marginRight: 16,
+            borderRadius: 8,
+            fontFamily: 'Poppins-Regular',
+            fontSize: 14,
+            padding: 10,
+            borderColor: Colors.BorderColor,
+            borderWidth: 1
+          }}
+          placeholderTextColor={Colors.black}
+          value={email}
+          keyboardType="default"
+          returnKeyType="done"
+          editable={false}
+          onChangeText={email => setEmail(email)}
+
+        />
+
 
         <View
           style={{
@@ -455,32 +459,28 @@ const Settings = props => {
             Phone
           </Text>
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            width: '90%',
-            marginTop: 12,
-            //  height: 40,
-            alignItems: 'center',
-            alignSelf: 'center',
-            borderWidth: 1,
-            borderColor: Colors.BorderColor,
-            borderRadius: 4,
-            fontFamily: 'Poppins-Regular',
-            paddingHorizontal: 8,
-            paddingTop: 2
-          }}>
-          <TextInput
-            allowFontScaling={false}
-            style={{ color: 'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
 
-            placeholderTextColor={Colors.textColorLight}
-            value={address}
-            keyboardType="default"
-            returnKeyType="done"
-            onChangeText={address => setAddres(address)}
-          />
-        </View>
+        <TextInput
+          allowFontScaling={false}
+          style={{
+            color: Colors.black,
+            flex: 1,
+            marginLeft: 16,
+            marginRight: 16,
+            borderRadius: 8,
+            fontFamily: 'Poppins-Regular',
+            fontSize: 14,
+            padding: 10,
+            borderColor: Colors.BorderColor,
+            borderWidth: 1
+          }}
+          placeholderTextColor={Colors.textColorLight}
+          value={mob}
+          keyboardType="default"
+          returnKeyType="done"
+          onChangeText={mob => setMob(mob)}
+        />
+
 
         <View
           style={{
@@ -498,32 +498,28 @@ const Settings = props => {
             Address
           </Text>
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            width: '90%',
-            marginTop: 12,
-            //  height: 40,
-            alignItems: 'center',
-            alignSelf: 'center',
-            borderWidth: 1,
-            borderColor: Colors.BorderColor,
-            borderRadius: 4,
-            fontFamily: 'Poppins-Regular',
-            paddingHorizontal: 8,
-            paddingTop: 2
-          }}>
-          <TextInput
-            allowFontScaling={false}
-            style={{ color: 'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
 
-            placeholderTextColor={'black'}
-            value={mob}
-            keyboardType="default"
-            returnKeyType="done"
-            onChangeText={mob => setMob(mob)}
-          />
-        </View>
+        <TextInput
+          allowFontScaling={false}
+          style={{
+            color: Colors.black,
+            flex: 1,
+            marginLeft: 16,
+            marginRight: 16,
+            borderRadius: 8,
+            fontFamily: 'Poppins-Regular',
+            fontSize: 14,
+            padding: 10,
+            borderColor: Colors.BorderColor,
+            borderWidth: 1
+          }}
+          placeholderTextColor={'black'}
+          value={address}
+          keyboardType="default"
+          returnKeyType="done"
+          onChangeText={address => setAddres(address)}
+        />
+
 
         <View
           style={{
@@ -541,30 +537,28 @@ const Settings = props => {
             Facebook
           </Text>
         </View>
-        <View
+
+        <TextInput
+          allowFontScaling={false}
           style={{
-            flexDirection: 'row',
-            width: '90%',
-            marginTop: 12,
-            //  height: 40,
-            alignItems: 'center',
-            alignSelf: 'center',
-            borderWidth: 1,
-            borderColor: Colors.BorderColor,
-            borderRadius: 4,
+            color: Colors.black,
+            flex: 1,
+            marginLeft: 16,
+            marginRight: 16,
+            borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            paddingHorizontal: 8,
-            paddingTop: 2
-          }}>
-          <TextInput
-            allowFontScaling={false}
-            style={{ color: 'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
-            placeholder='Facebook'
-            placeholderTextColor={Colors.placeholderTextColor}
-            keyboardType="default"
-            returnKeyType="done"
-          />
-        </View>
+            fontSize: 14,
+            padding: 10,
+            borderColor: Colors.BorderColor,
+            borderWidth: 1
+          }} placeholder='Facebook'
+          placeholderTextColor={Colors.placeholderTextColor}
+          keyboardType="default"
+          returnKeyType="done"
+          value={facebook}
+          onChangeText={facebook => setFacebook(facebook)}
+        />
+
 
         <View
           style={{
@@ -582,30 +576,28 @@ const Settings = props => {
             Twitter
           </Text>
         </View>
-        <View
+
+        <TextInput
+          allowFontScaling={false}
           style={{
-            flexDirection: 'row',
-            width: '90%',
-            marginTop: 12,
-            //  height: 40,
-            alignItems: 'center',
-            alignSelf: 'center',
-            borderWidth: 1,
-            borderColor: Colors.BorderColor,
-            borderRadius: 4,
+            color: Colors.black,
+            flex: 1,
+            marginLeft: 16,
+            marginRight: 16,
+            borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            paddingHorizontal: 8,
-            paddingTop: 2
-          }}>
-          <TextInput
-            allowFontScaling={false}
-            style={{ color: 'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
-            placeholder='Twitter'
-            placeholderTextColor={Colors.placeholderTextColor}
-            keyboardType="default"
-            returnKeyType="done"
-          />
-        </View>
+            fontSize: 14,
+            padding: 10,
+            borderColor: Colors.BorderColor,
+            borderWidth: 1
+          }} placeholder='Twitter'
+          placeholderTextColor={Colors.placeholderTextColor}
+          value={twitter}
+          keyboardType="default"
+          returnKeyType="done"
+          onChangeText={twitter => setTwitter(twitter)}
+        />
+
 
         <View
           style={{
@@ -623,30 +615,28 @@ const Settings = props => {
             Instagram
           </Text>
         </View>
-        <View
+
+        <TextInput
+          allowFontScaling={false}
           style={{
-            flexDirection: 'row',
-            width: '90%',
-            marginTop: 12,
-            //  height: 40,
-            alignItems: 'center',
-            alignSelf: 'center',
-            borderWidth: 1,
-            borderColor: Colors.BorderColor,
-            borderRadius: 4,
+            color: Colors.black,
+            flex: 1,
+            marginLeft: 16,
+            marginRight: 16,
+            borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            paddingHorizontal: 8,
-            paddingTop: 2
-          }}>
-          <TextInput
-            allowFontScaling={false}
-            style={{ color: 'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
-            placeholder='Instagram'
-            placeholderTextColor={Colors.placeholderTextColor}
-            keyboardType="default"
-            returnKeyType="done"
-          />
-        </View>
+            fontSize: 14,
+            padding: 10,
+            borderColor: Colors.BorderColor,
+            borderWidth: 1
+          }} placeholder='Instagram'
+          placeholderTextColor={Colors.placeholderTextColor}
+          value={instagram}
+          keyboardType="default"
+          returnKeyType="done"
+          onChangeText={instagram => setInstagram(instagram)}
+        />
+
 
         <View
           style={{
@@ -664,30 +654,27 @@ const Settings = props => {
             Threads
           </Text>
         </View>
-        <View
+
+        <TextInput
+          allowFontScaling={false}
           style={{
-            flexDirection: 'row',
-            width: '90%',
-            marginTop: 12,
-            //  height: 40,
-            alignItems: 'center',
-            alignSelf: 'center',
-            borderWidth: 1,
-            borderColor: Colors.BorderColor,
-            borderRadius: 4,
+            color: Colors.black,
+            flex: 1,
+            marginLeft: 16,
+            marginRight: 16,
+            borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            paddingHorizontal: 8,
-            paddingTop: 2
-          }}>
-          <TextInput
-            allowFontScaling={false}
-            style={{ color: 'black', flex: 1, fontFamily: 'Poppins-Regular', fontSize: 14 }}
-            placeholder='Threads'
-            placeholderTextColor={Colors.placeholderTextColor}
-            keyboardType="default"
-            returnKeyType="done"
-          />
-        </View>
+            fontSize: 14,
+            padding: 10,
+            borderColor: Colors.BorderColor,
+            borderWidth: 1
+          }} placeholder='Threads'
+          placeholderTextColor={Colors.placeholderTextColor}
+          value={threads}
+          keyboardType="default"
+          returnKeyType="done"
+          onChangeText={threads => setThreads(threads)}
+        />
 
 
         <View style={{ paddingHorizontal: 22, marginTop: 20, justifyContent: 'space-between', marginHorizontal: 0, width: "100%", flexDirection: "row", alignItems: "center" }}>
@@ -696,9 +683,6 @@ const Settings = props => {
             <Image source={Images.signOut} style={{ height: 20, width: 20 }} />
             <Text style={{ marginLeft: 6, fontSize: 16, color: "black", fontFamily: 'Poppins-Regular' }}>Signout</Text>
           </TouchableOpacity>
-
-
-
 
           <TouchableOpacity
             onPress={() => saveFile()}
@@ -741,20 +725,7 @@ const Settings = props => {
             )}
           </TouchableOpacity>
         </View>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <View style={{ height: 40 }}></View>
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
@@ -817,6 +788,21 @@ const styles = StyleSheet.create({
   //fliter
   filter: {
     height: 60,
+  }, screen1: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: 40,
+    borderRadius: 100,
+    backgroundColor: Colors.gray,
+  },
+  imagedata: {
+    height: 12,
+    width: 12,
+    resizeMode: 'contain',
+    tintColor: Colors.black,
+    // transform: [{ rotate: '90deg' }],
   },
 });
 

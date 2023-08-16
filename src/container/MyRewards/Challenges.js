@@ -64,55 +64,55 @@ const Challenges = () => {
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       <View
         style={{
-          marginTop: 4,
+          marginTop: 9,
           flexDirection: 'row',
           justifyContent: 'center',
+          alignItems: "center",
           width: '100%',
           marginLeft: 0,
         }}>
+        <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", position: "absolute", left: 8, justifyContent: "center" }} onPress={() => { navigation.goBack() }}>
+          <Image
+            style={{
+              width: 11,
+              height: 11,
+              resizeMode: "contain",
+              // position: "absolute",
+              // left: 0,
+              marginTop: -1,
+              transform: [{ rotate: '90deg' }]
+            }}
+            source={Images.downArrow}
+          ></Image>
+          <Text style={{
+            fontSize: 14,
+            color: Colors.black,
+            fontFamily: 'Poppins-Regular', marginLeft: 5
+          }}>Back</Text>
+        </TouchableOpacity>
         <Text style={{ fontSize: 20, color: Colors.black, fontFamily: 'Poppins-Medium', color: Colors.black, textAlign: "center" }}>Challenges</Text>
-        <View
+        <TouchableOpacity
           style={{
-            flexDirection: 'row',
-            width: '90%',
-            alignSelf: 'center',
+            alignItems: 'center',
+            position: "absolute",
+            right: 10,
+            top: -8,
 
+            flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            overflow: 'visible',
-            zIndex: 99,
-            position: 'absolute',
-            top: 10,
-          }}>
-
-          <TouchableOpacity
-            style={{
-              alignItems: 'center',
-              position: "absolute",
-              right: -12,
-              top: -10,
-
-              backgroundColor: Colors.surfblur,
-              height: 25,
-              width: 25,
-              borderRadius: 100,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            onPress={() => navigation.goBack()}
-          >
-            <Animatable.Image
-              source={Images.whiteclose}
-              style={{
-                height: 10,
-                width: 10,
-                resizeMode: 'contain',
-                tintColor: Colors.white,
-              }}
-              animation="flipInY"
-            />
-          </TouchableOpacity>
-        </View>
+            height: 40,
+            width: 40,
+            borderRadius: 100,
+            backgroundColor: Colors.gray,
+          }}
+          onPress={() => navigation.goBack()}  >
+          <Animatable.Image
+            source={Images.whiteclose}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
       </View>
 
       <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', color: Colors.black, height: "100%", width: "100%", }}>
@@ -138,7 +138,7 @@ const Challenges = () => {
                       width: screenWidth
                     }}
                   >
-                    <Text style={{ paddingHorizontal: 12, width: screenWidth, fontSize: 14, marginTop: 20, color: Colors.black, fontFamily: 'Poppins-Regular', height: 60, }}>{"Q."}{index + 1}{" : "}{item?.post_title}</Text>
+                    <Text style={{ textAlign: "center", justifyContent: "center", alignItems: "center", paddingHorizontal: 12, width: screenWidth, fontSize: 18, marginTop: 20, color: Colors.black, fontFamily: 'Poppins-Regular', height: 60, }}>{"Q."}{index + 1}{" : "}{item?.post_title}</Text>
                     <View style={{ flexDirection: "row", justifyContent: 'center', alignItems: 'center', alignContent: 'center', }} >
                       <TouchableOpacity onPress={() => {
                         if (isSelected) {
@@ -151,17 +151,19 @@ const Challenges = () => {
                         // setIsImageChanged(true);
                         // setIsImage(false)
                         // setNextText(true)
-                        const payload = {
-                          user_id: user_ID,
-                          title: item.post_title,
-                          post_id: item.ID,
-                          points: item.points
-                        }
+
+                        const formData = new FormData()
+                        formData.append('user_id', user_ID)
+                        formData.append('title', item.post_title)
+                        formData.append('post_id', item.ID)
+                        formData.append('points', item.points)
                         console.log(" likeDisLike selectedTabsMore", selectedTabsMore)
                         console.log(" likeDisLike selectedTabsMore2", selectedTabsMore2)
 
-                        dispatch(likeDisLike(payload)).then(response => {
-                          console.log(response)
+                        dispatch(likeDisLike(formData)).then((response) => {
+                          console.log('Questoon response', response.payload)
+                        }).catch((e) => {
+                          console.log('error ', e)
                         });
                       }}
                         activeOpacity={0.8}
@@ -304,6 +306,22 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     borderColor: Colors.surfblur,
     lineHeight: 17
+  },
+  screen1: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: 40,
+    borderRadius: 100,
+    backgroundColor: Colors.gray,
+  },
+  imagedata: {
+    height: 12,
+    width: 12,
+    resizeMode: 'contain',
+    tintColor: Colors.black,
+    // transform: [{ rotate: '90deg' }],
   },
 });
 export default Challenges

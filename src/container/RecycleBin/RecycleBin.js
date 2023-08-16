@@ -248,7 +248,7 @@ const RecycleBin = () => {
   const renderItem = ({ item }) => (
 
     <View style={styles.slideOuter}>
-      <TouchableOpacity onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }) }}>
+      <TouchableOpacity onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID, from: 'RecycleBin' }) }}>
         <Image source={{ uri: item.featured_image_src[0].guid }} style={styles.slide} />
       </TouchableOpacity>
 
@@ -322,6 +322,25 @@ const RecycleBin = () => {
               style={{ height: 18, width: 18, resizeMode: 'contain', position: "relative", left: 8, marginLeft: 0 }}></Image>
           </TouchableOpacity>
         </View>
+
+      </View>
+      <View
+        style={{
+          width: '100%',
+          alignSelf: 'center',
+          justifyContent: 'center',
+          paddingHorizontal: 12,
+        }}>
+        <Text
+
+          style={{
+            fontSize: 15,
+            color: Colors.black,
+            textAlign: 'center',
+            fontFamily: 'Poppins-Medium',
+          }}>
+          {item?.title}
+        </Text>
       </View>
       <KeyboardAvoidingView behavior="padding">
 
@@ -379,13 +398,13 @@ const RecycleBin = () => {
                     Your Review
                   </Text>
                   <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text>
-                  {!isEditing && (
+                  {/* {!isEditing && (
                     <TouchableOpacity
                       onPress={() => setIsEditing(true)}
                       style={{ marginTop: 10 }}>
                       <Text style={{ fontSize: 12, color: Colors.darbluec, fontFamily: "Poppins-Regular" }}>Edit</Text>
                     </TouchableOpacity>
-                  )}
+                  )} */}
                 </View>
                 <View style={{ width: '100%', }}>
                   <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -397,7 +416,7 @@ const RecycleBin = () => {
                         marginTop: 10,
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Photos Quality Rating :
+                        Photos :
                       </Text>
                       <Rating
                         type="custom"
@@ -422,7 +441,7 @@ const RecycleBin = () => {
                         alignItems: 'center',
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Description & Details :
+                        Description Accuracy :
                       </Text>
                       <Rating
                         type="custom"
@@ -446,7 +465,7 @@ const RecycleBin = () => {
                         alignItems: 'center',
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Price Of Property :
+                        Price :
                       </Text>
                       <Rating
                         type="custom"
@@ -471,7 +490,7 @@ const RecycleBin = () => {
                         alignItems: 'center',
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        General Interest in the property :
+                        Interest in Property :
                       </Text>
                       <Rating
                         type="custom"
@@ -822,7 +841,7 @@ const RecycleBin = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View
+      {/* <View
         style={{
           marginTop: 4,
           flexDirection: 'row',
@@ -873,6 +892,63 @@ const RecycleBin = () => {
             />
           </TouchableOpacity>
         </View>
+      </View> */}
+
+      <View
+        style={{
+          marginTop: 0,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          width: '100%',
+          marginLeft: 0,
+          marginBottom: 0,
+          height: 45,
+          alignItems: "center",
+
+        }}>
+        <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", position: "absolute", left: 8, justifyContent: "center", top: 12 }} onPress={() => { navigation.goBack() }}>
+          <Image
+            style={{
+              width: 11,
+              height: 11,
+              resizeMode: "contain",
+              // position: "absolute",
+              // left: 0,
+              marginTop: -1,
+              transform: [{ rotate: '90deg' }]
+            }}
+            source={Images.downArrow}
+          ></Image>
+          <Text style={{
+            fontSize: 14,
+            color: Colors.black,
+            fontFamily: 'Poppins-Regular', marginLeft: 5
+          }}>Back</Text>
+        </TouchableOpacity>
+        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Recycle Bin</Text>
+
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            position: "absolute",
+            right: 10,
+            top: 2,
+
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 40,
+            width: 40,
+            borderRadius: 100,
+            backgroundColor: Colors.gray,
+          }}
+          onPress={() => navigation.goBack()}  >
+          <Animatable.Image
+            source={Images.whiteclose}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
       </View>
       <View style={{ height: '100%', width: '100%' }}>
         {showNoDataMessage ? (
@@ -914,6 +990,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 18,
+  },
+  screen1: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: 40,
+    borderRadius: 100,
+    backgroundColor: Colors.gray,
+  },
+  imagedata: {
+    height: 12,
+    width: 12,
+    resizeMode: 'contain',
+    tintColor: Colors.black,
+    // transform: [{ rotate: '90deg' }],
   },
   slide: {
     width: screenWidth - 16,

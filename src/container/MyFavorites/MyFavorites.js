@@ -251,7 +251,7 @@ const MyFavorites = (props) => {
     <View style={[styles.slideOuter]}>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('ViewPropertiy', { ID: item.ID })}>
+        onPress={() => navigation.navigate('ViewPropertiy', { ID: item.ID, from: 'MyFavorites' })}>
         <Image source={{ uri: item?.featured_image_src[0].guid }} style={styles.slide} />
       </TouchableOpacity>
 
@@ -321,6 +321,7 @@ const MyFavorites = (props) => {
           </Text>
         </TouchableOpacity>
 
+
         <View
           style={{
             flexDirection: 'row',
@@ -358,8 +359,26 @@ const MyFavorites = (props) => {
               style={{ height: 18, width: 18, resizeMode: 'contain', position: "relative", left: 8, top: 1 }}></Image>
           </TouchableOpacity>
         </View>
-      </View>
 
+      </View>
+      <View
+        style={{
+          width: '100%',
+          alignSelf: 'center',
+          justifyContent: 'center',
+          paddingHorizontal: 12,
+        }}>
+        <Text
+          numberOfLines={1}
+          style={{
+            fontSize: 15,
+            color: Colors.black,
+            textAlign: 'center',
+            fontFamily: 'Poppins-Medium',
+          }}>
+          {item?.title}
+        </Text>
+      </View>
       <KeyboardAvoidingView behavior="padding">
 
         <Modal
@@ -416,13 +435,13 @@ const MyFavorites = (props) => {
                     Your Review
                   </Text>
                   <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text>
-                  {!isEditing && (
+                  {/* {!isEditing && (
                     <TouchableOpacity
                       onPress={() => setIsEditing(true)}
                       style={{ marginTop: 0 }}>
                       <Text style={{ fontSize: 12, color: Colors.surfblur, fontFamily: "Poppins-Regular" }}>Edit</Text>
                     </TouchableOpacity>
-                  )}
+                  )} */}
                 </View>
                 <View style={{ width: '100%', }}>
                   <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -434,7 +453,7 @@ const MyFavorites = (props) => {
                         marginTop: 10,
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Photos Quality Rating :
+                        Photos :
                       </Text>
                       <Rating
                         type="custom"
@@ -459,7 +478,7 @@ const MyFavorites = (props) => {
                         alignItems: 'center',
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Description & Details :
+                        Description Accuracy :
                       </Text>
                       <Rating
                         type="custom"
@@ -483,7 +502,7 @@ const MyFavorites = (props) => {
                         alignItems: 'center',
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Price Of Property :
+                        Price :
                       </Text>
                       <Rating
                         type="custom"
@@ -509,7 +528,7 @@ const MyFavorites = (props) => {
                         alignItems: 'center',
                       }}>
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        General Interest in the property :
+                        Interest in Property :
                       </Text>
                       <Rating
                         type="custom"
@@ -1056,56 +1075,63 @@ const MyFavorites = (props) => {
     <SafeAreaView style={styles.container}>
       <View
         style={{
-          marginTop: 4,
+          marginTop: 0,
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
           marginLeft: 0,
-          marginBottom: 0
+          marginBottom: 0,
+          height: 45,
+          alignItems: "center",
+
         }}>
-        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Favorties </Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            width: '90%',
-            alignSelf: 'center',
-
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-            overflow: 'visible',
-            zIndex: 99,
-            position: 'absolute',
-            top: 10,
-          }}>
-          <TouchableOpacity
+        <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", position: "absolute", left: 8, justifyContent: "center", top: 12 }} onPress={() => { navigation.goBack() }}>
+          <Image
             style={{
-              alignItems: 'center',
-              position: "absolute",
-              right: -12,
-              top: -10,
-
-              backgroundColor: Colors.surfblur,
-              height: 25,
-              width: 25,
-              borderRadius: 100,
-              alignItems: "center",
-              justifyContent: "center",
+              width: 11,
+              height: 11,
+              resizeMode: "contain",
+              // position: "absolute",
+              // left: 0,
+              marginTop: -1,
+              transform: [{ rotate: '90deg' }]
             }}
-            onPress={() => { props?.route?.params?.from === 'menu' ? navigation.goBack() : navigation.navigate('Home') }}
-          >
-            <Animatable.Image
-              source={Images.whiteclose}
-              style={{
-                height: 10,
-                width: 10,
-                resizeMode: 'contain',
-                tintColor: Colors.white,
-              }}
-              animation="flipInY"
-            />
-          </TouchableOpacity>
-        </View>
+            source={Images.downArrow}
+          ></Image>
+          <Text style={{
+            fontSize: 14,
+            color: Colors.black,
+            fontFamily: 'Poppins-Regular', marginLeft: 5
+          }}>Back</Text>
+        </TouchableOpacity>
+        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Favorties </Text>
+
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            position: "absolute",
+            right: 10,
+            top: 2,
+
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 40,
+            width: 40,
+            borderRadius: 100,
+            backgroundColor: Colors.gray,
+          }}
+          onPress={() => { props?.route?.params?.from === 'menu' ? navigation.goBack() : navigation.navigate('Home') }}
+        >
+          <Animatable.Image
+            source={Images.whiteclose}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
       </View>
+      {/* </View> */}
+
       <View style={{ height: '100%', width: '100%' }}>
         {showNoDataMessage ? (
           <View
@@ -1121,6 +1147,7 @@ const MyFavorites = (props) => {
               No Property in Favorite !!
             </Text>
           </View>
+
         ) : (
           <FlatList
             data={data}
@@ -1131,6 +1158,7 @@ const MyFavorites = (props) => {
 
         )}
       </View>
+
     </SafeAreaView>
   );
 };
@@ -1218,6 +1246,22 @@ const styles = StyleSheet.create({
   ratingText: {
     fontSize: 18,
     //fontWeight: 'bold',
+  },
+  screen1: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: 40,
+    borderRadius: 100,
+    backgroundColor: Colors.gray,
+  },
+  imagedata: {
+    height: 12,
+    width: 12,
+    resizeMode: 'contain',
+    tintColor: Colors.black,
+    // transform: [{ rotate: '90deg' }],
   },
 });
 

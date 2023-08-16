@@ -19,7 +19,7 @@ import Speedmeter from '../../components/speedmeter';
 import Fonts from '../../utils/Fonts';
 const App = (props) => {
   const navigation = useNavigation();
-  const [meterValue, setMeterValue] = useState(300000);
+  const [meterValue, setMeterValue] = useState(500);
   const [backgroundColor, setBackgroundColor] = useState('blue');
   const [textColor, setTextColor] = useState('white');
   const [borderColor, setBorderColor] = useState('black');
@@ -59,8 +59,63 @@ const App = (props) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
-
       <View
+        style={{
+          marginTop: 0,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          width: '100%',
+          marginLeft: 0,
+          marginBottom: 0,
+          height: 45,
+          alignItems: "center",
+
+        }}>
+        <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", position: "absolute", left: 8, justifyContent: "center", top: 12 }} onPress={() => { navigation.goBack() }}>
+          <Image
+            style={{
+              width: 11,
+              height: 11,
+              resizeMode: "contain",
+              // position: "absolute",
+              // left: 0,
+              marginTop: -1,
+              transform: [{ rotate: '90deg' }]
+            }}
+            source={Images.downArrow}
+          ></Image>
+          <Text style={{
+            fontSize: 14,
+            color: Colors.black,
+            fontFamily: 'Poppins-Regular', marginLeft: 5
+          }}>Back</Text>
+        </TouchableOpacity>
+        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Surf Rewards</Text>
+
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            position: "absolute",
+            right: 10,
+            top: 2,
+
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 40,
+            width: 40,
+            borderRadius: 100,
+            backgroundColor: Colors.gray,
+          }}
+          onPress={() => navigation.goBack()}  >
+          <Animatable.Image
+            source={Images.whiteclose}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
+      </View>
+      {/* <View
         style={{
           marginTop: 4,
           flexDirection: 'row',
@@ -113,7 +168,7 @@ const App = (props) => {
             />
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
       <View style={{ height: "90%", justifyContent: 'space-between' }}>
         <View style={{ marginTop: 30 }}>
           <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: 20 }}>
@@ -130,8 +185,8 @@ const App = (props) => {
             </View>
             <Slider
               style={{ width: "90%", justifyContent: "center" }}
-              minimumValue={100000}
-              maximumValue={1000000}
+              minimumValue={1000}
+              maximumValue={10000}
               minimumTrackTintColor={Colors.surfblur}
               maximumTrackTintColor={Colors.gray}
               thumbTintColor={Colors.white}
@@ -158,7 +213,7 @@ const App = (props) => {
           <Text style={{ fontSize: 22, fontFamily: Fonts.regular, textAlign: 'center', color: "black", }}>Your Rebate </Text>
           <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center' }}>
             <Text style={{ fontSize: 66, fontFamily: Fonts.bold, color: "black", }}>$</Text>
-            <Text style={{ fontSize: 22, fontFamily: Fonts.bold, color: "black", marginTop: 44 }}>{meterValue * 0.003}</Text>
+            <Text style={{ fontSize: 22, fontFamily: Fonts.bold, color: "black", marginTop: 44 }}>{Math.round(meterValue * 0.003)}</Text>
 
           </View>
         </View>
@@ -215,6 +270,22 @@ const styles = StyleSheet.create({
     marginTop: 30,
     borderBottomWidth: 0.3,
     borderBottomColor: 'black',
+  },
+  screen1: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: 40,
+    borderRadius: 100,
+    backgroundColor: Colors.gray,
+  },
+  imagedata: {
+    height: 12,
+    width: 12,
+    resizeMode: 'contain',
+    tintColor: Colors.black,
+    // transform: [{ rotate: '90deg' }],
   },
   rew: {
     height: 45,

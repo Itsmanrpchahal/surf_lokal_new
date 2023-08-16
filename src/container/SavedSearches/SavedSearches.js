@@ -155,6 +155,7 @@ const MyFavorites = ({ navigation }) => {
                 value={updatedParameters[item.ID]?.[parameterIndex] ?? parameter}
                 style={{
                   color: 'black',
+                  backgroundColor: isEditing ? Colors.gray : Colors.white,
                   height: isEditing ? 40 : 40, borderColor: isEditing ? Colors.white : Colors.BorderColor, borderWidth: 1, padding: 12, borderRadius: 7, verticalAlign: "top",
                   marginBottom: 12
                 }}
@@ -250,57 +251,61 @@ const MyFavorites = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <View
         style={{
-          marginTop: 4,
+          marginTop: 0,
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
           marginLeft: 0,
-          marginBottom: 4
+          marginBottom: 0,
+          height: 45,
+          alignItems: "center",
+
         }}>
-        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Saved Searches</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            width: '90%',
-            alignSelf: 'center',
-
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-            overflow: 'visible',
-            zIndex: 99,
-            position: 'absolute',
-            top: 10,
-          }}>
-
-          <TouchableOpacity
+        <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", position: "absolute", left: 8, justifyContent: "center", top: 12 }} onPress={() => { navigation.goBack() }}>
+          <Image
             style={{
-              alignItems: 'center',
-              position: "absolute",
-              right: -12,
-              top: -10,
-
-              backgroundColor: Colors.surfblur,
-              height: 25,
-              width: 25,
-              borderRadius: 100,
-              alignItems: "center",
-              justifyContent: "center",
+              width: 11,
+              height: 11,
+              resizeMode: "contain",
+              // position: "absolute",
+              // left: 0,
+              marginTop: -1,
+              transform: [{ rotate: '90deg' }]
             }}
-            onPress={() => navigation.goBack()}
-          >
-            <Animatable.Image
-              source={Images.whiteclose}
-              style={{
-                height: 10,
-                width: 10,
-                resizeMode: 'contain',
-                tintColor: Colors.white,
-              }}
-              animation="flipInY"
-            />
-          </TouchableOpacity>
-        </View>
+            source={Images.downArrow}
+          ></Image>
+          <Text style={{
+            fontSize: 14,
+            color: Colors.black,
+            fontFamily: 'Poppins-Regular', marginLeft: 5
+          }}>Back</Text>
+        </TouchableOpacity>
+        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Saved Searches </Text>
+
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            position: "absolute",
+            right: 10,
+            top: 2,
+
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 40,
+            width: 40,
+            borderRadius: 100,
+            backgroundColor: Colors.gray,
+          }}
+          onPress={() => navigation.goBack()}  >
+          <Animatable.Image
+            source={Images.whiteclose}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
       </View>
+
       {/* <View
         style={{
           marginTop: 8,
@@ -454,6 +459,22 @@ const styles = StyleSheet.create({
   //fliter
   filter: {
     height: 60,
+  },
+  screen1: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: 40,
+    borderRadius: 100,
+    backgroundColor: Colors.gray,
+  },
+  imagedata: {
+    height: 12,
+    width: 12,
+    resizeMode: 'contain',
+    tintColor: Colors.black,
+    // transform: [{ rotate: '90deg' }],
   },
 });
 

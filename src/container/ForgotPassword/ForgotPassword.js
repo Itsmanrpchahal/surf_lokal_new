@@ -110,8 +110,8 @@ export default function ForgotPassword({ navigation }) {
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            height: 28,
-            width: 28,
+            height: 40,
+            width: 40,
             borderRadius: 100,
             backgroundColor: Colors.gray,
           }}>
@@ -123,6 +123,7 @@ export default function ForgotPassword({ navigation }) {
             transform: [{ rotate: '90deg' }],
           }}></Image>
         </TouchableOpacity>
+
       </View>
       {/* <View style={Styles.loginView}>
         <Text style={Styles.loginText}>

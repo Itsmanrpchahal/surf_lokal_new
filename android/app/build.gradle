@@ -89,6 +89,19 @@ def reactNativeArchitectures() {
     return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
 }
 
+allprojects {
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven { url "$rootDir/../node_modules/react-native/android" }
+
+        // ADD THIS
+        maven { url 'https://maven.google.com' }
+
+        // ADD THIS
+        maven { url "https://www.jitpack.io" }
+    }
+}
 android {
     ndkVersion rootProject.ext.ndkVersion
 
