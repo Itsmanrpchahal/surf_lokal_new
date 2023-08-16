@@ -1372,7 +1372,9 @@ const Home = () => {
                                       </TouchableOpacity>
                                     </View>
 
+
                                     <View style={{ opacity: 0, position: "absolute", zIndex: 9, top: "40%", justifyContent: "space-between", width: "100%", height: "100%", }}>
+
                                       <Image
                                         source={Images.next}
                                         style={{
@@ -2214,7 +2216,7 @@ const Home = () => {
                                 <Marker
                                   showCallout={true}
                                   coordinate={{ latitude: parseFloat(item?.property_latitude), longitude: parseFloat(item?.property_longitude) }}>
-                                  <Image source={Images.lot} style={{ height: 50, width: 100, resizeMode: 'contain' }} />
+                                  <Image source={Images.locationss} style={{ height: 50, width: 100, resizeMode: 'contain' }} />
                                   <Callout onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }); }}
                                     style={{
                                       height: 70, alignItems: "center", alignSelf: "center",

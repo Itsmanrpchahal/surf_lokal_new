@@ -23,7 +23,10 @@ import RecycleBin from '../container/RecycleBin/RecycleBin';
 import ViewProperty2 from '../container/ViewPropertiy/ViewProperty2';
 import BookaTour from '../container/Chat/BookaTour';
 import ChatHistory from '../container/ChatHistory/ChatHistory';
+import ContactSurf from '../container/ContactMyAgent/ContactSurf';
+
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 
 
 const Stack = createStackNavigator();
@@ -70,14 +73,16 @@ const StackNavigator = () => {
         <Stack.Screen name="Videoplay" component={Videoplay} />
         <Stack.Screen name="Challenges" component={Challenges} />
         <Stack.Screen name="Leaderboard" component={Leaderboard} />
-
         <Stack.Screen name="Schoolinfo" component={Schoolinfo} />
-
         <Stack.Screen name="RecycleBin" component={RecycleBin} />
         <Stack.Screen name="ChatHistory" component={ChatHistory} />
+        <Stack.Screen name="ContactSurf" component={ContactSurf} />
+
+
 
       </Stack.Navigator>
     </SafeAreaProvider>
+
 
   ) : null;
 };

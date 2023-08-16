@@ -230,7 +230,7 @@ const ContactMyAgent = () => {
           marginLeft: 0,
           marginBottom: 4
         }}>
-        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Contact Surf Lokal</Text>
+        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Contact My Agent</Text>
         <View
           style={{
             flexDirection: 'row',

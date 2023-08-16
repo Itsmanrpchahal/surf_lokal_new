@@ -508,7 +508,7 @@ const ViewPropertiy = (props, imageUrl) => {
                 showCallout={true}
                 coordinate={{ latitude: parseFloat(pin.latitude), longitude: parseFloat(pin.longitude) }}
               >
-                <Image source={Images.lot} style={{ height: 50, width: 100, resizeMode: 'contain', }} />
+                <Image source={Images.locationss} style={{ height: 50, width: 100, resizeMode: 'contain', }} />
 
                 <Callout onPress={() => { navigation.navigate('ViewProperty2', { property }) }}
                   style={{
@@ -556,7 +556,7 @@ const ViewPropertiy = (props, imageUrl) => {
     return (
       <>
 
-        <Text style={[styles.propertyt, { marginBottom: 0, paddingBottom: 0 }]}>Nearby</Text>
+        <Text style={[styles.propertyt, { marginBottom: 0, paddingBottom: 0 }]}>What's Nearby</Text>
         <View style={{ paddingHorizontal: 20 }}>
           <View style={styles.address}>
             <FlatList
