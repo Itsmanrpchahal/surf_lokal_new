@@ -87,6 +87,7 @@ const Notification = () => {
             marginBottom: 0,
             height: 45,
             alignItems: "center",
+            backgroundColor: Colors.white, borderBottomColor: Colors.BorderColor, borderBottomWidth: 1
 
           }}>
           <TouchableOpacity style={{ top: 12, flexDirection: "row", alignItems: "center", position: "absolute", left: 8, justifyContent: "center" }} onPress={() => { navigation.goBack() }}>
@@ -223,7 +224,7 @@ const Notification = () => {
           }}
         >
           <Text style={{ fontSize: 16, color: Colors.black, fontFamily: 'Poppins-Medium', marginLeft: 12 }}>
-            Allow Notification
+            You Have <Text style={{ color: "red", fontFamily: 'Poppins-SemiBold', }}>2</Text> New Notifications
           </Text>
           <View style={{ marginTop: -4 }}>
             <Switch

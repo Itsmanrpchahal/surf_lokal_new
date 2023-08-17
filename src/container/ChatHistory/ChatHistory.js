@@ -43,7 +43,7 @@ const ChatHistory = ({ navigation }) => {
                     borderColor: '#c9c9c5'
                 }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '100%' }}>
-                        <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", position: "absolute", left: 0, justifyContent: "center", top: 3 }} onPress={() => { navigation.goBack() }}>
+                        <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", position: "absolute", left: 0, justifyContent: "center", top: 4 }} onPress={() => { navigation.goBack() }}>
                             <Image
                                 style={{
                                     width: 11,
@@ -62,7 +62,7 @@ const ChatHistory = ({ navigation }) => {
                                 fontFamily: 'Poppins-Regular', marginLeft: 5
                             }}>Back</Text>
                         </TouchableOpacity>
-                        <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: Colors.black, textAlign: "center" }}> Chat History</Text>
+                        <Text style={{ fontSize: 16, fontFamily: 'Poppins-SemiBold', color: Colors.black, textAlign: "center" }}> Chat History</Text>
                         <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: Colors.black, textAlign: "center" }}></Text>
 
                     </View>
@@ -91,8 +91,8 @@ const ChatHistory = ({ navigation }) => {
                                             maxWidth: '80%',
                                         }}>
 
-                                            <Text numberOfLines={1} style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-Regular', textTransform: 'capitalize', fontSize: 16, lineHeight: 18 }}>{item?.item?.post_title}</Text>
-                                            <Text style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-Medium', textTransform: 'capitalize', fontSize: 15, lineHeight: 18 }}>${item?.item?.property_price}</Text>
+                                            <Text numberOfLines={1} style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-SemiBold', textTransform: 'capitalize', fontSize: 16, lineHeight: 18 }}>{item?.item?.post_title}</Text>
+                                            <Text style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-SemiBold', textTransform: 'capitalize', fontSize: 15, lineHeight: 18 }}>${item?.item?.property_price}</Text>
                                             <Text style={{ color: Colors.newgray, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-Regular', textTransform: 'capitalize', fontSize: 12 }}>{item.item.post_date}</Text>
                                         </View>
                                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>

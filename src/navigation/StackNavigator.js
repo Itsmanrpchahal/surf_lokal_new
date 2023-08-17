@@ -24,7 +24,7 @@ import ViewProperty2 from '../container/ViewPropertiy/ViewProperty2';
 import BookaTour from '../container/Chat/BookaTour';
 import ChatHistory from '../container/ChatHistory/ChatHistory';
 import ContactSurf from '../container/ContactMyAgent/ContactSurf';
-
+import Video from '../components/Video/video'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 
@@ -58,6 +58,7 @@ const StackNavigator = () => {
         initialRouteName={'Login'}
       >
         <Stack.Screen name="BookaTour" component={BookaTour} />
+        <Stack.Screen name="Video" component={Video} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />

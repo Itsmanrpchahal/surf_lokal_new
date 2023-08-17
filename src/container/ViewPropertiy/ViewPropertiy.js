@@ -727,7 +727,9 @@ const ViewPropertiy = (props, imageUrl) => {
               width: '100%',
               // alignSelf: 'center',
               justifyContent: 'flex-start',
+
               alignItems: "flex-start",  position: "relative",
+
               zIndex: 999,
 
             }}>
@@ -742,6 +744,8 @@ const ViewPropertiy = (props, imageUrl) => {
               position: 'relative', width: '100%',  position: "relative",
               zIndex: 999,
               // marginTop: 40,
+              position: "relative",
+              zIndex: 999,
             }}>
 
               <View style={[{
@@ -769,77 +773,77 @@ const ViewPropertiy = (props, imageUrl) => {
                   onSwipedRight={() => { savefile(property.ID) }}
                   renderNope={() =>
                     props.route.params.from === 'MyFavorites' || props.route.params.from === 'Home' ?
-                    <View
-                      style={{
-                        height: cardWidth, width: cardWidth - 8, backgroundColor: "red",
-                        borderRadius: 15,
-                        overflow: "hidden",
-                        top: 8,
-                        right: 5
-                      }}>
-                      <View style={{
-                        position: "absolute",
-                        width: "100%", height: '100%', justifyContent: "center", alignItems: 'center'
-                      }}>
-                        <View
-                          style={{
-                            backgroundColor: Colors.white,
-                            height: 50,
-                            width: 50,
-                            borderRadius: 100,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-
-
-                          }}>
-                          <Image
-                            source={Images.deletethumb}
+                      <View
+                        style={{
+                          height: cardWidth, width: cardWidth - 8, backgroundColor: "red",
+                          borderRadius: 15,
+                          overflow: "hidden",
+                          top: 8,
+                          right: 5
+                        }}>
+                        <View style={{
+                          position: "absolute",
+                          width: "100%", height: '100%', justifyContent: "center", alignItems: 'center'
+                        }}>
+                          <View
                             style={{
-                              height: 25,
-                              width: 25,
-                              tintColor: "red",
-                            }}
-                          />
+                              backgroundColor: Colors.white,
+                              height: 50,
+                              width: 50,
+                              borderRadius: 100,
+                              alignItems: 'center',
+                              justifyContent: 'center',
+
+
+                            }}>
+                            <Image
+                              source={Images.deletethumb}
+                              style={{
+                                height: 25,
+                                width: 25,
+                                tintColor: "red",
+                              }}
+                            />
+                          </View>
                         </View>
-                      </View>
                       </View> : null
                   }
                   renderYep={() => (
                     props.route.params.from === 'RecycleBin' || props.route.params.from === 'Home' ?
-                    <View
-                      style={{
+                      <View
+                        style={{
 
-                        height: cardWidth, width: cardWidth - 8, backgroundColor: "green",
-                        borderRadius: 15,
-                        marginTop: 10,
-                        overflow: "hidden", position: "absolute",
-                        left: 5,
-                      }}>
-                      <View style={{
-                        position: "absolute",
-                        height: '100%', width: '100%', alignItems: 'center', justifyContent: "center"
-                      }}>
-                        <View
-                          style={{
-                            backgroundColor: Colors.white,
-                            height: 50,
-                            width: 50,
-                            borderRadius: 100,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-
-
-                          }}>
-                          <Image
-                            source={Images.ThumbUp}
+                          height: cardWidth, width: cardWidth - 8, backgroundColor: "green",
+                          borderRadius: 15,
+                          marginTop: 10,
+                          overflow: "hidden", position: "absolute",
+                          left: 5,
+                        }}>
+                        <View style={{
+                          position: "absolute",
+                          height: '100%', width: '100%', alignItems: 'center', justifyContent: "center"
+                        }}>
+                          <View
                             style={{
-                              height: 25,
-                              width: 25,
-                              tintColor: "green",
-                            }}
-                          />
+                              backgroundColor: Colors.white,
+                              height: 50,
+                              width: 50,
+                              borderRadius: 100,
+                              alignItems: 'center',
+                              justifyContent: 'center',
+
+
+                            }}>
+                            <Image
+                              source={Images.ThumbUp}
+                              style={{
+                                height: 25,
+                                width: 25,
+                                tintColor: "green",
+                              }}
+                            />
+                          </View>
                         </View>
-                      </View>
                       </View> : null
                   )}
 
