@@ -377,8 +377,8 @@ const ContactSurf = () => {
             <TouchableOpacity
               style={[styles.iconcover, { backgroundColor: "#5f3d1c" }]}
               onPress={() => {
-                setModalVisible(true)
-                _onConnectButtonPress()
+                // setModalVisible(true)
+                // _onConnectButtonPress()
                 // navigation.navigate('Video')
               }}
             >
@@ -442,7 +442,7 @@ const ContactSurf = () => {
                 }}>
 
                 <View style={{ flexDirection: "row", justifyContent: "flex-start", flexWrap: "wrap", textAlign: "center", marginBottom: 12 }}>
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     onPress={() => navigation.navigate("ChatSearch", { agentData })}
 
                     style={styles.buttonview}>
@@ -466,7 +466,7 @@ const ContactSurf = () => {
                     <Text style={styles.buttonText}>List My Home
                     </Text>
 
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                   <TouchableOpacity
                     onPress={() => makePhoneCall()}
                     style={styles.buttonview}

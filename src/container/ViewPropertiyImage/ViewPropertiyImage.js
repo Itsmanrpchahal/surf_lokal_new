@@ -224,26 +224,21 @@ const ViewPropertiyImage = props => {
             style={{
               alignItems: 'center',
               position: "absolute",
-              right: -12,
-              top: -6,
+              right: 10,
+              top: 2,
 
-              backgroundColor: Colors.surfblur,
-              height: 25,
-              width: 25,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 40,
+              width: 40,
               borderRadius: 100,
-              alignItems: "center",
-              justifyContent: "center",
+              backgroundColor: Colors.gray,
             }}
-            onPress={() => navigation.goBack()}
-          >
+            onPress={() => navigation.goBack()}  >
             <Animatable.Image
               source={Images.whiteclose}
-              style={{
-                height: 10,
-                width: 10,
-                resizeMode: 'contain',
-                tintColor: Colors.white,
-              }}
+              style={styles.imagedata}
               animation="flipInY"
             />
           </TouchableOpacity>
@@ -709,6 +704,24 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  imagedata: {
+    height: 12,
+    width: 12,
+    resizeMode: 'contain',
+    tintColor: Colors.black,
+    transform: [{ rotate: '90deg' }],
+  },
+  screen: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: 40,
+    borderRadius: 100,
+    backgroundColor: Colors.gray,
+    position: "relative",
+    left: 15
   },
   title: {
     fontSize: 32,
