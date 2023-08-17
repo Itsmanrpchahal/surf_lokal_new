@@ -198,15 +198,13 @@ const MyFavorites = ({ navigation }) => {
                   style={{
                     height: 40,
                     borderRadius: 40,
-                    width: 70,
+                    width: 40,
                     backgroundColor: Colors.surfblur,
                     justifyContent: 'center',
                     alignItems: 'center', marginHorizontal: 5
                   }}>
-                  <Text style={{ fontSize: 16, fontWeight: '600', color: Colors.white, fontFamily: 'Poppins-Regular' }}>
-                    Edit
-                  </Text>
-                  {/* <Image
+
+                  <Image
                     style={{
                       width: 14,
                       height: 14,
@@ -214,8 +212,8 @@ const MyFavorites = ({ navigation }) => {
                       tintColor: Colors.white
 
                     }}
-                    source={Images.Edit}
-                  ></Image> */}
+                    source={Images.editing}
+                  ></Image>
                 </TouchableOpacity>
               )}
               <TouchableOpacity
@@ -257,11 +255,18 @@ const MyFavorites = ({ navigation }) => {
           width: '100%',
           marginLeft: 0,
           marginBottom: 0,
-          height: 45,
+          //height: 45,
           alignItems: "center",
+          borderBottomColor: Colors.BorderColor,
+          borderBottomWidth: 1,
+          paddingTop: 12,
+          paddingBottom: 12
 
         }}>
-        <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", position: "absolute", left: 8, justifyContent: "center", top: 12 }} onPress={() => { navigation.goBack() }}>
+        <TouchableOpacity style={{
+          flexDirection: "row", alignItems: "center", position: "absolute", left: 8,
+          justifyContent: "center", top: 22
+        }} onPress={() => { navigation.goBack() }}>
           <Image
             style={{
               width: 11,
@@ -280,14 +285,14 @@ const MyFavorites = ({ navigation }) => {
             fontFamily: 'Poppins-Regular', marginLeft: 5
           }}>Back</Text>
         </TouchableOpacity>
-        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Saved Searches </Text>
+        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium', paddingTop: 6 }}>Saved Searches </Text>
 
         <TouchableOpacity
           style={{
             alignItems: 'center',
             position: "absolute",
             right: 10,
-            top: 2,
+            top: 10,
 
             flexDirection: 'row',
             justifyContent: 'center',
