@@ -5,10 +5,17 @@ import BASEURl from '../services/Api'
 
 export const getPoperties = createAsyncThunk('getPoperties', async type => {
   const id = await AsyncStorage.getItem('userId')
+  console.log(id, "ckefbvsdgvjh")
   return type.type === 0
-    ? await getAPI(BASEURl + 'webapi/v1/property?userID=' + id)
+    // ? await getAPI(BASEURl + 'webapi/v1/property?userID=' + id)
+    ? await getAPI(BASEURl + `webapi/v1/property/?userID=${id}&limit=${type.data.limit}`)
+
       .then(async response => {
         const { data } = response;
+        console.log("data.limit",type.data.limit)
+        console.log("data.limit",response)
+
+
         return data;
       })
       .catch(e => {

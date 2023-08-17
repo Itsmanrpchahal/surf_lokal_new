@@ -15,7 +15,7 @@ export const getRating = createAsyncThunk(
     return await getAPI(urlDynamic)
       .then(async (response) => {
         const { data } = response;
-        console.log("getRating getRating", response, userId, post_id)
+        console.log("getRating getRating",  userId, post_id,response)
         return data;
       })
       .catch((e) => {
