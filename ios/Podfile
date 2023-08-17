@@ -45,6 +45,9 @@ target 'surfLokal' do
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
+  pod 'react-native-twilio-video-webrtc', path: '../node_modules/react-native-twilio-video-webrtc'
+  pod 'TwilioVideo'
+
   target 'surfLokalTests' do
     inherit! :complete
     # Pods for testing

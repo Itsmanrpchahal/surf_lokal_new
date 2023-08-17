@@ -61,9 +61,11 @@
     "react-native-svg": "^13.9.0",
     "react-native-swiper": "^1.6.0",
     "react-native-swiper-flatlist": "^3.1.2",
+    "react-native-twilio-video-webrtc": "https://github.com/blackuy/react-native-twilio-video-webrtc",
     "react-native-typing-animation": "^0.1.7",
     "react-native-webview": "^13.2.2",
-    "react-redux": "^8.0.5"
+    "react-redux": "^8.0.5",
+    "twilio-cli": "^5.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

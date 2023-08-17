@@ -1405,7 +1405,6 @@ const Home = () => {
                                     </View>
 
                                     <TouchableOpacity
-
                                       onPress={() => {
                                         navigation.navigate('ViewPropertiy', { ID: item.ID, from: 'Home' });
                                       }}>
