@@ -69,6 +69,8 @@ const MyFavorites = (props) => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
   const [productId, setProductId] = useState('');
+
+
   const [reviewTitle, setReviewTitle] = useState('');
 
   const slideAnimation = useRef(new Animated.Value(0)).current;
@@ -167,8 +169,7 @@ const MyFavorites = (props) => {
     if (isFocused) {
       Promise.all[
         getFavoritePropertiesApiCall(),
-        getAgentApicall(),
-        getRatingApicall
+        getAgentApicall()
       ]
     }
 
@@ -189,11 +190,11 @@ const MyFavorites = (props) => {
       setAgentData(response.payload.data);
     });
   }
-  const getRatingApicall = () => {
-    dispatch(getRating()).then(response => {
-      setRatingData(response.payload.data)
-    })
-  }
+  // const getRatingApicall = () => {
+  //   dispatch(getRating()).then(response => {
+  //     setRatingData(response.payload.data)
+  //   })
+  // }
 
   const makePhoneCall = () => {
     let phoneNumber = agentData[0]?.agent_phone;
@@ -340,6 +341,10 @@ const MyFavorites = (props) => {
                 setProductId(item.ID);
                 setReviewTitle(item.title)
                 toggleModal();
+                dispatch(getRating(productId)).then((response) => {
+                  setRatingData(response?.payload?.data)
+                  console.log(" getRating response data", response?.payload?.data)
+                })
               }}
             >
 
@@ -434,7 +439,7 @@ const MyFavorites = (props) => {
                     }}>
                     Your Review
                   </Text>
-                  <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text>
+                  {/* <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text> */}
                   {/* {!isEditing && (
                     <TouchableOpacity
                       onPress={() => setIsEditing(true)}
@@ -458,9 +463,8 @@ const MyFavorites = (props) => {
                       <Rating
                         type="custom"
                         ratingCount={5}
-                        imageSize={18}
-                        startingValue={ratingData[0]?.photo_wuality_rating
-                        }
+                        imageSize={22}
+                        startingValue={ratingData[0]?.photo_wuality_rating?ratingData[0]?.photo_wuality_rating:0 }
                         // ratingBackgroundColor="#c8c7c8"
                         onFinishRating={setRating}
                         style={styles.rating}
@@ -483,9 +487,8 @@ const MyFavorites = (props) => {
                       <Rating
                         type="custom"
                         ratingCount={5}
-                        imageSize={18}
-                        startingValue={ratingData[0]?.description_review_stars
-                        }
+                        imageSize={22}
+                        startingValue={ratingData[0]?.description_review_stars?ratingData[0]?.description_review_stars:0}
                         //ratingBackgroundColor="#c8c7c8"
                         onFinishRating={setRating}
                         style={styles.rating}
@@ -507,9 +510,8 @@ const MyFavorites = (props) => {
                       <Rating
                         type="custom"
                         ratingCount={5}
-                        imageSize={18}
-                        startingValue={ratingData[0]?.price_review_stars
-                        }
+                        imageSize={22}
+                        startingValue={ratingData[0]?.price_review_stars?ratingData[0]?.price_review_stars:0}
                         //ratingBackgroundColor="#c8c7c8"
                         onFinishRating={setRating}
                         style={styles.rating}
@@ -533,9 +535,8 @@ const MyFavorites = (props) => {
                       <Rating
                         type="custom"
                         ratingCount={5}
-                        imageSize={18}
-                        startingValue={ratingData[0]?.interest_review_stars
-                        }
+                        imageSize={22}
+                        startingValue={ratingData[0]?.interest_review_stars?ratingData[0]?.interest_review_stars:0}
                         //ratingBackgroundColor="#c8c7c8"
                         onFinishRating={setRating}
                         style={styles.rating}
@@ -594,7 +595,7 @@ const MyFavorites = (props) => {
                             width: "100%"
 
                           }}>
-                          {ratingData[0]?.comment_content}
+                          {/* {ratingData[0]?.comment_content} */}
                         </TextInput>
                       )}
                     </View>

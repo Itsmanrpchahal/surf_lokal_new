@@ -727,8 +727,9 @@ const ViewPropertiy = (props, imageUrl) => {
               width: '100%',
               // alignSelf: 'center',
               justifyContent: 'flex-start',
-              alignItems: "flex-start",
-              position: "relative",
+
+              alignItems: "flex-start",  position: "relative",
+
               zIndex: 999,
 
             }}>
@@ -740,7 +741,8 @@ const ViewPropertiy = (props, imageUrl) => {
               </TouchableOpacity>
             </View>
             <View style={{
-              position: 'relative', width: '100%',
+              position: 'relative', width: '100%',  position: "relative",
+              zIndex: 999,
               // marginTop: 40,
               position: "relative",
               zIndex: 999,
@@ -862,7 +864,8 @@ const ViewPropertiy = (props, imageUrl) => {
                             flexDirection: 'row',
                             borderRadius: 15,
                             overflow: "hidden",
-                            margin: 8
+                            margin: 8,
+                            marginBottom:0
                           }}
                           source={{ uri: item?.featured_image_src }}
                         />
@@ -965,7 +968,9 @@ const ViewPropertiy = (props, imageUrl) => {
                         // marginTop: 30,
                         backgroundColor: Colors.white,
                       }}>
-                        <ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}  >
+                        <ScrollView horizontal={true} 
+                        scrollEnabled={true} 
+                        showsHorizontalScrollIndicator={false}  >
                           <View
                             style={{
                               flexDirection: 'row',
@@ -990,7 +995,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                   justifyContent: 'center',
                                   alignItems: 'center',
                                   // backgroundColor: "red",
-                                  width: 70,
+                                  width: 50,
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
                                   <Image
@@ -1114,7 +1119,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                 style={{
                                   justifyContent: 'center',
                                   alignItems: 'center',
-                                  width: 70,
+                                  width: 50,
                                 }}>
                                 <View style={{ justifyContent: "center", alignItems: "center" }}>
                                   <Image
@@ -2143,7 +2148,7 @@ const styles = StyleSheet.create({
 
   headerIcon: {
     width: '100%',
-    zIndex: 9,
+    zIndex: 9999,
     position: 'absolute',
     top: 20,
     left: 10

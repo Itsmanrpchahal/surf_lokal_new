@@ -16,7 +16,8 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Share,
-  Keyboard
+  Keyboard,
+  Button
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler';
@@ -146,7 +147,7 @@ const Home = () => {
   const [minSquareFeet, setMinSquareFeet] = useState();
   const [maxSquareFeet, setMaxSquareFeet] = useState();
   const [bathRoomCount, setBathRoomCount] = useState();
-  const [bedCount, setBedCount] = useState();
+  const [limitCount, setLimitCount] = useState(1)
 
   const [isPressed, setIsPressed] = useState(false);
   const [isPressed1, setIsPressed1] = useState(false);
@@ -197,12 +198,11 @@ const Home = () => {
     if (isFocused) {
       Promise.all[
         getFilterApicall(),
-        getRatingApicall(),
         getTrashApiCall(),
         favlistApi(),
         getSavedApiCall(),
         getMoreFilterApiCall(),
-        getPopertiesApiCall({ type: 0, data: '', lntLng, }),
+        getPopertiesApiCall({ type: 0, data:{limit:limitCount}, lntLng, }),
         setAddres(""),
         getUserScoreApiCall()
       ];
@@ -217,11 +217,6 @@ const Home = () => {
   const getMoreFilterApiCall = () => {
     dispatch(getMoreFilter()).then(response => {
       setMoreFilterData(response.payload.data);
-    });
-  };
-  const getRatingApicall = () => {
-    dispatch(getRating()).then(response => {
-      setRatingData(response.payload.data);
     });
   };
   const slideAnimation = useRef(new Animated.Value(0)).current;
@@ -374,8 +369,10 @@ const Home = () => {
       content: review,
       reviewtitle: reviewTitle,
     };
+    console.log("adddd rating dataa", formdata)
     dispatch(postRating(formdata)).then(response => {
       if (response.payload.success) {
+
         Alert.alert('Alert', response.payload.message);
         toggleModal();
       } else {
@@ -808,7 +805,7 @@ const Home = () => {
 
                   { handlePress2; }
                   dispatch(clearFilter())
-                  await dispatch(getPoperties({ type: 0, data: '', lntLng, })).then((response) => {
+                  await dispatch(getPoperties({ type: 0, data: {limit:limitCount+1}, lntLng, })).then((response) => {
                     setHomeData(response.payload.data)
                     console.log("getPoperties  Home clear response", data)
                   })
@@ -1265,21 +1262,38 @@ const Home = () => {
         <View style={{
           alignItems: "center", position: "relative", height: "100%",
         }}>
-          {
-            homeData.length === 0 && <Text style={{
+          {/* {
+            homeData.length === 0 && 
+            <View >
+            <Text style={{
               height: "100%",
               fontSize: 18,
               textAlign: "center", alignItems: "center", width: "100%",
               justifyContent: "center", position: "absolute", left: 0, right: 0, top: "37%",
-            }}>Record not found!</Text>
-          }
-
+            }}>Record not found! </Text>
+            <Button style={{
+              height: "100%",
+              fontSize: 18,
+              textAlign: "center", alignItems: "center", width: "100%",
+              justifyContent: "center", position: "absolute", left: 0, right: 0, top: "37%",
+            }} title='next' onPress={()=>{
+             dispatch(getPoperties(
+              { type: 0, data: {
+                UserId: user_ID,
+                data_custom_taxonomy: "more_filter_data",
+                data_customvalue: selectedTabsMore.toString(),
+              },
+            })).then((res) => {
+              setHomeData(res.payload.data);
+            })}
+}/>
+            </View>
+          } */}
           {
-            homeData !== "Record not found!" || homeData === [] ?
+            homeData.length > 0 ?
               <View>
-
                 {
-                  !showMap && homeData.length != 0 ?
+                  !showMap && homeData.length > 0 ?
 
                     <View style={{ height: width, width: width, marginTop: 10 }}>
 
@@ -1287,10 +1301,10 @@ const Home = () => {
                         position: "relative", width: "100%",
                         height: "100%", overflow: "hidden"
                       }}
-                        loop={false}
+                        // loop={false}
                         cards={homeData}
                         onNoMoreCards={() => {
-                          setHomeData('Record not found!')
+                          setHomeData([])
                         }}
                         renderYep={() => (
                           <View
@@ -1483,8 +1497,9 @@ const Home = () => {
                                         setProductId(item.ID);
                                         setReviewTitle(item.title);
                                         toggleModal();
-                                        dispatch(getRating(productId)).then((response) => {
-                                          console.log(" getRating response", response?.payload)
+                                        dispatch(getRating(item.ID)).then((response) => {
+                                          setRatingData(response?.payload?.data)
+                                          console.log(" getRating response data", response?.payload?.data)
                                         })
                                       }}>
                                       <Image
@@ -1764,8 +1779,8 @@ const Home = () => {
                                           },
                                         ]}
                                       >
-                                        <ScrollView style={{ width: "100%" }}>
-                                          <View style={{ alignItems: "center", justifyContent: "center" }}>
+                                        <ScrollView style={{ width: "100%", backgroundColor: Colors.white }}>
+                                          <View style={{ alignItems: "center", justifyContent: "center", }}>
 
                                             <View
                                               style={{
@@ -1774,7 +1789,8 @@ const Home = () => {
                                                 backgroundColor: "#bac1c3",
                                                 marginTop: 0,
                                                 justifyContent: 'center',
-                                                borderRadius: 100
+                                                borderRadius: 100,
+
                                               }}></View>
 
 
@@ -1818,9 +1834,8 @@ const Home = () => {
                                                 <Rating
                                                   type="custom"
                                                   ratingCount={5}
-                                                  imageSize={20}
-                                                  startingValue={ratingData[0]?.photo_wuality_rating
-                                                  }
+                                                  imageSize={22}
+                                                  startingValue={ratingData[0]?.photo_wuality_rating ? ratingData[0]?.photo_wuality_rating : 0}
                                                   //ratingBackgroundColor="#c8c7c8"
                                                   onFinishRating={setRating}
                                                   style={styles.rating}
@@ -1845,9 +1860,8 @@ const Home = () => {
                                                 <Rating
                                                   type="custom"
                                                   ratingCount={5}
-                                                  imageSize={20}
-                                                  startingValue={ratingData[0]?.description_review_stars
-                                                  }
+                                                  imageSize={22}
+                                                  startingValue={ratingData[0]?.description_review_stars ? ratingData[0]?.description_review_stars : 0}
                                                   // ratingBackgroundColor="#c8c7c8"
                                                   onFinishRating={setRating}
                                                   style={styles.rating}
@@ -1871,9 +1885,8 @@ const Home = () => {
                                                 <Rating
                                                   type="custom"
                                                   ratingCount={5}
-                                                  imageSize={20}
-                                                  startingValue={ratingData[0]?.price_review_stars
-                                                  }
+                                                  imageSize={22}
+                                                  startingValue={ratingData[0]?.price_review_stars ? ratingData[0]?.price_review_stars : 0}
                                                   //ratingBackgroundColor="#c8c7c8"
                                                   onFinishRating={setRating}
                                                   style={styles.rating}
@@ -1898,9 +1911,8 @@ const Home = () => {
                                                 <Rating
                                                   type="custom"
                                                   ratingCount={5}
-                                                  imageSize={20}
-                                                  startingValue={ratingData[0]?.interest_review_stars
-                                                  }
+                                                  imageSize={22}
+                                                  startingValue={ratingData[0]?.interest_review_stars ? ratingData[0]?.interest_review_stars : 0}
                                                   // ratingBackgroundColor="#c8c7c8"
                                                   onFinishRating={setRating}
                                                   style={styles.rating}
@@ -2277,13 +2289,31 @@ const Home = () => {
                       </View> : null
                 }
               </View>
-              : <View style={{
+              :
+              <View style={{
                 height: "100%", width: '100%', alignItems: "center",
                 justifyContent: "center", position: "relative",
               }}>
                 <Text style={{ color: "black", textAlign: "center", fontFamily: "Poppins-Regular", width: "100%", position: "absolute", top: "30%", fontSize: 20 }}>
-                  Record not found!
+                  Would you like to extend your search radius by 10 miles?
                 </Text>
+                <Button style={{
+                  height: "100%",
+                  fontSize: 18,
+                  textAlign: "center", alignItems: "center", width: "100%",
+                  justifyContent: "center", position: "absolute", left: 0, right: 0, top: "37%",
+                }} title='Estend' onPress={() => {
+    
+                  dispatch(getPoperties(
+                    {
+                      type: 0, data: {
+                        limit:limitCount+1
+                      },
+                    })).then((res) => {
+                      setHomeData(res.payload.data);
+                    })
+                }
+                } />
               </View>
           }
         </View>
@@ -2481,7 +2511,8 @@ const styles = StyleSheet.create({
     height: 60,
   },
   rating: {
-    marginVertical: 5,
+    marginVertical: 8,
+    padding: 0
   },
   ratingText: {
     fontSize: 18,

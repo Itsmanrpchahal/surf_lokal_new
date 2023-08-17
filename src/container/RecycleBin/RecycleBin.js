@@ -11,10 +11,8 @@ import {
   Dimensions,
   Platform,
   FlatList,
-  ImageBackground,
   Animated,
   PanResponder,
-  Vibration,
   Share,
   Linking,
   KeyboardAvoidingView,
@@ -36,7 +34,6 @@ import { getRating } from '../../modules/getRating';
 import { postUpdateRating } from '../../modules/postUpdateRating';
 import * as Animatable from 'react-native-animatable';
 import { useIsFocused } from '@react-navigation/native';
-import { store } from '../../redux/store';
 
 
 const screenHeight = Dimensions.get('window').height;
@@ -198,8 +195,7 @@ const RecycleBin = () => {
     if (isFocused) {
       Promise.all[
         getTrashApiCall(),
-        getAgentApicall(),
-        getRatingApicall
+        getAgentApicall()
       ]
     }
 
@@ -306,6 +302,10 @@ const RecycleBin = () => {
               setProductId(item.ID);
               setReviewTitle(item.title)
               toggleModal();
+              dispatch(getRating(productId)).then((response) => {
+                setRatingData(response?.payload?.data)
+                console.log(" getRating response data", response?.payload?.data)
+              })
             }}
           >
             <Image
@@ -381,7 +381,9 @@ const RecycleBin = () => {
                       backgroundColor: "#bac1c3",
                       marginTop: 0,
                       justifyContent: 'center',
-                      borderRadius: 100
+                      borderRadius: 100,
+                      maxHeight: 300,
+                      minHeight:200
                     }}></View>
 
 
@@ -421,7 +423,7 @@ const RecycleBin = () => {
                       <Rating
                         type="custom"
                         ratingCount={5}
-                        imageSize={18}
+                        imageSize={22}
                         startingValue={ratingData[0]?.photo_wuality_rating
                         }
                         ratingBackgroundColor="#c8c7c8"
@@ -446,7 +448,7 @@ const RecycleBin = () => {
                       <Rating
                         type="custom"
                         ratingCount={5}
-                        imageSize={18}
+                        imageSize={22}
                         startingValue={ratingData[0]?.description_review_stars
                         }
                         ratingBackgroundColor="#c8c7c8"
@@ -470,7 +472,7 @@ const RecycleBin = () => {
                       <Rating
                         type="custom"
                         ratingCount={5}
-                        imageSize={18}
+                        imageSize={22}
                         startingValue={ratingData[0]?.price_review_stars
                         }
                         ratingBackgroundColor="#c8c7c8"
@@ -495,7 +497,7 @@ const RecycleBin = () => {
                       <Rating
                         type="custom"
                         ratingCount={5}
-                        imageSize={18}
+                        imageSize={22}
                         startingValue={ratingData[0]?.interest_review_stars
                         }
                         ratingBackgroundColor="#c8c7c8"
