@@ -196,7 +196,7 @@ const ContactMyAgent = () => {
             fontFamily: 'Poppins-Regular', marginLeft: 5
           }}>Back</Text>
         </TouchableOpacity>
-        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Contact Surf Lokal</Text>
+        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Contact My Agent</Text>
 
         <TouchableOpacity
           style={{

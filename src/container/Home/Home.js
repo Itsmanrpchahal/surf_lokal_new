@@ -54,6 +54,7 @@ import { clearFilter } from '../../modules/clearFilter';
 import { getUserScore } from '../../modules/getUserScore';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import GetLocation from 'react-native-get-location'
+import { isEnabled } from 'react-native/Libraries/Performance/Systrace';
 
 
 const { width } = Dimensions.get('screen');
@@ -1009,10 +1010,10 @@ const Home = () => {
 
                             <Text style={{ color: 'black', fontFamily: 'Poppins-Regular', marginTop: 12 }}>Square Feet</Text>
 
-                            <View style={{ flexDirection: "row", justifyContent: 'space-between', marginTop: 8 }}>
+                            <View style={{ flexDirection: "row", justifyContent: 'space-between', marginTop: 8, }}>
 
                               <Dropdown
-                                style={{ borderWidth: 1, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '49%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8, }}
+                                style={{ borderWidth: 1, height: 50, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '45%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8, }}
                                 placeholderStyle={styles.placeholderStyle}
                                 selectedTextStyle={styles.selectedTextStyle}
                                 inputSearchStyle={styles.inputSearchStyle}
@@ -1041,8 +1042,10 @@ const Home = () => {
                                 }}
 
                               />
+
+
                               <Dropdown
-                                style={{ borderWidth: 1, marginBottom: 8, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '49%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12 }}
+                                style={styles.dropdown}
                                 placeholderStyle={styles.placeholderStyle}
                                 selectedTextStyle={styles.selectedTextStyle}
                                 inputSearchStyle={styles.inputSearchStyle}
@@ -1070,6 +1073,8 @@ const Home = () => {
                                 }}
 
                               />
+
+
                             </View>
 
 
@@ -1078,10 +1083,10 @@ const Home = () => {
 
                             <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Price Range</Text>
 
-                            <View style={{ flexDirection: "row", justifyContent: 'space-between', marginTop: 8 }}>
+                            <View style={{ flexDirection: "row", justifyContent: 'space-between', marginBottom: 16, width: '100%' }}>
 
                               <Dropdown
-                                style={{ borderWidth: 1, fontSize: 14, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '49%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
+                                style={{ borderWidth: 1, height: 50, fontSize: 14, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '45%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
                                 placeholderStyle={styles.placeholderStyle}
                                 selectedTextStyle={styles.selectedTextStyle}
                                 inputSearchStyle={styles.inputSearchStyle}
@@ -1109,37 +1114,57 @@ const Home = () => {
 
                                 }}
 
-                              />
-                              <Dropdown
-                                style={{ borderWidth: 1, fontSize: 14, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '49%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
-                                placeholderStyle={styles.placeholderStyle}
-                                selectedTextStyle={styles.selectedTextStyle}
-                                inputSearchStyle={styles.inputSearchStyle}
-                                iconStyle={styles.iconStyle}
-                                itemTextStyle={styles.itemTextStyle}
-                                data={moreFilterData.max_price}
-                                search
-                                maxHeight={300}
-                                labelField="data_name"
-                                valueField="data_name"
-                                placeholder="Max Price"
-                                searchPlaceholder="Search..."
-                                value={maxPriceRange}
-                                onChange={async item => {
-                                  setMinPricerange(item.data_name);
-                                  await dispatch(getPoperties({
-                                    type: 3, data: {
-                                      UserId: user_ID,
-                                      data_custom_taxonomy: "max_price",
-                                      data_customvalue: item.data_customvalue,
-                                    },
-                                  })).then((res) => {
-                                    setHomeData(res.payload.data);
-                                  });
-
-                                }}
 
                               />
+
+                              {/* <View
+                                style={{
+                                  height: 50,
+                                  borderColor: Colors.BorderColor,
+                                  backgroundColor: 'white',
+                                  borderRadius: 10,
+                                  borderWidth: 1,
+                                  width: "60%",
+                                  marginLeft: 10,
+                                  marginBottom: 12,
+                                }}> */}
+                                <Dropdown
+                                  style={styles.dropdown}
+                                  // style={{ borderWidth: 1, fontSize: 14, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '45%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
+                                  placeholderStyle={styles.placeholderStyle}
+                                  selectedTextStyle={styles.selectedTextStyle}
+                                  inputSearchStyle={styles.inputSearchStyle}
+                                  iconStyle={styles.iconStyle}
+                                  itemTextStyle={styles.itemTextStyle}
+                                  data={moreFilterData.max_price}
+                                  search
+                                  nestedScrollEnabled={true}
+                                  dropdownPosition={'auto'}
+
+                                  maxHeight={300}
+                                  labelField="data_name"
+                                  valueField="data_name"
+                                  placeholder="Max Price"
+                                  searchPlaceholder="Search..."
+                                  value={maxPriceRange}
+                                  onChange={async item => {
+                                    setMaxPriceRange(item.data_name);
+                                    await dispatch(getPoperties({
+                                      type: 3, data: {
+                                        UserId: user_ID,
+                                        data_custom_taxonomy: "max_price",
+                                        data_customvalue: item.data_customvalue,
+                                      },
+                                    })).then((res) => {
+                                      setHomeData(res.payload.data);
+                                    });
+
+                                  }}
+
+                                />
+                              {/* </View> */}
+
+
                             </View>
                           </View>
                           {/* <View style={{ width: '100%', justifyContent: 'center', alignItems: "center" }}>
@@ -2542,14 +2567,17 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     // margin: 16,
-    height: 50,
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 12,
+    // marginLeft: 10,
     borderWidth: 1,
-    borderColor: Colors.BorderColor,
-    width: "100%",
-    marginBottom: 12
+     fontSize: 14,
+   fontFamily: "Poppins-Regular",
+   color: Colors.newgray,
+    width: '55%',
+     borderColor: Colors.BorderColor,
+      borderRadius: 10, 
+      padding: 6,
+       paddingLeft: 12,
+        marginBottom: 8
   },
   icon: {
     marginRight: 5,
