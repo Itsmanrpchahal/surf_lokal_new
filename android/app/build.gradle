@@ -104,7 +104,13 @@ allprojects {
 }
 android {
     ndkVersion rootProject.ext.ndkVersion
-
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+    dexOptions {
+        jumboMode true
+    }
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     namespace "surf.lokal"
@@ -170,7 +176,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-analytics")
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
-
+    implementation project(':react-native-twilio-video-webrtc')
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.squareup.okhttp3', module:'okhttp'
