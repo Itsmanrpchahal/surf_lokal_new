@@ -11,6 +11,7 @@ const Images = {
   messenger: require(BaseUrl + "messenger.png"),
   videochat: require(BaseUrl + "video-chat.png"),
   email: require(BaseUrl + 'email.png'),
+  editing: require(BaseUrl + 'editing.png'),
   facebook: require(BaseUrl + 'facebook.png'),
   chat: require(BaseUrl + 'chat.png'),
   inbox: require(BaseUrl + 'inbox.png'),

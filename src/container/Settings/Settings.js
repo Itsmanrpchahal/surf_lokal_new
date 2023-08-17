@@ -286,15 +286,17 @@ const Settings = props => {
             //marginTop: 20,
             alignSelf: 'center',
             justifyContent: 'space-between',
-            marginTop: 6
+            marginTop: 15,
+            marginBottom: 20
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 18,
               color: Colors.black,
-              fontFamily: 'Poppins-Regular'
+              fontFamily: 'Poppins-Medium',
+              color: Colors.surfblur
             }}>
-            Allow Notfication
+            Allow Notfication ?
           </Text>
           <View>
             <Switch
@@ -307,7 +309,7 @@ const Settings = props => {
 
           </View>
         </View>
-        <View
+        {/* <View
           style={{
             flexDirection: 'row',
             width: '90%',
@@ -322,19 +324,21 @@ const Settings = props => {
             }}>
             User Details
           </Text>
-        </View>
+        </View> */}
         <View
           style={{
             flexDirection: 'row',
             width: '90%',
             marginTop: 6,
             alignSelf: 'center',
+
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 14,
               color: Colors.black,
-              fontFamily: 'Poppins-Regular'
+              fontFamily: 'Poppins-Regular',
+              opacity: .7
             }}>
             First name
           </Text>
@@ -352,7 +356,8 @@ const Settings = props => {
             fontSize: 14,
             padding: 10,
             borderColor: Colors.BorderColor,
-            borderWidth: 1
+            borderWidth: 1,
+            marginBottom: 17
           }}
           placeholderTextColor={Colors.black}
           value={firstName}
@@ -370,9 +375,10 @@ const Settings = props => {
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 14,
               color: Colors.black,
-              fontFamily: 'Poppins-Regular'
+              fontFamily: 'Poppins-Regular',
+              opacity: .7
             }}>
             Last name
           </Text>
@@ -390,7 +396,8 @@ const Settings = props => {
             fontSize: 14,
             padding: 10,
             borderColor: Colors.BorderColor,
-            borderWidth: 1
+            borderWidth: 1,
+            marginBottom: 17
           }}
           placeholderTextColor={Colors.black}
           fontSize={14}
@@ -410,9 +417,10 @@ const Settings = props => {
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 14,
               color: Colors.black,
-              fontFamily: 'Poppins-Regular'
+              fontFamily: 'Poppins-Regular',
+              opacity: .7
             }}>
             Email
           </Text>
@@ -431,7 +439,8 @@ const Settings = props => {
             fontSize: 14,
             padding: 10,
             borderColor: Colors.BorderColor,
-            borderWidth: 1
+            borderWidth: 1,
+            marginBottom: 17
           }}
           placeholderTextColor={Colors.black}
           value={email}
@@ -452,9 +461,10 @@ const Settings = props => {
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 14,
               color: Colors.black,
-              fontFamily: 'Poppins-Regular'
+              fontFamily: 'Poppins-Regular',
+              opacity: .7
             }}>
             Phone
           </Text>
@@ -472,7 +482,8 @@ const Settings = props => {
             fontSize: 14,
             padding: 10,
             borderColor: Colors.BorderColor,
-            borderWidth: 1
+            borderWidth: 1,
+            marginBottom: 17
           }}
           placeholderTextColor={Colors.textColorLight}
           value={mob}
@@ -491,9 +502,10 @@ const Settings = props => {
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 14,
               color: Colors.black,
-              fontFamily: 'Poppins-Regular'
+              fontFamily: 'Poppins-Regular',
+              opacity: .7
             }}>
             Address
           </Text>
@@ -511,7 +523,8 @@ const Settings = props => {
             fontSize: 14,
             padding: 10,
             borderColor: Colors.BorderColor,
-            borderWidth: 1
+            borderWidth: 1,
+            marginBottom: 17
           }}
           placeholderTextColor={'black'}
           value={address}
@@ -530,9 +543,10 @@ const Settings = props => {
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 14,
               color: Colors.black,
-              fontFamily: 'Poppins-Regular'
+              fontFamily: 'Poppins-Regular',
+              opacity: .7
             }}>
             Facebook
           </Text>
@@ -550,7 +564,8 @@ const Settings = props => {
             fontSize: 14,
             padding: 10,
             borderColor: Colors.BorderColor,
-            borderWidth: 1
+            borderWidth: 1,
+            marginBottom: 17
           }} placeholder='Facebook'
           placeholderTextColor={Colors.placeholderTextColor}
           keyboardType="default"
@@ -569,9 +584,10 @@ const Settings = props => {
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 14,
               color: Colors.black,
-              fontFamily: 'Poppins-Regular'
+              fontFamily: 'Poppins-Regular',
+              opacity: .7
             }}>
             Twitter
           </Text>
@@ -589,7 +605,8 @@ const Settings = props => {
             fontSize: 14,
             padding: 10,
             borderColor: Colors.BorderColor,
-            borderWidth: 1
+            borderWidth: 1,
+            marginBottom: 17
           }} placeholder='Twitter'
           placeholderTextColor={Colors.placeholderTextColor}
           value={twitter}
@@ -608,9 +625,10 @@ const Settings = props => {
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 14,
               color: Colors.black,
-              fontFamily: 'Poppins-Regular'
+              fontFamily: 'Poppins-Regular',
+              opacity: .7
             }}>
             Instagram
           </Text>
@@ -628,7 +646,8 @@ const Settings = props => {
             fontSize: 14,
             padding: 10,
             borderColor: Colors.BorderColor,
-            borderWidth: 1
+            borderWidth: 1,
+            marginBottom: 17
           }} placeholder='Instagram'
           placeholderTextColor={Colors.placeholderTextColor}
           value={instagram}
@@ -647,9 +666,10 @@ const Settings = props => {
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 14,
               color: Colors.black,
-              fontFamily: 'Poppins-Regular'
+              fontFamily: 'Poppins-Regular',
+              opacity: .7
             }}>
             Threads
           </Text>
@@ -667,7 +687,8 @@ const Settings = props => {
             fontSize: 14,
             padding: 10,
             borderColor: Colors.BorderColor,
-            borderWidth: 1
+            borderWidth: 1,
+            marginBottom: 17
           }} placeholder='Threads'
           placeholderTextColor={Colors.placeholderTextColor}
           value={threads}
