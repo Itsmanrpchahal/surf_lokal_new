@@ -121,8 +121,8 @@ const ContactSurf = () => {
     Linking.openURL(url)
       .catch(error => console.error('Error opening email app:', error));
   };
-  const whatsapp =()=>{
-    const phone ="+18885083174"
+  const whatsapp = () => {
+    const phone = "+18885083174"
     Linking.openURL(`whatsapp://send?phone=${phone}&text=${''}`)
   }
 
@@ -170,7 +170,7 @@ const ContactSurf = () => {
   return (
     <SafeAreaView style={styles.container}>
 
-      <View
+      {/* <View
         style={{
           marginTop: 4,
           flexDirection: 'row',
@@ -222,28 +222,149 @@ const ContactSurf = () => {
             />
           </TouchableOpacity>
         </View>
+      </View> */}
+      <View
+        style={{
+          marginTop: 0,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          width: '100%',
+          marginLeft: 0,
+          marginBottom: 0,
+          // height: 45,
+          alignItems: "center",
+          borderBottomWidth: 1,
+          borderBottomColor: Colors.BorderColor,
+          paddingTop: 10, paddingBottom: 10
+
+        }}>
+        <TouchableOpacity style={{ top: 20, flexDirection: "row", alignItems: "center", position: "absolute", left: 8, justifyContent: "center" }} onPress={() => { navigation.goBack() }}>
+          <Image
+            style={{
+              width: 11,
+              height: 11,
+              resizeMode: "contain",
+              // position: "absolute",
+              // left: 0,
+              marginTop: -1,
+              transform: [{ rotate: '90deg' }]
+            }}
+            source={Images.downArrow}
+          ></Image>
+          <Text style={{
+            fontSize: 14,
+            color: Colors.black,
+            fontFamily: 'Poppins-Regular', marginLeft: 5
+          }}>Back</Text>
+        </TouchableOpacity>
+        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium', paddingTop: 7 }}>Contact surf lokal</Text>
+
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            position: "absolute",
+            right: 10,
+            top: 10,
+
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 40,
+            width: 40,
+            borderRadius: 100,
+            backgroundColor: Colors.gray,
+          }}
+          onPress={() => navigation.goBack()}  >
+          <Animatable.Image
+            source={Images.whiteclose}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
       </View>
 
-      {agentData ? (
-        <ScrollView style={{ height: '100%', width: '100%' }}>
-            <View style={{flexDirection:'row',marginTop:10}}>
-                <View>
-              {!index ? (
-                <Image
-                  source={Images.search}
-                  style={{
-                    height: 18, width: 18, resizeMode: 'contain'
-                  }}></Image>
-              ) : (
-                <View
+
+
+      <ScrollView style={{ height: '100%', width: '100%' }}>
+        <View style={{ flexDirection: 'column', marginTop: 0, alignItems: "center" }}>
+
+
+          <Image source={Images.appLogo} style={{ maxWidth: 180, resizeMode: "contain", height: 150 }} />
+
+
+        </View>
+        <View style={styles.informationicons}>
+          <View style={styles.maininfoicons}>
+            <TouchableOpacity
+              style={[styles.iconcover, { backgroundColor: "#11b03e" }]}
+              onPress={() => makePhoneCall()}
+            >
+              <Image
                 style={{
-            
-                }}>
-                <Image source={Images.lokal} style={{ height: 100, width: 100,paddingVertical:70,marginVertical:20 }} />
-              </View>
-            )}
-         </View>
-         <View style={{flexDirection:'column'}}>
+                  height: 30,
+                  width: 30,
+                  margin: 2,
+                  resizeMode: "contain",
+                  tintColor: Colors.white,
+                }}
+                source={Images.telephonecall}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.iconcover, { backgroundColor: "#19a4df" }]}
+              onPress={() => { navigation.navigate('Chat') }}
+            >
+              <Image
+                style={{
+                  height: 30,
+                  width: 30,
+                  margin: 2,
+                  resizeMode: "contain",
+                  tintColor: Colors.white,
+                }}
+                source={Images.messenger}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.iconcover, { backgroundColor: "#5f3d1c" }]}
+              onPress={() => sendEmail()}
+            >
+              <Image
+                style={{
+                  height: 30,
+                  margin: 2,
+                  width: 30,
+                  resizeMode: "contain",
+                  tintColor: Colors.white,
+                }}
+                source={Images.videochat}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.iconcover, { backgroundColor: Colors.black }]}>
+              <Image
+                style={{
+                  height: 30,
+                  margin: 2,
+                  width: 30,
+                  resizeMode: "contain",
+                  tintColor: Colors.white,
+                }}
+                source={Images.email}
+              />
+            </TouchableOpacity>
+
+
+
+          </View>
+        </View>
+
+        <Text style={{ fontSize: 16, textAlign: "center", color: Colors.black, fontFamily: 'Poppins-Regular' }}>
+          3010 N Military trl {'\n'}
+          Suite 310 {'\n'}
+          Boca Raton, FL 33431
+        </Text>
+        <View style={{ flexDirection: 'column' }}>
           <View
             style={{
               // height: 70,
@@ -253,175 +374,13 @@ const ContactSurf = () => {
               flexDirection: 'row',
               marginHorizontal: 12,
               borderBottomColor: Colors.BorderColor,
-            //   borderBottomWidth: 1
+              //   borderBottomWidth: 1
 
             }}>
-          
-            
 
-            <Text style={{
-              fontSize: 16,
-              color: Colors.newgray,
-              marginLeft: 8,
-              fontFamily: 'Poppins-Regular'
-            }}>
-              {agentData ? `${agentData?.agent_title} ` : 'No Agent Data'}
-            </Text>
           </View>
 
           <View>
-
-            <View style={styles.slideOuter}>
-              <TouchableOpacity onPress={() => makePhoneCall()}
-                style={{
-                  width: '90%',
-                  alignItems: 'center',
-                  marginHorizontal: 12,
-                  borderBottomColor: Colors.BorderColor,
-                //   borderBottomWidth: 1,
-                  marginHorizontal: 12,
-                  paddingVertical: 12
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    width: '100%',
-
-                    alignItems: 'center',
-
-                  }}>
-                  <Image
-                    source={Images.call}
-                    style={{ height: 18, width: 18, resizeMode: 'contain', tintColor: Colors.surfblur }}></Image>
-
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      color: Colors.newgray,
-                      marginLeft: 8,
-                      fontFamily: 'Poppins-Regular'
-
-                    }}>
-                        +18885083174
-                    {/* {agentData?.agent_phone} */}
-                  </Text>
-                </View>
-
-              </TouchableOpacity>
-            </View>
-            <View style={styles.slideOuter}>
-              <TouchableOpacity onPress={() => makePhoneCall()}
-                style={{
-                  width: '90%',
-                  alignItems: 'center',
-                  marginHorizontal: 12,
-                  borderBottomColor: Colors.BorderColor,
-                //   borderBottomWidth: 1,
-                  marginHorizontal: 12,
-                  paddingVertical: 12
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    width: '100%',
-
-                    alignItems: 'center',
-
-                  }}>
-                  <Image
-                    source={Images.contactUs}
-                    style={{ height: 18, width: 18, resizeMode: 'contain', tintColor: Colors.surfblur }}></Image>
-
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      color: Colors.newgray,
-                      marginLeft: 8,
-                      fontFamily: 'Poppins-Regular'
-
-                    }}>
-                        +18885083174
-                    {/* {agentData?.agent_mobile} */}
-                  </Text>
-                </View>
-
-              </TouchableOpacity>
-            </View>
-            {/* <View style={styles.slideOuter}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('ChatSearch')}
-                style={{
-                  width: '90%',
-                  alignItems: 'center',
-                  marginHorizontal: 12,
-                  borderBottomColor: Colors.BorderColor,
-                  borderBottomWidth: 1,
-                  marginHorizontal: 12,
-                  paddingVertical: 12
-
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    width: '100%',
-                    alignItems: "center"
-                  }}>
-                  <Image
-                    source={Images.chat}
-                    style={{ height: 18, width: 18, resizeMode: 'contain', tintColor: Colors.surfblur }}></Image>
-
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      color: Colors.newgray,
-                      marginLeft: 8,
-                      fontFamily: 'Poppins-Regular'
-                    }}>
-                    Send {agentData?.first_name} a Message
-                  </Text>
-                </View>
-
-              </TouchableOpacity>
-            </View> */}
-            <View style={styles.slideOuter}>
-              <TouchableOpacity
-                onPress={() => handleEmailLink()}
-                style={{
-                  width: '90%',
-                  alignItems: 'center',
-                  marginHorizontal: 12,
-                  borderBottomColor: Colors.BorderColor,
-                //   borderBottomWidth: 1,
-                  marginHorizontal: 12,
-                  paddingVertical: 12
-
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    width: '100%',
-                    alignItems: "center"
-                  }}>
-                  <Image
-                    source={Images.agentTel}
-                    style={{ height: 18, width: 18, resizeMode: 'contain', tintColor: Colors.surfblur }}></Image>
-
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      color: Colors.newgray,
-                      marginLeft: 8,
-                      fontFamily: 'Poppins-Regular'
-                    }}>
-                   homes@surflokal.com
-                  </Text>
-                </View>
-
-              </TouchableOpacity>
-            </View>
-  </View>
-  </View>
-  </View>
             <View style={styles.slideOuter}>
               <TouchableOpacity
                 //onPress={() => navigation.navigate(item.navigation)}
@@ -431,27 +390,23 @@ const ContactSurf = () => {
                 }}>
 
                 <View style={{ flexDirection: "row", justifyContent: "flex-start", flexWrap: "wrap", textAlign: "center", marginBottom: 12 }}>
-                  {/* <TouchableOpacity
+                  <TouchableOpacity
                     onPress={() => navigation.navigate("ChatSearch", { agentData })}
 
                     style={styles.buttonview}>
                     <Text style={styles.buttonText}>Request A Showing
                     </Text>
 
-                  </TouchableOpacity> */}
+                  </TouchableOpacity>
 
-                  {/* <TouchableOpacity
+                  <TouchableOpacity
                     onPress={() => navigation.navigate("ChatSearch", { agentData })}
-                    style={styles.buttonview}> */}
-                    {/* <Image
-                  source={Images.lokal}
-                  resizeMode="contain"
-                  style={{ height: 15, width: 15, tintColor: Colors.white }}></Image> */}
-                    {/* <Text style={styles.buttonText}>Start Offer
+                    style={styles.buttonview}>
+                    <Text style={styles.buttonText}>Start Offer
                     </Text>
 
-                  </TouchableOpacity> */}
-                  {/* <TouchableOpacity
+                  </TouchableOpacity>
+                  <TouchableOpacity
                     onPress={() => navigation.navigate("ChatSearch", { agentData })}
 
                     style={styles.buttonview}>
@@ -459,35 +414,32 @@ const ContactSurf = () => {
                     <Text style={styles.buttonText}>List My Home
                     </Text>
 
-                  </TouchableOpacity> */}
+                  </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => makePhoneCall()}
                     style={styles.buttonview}
-    
                   >
-                    <Image source={Images.call} style={{ height: 18, width: 18, resizeMode: 'contain',marginRight:6,alignSelf:'center'}}/>
-                    <Text style={styles.buttonText}>Call  +18885083174
+
+                    <Text style={styles.buttonText}>Call
                     </Text>
 
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={() => whatsapp()}
+                    onPress={() => handleEmailLink()}
                     style={styles.buttonview}>
-                    <Image source={Images.Whatsapp} style={{ height: 18, width: 18, resizeMode: 'contain',marginRight:6,alignSelf:'center'}}/>
 
-
-                    <Text style={styles.buttonText}>WhatsApp
+                    <Text style={styles.buttonText}>E-mail
                     </Text>
 
                   </TouchableOpacity>
-                  {/* <TouchableOpacity
+                  <TouchableOpacity
                     onPress={() => navigation.navigate('ChatSearch')}
                     style={styles.buttonview}>
 
                     <Text style={styles.buttonText}>Chat
                     </Text>
 
-                  </TouchableOpacity> */}
+                  </TouchableOpacity>
                 </View>
                 <View>
 
@@ -496,11 +448,17 @@ const ContactSurf = () => {
 
               </TouchableOpacity>
             </View>
-       
 
-          <View style={{ height: 50 }}></View>
-        </ScrollView>
-      ) : null}
+
+          </View>
+        </View>
+
+
+
+
+        <View style={{ height: 50 }}></View>
+      </ScrollView>
+
     </SafeAreaView>
   );
 
@@ -525,6 +483,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
 
   },
+  screen1: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: 40,
+    borderRadius: 100,
+    backgroundColor: Colors.gray,
+  },
+  imagedata: {
+    height: 12,
+    width: 12,
+    resizeMode: 'contain',
+    tintColor: Colors.black,
+    // transform: [{ rotate: '90deg' }],
+  },
   buttonText: { fontSize: 14, fontWeight: '400', color: Colors.white, fontFamily: 'Poppins-Regular', textAlign: "center" },
   // slideOuter: {
   //   width: "100%",
@@ -533,6 +507,24 @@ const styles = StyleSheet.create({
   //   backgroundColor: Colors,
   //   borderRadius: 18,
   // },
+  mainareacover: { marginHorizontal: 7 },
+  iconcover: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 10,
+    padding: 8,
+    borderRadius: 100,
+  },
+  iconcover2: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 2,
+    padding: 8,
+    backgroundColor: Colors.PrimaryColor,
+    borderRadius: 100, position: "absolute", right: 0, top: 0
+  },
   slide: {
     width: screenWidth - 40,
     height: screenHeight / 3,
@@ -543,6 +535,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     flexDirection: 'row',
   },
+  informationicons: { alignItems: "center", marginBottom: 25 },
+  maininfoicons: { flexDirection: "row", alignItems: "center" },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
