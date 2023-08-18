@@ -10,7 +10,7 @@ import * as Animatable from 'react-native-animatable';
 const Notification = () => {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(true);
   const [toggle, setToggle] = useState(false);
   const flatListRef = useRef(null);
   const datan = [
@@ -38,7 +38,7 @@ const Notification = () => {
   const fetchNotifications = async () => {
     const id = await AsyncStorage.getItem('userId');
     try {
-      const response = await axios.get('http://www.surflokal.com/webapi/v1/notifications/?userID=' + id);
+      const response = await axios.get('https://www.surflokal.com/webapi/v1/notifications/?userID=' + id);
       const responseData = response.data;
       const nestedData = responseData.data[0];
       setData(nestedData);
@@ -48,7 +48,7 @@ const Notification = () => {
   };
 
   const renderItem = ({ item, index }) => {
-    if (isEnabled) {
+    if (!isEnabled) {
       return null;
     }
     return (
@@ -134,85 +134,6 @@ const Notification = () => {
             />
           </TouchableOpacity>
         </View>
-        {/* <View
-          style={{
-
-            flexDirection: 'row',
-            width: '100%',
-
-            paddingHorizontal: 12,
-            backgroundColor: Colors.white,
-            paddingVertical: 7,
-            justifyContent: "space-between",
-            alignItems: "center",
-
-          }}>
-          <View
-            style={{
-              width: "100%",
-              position: "absolute",
-              right: 0
-            }}>
-
-            <TouchableOpacity
-              style={{
-                alignItems: 'center',
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => navigation.goBack()}
-            >
-              <Animatable.Image
-                source={Images.toggle}
-                style={{
-                  height: 25,
-                  width: 25,
-                  resizeMode: 'contain',
-                  tintColor: Colors.black,
-                }}
-
-              />
-            </TouchableOpacity>
-          </View>
-          <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium', width: "100%", textAlign: "center" }}>Notifications</Text>
-
-          <View
-            style={{
-              width: '100%',
-              zIndex: 99,
-              position: 'absolute',
-              top: 10,
-              right: 10,
-              justifyContent: "flex-end",
-              alignItems: "flex-end"
-
-            }}>
-            <TouchableOpacity
-              style={{
-                alignItems: 'center',
-                backgroundColor: Colors.surfblur,
-                height: 25,
-                width: 25,
-                borderRadius: 100,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => navigation.goBack()}
-            >
-              <Animatable.Image
-                source={Images.whiteclose}
-                style={{
-                  height: 10,
-                  width: 10,
-                  resizeMode: 'contain',
-                  tintColor: Colors.white,
-                }}
-                animation="flipInY"
-              />
-            </TouchableOpacity>
-          </View>
-        </View> */}
-
         <View
           style={{
             flexDirection: 'row',
