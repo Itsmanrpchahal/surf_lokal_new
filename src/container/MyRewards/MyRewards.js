@@ -181,12 +181,12 @@ const App = (props) => {
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '90%' }}>
               <Text style={{ fontSize: 14, fontFamily: Fonts.regular, color: "black", width: '33.33%', marginTop: 44 }}>$0</Text>
 
-              <Text style={{ fontSize: 14, fontFamily: Fonts.regular, color: "black", width: '33.33%', textAlign: 'right', marginTop: 44 }}>$10MM</Text>
+              <Text style={{ fontSize: 14, fontFamily: Fonts.regular, color: "black", width: '33.33%', textAlign: 'right', marginTop: 44 }}>$20MM</Text>
             </View>
             <Slider
               style={{ width: "90%", justifyContent: "center" }}
               minimumValue={1000}
-              maximumValue={10000}
+              maximumValue={20000}
               minimumTrackTintColor={Colors.surfblur}
               maximumTrackTintColor={Colors.gray}
               thumbTintColor={Colors.white}
@@ -209,9 +209,9 @@ const App = (props) => {
           </View>
 
         </View>
-        <View style={{ position: "relative", height: "50%", }}>
+        <View style={{ position: "relative", }}>
           <Text style={{ fontSize: 18, fontFamily: Fonts.regular, textAlign: 'center', color: "black", }}>Your Rebate </Text>
-          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', paddingTop: 80 }}>
+          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', }}>
             <Text style={{ fontSize: 66, fontFamily: Fonts.bold, color: "black", }}>$</Text>
             <Text style={{ fontSize: 66, fontFamily: Fonts.bold, color: "black", }}>{Math.round(meterValue * 0.003)}</Text>
 
