@@ -1487,14 +1487,7 @@ const ViewPropertiy = (props, imageUrl) => {
                             }}>
                             Your Review
                           </Text>
-                          <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text>
-                          {!isEditing && (
-                            <TouchableOpacity
-                              onPress={() => setIsEditing(true)}
-                              style={{ marginTop: 10 }}>
-                              <Text style={{ fontSize: 12, color: Colors.darbluec, fontFamily: "Poppins-Regular" }}>Edit</Text>
-                            </TouchableOpacity>
-                          )}
+                  
                         </View>
                         <View style={{ width: '100%', }}>
                           <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -1506,9 +1499,9 @@ const ViewPropertiy = (props, imageUrl) => {
                                 marginTop: 10,
                               }}>
                               <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                                Photos Quality Rating :
+                                Photos :
                               </Text>
-                              <Rating
+                              {/* <Rating
                                 type="custom"
                                 ratingCount={5}
                                 imageSize={18}
@@ -1519,7 +1512,8 @@ const ViewPropertiy = (props, imageUrl) => {
                                 style={styles.rating}
                                 ratingColor={Colors.surfblur}
                               //tintColor="#f1f3f4"
-                              />
+                              /> */}
+                              
                             </View>
                           </View>
 

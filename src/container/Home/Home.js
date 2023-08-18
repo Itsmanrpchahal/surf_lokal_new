@@ -21,11 +21,8 @@ import {
 } from 'react-native';
 
 import StarRating from 'react-native-star-rating-widget';
-
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
-import SelectDropdown from 'react-native-select-dropdown'
-
+// import FontAwesome from 'react-native-vector-icons/FontAwesome';
+// import SelectDropdown from 'react-native-select-dropdown'
 import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
@@ -38,7 +35,6 @@ import { postRating } from '../../modules/postRating';
 import { getFilter } from '../../modules/getFilter';
 import { SvgUri } from 'react-native-svg';
 import { Rating } from 'react-native-ratings';
-import StarRating from 'react-native-star-rating-widget';
 import { postUpdateRating } from '../../modules/postUpdateRating';
 import { Dropdown, MultiSelect } from 'react-native-element-dropdown';
 import CardsSwipe from 'react-native-cards-swipe';
@@ -373,7 +369,7 @@ const Home = () => {
       console.log('Sharing Error:', error)
     }
   };
-  
+
   const getSavedApiCall = () => {
     dispatch(getSavedSearch()).then(response => {
     });
@@ -1887,36 +1883,10 @@ const Home = () => {
                                                   enableSwiping
                                                   enableHalfStar
                                                   color={Colors.surfblur}
-                                                  rating={ratingData[0]?.photo_wuality_rating ? ratingData[0]?.photo_wuality_rating : rating}
+                                                  rating={rating}
                                                   onChange={(value) => { setRating(value) }}
                                                 />
 
-                                                {/* <Rating
-                                                  type="custom"
-                                                  ratingCount={5}
-                                                  imageSize={22}
-                                                  startingValue={ratingData[0]?.photo_wuality_rating ? ratingData[0]?.photo_wuality_rating : 0}
-                                                  //ratingBackgroundColor="#c8c7c8"
-                                                  onFinishRating={setRating}
-                                                  reviewColor={Colors.surfblur}
-                                                  style={styles.rating}
-                                                  tintColor={Colors.white}
-                                                  ratingColor={Colors.surfblur}
-
-                                                //tintColor="#f1f3f4"
-                                                /> */}
-                                                <StarRating
-                                                  maxStars={5}
-                                                  starSize={22}
-                                                  enableSwiping
-                                                  enableHalfStar
-                                                  color={Colors.surfblur}
-                                                  rating={ rating}
-                                                  onChange={(value) => { setRating(value) }}
-                                                />
-
-                                                  ratingBackgroundColor={Colors.surfblur}
-                                                /> */}
 
                                               </View>
                                             </View>
@@ -1933,39 +1903,17 @@ const Home = () => {
                                                   Description Accuracy  :
 
                                                 </Text>
-
+                                        
                                                 <StarRating
                                                   maxStars={5}
                                                   starSize={22}
                                                   enableSwiping
                                                   enableHalfStar
                                                   color={Colors.surfblur}
-                                                  rating={ratingData[0]?.description_review_stars ? ratingData[0]?.description_review_stars : descRating}
-                                                  onChange={(value) => { setDescRating(value) }}
-                                                />
-
-                                                {/* <Rating
-                                                  type="custom"
-                                                  ratingCount={5}
-                                                  imageSize={22}
-                                                  startingValue={ratingData[0]?.description_review_stars ? ratingData[0]?.description_review_stars : 0}
-                                                  // ratingBackgroundColor="#c8c7c8"
-                                                  onFinishRating={setRating1}
-                                                  style={styles.rating}
-                                                  ratingColor={Colors.surfblur}
-                                                //tintColor="#f1f3f4"
-                                                /> */}
-
-                                                   <StarRating
-                                                  maxStars={5}
-                                                  starSize={22}
-                                                  enableSwiping
-                                                  enableHalfStar
-                                                  color={Colors.surfblur}
-                                                  rating={ rating1}
+                                                  rating={rating1}
                                                   onChange={(value) => { setRating1(value) }}
                                                 />
-                                           
+
 
                                               </View>
                                             </View>
@@ -1988,29 +1936,7 @@ const Home = () => {
                                                   enableSwiping
                                                   enableHalfStar
                                                   color={Colors.surfblur}
-                                                  rating={ratingData[0]?.price_review_stars ? ratingData[0]?.price_review_stars : priceRating}
-                                                  onChange={(value) => { setPriceRating(value) }}
-                                                />
-
-                                                {/* <Rating
-                                                  type="custom"
-                                                  ratingCount={5}
-                                                  imageSize={22}
-                                                  startingValue={ratingData[0]?.price_review_stars ? ratingData[0]?.price_review_stars : 0}
-                                                  //ratingBackgroundColor="#c8c7c8"
-                                                  onFinishRating={setRating2}
-                                                  style={styles.rating}
-                                                  ratingColor={Colors.surfblur}
-                                                //tintColor="#f1f3f4"
-                                                /> */}
-
-                                                  <StarRating
-                                                  maxStars={5}
-                                                  starSize={22}
-                                                  enableSwiping
-                                                  enableHalfStar
-                                                  color={Colors.surfblur}
-                                                  rating={ rating2}
+                                                  rating={rating2}
                                                   onChange={(value) => { setRating2(value) }}
                                                 />
 
@@ -2030,36 +1956,13 @@ const Home = () => {
 
                                                 </Text>
 
-
                                                 <StarRating
                                                   maxStars={5}
                                                   starSize={22}
                                                   enableSwiping
                                                   enableHalfStar
                                                   color={Colors.surfblur}
-                                                  rating={ratingData[0]?.interest_review_stars ? ratingData[0]?.interest_review_stars : interestRating}
-                                                  onChange={(value) => { setInterestRating(value) }}
-                                                />
-
-                                                {/* <Rating
-                                                  type="custom"
-                                                  ratingCount={5}
-                                                  imageSize={22}
-                                                  startingValue={ratingData[0]?.interest_review_stars ? ratingData[0]?.interest_review_stars : 0}
-                                                  // ratingBackgroundColor="#c8c7c8"
-                                                  onFinishRating={setRating3}
-                                                  style={styles.rating}
-                                                  ratingColor={Colors.surfblur}
-                                                //tintColor="#f1f3f4"
-                                                /> */}
-
-                                                  <StarRating
-                                                  maxStars={5}
-                                                  starSize={22}
-                                                  enableSwiping
-                                                  enableHalfStar
-                                                  color={Colors.surfblur}
-                                                  rating={ rating3}
+                                                  rating={rating3}
                                                   onChange={(value) => { setRating3(value) }}
                                                 />
 
@@ -2091,7 +1994,7 @@ const Home = () => {
                                                 }}>
 
 
-                                                {ratingData.length>0  ? (
+                                                {ratingData.length > 0 ? (
                                                   <TextInput
                                                     multiline={true}
                                                     style={{
@@ -2105,7 +2008,7 @@ const Home = () => {
                                                   />
                                                 ) : (
                                                   <TextInput
-                                                  onChangeText={text => setComentContent(text)}
+                                                    onChangeText={text => setComentContent(text)}
 
                                                     multiline={true}
                                                     style={{
@@ -2131,7 +2034,7 @@ const Home = () => {
                                               justifyContent: "flex-end",
                                               //s paddingHorizontal: 10
                                             }}>
-                                              {ratingData.length>0 ? (
+                                              {ratingData.length > 0 ? (
                                                 <View style={{
                                                   justifyContent: "flex-end", width: '100%',
                                                   alignItems: "flex-end",
