@@ -228,54 +228,35 @@ const Settings = props => {
 
         </TouchableOpacity>
 
-        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Settings</Text>
+        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Settings</Text>
 
-        {/* <TouchableOpacity
-          style={{
-            alignItems: 'center',
-            marginLeft: 12,
 
-            backgroundColor: Colors.surfblur,
-            height: 25,
-            width: 25,
-            borderRadius: 100,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          onPress={() => navigation.navigate("MyProfile")}
-        >
-          <Animatable.Image source={Images.whiteclose}
-            style={{
-              height: 10,
-              width: 10,
-              resizeMode: 'contain',
-              tintColor: Colors.white,
-            }}
-            animation="flipInY"
-          />
-        </TouchableOpacity> */}
         <TouchableOpacity
           style={{
             alignItems: 'center',
-            // position: "absolute",
-            ///right: 10,
-            // top: 2,
+            // position: 'absolute',
+            // right: 12,
+            // top: 8,
 
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            height: 40,
-            width: 40,
+            height: 30,
+            width: 30,
             borderRadius: 100,
             backgroundColor: Colors.gray,
           }}
+
           onPress={() => navigation.goBack()}>
+
           <Animatable.Image
             source={Images.whiteclose}
             style={styles.imagedata}
             animation="flipInY"
           />
         </TouchableOpacity>
+
+
       </View>
 
       <KeyboardAwareScrollView style={{ height: '100%', width: '100%' }}>
@@ -286,22 +267,22 @@ const Settings = props => {
             //marginTop: 20,
             alignSelf: 'center',
             justifyContent: 'space-between',
-            marginTop: 15,
+            marginTop: 22,
             marginBottom: 20
           }}>
           <Text
             style={{
               fontSize: 18,
               color: Colors.black,
-              fontFamily: 'Poppins-Medium',
-              color: Colors.surfblur
+              fontFamily: 'Poppins-SemiBold',
+              color: Colors.darbluec
             }}>
             Allow Notfication ?
           </Text>
           <View>
             <Switch
-              trackColor={{ false: '#767577', true: '#81b0ff' }}
-              thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+              trackColor={{ false: '#767577', true: '#11b03e' }}
+              thumbColor={isEnabled ? '#fff' : '#f4f3f4'}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleSwitch}
               value={isEnabled}
@@ -338,9 +319,9 @@ const Settings = props => {
               fontSize: 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
-              opacity: .7
+              opacity: .6
             }}>
-            First name
+            First Name
           </Text>
         </View>
 
@@ -378,9 +359,9 @@ const Settings = props => {
               fontSize: 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
-              opacity: .7
+              opacity: .6
             }}>
-            Last name
+            Last Name
           </Text>
         </View>
 
@@ -420,7 +401,7 @@ const Settings = props => {
               fontSize: 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
-              opacity: .7
+              opacity: .6
             }}>
             Email
           </Text>
@@ -464,7 +445,7 @@ const Settings = props => {
               fontSize: 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
-              opacity: .7
+              opacity: .6
             }}>
             Phone
           </Text>
@@ -505,7 +486,7 @@ const Settings = props => {
               fontSize: 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
-              opacity: .7
+              opacity: .6
             }}>
             Address
           </Text>
@@ -546,7 +527,7 @@ const Settings = props => {
               fontSize: 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
-              opacity: .7
+              opacity: .6
             }}>
             Facebook
           </Text>
@@ -567,7 +548,7 @@ const Settings = props => {
             borderWidth: 1,
             marginBottom: 17
           }} placeholder='Facebook'
-          placeholderTextColor={Colors.placeholderTextColor}
+          placeholderTextColor={'black'}
           keyboardType="default"
           returnKeyType="done"
           value={facebook}
@@ -587,9 +568,9 @@ const Settings = props => {
               fontSize: 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
-              opacity: .7
+              opacity: .6
             }}>
-            Twitter
+            X (formerly known as twitter)
           </Text>
         </View>
 
@@ -608,7 +589,7 @@ const Settings = props => {
             borderWidth: 1,
             marginBottom: 17
           }} placeholder='Twitter'
-          placeholderTextColor={Colors.placeholderTextColor}
+          placeholderTextColor={'black'}
           value={twitter}
           keyboardType="default"
           returnKeyType="done"
@@ -628,7 +609,7 @@ const Settings = props => {
               fontSize: 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
-              opacity: .7
+              opacity: .6
             }}>
             Instagram
           </Text>
@@ -649,7 +630,7 @@ const Settings = props => {
             borderWidth: 1,
             marginBottom: 17
           }} placeholder='Instagram'
-          placeholderTextColor={Colors.placeholderTextColor}
+          placeholderTextColor={'black'}
           value={instagram}
           keyboardType="default"
           returnKeyType="done"
@@ -669,7 +650,7 @@ const Settings = props => {
               fontSize: 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
-              opacity: .7
+              opacity: .6
             }}>
             Threads
           </Text>
@@ -690,7 +671,7 @@ const Settings = props => {
             borderWidth: 1,
             marginBottom: 17
           }} placeholder='Threads'
-          placeholderTextColor={Colors.placeholderTextColor}
+          placeholderTextColor={'black'}
           value={threads}
           keyboardType="default"
           returnKeyType="done"

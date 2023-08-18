@@ -311,7 +311,6 @@ const MyFavorites = () => {
       <ScrollView>
         <View
           style={{
-            //height: 70,
 
             width: '100%',
             paddingHorizontal: 15,
@@ -320,6 +319,7 @@ const MyFavorites = () => {
             alignSelf: 'center',
             alignItems: 'center',
             flexDirection: 'row',
+            paddingBottom: 45
           }}>
           <View
             style={{
@@ -367,7 +367,7 @@ const MyFavorites = () => {
                     />
                   ) : (
                     <Image
-                      style={{ height: 40, width: 40 }}
+                      style={{ height: 40, width: 40, resizeMode: "cover" }}
                       source={Images.user}
                     />
                   )}
@@ -390,7 +390,7 @@ const MyFavorites = () => {
               </View>
             </TouchableOpacity>
           </View>
-          <Text style={{ fontSize: 28, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
+          <Text style={{ fontSize: 25, color: "#2144a0", fontFamily: 'Poppins-Medium', textTransform: "capitalize" }}>
             {details[0]?.username}
           </Text>
           <TouchableOpacity
@@ -423,14 +423,7 @@ const MyFavorites = () => {
         </View>
         <View style={{ marginTop: 2, height: '100%' }}>
 
-          {/* <FlatList
 
-            data={images}
-            keyExtractor={(item, index) => index.toString()}
-            // keyExtractor={item => item.id}
-            renderItem={renderItem}
-          // extraData={isSelected}
-          /> */}
           <View style={styles.slideOuter}>
             <TouchableOpacity onPress={handleFavPress}
               activeOpacity={0.8}
@@ -471,10 +464,17 @@ const MyFavorites = () => {
                 width: '100%',
                 alignItems: 'center',
               }}>
-              <View style={styles.viewstyle}>
-                <Image
-                  source={Images.notification}
-                  style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+              <View style={[styles.viewstyle, { position: "relative" }]}>
+                <View style={{ position: "relative" }}>
+                  <Image
+                    source={Images.notification}
+                    style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+                  <Text style={{
+                    position: "absolute", backgroundColor: "red", right: -8, bottom: -5,
+                    height: 15, width: 15, borderRadius: 100, color: Colors.white,
+                    textAlign: "center", fontSize: 9, alignItems: "center",
+                    justifyContent: "center"
+                  }}>2</Text></View>
                 <Text style={styles.text}>Notifications</Text>
               </View>
               <View style={styles.line}></View>
@@ -558,13 +558,14 @@ const MyFavorites = () => {
               }}>
               <View style={styles.viewstyle}>
                 <Image
-                  source={Images.lokal}
-                  style={{ height: 25, width: 25, resizeMode: 'contain' }} />
+                  source={Images.contactsurf}
+                  style={{ height: 20, width: 20, resizeMode: 'contain' }} />
                 <Text style={styles.text}>Contact surf lokal</Text>
               </View>
               <View style={styles.line}></View>
             </TouchableOpacity>
           </View>
+
           {
             propertyChat.length > 0 && <View style={styles.slideOuter}>
               <TouchableOpacity onPress={() => navigation.navigate('ChatHistory')}
@@ -577,7 +578,7 @@ const MyFavorites = () => {
                   style={styles.viewstyle}>
                   <TouchableOpacity>
                     <Image
-                      source={isImageChanged ? Images.chat : Images.chat}
+                      source={isImageChanged ? Images.chatprofile : Images.chatprofile}
                       style={{ height: 20, width: 20, resizeMode: 'contain' }} />
                   </TouchableOpacity>
                   <Text style={styles.text}>Chat History</Text>
@@ -586,6 +587,7 @@ const MyFavorites = () => {
               </TouchableOpacity>
             </View>
           }
+
 
         </View>
 

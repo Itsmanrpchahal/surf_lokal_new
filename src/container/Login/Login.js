@@ -52,6 +52,7 @@ export default function Login({ navigation }) {
   const [emailId, setEmailId] = useState('testmanpreet@gmail.com');
   // const [password, setPassword] = useState('');
   const [password, setPassword] = useState('testmanpreet@123');
+
   const [phone, setPhone] = useState('');
   const [countryName, setCountryName] = useState('');
   const [countryCode, setCountryCode] = useState('');

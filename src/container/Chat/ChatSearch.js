@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, TouchableOpacity, Image, TextInput, SafeAreaView } from 'react-native'
+import { View, Text, TouchableOpacity, Image, TextInput, SafeAreaView, StyleSheet } from 'react-native'
 import Colors from "../../utils/Colors";
 import { useNavigation, useIsFocused, useRoute } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
@@ -238,7 +238,7 @@ const ChatSearch = (props) => {
                   }
                   const newTodo = {
                     type: 1,
-                    message: ress.payload.data.text,
+                    message: ress.payload.message,
                     date: getCurrentDateTime(),
                   };
                   setMessage('')
@@ -274,3 +274,12 @@ const ChatSearch = (props) => {
 }
 
 export default ChatSearch;
+const styles = StyleSheet.create({
+  imagedata: {
+    height: 12,
+    width: 12,
+    resizeMode: 'contain',
+    tintColor: Colors.black,
+    // transform: [{ rotate: '90deg' }],
+  },
+});
