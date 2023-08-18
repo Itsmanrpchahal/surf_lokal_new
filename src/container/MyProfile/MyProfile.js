@@ -565,25 +565,27 @@ const MyFavorites = () => {
               <View style={styles.line}></View>
             </TouchableOpacity>
           </View>
-          <View style={styles.slideOuter}>
-            <TouchableOpacity onPress={() => navigation.navigate('ChatHistory')}
-              activeOpacity={0.8}
-              style={{
-                width: '100%',
-                alignItems: 'center',
-              }}>
-              <View
-                style={styles.viewstyle}>
-                <TouchableOpacity>
-                  <Image
-                    source= {isImageChanged ? Images.chat : Images.chat}
-                    style={{ height: 20, width: 20, resizeMode: 'contain' }} />
-                </TouchableOpacity>
-                <Text style={styles.text}>Chat History</Text>
-              </View>
-              <View style={styles.line}></View>
-            </TouchableOpacity>
-          </View>
+          {
+            propertyChat.length > 0 && <View style={styles.slideOuter}>
+              <TouchableOpacity onPress={() => navigation.navigate('ChatHistory')}
+                activeOpacity={0.8}
+                style={{
+                  width: '100%',
+                  alignItems: 'center',
+                }}>
+                <View
+                  style={styles.viewstyle}>
+                  <TouchableOpacity>
+                    <Image
+                      source={isImageChanged ? Images.chat : Images.chat}
+                      style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+                  </TouchableOpacity>
+                  <Text style={styles.text}>Chat History</Text>
+                </View>
+                <View style={styles.line}></View>
+              </TouchableOpacity>
+            </View>
+          }
 
         </View>
 
