@@ -35,7 +35,7 @@ const Challenges = () => {
   const [questionIndex, setQuestionIndex] = useState(0)
   const [selectedTabsMore, setSelectedTabsMore] = useState([]);
   const [selectedTabsMore2, setSelectedTabsMore2] = useState([]);
-
+  const [count, setCount] = useState(0)
 
 
   const dispatch = useDispatch();
@@ -57,6 +57,7 @@ const Challenges = () => {
   const getRewardsChallengeApicall = () => {
     dispatch(getRewardListing()).then(response => {
       setQuestion(response.payload.data)
+      setCount(response.payload.count)
     });
   };
 
@@ -213,7 +214,7 @@ const Challenges = () => {
         {
           question[index] ?
             <SwiperFlatList style={{ width: screenWidth, }}
-              index={imageIndex}
+              index={count + 1}
               data={question}
               refer={index}
               renderItem={({ item, index }) => {
@@ -232,9 +233,13 @@ const Challenges = () => {
                       width: screenWidth
                     }}
                   >
-                    <Text style={{ textAlign: "center", justifyContent: "center", alignItems: "center", paddingHorizontal: 12, width: screenWidth, fontSize: 18, marginTop: 20, color: Colors.black, fontFamily: 'Poppins-Regular', height: 60, }}>{"Q."}{index + 1}{" : "}{item?.post_title}</Text>
+                    <Text style={{
+                      textAlign: "center", justifyContent: "center", alignItems: "center", paddingHorizontal: 12, width: screenWidth,
+                      fontSize: 18, marginTop: 20, color: Colors.black, fontFamily: 'Poppins-Regular', height: 60,
+                    }}>
+                      {"Q."}{index + 1}{" : "}{item?.post_title}</Text>
                     <View style={{ flexDirection: "row", justifyContent: 'center', alignItems: 'center', alignContent: 'center', }} >
-                      <TouchableOpacity onPress={() => {
+                      <TouchableOpacity disabled={item?.is_like != '0' || isSelected2 || isSelected && true} onPress={() => {
                         if (isSelected) {
                           setSelectedTabsMore((prev) => prev.filter((i) => i !== ID));
                           setSelectedTabsMore2((prev) => prev.filter((i) => i == ID));
@@ -251,9 +256,9 @@ const Challenges = () => {
                         formData.append('title', item.post_title)
                         formData.append('post_id', item.ID)
                         formData.append('points', item.points)
+                        formData.append('status', 2)
                         console.log(" likeDisLike selectedTabsMore", selectedTabsMore)
                         console.log(" likeDisLike selectedTabsMore2", selectedTabsMore2)
-
                         dispatch(likeDisLike(formData)).then((response) => {
                           console.log('Questoon response', response.payload)
                         }).catch((e) => {
@@ -265,33 +270,34 @@ const Challenges = () => {
 
                         }}>
                         <Image
-                          source={isSelected ? Images.redlike : Images.deletethumb}
+                          source={isSelected || item.is_like === '2' ? Images.redlike : Images.deletethumb}
                           style={{ height: 50, width: 50, resizeMode: 'contain' }} />
                       </TouchableOpacity>
-                      <TouchableOpacity onPress={() => {
+                      <TouchableOpacity disabled={item?.is_like != '0' || isSelected || isSelected2 && true} onPress={() => {
                         if (isSelected2) {
                           setSelectedTabsMore2((prev) => prev.filter((i) => i !== ID));
                         } else {
                           setSelectedTabsMore2(prev => [...prev, ID]);
                           setSelectedTabsMore(prev => prev.filter((i) => i !== ID));
                         }
-                        const payload = {
-                          user_id: user_ID,
-                          title: item.post_title,
-                          post_id: item.ID,
-                          points: item.points
-                        }
+                        const formData = new FormData()
+                        formData.append('user_id', user_ID)
+                        formData.append('title', item.post_title)
+                        formData.append('post_id', item.ID)
+                        formData.append('points', item.points)
+                        formData.append('status', 1)
                         console.log(" likeDisLike selectedTabsMore", selectedTabsMore)
                         console.log(" likeDisLike selectedTabsMore2", selectedTabsMore2)
-
-                        dispatch(likeDisLike(payload)).then(response => {
-                          console.log(response)
+                        dispatch(likeDisLike(formData)).then((response) => {
+                          console.log('Questoon response', response.payload)
+                        }).catch((e) => {
+                          console.log('error ', e)
                         });
                       }}
                         activeOpacity={0.8}>
                         <View style={styles.viewstyle}>
                           <Image
-                            source={isSelected2 ? Images.upgreen : Images.upthumb}
+                            source={isSelected2 || item.is_like === '1' ? Images.upgreen : Images.upthumb}
                             style={{ height: 50, width: 50, resizeMode: 'contain' }} />
                         </View>
                       </TouchableOpacity>
