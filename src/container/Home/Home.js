@@ -19,6 +19,7 @@ import {
   Keyboard,
   Button
 } from 'react-native';
+import StarRating from 'react-native-star-rating-widget';
 import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
@@ -446,7 +447,7 @@ const Home = () => {
       photo_quality_rating: rating,
       desc_stars: rating1,
       price_stars: rating2,
-      interest_stars: rating1,
+      interest_stars: rating3,
       content: commentContent,
     };
     console.log("addddddddddd ratingggggg", formdata)
@@ -472,7 +473,7 @@ const Home = () => {
     formData.append('review_stars', rating);
     formData.append('description_review_stars', rating1);
     formData.append('price_review_stars', rating2);
-    formData.append('interest_review_stars', rating1);
+    formData.append('interest_review_stars', rating3);
     formData.append('reviewtitle', reviewTitle);
     console.log("postUpdateRating", formData)
 
@@ -1505,6 +1506,10 @@ const Home = () => {
                                         toggleModal();
                                         dispatch(getRating(item.ID)).then((response) => {
                                           setRatingData(response?.payload?.data)
+                                          setRating(response?.payload?.data[0]?.photo_wuality_rating)
+                                          setRating1(response?.payload?.data[0]?.description_review_stars)
+                                          setRating2(response?.payload?.data[0]?.price_review_stars)
+                                          setRating3(response?.payload?.data[0]?.interest_review_stars)
                                           console.log(" getRating response data", response?.payload?.data)
                                         })
                                       }}>
@@ -1828,7 +1833,7 @@ const Home = () => {
                                                   Photos :
 
                                                 </Text>
-                                                <Rating
+                                                {/* <Rating
                                                   type="custom"
                                                   ratingCount={5}
                                                   imageSize={22}
@@ -1838,6 +1843,15 @@ const Home = () => {
                                                   style={styles.rating}
                                                   ratingColor={Colors.surfblur}
                                                 //tintColor="#f1f3f4"
+                                                /> */}
+                                                <StarRating
+                                                  maxStars={5}
+                                                  starSize={22}
+                                                  enableSwiping
+                                                  enableHalfStar
+                                                  color={Colors.surfblur}
+                                                  rating={ rating}
+                                                  onChange={(value) => { setRating(value) }}
                                                 />
                                               </View>
                                             </View>
@@ -1854,7 +1868,7 @@ const Home = () => {
                                                   Description Accuracy  :
 
                                                 </Text>
-                                                <Rating
+                                                {/* <Rating
                                                   type="custom"
                                                   ratingCount={5}
                                                   imageSize={22}
@@ -1864,7 +1878,17 @@ const Home = () => {
                                                   style={styles.rating}
                                                   ratingColor={Colors.surfblur}
                                                 //tintColor="#f1f3f4"
+                                                /> */}
+                                                   <StarRating
+                                                  maxStars={5}
+                                                  starSize={22}
+                                                  enableSwiping
+                                                  enableHalfStar
+                                                  color={Colors.surfblur}
+                                                  rating={ rating1}
+                                                  onChange={(value) => { setRating1(value) }}
                                                 />
+                                           
                                               </View>
                                             </View>
                                             <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -1879,7 +1903,7 @@ const Home = () => {
                                                   Price  :
 
                                                 </Text>
-                                                <Rating
+                                                {/* <Rating
                                                   type="custom"
                                                   ratingCount={5}
                                                   imageSize={22}
@@ -1889,6 +1913,15 @@ const Home = () => {
                                                   style={styles.rating}
                                                   ratingColor={Colors.surfblur}
                                                 //tintColor="#f1f3f4"
+                                                /> */}
+                                                  <StarRating
+                                                  maxStars={5}
+                                                  starSize={22}
+                                                  enableSwiping
+                                                  enableHalfStar
+                                                  color={Colors.surfblur}
+                                                  rating={ rating2}
+                                                  onChange={(value) => { setRating2(value) }}
                                                 />
                                               </View>
                                             </View>
@@ -1905,7 +1938,7 @@ const Home = () => {
                                                   Interest in Property :
 
                                                 </Text>
-                                                <Rating
+                                                {/* <Rating
                                                   type="custom"
                                                   ratingCount={5}
                                                   imageSize={22}
@@ -1915,6 +1948,15 @@ const Home = () => {
                                                   style={styles.rating}
                                                   ratingColor={Colors.surfblur}
                                                 //tintColor="#f1f3f4"
+                                                /> */}
+                                                  <StarRating
+                                                  maxStars={5}
+                                                  starSize={22}
+                                                  enableSwiping
+                                                  enableHalfStar
+                                                  color={Colors.surfblur}
+                                                  rating={ rating3}
+                                                  onChange={(value) => { setRating3(value) }}
                                                 />
                                               </View>
                                             </View>
