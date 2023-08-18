@@ -50,6 +50,7 @@ import * as Animatable from 'react-native-animatable';
 import { TypingAnimation } from 'react-native-typing-animation';
 import { schoolChat } from '../../modules/schoolChat';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
+import StarRating from 'react-native-star-rating-widget';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -72,6 +73,11 @@ const ViewPropertiy = (props, imageUrl) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [rating, setRating] = useState(0);
+  const [rating1, setRating1] = useState(0);
+  const [rating2, setRating2] = useState(0);
+  const [rating3, setRating3] = useState(0);
+  const [commentContent, setComentContent] = useState('');
+
   const [review, setReview] = useState('');
   const [productId, setProductId] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
@@ -194,7 +200,6 @@ const ViewPropertiy = (props, imageUrl) => {
 
   useEffect(() => {
     getPopertiesDetailsApiCall();
-    getRatingApicall();
     getAgentApicall();
   }, []);
   useEffect(() => {
@@ -290,12 +295,7 @@ const ViewPropertiy = (props, imageUrl) => {
     Linking.openURL(`tel:${phoneNumber}`);
   };
 
-  const getRatingApicall = () => {
-    dispatch(getRating()).then(response => {
 
-      setRatingData(response.payload.data)
-    })
-  }
   const savefile = async post_id => {
     const userID = await AsyncStorage.getItem('userId');
 
@@ -344,14 +344,15 @@ const ViewPropertiy = (props, imageUrl) => {
     const id = await AsyncStorage.getItem('userId');
     const formData = new FormData();
     formData.append('userID', id);
-    formData.append('postid', postid.ID);
-    formData.append('comment_content', review);
+    formData.append('postid', productId);
+    formData.append('comment_content', commentContent);
     formData.append('review_title', reviewTitle);
     formData.append('review_stars', rating);
-    formData.append('description_review_stars', rating);
-    formData.append('price_review_stars', rating);
-    formData.append('interest_review_stars', rating);
-    formData.append('reviewtitle', reviewTitle)
+    formData.append('description_review_stars', rating1);
+    formData.append('price_review_stars', rating2);
+    formData.append('interest_review_stars', rating3);
+    formData.append('reviewtitle', reviewTitle);
+    console.log("postUpdateRating", formData)
 
     dispatch(postUpdateRating(formData)).then((response) => {
 
@@ -364,20 +365,20 @@ const ViewPropertiy = (props, imageUrl) => {
       }
     });
   };
-
-
   const addReview = async post_id => {
     const id = await AsyncStorage.getItem('userId');
     const formData = new FormData();
     formData.append('userID', id);
-    formData.append('postid', postid.ID);
-    formData.append('comment_content', review);
+    formData.append('postid', productId);
+    formData.append('comment_content', commentContent);
     formData.append('review_title', reviewTitle);
-    formData.append('review_stars', rating);
-    formData.append('description_review_stars', rating);
-    formData.append('price_review_stars', rating);
-    formData.append('interest_review_stars', rating);
-    formData.append('reviewtitle', reviewTitle)
+    formData.append('photo_quality_rating', rating);
+    formData.append('desc_stars', rating1);
+    formData.append('price_stars', rating2);
+    formData.append('interest_stars', rating3);
+    formData.append('content', commentContent);
+
+    console.log("addddddddddd ratingggggg", formData)
 
     dispatch(postRating(formData)).then(response => {
       ;
@@ -728,7 +729,7 @@ const ViewPropertiy = (props, imageUrl) => {
               // alignSelf: 'center',
               justifyContent: 'flex-start',
 
-              alignItems: "flex-start",  position: "relative",
+              alignItems: "flex-start", position: "relative",
 
               zIndex: 999,
 
@@ -741,7 +742,7 @@ const ViewPropertiy = (props, imageUrl) => {
               </TouchableOpacity>
             </View>
             <View style={{
-              position: 'relative', width: '100%',  position: "relative",
+              position: 'relative', width: '100%', position: "relative",
               zIndex: 999,
               // marginTop: 40,
               position: "relative",
@@ -865,7 +866,7 @@ const ViewPropertiy = (props, imageUrl) => {
                             borderRadius: 15,
                             overflow: "hidden",
                             margin: 8,
-                            marginBottom:0
+                            marginBottom: 0
                           }}
                           source={{ uri: item?.featured_image_src }}
                         />
@@ -891,6 +892,16 @@ const ViewPropertiy = (props, imageUrl) => {
                               setProductId(item.ID);
                               setReviewTitle(item.title);
                               toggleModal();
+                              dispatch(getRating(item.ID)).then(response => {
+
+                                setRatingData(response.payload.data)
+                                setRating(response?.payload?.data[0]?.photo_wuality_rating)
+                                setRating1(response?.payload?.data[0]?.description_review_stars)
+                                setRating2(response?.payload?.data[0]?.price_review_stars)
+                                setRating3(response?.payload?.data[0]?.interest_review_stars)
+                                console.log(" getRating response data", response?.payload?.data)
+
+                              })
                             }}>
                             <Image
                               source={Images.star}
@@ -968,9 +979,9 @@ const ViewPropertiy = (props, imageUrl) => {
                         // marginTop: 30,
                         backgroundColor: Colors.white,
                       }}>
-                        <ScrollView horizontal={true} 
-                        scrollEnabled={true} 
-                        showsHorizontalScrollIndicator={false}  >
+                        <ScrollView horizontal={true}
+                          scrollEnabled={true}
+                          showsHorizontalScrollIndicator={false}  >
                           <View
                             style={{
                               flexDirection: 'row',
@@ -1487,7 +1498,7 @@ const ViewPropertiy = (props, imageUrl) => {
                             }}>
                             Your Review
                           </Text>
-                  
+
                         </View>
                         <View style={{ width: '100%', }}>
                           <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -1501,19 +1512,18 @@ const ViewPropertiy = (props, imageUrl) => {
                               <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
                                 Photos :
                               </Text>
-                              {/* <Rating
-                                type="custom"
-                                ratingCount={5}
-                                imageSize={18}
-                                startingValue={ratingData[0]?.photo_wuality_rating
-                                }
-                                ratingBackgroundColor="#c8c7c8"
-                                onFinishRating={setRating}
-                                style={styles.rating}
-                                ratingColor={Colors.surfblur}
-                              //tintColor="#f1f3f4"
-                              /> */}
-                              
+                              <StarRating
+                                maxStars={5}
+                                starSize={22}
+                                enableSwiping
+                                enableHalfStar
+                                color={Colors.surfblur}
+                                rating={rating}
+                                onChange={(value) => { setRating(value) }}
+                              />
+
+
+
                             </View>
                           </View>
 
@@ -1525,20 +1535,18 @@ const ViewPropertiy = (props, imageUrl) => {
                                 alignItems: 'center',
                               }}>
                               <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                                Description & Details :
+                                Description Accuracy  :
                               </Text>
-                              <Rating
-                                type="custom"
-                                ratingCount={5}
-                                imageSize={18}
-                                startingValue={ratingData[0]?.description_review_stars
-                                }
-                                ratingBackgroundColor="#c8c7c8"
-                                onFinishRating={setRating}
-                                style={styles.rating}
-                                ratingColor={Colors.surfblur}
-                              //tintColor="#f1f3f4"
+                              <StarRating
+                                maxStars={5}
+                                starSize={22}
+                                enableSwiping
+                                enableHalfStar
+                                color={Colors.surfblur}
+                                rating={rating1}
+                                onChange={(value) => { setRating1(value) }}
                               />
+
                             </View>
                           </View>
                           <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -1549,20 +1557,18 @@ const ViewPropertiy = (props, imageUrl) => {
                                 alignItems: 'center',
                               }}>
                               <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                                Price Of Property :
+                                Price  :
                               </Text>
-                              <Rating
-                                type="custom"
-                                ratingCount={5}
-                                imageSize={18}
-                                startingValue={ratingData[0]?.price_review_stars
-                                }
-                                ratingBackgroundColor="#c8c7c8"
-                                onFinishRating={setRating}
-                                style={styles.rating}
-                                ratingColor={Colors.surfblur}
-                              //tintColor="#f1f3f4"
+                              <StarRating
+                                maxStars={5}
+                                starSize={22}
+                                enableSwiping
+                                enableHalfStar
+                                color={Colors.surfblur}
+                                rating={rating2}
+                                onChange={(value) => { setRating2(value) }}
                               />
+
                             </View>
                           </View>
 
@@ -1574,19 +1580,16 @@ const ViewPropertiy = (props, imageUrl) => {
                                 alignItems: 'center',
                               }}>
                               <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                                General Interest in the property :
+                                Interest in Property :
                               </Text>
-                              <Rating
-                                type="custom"
-                                ratingCount={5}
-                                imageSize={18}
-                                startingValue={ratingData[0]?.interest_review_stars
-                                }
-                                ratingBackgroundColor="#c8c7c8"
-                                onFinishRating={setRating}
-                                style={styles.rating}
-                                ratingColor={Colors.surfblur}
-                              //tintColor="#f1f3f4"
+                              <StarRating
+                                maxStars={5}
+                                starSize={22}
+                                enableSwiping
+                                enableHalfStar
+                                color={Colors.surfblur}
+                                rating={rating3}
+                                onChange={(value) => { setRating3(value) }}
                               />
                             </View>
                           </View>
@@ -1616,7 +1619,7 @@ const ViewPropertiy = (props, imageUrl) => {
                               }}>
 
 
-                              {isEditing ? (
+                              {ratingData.length >0  ? (
                                 <TextInput
                                   multiline={true}
                                   style={{
@@ -1626,11 +1629,13 @@ const ViewPropertiy = (props, imageUrl) => {
                                     width: "100%"
                                   }}
                                   value={review}
-                                  onChangeText={text => setReview(text)}
+                                  onChangeText={text => setComentContent(text)}
+
                                   autoFocus
                                 />
                               ) : (
                                 <TextInput
+                                onChangeText={text => setComentContent(text)}
 
                                   multiline={true}
                                   style={{
@@ -1638,9 +1643,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                     borderWidth: 1, borderColor: Colors.BorderColor, borderRadius: 8, paddingHorizontal: 12,
                                     fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", height: 100,
                                     width: "100%"
-
                                   }}>
-                                  {ratingData[0]?.comment_content}
                                 </TextInput>
                               )}
                             </View>
@@ -1654,7 +1657,7 @@ const ViewPropertiy = (props, imageUrl) => {
                             justifyContent: "flex-end",
                             //s paddingHorizontal: 10
                           }}>
-                            {isEditing ? (
+                            {ratingData.length >0  ? (
                               <View style={{
                                 justifyContent: "flex-end", width: '100%',
                                 alignItems: "flex-end",
