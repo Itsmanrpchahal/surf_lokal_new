@@ -562,6 +562,8 @@ PODS:
     - React-RCTImage
   - RNSVG (13.11.0):
     - React-Core
+  - RNVectorIcons (10.0.0):
+    - React-Core
   - TOCropViewController (2.6.1)
   - TwilioVideo (4.6.3)
   - Yoga (1.14.0)
@@ -627,6 +629,7 @@ DEPENDENCIES:
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
+  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - TwilioVideo
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -769,6 +772,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNSVG:
     :path: "../node_modules/react-native-svg"
+  RNVectorIcons:
+    :path: "../node_modules/react-native-vector-icons"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -850,6 +855,7 @@ SPEC CHECKSUMS:
   RNReanimated: f186e85d9f28c9383d05ca39e11dd194f59093ec
   RNScreens: b21dc57dfa2b710c30ec600786a3fc223b1b92e7
   RNSVG: 03e4d258ca355d7836a0a5dd4d4dc63c1eb49cbb
+  RNVectorIcons: 8b5bb0fa61d54cd2020af4f24a51841ce365c7e9
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   TwilioVideo: 4afaac028c5886f2f3b313a9fcc146a6b7ca34e2
   Yoga: ba09b6b11e6139e3df8229238aa794205ca6a02a

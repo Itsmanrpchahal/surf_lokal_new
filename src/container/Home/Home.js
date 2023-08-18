@@ -19,6 +19,9 @@ import {
   Keyboard,
   Button
 } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
+import SelectDropdown from 'react-native-select-dropdown'
 import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
@@ -31,6 +34,7 @@ import { postRating } from '../../modules/postRating';
 import { getFilter } from '../../modules/getFilter';
 import { SvgUri } from 'react-native-svg';
 import { Rating } from 'react-native-ratings';
+import StarRating from 'react-native-star-rating-widget';
 import { postUpdateRating } from '../../modules/postUpdateRating';
 import { Dropdown, MultiSelect } from 'react-native-element-dropdown';
 import CardsSwipe from 'react-native-cards-swipe';
@@ -131,9 +135,15 @@ const Home = () => {
   const [commentContent, setComentContent] = useState('');
 
   const [rating, setRating] = useState(0);
+
+  const [descRating, setDescRating] = useState(0);
+  const [priceRating, setPriceRating] = useState(0);
+  const [interestRating, setInterestRating] = useState(0);
+
   const [rating1, setRating1] = useState(0);
   const [rating2, setRating2] = useState(0);
   const [rating3, setRating3] = useState(0);
+
   const [ratingData, setRatingData] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
   const [bedroomitem, setBedroomItem] = useState(-1);
@@ -207,7 +217,7 @@ const Home = () => {
         favlistApi(),
         getSavedApiCall(),
         getMoreFilterApiCall(),
-        getPopertiesApiCall({ type: 0, data:{limit:limitCount}, lntLng, }),
+        getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng, }),
         setAddres(""),
         getUserScoreApiCall()
       ];
@@ -811,7 +821,7 @@ const Home = () => {
 
                   { handlePress2; }
                   dispatch(clearFilter())
-                  await dispatch(getPoperties({ type: 0, data: {limit:limitCount+1}, lntLng, })).then((response) => {
+                  await dispatch(getPoperties({ type: 0, data: { limit: limitCount + 1 }, lntLng, })).then((response) => {
                     setHomeData(response.payload.data)
                     console.log("getPoperties  Home clear response", data)
                   })
@@ -900,7 +910,7 @@ const Home = () => {
                           <Text style={{ color: 'black', fontFamily: 'Poppins-Regular', width: "99%", marginBottom: 8 }}>Choose your city </Text>
 
                           <MultiSelect
-                            style={styles.dropdown}
+                            style={[styles.dropdown, { width: '100%' }]}
                             placeholderStyle={styles.placeholderStyle}
                             selectedTextStyle={styles.selectedTextStyle}
                             inputSearchStyle={styles.inputSearchStyle}
@@ -1015,68 +1025,93 @@ const Home = () => {
 
                             <View style={{ flexDirection: "row", justifyContent: 'space-between', marginTop: 8, }}>
 
-                              <Dropdown
-                                style={{ borderWidth: 1, height: 50, fontSize: 16, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '45%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8, }}
-                                placeholderStyle={styles.placeholderStyle}
-                                selectedTextStyle={styles.selectedTextStyle}
-                                inputSearchStyle={styles.inputSearchStyle}
-                                iconStyle={styles.iconStyle}
-                                itemTextStyle={styles.itemTextStyle}
-                                data={moreFilterData.min_square}
-                                search
-                                maxHeight={300}
-                                labelField="data_name"
-                                valueField="data_name"
-                                placeholder="Min square"
-                                searchPlaceholder="Search..."
-                                value={minSquareFeet}
-                                onChange={async item => {
-                                  setMinSquareFeet(item.data_name);
-                                  await dispatch(getPoperties({
-                                    type: 3, data: {
-                                      UserId: user_ID,
-                                      data_custom_taxonomy: "min_square",
-                                      data_customvalue: item.data_customvalue,
-                                    },
-                                  })).then((res) => {
-                                    setHomeData(res.payload.data);
-                                  });
+                              <View style={[styles.dropdown, { width: '48%' }]}>
+                                <SelectDropdown
+                                  data={moreFilterData.min_square}
+                                  buttonStyle={styles.dropdown1BtnStyle}
+                                  buttonTextStyle={styles.dropdown1BtnTxtStyle}
+                                  dropdownIconPosition={'right'}
+                                  dropdownStyle={styles.dropdown1DropdownStyle}
+                                  rowStyle={styles.dropdown1RowStyle}
+                                  rowTextStyle={styles.dropdown1RowTxtStyle}
+                                  search={true}
+                                  searchInputStyle={{ color: 'black' }}
+                                  searchPlaceholder='Search'
+                                  searchPlaceHolderColor='black'
+                                  searchInputTxtColor='black'
+                                  placeholder="Min square"
+                                  defaultButtonText="Min square"
+                                  renderDropdownIcon={isOpened => {
+                                    return <Image source={Images.downArrow} tintColor={Colors.gray} style={{ height: 12, width: 12 }}></Image>;
+                                  }}
+                                  onSelect={async (selectedItem, index) => {
+                                    setMinSquareFeet(item.data_name);
+                                    await dispatch(getPoperties({
+                                      type: 3, data: {
+                                        UserId: user_ID,
+                                        data_custom_taxonomy: "min_square",
+                                        data_customvalue: item.data_customvalue,
+                                      },
+                                    })).then((res) => {
+                                      setHomeData(res.payload.data);
+                                    });
+                                  }}
+                                  buttonTextAfterSelection={(selectedItem, index) => {
+                                    return (
+                                      <Text style={{ color: 'black', textAlign: 'left' }}>{selectedItem?.data_customvalue}</Text>
+                                    )
+                                  }}
+                                  rowTextForSelection={(item, index) => {
+                                    return (
+                                      <Text style={{ color: 'black', textAlign: 'left' }}>{item?.data_customvalue}</Text>
+                                    )
+                                  }}
+                                />
+                              </View>
 
-                                }}
-
-                              />
-
-
-                              <Dropdown
-                                style={styles.dropdown}
-                                placeholderStyle={styles.placeholderStyle}
-                                selectedTextStyle={styles.selectedTextStyle}
-                                inputSearchStyle={styles.inputSearchStyle}
-                                itemTextStyle={styles.itemTextStyle}
-                                iconStyle={styles.iconStyle}
-                                data={moreFilterData.max_square}
-                                search
-                                maxHeight={300}
-                                labelField="data_name"
-                                valueField="data_name"
-                                placeholder="Max Square"
-                                searchPlaceholder="Search..."
-                                value={maxSquareFeet}
-                                onChange={async item => {
-                                  setMaxSquareFeet(item.data_name);
-                                  await dispatch(getPoperties({
-                                    type: 3, data: {
-                                      UserId: user_ID,
-                                      data_custom_taxonomy: "max_square",
-                                      data_customvalue: item.data_customvalue,
-                                    },
-                                  })).then((res) => {
-                                    setHomeData(res.payload.data);
-                                  });
-                                }}
-
-                              />
-
+                              <View style={[styles.dropdown, { width: '48%' }]}>
+                                <SelectDropdown
+                                  data={moreFilterData.max_square}
+                                  buttonStyle={styles.dropdown1BtnStyle}
+                                  buttonTextStyle={styles.dropdown1BtnTxtStyle}
+                                  dropdownIconPosition={'right'}
+                                  dropdownStyle={styles.dropdown1DropdownStyle}
+                                  rowStyle={styles.dropdown1RowStyle}
+                                  rowTextStyle={styles.dropdown1RowTxtStyle}
+                                  search={true}
+                                  searchInputStyle={{ color: 'black' }}
+                                  searchPlaceholder='Search'
+                                  searchPlaceHolderColor='black'
+                                  searchInputTxtColor='black'
+                                  placeholder="Max Square"
+                                  defaultButtonText='Max Square'
+                                  renderDropdownIcon={isOpened => {
+                                    return <Image source={Images.downArrow} tintColor={Colors.gray} style={{ height: 12, width: 12 }}></Image>;
+                                  }}
+                                  onSelect={async (selectedItem, index) => {
+                                    setMaxSquareFeet(item.data_name);
+                                    await dispatch(getPoperties({
+                                      type: 3, data: {
+                                        UserId: user_ID,
+                                        data_custom_taxonomy: "max_square",
+                                        data_customvalue: selectedItem.data_customvalue,
+                                      },
+                                    })).then((res) => {
+                                      setHomeData(res.payload.data);
+                                    });
+                                  }}
+                                  buttonTextAfterSelection={(selectedItem, index) => {
+                                    return (
+                                      <Text style={{ color: 'black', textAlign: 'left' }}>{selectedItem?.data_customvalue}</Text>
+                                    )
+                                  }}
+                                  rowTextForSelection={(item, index) => {
+                                    return (
+                                      <Text style={{ color: 'black', textAlign: 'left' }}>{item?.data_customvalue}</Text>
+                                    )
+                                  }}
+                                />
+                              </View>
 
                             </View>
 
@@ -1087,70 +1122,71 @@ const Home = () => {
                             <Text style={{ color: 'black', fontFamily: 'Poppins-Regular' }}>Price Range</Text>
 
                             <View style={{ flexDirection: "row", justifyContent: 'space-between', marginBottom: 16, width: '100%' }}>
+                              <View style={[styles.dropdown, { width: '48%' }]}>
+                                <SelectDropdown
+                                  data={moreFilterData.min_price}
+                                  buttonStyle={styles.dropdown1BtnStyle}
+                                  buttonTextStyle={styles.dropdown1BtnTxtStyle}
+                                  dropdownIconPosition={'right'}
+                                  dropdownStyle={styles.dropdown1DropdownStyle}
+                                  rowStyle={styles.dropdown1RowStyle}
+                                  rowTextStyle={styles.dropdown1RowTxtStyle}
+                                  search={true}
+                                  searchInputStyle={{ color: 'black' }}
+                                  searchPlaceholder='Search'
+                                  searchPlaceHolderColor='black'
+                                  searchInputTxtColor='black'
+                                  placeholder="Min Price"
+                                  defaultButtonText='Min Price'
+                                  renderDropdownIcon={isOpened => {
+                                    return <Image source={Images.downArrow} tintColor={Colors.gray} style={{ height: 12, width: 12 }}></Image>;
+                                  }}
+                                  onSelect={async (selectedItem, index) => {
+                                    setMinPricerange(item.data_name);
+                                    await dispatch(getPoperties({
+                                      type: 3, data: {
+                                        UserId: user_ID,
+                                        data_custom_taxonomy: "min_price",
+                                        data_customvalue: item.data_customvalue,
+                                      },
+                                    })).then((res) => {
+                                      setHomeData(res.payload.data);
+                                    });
+                                  }}
+                                  buttonTextAfterSelection={(selectedItem, index) => {
+                                    return (
+                                      <Text style={{ color: 'black', textAlign: 'left' }}>{selectedItem?.data_customvalue}</Text>
+                                    )
+                                  }}
+                                  rowTextForSelection={(item, index) => {
+                                    return (
+                                      <Text style={{ color: 'black', textAlign: 'left' }}>{item?.data_customvalue}</Text>
+                                    )
+                                  }}
+                                />
+                              </View>
 
-                              <Dropdown
-                                style={{ borderWidth: 1, height: 50, fontSize: 14, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '45%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
-                                placeholderStyle={styles.placeholderStyle}
-                                selectedTextStyle={styles.selectedTextStyle}
-                                inputSearchStyle={styles.inputSearchStyle}
-                                iconStyle={styles.iconStyle}
-                                itemTextStyle={styles.itemTextStyle}
-                                data={moreFilterData.min_price}
-                                search
-                                maxHeight={300}
-                                labelField="data_name"
-                                valueField="data_name"
-                                placeholder="Min Price"
-                                searchPlaceholder="Search..."
-                                value={minPricerange}
-                                onChange={async item => {
-                                  setMinPricerange(item.data_name);
-                                  await dispatch(getPoperties({
-                                    type: 3, data: {
-                                      UserId: user_ID,
-                                      data_custom_taxonomy: "min_price",
-                                      data_customvalue: item.data_customvalue,
-                                    },
-                                  })).then((res) => {
-                                    setHomeData(res.payload.data);
-                                  });
-
-                                }}
-
-
-                              />
-
-                              {/* <View
-                                style={{
-                                  height: 50,
-                                  borderColor: Colors.BorderColor,
-                                  backgroundColor: 'white',
-                                  borderRadius: 10,
-                                  borderWidth: 1,
-                                  width: "60%",
-                                  marginLeft: 10,
-                                  marginBottom: 12,
-                                }}> */}
-                                <Dropdown
-                                  style={styles.dropdown}
-                                  // style={{ borderWidth: 1, fontSize: 14, fontFamily: "Poppins-Regular", color: Colors.newgray, width: '45%', borderColor: Colors.BorderColor, borderRadius: 10, padding: 6, paddingLeft: 12, marginBottom: 8 }}
-                                  placeholderStyle={styles.placeholderStyle}
-                                  selectedTextStyle={styles.selectedTextStyle}
-                                  inputSearchStyle={styles.inputSearchStyle}
-                                  iconStyle={styles.iconStyle}
-                                  itemTextStyle={styles.itemTextStyle}
+                              <View style={[styles.dropdown, { width: '48%' }]}>
+                                <SelectDropdown
                                   data={moreFilterData.max_price}
-                                  search
-                                  nestedScrollEnabled={true}
-                                  dropdownPosition={'auto'}
-
-                                  maxHeight={300}
-                                  labelField="data_name"
-                                  valueField="data_name"
+                                  buttonStyle={styles.dropdown1BtnStyle}
+                                  buttonTextStyle={styles.dropdown1BtnTxtStyle}
+                                  dropdownIconPosition={'right'}
+                                  dropdownStyle={styles.dropdown1DropdownStyle}
+                                  rowStyle={styles.dropdown1RowStyle}
+                                  rowTextStyle={styles.dropdown1RowTxtStyle}
+                                  search={true}
+                                  searchInputTxtStyle={{ color: '#000000' }}
+                                  searchInputStyle={{ color: '#000000' }}
+                                  searchPlaceholder='Search'
+                                  searchPlaceHolderColor='#000000'
+                                  searchInputTxtColor='#000000'
                                   placeholder="Max Price"
-                                  searchPlaceholder="Search..."
-                                  value={maxPriceRange}
-                                  onChange={async item => {
+                                  defaultButtonText='Max Price'
+                                  renderDropdownIcon={isOpened => {
+                                    return <Image source={Images.downArrow} tintColor={Colors.gray} style={{ height: 12, width: 12 }}></Image>;
+                                  }}
+                                  onSelect={async (selectedItem, index) => {
                                     setMaxPriceRange(item.data_name);
                                     await dispatch(getPoperties({
                                       type: 3, data: {
@@ -1161,10 +1197,21 @@ const Home = () => {
                                     })).then((res) => {
                                       setHomeData(res.payload.data);
                                     });
-
                                   }}
-
+                                  buttonTextAfterSelection={(selectedItem, index) => {
+                                    return (
+                                      <Text style={{ color: 'black', textAlign: 'left' }}>{selectedItem?.data_customvalue}</Text>
+                                    )
+                                  }}
+                                  rowTextForSelection={(item, index) => {
+                                    return (
+                                      <Text style={{ color: 'black', textAlign: 'left' }}>{item?.data_customvalue}</Text>
+                                    )
+                                  }}
                                 />
+                              </View>
+
+
                               {/* </View> */}
 
 
@@ -1401,9 +1448,36 @@ const Home = () => {
                                 <>
                                   <View style={{ height: width, width: width, position: "relative", marginTop: 1 }}>
                                     <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", zIndex: 99, }}>
+                                      <View style={{ opacity: 0, position: "absolute", zIndex: 9, top: "40%", justifyContent: "space-between", width: "100%", height: "100%", }}>
 
+                                        <Image
+                                          source={Images.next}
+                                          style={{
+                                            height: 25,
+                                            width: 25,
+                                            tintColor: Colors.white,
+                                            transform: [{ rotate: '-180deg' }], // Specify the rotation angle here
+                                            position: "relative",
+                                            left: 12,
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            zIndex: 999
+                                          }}
+                                        />
+
+                                        <Image
+                                          source={Images.next}
+                                          style={{
+                                            height: 25,
+                                            width: 25,
+                                            tintColor: Colors.white,
+                                            position: "absolute",
+                                            right: 12
+                                          }}
+                                        />
+                                      </View>
                                       <TouchableOpacity disabled={imageIndex > 0 ? false : true} onPress={() => { setImageIndex(imageIndex - 1); }}
-                                        style={{ height: "100%", width: 30, backgroundColor: "red", position: "relative", left: 10 }} >
+                                        style={{ height: "100%", width: 30, position: "relative", left: 10 }} >
                                         <View style={{ height: width, width: 40, position: "absolute", zIndex: 999, }}>
                                         </View>
                                       </TouchableOpacity>
@@ -1418,38 +1492,10 @@ const Home = () => {
                                     </View>
 
 
-                                    <View style={{ opacity: 0, position: "absolute", zIndex: 9, top: "40%", justifyContent: "space-between", width: "100%", height: "100%", }}>
 
-                                      <Image
-                                        source={Images.next}
-                                        style={{
-                                          height: 25,
-                                          width: 25,
-                                          tintColor: Colors.white,
-                                          transform: [{ rotate: '-180deg' }], // Specify the rotation angle here
-                                          position: "relative",
-                                          left: 12,
-                                          backgroundColor: "pink",
-                                          alignItems: "center",
-                                          justifyContent: "center",
-                                          zIndex: 999
-                                        }}
-                                      />
-
-
-                                      <Image
-                                        source={Images.next}
-                                        style={{
-                                          height: 25,
-                                          width: 25,
-                                          tintColor: Colors.white,
-                                          position: "absolute",
-                                          right: 12
-                                        }}
-                                      />
-                                    </View>
 
                                     <TouchableOpacity
+                                      style={{ height: screenWidth, }}
                                       onPress={() => {
                                         navigation.navigate('ViewPropertiy', { ID: item.ID, from: 'Home' });
                                       }}>
@@ -1463,7 +1509,7 @@ const Home = () => {
                                           alignItems: 'center',
                                           flexDirection: 'row',
                                           borderRadius: 15,
-
+                                          backgroundColor: 'gray',
                                           overflow: "hidden"
                                         }}
                                         source={{ uri: item?.featured_image_src[imageIndex]?.guid }}
@@ -1828,17 +1874,28 @@ const Home = () => {
                                                   Photos :
 
                                                 </Text>
-                                                <Rating
+                                                <StarRating
+                                                  maxStars={5}
+                                                  starSize={22}
+                                                  enableSwiping
+                                                  enableHalfStar
+                                                  color={Colors.surfblur}
+                                                  rating={ratingData[0]?.photo_wuality_rating ? ratingData[0]?.photo_wuality_rating : rating}
+                                                  onChange={(value) => { setRating(value) }}
+                                                />
+                                                {/* <Rating
                                                   type="custom"
                                                   ratingCount={5}
                                                   imageSize={22}
                                                   startingValue={ratingData[0]?.photo_wuality_rating ? ratingData[0]?.photo_wuality_rating : 0}
                                                   //ratingBackgroundColor="#c8c7c8"
                                                   onFinishRating={setRating}
+                                                  reviewColor={Colors.surfblur}
                                                   style={styles.rating}
+                                                  tintColor={Colors.white}
                                                   ratingColor={Colors.surfblur}
-                                                //tintColor="#f1f3f4"
-                                                />
+                                                  ratingBackgroundColor={Colors.surfblur}
+                                                /> */}
                                               </View>
                                             </View>
 
@@ -1854,7 +1911,16 @@ const Home = () => {
                                                   Description Accuracy  :
 
                                                 </Text>
-                                                <Rating
+                                                <StarRating
+                                                  maxStars={5}
+                                                  starSize={22}
+                                                  enableSwiping
+                                                  enableHalfStar
+                                                  color={Colors.surfblur}
+                                                  rating={ratingData[0]?.description_review_stars ? ratingData[0]?.description_review_stars : descRating}
+                                                  onChange={(value) => { setDescRating(value) }}
+                                                />
+                                                {/* <Rating
                                                   type="custom"
                                                   ratingCount={5}
                                                   imageSize={22}
@@ -1864,7 +1930,7 @@ const Home = () => {
                                                   style={styles.rating}
                                                   ratingColor={Colors.surfblur}
                                                 //tintColor="#f1f3f4"
-                                                />
+                                                /> */}
                                               </View>
                                             </View>
                                             <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -1879,7 +1945,16 @@ const Home = () => {
                                                   Price  :
 
                                                 </Text>
-                                                <Rating
+                                                <StarRating
+                                                  maxStars={5}
+                                                  starSize={22}
+                                                  enableSwiping
+                                                  enableHalfStar
+                                                  color={Colors.surfblur}
+                                                  rating={ratingData[0]?.price_review_stars ? ratingData[0]?.price_review_stars : priceRating}
+                                                  onChange={(value) => { setPriceRating(value) }}
+                                                />
+                                                {/* <Rating
                                                   type="custom"
                                                   ratingCount={5}
                                                   imageSize={22}
@@ -1889,7 +1964,7 @@ const Home = () => {
                                                   style={styles.rating}
                                                   ratingColor={Colors.surfblur}
                                                 //tintColor="#f1f3f4"
-                                                />
+                                                /> */}
                                               </View>
                                             </View>
 
@@ -1905,7 +1980,17 @@ const Home = () => {
                                                   Interest in Property :
 
                                                 </Text>
-                                                <Rating
+
+                                                <StarRating
+                                                  maxStars={5}
+                                                  starSize={22}
+                                                  enableSwiping
+                                                  enableHalfStar
+                                                  color={Colors.surfblur}
+                                                  rating={ratingData[0]?.interest_review_stars ? ratingData[0]?.interest_review_stars : interestRating}
+                                                  onChange={(value) => { setInterestRating(value) }}
+                                                />
+                                                {/* <Rating
                                                   type="custom"
                                                   ratingCount={5}
                                                   imageSize={22}
@@ -1915,7 +2000,7 @@ const Home = () => {
                                                   style={styles.rating}
                                                   ratingColor={Colors.surfblur}
                                                 //tintColor="#f1f3f4"
-                                                />
+                                                /> */}
                                               </View>
                                             </View>
 
@@ -2300,11 +2385,11 @@ const Home = () => {
                   textAlign: "center", alignItems: "center", width: "100%",
                   justifyContent: "center", position: "absolute", left: 0, right: 0, top: "37%",
                 }} title='Estend' onPress={() => {
-    
+
                   dispatch(getPoperties(
                     {
                       type: 0, data: {
-                        limit:limitCount+1
+                        limit: limitCount + 1
                       },
                     })).then((res) => {
                       setHomeData(res.payload.data);
@@ -2315,14 +2400,27 @@ const Home = () => {
           }
         </View>
 
-      </View>
+      </View >
 
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };
 export default Home;
 
 const styles = StyleSheet.create({
+  dropdown1BtnTxtStyle: { color: '#444', textAlign: 'left' },
+  dropdown1DropdownStyle: { backgroundColor: '#EFEFEF' },
+  dropdown1RowStyle: { backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5' },
+  dropdown1RowTxtStyle: { color: '#444', textAlign: 'left' },
+
+  dropdown1BtnStyle: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#FFF',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: Colors.BorderColor,
+  },
   locationpic: {
     resizeMode: "contain", width: 16, height: 16,
     paddingVertical: 12
@@ -2596,15 +2694,13 @@ const styles = StyleSheet.create({
     // margin: 16,
     // marginLeft: 10,
     borderWidth: 1,
-     fontSize: 14,
-   fontFamily: "Poppins-Regular",
-   color: Colors.newgray,
-    width: '55%',
-     borderColor: Colors.BorderColor,
-      borderRadius: 10, 
-      padding: 6,
-       paddingLeft: 12,
-        marginBottom: 8
+    fontSize: 14,
+    fontFamily: "Poppins-Regular",
+    color: Colors.newgray,
+    width: '50%',
+    borderColor: Colors.BorderColor,
+    borderRadius: 10,
+    marginBottom: 8
   },
   icon: {
     marginRight: 5,
