@@ -50,106 +50,96 @@ const Leaderboard = () => {
   const top5Leaderboard = leaderboarddata.length > 0 ? [...leaderboarddata].sort((a, b) => b.points - a.points).slice(0, 5) : [];
 
   return (
-    <SafeAreaView>
-      {/* <View
+    <SafeAreaView style={{ backgroundColor: Colors.darbluec }}>
+      <View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
-          marginLeft: 0,
-          backgroundColor: Colors.darbluec,
-          paddingTop: 12,
-          paddingBottom: 12,
+          position: 'relative',
+          // height: 45,
+          alignItems: 'center',
+          paddingVertical: 12,
+          borderBottomColor: Colors.darbluec,
+          borderBottomWidth: 1,
+          paddingTop: 16,
+          marginBottom: 16,
+          backgroundColor: Colors.darbluec
         }}>
-        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium', color: Colors.white }}>
-          LeaderBorad
-        </Text>
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            position: 'absolute',
+            left: 12,
+            justifyContent: 'center',
+            // top: 12,
+            top: 13
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Image
+            style={{
+              width: 10,
+              height: 10,
+              resizeMode: 'contain',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+              tintColor: Colors.white,
+              transform: [{ rotate: '90deg' }],
+            }}
+            source={Images.downArrow}></Image>
+          <Text
+            style={{
+              fontSize: 15,
+              color: Colors.white,
+              fontFamily: 'Poppins-Regular',
+              marginLeft: 5,
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            Back
+          </Text>
+        </TouchableOpacity>
         <View
           style={{
             flexDirection: 'row',
-            width: '90%',
-            alignSelf: 'center',
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-            overflow: 'visible',
-            zIndex: 99,
-            position: 'absolute',
-            top: 15,
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
-          <TouchableOpacity
+          <Text
             style={{
-              alignItems: 'center',
-              position: 'absolute',
-              right: -12,
-              top: -10,
-              backgroundColor: Colors.surfblur,
-              height: 25,
-              width: 25,
-              borderRadius: 100,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            onPress={() => navigation.goBack()}>
-            <Animatable.Image
-              source={Images.whiteclose}
-              style={{
-                height: 10,
-                width: 10,
-                resizeMode: 'contain',
-                tintColor: Colors.white,
-              }}
-              animation="flipInY"
-            />
-          </TouchableOpacity>
+              fontSize: 18,
+              color: Colors.white,
+              fontFamily: 'Poppins-Medium',
+              marginRight: 4,
+              lineHeight: 20,
+            }}>
+            Leaderboard
+          </Text>
+
         </View>
-      </View> */}
-      <View
-        style={{
-          paddingTop: 9,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: "center",
-          width: '100%',
-          marginLeft: 0,
-          backgroundColor: Colors.darbluec
-        }}>
-        <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", position: "absolute", left: 8, justifyContent: "center", top: 14 }} onPress={() => { navigation.goBack() }}>
-          <Image
-            style={{
-              width: 11,
-              height: 11,
-              resizeMode: "contain",
-              // position: "absolute",
-              // left: 0,
-              marginTop: -1,
-              tintColor: Colors.white,
-              transform: [{ rotate: '90deg' }]
-            }}
-            source={Images.downArrow}
-          ></Image>
-          <Text style={{
-            fontSize: 14,
-            color: Colors.white,
-            fontFamily: 'Poppins-Regular', marginLeft: 5
-          }}>Back</Text>
-        </TouchableOpacity>
-        <Text style={{ fontSize: 20, color: Colors.white, fontFamily: 'Poppins-Medium', textAlign: "center" }}>LeaderBorad</Text>
         <TouchableOpacity
           style={{
             alignItems: 'center',
-            position: "absolute",
-            right: 10,
-            top: 2,
+            position: 'absolute',
+            right: 12,
+            top: 8,
 
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            height: 40,
-            width: 40,
+            height: 30,
+            width: 30,
             borderRadius: 100,
             backgroundColor: Colors.gray,
           }}
-          onPress={() => navigation.goBack()}  >
+          onPress={() => {
+            navigation.goBack();
+          }}>
           <Animatable.Image
             source={Images.whiteclose}
             style={styles.imagedata}

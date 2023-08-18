@@ -9,6 +9,7 @@ import * as Animatable from 'react-native-animatable';
 
 const Notification = () => {
   const navigation = useNavigation();
+
   const [data, setData] = useState([]);
   const [isEnabled, setIsEnabled] = useState(false);
   const [toggle, setToggle] = useState(false);
@@ -65,7 +66,7 @@ const Notification = () => {
             {item.post_content}
           </Text>
 
-          <Text style={{ width: "100%", fontSize: 11, color: Colors.textColorLight, fontFamily: "Poppins-Light", alignItems: "flex-end", justifyContent: "flex-end", textAlign: "right", marginTop: 2 }}>
+          <Text style={{ width: "100%", fontSize: 11, color: Colors.textColorLight, fontFamily: "Poppins-Light", alignItems: "flex-end", justifyContent: "flex-end", textAlign: "right", marginTop: 0, position: "relative", top: 6 }}>
             {item.post_date}
           </Text>
         </View>
@@ -76,148 +77,109 @@ const Notification = () => {
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          width: '100%',
+          position: 'relative',
+          // height: 45,
+          alignItems: 'center',
+          paddingVertical: 12,
+          borderBottomColor: Colors.gray,
+          borderBottomWidth: 1,
+          paddingTop: 16,
+          marginBottom: 16,
+          backgroundColor: Colors.white
+        }}>
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            position: 'absolute',
+            left: 12,
+            justifyContent: 'center',
+            // top: 12,
+            top: 13
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Image
+            style={{
+              width: 10,
+              height: 10,
+              resizeMode: 'contain',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+              transform: [{ rotate: '90deg' }],
+            }}
+            source={Images.downArrow}></Image>
+          <Text
+            style={{
+              fontSize: 15,
+              color: Colors.black,
+              fontFamily: 'Poppins-Regular',
+              marginLeft: 5,
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            Back
+          </Text>
+        </TouchableOpacity>
         <View
           style={{
-            marginTop: 0,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 18,
+              color: Colors.black,
+              fontFamily: 'Poppins-Medium',
+              marginRight: 4,
+              lineHeight: 20,
+            }}>
+            Notifications
+          </Text>
+
+        </View>
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            position: 'absolute',
+            right: 12,
+            top: 8,
+
             flexDirection: 'row',
             justifyContent: 'center',
-            width: '100%',
-            marginLeft: 0,
-            marginBottom: 0,
-            height: 45,
-            alignItems: "center",
-            backgroundColor: Colors.white, borderBottomColor: Colors.BorderColor, borderBottomWidth: 1
-
+            alignItems: 'center',
+            height: 30,
+            width: 30,
+            borderRadius: 100,
+            backgroundColor: Colors.gray,
+          }}
+          onPress={() => {
+            navigation.goBack();
           }}>
-          <TouchableOpacity style={{ top: 12, flexDirection: "row", alignItems: "center", position: "absolute", left: 8, justifyContent: "center" }} onPress={() => { navigation.goBack() }}>
-            <Image
-              style={{
-                width: 11,
-                height: 11,
-                resizeMode: "contain",
-                // position: "absolute",
-                // left: 0,
-                marginTop: -1,
-                transform: [{ rotate: '90deg' }]
-              }}
-              source={Images.downArrow}
-            ></Image>
-            <Text style={{
-              fontSize: 14,
-              color: Colors.black,
-              fontFamily: 'Poppins-Regular', marginLeft: 5
-            }}>Back</Text>
-          </TouchableOpacity>
-          <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Notifications</Text>
+          <Animatable.Image
+            source={Images.whiteclose}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.container}>
 
-          <TouchableOpacity
-            style={{
-              alignItems: 'center',
-              position: "absolute",
-              right: 10,
-              top: 2,
-
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: 40,
-              width: 40,
-              borderRadius: 100,
-              backgroundColor: Colors.gray,
-            }}
-            onPress={() => navigation.goBack()}  >
-            <Animatable.Image
-              source={Images.whiteclose}
-              style={styles.imagedata}
-              animation="flipInY"
-            />
-          </TouchableOpacity>
-        </View>
-        {/* <View
-          style={{
-
-            flexDirection: 'row',
-            width: '100%',
-
-            paddingHorizontal: 12,
-            backgroundColor: Colors.white,
-            paddingVertical: 7,
-            justifyContent: "space-between",
-            alignItems: "center",
-
-          }}>
-          <View
-            style={{
-              width: "100%",
-              position: "absolute",
-              right: 0
-            }}>
-
-            <TouchableOpacity
-              style={{
-                alignItems: 'center',
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => navigation.goBack()}
-            >
-              <Animatable.Image
-                source={Images.toggle}
-                style={{
-                  height: 25,
-                  width: 25,
-                  resizeMode: 'contain',
-                  tintColor: Colors.black,
-                }}
-
-              />
-            </TouchableOpacity>
-          </View>
-          <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium', width: "100%", textAlign: "center" }}>Notifications</Text>
-
-          <View
-            style={{
-              width: '100%',
-              zIndex: 99,
-              position: 'absolute',
-              top: 10,
-              right: 10,
-              justifyContent: "flex-end",
-              alignItems: "flex-end"
-
-            }}>
-            <TouchableOpacity
-              style={{
-                alignItems: 'center',
-                backgroundColor: Colors.surfblur,
-                height: 25,
-                width: 25,
-                borderRadius: 100,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => navigation.goBack()}
-            >
-              <Animatable.Image
-                source={Images.whiteclose}
-                style={{
-                  height: 10,
-                  width: 10,
-                  resizeMode: 'contain',
-                  tintColor: Colors.white,
-                }}
-                animation="flipInY"
-              />
-            </TouchableOpacity>
-          </View>
-        </View> */}
 
         <View
           style={{
             flexDirection: 'row',
             width: '100%',
-            marginTop: 10,
+            marginTop: 0,
             alignSelf: 'center',
             justifyContent: 'space-between',
             marginHorizontal: 12
@@ -228,8 +190,8 @@ const Notification = () => {
           </Text>
           <View style={{ marginTop: -4 }}>
             <Switch
-              trackColor={{ false: '#767577', true: '#81b0ff' }}
-              thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+              trackColor={{ false: '#767577', true: '#11b03e' }}
+              thumbColor={isEnabled ? '#fff' : '#f4f3f4'}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleSwitch}
               value={isEnabled}
@@ -251,6 +213,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.backgroundColor,
+    paddingHorizontal: 5
   },
   viewStyle: {
     //  flexDirection: 'row',

@@ -67,7 +67,7 @@ const BottomTabNavigator = () => {
               Profile
             </Text>
           ),
-          tabBarIcon: Images.profile,
+          tabBarIcon: Images.newprofile,
           keyboardHidesTabBar: true,
           tabBarHideOnKeyboard: true,
         }}
@@ -85,9 +85,14 @@ const BottomTabNavigator = () => {
               <Text style={{
                 fontFamily: 'Poppins-Regular',
                 position: "absolute",
-                fontSize: 15, top: -30,
+                fontSize: 15,
+                top: -30,
                 color: Colors.black,
-                // backgroundColor:'red',
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                left: 0,
+                right: 0
 
               }}
 
@@ -137,7 +142,7 @@ const BottomTabNavigator = () => {
               Chat
             </Text>
           ),
-          tabBarIcon: Images.chat,
+          tabBarIcon: Images.chatprofile,
           keyboardHidesTabBar: true,
           tabBarHideOnKeyboard: true,
         }}

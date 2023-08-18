@@ -273,7 +273,7 @@ const ContactSurf = () => {
 
   return (
     <SafeAreaView style={[styles.container, Platform.OS === 'android' && { flex: 1, }]}>
-      <View
+      {/* <View
         style={{
           marginTop: 0,
           flexDirection: 'row',
@@ -331,8 +331,101 @@ const ContactSurf = () => {
             animation="flipInY"
           />
         </TouchableOpacity>
-      </View>
+      </View> */}
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          width: '100%',
+          position: 'relative',
+          // height: 45,
+          alignItems: 'center',
+          paddingVertical: 12,
+          borderBottomColor: Colors.gray,
+          borderBottomWidth: 1,
+          paddingTop: 16,
+          marginBottom: 16
+        }}>
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            position: 'absolute',
+            left: 12,
+            justifyContent: 'center',
+            // top: 12,
+            top: 13
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Image
+            style={{
+              width: 10,
+              height: 10,
+              resizeMode: 'contain',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+              transform: [{ rotate: '90deg' }],
+            }}
+            source={Images.downArrow}></Image>
+          <Text
+            style={{
+              fontSize: 15,
+              color: Colors.black,
+              fontFamily: 'Poppins-Regular',
+              marginLeft: 5,
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            Back
+          </Text>
+        </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 18,
+              color: Colors.black,
+              fontFamily: 'Poppins-Medium',
+              marginRight: 4,
+              lineHeight: 20,
+            }}>
+            Contact surf lokal
+          </Text>
 
+        </View>
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            position: 'absolute',
+            right: 12,
+            top: 8,
+
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 30,
+            width: 30,
+            borderRadius: 100,
+            backgroundColor: Colors.gray,
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Animatable.Image
+            source={Images.whiteclose}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
+      </View>
       <ScrollView style={{ height: '100%', width: '100%', }}>
         <View style={{ flexDirection: 'column', marginTop: 0, alignItems: "center" }}>
           <Image source={Images.appLogo} style={{ maxWidth: 180, resizeMode: "contain", height: 150 }} />
@@ -344,14 +437,14 @@ const ContactSurf = () => {
             <TouchableOpacity
               style={[styles.iconcover, { backgroundColor: "#11b03e" }]}
               onPress={() => {
-makePhoneCall()
+                makePhoneCall()
               }}
             >
               <Image
                 style={{
-                  height: 30,
-                  width: 30,
-                  margin: 2,
+                  height: 20,
+                  width: 20,
+                  // margin: 2,
                   resizeMode: "contain",
                   tintColor: Colors.white,
                 }}
@@ -365,9 +458,8 @@ makePhoneCall()
             >
               <Image
                 style={{
-                  height: 30,
-                  width: 30,
-                  margin: 2,
+                  height: 20,
+                  width: 20,
                   resizeMode: "contain",
                   tintColor: Colors.white,
                 }}
@@ -384,23 +476,21 @@ makePhoneCall()
             >
               <Image
                 style={{
-                  height: 30,
-                  margin: 2,
-                  width: 30,
+                  height: 20,
+                  width: 20,
                   resizeMode: "contain",
                   tintColor: Colors.white,
                 }}
                 source={Images.videochat}
               />
             </TouchableOpacity>
-            <TouchableOpacity  onPress={()=>{
+            <TouchableOpacity onPress={() => {
               handleEmailLink()
             }} style={[styles.iconcover, { backgroundColor: Colors.black }]}>
               <Image
                 style={{
-                  height: 30,
-                  margin: 2,
-                  width: 30,
+                  height: 20,
+                  width: 20,
                   resizeMode: "contain",
                   tintColor: Colors.white,
                 }}
@@ -413,7 +503,7 @@ makePhoneCall()
           </View>
         </View>
 
-        <Text style={{ fontSize: 16, textAlign: "center", color: Colors.black, fontFamily: 'Poppins-Regular' }}>
+        <Text style={{ marginBottom: 30, fontSize: 18, textAlign: "center", color: Colors.black, fontFamily: 'Poppins-Regular' }}>
           3010 N Military trl {'\n'}
           Suite 310 {'\n'}
           Boca Raton, FL 33431
@@ -715,8 +805,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: 10,
+    marginHorizontal: 5,
+
     padding: 8,
+    display: "flex",
     borderRadius: 100,
   },
   modalContainer: {
@@ -751,7 +843,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     flexDirection: 'row',
   },
-  informationicons: { alignItems: "center", marginBottom: 25 },
+  informationicons: { alignItems: "center", marginBottom: 50, marginTop: 25 },
   maininfoicons: { flexDirection: "row", alignItems: "center" },
   title: {
     fontSize: 32,
