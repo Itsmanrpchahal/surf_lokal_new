@@ -63,9 +63,37 @@ const BottomTabNavigator = () => {
         component={MyProfileTab}
         options={{
           tabBarLabel: (
+
             <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
               Profile
+
+              <View style={{ position: "relative" }}>
+                <View
+                  style={{
+                    position: 'absolute',
+                    backgroundColor: 'red',
+                    borderRadius: 100,
+                    width: 15,
+                    height: 15,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    top: 50, // Adjust this value to move the badge higher
+                    marginLeft: 0,
+                  }}
+                >
+                  {/* <View style={{
+                  position: "relative", marginTop: 22, backgroundColor: "pink", height: 30, width: 30, justifyContent: 'center',
+                  alignItems: 'center',
+                }}> */}
+                  <Text style={{ fontSize: 10, fontFamily: 'Poppins-Regular', color: 'white' }}>
+                    2
+                  </Text>
+                </View>
+              </View>
+              {/* </View> */}
+
             </Text>
+
           ),
           tabBarIcon: Images.newprofile,
           keyboardHidesTabBar: true,

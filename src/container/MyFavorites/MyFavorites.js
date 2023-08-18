@@ -268,7 +268,7 @@ const MyFavorites = props => {
           backgroundColor: Colors.surfblur,
           position: 'absolute',
           top: 8,
-          right: 16,
+          left: 16,
           borderRadius: 5,
           justifyContent: 'center',
           alignItems: 'center',
@@ -287,6 +287,58 @@ const MyFavorites = props => {
           {item?.ListingKey}
         </Text>
       </View>
+      <View
+        style={{
+          // height: 30,
+          //width: 20,
+          backgroundColor: Colors.surfblur,
+          position: 'absolute',
+          top: 8,
+          right: 16,
+          borderRadius: 5,
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingHorizontal: 25,
+          paddingVertical: 4,
+        }}>
+        <Text
+          style={{
+            fontSize: 12,
+            color: Colors.white,
+            fontFamily: 'Poppins-Regular',
+            marginBottom: 0,
+            lineHeight: 14,
+            paddingTop: 4,
+          }}>
+          Active
+        </Text>
+      </View>
+      {/* <View
+        style={{
+          // height: 30,
+          //width: 20,
+          backgroundColor: "red",
+          position: 'absolute',
+          top: 8,
+          right: 16,
+          borderRadius: 5,
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingHorizontal: 8,
+          paddingVertical: 4,
+        }}>
+        <Text
+          style={{
+            fontSize: 12,
+            color: Colors.white,
+            fontFamily: 'Poppins-Regular',
+            marginBottom: 0,
+            lineHeight: 14,
+            paddingTop: 4,
+          }}>
+          Pending
+        </Text>
+      </View> */}
       <View
         style={{
           flexDirection: 'row',

@@ -160,18 +160,18 @@ const App = (props) => {
         <View style={{
           height: "90%",
         }}>
-          <View style={{ marginTop: 30, }}>
+          <View style={{ marginTop: 15, }}>
             <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: 20 }}>
-              <Text style={{ fontSize: 16, fontFamily: Fonts.regular, color: "black", marginBottom: 5, width: '90%', textAlign: 'center' }}>Purchase Price
+              <Text style={{ fontSize: 16, fontFamily: Fonts.regular, color: "black", marginBottom: 0, width: '90%', textAlign: 'center' }}>Purchase Price
               </Text>
               <View style={{ flexDirection: 'row', width: '33.33%', justifyContent: 'center' }}>
                 <Text style={{ fontSize: 22, color: Colors.darbluec, fontFamily: 'Poppins-SemiBold' }}>${meterValue}</Text>
 
               </View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '90%' }}>
-                <Text style={{ fontSize: 14, fontFamily: Fonts.regular, color: "black", width: '33.33%', marginTop: 44 }}>$0</Text>
+                <Text style={{ fontSize: 14, fontFamily: Fonts.regular, color: "black", width: '33.33%', marginTop: 22 }}>$0</Text>
 
-                <Text style={{ fontSize: 14, fontFamily: Fonts.regular, color: "black", width: '33.33%', textAlign: 'right', marginTop: 44 }}>$10MM</Text>
+                <Text style={{ fontSize: 14, fontFamily: Fonts.regular, color: "black", width: '33.33%', textAlign: 'right', marginTop: 22 }}>$10MM</Text>
               </View>
               <Slider
                 style={{ width: "90%", justifyContent: "center" }}
@@ -199,20 +199,20 @@ const App = (props) => {
             </View>
 
           </View>
-          <Text style={{ fontSize: 18, fontFamily: Fonts.regular, textAlign: 'center', color: "black", paddingTop: 40 }}>Your Rebate </Text>
+          <Text style={{ fontSize: 18, fontFamily: Fonts.regular, textAlign: 'center', color: "black", paddingTop: 10 }}>Your Rebate </Text>
           <View style={{
             position: "relative",
             // height: "50%",
           }}>
 
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', paddingTop: 80 }}>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', paddingTop: 50 }}>
               <Text style={{ fontSize: 66, fontFamily: Fonts.bold, color: "black", }}>$</Text>
               <Text style={{ fontSize: 66, fontFamily: Fonts.bold, color: "black", }}>{Math.round(meterValue * 0.003)}</Text>
 
             </View>
           </View>
 
-          <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'center', paddingTop: 50 }}>
+          <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'center', paddingTop: 20 }}>
 
             <TouchableOpacity
               onPress={() => { handlePress, navigation.navigate('Challenges') }}

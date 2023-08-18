@@ -184,7 +184,7 @@ const Challenges = () => {
           </Text>
 
         </View>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             alignItems: 'center',
             position: 'absolute',
@@ -207,7 +207,7 @@ const Challenges = () => {
             style={styles.imagedata}
             animation="flipInY"
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', color: Colors.black, height: "100%", width: "100%", }}>
         {

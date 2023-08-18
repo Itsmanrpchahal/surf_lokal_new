@@ -382,8 +382,6 @@ const RecycleBin = () => {
                       marginTop: 0,
                       justifyContent: 'center',
                       borderRadius: 100,
-                      maxHeight: 300,
-                      minHeight: 200
                     }}></View>
 
 

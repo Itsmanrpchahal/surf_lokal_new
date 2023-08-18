@@ -590,7 +590,7 @@ const MyFavorites = () => {
 
 
         </View>
-
+        <View style={{ height: 50 }}></View>
       </ScrollView>
     </SafeAreaView>
   );
