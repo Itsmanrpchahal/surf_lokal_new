@@ -42,6 +42,8 @@ import dynamicLinks from '@react-native-firebase/dynamic-links';
 import DeviceInfo from 'react-native-device-info';
 import { store } from '../../redux/store';
 
+import StarRating from 'react-native-star-rating-widget';
+
 const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
@@ -67,8 +69,11 @@ const MyFavorites = props => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
   const [productId, setProductId] = useState('');
-
+  const [rating1, setRating1] = useState(0);
+  const [rating2, setRating2] = useState(0);
+  const [rating3, setRating3] = useState(0);
   const [reviewTitle, setReviewTitle] = useState('');
+  const [commentContent, setComentContent] = useState('');
 
   const slideAnimation = useRef(new Animated.Value(0)).current;
 
@@ -118,7 +123,7 @@ const MyFavorites = props => {
     const formData = new FormData();
     formData.append('userID', id);
     formData.append('postid', productId);
-    formData.append('comment_content', review);
+    formData.append('comment_content', commentContent);
     formData.append('review_title', reviewTitle);
     formData.append('review_stars', rating);
     formData.append('description_review_stars', rating);
@@ -141,7 +146,7 @@ const MyFavorites = props => {
     const formData = new FormData();
     formData.append('userID', id);
     formData.append('postid', productId);
-    formData.append('comment_content', review);
+    formData.append('comment_content', commentContent);
     formData.append('review_title', reviewTitle);
     formData.append('review_stars', rating);
     formData.append('description_review_stars', rating);
@@ -403,13 +408,14 @@ const MyFavorites = props => {
                 setProductId(item.ID);
                 setReviewTitle(item.title);
                 toggleModal();
-                dispatch(getRating(productId)).then(response => {
-                  setRatingData(response?.payload?.data);
-                  console.log(
-                    ' getRating response data',
-                    response?.payload?.data,
-                  );
-                });
+                dispatch(getRating(item.ID)).then((response) => {
+                  setRatingData(response?.payload?.data)
+                  setRating(response?.payload?.data[0]?.photo_wuality_rating)
+                  setRating1(response?.payload?.data[0]?.description_review_stars)
+                  setRating2(response?.payload?.data[0]?.price_review_stars)
+                  setRating3(response?.payload?.data[0]?.interest_review_stars)
+                  // console.log(" getRating response data", response?.payload?.data)
+                })
               }}>
               <Image
                 source={Images.star}
@@ -510,14 +516,7 @@ const MyFavorites = props => {
                     }}>
                     Your Review
                   </Text>
-                  {/* <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text> */}
-                  {/* {!isEditing && (
-                    <TouchableOpacity
-                      onPress={() => setIsEditing(true)}
-                      style={{ marginTop: 0 }}>
-                      <Text style={{ fontSize: 12, color: Colors.surfblur, fontFamily: "Poppins-Regular" }}>Edit</Text>
-                    </TouchableOpacity>
-                  )} */}
+
                 </View>
                 <View style={{ width: '100%' }}>
                   <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -528,29 +527,23 @@ const MyFavorites = props => {
                         alignItems: 'center',
                         marginTop: 10,
                       }}>
-                      <Text
-                        style={{
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontFamily: 'Poppins-Regular',
-                        }}>
+                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
+
                         Photos :
+
                       </Text>
-                      <Rating
-                        type="custom"
-                        ratingCount={5}
-                        imageSize={22}
-                        startingValue={
-                          ratingData[0]?.photo_wuality_rating
-                            ? ratingData[0]?.photo_wuality_rating
-                            : 0
-                        }
-                        // ratingBackgroundColor="#c8c7c8"
-                        onFinishRating={setRating}
-                        style={styles.rating}
-                        ratingColor={Colors.surfblur}
-                      //tintColor="#f1f3f4"
+
+                      <StarRating
+                        maxStars={5}
+                        starSize={22}
+                        enableSwiping
+                        enableHalfStar
+                        color={Colors.surfblur}
+                        rating={rating}
+                        onChange={(value) => { setRating(value) }}
                       />
+
+
                     </View>
                   </View>
 
@@ -561,29 +554,23 @@ const MyFavorites = props => {
                         justifyContent: 'space-between',
                         alignItems: 'center',
                       }}>
-                      <Text
-                        style={{
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontFamily: 'Poppins-Regular',
-                        }}>
-                        Description Accuracy :
+                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
+
+                        Description Accuracy  :
+
                       </Text>
-                      <Rating
-                        type="custom"
-                        ratingCount={5}
-                        imageSize={22}
-                        startingValue={
-                          ratingData[0]?.description_review_stars
-                            ? ratingData[0]?.description_review_stars
-                            : 0
-                        }
-                        //ratingBackgroundColor="#c8c7c8"
-                        onFinishRating={setRating}
-                        style={styles.rating}
-                        ratingColor={Colors.surfblur}
-                      //tintColor="#f1f3f4"
+
+                      <StarRating
+                        maxStars={5}
+                        starSize={22}
+                        enableSwiping
+                        enableHalfStar
+                        color={Colors.surfblur}
+                        rating={rating1}
+                        onChange={(value) => { setRating1(value) }}
                       />
+
+
                     </View>
                   </View>
                   <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -593,30 +580,22 @@ const MyFavorites = props => {
                         justifyContent: 'space-between',
                         alignItems: 'center',
                       }}>
-                      <Text
-                        style={{
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontFamily: 'Poppins-Regular',
-                        }}>
-                        Price :
-                      </Text>
-                      <Rating
-                        type="custom"
-                        ratingCount={5}
-                        imageSize={22}
-                        startingValue={
-                          ratingData[0]?.price_review_stars
-                            ? ratingData[0]?.price_review_stars
-                            : 0
-                        }
-                        //ratingBackgroundColor="#c8c7c8"
-                        onFinishRating={setRating}
-                        style={styles.rating}
-                        ratingColor={Colors.surfblur}
+                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
 
-                      //tintColor="#f1f3f4"
+                        Price  :
+
+                      </Text>
+
+                      <StarRating
+                        maxStars={5}
+                        starSize={22}
+                        enableSwiping
+                        enableHalfStar
+                        color={Colors.surfblur}
+                        rating={rating2}
+                        onChange={(value) => { setRating2(value) }}
                       />
+
                     </View>
                   </View>
 
@@ -627,29 +606,22 @@ const MyFavorites = props => {
                         justifyContent: 'space-between',
                         alignItems: 'center',
                       }}>
-                      <Text
-                        style={{
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontFamily: 'Poppins-Regular',
-                        }}>
+                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
+
                         Interest in Property :
+
                       </Text>
-                      <Rating
-                        type="custom"
-                        ratingCount={5}
-                        imageSize={22}
-                        startingValue={
-                          ratingData[0]?.interest_review_stars
-                            ? ratingData[0]?.interest_review_stars
-                            : 0
-                        }
-                        //ratingBackgroundColor="#c8c7c8"
-                        onFinishRating={setRating}
-                        style={styles.rating}
-                        ratingColor={Colors.surfblur}
-                      //tintColor="#f1f3f4"
+
+                      <StarRating
+                        maxStars={5}
+                        starSize={22}
+                        enableSwiping
+                        enableHalfStar
+                        color={Colors.surfblur}
+                        rating={rating3}
+                        onChange={(value) => { setRating3(value) }}
                       />
+
                     </View>
                   </View>
 
@@ -683,7 +655,7 @@ const MyFavorites = props => {
                         flexWrap: 'wrap',
                         overflow: 'hidden',
                       }}>
-                      {isEditing ? (
+                       {ratingData.length > 0 ? (
                         <TextInput
                           multiline={true}
                           style={{
@@ -699,13 +671,15 @@ const MyFavorites = props => {
                             height: 100,
                             width: '100%',
                           }}
-                          value={review}
-                          onChangeText={text => setReview(text)}
+                          
+                          onChangeText={text => setComentContent(text)}
                           autoFocus
                         />
                       ) : (
                         <TextInput
-                          multiline={true}
+                        onChangeText={text => setComentContent(text)}
+
+                        multiline={true}
                           style={{
                             verticalAlign: 'top',
                             borderWidth: 1,
@@ -733,7 +707,7 @@ const MyFavorites = props => {
                       justifyContent: 'flex-end',
                       //s paddingHorizontal: 10
                     }}>
-                    {isEditing ? (
+                    {ratingData.length > 0 ? (
                       <View
                         style={{
                           justifyContent: 'flex-end',

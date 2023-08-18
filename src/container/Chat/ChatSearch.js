@@ -247,7 +247,7 @@ const ChatSearch = (props) => {
                   }
                   const newTodo = {
                     type: 1,
-                    message: ress.payload.message,
+                    message: ress.payload.data.text,
                     date: getCurrentDateTime(),
                   };
                   setMessage('')

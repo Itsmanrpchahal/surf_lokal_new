@@ -39,6 +39,7 @@ import { useIsFocused } from '@react-navigation/native';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import AsyncStorage from '@react-native-community/async-storage';
+import StarRating from 'react-native-star-rating-widget';
 
 const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
@@ -53,7 +54,6 @@ const RecycleBin = () => {
   const [index, setIndex] = useState(0);
   const [agentData, setAgentData] = useState([])
   const [readmore, setreadmore] = useState('');
-  const [isEditing, setIsEditing] = useState(false);
   const [ratingData, setRatingData] = useState([])
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -61,6 +61,11 @@ const RecycleBin = () => {
   const dispatch = useDispatch();
 
   const [rating, setRating] = useState(0);
+  const [rating1, setRating1] = useState(0);
+  const [rating2, setRating2] = useState(0);
+  const [commentContent, setComentContent] = useState('');
+
+  const [rating3, setRating3] = useState(0);
   const [review, setReview] = useState('');
   const [productId, setProductId] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
@@ -147,13 +152,15 @@ const RecycleBin = () => {
     const formData = new FormData();
     formData.append('userID', id);
     formData.append('postid', productId);
-    formData.append('comment_content', review);
+    formData.append('comment_content', commentContent);
     formData.append('review_title', reviewTitle);
     formData.append('review_stars', rating);
-    formData.append('description_review_stars', rating);
-    formData.append('price_review_stars', rating);
-    formData.append('interest_review_stars', rating);
-    formData.append('reviewtitle', reviewTitle)
+    formData.append('description_review_stars', rating1);
+    formData.append('price_review_stars', rating2);
+    formData.append('interest_review_stars', rating3);
+    formData.append('reviewtitle', reviewTitle);
+    console.log("postUpdateRating", formData)
+
     dispatch(postUpdateRating(formData)).then((response) => {
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
@@ -170,13 +177,14 @@ const RecycleBin = () => {
     const formData = new FormData();
     formData.append('userID', id);
     formData.append('postid', productId);
-    formData.append('comment_content', review);
+    formData.append('comment_content', commentContent);
     formData.append('review_title', reviewTitle);
-    formData.append('review_stars', rating);
-    formData.append('description_review_stars', rating);
-    formData.append('price_review_stars', rating);
-    formData.append('interest_review_stars', rating);
-    formData.append('reviewtitle', reviewTitle)
+    formData.append('photo_quality_rating', rating);
+    formData.append('desc_stars', rating1);
+    formData.append('price_stars', rating2);
+    formData.append('interest_stars', rating3);
+    formData.append('content', commentContent);
+    console.log("addddddddddd ratingggggg", formData);
     dispatch(postRating(formData)).then(response => {
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
@@ -215,11 +223,6 @@ const RecycleBin = () => {
     dispatch(getAgent()).then(response => {
       setAgentData(response.payload.data);
     });
-  }
-  const getRatingApicall = () => {
-    dispatch(getRating()).then(response => {
-      setRatingData(response.payload.data)
-    })
   }
 
   const makePhoneCall = () => {
@@ -302,8 +305,12 @@ const RecycleBin = () => {
               setProductId(item.ID);
               setReviewTitle(item.title)
               toggleModal();
-              dispatch(getRating(productId)).then((response) => {
+              dispatch(getRating(item.ID)).then((response) => {
                 setRatingData(response?.payload?.data)
+                setRating(response?.payload?.data[0]?.photo_wuality_rating)
+                setRating1(response?.payload?.data[0]?.description_review_stars)
+                setRating2(response?.payload?.data[0]?.price_review_stars)
+                setRating3(response?.payload?.data[0]?.interest_review_stars)
                 console.log(" getRating response data", response?.payload?.data)
               })
             }}
@@ -397,14 +404,6 @@ const RecycleBin = () => {
                     }}>
                     Your Review
                   </Text>
-                  <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text>
-                  {/* {!isEditing && (
-                    <TouchableOpacity
-                      onPress={() => setIsEditing(true)}
-                      style={{ marginTop: 10 }}>
-                      <Text style={{ fontSize: 12, color: Colors.darbluec, fontFamily: "Poppins-Regular" }}>Edit</Text>
-                    </TouchableOpacity>
-                  )} */}
                 </View>
                 <View style={{ width: '100%', }}>
                   <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -418,17 +417,14 @@ const RecycleBin = () => {
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
                         Photos :
                       </Text>
-                      <Rating
-                        type="custom"
-                        ratingCount={5}
-                        imageSize={22}
-                        startingValue={ratingData[0]?.photo_wuality_rating
-                        }
-                        ratingBackgroundColor="#c8c7c8"
-                        onFinishRating={setRating}
-                        style={styles.rating}
-                        ratingColor={Colors.surfblur}
-                      //tintColor="#f1f3f4"
+                      <StarRating
+                        maxStars={5}
+                        starSize={22}
+                        enableSwiping
+                        enableHalfStar
+                        color={Colors.surfblur}
+                        rating={rating}
+                        onChange={(value) => { setRating(value) }}
                       />
                     </View>
                   </View>
@@ -443,18 +439,17 @@ const RecycleBin = () => {
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
                         Description Accuracy :
                       </Text>
-                      <Rating
-                        type="custom"
-                        ratingCount={5}
-                        imageSize={22}
-                        startingValue={ratingData[0]?.description_review_stars
-                        }
-                        ratingBackgroundColor="#c8c7c8"
-                        onFinishRating={setRating}
-                        style={styles.rating}
-                        ratingColor={Colors.surfblur}
-                      //tintColor="#f1f3f4"
+
+                      <StarRating
+                        maxStars={5}
+                        starSize={22}
+                        enableSwiping
+                        enableHalfStar
+                        color={Colors.surfblur}
+                        rating={rating1}
+                        onChange={(value) => { setRating1(value) }}
                       />
+
                     </View>
                   </View>
                   <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -467,17 +462,14 @@ const RecycleBin = () => {
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
                         Price :
                       </Text>
-                      <Rating
-                        type="custom"
-                        ratingCount={5}
-                        imageSize={22}
-                        startingValue={ratingData[0]?.price_review_stars
-                        }
-                        ratingBackgroundColor="#c8c7c8"
-                        onFinishRating={setRating}
-                        style={styles.rating}
-                        ratingColor={Colors.surfblur}
-                      //tintColor="#f1f3f4"
+                      <StarRating
+                        maxStars={5}
+                        starSize={22}
+                        enableSwiping
+                        enableHalfStar
+                        color={Colors.surfblur}
+                        rating={rating2}
+                        onChange={(value) => { setRating2(value) }}
                       />
                     </View>
                   </View>
@@ -492,17 +484,15 @@ const RecycleBin = () => {
                       <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
                         Interest in Property :
                       </Text>
-                      <Rating
-                        type="custom"
-                        ratingCount={5}
-                        imageSize={22}
-                        startingValue={ratingData[0]?.interest_review_stars
-                        }
-                        ratingBackgroundColor="#c8c7c8"
-                        onFinishRating={setRating}
-                        style={styles.rating}
-                        ratingColor={Colors.surfblur}
-                      //tintColor="#f1f3f4"
+
+                      <StarRating
+                        maxStars={5}
+                        starSize={22}
+                        enableSwiping
+                        enableHalfStar
+                        color={Colors.surfblur}
+                        rating={rating3}
+                        onChange={(value) => { setRating3(value) }}
                       />
                     </View>
                   </View>
@@ -532,7 +522,7 @@ const RecycleBin = () => {
                       }}>
 
 
-                      {isEditing ? (
+                      {ratingData.length > 0? (
                         <TextInput
                           multiline={true}
                           style={{
@@ -541,12 +531,12 @@ const RecycleBin = () => {
                             fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", height: 100,
                             width: "100%"
                           }}
-                          value={review}
-                          onChangeText={text => setReview(text)}
+                          onChangeText={text => setComentContent(text)}
                           autoFocus
                         />
                       ) : (
                         <TextInput
+                        onChangeText={text => setComentContent(text)}
 
                           multiline={true}
                           style={{
@@ -556,7 +546,7 @@ const RecycleBin = () => {
                             width: "100%"
 
                           }}>
-                          {ratingData[0]?.comment_content}
+                          {/* {ratingData[0]?.comment_content} */}
                         </TextInput>
                       )}
                     </View>
@@ -570,7 +560,7 @@ const RecycleBin = () => {
                     justifyContent: "flex-end",
                     //s paddingHorizontal: 10
                   }}>
-                    {isEditing ? (
+                    {ratingData.length > 0? (
                       <View style={{
                         justifyContent: "flex-end", width: '100%',
                         alignItems: "flex-end",

@@ -448,19 +448,19 @@ const Home = () => {
   };
   const addReview = async post_id => {
     const id = await AsyncStorage.getItem('userId');
-    let formdata = {
-      userID: id,
-      postid: productId,
-      comment_content: commentContent,
-      review_title: reviewTitle,
-      photo_quality_rating: rating,
-      desc_stars: rating1,
-      price_stars: rating2,
-      interest_stars: rating3,
-      content: commentContent,
-    };
-    console.log("addddddddddd ratingggggg", formdata)
-    dispatch(postRating(formdata)).then(response => {
+    const formData = new FormData();
+    formData.append('userID', id);
+    formData.append('postid', productId);
+    formData.append('comment_content', commentContent);
+    formData.append('review_title', reviewTitle);
+    formData.append('photo_quality_rating', rating);
+    formData.append('desc_stars', rating1);
+    formData.append('price_stars', rating2);
+    formData.append('interest_stars', rating3);
+    formData.append('content', commentContent);
+    console.log("addddddddddd ratingggggg", formData);
+    
+    dispatch(postRating(formData)).then(response => {
       if (response.payload.success) {
 
         Alert.alert('Alert', response.payload.message);
@@ -1553,7 +1553,7 @@ const Home = () => {
                                           setRating1(response?.payload?.data[0]?.description_review_stars)
                                           setRating2(response?.payload?.data[0]?.price_review_stars)
                                           setRating3(response?.payload?.data[0]?.interest_review_stars)
-                                          console.log(" getRating response data", response?.payload?.data)
+                                          // console.log(" getRating response data", response?.payload?.data)
                                         })
                                       }}>
                                       <Image
