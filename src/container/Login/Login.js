@@ -49,9 +49,9 @@ const imageSizeRation = screenHeight / 1000;
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
   // const [emailId, setEmailId] = useState('');
-  const [emailId, setEmailId] = useState('testmanpreet@gmail.com');
+  const [emailId, setEmailId] = useState('access@wpkraken.io');
   // const [password, setPassword] = useState('');
-  const [password, setPassword] = useState('testmanpreet@123');
+  const [password, setPassword] = useState('CherryPicker1!');
 
   const [phone, setPhone] = useState('');
   const [countryName, setCountryName] = useState('');

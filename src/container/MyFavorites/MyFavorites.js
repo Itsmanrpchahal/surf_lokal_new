@@ -126,10 +126,11 @@ const MyFavorites = props => {
     formData.append('comment_content', commentContent);
     formData.append('review_title', reviewTitle);
     formData.append('review_stars', rating);
-    formData.append('description_review_stars', rating);
-    formData.append('price_review_stars', rating);
-    formData.append('interest_review_stars', rating);
+    formData.append('description_review_stars', rating1);
+    formData.append('price_review_stars', rating2);
+    formData.append('interest_review_stars', rating3);
     formData.append('reviewtitle', reviewTitle);
+    console.log("postUpdateRating", formData)
     dispatch(postUpdateRating(formData)).then(response => {
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
@@ -148,11 +149,12 @@ const MyFavorites = props => {
     formData.append('postid', productId);
     formData.append('comment_content', commentContent);
     formData.append('review_title', reviewTitle);
-    formData.append('review_stars', rating);
-    formData.append('description_review_stars', rating);
-    formData.append('price_review_stars', rating);
-    formData.append('interest_review_stars', rating);
-    formData.append('reviewtitle', reviewTitle);
+    formData.append('photo_quality_rating', rating);
+    formData.append('desc_stars', rating1);
+    formData.append('price_stars', rating2);
+    formData.append('interest_stars', rating3);
+    formData.append('content', commentContent);
+    console.log("addddddddddd ratingggggg", formData);
     dispatch(postRating(formData)).then(response => {
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
@@ -273,7 +275,7 @@ const MyFavorites = props => {
           backgroundColor: Colors.surfblur,
           position: 'absolute',
           top: 8,
-          left: 16,
+          right: 16,
           borderRadius: 5,
           justifyContent: 'center',
           alignItems: 'center',
@@ -292,58 +294,6 @@ const MyFavorites = props => {
           {item?.ListingKey}
         </Text>
       </View>
-      <View
-        style={{
-          // height: 30,
-          //width: 20,
-          backgroundColor: Colors.surfblur,
-          position: 'absolute',
-          top: 8,
-          right: 16,
-          borderRadius: 5,
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingHorizontal: 25,
-          paddingVertical: 4,
-        }}>
-        <Text
-          style={{
-            fontSize: 12,
-            color: Colors.white,
-            fontFamily: 'Poppins-Regular',
-            marginBottom: 0,
-            lineHeight: 14,
-            paddingTop: 4,
-          }}>
-          Active
-        </Text>
-      </View>
-      {/* <View
-        style={{
-          // height: 30,
-          //width: 20,
-          backgroundColor: "red",
-          position: 'absolute',
-          top: 8,
-          right: 16,
-          borderRadius: 5,
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingHorizontal: 8,
-          paddingVertical: 4,
-        }}>
-        <Text
-          style={{
-            fontSize: 12,
-            color: Colors.white,
-            fontFamily: 'Poppins-Regular',
-            marginBottom: 0,
-            lineHeight: 14,
-            paddingTop: 4,
-          }}>
-          Pending
-        </Text>
-      </View> */}
       <View
         style={{
           flexDirection: 'row',
@@ -693,7 +643,6 @@ const MyFavorites = props => {
                             height: 100,
                             width: '100%',
                           }}>
-                          {/* {ratingData[0]?.comment_content} */}
                         </TextInput>
                       )}
                     </View>

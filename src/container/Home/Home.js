@@ -22,7 +22,7 @@ import {
 
 import StarRating from 'react-native-star-rating-widget';
 // import FontAwesome from 'react-native-vector-icons/FontAwesome';
-// import SelectDropdown from 'react-native-select-dropdown'
+import SelectDropdown from 'react-native-select-dropdown'
 import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
