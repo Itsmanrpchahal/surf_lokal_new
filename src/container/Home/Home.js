@@ -128,7 +128,12 @@ const Home = () => {
   const [favModalVisiable, setfavModalVisiable] = useState(false);
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [review, setReview] = useState('');
+  const [commentContent, setComentContent] = useState('');
+
   const [rating, setRating] = useState(0);
+  const [rating1, setRating1] = useState(0);
+  const [rating2, setRating2] = useState(0);
+  const [rating3, setRating3] = useState(0);
   const [ratingData, setRatingData] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
   const [bedroomitem, setBedroomItem] = useState(-1);
@@ -354,33 +359,7 @@ const Home = () => {
       console.log('Sharing Error:', error)
     }
   };
-  const addReview = async post_id => {
-    const id = await AsyncStorage.getItem('userId');
-    let formdata = {
-      userID: id,
-      postid: productId,
-      comment_content: review,
-      review_title: reviewTitle,
-      review_stars: rating,
-      photo_quality_rating: rating,
-      desc_stars: rating,
-      price_stars: rating,
-      interest_stars: rating,
-      content: review,
-      reviewtitle: reviewTitle,
-    };
-    console.log("adddd rating dataa", formdata)
-    dispatch(postRating(formdata)).then(response => {
-      if (response.payload.success) {
-
-        Alert.alert('Alert', response.payload.message);
-        toggleModal();
-      } else {
-        toggleModal();
-        Alert.alert('Alert', response.payload.message);
-      }
-    });
-  };
+  
   const getSavedApiCall = () => {
     dispatch(getSavedSearch()).then(response => {
     });
@@ -457,19 +436,46 @@ const Home = () => {
       setHomeData(store.getState().getPoperties.getPopertiesData?.data) : setHomeData([]);
     setLoading(false);
   };
+  const addReview = async post_id => {
+    const id = await AsyncStorage.getItem('userId');
+    let formdata = {
+      userID: id,
+      postid: productId,
+      comment_content: commentContent,
+      review_title: reviewTitle,
+      photo_quality_rating: rating,
+      desc_stars: rating1,
+      price_stars: rating2,
+      interest_stars: rating1,
+      content: commentContent,
+    };
+    console.log("addddddddddd ratingggggg", formdata)
+    dispatch(postRating(formdata)).then(response => {
+      if (response.payload.success) {
+
+        Alert.alert('Alert', response.payload.message);
+        toggleModal();
+      } else {
+        toggleModal();
+        Alert.alert('Alert', response.payload.message);
+      }
+    });
+  };
+
   const updateReview = async (post_id) => {
     const id = await AsyncStorage.getItem('userId');
     const formData = new FormData();
     formData.append('userID', id);
     formData.append('postid', productId);
-    formData.append('comment_content', review);
+    formData.append('comment_content', commentContent);
     formData.append('review_title', reviewTitle);
     formData.append('review_stars', rating);
-    formData.append('description_review_stars', rating);
-    formData.append('price_review_stars', rating);
-    formData.append('interest_review_stars', rating);
+    formData.append('description_review_stars', rating1);
+    formData.append('price_review_stars', rating2);
+    formData.append('interest_review_stars', rating1);
     formData.append('reviewtitle', reviewTitle);
     console.log("postUpdateRating", formData)
+
     dispatch(postUpdateRating(formData)).then((response) => {
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
@@ -1807,15 +1813,6 @@ const Home = () => {
                                               Your Review
                                             </Text>
 
-                                            {/* <Text style={{ fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", }}>{ratingData[0]?.comment_content}</Text> */}
-
-                                            {/* {!isEditing && (
-                                              <TouchableOpacity
-                                                onPress={() => setIsEditing(true)}
-                                                style={{ marginTop: 10 }}>
-                                                <Text style={{ fontSize: 12, color: Colors.darbluec, fontFamily: "Poppins-Regular" }}>Edit</Text>
-                                              </TouchableOpacity>
-                                            )} */}
                                           </View>
                                           <View style={{ width: '100%', }}>
                                             <View style={{ width: '100%', alignSelf: 'center' }}>
@@ -1863,7 +1860,7 @@ const Home = () => {
                                                   imageSize={22}
                                                   startingValue={ratingData[0]?.description_review_stars ? ratingData[0]?.description_review_stars : 0}
                                                   // ratingBackgroundColor="#c8c7c8"
-                                                  onFinishRating={setRating}
+                                                  onFinishRating={setRating1}
                                                   style={styles.rating}
                                                   ratingColor={Colors.surfblur}
                                                 //tintColor="#f1f3f4"
@@ -1888,7 +1885,7 @@ const Home = () => {
                                                   imageSize={22}
                                                   startingValue={ratingData[0]?.price_review_stars ? ratingData[0]?.price_review_stars : 0}
                                                   //ratingBackgroundColor="#c8c7c8"
-                                                  onFinishRating={setRating}
+                                                  onFinishRating={setRating2}
                                                   style={styles.rating}
                                                   ratingColor={Colors.surfblur}
                                                 //tintColor="#f1f3f4"
@@ -1914,7 +1911,7 @@ const Home = () => {
                                                   imageSize={22}
                                                   startingValue={ratingData[0]?.interest_review_stars ? ratingData[0]?.interest_review_stars : 0}
                                                   // ratingBackgroundColor="#c8c7c8"
-                                                  onFinishRating={setRating}
+                                                  onFinishRating={setRating3}
                                                   style={styles.rating}
                                                   ratingColor={Colors.surfblur}
                                                 //tintColor="#f1f3f4"
@@ -1947,7 +1944,7 @@ const Home = () => {
                                                 }}>
 
 
-                                                {isEditing ? (
+                                                {ratingData.length>0  ? (
                                                   <TextInput
                                                     multiline={true}
                                                     style={{
@@ -1956,12 +1953,12 @@ const Home = () => {
                                                       fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", height: 100,
                                                       width: "100%"
                                                     }}
-                                                    value={review}
-                                                    onChangeText={text => setReview(text)}
+                                                    onChangeText={text => setComentContent(text)}
                                                     autoFocus
                                                   />
                                                 ) : (
                                                   <TextInput
+                                                  onChangeText={text => setComentContent(text)}
 
                                                     multiline={true}
                                                     style={{
@@ -1972,7 +1969,7 @@ const Home = () => {
 
                                                     }}>
 
-                                                    {/* {ratingData[0]?.comment_content} */}
+                                                    {/* {ratingData[0]?.comment_content}{"000"} */}
 
                                                   </TextInput>
                                                 )}
@@ -1987,7 +1984,7 @@ const Home = () => {
                                               justifyContent: "flex-end",
                                               //s paddingHorizontal: 10
                                             }}>
-                                              {isEditing ? (
+                                              {ratingData.length>0 ? (
                                                 <View style={{
                                                   justifyContent: "flex-end", width: '100%',
                                                   alignItems: "flex-end",

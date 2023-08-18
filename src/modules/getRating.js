@@ -11,11 +11,11 @@ export const getRating = createAsyncThunk(
     const userId = await AsyncStorage.getItem('userId')
 
     const urlDynamic =
-      BASEURl + 'webapi/v1/rating/user_rating.php?userID=${userId}&post_id=' + post_id;
+      BASEURl + `webapi/v1/rating/user_rating.php?userID=${userId}&post_id=` + post_id;
     return await getAPI(urlDynamic)
       .then(async (response) => {
         const { data } = response;
-        console.log("getRating getRating",  userId, post_id,response)
+        console.log("getRating getRating",  userId, post_id,response,urlDynamic)
         return data;
       })
       .catch((e) => {
