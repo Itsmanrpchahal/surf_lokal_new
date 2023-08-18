@@ -133,7 +133,7 @@ const Leaderboard = () => {
             fontFamily: 'Poppins-Regular', marginLeft: 5
           }}>Back</Text>
         </TouchableOpacity>
-        <Text style={{ fontSize: 20, color: Colors.white, fontFamily: 'Poppins-Medium', textAlign: "center" }}>LeaderBorad</Text>
+        <Text style={{ fontSize: 20, color: Colors.white, fontFamily: 'Poppins-Medium', textAlign: "center" }}>Leader Board</Text>
         <TouchableOpacity
           style={{
             alignItems: 'center',
@@ -147,14 +147,10 @@ const Leaderboard = () => {
             height: 40,
             width: 40,
             borderRadius: 100,
-            backgroundColor: Colors.gray,
+          
           }}
-          onPress={() => navigation.goBack()}  >
-          <Animatable.Image
-            source={Images.whiteclose}
-            style={styles.imagedata}
-            animation="flipInY"
-          />
+          >
+       
         </TouchableOpacity>
       </View>
       <View style={{ paddingTop: 12, backgroundColor: Colors.darbluec, height: '100%', width: '100%', alignItems: 'flex-start' }}>
