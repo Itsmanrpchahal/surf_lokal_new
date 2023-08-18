@@ -198,7 +198,7 @@ const Challenges = () => {
             height: 30,
             width: 30,
             borderRadius: 100,
-            backgroundColor: Colors.gray,
+            //backgroundColor: Colors.white,
           }}
           onPress={() => {
             navigation.goBack();

@@ -177,7 +177,8 @@ const ContactMyAgent = () => {
           borderBottomColor: Colors.gray,
           borderBottomWidth: 1,
           paddingTop: 16,
-          marginBottom: 16
+          marginBottom: 16,
+          backgroundColor: Colors.white
         }}>
         <TouchableOpacity
           style={{
@@ -202,6 +203,7 @@ const ContactMyAgent = () => {
               alignItems: 'center',
               transform: [{ rotate: '90deg' }],
             }}
+
             source={Images.downArrow}></Image>
           <Text
             style={{
@@ -247,12 +249,10 @@ const ContactMyAgent = () => {
             height: 30,
             width: 30,
             borderRadius: 100,
-            backgroundColor: Colors.gray,
+            backgroundColor: "Colors.gray",
           }}
           onPress={() => {
-            props?.route?.params?.from === 'menu'
-              ? navigation.goBack()
-              : navigation.navigate('Home');
+            navigation.goBack();
           }}>
           <Animatable.Image
             source={Images.whiteclose}

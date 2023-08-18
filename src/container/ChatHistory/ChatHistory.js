@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView } from 'react-native'
+import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, StyleSheet } from 'react-native'
 import Colors from "../../utils/Colors";
 import Images from "../../utils/Images";
 import { propertyChatList } from '../../modules/propertyChats'
@@ -149,7 +149,7 @@ const ChatHistory = ({ navigation }) => {
                                             maxWidth: '80%',
                                         }}>
 
-                                            <Text numberOfLines={1} style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-SemiBold', textTransform: 'capitalize', fontSize: 16, lineHeight: 18 }}>{item?.item?.post_title}</Text>
+                                            <Text numberOfLines={1} style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Medium' : 'Poppins-Medium', textTransform: 'capitalize', fontSize: 16, lineHeight: 18 }}>{item?.item?.post_title}</Text>
                                             <Text style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-SemiBold', textTransform: 'capitalize', fontSize: 15, lineHeight: 18 }}>${item?.item?.property_price}</Text>
                                             <Text style={{ color: Colors.newgray, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-Regular', textTransform: 'capitalize', fontSize: 12 }}>{item.item.post_date}</Text>
                                         </View>
@@ -192,3 +192,24 @@ const ChatHistory = ({ navigation }) => {
 }
 
 export default ChatHistory
+const styles = StyleSheet.create({
+
+    screen1: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 40,
+        width: 40,
+        borderRadius: 100,
+        backgroundColor: Colors.gray,
+    },
+    imagedata: {
+        height: 12,
+        width: 12,
+        resizeMode: 'contain',
+        tintColor: Colors.black,
+        // transform: [{ rotate: '90deg' }],
+    },
+});
+
+

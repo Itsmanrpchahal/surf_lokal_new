@@ -46,7 +46,10 @@ const ChatSearch = (props) => {
   };
   return (
     <SafeAreaView>
-      <View style={{ height: "100%", position: 'relative', paddingBottom: 100, backgroundColor: 'white' }}>
+      <View style={{
+        height: "100%", position: 'relative', paddingBottom: 100,
+        backgroundColor: 'white'
+      }}>
         <View style={{ paddingVertical: 10, paddingHorizontal: 12, backgroundColor: Colors.white, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderColor: '#c9c9c5' }}>
           <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center' }}>
             <Image
@@ -134,14 +137,15 @@ const ChatSearch = (props) => {
                   style={{
                     padding: 8,
                     fontSize: 16,
-                    borderRadius: 16,
-                    backgroundColor: item.type === 0 ? Colors.surfblur : '#D3D3D3',
+                    borderRadius: 10,
+                    backgroundColor: item.type === 0 ? Colors.surfblur : '#d3d3d3',
                     alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
                     maxWidth: '70%',
                     marginLeft: 8,
                     marginRight: 8,
                     marginTop: 8,
                     marginBottom: 4,
+
                     color: item.type === 0 ? Colors.white : Colors.black,
                   }}>
                   {item.message}
@@ -154,6 +158,7 @@ const ChatSearch = (props) => {
                     marginBottom: 8,
                     alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
                     color: Colors.gray,
+                    fontFamily: "Poppins-Medium",
                   }}>
                   {item.date}
                 </Text>
@@ -164,7 +169,10 @@ const ChatSearch = (props) => {
 
 
 
-        <View style={{ bottom: 0, position: 'absolute', zIndex: 99, left: 0, right: 0, backgroundColor: Colors.white }}>
+        <View style={{
+          bottom: 0, position: 'absolute', zIndex: 99, left: 0, right: 0,
+          backgroundColor: Colors.white
+        }}>
           {
             loading && <Text style={{
               padding: 16,
@@ -176,7 +184,8 @@ const ChatSearch = (props) => {
               marginLeft: 8,
               marginRight: 8,
               marginTop: 8,
-              color: Colors.white
+              color: Colors.white,
+              fontFamily: "Poppins-Medium",
             }}>{message}</Text>
           }
 
@@ -269,7 +278,7 @@ const ChatSearch = (props) => {
 
         </View>
       </View>
-    </SafeAreaView>
+    </SafeAreaView >
   )
 }
 
