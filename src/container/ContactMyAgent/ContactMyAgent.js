@@ -167,53 +167,93 @@ const ContactMyAgent = () => {
     <SafeAreaView style={styles.container}>
       <View
         style={{
-          marginTop: 0,
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
-          marginLeft: 0,
-          marginBottom: 0,
-          height: 45,
-          alignItems: "center",
-
+          position: 'relative',
+          // height: 45,
+          alignItems: 'center',
+          paddingVertical: 12,
+          borderBottomColor: Colors.gray,
+          borderBottomWidth: 1,
+          paddingTop: 16,
+          marginBottom: 16
         }}>
-        <TouchableOpacity style={{ top: 12, flexDirection: "row", alignItems: "center", position: "absolute", left: 8, justifyContent: "center" }} onPress={() => { navigation.goBack() }}>
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            position: 'absolute',
+            left: 12,
+            justifyContent: 'center',
+            // top: 12,
+            top: 13
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}>
           <Image
             style={{
-              width: 11,
-              height: 11,
-              resizeMode: "contain",
-              // position: "absolute",
-              // left: 0,
-              marginTop: -1,
-              transform: [{ rotate: '90deg' }]
+              width: 10,
+              height: 10,
+              resizeMode: 'contain',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+              transform: [{ rotate: '90deg' }],
             }}
-            source={Images.downArrow}
-          ></Image>
-          <Text style={{
-            fontSize: 14,
-            color: Colors.black,
-            fontFamily: 'Poppins-Regular', marginLeft: 5
-          }}>Back</Text>
+            source={Images.downArrow}></Image>
+          <Text
+            style={{
+              fontSize: 15,
+              color: Colors.black,
+              fontFamily: 'Poppins-Regular',
+              marginLeft: 5,
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            Back
+          </Text>
         </TouchableOpacity>
-        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Contact My Agent</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 18,
+              color: Colors.black,
+              fontFamily: 'Poppins-Medium',
+              marginRight: 4,
+              lineHeight: 20,
+            }}>
+            Contact My Agent
+          </Text>
 
+        </View>
         <TouchableOpacity
           style={{
             alignItems: 'center',
-            position: "absolute",
-            right: 10,
-            top: 2,
+            position: 'absolute',
+            right: 12,
+            top: 8,
 
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            height: 40,
-            width: 40,
+            height: 30,
+            width: 30,
             borderRadius: 100,
             backgroundColor: Colors.gray,
           }}
-          onPress={() => navigation.goBack()}  >
+          onPress={() => {
+            props?.route?.params?.from === 'menu'
+              ? navigation.goBack()
+              : navigation.navigate('Home');
+          }}>
           <Animatable.Image
             source={Images.whiteclose}
             style={styles.imagedata}

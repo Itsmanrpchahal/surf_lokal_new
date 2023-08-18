@@ -383,7 +383,7 @@ const RecycleBin = () => {
                       justifyContent: 'center',
                       borderRadius: 100,
                       maxHeight: 300,
-                      minHeight:200
+                      minHeight: 200
                     }}></View>
 
 
@@ -843,60 +843,111 @@ const RecycleBin = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <View
+
+      <View
         style={{
-          marginTop: 4,
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
-          marginLeft: 0,
-          marginBottom: 0
+          position: 'relative',
+          // height: 45,
+          alignItems: 'center',
+          paddingVertical: 12,
+          borderBottomColor: Colors.gray,
+          borderBottomWidth: 1,
+          paddingTop: 16,
+          marginBottom: 16
         }}>
-        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Recycle Bin</Text>
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            position: 'absolute',
+            left: 12,
+            justifyContent: 'center',
+            // top: 12,
+            top: 13
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Image
+            style={{
+              width: 10,
+              height: 10,
+              resizeMode: 'contain',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+              transform: [{ rotate: '90deg' }],
+            }}
+            source={Images.downArrow}></Image>
+          <Text
+            style={{
+              fontSize: 15,
+              color: Colors.black,
+              fontFamily: 'Poppins-Regular',
+              marginLeft: 5,
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            Back
+          </Text>
+        </TouchableOpacity>
         <View
           style={{
             flexDirection: 'row',
-            width: '90%',
-            alignSelf: 'center',
-
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-            overflow: 'visible',
-            zIndex: 99,
-            position: 'absolute',
-            top: 10,
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
-          <TouchableOpacity
+          <Text
             style={{
-              alignItems: 'center',
-              position: "absolute",
-              right: -12,
-              top: -10,
-
-              backgroundColor: Colors.surfblur,
-              height: 25,
-              width: 25,
-              borderRadius: 100,
-              alignItems: "center",
-              justifyContent: "center",
+              fontSize: 18,
+              color: Colors.black,
+              fontFamily: 'Poppins-Medium',
+              marginRight: 4,
+              lineHeight: 20,
+            }}>
+            Recycle Bin
+          </Text>
+          {/* <Image
+            style={{
+              width: 18,
+              height: 18,
+              resizeMode: 'contain',
+              position: 'relative',
+              top: -2,
             }}
-            onPress={() => navigation.goBack()}
-          >
-            <Animatable.Image
-              source={Images.whiteclose}
-              style={{
-                height: 10,
-                width: 10,
-                resizeMode: 'contain',
-                tintColor: Colors.white,
-              }}
-              animation="flipInY"
-            />
-          </TouchableOpacity>
+            source={Images.recthumb}
+          /> */}
         </View>
-      </View> */}
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            position: 'absolute',
+            right: 12,
+            top: 8,
 
-      <View
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 30,
+            width: 30,
+            borderRadius: 100,
+            backgroundColor: Colors.gray,
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Animatable.Image
+            source={Images.whiteclose}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
+      </View>
+      {/* <View
         style={{
           marginTop: 0,
           flexDirection: 'row',
@@ -951,7 +1002,7 @@ const RecycleBin = () => {
             animation="flipInY"
           />
         </TouchableOpacity>
-      </View>
+      </View> */}
       <View style={{ height: '100%', width: '100%' }}>
         {showNoDataMessage ? (
           <View
