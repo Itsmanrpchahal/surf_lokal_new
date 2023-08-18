@@ -1496,8 +1496,6 @@ const Home = () => {
                                     </View>
 
 
-
-
                                     <TouchableOpacity
                                       style={{ height: screenWidth, }}
                                       onPress={() => {
@@ -1579,7 +1577,7 @@ const Home = () => {
                                         marginLeft: 5,
                                         fontFamily: 'Poppins-SemiBold',
                                       }}>
-                                      {item?.total_average_rating}
+                                      {Math.round(item?.total_average_rating)}
                                     </Text>
                                   </View>
                                   <Text
