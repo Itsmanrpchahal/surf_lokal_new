@@ -104,6 +104,7 @@ const Leaderboard = () => {
             Back
           </Text>
         </TouchableOpacity>
+
         <View
           style={{
             flexDirection: 'row',
@@ -118,34 +119,13 @@ const Leaderboard = () => {
               marginRight: 4,
               lineHeight: 20,
             }}>
-            Leaderboard
+            Leader Board
           </Text>
 
         </View>
-        <TouchableOpacity
-          style={{
-            alignItems: 'center',
-            position: 'absolute',
-            right: 12,
-            top: 8,
 
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 30,
-            width: 30,
-            borderRadius: 100,
-            backgroundColor: Colors.gray,
-          }}
-          onPress={() => {
-            navigation.goBack();
-          }}>
-          <Animatable.Image
-            source={Images.whiteclose}
-            style={styles.imagedata}
-            animation="flipInY"
-          />
-        </TouchableOpacity>
+
+        
       </View>
       <View style={{ paddingTop: 12, backgroundColor: Colors.darbluec, height: '100%', width: '100%', alignItems: 'flex-start' }}>
         <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>

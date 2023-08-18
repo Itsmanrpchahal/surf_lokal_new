@@ -11,7 +11,7 @@ const Notification = () => {
   const navigation = useNavigation();
 
   const [data, setData] = useState([]);
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(true);
   const [toggle, setToggle] = useState(false);
   const flatListRef = useRef(null);
   const datan = [
@@ -39,7 +39,7 @@ const Notification = () => {
   const fetchNotifications = async () => {
     const id = await AsyncStorage.getItem('userId');
     try {
-      const response = await axios.get('http://www.surflokal.com/webapi/v1/notifications/?userID=' + id);
+      const response = await axios.get('https://www.surflokal.com/webapi/v1/notifications/?userID=' + id);
       const responseData = response.data;
       const nestedData = responseData.data[0];
       setData(nestedData);
@@ -49,7 +49,7 @@ const Notification = () => {
   };
 
   const renderItem = ({ item, index }) => {
-    if (isEnabled) {
+    if (!isEnabled) {
       return null;
     }
     return (
@@ -115,6 +115,7 @@ const Notification = () => {
               alignItems: 'center',
               transform: [{ rotate: '90deg' }],
             }}
+
             source={Images.downArrow}></Image>
           <Text
             style={{
