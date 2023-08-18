@@ -344,7 +344,7 @@ const ContactSurf = () => {
             <TouchableOpacity
               style={[styles.iconcover, { backgroundColor: "#11b03e" }]}
               onPress={() => {
-
+makePhoneCall()
               }}
             >
               <Image
@@ -393,7 +393,9 @@ const ContactSurf = () => {
                 source={Images.videochat}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.iconcover, { backgroundColor: Colors.black }]}>
+            <TouchableOpacity  onPress={()=>{
+              handleEmailLink()
+            }} style={[styles.iconcover, { backgroundColor: Colors.black }]}>
               <Image
                 style={{
                   height: 30,
