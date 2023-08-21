@@ -1577,14 +1577,14 @@ const Home = () => {
                                     </Text>
                                   </View>
                                   <Text
-                                    onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }); }}
+                                    // onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }); }}
                                     style={{
                                       fontSize: 20,
                                       color: Colors.primaryBlue,
                                       fontWeight: '500',
                                       fontFamily: 'Poppins-SemiBold',
                                     }}>
-                                    {item?.property_price}
+                                    {''}
                                   </Text>
                                   <TouchableOpacity onPress={() => handleShare(item.ID)}>
                                     <Image
@@ -2100,8 +2100,20 @@ const Home = () => {
 
                                 </KeyboardAvoidingView>
 
+                                <Text
+                                    // onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }); }}
+                                    style={{top:-10,
+                                      fontSize: 20,
+                                      color: Colors.primaryBlue,
+                                      fontWeight: '500',
+                                      fontFamily: 'Poppins-SemiBold',
+                                      textAlign:'center'
+                                    }}>
+                                    {item?.property_price}
+                                  </Text>
+
                                 <View
-                                  style={{
+                                  style={{top:-12,
                                     width: '100%',
                                     alignSelf: 'center',
                                     justifyContent: 'center',
@@ -2114,6 +2126,7 @@ const Home = () => {
                                       color: Colors.black,
                                       textAlign: 'center',
                                       fontFamily: 'Poppins-Medium',
+                                      marginBottom:5
                                     }}>
                                     {item?.title}
                                   </Text>

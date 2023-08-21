@@ -735,11 +735,37 @@ const ViewPropertiy = (props, imageUrl) => {
 
             }}>
             <View style={styles.headerIcon}>
-              <TouchableOpacity
-                onPress={() => navigation.goBack()}
-                style={styles.screen}>
-                <Image source={Images.downArrow} style={styles.imagedata}></Image>
-              </TouchableOpacity>
+            
+              
+          <TouchableOpacity
+            style={{
+              alignItems: 'center',
+              position: "absolute",
+              left: 5,
+              top: 5,
+
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              shadowColor: 'black',
+              shadowOffset: { width: 1, height: 2 },
+              shadowOpacity: 0.3,
+              shadowRadius: 5,
+            }}
+            onPress={() => navigation.goBack()}  >
+             <Image
+            style={{
+              width:27,
+              height: 27,
+              resizeMode: 'contain',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+              resizeMode:"contain",
+              tintColor:"white"
+            }}
+            source={Images.leftnewarrow}></Image>
+          </TouchableOpacity>
             </View>
             <View style={{
               position: 'relative', width: '100%', position: "relative",
@@ -1735,25 +1761,28 @@ const ViewPropertiy = (props, imageUrl) => {
       </SafeAreaView >
 
 
+   
       <View
         style={{
           flexDirection: 'row',
           width: '100%',
-          height: 50,
-          // marginTop: 10,
+          position: 'absolute',
           justifyContent: 'space-between',
-          borderTopWidth: 1,
-          borderTopColor: Colors.textColorLight,
+     
+          bottom:0,
+          backgroundColor: Colors.white,
+         paddingVertical:16,
           alignItems: 'center',
           alignContent: 'center',
         }}>
         <View
           style={{
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
             alignItems: 'center',
-            alignContent: 'center',
-            width: '50%',
+            width: '30%',
             flexDirection: 'row',
+            left:10
+
           }}>
           <View
             style={{
@@ -1775,8 +1804,8 @@ const ViewPropertiy = (props, imageUrl) => {
                 makePhoneCall()
               }}>
               <Image
-                source={Images.call}
-                style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
+                source={Images.newcall}
+                style={{ height: 29, width: 29, resizeMode: 'contain' }}></Image>
               {/* <Text
                 style={{
                   fontSize: 14,
@@ -1801,10 +1830,10 @@ const ViewPropertiy = (props, imageUrl) => {
                 alignContent: 'center',
               }}
 
-              onPress={() => navigation.navigate('ChatSearch', { from: 'detail' })}>
+              onPress={() => navigation.navigate('ChatSearch')}>
               <Image
-                source={Images.chat}
-                style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
+                source={Images.chatnew}
+                style={{ height: 28, width: 28, resizeMode: 'contain' }}></Image>
               {/* <Text
                 style={{
                   fontSize: 14,
@@ -1821,43 +1850,50 @@ const ViewPropertiy = (props, imageUrl) => {
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('BookaTour', { ID: '', PropID: postid?.ID, user_id: '', user2_id: '' })
+            navigation.navigate('ChatSearch', {
+              initialMessage: 'When would you like to schedule a showing?',
+              agentReply: 'A Lokal agent will confirm with you within the next 2 hours',
+            });
           }}
           style={{
             justifyContent: 'center',
             alignItems: 'center',
             flexDirection: 'row',
             alignSelf: 'center',
-            backgroundColor: Colors.surfblur,
-            borderRadius: 20,
+            //backgroundColor: Colors.surfblur,
+            borderRadius: 50,
             paddingVertical: 8,
-            paddingHorizontal: 12,
+            paddingHorizontal: 16,
             lineHeight: 12,
-            marginRight: 6
+            marginRight:10,
+            borderWidth:2,
+            borderColor:Colors.surfblur
           }}
         >
-          <Image
-            source={Images.bookTour}
-            style={{
-
-              height: 15, width: 15,
-              resizeMode: 'contain'
-            }}
-          />
+          
           <Text
             style={{
-              fontSize: 12,
-              color: Colors.white,
+              fontSize: 13,
+              color: Colors.surfblur,
               textAlign: 'center',
               marginLeft: 5,
-              fontFamily: 'Poppins-Regular',
+              fontFamily: 'Poppins-Medium',
               //  paddingTop:2
               position: "relative",
-              top: 2
+              top: 2,
+              letterSpacing:0
             }}
           >
-            SCHEDULE A SHOWING
+          Schedule a Tour
           </Text>
+          <Image
+            source={Images.bus}
+            style={{
+
+              height: 27, width: 49,
+              resizeMode: 'contain',marginLeft:12
+            }}
+          />
         </TouchableOpacity>
 
 
@@ -1992,11 +2028,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   imagedata: {
-    height: 12,
-    width: 12,
+    height: 30,
+    width: 30,
     resizeMode: 'contain',
     tintColor: Colors.black,
-    transform: [{ rotate: '90deg' }],
+    // transform: [{ rotate: '45deg' }],
   },
   addresimage: {
     height: 30,

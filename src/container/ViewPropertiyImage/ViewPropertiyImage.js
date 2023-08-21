@@ -207,67 +207,56 @@ const ViewPropertiyImage = props => {
             <Image source={Images.downArrow} style={{ transform: [{ rotate: '180deg' }], width: 12, height: 12, tintColor: Colors.black, resizeMode: "contain" }} />
           </TouchableOpacity>
         )}
-        <View
-          style={{
-            flexDirection: 'row',
-            width: '90%',
-            alignSelf: 'center',
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-            overflow: 'visible',
-            zIndex: 99,
-            position: 'absolute',
-            top: 10,
-          }}>
+    
 
           <TouchableOpacity
             style={{
               alignItems: 'center',
               position: "absolute",
-              right: 10,
-              top: 2,
+              left: 10,
+              top: 10,
 
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              height: 40,
-              width: 40,
-              borderRadius: 100,
-              backgroundColor: Colors.gray,
             }}
             onPress={() => navigation.goBack()}  >
-            <Animatable.Image
-              source={Images.whiteclose}
-              style={styles.imagedata}
-              animation="flipInY"
-            />
+             <Image
+            style={{
+              width:27,
+              height: 27,
+              resizeMode: 'contain',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+              resizeMode:"contain",
+              tintColor:"white"
+            }}
+            source={Images.leftnewarrow}></Image>
           </TouchableOpacity>
-        </View>
+     
       </View>
 
       <View
         style={{
           flexDirection: 'row',
           width: '100%',
-          position: 'relative',
+          position: 'absolute',
           justifyContent: 'space-between',
-          borderTopWidth: 1,
-          bottom: 16,
-          //  height:20,
+     
+          bottom:0,
           backgroundColor: Colors.white,
-          // margin:20,
-          borderTopColor: Colors.textColorLight,
-          paddingTop: 6,
+         paddingVertical:16,
           alignItems: 'center',
           alignContent: 'center',
         }}>
         <View
           style={{
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
             alignItems: 'center',
-            alignContent: 'center',
-            width: '50%',
+            width: '30%',
             flexDirection: 'row',
+            left:10
 
           }}>
           <View
@@ -290,8 +279,8 @@ const ViewPropertiyImage = props => {
                 makePhoneCall()
               }}>
               <Image
-                source={Images.call}
-                style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
+                source={Images.newcall}
+                style={{ height: 29, width: 29, resizeMode: 'contain' }}></Image>
               {/* <Text
                 style={{
                   fontSize: 14,
@@ -318,8 +307,8 @@ const ViewPropertiyImage = props => {
 
               onPress={() => navigation.navigate('ChatSearch')}>
               <Image
-                source={Images.chat}
-                style={{ height: 25, width: 25, resizeMode: 'contain' }}></Image>
+                source={Images.chatnew}
+                style={{ height: 28, width: 28, resizeMode: 'contain' }}></Image>
               {/* <Text
                 style={{
                   fontSize: 14,
@@ -346,36 +335,40 @@ const ViewPropertiyImage = props => {
             alignItems: 'center',
             flexDirection: 'row',
             alignSelf: 'center',
-            backgroundColor: Colors.surfblur,
-            borderRadius: 20,
+            //backgroundColor: Colors.surfblur,
+            borderRadius: 50,
             paddingVertical: 8,
-            paddingHorizontal: 12,
+            paddingHorizontal: 16,
             lineHeight: 12,
-            marginRight: 6
+            marginRight:10,
+            borderWidth:2,
+            borderColor:Colors.surfblur
           }}
         >
-          <Image
-            source={Images.bookTour}
-            style={{
-
-              height: 15, width: 15,
-              resizeMode: 'contain'
-            }}
-          />
+          
           <Text
             style={{
-              fontSize: 12,
-              color: Colors.white,
+              fontSize: 13,
+              color: Colors.surfblur,
               textAlign: 'center',
               marginLeft: 5,
-              fontFamily: 'Poppins-Regular',
+              fontFamily: 'Poppins-Medium',
               //  paddingTop:2
               position: "relative",
-              top: 2
+              top: 2,
+              letterSpacing:0
             }}
           >
-            SCHEDULE A SHOWING
+          Schedule a Tour
           </Text>
+          <Image
+            source={Images.bus}
+            style={{
+
+              height: 27, width: 49,
+              resizeMode: 'contain',marginLeft:12
+            }}
+          />
         </TouchableOpacity>
 
 
@@ -699,7 +692,7 @@ const styles = StyleSheet.create({
   slide: {
     width: screenWidth,
     height: screenHeight / 2.5,
-    borderRadius: 8,
+    // borderRadius: 8,
     alignSelf: 'center',
     justifyContent: 'space-between',
     alignItems: 'center',
