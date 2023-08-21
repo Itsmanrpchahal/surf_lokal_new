@@ -7,6 +7,7 @@ const Fonts = {
     semibold: 'Poppins-SemiBold',
     normal: 'Poppins-BlackItalic',
     medium: "Poppins-Medium",
-    regular: "Poppins-Regular"
+    regular: "Poppins-Regular",
+    light: "Poppins-Light"
 };
 export default Fonts;

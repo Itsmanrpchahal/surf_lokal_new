@@ -185,19 +185,20 @@ const Settings = props => {
         style={{
           flexDirection: 'row',
           // marginLeft:80,
-          width: '90%',
+          width: '100%',
           // height: 60,
           justifyContent: 'space-between',
           alignSelf: 'center',
           alignItems: 'center',
-          paddingVertical: 6
+          paddingVertical: 6,
+          paddingHorizontal:16
         }}>
         <TouchableOpacity
           onPress={() => { _pickImage() }}
           activeOpacity={0.5}
           style={{
-            height: 45,
-            width: 45,
+            height:40,
+            width: 40,
             justifyContent: 'center',
             alignItems: 'center',
             borderWidth: 1,
@@ -207,8 +208,8 @@ const Settings = props => {
           }}>
           <View
             style={{
-              height: 40,
-              width: 40,
+              height:35,
+              width: 35,
               borderRadius: 20,
               backgroundColor: Colors.primaryBlue,
               justifyContent: 'center',
@@ -228,29 +229,21 @@ const Settings = props => {
 
         </TouchableOpacity>
 
-        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Settings</Text>
+        <Text style={{ fontSize: 20,
+              color: Colors.black,
+              fontFamily: 'Poppins-Light',
+              lineHeight: 22, }}>Settings</Text>
 
 
         <TouchableOpacity
           style={{
-            alignItems: 'center',
-            // position: 'absolute',
-            // right: 12,
-            // top: 8,
-
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 30,
-            width: 30,
-            borderRadius: 100,
-            backgroundColor: Colors.gray,
+           
           }}
 
           onPress={() => navigation.goBack()}>
 
           <Animatable.Image
-            source={Images.whiteclose}
+            source={Images.menu}
             style={styles.imagedata}
             animation="flipInY"
           />
@@ -263,12 +256,12 @@ const Settings = props => {
         <View
           style={{
             flexDirection: 'row',
-            width: '90%',
+            width: '100%',
             //marginTop: 20,
             alignSelf: 'center',
             justifyContent: 'space-between',
             marginTop: 22,
-            marginBottom: 20
+            marginBottom: 20,paddingHorizontal:16
           }}>
           <Text
             style={{
@@ -279,17 +272,18 @@ const Settings = props => {
             }}>
             Allow Notfication ?
           </Text>
-          <View>
+         
             <Switch
               trackColor={{ false: '#767577', true: '#11b03e' }}
               thumbColor={isEnabled ? '#fff' : '#f4f3f4'}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleSwitch}
               value={isEnabled}
+              style={{position:"absolute", right:10}}
             />
 
           </View>
-        </View>
+       
         {/* <View
           style={{
             flexDirection: 'row',
@@ -800,10 +794,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray,
   },
   imagedata: {
-    height: 12,
-    width: 12,
+    height:19,
+    width: 29,
     resizeMode: 'contain',
-    tintColor: Colors.black,
     // transform: [{ rotate: '90deg' }],
   },
 });
