@@ -58,7 +58,7 @@ const App = (props) => {
   }, [])
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white, height: "100%" }}>
+    <SafeAreaView style={{  backgroundColor: Colors.white, height: "100%" }}>
        <View
         style={{
           flexDirection: 'row',
@@ -131,11 +131,11 @@ const App = (props) => {
           />
         </TouchableOpacity>
       </View>
-      <ScrollView>
+      <ScrollView style={{height:"100%"}}>
 
 
         <View style={{
-          height: "90%",
+          height: "100%",
         }}>
           <View style={{ marginTop: 15, }}>
             <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: 20 }}>
@@ -189,7 +189,7 @@ const App = (props) => {
             </View>
           </View>
 <View style={{alignItems:"center"}}>
-          <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingTop: 100,width:"90%" }}>
+          <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingTop: 70,width:"90%" }}>
 
             <TouchableOpacity
               onPress={() => { handlePress, navigation.navigate('Challenges') }}
@@ -217,13 +217,38 @@ const App = (props) => {
               <Text style={[styles.text, { color: isRewardsSelected ? Colors.surfblur : Colors.surfblur, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>Leaderboard</Text>
             </TouchableOpacity>
 
+         
           </View>
           </View>
+          <View style={{height:"100%",position:"relative",alignItems:"flex-end",marginTop:16,height:"100%"}}>
+          <View style={{width:"100%",height:"100%"}}>
+                    <View   style={{
+             
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+         
+            }}>  
+                  <Image
+            style={{
+              width:132,
+              height: 132,
+              resizeMode: 'contain',
+            //  justifyContent: 'center',
+              flexDirection: 'row',
+             // alignItems: 'center',
+              resizeMode:"contain",
+           marginTop:12
+            }}
+            source={Images.doll}></Image>
+            </View>
+                  </View>
+                  </View>
         </View>
 
       </ScrollView>
 
-      <View style={{ height: 50 }}></View>
+     
     </SafeAreaView>
   );
 };

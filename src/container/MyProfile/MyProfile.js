@@ -89,7 +89,7 @@ const images = [
 
   },
   {
-    image: Images.chat,
+    image: Images.chatnew,
     title: 'Chat History',
     navigation: 'ChatHistory',
     image2: Images.fill
@@ -578,7 +578,7 @@ const MyFavorites = () => {
                   style={styles.viewstyle}>
                   <TouchableOpacity>
                     <Image
-                      source={isImageChanged ? Images.chatprofile : Images.chatprofile}
+                      source={isImageChanged ? Images.chatnew : Images.chatnew}
                       style={{ height: 20, width: 20, resizeMode: 'contain' }} />
                   </TouchableOpacity>
                   <Text style={styles.text}>Chat History</Text>

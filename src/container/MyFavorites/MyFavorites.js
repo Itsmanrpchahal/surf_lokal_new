@@ -410,7 +410,7 @@ const MyFavorites = props => {
               }}>
               <Image
                 source={Images.startfill}
-                style={{ height: 22, width: 22, resizeMode: 'contain' }}></Image>
+                style={{ height: 23, width: 23, resizeMode: 'contain' }}></Image>
             </TouchableOpacity>
 
             <Text
@@ -428,8 +428,8 @@ const MyFavorites = props => {
             <Image
               source={Images.sendnew}
               style={{
-                height: 17,
-                width: 20,
+                height: 18,
+                width: 23,
                 resizeMode: 'contain',
               
               }}></Image>
@@ -445,7 +445,7 @@ const MyFavorites = props => {
               fontSize: 28,
               color: "#1450B1",
               fontFamily: 'Poppins-Medium',
-              marginTop: 5,
+              marginTop: 0,
             }}>
             {item.property_price}
           </Text>
@@ -465,6 +465,7 @@ const MyFavorites = props => {
             color: Colors.black,
             textAlign: 'center',
             fontFamily: 'Poppins-Light',
+            marginTop:6
           }}>
           {item?.title}
         </Text>
@@ -1201,10 +1202,7 @@ const MyFavorites = props => {
           justifyContent: 'center',
           width: '100%',
           position: 'relative',
-          // height: 45,
           alignItems: 'center',
-          // borderBottomColor: Colors.gray,
-          // borderBottomWidth: 1,
           paddingTop: 16,
           paddingBottom:2
         
@@ -1216,7 +1214,6 @@ const MyFavorites = props => {
             position: 'absolute',
             left: 12,
             justifyContent: 'center',
-            // top: 12,
             top: 13
           }}
           onPress={() => {
@@ -1354,6 +1351,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderRadius: 18,
+    marginBottom:16
   },
   emptyContainer: {
     flex: 1,

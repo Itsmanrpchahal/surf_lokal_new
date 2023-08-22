@@ -34,7 +34,7 @@ import { getRating } from '../../modules/getRating';
 import { postUpdateRating } from '../../modules/postUpdateRating';
 import * as Animatable from 'react-native-animatable';
 import { useIsFocused } from '@react-navigation/native';
-
+import DeviceInfo from 'react-native-device-info';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -250,8 +250,85 @@ const RecycleBin = () => {
       <TouchableOpacity onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID, from: 'RecycleBin' }) }}>
         <Image source={{ uri: item.featured_image_src[0].guid }} style={styles.slide} />
       </TouchableOpacity>
-
       <View
+        style={{
+          // height: 30,
+          //width: 20,
+          backgroundColor: Colors.surfblur,
+          position: 'absolute',
+          top: 8,
+          left: 16,
+          borderRadius: 5,
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingHorizontal: 8,
+          paddingVertical: 4,
+        }}>
+        <Text
+          style={{
+            fontSize: 12,
+            color: Colors.white,
+            fontFamily: 'Poppins-Regular',
+            marginBottom: 0,
+            lineHeight: 14,
+            paddingTop: 4,
+          }}>
+        cbd-7767565
+        </Text>
+      </View>
+      {/* <View
+        style={{
+          // height: 30,
+          //width: 20,
+          backgroundColor: Colors.surfblur,
+          position: 'absolute',
+          top: 8,
+          right: 16,
+          borderRadius: 5,
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingHorizontal: 25,
+          paddingVertical: 4,
+        }}>
+        <Text
+          style={{
+            fontSize: 12,
+            color: Colors.white,
+            fontFamily: 'Poppins-Regular',
+            marginBottom: 0,
+            lineHeight: 14,
+            paddingTop: 4,
+          }}>
+          Active
+        </Text>
+      </View> */}
+        <View
+        style={{
+          // height: 30,
+          //width: 20,
+          backgroundColor: "red",
+          position: 'absolute',
+          top: 8,
+          right: 16,
+          borderRadius: 5,
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingHorizontal: 8,
+          paddingVertical: 4,
+        }}>
+        <Text
+          style={{
+            fontSize: 12,
+            color: Colors.white,
+            fontFamily: 'Poppins-Regular',
+            marginBottom: 0,
+            lineHeight: 14,
+            paddingTop: 4,
+          }}>
+          Pending
+        </Text>
+      </View>
+      {/* <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
@@ -330,8 +407,132 @@ const RecycleBin = () => {
           </TouchableOpacity>
         </View>
 
+      </View> */}
+         <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          width: '100%',
+          justifyContent: 'space-between',
+          paddingTop:16,
+          paddingHorizontal:16
+         
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+           // width: '15%',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <TouchableOpacity onPress={() => navigation.navigate('ChatSearch')}> 
+            <Image
+              source={Images.chatnew}
+              style={{
+                height:28,
+                width: 28,
+                resizeMode: 'cover',
+                marginRight: 15,
+               
+              }}></Image>
+          </TouchableOpacity>
+
+         <TouchableOpacity onPress={() => makePhoneCall()}>
+            <Image source={Images.calenderwedding} style={{ height:27, width: 33 }}></Image>
+          </TouchableOpacity>
+        </View>
+      
+        <View
+          style={{
+            flexDirection: 'row',
+            // width: '20%',
+            // alignSelf: 'flex-end',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <View
+            style={{
+              position: 'relative',
+              flexDirection: 'row',
+             
+            }}>
+            <TouchableOpacity
+              onPress={() => {
+                setProductId(item.ID);
+                setReviewTitle(item.title);
+                toggleModal();
+                dispatch(getRating(item.ID)).then((response) => {
+                  setRatingData(response?.payload?.data)
+                  setRating(response?.payload?.data[0]?.photo_wuality_rating)
+                  setRating1(response?.payload?.data[0]?.description_review_stars)
+                  setRating2(response?.payload?.data[0]?.price_review_stars)
+                  setRating3(response?.payload?.data[0]?.interest_review_stars)
+                  // console.log(" getRating response data", response?.payload?.data)
+                })
+              }}>
+              <Image
+                source={Images.startfill}
+                style={{ height: 23, width: 23, resizeMode: 'contain' }}></Image>
+            </TouchableOpacity>
+
+            <Text
+              style={{
+                fontSize: 18,
+                color: Colors.black,
+                fontFamily:"Poppins-Light",
+                marginLeft:4
+              
+              }}>
+              {item.total_average_rating}
+            </Text>
+          </View>
+          <TouchableOpacity style={{marginLeft:15}} onPress={() => handleShare(item.ID)}>
+            <Image
+              source={Images.sendnew}
+              style={{
+                height: 18,
+                width: 23,
+                resizeMode: 'contain',
+              
+              }}></Image>
+          </TouchableOpacity>
+        </View>
+       
+
       </View>
-      <View
+      <TouchableOpacity
+          onPress={() => navigation.navigate('ViewPropertiy', { item })}>
+          <Text
+            style={{
+              fontSize: 28,
+              color: "#1450B1",
+              fontFamily: 'Poppins-Medium',
+              marginTop: 0,
+            }}>
+            {item.property_price}
+          </Text>
+        </TouchableOpacity>
+        <View
+        style={{
+          width: '100%',
+          alignSelf: 'center',
+          justifyContent: 'center',
+          paddingHorizontal: 12,
+          marginBottom:8
+        }}>
+        <Text
+          numberOfLines={1}
+          style={{
+            fontSize: 20,
+            color: Colors.black,
+            textAlign: 'center',
+            fontFamily: 'Poppins-Light',
+            marginTop:6
+          }}>
+          {item?.title}
+        </Text>
+      </View>
+      {/* <View
         style={{
           width: '100%',
           alignSelf: 'center',
@@ -348,7 +549,7 @@ const RecycleBin = () => {
           }}>
           {item?.title}
         </Text>
-      </View>
+      </View> */}
       <KeyboardAvoidingView behavior="padding">
 
         <Modal
@@ -625,9 +826,418 @@ const RecycleBin = () => {
         </Modal>
 
       </KeyboardAvoidingView>
+      <View
+        style={{
+          flexDirection: 'row',
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingHorizontal: 18,
+        }}>
+        {DeviceInfo.getDeviceType() === 'Tablet' ? (
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: 20,
+              marginTop: 5,
+              width: '100%',
+              alignSelf: 'center',
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                //paddingHorizontal: 12,
+                justifyContent: 'space-between',
+                marginBottom: 12,
+                width: '100%',
+                alignSelf: 'center',
+              }}>
+              <View
+                style={{
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
+                  // backgroundColor: "red",
+                 // width: 70,
+                }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                  <Image
+                    source={Images.newbed}
+                    style={{
+                      height: 20,
+                      width:27,
+                      resizeMode: 'contain',
+                    //backgroundColor: "green"
+                    }}></Image>
+                  <Text
+                    style={{
+                      fontSize: 11,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
+                    }}>
+                    {item.property_bedrooms.length > 0
+                      ? item.property_bedrooms
+                      : 0}{' '}
+                    {'Beds'}
+                  </Text>
+                </View>
+              </View>
 
+              <View
+                style={{
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
 
-      <View style={{
+                  width: 70,
+                }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                  <Image
+                    source={Images.bathtub}
+                    style={{
+                      height: 20,
+                      width: 20,
+                      resizeMode: 'contain',
+                    }}></Image>
+                  <Text
+                    style={{
+                      fontSize: 11,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
+                    }}>
+                    {item.bathroomsfull.length > 0 ? item.bathroomsfull : 0}{' '}
+                    {'Baths'}
+                  </Text>
+                </View>
+              </View>
+
+              <View
+                style={{
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
+                  width: 70,
+                }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                  <Image
+                    source={Images.measuringtape}
+                    style={{
+                      height: 20,
+                      width: 20,
+                      resizeMode: 'contain',
+                      marginBottom:5
+                    }}></Image>
+                  <Text
+                    style={{
+                      fontSize: 11,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
+                    }}>
+                    {item.property_size.length > 0 ? item.property_size : 0}{' '}
+                    {'sq ft'}
+                  </Text>
+                </View>
+              </View>
+
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: 70,
+                }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <Image
+                    source={Images.hoa2}
+                    style={{
+                      height: 28,
+                      width: 29,
+                      marginTop: 0,
+                      resizeMode: 'contain',
+                      marginBottom:5
+                    }}></Image>
+
+                  <Text
+                    style={{
+                      fontSize: 11,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
+                    }}>
+                    {item.associationfee.length > 0 ? item.associationfee : 0}
+                  </Text>
+                </View>
+              </View>
+
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: 70,
+                }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                  <Image
+                    source={Images.taxnew}
+                    style={{
+                      height: 20,
+                      width: 20,
+                      marginTop: 0,
+                      resizeMode: 'contain',
+                      marginBottom:5
+                    }}></Image>
+                  <Text
+                    style={{
+                      fontSize: 11,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
+                    }}>
+                    {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
+                  </Text>
+                </View>
+              </View>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: 70,
+                }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                  <Image
+                    source={Images.calendar}
+                    style={{
+                      height: 20,
+                      width: 20,
+                      marginTop: 0,
+                      resizeMode: 'contain',
+                      marginBottom:5
+                    }}></Image>
+                  <Text
+                    style={{
+                      fontSize: 11,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
+                    }}>
+                    {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        ) : (
+          <ScrollView
+            horizontal={true}
+            scrollEnabled={true}
+            showsHorizontalScrollIndicator={false}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: 20,
+                marginTop: 5,
+                width: '100%',
+                alignSelf: 'center',
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  //paddingHorizontal: 12,
+                  justifyContent: 'space-between',
+                  marginBottom: 12,
+                  width: '100%',
+                  alignSelf: 'center',
+                }}>
+                <View
+                  style={{
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+                    // backgroundColor: "red",
+                    width: 70,
+                  }}>
+                  <View
+                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Image
+                      source={Images.newbed}
+                      style={{
+                        height: 21,
+                        width: 28,
+                        resizeMode: 'contain',
+                       //backgroundColor: "green",
+                        marginBottom:5
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 11,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
+                      }}>
+                      {item.property_bedrooms.length > 0
+                        ? item.property_bedrooms
+                        : 0}{' '}
+                      {'Beds'}
+                    </Text>
+                  </View>
+                </View>
+
+                <View
+                  style={{
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+
+                    width: 70,
+                  }}>
+                  <View
+                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Image
+                      source={Images.bathtub}
+                      style={{
+                        height: 26,
+                        width: 28,
+                        resizeMode: 'contain',
+                        marginBottom:5
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 11,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
+                      }}>
+                      {item.bathroomsfull.length > 0 ? item.bathroomsfull : 0}{' '}
+                      {'Baths'}
+                    </Text>
+                  </View>
+                </View>
+
+                <View
+                  style={{
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+                    width: 70,
+                  }}>
+                  <View
+                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Image
+                      source={Images.measuringtape}
+                      style={{
+                        height: 26,
+                        width: 27,
+                        resizeMode: 'contain',
+                        marginBottom:5
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 11,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
+                      }}>
+                      {item.property_size.length > 0 ? item.property_size : 0}{' '}
+                      {'sq ft'}
+                    </Text>
+                  </View>
+                </View>
+
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                 width: 70,
+                  }}>
+                  <View
+                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                   <Image
+                      source={Images.hoa2}
+                      style={{
+                        height: 28,
+                        width: 29,
+                        resizeMode: 'contain',
+                        marginBottom:5,
+                        //backgroundColor:"red"
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 11,
+                        color: Colors.black,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Light',
+                      }}>
+                      {item.associationfee.length > 0 ? item.associationfee : 0}
+                    </Text>
+                  </View>
+                </View>
+
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 70,
+                  }}>
+                  <View
+                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Image
+                      source={Images.taxnew}
+                      style={{
+                        height: 27,
+                        width: 25,
+                        marginTop: 0,
+                        resizeMode: 'contain',
+                        marginBottom:5
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 11,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
+                      }}>
+                      {item.taxannualamount.length > 0
+                        ? item.taxannualamount
+                        : 0}
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 70,
+                  }}>
+                  <View
+                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Image
+                      source={Images. cals}
+                      style={{
+                        height: 30,
+                        width: 30,
+                        marginTop: 0,
+                        resizeMode: 'contain',
+                        marginBottom:5
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 11,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
+                      }}>
+                      {item.yearbuilt.length > 0 ? item.yearbuilt : 0}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </ScrollView>
+        )}
+      </View>
+
+      {/* <View style={{
         flexDirection: 'row',
         width: '100%',
         paddingHorizontal: 18,
@@ -825,14 +1435,14 @@ const RecycleBin = () => {
 
           </View>
         </ScrollView>
-      </View>
+      </View> */}
     </View>
   );
 
   return (
     <SafeAreaView style={styles.container}>
 
-      <View
+<View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
@@ -840,11 +1450,11 @@ const RecycleBin = () => {
           position: 'relative',
           // height: 45,
           alignItems: 'center',
-          paddingVertical: 12,
-          borderBottomColor: Colors.gray,
-          borderBottomWidth: 1,
+          // borderBottomColor: Colors.gray,
+          // borderBottomWidth: 1,
           paddingTop: 16,
-          marginBottom: 16
+          paddingBottom:2
+        
         }}>
         <TouchableOpacity
           style={{
@@ -861,27 +1471,16 @@ const RecycleBin = () => {
           }}>
           <Image
             style={{
-              width: 10,
-              height: 10,
+              width:27,
+              height: 27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
               alignItems: 'center',
-              transform: [{ rotate: '90deg' }],
+              resizeMode:"contain"
             }}
-            source={Images.downArrow}></Image>
-          <Text
-            style={{
-              fontSize: 15,
-              color: Colors.black,
-              fontFamily: 'Poppins-Regular',
-              marginLeft: 5,
-              justifyContent: 'center',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            Back
-          </Text>
+            source={Images.leftnewarrow}></Image>
+     
         </TouchableOpacity>
         <View
           style={{
@@ -891,106 +1490,37 @@ const RecycleBin = () => {
           }}>
           <Text
             style={{
-              fontSize: 18,
+              fontSize: 20,
               color: Colors.black,
-              fontFamily: 'Poppins-Medium',
-              marginRight: 4,
-              lineHeight: 20,
+              fontFamily: 'Poppins-Light',
+              lineHeight: 22,
             }}>
-            Recycle Bin
+        Recycle Bin
           </Text>
-          {/* <Image
-            style={{
-              width: 18,
-              height: 18,
-              resizeMode: 'contain',
-              position: 'relative',
-              top: -2,
-            }}
-            source={Images.recthumb}
-          /> */}
+     
         </View>
         <TouchableOpacity
           style={{
-            alignItems: 'center',
-            position: 'absolute',
-            right: 12,
-            top: 8,
-
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 30,
-            width: 30,
-            borderRadius: 100,
-            backgroundColor: Colors.gray,
+            position:"absolute",
+    right:10,
+    top:15
           }}
-          onPress={() => {
-            navigation.goBack();
-          }}>
+
+          onPress={() => navigation.goBack()}>
+
           <Animatable.Image
-            source={Images.whiteclose}
+            source={Images.menu}
             style={styles.imagedata}
             animation="flipInY"
           />
         </TouchableOpacity>
+
+      
       </View>
-      {/* <View
-        style={{
-          marginTop: 0,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          width: '100%',
-          marginLeft: 0,
-          marginBottom: 0,
-          height: 45,
-          alignItems: "center",
-
-        }}>
-        <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", position: "absolute", left: 8, justifyContent: "center", top: 12 }} onPress={() => { navigation.goBack() }}>
-          <Image
-            style={{
-              width: 11,
-              height: 11,
-              resizeMode: "contain",
-              // position: "absolute",
-              // left: 0,
-              marginTop: -1,
-              transform: [{ rotate: '90deg' }]
-            }}
-            source={Images.downArrow}
-          ></Image>
-          <Text style={{
-            fontSize: 14,
-            color: Colors.black,
-            fontFamily: 'Poppins-Regular', marginLeft: 5
-          }}>Back</Text>
-        </TouchableOpacity>
-        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Recycle Bin</Text>
-
-        <TouchableOpacity
-          style={{
-            alignItems: 'center',
-            position: "absolute",
-            right: 10,
-            top: 2,
-
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 40,
-            width: 40,
-            borderRadius: 100,
-            backgroundColor: Colors.gray,
-          }}
-          onPress={() => navigation.goBack()}  >
-          <Animatable.Image
-            source={Images.whiteclose}
-            style={styles.imagedata}
-            animation="flipInY"
-          />
-        </TouchableOpacity>
-      </View> */}
+      <View style={{alignItems:"center",justifyContent:"center",  marginBottom: 16}}><Image
+                      style={{ height: 14, width: 12,resizeMode:"contain" }}
+                      source={Images.favfilter}
+                    /></View>
       <View style={{ height: '100%', width: '100%' }}>
         {showNoDataMessage ? (
           <View
@@ -1011,7 +1541,7 @@ const RecycleBin = () => {
             data={data}
             keyExtractor={item => item.id}
             renderItem={renderItem}
-            contentContainerStyle={{ paddingBottom: 50 }}
+            contentContainerStyle={{ paddingBottom:50 }}
           />
 
         )}
@@ -1025,28 +1555,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+    position: 'relative',
   },
   slideOuter: {
     width: '100%',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     borderRadius: 18,
+marginBottom:16
   },
-  screen1: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+  emptyContainer: {
+    flex: 1,
     alignItems: 'center',
-    height: 40,
-    width: 40,
-    borderRadius: 100,
-    backgroundColor: Colors.gray,
-  },
-  imagedata: {
-    height: 12,
-    width: 12,
-    resizeMode: 'contain',
-    tintColor: Colors.black,
-    // transform: [{ rotate: '90deg' }],
+    justifyContent: 'center',
   },
   slide: {
     width: screenWidth - 16,
@@ -1055,11 +1576,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     margin: 20,
     marginTop: 0,
-    marginBottom: 0
+    marginBottom: 0,
   },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
+    fontSize: 23,
+    //fontWeight: 'bold',
     marginBottom: 20,
   },
   button: {
@@ -1084,9 +1605,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray',
     marginHorizontal: 5,
   },
-  paginationDotActive: {
-    backgroundColor: 'blue',
-  },
   modalContainer: {
     flex: 1,
     backgroundColor: 'transparent',
@@ -1102,22 +1620,35 @@ const styles = StyleSheet.create({
     padding: 16,
     maxHeight: '80%',
   },
+  paginationDotActive: {
+    backgroundColor: 'blue',
+  },
   //fliter
   filter: {
     height: 60,
   },
-  emptyContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
   rating: {
     marginVertical: 5,
+    // color: "red"
   },
   ratingText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
+  },
+  screen1: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: 40,
+    borderRadius: 100,
+    backgroundColor: Colors.gray,
+  },
+  imagedata: {
+    height:19,
+    width: 29,
+    resizeMode: 'contain',
+   
   },
 });
 

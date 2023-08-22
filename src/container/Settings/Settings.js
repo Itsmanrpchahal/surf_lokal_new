@@ -229,7 +229,7 @@ const Settings = props => {
 
         </TouchableOpacity>
 
-        <Text style={{ fontSize: 20,
+        <Text style={{  fontSize: 20,
               color: Colors.black,
               fontFamily: 'Poppins-Light',
               lineHeight: 22, }}>Settings</Text>

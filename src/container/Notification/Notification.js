@@ -77,7 +77,7 @@ const Notification = () => {
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View
+      {/* <View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
@@ -172,6 +172,116 @@ const Notification = () => {
             animation="flipInY"
           />
         </TouchableOpacity>
+      </View> */}
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          width: '100%',
+          position: 'relative',
+          alignItems: 'center',
+          paddingTop: 16,
+          paddingBottom:10,
+          backgroundColor:Colors.white,
+marginBottom:10
+        }}>
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            position: 'absolute',
+            left: 12,
+            justifyContent: 'center',
+            top: 13
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Image
+            style={{
+              width:27,
+              height: 27,
+              resizeMode: 'contain',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+              resizeMode:"contain"
+            }}
+            source={Images.leftnewarrow}></Image>
+     
+        </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 20,
+              color: Colors.black,
+              fontFamily: 'Poppins-Light',
+              lineHeight: 22,
+            }}>
+        Notifications
+          </Text>
+     
+        </View>
+        <TouchableOpacity
+          style={{
+            position:"absolute",
+    right:10,
+    top:15
+          }}
+
+          onPress={() => navigation.goBack()}>
+
+          <Animatable.Image
+            source={Images.menu}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
+
+        {/* <TouchableOpacity
+              onPress={() => {
+              
+              }}
+              activeOpacity={0.5}
+              style={{
+                height: 40,
+                width: 40,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderWidth: 1,
+                borderColor: Colors.surfblur,
+                borderRadius: 50,
+                position:"absolute",
+                right:10,
+                top:5
+              }}>
+             
+            
+                <View
+                  style={{
+                    height:35,
+                    width: 35,
+                    borderRadius: 20,
+                    backgroundColor: Colors.surfblur,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                  }}>
+               
+                    <Image
+                      style={{ height: 40, width: 40 }}
+                      source={Images.user}
+                    />
+            
+                </View>
+            
+         
+            </TouchableOpacity> */}
       </View>
       <View style={styles.container}>
 
@@ -261,10 +371,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray,
   },
   imagedata: {
-    height: 12,
-    width: 12,
+    height:19,
+    width: 29,
     resizeMode: 'contain',
-    tintColor: Colors.black,
     // transform: [{ rotate: '90deg' }],
   },
 });

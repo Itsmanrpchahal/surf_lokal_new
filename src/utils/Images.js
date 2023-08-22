@@ -19,9 +19,10 @@ const Images = {
  instag: require(BaseUrl + 'insta.png'),
  useimage: require(BaseUrl + 'userimage.png'),
  challeng: require(BaseUrl + 'challenges.png'),
+ doll: require(BaseUrl + 'doll.png'),
   newcall: require(BaseUrl + 'phone-ring.png'),
   leftnewarrow: require(BaseUrl + 'arrow-left-circle.png'),
-  favfilter: require(BaseUrl + 'Iconly-Light-Outline-Filter.png'),
+  favfilter: require(BaseUrl + 'newfilter.png'),
   bus: require(BaseUrl + 'bus.png'),
   cals: require(BaseUrl + 'calender-alt-2.png'),
  
