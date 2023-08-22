@@ -7,6 +7,7 @@ const Images = {
   downArrow: require(BaseUrl + 'arrowDown.png'),
   newArrow: require(BaseUrl + 'arrow-left-circle.png'),
   chatnew: require(BaseUrl + 'chat-alt-10.png'),
+  lastscreen: require(BaseUrl + 'toutorial4.png'),
   startfill: require(BaseUrl + 'star-fill.png'),
   sendnew: require(BaseUrl + 'instagram-share-icon.png'),
   newbed: require(BaseUrl + 'newbed.png'),
