@@ -315,14 +315,28 @@ const RecycleBin = () => {
               })
             }}
           >
-            <Image
-              source={Images.star}
-              style={{ height: 18, width: 18, resizeMode: 'contain' }}></Image>
-          </TouchableOpacity>
-          <Text
-            style={{ fontSize: 14, color: Colors.black, textAlign: 'left', marginRight: 0, position: "relative", left: 2 }}>
-            {item.total_average_rating}
-          </Text>
+           <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                {item.total_average_rating > 0 ? (
+                  <Image
+                    source={Images.startfill}
+                    style={{height: 22, width: 22, resizeMode: 'contain'}}
+                  />
+                ) : (
+                  <Image
+                    source={Images.star2}
+                    style={{height: 22, width: 22, resizeMode: 'contain',tintColor:'black'}}
+                  />
+                )}
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontFamily: 'Poppins-Light',
+                  }}>
+                  {item.total_average_rating}
+                </Text>
+              </View>
+            </TouchableOpacity>
           <TouchableOpacity onPress={() => handleShare(item.ID)}>
             <Image
               source={Images.send}

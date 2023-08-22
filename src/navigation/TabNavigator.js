@@ -5,7 +5,7 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Image,
+  Image,StyleSheet,
   KeyboardAvoidingView,
   Dimensions,
 } from 'react-native';
@@ -35,6 +35,7 @@ import { useIsFocused } from '@react-navigation/native';
 
 
 
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -52,6 +53,7 @@ const BottomTabNavigator = () => {
     setdata(store.getState()?.getUserScore?.getUserScoreData?.data?.points)
   }, [store.getState()?.getUserScore?.getUserScoreData?.data])
   return (
+    <View style={styles.container}>
     <Tab.Navigator
       tabBarHideOnKeyboard={true}
 
@@ -111,9 +113,9 @@ const BottomTabNavigator = () => {
             <View >
 
               <Text style={{
-                fontFamily: 'Poppins-Regular',
+                fontFamily:'Poppins-Bold',
                 position: "absolute",
-                fontSize: 15,
+                fontSize: 13,
                 top: -30,
                 color: Colors.black,
                 flexDirection: "row",
@@ -140,7 +142,7 @@ const BottomTabNavigator = () => {
         options={{
           tabBarLabel: null,
 
-          tabBarIcon: Images.lokal,
+          tabBarIcon: Images.homebig,
 
           keyboardHidesTabBar: true,
           tabBarHideOnKeyboard: true,
@@ -170,12 +172,13 @@ const BottomTabNavigator = () => {
               Chat
             </Text>
           ),
-          tabBarIcon: Images.chatprofile,
+          tabBarIcon: Images.chatnew,
           keyboardHidesTabBar: true,
           tabBarHideOnKeyboard: true,
         }}
       />
     </Tab.Navigator>
+    </View>
   );
 };
 const MyProfileTab = () => {
@@ -203,13 +206,16 @@ function CustomTabBar({ state, descriptors, navigation }) {
   return (
     <View
       style={{
+        
         width: '100%',
         // height:50,
         height: "8%",
         backgroundColor: Colors.white,
+        shadowColor:'black',
+        shadowOpacity:1,
         justifyContent: 'center',
         borderTopColor: Colors.gray,
-        borderTopWidth: 1,
+        // borderTopWidth: 1,
         alignItems: 'center',
         marginBottom: 8,
         //paddingTop: 10
@@ -260,23 +266,24 @@ function CustomTabBar({ state, descriptors, navigation }) {
           const getIconStyle = () => {
             if (route.name === 'Home') {
               return {
-                height: 55,
-                width: 45,
-                marginTop: 17,
+                height: 65,
+                width: 65,
+                marginTop: 22,
 
-                tintColor: isFocused ? Colors.primaryBlue : Colors.textColorDark,
+                // tintColor: isFocused ? Colors.primaryBlue : Colors.textColorDark,
 
               };
             }
             return {
-              height: 25,
+              height: 50,
               marginTop: 15,
-              width: 25,
+              width: 30,
               tintColor: isFocused ? Colors.primaryBlue : Colors.textColorDark,
             };
           };
           return (
             <TouchableOpacity
+            
               accessibilityRole="button"
               accessibilityState={isFocused ? { selected: true } : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -284,12 +291,15 @@ function CustomTabBar({ state, descriptors, navigation }) {
               onPress={onPress}
               onLongPress={onLongPress}
               style={{
-                width: "25%",
+                 
+                backgroundColor:'#F2F2F2',
+                width: "20%",
                 maxHeight: 100,
+              
                 alignItems: 'center',
                 justifyContent: 'center',
                 alignContent: 'center',
-                marginVertical: -10,
+                marginVertical: -15,
                 marginTop: 1
               }}>
               <View
@@ -321,4 +331,23 @@ function CustomTabBar({ state, descriptors, navigation }) {
     </View>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    ...Platform.select({
+      ios: {
+        
+        shadowColor: 'red',
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+      },
+      android: {
+        
+        shadowColor: 'black',
+        shadowOpacity: 0.25,
+        elevation: 4,
+      },
+    }),
+  },
+});
 export default BottomTabNavigator;

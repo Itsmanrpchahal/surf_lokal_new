@@ -1556,25 +1556,29 @@ const Home = () => {
                                           // console.log(" getRating response data", response?.payload?.data)
                                         })
                                       }}>
-                                      <Image
-                                        source={Images.star}
-                                        style={{
-                                          height: 20,
-                                          width: 20,
-                                          resizeMode: 'contain',
-                                          marginTop: -6,
-                                        }}></Image>
-                                    </TouchableOpacity>
-                                    <Text
-                                      style={{
-                                        fontSize: 14,
-                                        color: Colors.black,
-                                        textAlign: 'center',
-                                        marginLeft: 5,
-                                        fontFamily: 'Poppins-SemiBold',
-                                      }}>
-                                      {Math.round(item?.total_average_rating)}
+                                       <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                {item.total_average_rating > 0 ? (
+                  <Image
+                    source={Images.startfill}
+                    style={{height: 22, width: 22, resizeMode: 'contain'}}
+                  />
+                ) : (
+                  <Image
+                    source={Images.star2}
+                    style={{height: 22, width: 22, resizeMode: 'contain',tintColor:'black'}}
+                  />
+                )}
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontFamily: 'Poppins-Light',
+                  }}>
+                  {Math.round(item?.total_average_rating)}
                                     </Text>
+              </View>
+            </TouchableOpacity>
+                                    
                                   </View>
                                   <Text
                                     // onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }); }}

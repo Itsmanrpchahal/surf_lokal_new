@@ -3,11 +3,15 @@ import { postAPI } from '../config/apiMethod';
 // import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
 const BASEURL = "https://www.surflokal.com/"
+
+const Header={
+  security_key:"SurfLokal52"
+}
 export const loginUser = createAsyncThunk('loginUser', async dispatch => {
 
   return await postAPI(
     BASEURL + 'wp-json/custom-plugin/login/',
-    dispatch,
+    dispatch,Header
   )
     .then(async response => {
       const { data } = response;

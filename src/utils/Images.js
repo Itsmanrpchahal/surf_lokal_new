@@ -74,10 +74,12 @@ const Images = {
   send: require(BaseUrl + 'send.png'),
   hoa: require(BaseUrl + 'hoa.png'),
   star: require(BaseUrl + 'star.png'),
+  star2: require(BaseUrl + 'star2.png'),
   train: require(BaseUrl + 'train.png'),
   VideoPlay: require(BaseUrl + 'VideoPlay.png'),
   Edit: require(BaseUrl + 'pencil.png'),
   Trash: require(BaseUrl + 'trash.png'),
+  homebig:require(BaseUrl + 'homebig.png'),
   // Slides
   slide1: require(BaseUrl + 'slide1.png'),
   slide2: require(BaseUrl + 'slide2.jpg'),
