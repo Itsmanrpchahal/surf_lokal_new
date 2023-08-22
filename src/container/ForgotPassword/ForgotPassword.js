@@ -171,6 +171,7 @@ export default function ForgotPassword({ navigation }) {
   );
   const changePassword = () => (
     <ScrollView style={Styles.container}>
+      <Image source={Images.appLogo} style={Styles.appLogo}></Image>
       <View style={Styles.loginView}>
         <Text style={Styles.loginText}>
           Welcome to your local real estate search engine!
@@ -222,7 +223,6 @@ export default function ForgotPassword({ navigation }) {
         }}
       />
 
-      <Image source={Images.appLogo} style={Styles.appLogo}></Image>
     </ScrollView>
   );
   return (
