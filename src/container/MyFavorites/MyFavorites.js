@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   Text,
@@ -23,24 +23,24 @@ import {
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
-import { getFavoriteProperties } from '../../modules/getFavoriteProperties';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector, useDispatch} from 'react-redux';
+import {getFavoriteProperties} from '../../modules/getFavoriteProperties';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import {Rating, AirbnbRating} from 'react-native-ratings';
 import AsyncStorage from '@react-native-community/async-storage';
-import { postRating } from '../../modules/postRating';
+import {postRating} from '../../modules/postRating';
 // import { getAgent } from '../../modules/getAgent';
-import { getAgent } from '../../modules/getAgent';
-import { getRating } from '../../modules/getRating';
-import { postUpdateRating } from '../../modules/postUpdateRating';
+import {getAgent} from '../../modules/getAgent';
+import {getRating} from '../../modules/getRating';
+import {postUpdateRating} from '../../modules/postUpdateRating';
 import * as Animatable from 'react-native-animatable';
-import { useIsFocused } from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import DeviceInfo from 'react-native-device-info';
-import { store } from '../../redux/store';
+import {store} from '../../redux/store';
 
 import StarRating from 'react-native-star-rating-widget';
 
@@ -130,7 +130,7 @@ const MyFavorites = props => {
     formData.append('price_review_stars', rating2);
     formData.append('interest_review_stars', rating3);
     formData.append('reviewtitle', reviewTitle);
-    console.log("postUpdateRating", formData)
+    console.log('postUpdateRating', formData);
     dispatch(postUpdateRating(formData)).then(response => {
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
@@ -154,7 +154,7 @@ const MyFavorites = props => {
     formData.append('price_stars', rating2);
     formData.append('interest_stars', rating3);
     formData.append('content', commentContent);
-    console.log("addddddddddd ratingggggg", formData);
+    console.log('addddddddddd ratingggggg', formData);
     dispatch(postRating(formData)).then(response => {
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
@@ -253,7 +253,7 @@ const MyFavorites = props => {
     }
   };
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({item}) => (
     <View style={[styles.slideOuter]}>
       <TouchableOpacity
         onPress={() =>
@@ -263,7 +263,7 @@ const MyFavorites = props => {
           })
         }>
         <Image
-          source={{ uri: item?.featured_image_src[0].guid }}
+          source={{uri: item?.featured_image_src[0].guid}}
           style={styles.slide}
         />
       </TouchableOpacity>
@@ -320,7 +320,7 @@ const MyFavorites = props => {
           Active
         </Text>
       </View>
-        {/* <View
+      {/* <View
         style={{
           // height: 30,
           //width: 20,
@@ -352,34 +352,34 @@ const MyFavorites = props => {
           alignItems: 'center',
           width: '100%',
           justifyContent: 'space-between',
-          paddingTop:16,
-          paddingHorizontal:16
-         
+          paddingTop: 16,
+          paddingHorizontal: 16,
         }}>
         <View
           style={{
             flexDirection: 'row',
-           // width: '15%',
+            // width: '15%',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <TouchableOpacity onPress={() => navigation.navigate('ChatSearch')}> 
+          <TouchableOpacity onPress={() => navigation.navigate('ChatSearch')}>
             <Image
               source={Images.chatnew}
               style={{
-                height:28,
+                height: 28,
                 width: 28,
                 resizeMode: 'cover',
                 marginRight: 15,
-               
               }}></Image>
           </TouchableOpacity>
 
-         <TouchableOpacity onPress={() => makePhoneCall()}>
-            <Image source={Images.calenderwedding} style={{ height:27, width: 33 }}></Image>
+          <TouchableOpacity onPress={() => makePhoneCall()}>
+            <Image
+              source={Images.calenderwedding}
+              style={{height: 27, width: 33}}></Image>
           </TouchableOpacity>
         </View>
-      
+
         <View
           style={{
             flexDirection: 'row',
@@ -392,51 +392,59 @@ const MyFavorites = props => {
             style={{
               position: 'relative',
               flexDirection: 'row',
-             
             }}>
             <TouchableOpacity
               onPress={() => {
                 setProductId(item.ID);
                 setReviewTitle(item.title);
                 toggleModal();
-                dispatch(getRating(item.ID)).then((response) => {
-                  setRatingData(response?.payload?.data)
-                  setRating(response?.payload?.data[0]?.photo_wuality_rating)
-                  setRating1(response?.payload?.data[0]?.description_review_stars)
-                  setRating2(response?.payload?.data[0]?.price_review_stars)
-                  setRating3(response?.payload?.data[0]?.interest_review_stars)
+                dispatch(getRating(item.ID)).then(response => {
+                  setRatingData(response?.payload?.data);
+                  setRating(response?.payload?.data[0]?.photo_wuality_rating);
+                  setRating1(
+                    response?.payload?.data[0]?.description_review_stars,
+                  );
+                  setRating2(response?.payload?.data[0]?.price_review_stars);
+                  setRating3(response?.payload?.data[0]?.interest_review_stars);
                   // console.log(" getRating response data", response?.payload?.data)
-                })
+                });
               }}>
-              <Image
-                source={Images.startfill}
-                style={{ height: 23, width: 23, resizeMode: 'contain' }}></Image>
+              <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                {item.total_average_rating > 0 ? (
+                  <Image
+                    source={Images.startfill}
+                    style={{height: 22, width: 22, resizeMode: 'contain'}}
+                  />
+                ) : (
+                  <Image
+                    source={Images.star2}
+                    style={{height: 22, width: 22, resizeMode: 'contain',tintColor:'black'}}
+                  />
+                )}
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontFamily: 'Poppins-Light',
+                  }}>
+                  {item.total_average_rating}
+                </Text>
+              </View>
             </TouchableOpacity>
 
-            <Text
-              style={{
-                fontSize: 18,
-                color: Colors.black,
-                fontFamily:"Poppins-Light",
-                marginLeft:4
-              
-              }}>
-              {item.total_average_rating}
-            </Text>
           </View>
-          <TouchableOpacity style={{marginLeft:15}} onPress={() => handleShare(item.ID)}>
+          <TouchableOpacity
+            style={{marginLeft: 15}}
+            onPress={() => handleShare(item.ID)}>
             <Image
               source={Images.sendnew}
               style={{
                 height: 18,
                 width: 23,
                 resizeMode: 'contain',
-              
               }}></Image>
           </TouchableOpacity>
         </View>
-       
-
       </View>
       <TouchableOpacity
           onPress={() => navigation.navigate('ViewPropertiy', { item })}>
@@ -456,7 +464,7 @@ const MyFavorites = props => {
           alignSelf: 'center',
           justifyContent: 'center',
           paddingHorizontal: 12,
-          marginBottom:8
+          marginBottom: 8,
         }}>
         <Text
           numberOfLines={1}
@@ -497,8 +505,8 @@ const MyFavorites = props => {
                   ],
                 },
               ]}>
-              <ScrollView style={{ width: '100%' }}>
-                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <ScrollView style={{width: '100%'}}>
+                <View style={{alignItems: 'center', justifyContent: 'center'}}>
                   <View
                     style={{
                       width: 50,
@@ -520,10 +528,9 @@ const MyFavorites = props => {
                     }}>
                     Your Review
                   </Text>
-
                 </View>
-                <View style={{ width: '100%' }}>
-                  <View style={{ width: '100%', alignSelf: 'center' }}>
+                <View style={{width: '100%'}}>
+                  <View style={{width: '100%', alignSelf: 'center'}}>
                     <View
                       style={{
                         flexDirection: 'row',
@@ -531,10 +538,13 @@ const MyFavorites = props => {
                         alignItems: 'center',
                         marginTop: 10,
                       }}>
-                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: Colors.black,
+                          fontFamily: 'Poppins-Regular',
+                        }}>
                         Photos :
-
                       </Text>
 
                       <StarRating
@@ -544,24 +554,27 @@ const MyFavorites = props => {
                         enableHalfStar
                         color={Colors.surfblur}
                         rating={rating}
-                        onChange={(value) => { setRating(value) }}
+                        onChange={value => {
+                          setRating(value);
+                        }}
                       />
-
-
                     </View>
                   </View>
 
-                  <View style={{ width: '100%', alignSelf: 'center' }}>
+                  <View style={{width: '100%', alignSelf: 'center'}}>
                     <View
                       style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         alignItems: 'center',
                       }}>
-                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-
-                        Description Accuracy  :
-
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: Colors.black,
+                          fontFamily: 'Poppins-Regular',
+                        }}>
+                        Description Accuracy :
                       </Text>
 
                       <StarRating
@@ -571,23 +584,26 @@ const MyFavorites = props => {
                         enableHalfStar
                         color={Colors.surfblur}
                         rating={rating1}
-                        onChange={(value) => { setRating1(value) }}
+                        onChange={value => {
+                          setRating1(value);
+                        }}
                       />
-
-
                     </View>
                   </View>
-                  <View style={{ width: '100%', alignSelf: 'center' }}>
+                  <View style={{width: '100%', alignSelf: 'center'}}>
                     <View
                       style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         alignItems: 'center',
                       }}>
-                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-
-                        Price  :
-
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: Colors.black,
+                          fontFamily: 'Poppins-Regular',
+                        }}>
+                        Price :
                       </Text>
 
                       <StarRating
@@ -597,23 +613,27 @@ const MyFavorites = props => {
                         enableHalfStar
                         color={Colors.surfblur}
                         rating={rating2}
-                        onChange={(value) => { setRating2(value) }}
+                        onChange={value => {
+                          setRating2(value);
+                        }}
                       />
-
                     </View>
                   </View>
 
-                  <View style={{ width: '100%', alignSelf: 'center' }}>
+                  <View style={{width: '100%', alignSelf: 'center'}}>
                     <View
                       style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         alignItems: 'center',
                       }}>
-                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: Colors.black,
+                          fontFamily: 'Poppins-Regular',
+                        }}>
                         Interest in Property :
-
                       </Text>
 
                       <StarRating
@@ -623,9 +643,10 @@ const MyFavorites = props => {
                         enableHalfStar
                         color={Colors.surfblur}
                         rating={rating3}
-                        onChange={(value) => { setRating3(value) }}
+                        onChange={value => {
+                          setRating3(value);
+                        }}
                       />
-
                     </View>
                   </View>
 
@@ -659,7 +680,7 @@ const MyFavorites = props => {
                         flexWrap: 'wrap',
                         overflow: 'hidden',
                       }}>
-                       {ratingData.length > 0 ? (
+                      {ratingData.length > 0 ? (
                         <TextInput
                           multiline={true}
                           style={{
@@ -675,15 +696,13 @@ const MyFavorites = props => {
                             height: 100,
                             width: '100%',
                           }}
-                          
                           onChangeText={text => setComentContent(text)}
                           autoFocus
                         />
                       ) : (
                         <TextInput
-                        onChangeText={text => setComentContent(text)}
-
-                        multiline={true}
+                          onChangeText={text => setComentContent(text)}
+                          multiline={true}
                           style={{
                             verticalAlign: 'top',
                             borderWidth: 1,
@@ -696,8 +715,7 @@ const MyFavorites = props => {
                             fontFamily: 'Poppins-Regular',
                             height: 100,
                             width: '100%',
-                          }}>
-                        </TextInput>
+                          }}></TextInput>
                       )}
                     </View>
                   </View>
@@ -815,16 +833,16 @@ const MyFavorites = props => {
                   justifyContent: 'flex-start',
                   alignItems: 'flex-start',
                   // backgroundColor: "red",
-                 // width: 70,
+                  // width: 70,
                 }}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
                     source={Images.newbed}
                     style={{
                       height: 20,
-                      width:27,
+                      width: 27,
                       resizeMode: 'contain',
-                    //backgroundColor: "green"
+                      //backgroundColor: "green"
                     }}></Image>
                   <Text
                     style={{
@@ -848,7 +866,7 @@ const MyFavorites = props => {
 
                   width: 70,
                 }}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
                     source={Images.bathtub}
                     style={{
@@ -875,14 +893,14 @@ const MyFavorites = props => {
                   alignItems: 'flex-start',
                   width: 70,
                 }}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
                     source={Images.measuringtape}
                     style={{
                       height: 20,
                       width: 20,
                       resizeMode: 'contain',
-                      marginBottom:5
+                      marginBottom: 5,
                     }}></Image>
                   <Text
                     style={{
@@ -903,15 +921,17 @@ const MyFavorites = props => {
                   alignItems: 'center',
                   width: 70,
                 }}>
+
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Image
                     source={Images.hoa2}
+
                     style={{
                       height: 28,
                       width: 29,
                       marginTop: 0,
                       resizeMode: 'contain',
-                      marginBottom:5
+                      marginBottom: 5,
                     }}></Image>
 
                   <Text
@@ -932,7 +952,7 @@ const MyFavorites = props => {
                   alignItems: 'center',
                   width: 70,
                 }}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
                     source={Images.taxnew}
                     style={{
@@ -940,7 +960,7 @@ const MyFavorites = props => {
                       width: 20,
                       marginTop: 0,
                       resizeMode: 'contain',
-                      marginBottom:5
+                      marginBottom: 5,
                     }}></Image>
                   <Text
                     style={{
@@ -959,7 +979,7 @@ const MyFavorites = props => {
                   alignItems: 'center',
                   width: 70,
                 }}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
                     source={Images.calendar}
                     style={{
@@ -967,7 +987,7 @@ const MyFavorites = props => {
                       width: 20,
                       marginTop: 0,
                       resizeMode: 'contain',
-                      marginBottom:5
+                      marginBottom: 5,
                     }}></Image>
                   <Text
                     style={{
@@ -1015,22 +1035,22 @@ const MyFavorites = props => {
                     width: 70,
                   }}>
                   <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Image
                       source={Images.newbed}
                       style={{
                         height: 21,
                         width: 28,
                         resizeMode: 'contain',
-                       //backgroundColor: "green",
-                        marginBottom:5
+                        //backgroundColor: "green",
+                        marginBottom: 5,
                       }}></Image>
                     <Text
                       style={{
                         fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
+                        color: Colors.black,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Light',
                       }}>
                       {item.property_bedrooms.length > 0
                         ? item.property_bedrooms
@@ -1048,21 +1068,21 @@ const MyFavorites = props => {
                     width: 70,
                   }}>
                   <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Image
                       source={Images.bathtub}
                       style={{
                         height: 26,
                         width: 28,
                         resizeMode: 'contain',
-                        marginBottom:5
+                        marginBottom: 5,
                       }}></Image>
                     <Text
                       style={{
                         fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
+                        color: Colors.black,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Light',
                       }}>
                       {item.bathroomsfull.length > 0 ? item.bathroomsfull : 0}{' '}
                       {'Baths'}
@@ -1077,21 +1097,21 @@ const MyFavorites = props => {
                     width: 70,
                   }}>
                   <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Image
                       source={Images.measuringtape}
                       style={{
                         height: 26,
                         width: 27,
                         resizeMode: 'contain',
-                        marginBottom:5
+                        marginBottom: 5,
                       }}></Image>
                     <Text
                       style={{
                         fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
+                        color: Colors.black,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Light',
                       }}>
                       {item.property_size.length > 0 ? item.property_size : 0}{' '}
                       {'sq ft'}
@@ -1103,17 +1123,19 @@ const MyFavorites = props => {
                   style={{
                     justifyContent: 'center',
                     alignItems: 'center',
-                 width: 70,
+                    width: 70,
                   }}>
                   <View
+
                     style={{ justifyContent: 'center', alignItems: 'center' }}>
                    <Image
                       source={Images.hoa2}
+
                       style={{
                         height: 28,
                         width: 29,
                         resizeMode: 'contain',
-                        marginBottom:5,
+                        marginBottom: 5,
                         //backgroundColor:"red"
                       }}></Image>
                     <Text
@@ -1135,7 +1157,7 @@ const MyFavorites = props => {
                     width: 70,
                   }}>
                   <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Image
                       source={Images.taxnew}
                       style={{
@@ -1143,14 +1165,14 @@ const MyFavorites = props => {
                         width: 25,
                         marginTop: 0,
                         resizeMode: 'contain',
-                        marginBottom:5
+                        marginBottom: 5,
                       }}></Image>
                     <Text
                       style={{
                         fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
+                        color: Colors.black,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Light',
                       }}>
                       {item.taxannualamount.length > 0
                         ? item.taxannualamount
@@ -1165,22 +1187,22 @@ const MyFavorites = props => {
                     width: 70,
                   }}>
                   <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Image
-                      source={Images. cals}
+                      source={Images.cals}
                       style={{
                         height: 30,
                         width: 30,
                         marginTop: 0,
                         resizeMode: 'contain',
-                        marginBottom:5
+                        marginBottom: 5,
                       }}></Image>
                     <Text
                       style={{
                         fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
+                        color: Colors.black,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Light',
                       }}>
                       {item.yearbuilt.length > 0 ? item.yearbuilt : 0}
                     </Text>
@@ -1204,8 +1226,7 @@ const MyFavorites = props => {
           position: 'relative',
           alignItems: 'center',
           paddingTop: 16,
-          paddingBottom:2
-        
+          paddingBottom: 2,
         }}>
         <TouchableOpacity
           style={{
@@ -1214,20 +1235,24 @@ const MyFavorites = props => {
             position: 'absolute',
             left: 12,
             justifyContent: 'center',
-            top: 13
+
+            // top: 12,
+            top: 13,
+
+
           }}
           onPress={() => {
             navigation.goBack();
           }}>
           <Image
             style={{
-              width:27,
+              width: 27,
               height: 27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
               alignItems: 'center',
-              resizeMode:"contain"
+              resizeMode: 'contain',
             }}
             source={Images.leftnewarrow}></Image>
      
@@ -1245,11 +1270,12 @@ const MyFavorites = props => {
               fontFamily: 'Poppins-Light',
               lineHeight: 22,
             }}>
-           Favorites
+            Favorites
           </Text>
      
         </View>
         <TouchableOpacity
+
           style={{
             position:"absolute",
     right:10,
@@ -1304,13 +1330,21 @@ const MyFavorites = props => {
             
          
             </TouchableOpacity> */}
+
       </View>
       {/* </View> */}
-<View style={{alignItems:"center",justifyContent:"center",  marginBottom: 16}}><Image
-                      style={{ height: 15, width: 13,resizeMode:"contain" }}
-                      source={Images.favfilter}
-                    /></View>
-      <View style={{ height: '100%', width: '100%' }}>
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: 16,
+        }}>
+        <Image
+          style={{height: 15, width: 13, resizeMode: 'contain'}}
+          source={Images.favfilter}
+        />
+      </View>
+      <View style={{height: '100%', width: '100%'}}>
         {showNoDataMessage ? (
           <View
             style={{
@@ -1332,7 +1366,7 @@ const MyFavorites = props => {
             data={data}
             keyExtractor={item => item.id}
             renderItem={renderItem}
-            ListFooterComponent={<View style={{ height: 70 }}></View>}
+            ListFooterComponent={<View style={{height: 70}}></View>}
           />
         )}
       </View>
