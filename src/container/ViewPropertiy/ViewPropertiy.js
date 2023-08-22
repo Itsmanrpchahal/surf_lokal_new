@@ -742,7 +742,7 @@ const ViewPropertiy = (props, imageUrl) => {
               alignItems: 'center',
               position: "absolute",
               left: 5,
-              top: 5,
+              top:-2,
 
               flexDirection: 'row',
               justifyContent: 'center',
@@ -783,13 +783,13 @@ const ViewPropertiy = (props, imageUrl) => {
                 flex: 1,
                 justifyContent: 'flex-start',
                 alignItems: "flex-start",
-                height: cardWidth + 125
+                height: cardWidth + 180,
               }]}>
                 <CardsSwipe style={{
                   backgroundColor: Colors.white,
                   flex: 1,
                   justifyContent: 'flex-start',
-                  alignItems: "flex-start"
+                  alignItems: "flex-start",
 
                 }}
                   loop={true}
@@ -802,7 +802,7 @@ const ViewPropertiy = (props, imageUrl) => {
                     props.route.params.from === 'MyFavorites' || props.route.params.from === 'Home' ?
                       <View
                         style={{
-                          height: cardWidth, width: cardWidth - 8, backgroundColor: "red",
+                          height: cardWidth, width: cardWidth - 16, backgroundColor: "red",
                           borderRadius: 15,
                           overflow: "hidden",
                           top: 8,
@@ -840,7 +840,7 @@ const ViewPropertiy = (props, imageUrl) => {
                       <View
                         style={{
 
-                          height: cardWidth, width: cardWidth - 8, backgroundColor: "green",
+                          height: cardWidth, width: cardWidth - 16, backgroundColor: "green",
                           borderRadius: 15,
                           marginTop: 10,
                           overflow: "hidden", position: "absolute",
@@ -877,14 +877,14 @@ const ViewPropertiy = (props, imageUrl) => {
                   renderCard={(item, index) => (
                     <View style={{
                       width: cardWidth,
-                      height: cardWidth + 125
+                      height: cardWidth + 180
                     }}>
                       <TouchableOpacity
                         onPress={() => navigation.navigate('ViewPropertiyImage', { postid: postid.ID })}>
                         <Image
                           style={{
                             height: cardWidth,
-                            width: cardWidth - 8,
+                            width: cardWidth - 16,
                             alignSelf: 'center',
                             justifyContent: 'space-between',
                             alignItems: 'center',
@@ -930,51 +930,48 @@ const ViewPropertiy = (props, imageUrl) => {
                               })
                             }}>
                             <Image
-                              source={Images.star}
-                              style={{
-                                height: 20,
-                                width: 20,
-                                resizeMode: 'contain',
-                                // marginTop: -6,
-                              }}></Image>
+                source={Images.startfill}
+                style={{ height: 23, width: 23, resizeMode: 'contain' }}></Image>
                           </TouchableOpacity>
                           <Text
                             style={{
-                              fontSize: 14,
-                              color: Colors.black,
-                              textAlign: 'center',
-                              marginLeft: 5,
-                              fontFamily: 'Poppins-SemiBold',
+                              fontSize: 18,
+                color: Colors.black,
+                fontFamily:"Poppins-Light",
+                marginLeft:4,
+                marginTop:8
                             }}>
                             {item?.Total_average_rating}
-                            {/* {store.getState().getPopertiesDetails.getPopertiesDetails?.data[0]?.Total_average_rating} */}
+                            
                           </Text>
                         </View>
-                        <Text
-
-                          style={{
-                            fontSize: 20,
-                            color: Colors.primaryBlue,
-                            fontWeight: '500',
-                            fontFamily: 'Poppins-SemiBold',
-                          }}>
-                          {item?.price}
-
-                          {/* {store.getState().getPopertiesDetails.getPopertiesDetails?.data[0]?.price} */}
-                        </Text>
+             
                         <TouchableOpacity onPress={() => handleShare()}>
-                          <Image
-                            source={Images.send}
-                            style={{
-                              height: 20,
-                              width: 20,
-                              resizeMode: 'contain',
-                            }}
-                          />
+                        <Image
+              source={Images.sendnew}
+              style={{
+                height: 18,
+                width: 23,
+                resizeMode: 'contain',
+              
+              }}></Image>
                         </TouchableOpacity>
 
                       </View>
+                      <Text
 
+style={{
+  fontSize:25,
+  color: "#1450B1",
+  fontWeight: '500',
+  fontFamily: 'Poppins-Medium',
+  width:"100%",
+  textAlign:"center"
+}}>
+{item?.price}
+
+
+</Text>
                       <View
                         style={{
                           width: '100%',
@@ -982,15 +979,16 @@ const ViewPropertiy = (props, imageUrl) => {
                           justifyContent: 'center',
                           backgroundColor: Colors.white,
                           paddingHorizontal: 12,
+                          marginBottom:8
                         }}>
                         <Text
 
                           style={{
-                            fontSize: 14,
+                            fontSize: 16,
                             color: Colors.black,
                             marginHorizontal: 8,
                             textAlign: 'center',
-                            fontFamily: 'Poppins-Medium',
+                            fontFamily: 'Poppins-Light',
                           }}>
                           {property?.title}
                         </Text>
@@ -999,56 +997,57 @@ const ViewPropertiy = (props, imageUrl) => {
                       <View style={{
                         flexDirection: 'row',
                         width: '100%',
-                        paddingHorizontal: 18,
+                        //paddingHorizontal: 18,
                         paddingBottom: 0,
-                        justifyContent: 'space-between',
+                        justifyContent: 'center',
                         // marginTop: 30,
                         backgroundColor: Colors.white,
                       }}>
-                        <ScrollView horizontal={true}
-                          scrollEnabled={true}
-                          showsHorizontalScrollIndicator={false}  >
+                        <View>
                           <View
-                            style={{
-                              flexDirection: 'row',
-                              alignItems: "center",
-                              justifyContent: 'space-between',
-                              marginTop: 5,
-                              width: "100%",
-                              alignSelf: "center"
-                            }}>
-                            <View
-                              style={{
-                                flexDirection: 'row',
-                                alignItems: "center",
-                                //paddingHorizontal: 12,
-                                justifyContent: 'space-between',
-                                marginBottom: 12,
-                                width: "100%",
-                                alignSelf: "center",
-                              }}>
-                              <View
-                                style={{
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                  // backgroundColor: "red",
-                                  width: 50,
-                                }}>
-                                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                                  <Image
-                                    source={Images.bed}
-                                    style={{
-                                      height: 20,
-                                      width: 20,
-                                      resizeMode: 'contain',
-                                      //backgroundColor: "green"
-                                    }}></Image>
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+              //  marginBottom: 20,
+               // marginTop: 5,
+                width: '100%',
+                alignSelf: 'center',
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  //paddingHorizontal: 12,
+                  justifyContent: 'center',
+                 // marginBottom: 12,
+                  width: '100%',
+                  alignSelf: 'center',
+                }}>
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    // backgroundColor: "red",
+                    width:60,
+                  }}>
+                  <View
+                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Image
+                      source={Images.newbed}
+                      style={{
+                        height: 21,
+                        width: 28,
+                        resizeMode: 'contain',
+                       //backgroundColor: "green",
+                        marginBottom:5
+                      }}></Image>
                                   <Text
                                     style={{
                                       fontSize: 11,
-                                      color: Colors.black,
-                                      textAlign: 'left',
-                                      fontFamily: 'Poppins-Regular',
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
                                     }}>
                                     {item?.bedrooms ? item.bedrooms : "0"}
                                     {/* {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bedrooms.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bedrooms : 0} */}
@@ -1058,26 +1057,27 @@ const ViewPropertiy = (props, imageUrl) => {
                               </View>
 
                               <View
-                                style={{
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-
-                                  width: 70,
-                                }}>
-                                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                                  <Image
-                                    source={Images.bath}
-                                    style={{
-                                      height: 20,
-                                      width: 20,
-                                      resizeMode: 'contain',
-                                    }}></Image>
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 60,
+                  }}>
+                  <View
+                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Image
+                      source={Images.bathtub}
+                      style={{
+                        height: 26,
+                        width: 28,
+                        resizeMode: 'contain',
+                        marginBottom:5
+                      }}></Image>
                                   <Text
                                     style={{
                                       fontSize: 11,
-                                      color: Colors.black,
-                                      textAlign: 'center',
-                                      fontFamily: 'Poppins-Regular',
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
                                     }}>
                                     {item?.bathroomsfull.length > 0 ? item.bathroomsfull : "0"}
 
@@ -1089,27 +1089,30 @@ const ViewPropertiy = (props, imageUrl) => {
                               </View>
 
 
-                              <View
-                                style={{
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                  width: 70,
-                                }}>
-                                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                                  <Image
-                                    source={Images.measuring}
-                                    style={{
-                                      height: 20,
-                                      width: 20,
-                                      resizeMode: 'contain',
-                                    }}></Image>
-                                  <Text
-                                    style={{
-                                      fontSize: 11,
-                                      color: Colors.black,
-                                      textAlign: 'center',
-                                      fontFamily: 'Poppins-Regular',
-                                    }}>
+                    
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 60,
+                  }}>
+                  <View
+                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Image
+                      source={Images.measuringtape}
+                      style={{
+                        height: 26,
+                        width: 27,
+                        resizeMode: 'contain',
+                        marginBottom:5
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 11,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
+                      }}>
                                     {item?.details.property_details.property_size.length > 0 ? item.details.property_details.property_size : "0"}
 
                                     {/* {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.property_size.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.property_size : 0} */}
@@ -1117,32 +1120,30 @@ const ViewPropertiy = (props, imageUrl) => {
                                   </Text>
                                 </View>
                               </View>
-
-
+     
                               <View
-                                style={{
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                  width: 70,
-                                }}>
-                                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                                  <Text
-                                    style={{
-                                      fontSize: 13,
-                                      color: Colors.black,
-                                      textAlign: 'center',
-                                      fontWeight: 'bold',
-                                    }}>
-                                    {'HOA'}
-                                  </Text>
-
-                                  <Text
-                                    style={{
-                                      fontSize: 11,
-                                      color: Colors.black,
-                                      textAlign: 'center',
-                                      fontFamily: 'Poppins-Regular',
-                                    }}>
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 60,
+                  }}>
+                  <View
+                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Image
+                      source={Images.hoa2}
+                      style={{
+                        height: 26,
+                        width: 27,
+                        resizeMode: 'contain',
+                        marginBottom:5
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 11,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
+                      }}>
                                     {"$"}
                                     {item?.hoa_fee.length > 0 ? item.hoa_fee : "0"}
 
@@ -1151,29 +1152,30 @@ const ViewPropertiy = (props, imageUrl) => {
                                   </Text>
                                 </View>
                               </View>
-
                               <View
-                                style={{
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                  width: 50,
-                                }}>
-                                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                                  <Image
-                                    source={Images.tax}
-                                    style={{
-                                      height: 20,
-                                      width: 20,
-                                      marginTop: 0,
-                                      resizeMode: 'contain',
-                                    }}></Image>
-                                  <Text
-                                    style={{
-                                      fontSize: 11,
-                                      color: Colors.black,
-                                      textAlign: 'center',
-                                      fontFamily: 'Poppins-Regular',
-                                    }}>
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 60,
+                  }}>
+                  <View
+                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Image
+                      source={Images.taxnew}
+                      style={{
+                        height: 27,
+                        width: 25,
+                        marginTop: 0,
+                        resizeMode: 'contain',
+                        marginBottom:5
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 11,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
+                      }}>
                                     {item?.details.property_details.taxes.length > 0 ? item.details.property_details.taxes : "0"}
 
                                     {/* {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.taxes.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.taxes : 0} */}
@@ -1181,30 +1183,30 @@ const ViewPropertiy = (props, imageUrl) => {
                                   </Text>
                                 </View>
                               </View>
-
                               <View
-                                style={{
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-
-                                  width: 70,
-                                }}>
-                                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                                  <Image
-                                    source={Images.calendar}
-                                    style={{
-                                      height: 20,
-                                      width: 20,
-                                      marginTop: 0,
-                                      resizeMode: 'contain',
-                                    }}></Image>
-                                  <Text
-                                    style={{
-                                      fontSize: 11,
-                                      color: Colors.black,
-                                      textAlign: 'center',
-                                      fontFamily: 'Poppins-Regular',
-                                    }}>
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 60,
+                  }}>
+                  <View
+                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Image
+                      source={Images. cals}
+                      style={{
+                        height: 30,
+                        width: 30,
+                        marginTop: 0,
+                        resizeMode: 'contain',
+                        marginBottom:5
+                      }}></Image>
+                    <Text
+                      style={{
+                        fontSize: 11,
+                      color: Colors.black,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Light',
+                      }}>
                                     {item?.details.property_details.yearbuilt.length > 0 ? item.details.property_details.yearbuilt : "0"}
 
                                     {/* {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.yearbuilt.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.yearbuilt : 0} */}
@@ -1215,7 +1217,7 @@ const ViewPropertiy = (props, imageUrl) => {
 
                             </View>
                           </View>
-                        </ScrollView>
+                        </View>
                       </View>
 
 
@@ -1230,20 +1232,20 @@ const ViewPropertiy = (props, imageUrl) => {
           </View>
           <View style={{
             width: '100%',
-            paddingLeft: 16,
-            paddingRight: 2,
-
+            // paddingLeft: 16,
+            // paddingRight: 2,
+paddingHorizontal:8
 
           }}>
             <>
               <Text
                 numberOfLines={property?.ID == readmore ? 0 : 100}
                 style={{
-                  fontSize: 12,
+                  fontSize: 11,
                   flexDirection: 'row',
                   color: Colors.black,
                   width: '100%',
-                  fontFamily: "Poppins-Regular", lineHeight: 22
+                  fontFamily: "Poppins-Light", lineHeight: 22
                 }}>
                 {typeof property?.content.rendered === 'string' ? (
                   <>
@@ -1282,18 +1284,20 @@ const ViewPropertiy = (props, imageUrl) => {
                         style={styles.detailsStyle}>
 
                         <Image
-                          source={Images.detail}
+                          source={Images.details}
                           style={{
-                            height: 20,
-                            width: 20,
+                            height: 21,
+                            width: 22,
                             resizeMode: 'contain',
                             tintColor: selectedTab == 0 ? Colors.primaryBlue : Colors.black,
                           }}></Image>
                         <Text style={{
-                          fontSize: 11,
+                          fontSize: 12,
                           color: selectedTab == 0 ? Colors.primaryBlue : Colors.black,
+                          borderBottomColor: selectedTab == 0 ? Colors.primaryBlue : Colors.white,
+                          borderBottomWidth: selectedTab == 0 ? 1 : 0,
                           textAlign: 'center',
-                          fontFamily: 'Poppins-Regular',
+                          fontFamily: selectedTab == 0 ? 'Poppins-Medium' :'Poppins-Light',
                         }}>Details</Text>
 
                       </TouchableOpacity>
