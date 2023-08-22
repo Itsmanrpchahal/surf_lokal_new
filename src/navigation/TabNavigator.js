@@ -170,7 +170,7 @@ const BottomTabNavigator = () => {
               Chat
             </Text>
           ),
-          tabBarIcon: Images.chatprofile,
+          tabBarIcon: Images.chatnew,
           keyboardHidesTabBar: true,
           tabBarHideOnKeyboard: true,
         }}
