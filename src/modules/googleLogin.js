@@ -11,6 +11,7 @@ export const googleUser = createAsyncThunk('googleUser', async dispatch => {
   )
     .then(async response => {
       const {data} = response;
+      console.log('google ',response)
       if (data.success) {
         const ids = data.data[0].userID;
         await AsyncStorage.setItem('userId', ids + '');
