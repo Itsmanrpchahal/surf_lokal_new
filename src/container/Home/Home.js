@@ -1575,7 +1575,7 @@ const Home = () => {
                     fontFamily: 'Poppins-Light',
                   }}>
                   {Math.round(item?.total_average_rating)}
-                                    </Text>
+                  </Text>
               </View>
             </TouchableOpacity>
                                     
