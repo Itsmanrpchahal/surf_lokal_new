@@ -273,65 +273,8 @@ const ContactSurf = () => {
 
   return (
     <SafeAreaView style={[styles.container, Platform.OS === 'android' && { flex: 1, }]}>
-      {/* <View
-        style={{
-          marginTop: 0,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          width: '100%',
-          marginLeft: 0,
-          marginBottom: 0,
-          // height: 45,
-          alignItems: "center",
-          borderBottomWidth: 1,
-          borderBottomColor: Colors.BorderColor,
-          paddingTop: 10, paddingBottom: 10
-
-        }}>
-        <TouchableOpacity style={{ top: 20, flexDirection: "row", alignItems: "center", position: "absolute", left: 8, justifyContent: "center" }} onPress={() => { navigation.goBack() }}>
-          <Image
-            style={{
-              width: 11,
-              height: 11,
-              resizeMode: "contain",
-              // position: "absolute",
-              // left: 0,
-              marginTop: -1,
-              transform: [{ rotate: '90deg' }]
-            }}
-            source={Images.downArrow}
-          ></Image>
-          <Text style={{
-            fontSize: 14,
-            color: Colors.black,
-            fontFamily: 'Poppins-Regular', marginLeft: 5
-          }}>Back</Text>
-        </TouchableOpacity>
-        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium', paddingTop: 7 }}>Contact surf lokal</Text>
-
-        <TouchableOpacity
-          style={{
-            alignItems: 'center',
-            position: "absolute",
-            right: 10,
-            top: 10,
-
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 40,
-            width: 40,
-            borderRadius: 100,
-            backgroundColor: Colors.gray,
-          }}
-          onPress={() => navigation.goBack()}  >
-          <Animatable.Image
-            source={Images.whiteclose}
-            style={styles.imagedata}
-            animation="flipInY"
-          />
-        </TouchableOpacity>
-      </View> */}
+     
+  
       <View
         style={{
           flexDirection: 'row',
@@ -340,11 +283,11 @@ const ContactSurf = () => {
           position: 'relative',
           // height: 45,
           alignItems: 'center',
-          paddingVertical: 12,
-          borderBottomColor: Colors.gray,
-          borderBottomWidth: 1,
+          // borderBottomColor: Colors.gray,
+          // borderBottomWidth: 1,
           paddingTop: 16,
-          marginBottom: 16
+          paddingBottom:2
+        
         }}>
         <TouchableOpacity
           style={{
@@ -361,27 +304,16 @@ const ContactSurf = () => {
           }}>
           <Image
             style={{
-              width: 10,
-              height: 10,
+              width:27,
+              height: 27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
               alignItems: 'center',
-              transform: [{ rotate: '90deg' }],
+              resizeMode:"contain"
             }}
-            source={Images.downArrow}></Image>
-          <Text
-            style={{
-              fontSize: 15,
-              color: Colors.black,
-              fontFamily: 'Poppins-Regular',
-              marginLeft: 5,
-              justifyContent: 'center',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            Back
-          </Text>
+            source={Images.leftnewarrow}></Image>
+     
         </TouchableOpacity>
         <View
           style={{
@@ -391,43 +323,34 @@ const ContactSurf = () => {
           }}>
           <Text
             style={{
-              fontSize: 18,
+              fontSize: 20,
               color: Colors.black,
-              fontFamily: 'Poppins-Medium',
-              marginRight: 4,
-              lineHeight: 20,
+              fontFamily: 'Poppins-Light',
+              lineHeight: 22,
             }}>
-            Contact surf lokal
+             Contact surf lokal
           </Text>
-
+     
         </View>
+  
         <TouchableOpacity
           style={{
-            alignItems: 'center',
-            position: 'absolute',
-            right: 12,
-            top: 8,
-
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 30,
-            width: 30,
-            borderRadius: 100,
-            backgroundColor: Colors.gray,
+            position:"absolute",
+    right:10,
+    top:15
           }}
-          onPress={() => {
-            navigation.goBack();
-          }}>
+
+          onPress={() => navigation.goBack()}>
+
           <Animatable.Image
-            source={Images.whiteclose}
+            source={Images.menu}
             style={styles.imagedata}
             animation="flipInY"
           />
         </TouchableOpacity>
       </View>
       <ScrollView style={{ height: '100%', width: '100%', }}>
-        <View style={{ flexDirection: 'column', marginTop: 0, alignItems: "center" }}>
+        <View style={{ flexDirection: 'column', marginTop: 0, alignItems: "center",paddingVertical:10,paddingBottom:10 }}>
           <Image source={Images.appLogo} style={{ maxWidth: 180, resizeMode: "contain", height: 150 }} />
 
 
@@ -503,7 +426,7 @@ const ContactSurf = () => {
           </View>
         </View>
 
-        <Text style={{ marginBottom: 30, fontSize: 18, textAlign: "center", color: Colors.black, fontFamily: 'Poppins-Regular' }}>
+        <Text style={{ marginBottom: 16, fontSize: 18, textAlign: "center", color: Colors.black, fontFamily: 'Poppins-Regular' }}>
           3010 N Military trl {'\n'}
           Suite 310 {'\n'}
           Boca Raton, FL 33431
@@ -533,7 +456,8 @@ const ContactSurf = () => {
                   padding: 12
                 }}>
 
-                <View style={{ flexDirection: "row", justifyContent: "flex-start", flexWrap: "wrap", textAlign: "center", marginBottom: 12 }}>
+                <View style={{ flexDirection: "row", justifyContent: "flex-start", flexWrap: "wrap", textAlign: "center",
+                 marginBottom: 8 }}>
                   {/* <TouchableOpacity
                     onPress={() => navigation.navigate("ChatSearch", { agentData })}
 
@@ -594,6 +518,47 @@ const ContactSurf = () => {
             </View>
 
 
+          </View>
+
+          <View style={{flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
+          <Image
+                style={{
+                  height:38,
+                  width: 38,
+                  resizeMode: "contain",
+                  marginHorizontal:5
+                }}
+                source={Images.facebook1}
+              />
+              <Image
+                style={{
+                  height:38,
+                  width: 38,
+                  resizeMode: "contain",
+                  marginHorizontal:5
+                }}
+                source={Images.tw1}
+              />
+              <Image
+                style={{
+                  height:38,
+                  width: 38,
+                  resizeMode: "contain",
+                  marginHorizontal:5
+                }}
+                source={Images.instag}
+              />
+          </View>
+          <View  style={{flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
+          <Image
+                style={{
+                  height:150,
+                  width: 150,
+                  resizeMode: "contain",
+                 
+                }}
+                source={Images.bus}
+              />
           </View>
         </View>
 
@@ -786,11 +751,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray,
   },
   imagedata: {
-    height: 12,
-    width: 12,
+    height:19,
+    width: 29,
     resizeMode: 'contain',
-    tintColor: Colors.black,
-    // transform: [{ rotate: '90deg' }],
+   
   },
   buttonText: { fontSize: 14, fontWeight: '400', color: Colors.white, fontFamily: 'Poppins-Regular', textAlign: "center" },
   // slideOuter: {

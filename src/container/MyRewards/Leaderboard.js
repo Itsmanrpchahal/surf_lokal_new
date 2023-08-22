@@ -51,7 +51,7 @@ const Leaderboard = () => {
 
   return (
     <SafeAreaView style={{ backgroundColor: Colors.darbluec }}>
-      <View
+         <View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
@@ -59,12 +59,11 @@ const Leaderboard = () => {
           position: 'relative',
           // height: 45,
           alignItems: 'center',
-          paddingVertical: 12,
-          borderBottomColor: Colors.darbluec,
-          borderBottomWidth: 1,
+          // borderBottomColor: Colors.gray,
+          // borderBottomWidth: 1,
           paddingTop: 16,
-          marginBottom: 16,
-          backgroundColor: Colors.darbluec
+          paddingBottom:2
+        
         }}>
         <TouchableOpacity
           style={{
@@ -81,30 +80,18 @@ const Leaderboard = () => {
           }}>
           <Image
             style={{
-              width: 10,
-              height: 10,
+              width:27,
+              height: 27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
               alignItems: 'center',
-              tintColor: Colors.white,
-              transform: [{ rotate: '90deg' }],
+              resizeMode:"contain",
+              tintColor:Colors.white
             }}
-            source={Images.downArrow}></Image>
-          <Text
-            style={{
-              fontSize: 15,
-              color: Colors.white,
-              fontFamily: 'Poppins-Regular',
-              marginLeft: 5,
-              justifyContent: 'center',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            Back
-          </Text>
+            source={Images.leftnewarrow}></Image>
+     
         </TouchableOpacity>
-
         <View
           style={{
             flexDirection: 'row',
@@ -113,21 +100,33 @@ const Leaderboard = () => {
           }}>
           <Text
             style={{
-              fontSize: 18,
+              fontSize: 20,
               color: Colors.white,
-              fontFamily: 'Poppins-Medium',
-              marginRight: 4,
-              lineHeight: 20,
+              fontFamily: 'Poppins-Light',
+              lineHeight: 22,
             }}>
-            Leader Board
+          Leader Board
           </Text>
-
+     
         </View>
+  
+        <TouchableOpacity
+          style={{
+            position:"absolute",
+    right:10,
+    top:15
+          }}
 
+          onPress={() => navigation.goBack()}>
 
-        
+          <Animatable.Image
+            source={Images.menu}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
       </View>
-      <View style={{ paddingTop: 12, backgroundColor: Colors.darbluec, height: '100%', width: '100%', alignItems: 'flex-start' }}>
+      <View style={{ paddingTop:100, backgroundColor: Colors.darbluec, height: '100%', width: '100%', alignItems: 'flex-start' }}>
         <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>
           <Image
             source={Images.searcfrank}
@@ -198,10 +197,10 @@ const Leaderboard = () => {
           ))}
         </View>
         <View style={{ justifyContent: 'center', alignItems: 'flex-end', width: '100%', height: '30%' }}>
-          <Text style={{ fontSize: 14, color: Colors.white, textAlign: 'center', fontFamily: 'Poppins-Regular', textAlign: 'center', width: '100%' }}>
+          <Text style={{ fontSize: 18, color: Colors.white, textAlign: 'center', fontFamily: 'Poppins-SemiBold', textAlign: 'center', width: '100%' }}>
             We think home buying should be fun!
           </Text>
-          <Text style={{ fontSize: 14, color: Colors.white, textAlign: 'center', fontFamily: 'Poppins-Regular', textAlign: 'center', width: '100%' }}>
+          <Text style={{ fontSize: 18, color: Colors.white, textAlign: 'center', fontFamily: 'Poppins-SemiBold', textAlign: 'center', width: '100%' }}>
             Here is where you rank.
           </Text>
         </View>
@@ -220,10 +219,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray,
   },
   imagedata: {
-    height: 12,
-    width: 12,
+    height:19,
+    width: 29,
     resizeMode: 'contain',
-    tintColor: Colors.black,
+    tintColor: Colors.white,
     // transform: [{ rotate: '90deg' }],
   },
 });

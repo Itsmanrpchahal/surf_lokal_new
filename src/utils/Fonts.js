@@ -8,6 +8,9 @@ const Fonts = {
     normal: 'Poppins-BlackItalic',
     medium: "Poppins-Medium",
     regular: "Poppins-Regular",
-    light: "Poppins-Light"
+    light: "Poppins-Light",
+extrabold: "Poppins-ExtraBold"
+
+    
 };
 export default Fonts;

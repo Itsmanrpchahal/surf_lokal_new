@@ -99,6 +99,7 @@ export default function Login({ navigation }) {
       formdata.append('device_token', fcmtoken)
       setLoading(true);
       dispatch(googleUser(formdata)).then(response => {
+        alert(JSON.stringify(response))
 
         if (response.payload.success) {
           setLoading(false);
