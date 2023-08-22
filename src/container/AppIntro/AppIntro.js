@@ -49,7 +49,7 @@ const slides = [
     key: 4,
     title: 'Title 1',
     text: 'Description.\nSay something cool',
-    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab4 : Images.slideImage3,
+    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab4 : Images.lastscreen,
     backgroundColor: 'black',
   },
 
@@ -93,7 +93,7 @@ export default function AppIntro({ navigation }) {
   const renderDone = () => {
     return (
       <TouchableOpacity onPress={() => { onDone() }}>
-        <Text style={{ color: Colors.PrimaryColor, marginRight: 16, fontSize: 16, marginTop: 10 }}
+        <Text style={{ color: Colors.PrimaryColor, marginRight: 16, fontSize: 16, marginTop: 10 ,opacity:0}}
         >Done</Text>
       </TouchableOpacity>
     )
@@ -101,8 +101,8 @@ export default function AppIntro({ navigation }) {
   return (
     <SafeAreaView
       style={{
-        height: '100%',
-        width: '100%',
+        height: screenHeight,
+        width: screenWidth,
         justifyContent: 'center',
 
         //backgroundColor: Colors.primaryBlue,
@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
   image: {
     width: screenWidth,
 
-    height: '100%',
-    resizeMode: 'contain'
+    height: screenWidth,
+   resizeMode:"contain"
 
   },
 });

@@ -47,85 +47,65 @@ const ChatHistory = ({ navigation }) => {
                         marginBottom: 16,
                         backgroundColor: Colors.white
                     }}>
-                    <TouchableOpacity
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            position: 'absolute',
-                            left: 12,
-                            justifyContent: 'center',
-                            // top: 12,
-                            top: 13
-                        }}
-                        onPress={() => {
-                            navigation.goBack();
-                        }}>
-                        <Image
-                            style={{
-                                width: 10,
-                                height: 10,
-                                resizeMode: 'contain',
-                                justifyContent: 'center',
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                transform: [{ rotate: '90deg' }],
-                            }}
-                            source={Images.downArrow}></Image>
-                        <Text
-                            style={{
-                                fontSize: 15,
-                                color: Colors.black,
-                                fontFamily: 'Poppins-Regular',
-                                marginLeft: 5,
-                                justifyContent: 'center',
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                            }}>
-                            Back
-                        </Text>
-                    </TouchableOpacity>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}>
-                        <Text
-                            style={{
-                                fontSize: 18,
-                                color: Colors.black,
-                                fontFamily: 'Poppins-Medium',
-                                marginRight: 4,
-                                lineHeight: 20,
-                            }}>
-                            Chat History
-                        </Text>
+              <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            position: 'absolute',
+            left: 12,
+            justifyContent: 'center',
+            // top: 12,
+            top: 13
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Image
+            style={{
+              width:27,
+              height: 27,
+              resizeMode: 'contain',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+              resizeMode:"contain",
+              tintColor:"#8B8787"
+            }}
+            source={Images.leftnewarrow}></Image>
+     
+        </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 20,
+              color: Colors.black,
+              fontFamily: 'Poppins-Light',
+              lineHeight: 22,
+            }}>
+         Chat History
+          </Text>
+     
+        </View>
+        <TouchableOpacity
+          style={{
+            position:"absolute",
+    right:10,
+    top:15
+          }}
 
-                    </View>
-                    <TouchableOpacity
-                        style={{
-                            alignItems: 'center',
-                            position: 'absolute',
-                            right: 12,
-                            top: 8,
+          onPress={() => navigation.goBack()}>
 
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            height: 30,
-                            width: 30,
-                            borderRadius: 100,
-                            backgroundColor: Colors.gray,
-                        }}
-                        onPress={() => {
-                            navigation.goBack();
-                        }}>
-                        <Image
-                            source={Images.whiteclose}
-                            style={styles.imagedata}
-                            animation="flipInY"
-                        />
-                    </TouchableOpacity>
+          <Image
+            source={Images.menu}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
                 </View>
 
                 <FlatList
@@ -204,12 +184,11 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.gray,
     },
     imagedata: {
-        height: 12,
-        width: 12,
+        height:19,
+        width: 29,
         resizeMode: 'contain',
-        tintColor: Colors.black,
-        // transform: [{ rotate: '90deg' }],
-    },
+       
+      },
 });
 
 

@@ -431,6 +431,7 @@ const MyFavorites = props => {
                 </Text>
               </View>
             </TouchableOpacity>
+
           </View>
           <TouchableOpacity
             style={{marginLeft: 15}}
@@ -438,25 +439,25 @@ const MyFavorites = props => {
             <Image
               source={Images.sendnew}
               style={{
-                height: 17,
-                width: 20,
+                height: 18,
+                width: 23,
                 resizeMode: 'contain',
               }}></Image>
           </TouchableOpacity>
         </View>
       </View>
       <TouchableOpacity
-        onPress={() => navigation.navigate('ViewPropertiy', {item})}>
-        <Text
-          style={{
-            fontSize: 28,
-            color: '#1450B1',
-            fontFamily: 'Poppins-Medium',
-            marginTop: 5,
-          }}>
-          {item.property_price}
-        </Text>
-      </TouchableOpacity>
+          onPress={() => navigation.navigate('ViewPropertiy', { item })}>
+          <Text
+            style={{
+              fontSize: 28,
+              color: "#1450B1",
+              fontFamily: 'Poppins-Medium',
+              marginTop: 0,
+            }}>
+            {item.property_price}
+          </Text>
+        </TouchableOpacity>
       <View
         style={{
           width: '100%',
@@ -472,6 +473,7 @@ const MyFavorites = props => {
             color: Colors.black,
             textAlign: 'center',
             fontFamily: 'Poppins-Light',
+            marginTop:6
           }}>
           {item?.title}
         </Text>
@@ -919,12 +921,14 @@ const MyFavorites = props => {
                   alignItems: 'center',
                   width: 70,
                 }}>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                  <Image
-                    source={Images.hoa}
+
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <Image
+                    source={Images.hoa2}
+
                     style={{
-                      height: 20,
-                      width: 20,
+                      height: 28,
+                      width: 29,
                       marginTop: 0,
                       resizeMode: 'contain',
                       marginBottom: 5,
@@ -1122,12 +1126,14 @@ const MyFavorites = props => {
                     width: 70,
                   }}>
                   <View
-                    style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Image
-                      source={Images.hoa}
+
+                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                   <Image
+                      source={Images.hoa2}
+
                       style={{
-                        height: 26,
-                        width: 27,
+                        height: 28,
+                        width: 29,
                         resizeMode: 'contain',
                         marginBottom: 5,
                         //backgroundColor:"red"
@@ -1218,10 +1224,7 @@ const MyFavorites = props => {
           justifyContent: 'center',
           width: '100%',
           position: 'relative',
-          // height: 45,
           alignItems: 'center',
-          // borderBottomColor: Colors.gray,
-          // borderBottomWidth: 1,
           paddingTop: 16,
           paddingBottom: 2,
         }}>
@@ -1232,8 +1235,11 @@ const MyFavorites = props => {
             position: 'absolute',
             left: 12,
             justifyContent: 'center',
+
             // top: 12,
             top: 13,
+
+
           }}
           onPress={() => {
             navigation.goBack();
@@ -1249,18 +1255,7 @@ const MyFavorites = props => {
               resizeMode: 'contain',
             }}
             source={Images.leftnewarrow}></Image>
-          {/* <Text
-            style={{
-              fontSize: 15,
-              color: Colors.black,
-              fontFamily: 'Poppins-Regular',
-              marginLeft: 5,
-              justifyContent: 'center',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            Back
-          </Text> */}
+     
         </TouchableOpacity>
         <View
           style={{
@@ -1277,45 +1272,65 @@ const MyFavorites = props => {
             }}>
             Favorites
           </Text>
-          {/* <Image
-            style={{
-              width: 18,
-              height: 18,
-              resizeMode: 'contain',
-              position: 'relative',
-              top: -4,
-            }}
-            source={Images.favthumb}
-          /> */}
+     
         </View>
         <TouchableOpacity
-          onPress={() => {}}
-          activeOpacity={0.5}
+
           style={{
-            height: 40,
-            width: 40,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderWidth: 1,
-            borderColor: Colors.surfblur,
-            borderRadius: 50,
-            position: 'absolute',
-            right: 10,
-            top: 5,
-          }}>
-          <View
-            style={{
-              height: 35,
-              width: 35,
-              borderRadius: 20,
-              backgroundColor: Colors.surfblur,
-              justifyContent: 'center',
-              alignItems: 'center',
-              overflow: 'hidden',
-            }}>
-            <Image style={{height: 40, width: 40}} source={Images.user} />
-          </View>
+            position:"absolute",
+    right:10,
+    top:15
+          }}
+
+          onPress={() => navigation.goBack()}>
+
+          <Animatable.Image
+            source={Images.menu}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
         </TouchableOpacity>
+
+        {/* <TouchableOpacity
+              onPress={() => {
+              
+              }}
+              activeOpacity={0.5}
+              style={{
+                height: 40,
+                width: 40,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderWidth: 1,
+                borderColor: Colors.surfblur,
+                borderRadius: 50,
+                position:"absolute",
+                right:10,
+                top:5
+              }}>
+             
+            
+                <View
+                  style={{
+                    height:35,
+                    width: 35,
+                    borderRadius: 20,
+                    backgroundColor: Colors.surfblur,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                  }}>
+               
+                    <Image
+                      style={{ height: 40, width: 40 }}
+                      source={Images.user}
+                    />
+            
+                </View>
+            
+         
+            </TouchableOpacity> */}
+
       </View>
       {/* </View> */}
       <View
@@ -1370,6 +1385,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderRadius: 18,
+    marginBottom:16
   },
   emptyContainer: {
     flex: 1,
@@ -1452,11 +1468,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray,
   },
   imagedata: {
-    height: 11,
-    width: 11,
+    height:19,
+    width: 29,
     resizeMode: 'contain',
-    tintColor: Colors.black,
-    // transform: [{ rotate: '90deg' }],
+   
   },
 });
 

@@ -58,57 +58,44 @@ const App = (props) => {
   }, [])
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white, height: "100%" }}>
-      <View
+    <SafeAreaView style={{  backgroundColor: Colors.white, height: "100%" }}>
+       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
           position: 'relative',
-          // height: 45,
           alignItems: 'center',
-          paddingVertical: 12,
-          borderBottomColor: Colors.gray,
-          borderBottomWidth: 1,
           paddingTop: 16,
-          marginBottom: 16
+          paddingBottom:2
+        
         }}>
         <TouchableOpacity
           style={{
             flexDirection: 'row',
             alignItems: 'center',
             position: 'absolute',
-            left: 12,
+            left: 10,
             justifyContent: 'center',
             // top: 12,
-            top: 13
+            top:12
           }}
           onPress={() => {
             navigation.goBack();
           }}>
           <Image
             style={{
-              width: 10,
-              height: 10,
+              width:27,
+              height: 27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
               alignItems: 'center',
-              transform: [{ rotate: '90deg' }],
+              resizeMode:"contain",
+              tintColor:"#8B8787"
             }}
-            source={Images.downArrow}></Image>
-          <Text
-            style={{
-              fontSize: 15,
-              color: Colors.black,
-              fontFamily: 'Poppins-Regular',
-              marginLeft: 5,
-              justifyContent: 'center',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            Back
-          </Text>
+            source={Images.leftnewarrow}></Image>
+     
         </TouchableOpacity>
         <View
           style={{
@@ -118,54 +105,44 @@ const App = (props) => {
           }}>
           <Text
             style={{
-              fontSize: 18,
+              fontSize: 20,
               color: Colors.black,
-              fontFamily: 'Poppins-Medium',
-              marginRight: 4,
-              lineHeight: 20,
+              fontFamily: 'Poppins-Light',
+              lineHeight: 22,
             }}>
-            Surf Rewards
+       Surf Rewards
           </Text>
-
+     
         </View>
+  
         <TouchableOpacity
           style={{
-            alignItems: 'center',
-            position: 'absolute',
-            right: 12,
-            top: 8,
-
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 30,
-            width: 30,
-            borderRadius: 100,
-            backgroundColor: Colors.gray,
+            position:"absolute",
+    right:10,
+    top:15
           }}
-          onPress={() => {
-            navigation.goBack();
 
-          }}>
+          onPress={() => navigation.goBack()}>
+
           <Animatable.Image
-            source={Images.whiteclose}
+            source={Images.menu}
             style={styles.imagedata}
             animation="flipInY"
           />
         </TouchableOpacity>
       </View>
-      <ScrollView>
+      <ScrollView style={{height:"100%"}}>
 
 
         <View style={{
-          height: "90%",
+          height: "100%",
         }}>
           <View style={{ marginTop: 15, }}>
             <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: 20 }}>
-              <Text style={{ fontSize: 16, fontFamily: Fonts.regular, color: "black", marginBottom: 0, width: '90%', textAlign: 'center' }}>Purchase Price
+              <Text style={{ fontSize: 16, fontFamily: Fonts.light, color: "black", marginBottom: 0, width: '90%', textAlign: 'center' }}>Purchase Price
               </Text>
               <View style={{ flexDirection: 'row', width: '33.33%', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 22, color: Colors.darbluec, fontFamily: 'Poppins-SemiBold' }}>${meterValue}</Text>
+                <Text style={{ fontSize: 16, color: "#0165C5", fontFamily: 'Poppins-SemiBold' }}>${meterValue}</Text>
 
               </View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '90%' }}>
@@ -199,20 +176,20 @@ const App = (props) => {
             </View>
 
           </View>
-          <Text style={{ fontSize: 18, fontFamily: Fonts.regular, textAlign: 'center', color: "black", paddingTop: 10 }}>Your Rebate </Text>
+          <Text style={{ fontSize: 16, fontFamily: Fonts.light, textAlign: 'center', color: "black", paddingTop: 10 }}>Your Rebate </Text>
           <View style={{
             position: "relative",
             // height: "50%",
           }}>
 
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', paddingTop: 50 }}>
-              <Text style={{ fontSize: 66, fontFamily: Fonts.bold, color: "black", }}>$</Text>
-              <Text style={{ fontSize: 66, fontFamily: Fonts.bold, color: "black", }}>{Math.round(meterValue * 0.003)}</Text>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', paddingTop:0 }}>
+              <Text style={{ fontSize: 60, fontFamily: Fonts.extrabold, color: "black", }}>$</Text>
+              <Text style={{ fontSize: 60, fontFamily: Fonts.extrabold, color: "black", }}>{Math.round(meterValue * 0.003)}</Text>
 
             </View>
           </View>
-
-          <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'center', paddingTop: 20 }}>
+<View style={{alignItems:"center"}}>
+          <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingTop: 70,width:"90%" }}>
 
             <TouchableOpacity
               onPress={() => { handlePress, navigation.navigate('Challenges') }}
@@ -240,13 +217,38 @@ const App = (props) => {
               <Text style={[styles.text, { color: isRewardsSelected ? Colors.surfblur : Colors.surfblur, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>Leaderboard</Text>
             </TouchableOpacity>
 
+         
           </View>
-
+          </View>
+          <View style={{height:"100%",position:"relative",alignItems:"flex-end",marginTop:16,height:"100%"}}>
+          <View style={{width:"100%",height:"100%"}}>
+                    <View   style={{
+             
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+         
+            }}>  
+                  <Image
+            style={{
+              width:132,
+              height: 132,
+              resizeMode: 'contain',
+            //  justifyContent: 'center',
+              flexDirection: 'row',
+             // alignItems: 'center',
+              resizeMode:"contain",
+           marginTop:12
+            }}
+            source={Images.doll}></Image>
+            </View>
+                  </View>
+                  </View>
         </View>
 
       </ScrollView>
 
-      <View style={{ height: 50 }}></View>
+     
     </SafeAreaView>
   );
 };
@@ -293,5 +295,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 8
+  },
+  imagedata: {
+    height:19,
+    width: 29,
+    resizeMode: 'contain',
+    tintColor: Colors.black,
+    // transform: [{ rotate: '90deg' }],
   },
 });
