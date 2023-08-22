@@ -21,6 +21,7 @@ import {
   TwilioVideo,
 } from "react-native-twilio-video-webrtc";
 import { useSelector, useDispatch } from "react-redux";
+import DeviceInfo from 'react-native-device-info';
 
 import styleSheet from "../../components/Video/styles";
 import { getVedioCallToken } from "../../modules/getVedioCallToken";
@@ -273,8 +274,6 @@ const ContactSurf = () => {
 
   return (
     <SafeAreaView style={[styles.container, Platform.OS === 'android' && { flex: 1, }]}>
-     
-  
       <View
         style={{
           flexDirection: 'row',
@@ -286,8 +285,7 @@ const ContactSurf = () => {
           // borderBottomColor: Colors.gray,
           // borderBottomWidth: 1,
           paddingTop: 16,
-          paddingBottom:2
-        
+          paddingBottom: 2
         }}>
         <TouchableOpacity
           style={{
@@ -304,16 +302,16 @@ const ContactSurf = () => {
           }}>
           <Image
             style={{
-              width:27,
+              width: 27,
               height: 27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
               alignItems: 'center',
-              resizeMode:"contain"
+              resizeMode: "contain"
             }}
             source={Images.leftnewarrow}></Image>
-     
+
         </TouchableOpacity>
         <View
           style={{
@@ -325,19 +323,19 @@ const ContactSurf = () => {
             style={{
               fontSize: 20,
               color: Colors.black,
-              fontFamily: 'Poppins-Light',
+              fontFamily:  DeviceInfo.getDeviceType() === 'Tablet'?'Poppins-SemiBold':"Poppins-Light",
               lineHeight: 22,
             }}>
-             Contact surf lokal
+            Contact surf lokal
           </Text>
-     
+
         </View>
-  
+
         <TouchableOpacity
           style={{
-            position:"absolute",
-    right:10,
-    top:15
+            position: "absolute",
+            right: 10,
+            top: 15
           }}
 
           onPress={() => navigation.goBack()}>
@@ -350,7 +348,7 @@ const ContactSurf = () => {
         </TouchableOpacity>
       </View>
       <ScrollView style={{ height: '100%', width: '100%', }}>
-        <View style={{ flexDirection: 'column', marginTop: 0, alignItems: "center",paddingVertical:10,paddingBottom:10 }}>
+        <View style={{ flexDirection: 'column', marginTop: 0, alignItems: "center", paddingVertical: 10, paddingBottom: 10 }}>
           <Image source={Images.appLogo} style={{ maxWidth: 180, resizeMode: "contain", height: 150 }} />
 
 
@@ -456,8 +454,10 @@ const ContactSurf = () => {
                   padding: 12
                 }}>
 
-                <View style={{ flexDirection: "row", justifyContent: "flex-start", flexWrap: "wrap", textAlign: "center",
-                 marginBottom: 8 }}>
+                <View style={{
+                  flexDirection: "row", justifyContent: "flex-start", flexWrap: "wrap", textAlign: "center",
+                  marginBottom: 8
+                }}>
                   {/* <TouchableOpacity
                     onPress={() => navigation.navigate("ChatSearch", { agentData })}
 
@@ -520,45 +520,95 @@ const ContactSurf = () => {
 
           </View>
 
-          <View style={{flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
-          <Image
-                style={{
-                  height:38,
-                  width: 38,
-                  resizeMode: "contain",
-                  marginHorizontal:5
-                }}
-                source={Images.facebook1}
-              />
-              <Image
-                style={{
-                  height:38,
-                  width: 38,
-                  resizeMode: "contain",
-                  marginHorizontal:5
-                }}
-                source={Images.tw1}
-              />
-              <Image
-                style={{
-                  height:38,
-                  width: 38,
-                  resizeMode: "contain",
-                  marginHorizontal:5
-                }}
-                source={Images.instag}
-              />
+          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+            <TouchableOpacity
+              style={{
+                height: 38,
+                width: 38,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+
+              <Animatable.View // Wrap your content in Animatable.View
+                animation="bounceIn" // Choose an animation type (e.g., bounceIn, zoomIn, fadeIn)
+                duration={4000} // Duration of the animation
+                iterationCount="infinite"
+                useNativeDriver>
+                <Image
+                  style={{
+                    height: 38,
+                    width: 38,
+                    resizeMode: "contain",
+                    marginHorizontal: 5
+                  }}
+                  source={Images.facebook1}
+                />
+              </Animatable.View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{
+                height: 38,
+                width: 38,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Animatable.View // Wrap your content in Animatable.View
+                animation="bounceIn" // Choose an animation type (e.g., bounceIn, zoomIn, fadeIn)
+                duration={4000} // Duration of the animation
+                iterationCount="infinite"
+                useNativeDriver>
+                <Image
+                  style={{
+                    height: 38,
+                    width: 38,
+                    resizeMode: "contain",
+                    marginHorizontal: 5
+                  }}
+                  source={Images.tw1}
+                />
+              </Animatable.View>
+
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{
+                height: 38,
+                width: 38,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Animatable.View // Wrap your content in Animatable.View
+                animation="bounceIn" // Choose an animation type (e.g., bounceIn, zoomIn, fadeIn)
+                duration={4000} // Duration of the animation
+                iterationCount="infinite"
+                useNativeDriver>
+                <Image
+                  style={{
+                    height: 38,
+                    width: 38,
+                    resizeMode: "contain",
+                    marginHorizontal: 5
+                  }}
+                  source={Images.instag}
+                />
+              </Animatable.View>
+            </TouchableOpacity>
+
           </View>
-          <View  style={{flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
-          <Image
-                style={{
-                  height:150,
-                  width: 150,
-                  resizeMode: "contain",
-                 
-                }}
-                source={Images.bus}
-              />
+          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+            <Image
+              style={{
+                height: 150,
+                width: 150,
+                resizeMode: "contain",
+
+              }}
+              source={Images.bus}
+            />
           </View>
         </View>
 
@@ -751,10 +801,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray,
   },
   imagedata: {
-    height:19,
+    height: 19,
     width: 29,
     resizeMode: 'contain',
-   
+
   },
   buttonText: { fontSize: 14, fontWeight: '400', color: Colors.white, fontFamily: 'Poppins-Regular', textAlign: "center" },
   // slideOuter: {
