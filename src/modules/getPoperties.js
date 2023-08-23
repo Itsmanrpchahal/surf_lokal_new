@@ -13,18 +13,11 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
     security_key:"SurfLokal52",
     access_token:access_token
   }
-   console.log("Header ccheck ", Header)
   return type.type === 0
-    // ? await getAPI(BASEURl + 'webapi/v1/property?userID=' + id)
     ? await getAPI(BASEURl + "webapi/v1/property/?limit="  +type.data.limit,Header)
-
       .then(async response => {
         const { data } = response;
         console.log ("Data come ffrom Api ",data)
-        // console.log("data.limit",type.data.limit)
-        // console.log("data.limit",response)
-
-
         return data;
       })
       .catch(e => {
