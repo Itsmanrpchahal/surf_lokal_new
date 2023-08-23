@@ -409,27 +409,39 @@ const MyFavorites = props => {
                   // console.log(" getRating response data", response?.payload?.data)
                 });
               }}>
-              <View style={{flexDirection: 'row', alignItems: 'center',}}>
-                {item.total_average_rating > 0 ? (
-                  <Image
-                    source={Images.startfill}
-                    style={{height: 22, width: 22, resizeMode: 'contain'}}
-                  />
-                ) : (
-                  <Image
-                    source={Images.star2}
-                    style={{height: 22, width: 22, resizeMode: 'contain',tintColor:'black'}}
-                  />
-                )}
-                <Text
-                  style={{
-                    fontSize: 18,
-                    color: Colors.black,
-                    fontFamily: 'Poppins-Light',
-                  }}>
-                  {item.total_average_rating}
-                </Text>
-              </View>
+               <View
+                                    style={{
+                                      flexDirection: 'row',
+                                      alignItems: 'center',
+                                      alignSelf: 'center',
+                                    }}>
+                                    <Image
+                                      source={
+                                        item.total_average_rating > 0
+                                          ? Images.startfill
+                                          : Images.star2
+                                      }
+                                      style={{
+                                        height: 22,
+                                        width: 22,
+                                        resizeMode: 'contain',
+                                        tintColor:
+                                          item.total_average_rating > 0
+                                            ? undefined
+                                            : 'black',
+                                      }}
+                                    />
+                                    {item.total_average_rating > 0 ? (
+                                      <Text
+                                        style={{
+                                          fontSize: 18,
+                                          color: Colors.black,
+                                          fontFamily: 'Poppins-Light',
+                                        }}>
+                                        {Math.round(item.total_average_rating)}
+                                      </Text>
+                                    ) : null}
+                                  </View>
             </TouchableOpacity>
 
           </View>

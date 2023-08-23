@@ -49,9 +49,11 @@ const imageSizeRation = screenHeight / 1000;
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
   // const [emailId, setEmailId] = useState('');
+
   const [emailId, setEmailId] = useState('access@wpkraken.io');
   // const [password, setPassword] = useState('');
   const [password, setPassword] = useState('CherryPicker1!');
+
 
   const [phone, setPhone] = useState('');
   const [countryName, setCountryName] = useState('');
@@ -242,10 +244,16 @@ export default function Login({ navigation }) {
         };
         setLoading(true);
         dispatch(loginUser(data)).then(response => {
-          // console.log('fkjdui',response)
-          // alert (JSON.stringify (response.payload.data))
-          console.log('loginUser resposne device_token',response.payload)
-
+          let acces_token= response.payload?.metadata?.[fcmtoken].toString()
+          async function storeToken() {
+            try {
+              await AsyncStorage.setItem('acces_token', acces_token);
+              console.log('Token stored successfully.');
+            } catch (error) {
+              console.error('Error storing token:', error);
+            }
+          }
+          storeToken();
           if (response.payload.status) {
             setLoading(false);
             navigation.navigate('AppIntro');
