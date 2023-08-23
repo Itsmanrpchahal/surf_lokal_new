@@ -396,51 +396,55 @@ const ViewPropertiy = (props, imageUrl) => {
   const Details = () => {
     return (
       <>
-        <View style={{ paddingHorizontal: 20 }}>
+        <View style={{ paddingHorizontal: 16 }}>
           <View style={styles.viewstyle}>
             <View style={{ width: '50%' }}>
               <Text style={styles.property}>Property Details</Text>
-              <Text style={styles.props}>Price: {data.map((item) => item.details.property_details.price)} </Text>
-              <Text style={styles.props}>Property Size: {data.map((item) => item.details.property_details.property_size)} sq ft </Text>
-              <Text style={styles.props}>Bedrooms: {data.map((item) => item.details.property_details.bedrooms)} </Text>
-              <Text style={styles.props}>Year Built : {data.map((item) => item.details.property_details.yearbuilt)} </Text>
-              <Text style={styles.props}>Toatl Stories: {data.map((item) => item.details.property_details.storiestotal)} </Text>
-              <Text style={styles.props}>Days on Market : </Text>
-              <Text style={styles.props}>Garage Spaces:  {data.map((item) => item.details.property_details.garagespaces)}  </Text>
+              <Text style={styles.props}>Price:<Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.price)}</Text></Text>
+              <Text style={styles.props}>Est. Taxes: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.taxes)}</Text></Text>
+              <Text style={styles.props}>Bedrooms: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.bedrooms)}</Text> </Text>
+              <Text style={styles.props}>Bathrooms: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.bedrooms)}</Text></Text>
+              <Text style={styles.props}>Size:<Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.property_size)} sq ft </Text> </Text>
+              <Text style={styles.props}>Garage Spaces:<Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.garagespaces)}</Text></Text>
+              <Text style={styles.props}>Lot Size:<Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.hoa_fee)}</Text></Text>
+            <Text style={styles.props}>Year Built :<Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.yearbuilt)} </Text> </Text>
+              <Text style={styles.props}>Total Stories: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.storiestotal)}</Text></Text>
+              <Text style={styles.props}>Days on Market : <Text style={{fontFamily:"Poppins-Light"}}>1</Text></Text>
+             
             </View>
             <View style={{ width: '50%' }}>
               <Text style={styles.property}>Community Details</Text>
-              <Text style={styles.props}>Community Name:  {data.map((item) => item.details.community_details.community_name)}  </Text>
-              <Text style={styles.props}>HOA Fee: {data.map((item) => item.hoa_fee)}</Text>
-              <Text style={styles.props}>HOA Fee Frequency: {data.map((item) => item.associationfeefrequency)}  </Text>
-              <Text style={styles.props}>Lot Size: {data.map((item) => item.hoa_fee)}</Text>
-              <Text style={styles.props}>Est. Taxes: {data.map((item) => item.details.property_details.taxes)}  </Text>
+              <Text style={styles.props}>Community Name: <Text style={{fontFamily:"Poppins-Light", lineHeight:22}}>{data.map((item) => item.details.community_details.community_name)}</Text></Text>
+              <Text style={styles.props}>HOA Fee Includes: <Text style={{fontFamily:"Poppins-Light", lineHeight:22}}>{data.map((item) => item.hoa_fee)}</Text></Text>
+             <Text style={styles.props}>Community Features: <Text style={{fontFamily:"Poppins-Light",lineHeight:22}}>Bike Storage, Community Kitchen, Fitness Center, Library, Barbecue, Picnic Area, Pool, Shuffleboard Court, Spa Hot Tub, Storage, Trash, Vehicle Wash Area, Elevators
+Boat Facilities, Non Gated</Text></Text>
+              {/* <Text style={styles.props}>HOA Fee Frequency: {data.map((item) => item.associationfeefrequency)}  </Text>
+             */}
             </View>
           </View>
           <View style={styles.viewstyle}>
             <View style={{ width: '50%' }}>
-              <Text style={styles.property}>Interior Features
-              </Text>
-              <Text style={styles.props}>A/C: {"\n"}{data.map((item) => item.details.interior_features.A_C)} </Text>
-              <Text style={styles.props}>Heating: {data.map((item) => item.details.interior_features.heating)}</Text>
-              <Text style={styles.props}>Flooring: {data.map((item) => item.details.interior_features.flooring)} </Text>
-              <Text style={styles.props}>Property Rooms: {data.map((item) => item.details.interior_features.property_rooms)} </Text>
+              <Text style={styles.property}>Interior Features</Text>
+              <Text style={styles.props}>A/C: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.interior_features.A_C)}</Text></Text>
+              <Text style={styles.props}>Heating: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.interior_features.heating)}</Text></Text>
+              <Text style={styles.props}>Flooring: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.interior_features.flooring)} </Text></Text>
+              <Text style={styles.props}>Property Rooms: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.interior_features.property_rooms)}</Text></Text>
 
             </View>
             <View style={{ width: '50%' }}>
               <Text style={styles.property}>Exterior Features</Text>
-              <Text style={styles.props}>Architectural Style:  {data.map((item) => item.details.exterior_features.architecturalstyle)}  </Text>
-              <Text style={styles.props}>Construction: {data.map((item) => item.details.exterior_features.construction)}</Text>
-              <Text style={styles.props}>Roofing: {data.map((item) => item.details.exterior_features.roofing)}  </Text>
-              <Text style={styles.props}>Water Source: {data.map((item) => item.details.exterior_features.watersource)}</Text>
+              <Text style={styles.props}>Architectural Style:  <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.exterior_features.architecturalstyle)}</Text></Text>
+              <Text style={styles.props}>Construction: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.exterior_features.construction)}</Text></Text>
+              <Text style={styles.props}>Roofing: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.exterior_features.roofing)}  </Text></Text>
+              <Text style={styles.props}>Water Source: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.exterior_features.watersource)}</Text></Text>
             </View>
           </View>
-
-          <View style={{ width: '60%', marginTop: 30 }}>
+          <View style={styles.viewstyle}>
+          <View style={{ width: '50%', marginTop: 30 }}>
             <Text style={styles.property}>Miscellaneous Details</Text>
             <Text style={styles.props}>Driving Directions:{data.map((item) => item.details.miscellaneous_details.driving_directions)} </Text>
             <Text style={styles.props}>Listing Office: {data.map((item) => item.details.miscellaneous_details.listing_office)}  </Text>
-
+            </View>
           </View>
         </View>
       </>
@@ -1311,10 +1315,10 @@ paddingHorizontal:8
                       }}
                       style={styles.detailsStyle}>
                       <Image
-                        source={Images.features}
+                        source={Images.featuresnew}
                         style={{
-                          height: 20,
-                          width: 20,
+                          height: 22,
+                          width: 21,
                           resizeMode: 'contain',
                           tintColor: selectedTab == 1 ? Colors.primaryBlue : Colors.black,
                         }}></Image>
@@ -1323,6 +1327,8 @@ paddingHorizontal:8
                         color: selectedTab == 1 ? Colors.primaryBlue : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
+                        // borderBottomColor: selectedTab == 1 ? Colors.primaryBlue : Colors.white,
+                        // borderBottomWidth: selectedTab == 1 ? 1 : 0,
                       }}>Features</Text>
                     </TouchableOpacity>
                   </View>
@@ -1333,7 +1339,7 @@ paddingHorizontal:8
                       }}
                       style={styles.detailsStyle}>
                       <Image
-                        source={Images.address}
+                        source={Images.mapnew}
                         style={{
                           height: 20,
                           width: 20,
@@ -1345,7 +1351,7 @@ paddingHorizontal:8
                         color: selectedTab == 2 ? Colors.primaryBlue : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
-                      }}>Property Location</Text>
+                      }}>Location</Text>
                     </TouchableOpacity>
                   </View>
                   <View style={styles.featuersComtainer}>
@@ -1355,7 +1361,7 @@ paddingHorizontal:8
                       }}
                       style={styles.detailsStyle}>
                       <Image
-                        source={Images.cal}
+                        source={Images.payment}
                         style={{
                           height: 20,
                           width: 20,
@@ -1364,10 +1370,10 @@ paddingHorizontal:8
                         }}></Image>
                       <Text style={{
                         fontSize: 11,
-                        color: selectedTab == 6 ? Colors.primaryBlue : Colors.black,
+                        color: selectedTab == 1 ? Colors.primaryBlue : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
-                      }}>Mortgage Calculator</Text>
+                      }}>Payment</Text>
                     </TouchableOpacity>
                   </View>
                   {/* <View style={styles.featuersComtainer}>
@@ -1389,7 +1395,7 @@ paddingHorizontal:8
                       }}
                       style={styles.detailsStyle}>
                       <Image
-                        source={Images.nearBy}
+                        source={Images.nearBy1}
                         style={{
                           height: 20,
                           width: 20,
@@ -1401,7 +1407,7 @@ paddingHorizontal:8
                         color: selectedTab == 3 ? Colors.primaryBlue : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
-                      }}>What's Nearby </Text>
+                      }}>Nearby</Text>
                     </TouchableOpacity>
                   </View>
                   <View style={styles.featuersComtainer}>
@@ -1411,7 +1417,7 @@ paddingHorizontal:8
                       }}
                       style={styles.detailsStyle}>
                       <Image
-                        source={Images.sch}
+                        source={Images.schoolbus}
                         style={{
                           height: 20,
                           width: 20,
@@ -1426,7 +1432,7 @@ paddingHorizontal:8
                       }}>Schools</Text>
                     </TouchableOpacity>
                   </View>
-                  <View style={styles.featuersComtainer}>
+                  {/* <View style={styles.featuersComtainer}>
                     <TouchableOpacity
                       onPress={() => {
                         setSelectedTab(4);
@@ -1447,7 +1453,7 @@ paddingHorizontal:8
                         fontFamily: 'Poppins-Regular',
                       }}> Walk Score</Text>
                     </TouchableOpacity>
-                  </View>
+                  </View> */}
                   <View style={styles.featuersComtainer}>
                     <TouchableOpacity
                       onPress={() => {
@@ -1455,7 +1461,7 @@ paddingHorizontal:8
                       }}
                       style={styles.detailsStyle}>
                       <Image
-                        source={Images.cloud}
+                        source={Images.cloudysun}
                         style={{
                           height: 20,
                           width: 20,
@@ -1467,7 +1473,7 @@ paddingHorizontal:8
                         color: selectedTab == 5 ? Colors.primaryBlue : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
-                      }}>Current Weather</Text>
+                      }}>Weather</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -2066,10 +2072,10 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   property: {
-    fontSize: 16,
+    fontSize: 15,
     color: Colors.black,
     //fontWeight: 'bold',
-    fontFamily: "Poppins-SemiBold"
+    fontFamily: "Poppins-Medium"
   },
   detailText: {
     fontSize: 11,
@@ -2141,7 +2147,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: Colors.black,
     marginTop: 5,
-    fontFamily: "Poppins-Regular"
+    fontFamily: "Poppins-Medium"
   },
   prop: {
     fontSize: 13,
