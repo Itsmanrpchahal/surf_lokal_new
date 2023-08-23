@@ -6,22 +6,23 @@ import BASEURl from '../services/Api'
 
 
 export const getPoperties = createAsyncThunk('getPoperties', async type => {
-  const id = await AsyncStorage.getItem('userId')
-  const acces_token = await AsyncStorage.getItem('acces_token')
+  // const id = await AsyncStorage.getItem('userId')
+  const access_token = await AsyncStorage.getItem('acces_token')
 
   const Header={
     security_key:"SurfLokal52",
-    acces_token:acces_token
+    access_token:access_token
   }
    console.log("Header ccheck ", Header)
   return type.type === 0
     // ? await getAPI(BASEURl + 'webapi/v1/property?userID=' + id)
-    ? await getAPI(BASEURl + `webapi/v1/property/limit=${type.data.limit}`,Header)
+    ? await getAPI(BASEURl + "webapi/v1/property/?limit="  +type.data.limit,Header)
 
       .then(async response => {
         const { data } = response;
-        console.log("data.limit",type.data.limit)
-        console.log("data.limit",response)
+        console.log ("Data come ffrom Api ",data)
+        // console.log("data.limit",type.data.limit)
+        // console.log("data.limit",response)
 
 
         return data;
