@@ -265,6 +265,7 @@ const ViewPropertiy = (props, imageUrl) => {
     }),
   ).current;
   const getPopertiesDetailsApiCall = () => {
+    console.log( "getPopertiesDetailsApiCall calllllll")
     setLoading(true);
     dispatch(getPopertiesDetails(postid.ID)).then(response => {
 
