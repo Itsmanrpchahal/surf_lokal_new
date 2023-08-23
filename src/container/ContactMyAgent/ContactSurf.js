@@ -22,7 +22,7 @@ import {
 } from "react-native-twilio-video-webrtc";
 import { useSelector, useDispatch } from "react-redux";
 import DeviceInfo from 'react-native-device-info';
-
+import LottieView from 'lottie-react-native';
 import styleSheet from "../../components/Video/styles";
 import { getVedioCallToken } from "../../modules/getVedioCallToken";
 
@@ -347,7 +347,7 @@ const ContactSurf = () => {
           />
         </TouchableOpacity>
       </View>
-      <ScrollView style={{ height: '100%', width: '100%', }}>
+      <ScrollView style={{ height: '100%', width: '100%',}}>
         <View style={{ flexDirection: 'column', marginTop: 0, alignItems: "center", paddingVertical: 10, paddingBottom: 10 }}>
           <Image source={Images.appLogo} style={{ maxWidth: 180, resizeMode: "contain", height: 150 }} />
 
@@ -599,21 +599,17 @@ const ContactSurf = () => {
             </TouchableOpacity>
 
           </View>
-          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-            <Image
-              style={{
-                height: 150,
-                width: 150,
-                resizeMode: "contain",
-
-              }}
-              source={Images.bus}
-            />
-          </View>
+         
         </View>
 
+      <View  style={{flexDirection:"row",justifyContent:"center",alignItems:"center",
+      }}>
+     
+     <LottieView  style={{ height: 150, width: 200,}} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
 
+</View>
       </ScrollView>
+     
 
       {
         modalVisible && <Animated.View

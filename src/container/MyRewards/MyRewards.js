@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  TextInput,
+  Dimensions,
   Text,
   View,
   Image,
@@ -16,6 +16,7 @@ import Colors from '../../utils/Colors';
 import * as Animatable from 'react-native-animatable';
 import Slider from 'react-native-slider';
 import Speedmeter from '../../components/speedmeter';
+import LottieView from 'lottie-react-native';
 import Fonts from '../../utils/Fonts';
 const App = (props) => {
   const navigation = useNavigation();
@@ -23,7 +24,8 @@ const App = (props) => {
   const [backgroundColor, setBackgroundColor] = useState('blue');
   const [textColor, setTextColor] = useState('white');
   const [borderColor, setBorderColor] = useState('black');
-
+  const screenHeight = Dimensions.get('window').height;
+  const screenWidth = Dimensions.get('window').width;
   const [isRewardsSelected, setIsRewardsSelected] = useState(false);
 
   const handlePress = () => {
@@ -58,7 +60,7 @@ const App = (props) => {
   }, [])
 
   return (
-    <SafeAreaView style={{  backgroundColor: Colors.white, height: "100%" }}>
+    <SafeAreaView style={{  backgroundColor: Colors.white, height:"100%" }}>
        <View
         style={{
           flexDirection: 'row',
@@ -131,11 +133,10 @@ const App = (props) => {
           />
         </TouchableOpacity>
       </View>
-      <ScrollView style={{height:"100%"}}>
+      <ScrollView style={{height:"100%",}}>
 
 
-        <View style={{
-          height: "100%",
+        <View style={{height:screenHeight,
         }}>
           <View style={{ marginTop: 15, }}>
             <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: 20 }}>
@@ -189,7 +190,7 @@ const App = (props) => {
             </View>
           </View>
 <View style={{alignItems:"center"}}>
-          <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingTop: 70,width:"90%" }}>
+          <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingTop: 80,width:"90%" }}>
 
             <TouchableOpacity
               onPress={() => { handlePress, navigation.navigate('Challenges') }}
@@ -220,8 +221,8 @@ const App = (props) => {
          
           </View>
           </View>
-          <View style={{height:"100%",position:"relative",alignItems:"flex-end",marginTop:16,height:"100%"}}>
-          <View style={{width:"100%",height:"100%"}}>
+          <View style={{position:"relative",alignItems:"flex-end",position:"absolute",bottom:0,width:"100%"}}>
+          <View style={{width:"100%",}}>
                     <View   style={{
              
               justifyContent: 'center',
@@ -229,26 +230,19 @@ const App = (props) => {
               alignItems: 'center',
          
             }}>  
-                  <Image
-            style={{
-              width:132,
-              height: 132,
-              resizeMode: 'contain',
-            //  justifyContent: 'center',
-              flexDirection: 'row',
-             // alignItems: 'center',
-              resizeMode:"contain",
-           marginTop:12
-            }}
-            source={Images.doll}></Image>
+                <LottieView  style={{ height: 150, width: 150, }} source={require('../../assets/animations/RewardsBubbleGumGirl.json')} autoPlay loop />
+     
+            
             </View>
                   </View>
                   </View>
+
+             
+                  
         </View>
-
+        
       </ScrollView>
-
-     
+   
     </SafeAreaView>
   );
 };
@@ -257,7 +251,7 @@ export default App;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+   height:"100%",
     backgroundColor: Colors.white,
   },
   textInput: {
@@ -276,13 +270,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: Colors.gray,
   },
-  imagedata: {
-    height: 12,
-    width: 12,
-    resizeMode: 'contain',
-    tintColor: Colors.black,
-    // transform: [{ rotate: '90deg' }],
-  },
+
   rew: {
     height: 45,
     width: 130,
