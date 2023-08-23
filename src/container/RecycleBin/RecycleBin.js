@@ -484,21 +484,40 @@ const RecycleBin = () => {
                   // console.log(" getRating response data", response?.payload?.data)
                 })
               }}>
-              <Image
-                source={Images.startfill}
-                style={{ height: 23, width: 23, resizeMode: 'contain' }}></Image>
-            </TouchableOpacity>
-
-            <Text
-              style={{
-                fontSize: 18,
-                color: Colors.black,
-                fontFamily:"Poppins-Light",
-                marginLeft:4
-              
-              }}>
-              {item.total_average_rating}
-            </Text>
+               <View
+                                    style={{
+                                      flexDirection: 'row',
+                                      alignItems: 'center',
+                                      alignSelf: 'center',
+                                    }}>
+                                    <Image
+                                      source={
+                                        item.total_average_rating > 0
+                                          ? Images.startfill
+                                          : Images.star2
+                                      }
+                                      style={{
+                                        height: 22,
+                                        width: 22,
+                                        resizeMode: 'contain',
+                                        tintColor:
+                                          item.total_average_rating > 0
+                                            ? undefined
+                                            : 'black',
+                                      }}
+                                    />
+                                    {item.total_average_rating > 0 ? (
+                                      <Text
+                                        style={{
+                                          fontSize: 18,
+                                          color: Colors.black,
+                                          fontFamily: 'Poppins-Light',
+                                        }}>
+                                        {Math.round(item.total_average_rating)}
+                                      </Text>
+                                    ) : null}
+                                  </View>
+                                  </TouchableOpacity>
           </View>
           <TouchableOpacity style={{marginLeft:15}} onPress={() => handleShare(item.ID)}>
             <Image
