@@ -51,6 +51,7 @@ import { TypingAnimation } from 'react-native-typing-animation';
 import { schoolChat } from '../../modules/schoolChat';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import StarRating from 'react-native-star-rating-widget';
+import LottieView from 'lottie-react-native';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -1890,14 +1891,11 @@ paddingHorizontal:8
           >
           Schedule a Tour
           </Text>
-          <Image
-            source={Images.bus}
-            style={{
+          <View style={{ height: 100, width: 100, backgroundColor:"red" }}>
+          {/* <LottieView  style={{   height: 27, width: 49}} source={require('../../')} autoPlay loop /> */}
+          </View>
 
-              height: 27, width: 49,
-              resizeMode: 'contain',marginLeft:12
-            }}
-          />
+         
         </TouchableOpacity>
 
 

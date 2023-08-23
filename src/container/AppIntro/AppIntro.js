@@ -19,7 +19,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AppButton from '../../components/AppButton';
 import Styles from './Styles';
 import AppIntroSlider from 'react-native-app-intro-slider';
-
+import LottieView from 'lottie-react-native';
 import { color } from 'react-native-reanimated';
 import DeviceInfo from 'react-native-device-info';
 import { CommonActions, StackActions } from '@react-navigation/native';
@@ -49,17 +49,10 @@ const slides = [
     key: 4,
     title: 'Title 1',
     text: 'Description.\nSay something cool',
-    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab4 : Images.lastscreen,
+    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab4 : Images.slideImage3,
     backgroundColor: 'black',
   },
 
-  // {
-  //   key: 5,
-  //   title: 'Title 2',
-  //   text: 'Other cool stuff',
-  //   image: Images.slide5,
-  //   backgroundColor: '#febe29',
-  // },
 ];
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -93,8 +86,9 @@ export default function AppIntro({ navigation }) {
   const renderDone = () => {
     return (
       <TouchableOpacity onPress={() => { onDone() }}>
-        <Text style={{ color: Colors.PrimaryColor, marginRight: 16, fontSize: 16, marginTop: 10 ,opacity:0}}
-        >Done</Text>
+        <View style={{ height: 150, width: 150 }}>
+          <LottieView  style={{ height: 150, width: 150 }} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+        </View>
       </TouchableOpacity>
     )
   }
@@ -121,7 +115,7 @@ const styles = StyleSheet.create({
     width: screenWidth,
 
     height: screenWidth,
-   resizeMode:"contain"
+    resizeMode: "contain"
 
   },
 });

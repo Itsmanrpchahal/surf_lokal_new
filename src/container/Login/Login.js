@@ -244,6 +244,7 @@ export default function Login({ navigation }) {
         dispatch(loginUser(data)).then(response => {
           // console.log('fkjdui',response)
           // alert (JSON.stringify (response.payload.data))
+          console.log('loginUser resposne device_token',response.payload)
 
           if (response.payload.status) {
             setLoading(false);
