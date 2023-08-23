@@ -1542,7 +1542,7 @@ const Home = () => {
             alignItems: 'center',
             position: 'relative',
             height: '100%',
-           marginTop:20
+           marginTop:30
           }}>
           {/* {
             homeData.length === 0 && 
@@ -1597,7 +1597,7 @@ const Home = () => {
                           backgroundColor: 'green',
                           paddingHorizontal: 8,
                           borderRadius: 15,
-                          marginTop: -20,
+                          marginTop: -35,
                           overflow: 'hidden',
                           position: 'absolute',
                           top: 0,
@@ -1641,7 +1641,7 @@ const Home = () => {
                           backgroundColor: 'red',
                           paddingHorizontal: 8,
                           borderRadius: 15,
-                          marginTop: -20,
+                          marginTop: -35,
                           overflow: 'hidden',
                         }}>
                         <View
@@ -2622,10 +2622,10 @@ const Home = () => {
                               // onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }); }}
                               style={{
                                 top: -10,
-                                fontSize: 20,
+                                fontSize: 32,
                                 color: Colors.primaryBlue,
                                 fontWeight: '500',
-                                fontFamily: 'Poppins-SemiBold',
+                                fontFamily: 'Poppins-Medium',
                                 textAlign: 'center',
                               }}>
                               {item?.property_price}
@@ -2639,14 +2639,16 @@ const Home = () => {
                                 justifyContent: 'center',
                                 paddingHorizontal: 12,
                                 marginTop: 5,
+                              
                               }}>
                               <Text
                                 style={{
-                                  fontSize: 15,
+                                  fontSize: 20,
                                   color: Colors.black,
                                   textAlign: 'center',
-                                  fontFamily: 'Poppins-Medium',
+                                  fontFamily: 'Poppins-Light',
                                   marginBottom: 10,
+                                 
                                 }}>
                                 {item?.title}
                               </Text>
@@ -2656,6 +2658,7 @@ const Home = () => {
 
                         <View
                           style={{
+                            top:20,
                             flexDirection: 'row',
                             width: width - 16,
                             marginLeft: 8,
@@ -2664,7 +2667,8 @@ const Home = () => {
                             paddingHorizontal: 15,
                             backgroundColor: 'white',
                             justifyContent: 'space-between',
-                            marginTop: 20,
+                            marginTop: 50,
+                            
                           }}>
                           <View
                             style={{
