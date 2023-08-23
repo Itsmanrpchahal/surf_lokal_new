@@ -1873,7 +1873,7 @@ paddingHorizontal:8
             alignSelf: 'center',
             //backgroundColor: Colors.surfblur,
             borderRadius: 50,
-            paddingVertical: 8,
+            //paddingVertical: 8,
             paddingHorizontal: 16,
             lineHeight: 12,
             marginRight:10,
@@ -1897,9 +1897,8 @@ paddingHorizontal:8
           >
           Schedule a Tour
           </Text>
-          <View style={{ height: 100, width: 100, backgroundColor:"red" }}>
-          {/* <LottieView  style={{   height: 27, width: 49}} source={require('../../')} autoPlay loop /> */}
-          </View>
+          <LottieView  style={{ height: 50, width:50}} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+
 
          
         </TouchableOpacity>

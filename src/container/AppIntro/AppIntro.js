@@ -28,32 +28,62 @@ const slides = [
     key: 1,
     title: 'Title 1',
     text: 'Description.\nSay something cool',
-    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab1 : Images.slideImage0,
+    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab1 : Images.firstscreen,
     backgroundColor: '#59b2ab',
   },
   {
     key: 2,
     title: 'Title 2',
     text: 'Other cool stuff',
-    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab2 : Images.slideImage1,
+    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab2 : Images.secondscreen,
     backgroundColor: '#febe29',
   },
   {
     key: 3,
     title: 'Rocket guy',
     text: "I'm already out of descriptions\n\nLorem ipsum bla bla bla",
-    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab3 : Images.slideImage2,
+    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab3 : Images.tutorial3,
     backgroundColor: '#22bcb5',
+    renderContent: () => (
+      <View style={{ flex: 1 }}>
+        <Image
+          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0,resizeMode:"stretch" }}
+          source={Images.tutorial3}// Replace with your image path
+        />
+        <LottieView
+          style={{ height: screenHeight, width: screenWidth }}
+          source={require('../../assets/animations/SwipeRight.json')}
+          autoPlay
+          loop
+        />
+      </View>
+    ),
   },
   {
     key: 4,
     title: 'Title 1',
     text: 'Description.\nSay something cool',
-    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab4 : Images.slideImage3,
+    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab4 : Images.tutorial4,
+    renderContent: () => (
+      <View style={{ flex: 1 }}>
+        <Image
+          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode:"stretch" }}
+          source={Images.tutorial4}// Replace with your image path
+        />
+        <LottieView
+          style={{ height: screenHeight, width: screenWidth }}
+          source={require('../../assets/animations/Swipeleft.json')}
+          autoPlay
+          loop
+        />
+      </View>
+    ),
     backgroundColor: 'black',
   },
 
 ];
+
+
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -64,9 +94,37 @@ const imageSizeRation = screenHeight / 1000;
 export default function AppIntro({ navigation }) {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const renderItem = ({ item }) => {
-    return <Image style={{ height: screenHeight, width: screenWidth }} source={item.image} />;
-  };
+//   const renderItem = ({ item }) => {
+//     return <Image style={{ 
+//  height: screenHeight, 
+// width: screenWidth,
+//     resizeMode:"contain",
+//    // width:"100%",
+//      }} source={item.image} />;
+
+
+
+     
+//   };
+const renderItem = ({ item }) => {
+  return (
+    <View style={{ flex: 1,position:"relative" }}>
+      {item.renderContent ? (
+        item.renderContent()
+      ) : (
+        <Image
+          style={{
+            height: screenHeight,
+            width: screenWidth,
+            resizeMode: "stretch"
+          }}
+          source={item.image}
+        />
+      )}
+    </View>
+  );
+};
+
   const onDone = () => {
 
     const resetAction = CommonActions.reset({
@@ -85,9 +143,9 @@ export default function AppIntro({ navigation }) {
 
   const renderDone = () => {
     return (
-      <TouchableOpacity onPress={() => { onDone() }}>
+      <TouchableOpacity onPress={() => { onDone() }} style={{position:"absolute",right:-50,height:screenHeight,top:0,marginTop:-30}}>
         <View style={{ height: 150, width: 150 }}>
-          <LottieView  style={{ height: 150, width: 150 }} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+          <LottieView  style={{ height: 100, width: 100 }} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
         </View>
       </TouchableOpacity>
     )
@@ -95,27 +153,27 @@ export default function AppIntro({ navigation }) {
   return (
     <SafeAreaView
       style={{
-        height: screenHeight,
+        height: screenHeight, 
         width: screenWidth,
-        justifyContent: 'center',
-
-        //backgroundColor: Colors.primaryBlue,
       }}>
-      <AppIntroSlider renderItem={renderItem}
+        <ScrollView >
+      <AppIntroSlider renderItem={renderItem} 
         data={slides}
-        activeDotStyle={{ backgroundColor: Colors.PrimaryColor }}
+        activeDotStyle={{ backgroundColor: "#707070"}}
         dotClickEnabled={true}
         renderDoneButton={renderDone}
       />
+      
+      </ScrollView>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
   image: {
+    height: screenHeight, 
     width: screenWidth,
-
-    height: screenWidth,
-    resizeMode: "contain"
-
+// resizeMode:"stretch"
   },
+
+
 });

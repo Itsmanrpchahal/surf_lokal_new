@@ -26,7 +26,7 @@ import { idText } from 'typescript';
 import AsyncStorage from '@react-native-community/async-storage';
 import * as Animatable from 'react-native-animatable';
 import BASEURl from '../../services/Api'
-
+import LottieView from 'lottie-react-native';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -483,7 +483,7 @@ const ContactMyAgent = () => {
 
         //   <View style={{ height: 50 }}></View>
         // </ScrollView>
-        <ScrollView style={{ height: '100%', width: '100%', }}>
+        <ScrollView style={{  width: '100%', height:"100%", }}>
           <View style={{width:"100%",alignItems:"center",justifyContent:"center",paddingTop:40}}>
         <View style={{ flexDirection: 'column', marginTop: 0,borderRadius:100,maxWidth: 122,height: 122,width:122,alignItems:"center",justifyContent:"center", }}>
           <Image source={Images.useimage} style={{resizeMode: "contain", maxWidth: 122,height: 122,width:122,alignItems:"center",justifyContent:"center", }} />
@@ -566,7 +566,7 @@ const ContactMyAgent = () => {
           Suite 310 {'\n'}
           Boca Raton, FL 33431
         </Text>
-        <View style={{ flexDirection: 'column' }}>
+        <View style={{ flexDirection: 'column' , }}>
           <View
             style={{
               // height: 70,
@@ -582,7 +582,7 @@ const ContactMyAgent = () => {
 
           </View>
 
-          <View>
+          <View style={{ }}>
             <View style={styles.slideOuter}>
               <TouchableOpacity
                 //onPress={() => navigation.navigate(item.navigation)}
@@ -632,22 +632,20 @@ const ContactMyAgent = () => {
           </View>
 
          
-          <View  style={{flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
-          <Image
-                style={{
-                  height:150,
-                  width: 150,
-                  resizeMode: "contain",
-                 
-                }}
-                source={Images.bus}
-              />
-          </View>
         </View>
 
 
+
+        <View  style={{flexDirection:"row",justifyContent:"center",alignItems:"center",
+      }}>
+     
+     <LottieView  style={{ height: 150, width: 200,}} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+
+</View>
+
       </ScrollView>
       ) : null}
+        
     </SafeAreaView>
   );
 
@@ -655,7 +653,7 @@ const ContactMyAgent = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.white,
-    height: "100%"
+   height: "100%",
   },
   modalOverlay: {
     flex: 1,

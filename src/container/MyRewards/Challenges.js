@@ -20,7 +20,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { likeDisLike } from '../../modules/likeDislike';
 import { TypingAnimation } from 'react-native-typing-animation';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
-
+import LottieView from 'lottie-react-native';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const Challenges = () => {
@@ -154,7 +154,7 @@ const Challenges = () => {
 
 
                 return (
-                  <View >
+                  <View style={{}}>
                   <View
                     style={{
                       boxShadow: "0 0 20px 0 rgba(0, 0, 0, 0.2)",
@@ -238,7 +238,7 @@ const Challenges = () => {
                     </View>
                
                   </View>
-                  <View style={{position:"absolute",bottom:0,left:0,right:0,width:"100%",height:"31%"}}>
+                  <View style={{position:"absolute",bottom:40,left:0,right:0}}>
                   <Text style={{textAlign:"center",width:"100%",fontSize:18,fontFamily:"Poppins-SemiBold",color:"#3348A3",marginBottom:20}}>Are you up for a challenge?</Text>
                 <View   style={{
              
@@ -247,22 +247,12 @@ const Challenges = () => {
               alignItems: 'center',
            
             }}>  
-                  <Image
-            style={{
-              width:136,
-              height: 136,
-              resizeMode: 'contain',
-              justifyContent: 'center',
-              flexDirection: 'row',
-              alignItems: 'center',
-              resizeMode:"contain",
-             
-            }}
-            source={Images.challeng}></Image>
+              <LottieView  style={{ height: 120, width: 150,}} source={require('../../assets/animations/ChallengeScreen.json')} autoPlay loop />
+        
             </View>
                   </View>
                   </View>
-                    
+                  
                 )
               }
 
