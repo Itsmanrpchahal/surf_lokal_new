@@ -440,11 +440,11 @@ Boat Facilities, Non Gated</Text></Text>
               <Text style={styles.props}>Water Source: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.exterior_features.watersource)}</Text></Text>
             </View>
           </View>
-          <View style={styles.viewstyle}>
-          <View style={{ width: '50%', marginTop: 30 }}>
+          <View style={styles.viewstyle1}>
+          <View style={{ width: '100%', marginTop: 30 }}>
             <Text style={styles.property}>Miscellaneous Details</Text>
-            <Text style={styles.props}>Driving Directions:{data.map((item) => item.details.miscellaneous_details.driving_directions)} </Text>
-            <Text style={styles.props}>Listing Office: {data.map((item) => item.details.miscellaneous_details.listing_office)}  </Text>
+            <Text style={styles.props}>Driving Directions: <Text style={{fontFamily:"Poppins-Light",lineHeight:25}}>{data.map((item) => item.details.miscellaneous_details.driving_directions)}</Text> </Text>
+            <Text style={styles.props}>Listing Office: <Text style={{fontFamily:"Poppins-Light",lineHeight:25}}>{data.map((item) => item.details.miscellaneous_details.listing_office)}</Text> </Text>
             </View>
           </View>
         </View>
@@ -1266,7 +1266,7 @@ paddingHorizontal:8
               </Text>
               <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", width: "100%" }}
                 onPress={() => setShowFullContent(!showFullContent)}>
-                <Text style={{ color: Colors.darbluec, marginVertical: 10, fontSize: 13, fontFamily: "Poppins-Regular" }}>{showFullContent ? 'Show Less' : 'Read More'}</Text>
+                <Text style={{ color: "#1450B1", marginVertical: 10, fontSize: 11, fontFamily: "Poppins-Medium" }}>{showFullContent ? 'Show Less' : 'Read More'}</Text>
               </TouchableOpacity>
 
             </>
@@ -1294,12 +1294,12 @@ paddingHorizontal:8
                             height: 21,
                             width: 22,
                             resizeMode: 'contain',
-                            tintColor: selectedTab == 0 ? Colors.primaryBlue : Colors.black,
+                            tintColor: selectedTab == 0 ? "#0165C5" : Colors.black,
                           }}></Image>
                         <Text style={{
-                          fontSize: 12,
-                          color: selectedTab == 0 ? Colors.primaryBlue : Colors.black,
-                          borderBottomColor: selectedTab == 0 ? Colors.primaryBlue : Colors.white,
+                          fontSize: 11,
+                          color: selectedTab == 0 ? "#0165C5" : Colors.black,
+                          borderBottomColor: selectedTab == 0 ? "#0165C5" : Colors.white,
                           borderBottomWidth: selectedTab == 0 ? 1 : 0,
                           textAlign: 'center',
                           fontFamily: selectedTab == 0 ? 'Poppins-Medium' :'Poppins-Light',
@@ -1321,15 +1321,15 @@ paddingHorizontal:8
                           height: 22,
                           width: 21,
                           resizeMode: 'contain',
-                          tintColor: selectedTab == 1 ? Colors.primaryBlue : Colors.black,
+                          tintColor: selectedTab == 1 ? "#0165C5" : Colors.black,
                         }}></Image>
                       <Text style={{
                         fontSize: 11,
-                        color: selectedTab == 1 ? Colors.primaryBlue : Colors.black,
+                        color: selectedTab == 1 ? "#0165C5" : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
-                        // borderBottomColor: selectedTab == 1 ? Colors.primaryBlue : Colors.white,
-                        // borderBottomWidth: selectedTab == 1 ? 1 : 0,
+                        borderBottomColor: selectedTab == 1 ? "#0165C5" : Colors.white,
+                        borderBottomWidth: selectedTab == 1 ? 1 : 0,
                       }}>Features</Text>
                     </TouchableOpacity>
                   </View>
@@ -1345,13 +1345,15 @@ paddingHorizontal:8
                           height: 20,
                           width: 20,
                           resizeMode: 'contain',
-                          tintColor: selectedTab == 2 ? Colors.primaryBlue : Colors.black,
+                          tintColor: selectedTab == 2 ? "#0165C5" : Colors.black,
                         }}></Image>
                       <Text style={{
                         fontSize: 11,
-                        color: selectedTab == 2 ? Colors.primaryBlue : Colors.black,
+                        color: selectedTab == 2 ? "#0165C5" : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
+                        borderBottomColor: selectedTab == 2 ? "#0165C5" : Colors.white,
+                        borderBottomWidth: selectedTab == 2 ? 1 : 0,
                       }}>Location</Text>
                     </TouchableOpacity>
                   </View>
@@ -1367,13 +1369,15 @@ paddingHorizontal:8
                           height: 20,
                           width: 20,
                           resizeMode: 'contain',
-                          tintColor: selectedTab == 6 ? Colors.primaryBlue : Colors.black,
+                          tintColor: selectedTab == 6 ? "#0165C5" : Colors.black,
                         }}></Image>
                       <Text style={{
                         fontSize: 11,
-                        color: selectedTab == 1 ? Colors.primaryBlue : Colors.black,
+                        color: selectedTab == 6 ? "#0165C5" : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
+                        borderBottomColor: selectedTab == 6 ? "#0165C5" : Colors.white,
+                        borderBottomWidth: selectedTab == 6 ? 1 : 0,
                       }}>Payment</Text>
                     </TouchableOpacity>
                   </View>
@@ -1401,13 +1405,15 @@ paddingHorizontal:8
                           height: 20,
                           width: 20,
                           resizeMode: 'contain',
-                          tintColor: selectedTab == 3 ? Colors.primaryBlue : Colors.black,
+                          tintColor: selectedTab == 3 ? "#0165C5": Colors.black,
                         }}></Image>
                       <Text style={{
                         fontSize: 11,
-                        color: selectedTab == 3 ? Colors.primaryBlue : Colors.black,
+                        color: selectedTab == 3 ? "#0165C5" : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
+                        borderBottomColor: selectedTab == 3 ? "#0165C5" : Colors.white,
+                        borderBottomWidth: selectedTab == 3 ? 1 : 0,
                       }}>Nearby</Text>
                     </TouchableOpacity>
                   </View>
@@ -1423,13 +1429,15 @@ paddingHorizontal:8
                           height: 20,
                           width: 20,
                           resizeMode: 'contain',
-                          tintColor: selectedTab == 7 ? Colors.primaryBlue : Colors.black,
+                          tintColor: selectedTab == 7 ? "#0165C5" : Colors.black,
                         }}></Image>
                       <Text style={{
-                        fontSize: 11,
-                        color: selectedTab == 7 ? Colors.primaryBlue : Colors.black,
-                        textAlign: 'center',
-                        fontFamily: 'Poppins-Regular',
+                       fontSize: 11,
+                       color: selectedTab == 7 ? "#0165C5" : Colors.black,
+                       textAlign: 'center',
+                       fontFamily: 'Poppins-Regular',
+                       borderBottomColor: selectedTab == 7 ? "#0165C5" : Colors.white,
+                       borderBottomWidth: selectedTab == 7 ? 1 : 0,
                       }}>Schools</Text>
                     </TouchableOpacity>
                   </View>
@@ -1467,13 +1475,15 @@ paddingHorizontal:8
                           height: 20,
                           width: 20,
                           resizeMode: 'contain',
-                          tintColor: selectedTab == 5 ? Colors.primaryBlue : Colors.black,
+                          tintColor: selectedTab == 5 ? "#0165C5" : Colors.black,
                         }}></Image>
                       <Text style={{
-                        fontSize: 11,
-                        color: selectedTab == 5 ? Colors.primaryBlue : Colors.black,
-                        textAlign: 'center',
-                        fontFamily: 'Poppins-Regular',
+                           fontSize: 11,
+                           color: selectedTab == 5 ? "#0165C5" : Colors.black,
+                           textAlign: 'center',
+                           fontFamily: 'Poppins-Regular',
+                           borderBottomColor: selectedTab == 5 ? "#0165C5" : Colors.white,
+                           borderBottomWidth: selectedTab == 5 ? 1 : 0,
                       }}>Weather</Text>
                     </TouchableOpacity>
                   </View>
@@ -1766,23 +1776,17 @@ paddingHorizontal:8
           {selectedTab == 0 ? (<Details />) : selectedTab == 1 ? (<Featuers />) : selectedTab == 2 ? (<Address />) : selectedTab == 3 ? (<NearBy />) : selectedTab == 4 ? (<WalkSco />) : selectedTab == 5 ? (<CurrentWeather />) : selectedTab == 6 ? (<Calculator />) : (<School />)
           }
 
-
+<View style={{height:70}}></View>
         </ScrollView >
-
+      
       </SafeAreaView >
-
-
-   
-      <View
+  <View
         style={{
           flexDirection: 'row',
           width: '100%',
-          position: 'absolute',
           justifyContent: 'space-between',
-     
-          bottom:0,
-          backgroundColor: Colors.white,
-         paddingVertical:16,
+          backgroundColor: "#f8f8f8",
+         paddingVertical:8,
           alignItems: 'center',
           alignContent: 'center',
         }}>
@@ -1871,14 +1875,13 @@ paddingHorizontal:8
             alignItems: 'center',
             flexDirection: 'row',
             alignSelf: 'center',
-            //backgroundColor: Colors.surfblur,
             borderRadius: 50,
-            //paddingVertical: 8,
             paddingHorizontal: 16,
             lineHeight: 12,
             marginRight:10,
             borderWidth:2,
-            borderColor:Colors.surfblur
+            borderColor:Colors.surfblur,
+           
           }}
         >
           
@@ -1905,6 +1908,9 @@ paddingHorizontal:8
 
 
       </View>
+
+   
+  
 
     </>
   )

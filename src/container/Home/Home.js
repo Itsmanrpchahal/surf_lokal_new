@@ -2622,10 +2622,10 @@ const Home = () => {
                               // onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }); }}
                               style={{
                                 top: -10,
-                                fontSize: 20,
+                                fontSize: 32,
                                 color: Colors.primaryBlue,
                                 fontWeight: '500',
-                                fontFamily: 'Poppins-SemiBold',
+                                fontFamily: 'Poppins-Medium',
                                 textAlign: 'center',
                               }}>
                               {item?.property_price}
@@ -2642,11 +2642,12 @@ const Home = () => {
                               }}>
                               <Text
                                 style={{
-                                  fontSize: 15,
+                                  fontSize: 20,
                                   color: Colors.black,
                                   textAlign: 'center',
-                                  fontFamily: 'Poppins-Medium',
+                                  fontFamily: 'Poppins-Light',
                                   marginBottom: 10,
+                                  numberOfLines:1
                                 }}>
                                 {item?.title}
                               </Text>
@@ -2664,7 +2665,7 @@ const Home = () => {
                             paddingHorizontal: 15,
                             backgroundColor: 'white',
                             justifyContent: 'space-between',
-                            marginTop: 20,
+                            marginTop: 50,
                           }}>
                           <View
                             style={{
