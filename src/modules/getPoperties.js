@@ -44,7 +44,7 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
         )
           .then(async response => {
             const { data } = response;
-            console.log("acces_token", acces_token)
+            console.log("acces_token", access_token)
 
             return data;
           })
@@ -52,11 +52,10 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
           })
         :
         await getAPI(
-          BASEURl + `webapi/v1/AppFilter?UserId=${type.data.UserId}&data_custom_taxonomy=${type.data.data_custom_taxonomy}&data_customvalue=${type.data.data_customvalue}`
+          BASEURl + `webapi/v1/AppFilter?UserId=${type.data.UserId}&data_custom_taxonomy=${type.data.data_custom_taxonomy}&data_customvalue=${type.data.data_customvalue}`,Header
         )
           .then(async response => {
             console.log("payload data", type.data)
-            console.log("acces_token", acces_token)
 
             console.log("payload data_custom_taxonomy", type.data.data_custom_taxonomy)
             console.log("payload data_customvalue", type.data.data_customvalue)

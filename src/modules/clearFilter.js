@@ -4,10 +4,14 @@ import AsyncStorage from '@react-native-community/async-storage';
 import BASEURl from '../services/Api'
 
 export const clearFilter = createAsyncThunk('clearFilter', async () => {
-  const id = await AsyncStorage.getItem('userId');
-  console.log("AsyncStorage Id response",id)
+  const access_token = await AsyncStorage.getItem('acces_token')
+
+  const Header={
+    security_key:"SurfLokal52",
+    access_token:access_token
+  }
   
-  return await getAPI( BASEURl + 'webapi/v1/AppFilter/clearfilter.php?Userid=' + id,)
+  return await getAPI( BASEURl + 'webapi/v1/AppFilter/clearfilter.php',Header)
     .then(async response => {
       const { data } = response;
        console.log("clearFilter response",response)
