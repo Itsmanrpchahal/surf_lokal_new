@@ -28,6 +28,7 @@ import { postRating } from '../../modules/postRating';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Rating } from 'react-native-ratings';
 import * as Animatable from 'react-native-animatable';
+import LottieView from 'lottie-react-native';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -245,8 +246,8 @@ const ViewPropertiyImage = props => {
           justifyContent: 'space-between',
      
           bottom:0,
-          backgroundColor: Colors.white,
-         paddingVertical:16,
+          backgroundColor: "#f8f8f8",
+        paddingVertical:16,
           alignItems: 'center',
           alignContent: 'center',
         }}>
@@ -337,7 +338,7 @@ const ViewPropertiyImage = props => {
             alignSelf: 'center',
             //backgroundColor: Colors.surfblur,
             borderRadius: 50,
-            paddingVertical: 8,
+            //paddingVertical: 8,
             paddingHorizontal: 16,
             lineHeight: 12,
             marginRight:10,
@@ -361,14 +362,7 @@ const ViewPropertiyImage = props => {
           >
           Schedule a Tour
           </Text>
-          <Image
-            source={Images.bus}
-            style={{
-
-              height: 27, width: 49,
-              resizeMode: 'contain',marginLeft:12
-            }}
-          />
+          <LottieView  style={{ height: 50, width:50}} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
         </TouchableOpacity>
 
 

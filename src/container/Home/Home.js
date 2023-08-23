@@ -2648,7 +2648,6 @@ const Home = () => {
                                   textAlign: 'center',
                                   fontFamily: 'Poppins-Light',
                                   marginBottom: 10,
-                                 
                                 }}>
                                 {item?.title}
                               </Text>
@@ -2668,8 +2667,7 @@ const Home = () => {
                             backgroundColor: 'white',
                             justifyContent: 'space-between',
                             marginTop: 50,
-                            
-                          }}>
+         }}>
                           <View
                             style={{
                               justifyContent: 'center',
