@@ -1,9 +1,16 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {getAPI} from '../config/apiMethod';
 import BASEURl from '../services/Api'
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const getFilter = createAsyncThunk('getFilter', async () => {
-  return await getAPI(BASEURl+'webapi/v1/GetFilter')
+  const access_token = await AsyncStorage.getItem('acces_token')
+
+  const Header={
+    security_key:"SurfLokal52",
+    access_token:access_token
+  }
+  return await getAPI(BASEURl+'webapi/v1/GetFilter',Header)
     .then(async response => {
       const {data} = response;
 
