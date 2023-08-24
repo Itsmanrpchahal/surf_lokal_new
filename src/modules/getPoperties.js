@@ -3,12 +3,8 @@ import { getAPI, uploadImageAPI } from '../config/apiMethod';
 import AsyncStorage from '@react-native-community/async-storage';
 import BASEURl from '../services/Api'
 
-
-
 export const getPoperties = createAsyncThunk('getPoperties', async type => {
-  // const id = await AsyncStorage.getItem('userId')
   const access_token = await AsyncStorage.getItem('access_token')
-
   const Header={
     security_key:"SurfLokal52",
     access_token:access_token
@@ -17,7 +13,6 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
     ? await getAPI(BASEURl + "webapi/v1/property/?limit="  +type.data.limit,Header)
       .then(async response => {
         const { data } = response;
-        console.log ("Data come ffrom Api ",data)
         return data;
       })
       .catch(e => {
@@ -26,7 +21,7 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
       ?
       await uploadImageAPI(
         BASEURl + 'webapi/v1/nearby/',
-        type.latLng,
+        type.latLng
       )
         .then(async response => {
           console.log("payload latLng", type.latLng)
@@ -56,7 +51,6 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
         )
           .then(async response => {
             console.log("payload data", type.data)
-
             console.log("payload data_custom_taxonomy", type.data.data_custom_taxonomy)
             console.log("payload data_customvalue", type.data.data_customvalue)
 

@@ -1,23 +1,25 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { uploadImageAPI } from '../config/apiMethod';
+import { postAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
 
-export const postRating = createAsyncThunk('postRating', async dispatch => {
-  return await uploadImageAPI(
-    BASEURl+'webapi/v1/rating/',
-    dispatch,
-  )
-    .then(async response => {
-      const { data } = response;
-      return data;
-    })
-    .catch(e => {
-      if (e.response) {
-      } else if (e.request) {
-      } else {
-      }
-    });
+export const postRating = createAsyncThunk('postRating', async (_, { dispatch }) => {
+  try {
+    const access_token = await AsyncStorage.getItem('access_token');
+    const Header = {
+      security_key: "SurfLokal52",
+      access_token: access_token
+    };
+    console.log("postRating access_token", access_token);
+
+    const response = await postAPI(BASEURl + 'webapi/v1/rating/',dispatch, Header);
+    const { data } = response;
+    console.log("postRating response", response);
+
+    return data;
+  } catch (error) {
+    console.error("postRating error", error);
+  }
 });
 
 const postRatingSlice = createSlice({

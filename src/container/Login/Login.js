@@ -242,13 +242,18 @@ export default function Login({ navigation }) {
           device_type: Platform.OS === 'android' ? 1 : 2,
           device_token: fcmtoken
         };
+        // var formdata = new FormData();
+        // formdata.append('username', emailId);
+        // formdata.append('password', password);
+        // formdata.append('device_type', Platform.OS === 'android' ? 1 : 2)
+        // formdata.append('device_token', fcmtoken)
         setLoading(true);
         dispatch(loginUser(data)).then(response => {
           let access_token= response.payload?.metadata?.[fcmtoken].toString()
           async function storeToken() {
             try {
               await AsyncStorage.setItem('access_token', access_token);
-              console.log('Token stored successfully.');
+              console.log('Token stored successfully.', access_token);
             } catch (error) {
               console.error('Error storing token:', error);
             }
