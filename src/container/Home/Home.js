@@ -21,7 +21,6 @@ import {
 } from 'react-native';
 
 import StarRating from 'react-native-star-rating-widget';
-// import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import SelectDropdown from 'react-native-select-dropdown';
 import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler';
@@ -34,9 +33,8 @@ import {getPoperties} from '../../modules/getPoperties';
 import {postRating} from '../../modules/postRating';
 import {getFilter} from '../../modules/getFilter';
 import {SvgUri} from 'react-native-svg';
-import {Rating} from 'react-native-ratings';
 import {postUpdateRating} from '../../modules/postUpdateRating';
-import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
+import { MultiSelect} from 'react-native-element-dropdown';
 import CardsSwipe from 'react-native-cards-swipe';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
@@ -47,8 +45,6 @@ import {addRemoveTrash} from '../../modules/addRemoveTrash';
 import {getRating} from '../../modules/getRating';
 import {ScrollView} from 'react-native-gesture-handler';
 import MapView, {
-  PROVIDER_GOOGLE,
-  Circle,
   Marker,
   Callout,
   PROVIDER_DEFAULT,
@@ -65,7 +61,6 @@ import {clearFilter} from '../../modules/clearFilter';
 import {getUserScore} from '../../modules/getUserScore';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import GetLocation from 'react-native-get-location';
-import {isEnabled} from 'react-native/Libraries/Performance/Systrace';
 
 const {width} = Dimensions.get('screen');
 
@@ -133,19 +128,11 @@ const Home = () => {
   const [saveModalVisible, setSaveModalVisible] = useState(false);
   const [favModalVisiable, setfavModalVisiable] = useState(false);
   const [filterModalVisible, setFilterModalVisible] = useState(false);
-  const [review, setReview] = useState('');
   const [commentContent, setComentContent] = useState('');
-
   const [rating, setRating] = useState(0);
-
-  const [descRating, setDescRating] = useState(0);
-  const [priceRating, setPriceRating] = useState(0);
-  const [interestRating, setInterestRating] = useState(0);
-
   const [rating1, setRating1] = useState(0);
   const [rating2, setRating2] = useState(0);
   const [rating3, setRating3] = useState(0);
-
   const [ratingData, setRatingData] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
   const [bedroomitem, setBedroomItem] = useState(-1);
@@ -179,7 +166,6 @@ const Home = () => {
         getPoperties({
           type: 3,
           data: {
-            UserId: user_ID,
             data_custom_taxonomy: 'more_filter_data',
             data_customvalue: selectedTabsMore.toString(),
           },
@@ -231,6 +217,7 @@ const Home = () => {
   const getMoreFilterApiCall = () => {
     dispatch(getMoreFilter()).then(response => {
       setMoreFilterData(response.payload.data);
+      
     });
   };
   const slideAnimation = useRef(new Animated.Value(0)).current;
@@ -445,6 +432,19 @@ const Home = () => {
   };
   const addReview = async post_id => {
     const id = await AsyncStorage.getItem('userId');
+    //  const payload ={
+    //   userID:id,
+    //   postid: productId,
+    //   commentContent : commentContent,
+    //   review_title:reviewTitle,
+    //   photo_quality_rating:rating,
+    //   desc_stars:rating1,
+    //   price_stars:rating2,
+    //   interest_stars:rating3,
+    //   content:commentContent,
+    //  }
+    // console.log('addddddddddd ratingggggg', payload);
+
     const formData = new FormData();
     formData.append('userID', id);
     formData.append('postid', productId);
@@ -457,7 +457,7 @@ const Home = () => {
     formData.append('content', commentContent);
     console.log('addddddddddd ratingggggg', formData);
 
-    dispatch(postRating(formData)).then(response => {
+    dispatch(postRating(FormData)).then(response => {
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
         toggleModal();
@@ -496,8 +496,6 @@ const Home = () => {
     const {data_custom_taxonomy, data_customvalue} = item;
     const isSelected =
       selectedTabs.filter(i => i === data_customvalue).length > 0;
-    // checking if the item is already selected
-
     return (
       <View style={{}}>
         <TouchableOpacity
@@ -517,7 +515,6 @@ const Home = () => {
               getPoperties({
                 type: 3,
                 data: {
-                  UserId: user_ID,
                   data_custom_taxonomy: item.data_custom_taxonomy,
                   data_customvalue: item.data_customvalue,
                 },
@@ -586,7 +583,6 @@ const Home = () => {
             alignItems: 'center',
             flexDirection: 'row',
             backgroundColor: '#fff',
-            // paddingHorizontal: 12,
             paddingLeft: 10,
           }}>
           <View
@@ -637,9 +633,7 @@ const Home = () => {
                 width: '15%',
                 height: '100%',
                 justifyContent: 'center',
-                //backgroundColor: "red"
                 height: 42,
-                // paddingHorizontal: 12,
                 position: 'relative',
                 justifyContent: 'center',
                 borderLeftWidth: 1,
@@ -661,13 +655,6 @@ const Home = () => {
                   style={{
                     height: 20,
                     width: 20,
-                    // marginLeft: 8,
-                    // position: "absolute",
-                    // right: 0,
-                    // left: 0,
-                    // flex: 1,
-                    // top: 10,
-
                     alignItems: 'center',
                     justifyContent: 'center',
                     resizeMode: 'contain',
@@ -678,8 +665,6 @@ const Home = () => {
           <View
             style={{
               width: '10%',
-              ///backgroundColor: "red",
-              // flex: 1,
               alignItems: 'center',
               justifyContent: 'center',
             }}>
@@ -697,7 +682,6 @@ const Home = () => {
                   style={{
                     height: 25,
                     width: 25,
-                    //marginLeft: 12,
                     resizeMode: 'contain',
                   }}></Image>
               </TouchableOpacity>
@@ -734,7 +718,6 @@ const Home = () => {
                   setIsPressed1(!isPressed1);
                   setIsPressed(false);
                   const payload = {
-                    // userID: user_ID,
                     search_name: termName,
                   };
                   dispatch(filterSearch(payload)).then(response => {
@@ -775,11 +758,7 @@ const Home = () => {
                   styles.rew,
                   {
                     flexDirection: 'row',
-                    //justifyContent: 'space-evenly',
-                    // backgroundColor: isPressed ? 'black' : 'white',
                     backgroundColor: 'white',
-
-                    // Change background color on press
                     borderColor: Colors.gray,
                     borderRadius: 10,
                   },
@@ -793,17 +772,11 @@ const Home = () => {
                       marginRight: 6,
                     },
                     {tintColor: 'black'},
-                    // { tintColor: isPressed ? 'white' : 'black' },
-
-                    // Change image tint color on press
                   ]}
                 />
                 <Text
                   style={{
-                    // color: isPressed ? 'white' : 'black',
                     color: 'black',
-
-                    // Change text color on press
                     fontFamily: 'Poppins-Regular',
                   }}>
                   Filters
@@ -825,11 +798,7 @@ const Home = () => {
                   setMaxPriceRange('');
                   setMoreFilter(false);
                   setCities('');
-                  // setSelectedTabsMore("")
-
-                  {
-                    handlePress2;
-                  }
+                  {handlePress2}
                   dispatch(clearFilter());
                   await dispatch(
                     getPoperties({
@@ -839,7 +808,6 @@ const Home = () => {
                     }),
                   ).then(response => {
                     setHomeData(response.payload.data);
-                    console.log('getPoperties  Home clear response', data);
                   });
                 }}
                 style={[
@@ -958,7 +926,6 @@ const Home = () => {
                                 getPoperties({
                                   type: 3,
                                   data: {
-                                    UserId: user_ID,
                                     data_custom_taxonomy: 'property_city',
                                     data_customvalue: item.toString(),
                                   },
@@ -1000,7 +967,6 @@ const Home = () => {
                                             getPoperties({
                                               type: 3,
                                               data: {
-                                                UserId: user_ID,
                                                 data_custom_taxonomy: 'bedroom',
                                                 data_customvalue:
                                                   item.data_customvalue,
@@ -1073,7 +1039,6 @@ const Home = () => {
                                           getPoperties({
                                             type: 3,
                                             data: {
-                                              UserId: user_ID,
                                               data_custom_taxonomy: 'bathroom',
                                               data_customvalue:
                                                 item.data_customvalue,
@@ -1163,7 +1128,6 @@ const Home = () => {
                                       getPoperties({
                                         type: 3,
                                         data: {
-                                          UserId: user_ID,
                                           data_custom_taxonomy: 'min_square',
                                           data_customvalue:
                                             item.data_customvalue,
@@ -1231,7 +1195,6 @@ const Home = () => {
                                       getPoperties({
                                         type: 3,
                                         data: {
-                                          UserId: user_ID,
                                           data_custom_taxonomy: 'max_square',
                                           data_customvalue:
                                             selectedItem.data_customvalue,
@@ -1316,7 +1279,6 @@ const Home = () => {
                                       getPoperties({
                                         type: 3,
                                         data: {
-                                          UserId: user_ID,
                                           data_custom_taxonomy: 'min_price',
                                           data_customvalue:
                                             item.data_customvalue,
@@ -1385,7 +1347,6 @@ const Home = () => {
                                       getPoperties({
                                         type: 3,
                                         data: {
-                                          UserId: user_ID,
                                           data_custom_taxonomy: 'max_price',
                                           data_customvalue:
                                             item.data_customvalue,
@@ -1861,7 +1822,6 @@ const Home = () => {
                                           response?.payload?.data[0]
                                             ?.interest_review_stars,
                                         );
-                                        // console.log(" getRating response data", response?.payload?.data)
                                       },
                                     );
                                   }}>
@@ -2487,7 +2447,7 @@ const Home = () => {
                                               flexWrap: 'wrap',
                                               overflow: 'hidden',
                                             }}>
-                                            {ratingData.length > 0 ? (
+                                            {ratingData?.length > 0 ? (
                                               <TextInput
                                                 multiline={true}
                                                 style={{
@@ -2543,7 +2503,7 @@ const Home = () => {
                                             justifyContent: 'flex-end',
                                             //s paddingHorizontal: 10
                                           }}>
-                                          {ratingData.length > 0 ? (
+                                          {ratingData?.length > 0 ? (
                                             <View
                                               style={{
                                                 justifyContent: 'flex-end',

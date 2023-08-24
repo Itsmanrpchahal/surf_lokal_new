@@ -13,14 +13,11 @@ export const getFavoriteProperties = createAsyncThunk(
       security_key:"SurfLokal52",
       access_token:access_token
     }
-    console.log('hhdhh',Header)
-    // const id = await AsyncStorage.getItem('userId');
     return await getAPI(
       BASEURl+'webapi/v1/favorites',Header
     )
       .then(async response => {
         const {data} = response;
-        console.log("check fav",data)
         return data;
       })
       .catch(e => {
