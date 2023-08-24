@@ -2621,19 +2621,20 @@ const Home = () => {
                             <Text
                               // onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }); }}
                               style={{
-                                top: -10,
-                                fontSize: 32,
+                                top: 0,
+                                fontSize: 22,
                                 color: Colors.primaryBlue,
                                 fontWeight: '500',
                                 fontFamily: 'Poppins-Medium',
                                 textAlign: 'center',
+                                marginTop:-15
                               }}>
                               {item?.property_price}
                             </Text>
 
                             <View
                               style={{
-                                top: -12,
+                                top: 0,
                                 width: '100%',
                                 alignSelf: 'center',
                                 justifyContent: 'center',
@@ -2643,12 +2644,14 @@ const Home = () => {
                               }}>
                               <Text
                                 style={{
-                                  fontSize: 20,
+                                  fontSize: 16,
                                   color: Colors.black,
                                   textAlign: 'center',
                                   fontFamily: 'Poppins-Light',
-                                  marginBottom: 10,
-                                }}>
+                                  marginBottom: 0,
+                                }}
+                                numberOfLines={1}
+                                >
                                 {item?.title}
                               </Text>
                             </View>
@@ -2657,7 +2660,7 @@ const Home = () => {
 
                         <View
                           style={{
-                            top:20,
+                            top:0,
                             flexDirection: 'row',
                             width: width - 16,
                             marginLeft: 8,
@@ -2666,7 +2669,7 @@ const Home = () => {
                             paddingHorizontal: 15,
                             backgroundColor: 'white',
                             justifyContent: 'space-between',
-                            marginTop: 50,
+                            marginTop: 20,
          }}>
                           <View
                             style={{

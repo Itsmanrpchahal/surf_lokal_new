@@ -126,7 +126,7 @@ const Leaderboard = () => {
           />
         </TouchableOpacity>
       </View>
-      <View style={{ paddingTop:100, backgroundColor: Colors.darbluec, height: '100%', width: '100%', alignItems: 'flex-start' }}>
+      <View style={{ paddingTop:70, backgroundColor: Colors.darbluec, height: '100%', width: '100%', alignItems: 'flex-start' }}>
         <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>
           <Image
             source={Images.searcfrank}

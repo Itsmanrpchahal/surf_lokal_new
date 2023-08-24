@@ -171,7 +171,7 @@ const Images = {
   tax: require(BaseUrl + 'tax.png'),
   fill: require(BaseUrl + 'fill.png'),
   fillgreen: require(BaseUrl + 'fillgreen.png'),
-  check: require(BaseUrl + 'check.png'),
+  check: require(BaseUrl + 'check-box-alt.png'),
   calendar: require(BaseUrl + "calendar.png"),
   calendarnew: require(BaseUrl + "calendarnew.png"),
   loading: require(BaseUrl + "loading.gif"),

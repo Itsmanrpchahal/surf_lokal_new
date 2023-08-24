@@ -133,10 +133,11 @@ const App = (props) => {
           />
         </TouchableOpacity>
       </View>
-      <ScrollView style={{height:"100%",}}>
+      <ScrollView style={{}}>
 
 
-        <View style={{height:screenHeight,
+        <View style={{
+          //height:screenHeight,
         }}>
           <View style={{ marginTop: 15, }}>
             <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: 20 }}>
@@ -190,7 +191,9 @@ const App = (props) => {
             </View>
           </View>
 <View style={{alignItems:"center"}}>
-          <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between', paddingTop: 80,width:"90%" }}>
+          <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between',
+           //paddingTop: 80,
+           width:"90%" }}>
 
             <TouchableOpacity
               onPress={() => { handlePress, navigation.navigate('Challenges') }}
@@ -221,7 +224,16 @@ const App = (props) => {
          
           </View>
           </View>
-          <View style={{position:"relative",alignItems:"flex-end",position:"absolute",bottom:0,width:"100%"}}>
+         
+
+             
+                  
+        </View>
+        
+      </ScrollView>
+      <View style={{position:"relative",alignItems:"flex-end",
+     // position:"absolute",bottom:0,
+      width:"100%"}}>
           <View style={{width:"100%",}}>
                     <View   style={{
              
@@ -236,13 +248,6 @@ const App = (props) => {
             </View>
                   </View>
                   </View>
-
-             
-                  
-        </View>
-        
-      </ScrollView>
-   
     </SafeAreaView>
   );
 };

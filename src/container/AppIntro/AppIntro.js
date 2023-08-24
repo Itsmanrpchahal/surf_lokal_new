@@ -30,6 +30,22 @@ const slides = [
     text: 'Description.\nSay something cool',
     image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab1 : Images.firstscreen,
     backgroundColor: '#59b2ab',
+    renderContent: () => (
+      <View style={{ flex: 1 }}>
+        <Image
+          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0,resizeMode:"stretch" }}
+          source={Images.firstscreen}// Replace with your image path
+        />
+        <LottieView
+          style={{ height: 200, width: screenWidth, 
+          transform: [{ rotate: '-100deg' }],
+            marginTop:80,marginLeft:60 }}
+          source={require('../../assets/animations/Arrow.json')}
+          autoPlay
+          loop
+        />
+      </View>
+    ),
   },
   {
     key: 2,
@@ -37,6 +53,22 @@ const slides = [
     text: 'Other cool stuff',
     image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab2 : Images.secondscreen,
     backgroundColor: '#febe29',
+    renderContent: () => (
+      <View style={{ flex: 1 }}>
+        <Image
+          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0,resizeMode:"stretch" }}
+          source={Images.secondscreen}// Replace with your image path
+        />
+        <LottieView
+          style={{ height: 200, width: screenWidth, 
+            transform: [{ rotate: '-100deg' }],
+            marginTop:90 }}
+          source={require('../../assets/animations/Arrow.json')}
+          autoPlay
+          loop
+        />
+      </View>
+    ),
   },
   {
     key: 3,
