@@ -7,7 +7,7 @@ import BASEURl from '../services/Api'
 
 export const getPoperties = createAsyncThunk('getPoperties', async type => {
   // const id = await AsyncStorage.getItem('userId')
-  const access_token = await AsyncStorage.getItem('acces_token')
+  const access_token = await AsyncStorage.getItem('access_token')
 
   const Header={
     security_key:"SurfLokal52",
@@ -44,7 +44,7 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
         )
           .then(async response => {
             const { data } = response;
-            console.log("acces_token", access_token)
+            console.log("access_token", access_token)
 
             return data;
           })

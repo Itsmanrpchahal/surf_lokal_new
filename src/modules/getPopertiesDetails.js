@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 export const getPopertiesDetails = createAsyncThunk(
   "getPropertiesDetails",
   async (postid) => {
-    const access_token = await AsyncStorage.getItem('acces_token')
+    const access_token = await AsyncStorage.getItem('access_token')
 
     const Header={
       security_key:"SurfLokal52",

@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import BASEURl from '../services/Api'
 
 export const clearFilter = createAsyncThunk('clearFilter', async () => {
-  const access_token = await AsyncStorage.getItem('acces_token')
+  const access_token = await AsyncStorage.getItem('access_token')
 
   const Header={
     security_key:"SurfLokal52",
