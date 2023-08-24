@@ -1,17 +1,24 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAPI, postAPI } from '../config/apiMethod';
-import AsyncStorage from '@react-native-community/async-storage';
+// import AsyncStorage from '@react-native-community/async-storage';
 import BASEURl from '../services/Api'
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 export const getUserScore = createAsyncThunk('getUserScore', async () => {
-  const id = await AsyncStorage.getItem('userId');
+  // const id = await AsyncStorage.getItem('userId');
+  const access_token = await AsyncStorage.getItem('access_token')
 
+  const Header={
+    security_key:"SurfLokal52",
+    access_token:access_token
+  }
   return await getAPI(
-    BASEURl + 'webapi/v1/rewards/user_leaderboard.php?user_id=' + id,
+    BASEURl + 'webapi/v1/rewards/user_leaderboard.php',Header
   )
     .then(async response => {
       const { data } = response;
+      console.log('score',data)
       return data;
     })
     .catch(e => {

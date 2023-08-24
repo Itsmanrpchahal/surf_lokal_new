@@ -5,16 +5,17 @@ import AsyncStorage from '@react-native-community/async-storage';
  
 
 export const deleteSearch = createAsyncThunk('deleteSearch',
- async (dispatch) => {
+ async (dispatch)  => {
   const access_token = await AsyncStorage.getItem('access_token')
 
   const Header={
     security_key:"SurfLokal52",
     access_token:access_token
   }
-  console.log('header',Header)
+  console.log('header',dispatch)
   return await postAPI(
-    BASEURl+'webapi/v1/search/delete_searchlist.php ',dispatch,Header
+    BASEURl+'webapi/v1/search/delete_searchlist.php',dispatch
+    ,Header
   )
     .then(async response => {
       const {data} = response;
