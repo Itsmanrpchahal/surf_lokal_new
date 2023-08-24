@@ -52,7 +52,6 @@ import { schoolChat } from '../../modules/schoolChat';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import StarRating from 'react-native-star-rating-widget';
 import LottieView from 'lottie-react-native';
-
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const fontSizeRatio = screenHeight / 1000;
@@ -401,24 +400,24 @@ const ViewPropertiy = (props, imageUrl) => {
           <View style={styles.viewstyle}>
             <View style={{ width: '50%' }}>
               <Text style={styles.property}>Property Details</Text>
-              <Text style={styles.props}>Price:<Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.price)}</Text></Text>
-              <Text style={styles.props}>Est. Taxes: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.taxes)}</Text></Text>
-              <Text style={styles.props}>Bedrooms: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.bedrooms)}</Text> </Text>
-              <Text style={styles.props}>Bathrooms: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.bedrooms)}</Text></Text>
-              <Text style={styles.props}>Size:<Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.property_size)} sq ft </Text> </Text>
-              <Text style={styles.props}>Garage Spaces:<Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.garagespaces)}</Text></Text>
-              <Text style={styles.props}>Lot Size:<Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.hoa_fee)}</Text></Text>
-            <Text style={styles.props}>Year Built :<Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.yearbuilt)} </Text> </Text>
-              <Text style={styles.props}>Total Stories: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.property_details.storiestotal)}</Text></Text>
-              <Text style={styles.props}>Days on Market : <Text style={{fontFamily:"Poppins-Light"}}>1</Text></Text>
-             
+              <Text style={styles.props}>Price:<Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.property_details.price)}</Text></Text>
+              <Text style={styles.props}>Est. Taxes: <Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.property_details.taxes)}</Text></Text>
+              <Text style={styles.props}>Bedrooms: <Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.property_details.bedrooms)}</Text> </Text>
+              <Text style={styles.props}>Bathrooms: <Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.property_details.bedrooms)}</Text></Text>
+              <Text style={styles.props}>Size:<Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.property_details.property_size)} sq ft </Text> </Text>
+              <Text style={styles.props}>Garage Spaces:<Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.property_details.garagespaces)}</Text></Text>
+              <Text style={styles.props}>Lot Size:<Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.hoa_fee)}</Text></Text>
+              <Text style={styles.props}>Year Built :<Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.property_details.yearbuilt)} </Text> </Text>
+              <Text style={styles.props}>Total Stories: <Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.property_details.storiestotal)}</Text></Text>
+              <Text style={styles.props}>Days on Market : <Text style={{ fontFamily: "Poppins-Light" }}>1</Text></Text>
+
             </View>
             <View style={{ width: '50%' }}>
               <Text style={styles.property}>Community Details</Text>
-              <Text style={styles.props}>Community Name: <Text style={{fontFamily:"Poppins-Light", lineHeight:22}}>{data.map((item) => item.details.community_details.community_name)}</Text></Text>
-              <Text style={styles.props}>HOA Fee Includes: <Text style={{fontFamily:"Poppins-Light", lineHeight:22}}>{data.map((item) => item.hoa_fee)}</Text></Text>
-             <Text style={styles.props}>Community Features: <Text style={{fontFamily:"Poppins-Light",lineHeight:22}}>Bike Storage, Community Kitchen, Fitness Center, Library, Barbecue, Picnic Area, Pool, Shuffleboard Court, Spa Hot Tub, Storage, Trash, Vehicle Wash Area, Elevators
-Boat Facilities, Non Gated</Text></Text>
+              <Text style={styles.props}>Community Name: <Text style={{ fontFamily: "Poppins-Light", lineHeight: 22 }}>{data.map((item) => item.details.community_details.community_name)}</Text></Text>
+              <Text style={styles.props}>HOA Fee Includes: <Text style={{ fontFamily: "Poppins-Light", lineHeight: 22 }}>{data.map((item) => item.hoa_fee)}</Text></Text>
+              <Text style={styles.props}>Community Features: <Text style={{ fontFamily: "Poppins-Light", lineHeight: 22 }}>Bike Storage, Community Kitchen, Fitness Center, Library, Barbecue, Picnic Area, Pool, Shuffleboard Court, Spa Hot Tub, Storage, Trash, Vehicle Wash Area, Elevators
+                Boat Facilities, Non Gated</Text></Text>
               {/* <Text style={styles.props}>HOA Fee Frequency: {data.map((item) => item.associationfeefrequency)}  </Text>
              */}
             </View>
@@ -426,25 +425,25 @@ Boat Facilities, Non Gated</Text></Text>
           <View style={styles.viewstyle}>
             <View style={{ width: '50%' }}>
               <Text style={styles.property}>Interior Features</Text>
-              <Text style={styles.props}>A/C: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.interior_features.A_C)}</Text></Text>
-              <Text style={styles.props}>Heating: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.interior_features.heating)}</Text></Text>
-              <Text style={styles.props}>Flooring: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.interior_features.flooring)} </Text></Text>
-              <Text style={styles.props}>Property Rooms: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.interior_features.property_rooms)}</Text></Text>
+              <Text style={styles.props}>A/C: <Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.interior_features.A_C)}</Text></Text>
+              <Text style={styles.props}>Heating: <Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.interior_features.heating)}</Text></Text>
+              <Text style={styles.props}>Flooring: <Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.interior_features.flooring)} </Text></Text>
+              <Text style={styles.props}>Property Rooms: <Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.interior_features.property_rooms)}</Text></Text>
 
             </View>
             <View style={{ width: '50%' }}>
               <Text style={styles.property}>Exterior Features</Text>
-              <Text style={styles.props}>Architectural Style:  <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.exterior_features.architecturalstyle)}</Text></Text>
-              <Text style={styles.props}>Construction: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.exterior_features.construction)}</Text></Text>
-              <Text style={styles.props}>Roofing: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.exterior_features.roofing)}  </Text></Text>
-              <Text style={styles.props}>Water Source: <Text style={{fontFamily:"Poppins-Light"}}>{data.map((item) => item.details.exterior_features.watersource)}</Text></Text>
+              <Text style={styles.props}>Architectural Style:  <Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.exterior_features.architecturalstyle)}</Text></Text>
+              <Text style={styles.props}>Construction: <Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.exterior_features.construction)}</Text></Text>
+              <Text style={styles.props}>Roofing: <Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.exterior_features.roofing)}  </Text></Text>
+              <Text style={styles.props}>Water Source: <Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.exterior_features.watersource)}</Text></Text>
             </View>
           </View>
           <View style={styles.viewstyle1}>
-          <View style={{ width: '100%', marginTop: 30 }}>
-            <Text style={styles.property}>Miscellaneous Details</Text>
-            <Text style={styles.props}>Driving Directions: <Text style={{fontFamily:"Poppins-Light",lineHeight:25}}>{data.map((item) => item.details.miscellaneous_details.driving_directions)}</Text> </Text>
-            <Text style={styles.props}>Listing Office: <Text style={{fontFamily:"Poppins-Light",lineHeight:25}}>{data.map((item) => item.details.miscellaneous_details.listing_office)}</Text> </Text>
+            <View style={{ width: '100%', marginTop: 30 }}>
+              <Text style={styles.property}>Miscellaneous Details</Text>
+              <Text style={styles.props}>Driving Directions: <Text style={{ fontFamily: "Poppins-Light", lineHeight: 25 }}>{data.map((item) => item.details.miscellaneous_details.driving_directions)}</Text> </Text>
+              <Text style={styles.props}>Listing Office: <Text style={{ fontFamily: "Poppins-Light", lineHeight: 25 }}>{data.map((item) => item.details.miscellaneous_details.listing_office)}</Text> </Text>
             </View>
           </View>
         </View>
@@ -455,26 +454,28 @@ Boat Facilities, Non Gated</Text></Text>
   const Featuers = () => {
     return (
       <>
-        <ScrollView style={{ paddingHorizontal: 20 }}>
-          <View style={styles.address}>
+        <ScrollView style={{ paddingHorizontal: 16 }}>
+          <View style={styles.viewstyle}>
             <View style={{ width: '100%' }}>
-              <Text style={styles.property}> Features</Text>
+              <Text style={[styles.property, { marginBottom: 8 }]}> Property Features & Amenities </Text>
               <FlatList
+                numColumns={2}
                 data={property?.features?.property_features}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (
                   <>
-                    <View style={{ width: "100%", paddingHorizontal: 4, height: 30, flexDirection: "row", justifyContent: "flex-start", alignItems: "center" }}>
+                    <View style={{ width: "50%", paddingHorizontal: 4, marginBottom: 10, flexDirection: "row", justifyContent: "flex-start", alignItems: "center" }}>
                       <Image
                         source={Images.check}
-                        style={{ height: 15, width: 15, resizeMode: 'contain', marginRight: 5 }}></Image>
-                      <Text style={{ color: Colors.black, fontFamily: "Poppins-Regular" }}>{item}</Text>
+                        style={{ height: 18, width: 18, resizeMode: 'contain', marginRight: 5 }}></Image>
+                      <Text style={{ color: Colors.black, fontFamily: "Poppins-Light", fontSize: 12 }}>{item}</Text>
                     </View>
                   </>
                 )}
               />
             </View>
           </View>
+
         </ScrollView>
       </>
     )
@@ -487,15 +488,15 @@ Boat Facilities, Non Gated</Text></Text>
     };
 
     return (
-      <>
-        <View style={{ width: "100%", paddingVertical: 16 }}>
-          <View style={{ marginHorizontal: 10, marginBottom: 16 }}>
-            {/* {/ <Text style={styles.property}>Address</Text > /} */}
-            < Text style={styles.propsmain}>Address: <Text style={styles.propsinnermain}>{property?.address.property_address.address}</Text></Text>
-            <Text style={styles.propsmain}>Area:  <Text style={styles.propsinnermain}>{property?.address.property_address.area}</Text></Text>
-            <Text style={styles.propsmain}>State:  <Text style={styles.propsinnermain}>{property?.address.property_address.state_county}</Text></Text>
-            <Text style={styles.propsmain}>County: <Text style={styles.propsinnermain}>{property?.address.property_address.Country}</Text></Text>
-            <Text style={styles.propsmain}>Zip:  <Text style={styles.propsinnermain}>{property?.address.property_address.zip}</Text></Text>
+      <ScrollView style={{ paddingHorizontal: 16 }}>
+        <View style={[styles.viewstyle1, { marginTop: 20 }]}>
+          <View style={{ width: '100%' }}>
+            <Text style={[styles.property, { marginBottom: 6 }]}> Property Address & Location </Text>
+            < Text style={styles.props}>Address:  <Text style={{ fontFamily: "Poppins-Light" }}> {property?.address.property_address.address}</Text></Text>
+            <Text style={styles.props}>Area:  <Text style={{ fontFamily: "Poppins-Light" }}> {property?.address.property_address.area}</Text></Text>
+            <Text style={styles.props}>State:  <Text style={{ fontFamily: "Poppins-Light" }}> {property?.address.property_address.state_county}</Text></Text>
+            <Text style={styles.props}>County: <Text style={{ fontFamily: "Poppins-Light" }}> {property?.address.property_address.Country}</Text></Text>
+            <Text style={styles.props}>Zip: <Text style={{ fontFamily: "Poppins-Light" }}> {property?.address.property_address.zip}</Text></Text>
             {/* {/ <Text style={styles.propsmain}>Zip: {JSON.stringify(pin)} <Text style={styles.propsinnermain}>{property?.address.property_address.zip}</Text ></Text> /} */}
 
           </View >
@@ -557,29 +558,28 @@ Boat Facilities, Non Gated</Text></Text>
             </MapView>
           </View>
         </View >
-      </>
+      </ScrollView>
     )
   }
   const NearBy = () => {
 
     return (
       <>
-
-        <Text style={[styles.propertyt, { marginBottom: 0, paddingBottom: 0 }]}>What's Nearby</Text>
-        <View style={{ paddingHorizontal: 20 }}>
-          <View style={styles.address}>
+        <Text style={[styles.property, { marginBottom: 10, paddingBottom: 0, paddingHorizontal: 16, paddingTop: 20 }]}>What’s Nearby?</Text>
+        <View style={{ paddingHorizontal: 16 }}>
+          <View style={styles.address1}>
             <FlatList
               data={property?.what_is_nearby}
               renderItem={({ item }) => (
                 <>
-                  <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', marginVertical: 5, justifyContent: 'space-between' }}>
-                    <View style={{ width: "70%" }}>
-                      <Text style={{ color: "black" }}>{item.unite_name}</Text>
-                      <Text style={{ color: "gray" }}>{item.unit_distance}</Text>
+                  <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <View style={{ width: "100%", flexDirection: 'row', alignItems: 'center', marginBottom: 3 }}>
+                      <Text style={{ color: "black", fontSize: 12, fontFamily: "Poppins-Light", marginRight: 5 }}>{item.unite_name}</Text>
+                      <Text style={{ color: "black", fontSize: 12, fontFamily: "Poppins-Light", lineHeight: 22 }}>{item.unit_distance}</Text>
                     </View>
-                    <View>
+                    {/* <View>
                       <Image style={{ height: 15, width: 100, resizeMode: "contain" }} source={{ uri: item.image_url }} />
-                    </View>
+                    </View>  */}
                   </View>
                 </>
               )}
@@ -608,18 +608,42 @@ Boat Facilities, Non Gated</Text></Text>
   const CurrentWeather = () => {
     return (
       <>
-        <View style={{ paddingHorizontal: 20, }}>
-          <Text style={styles.propertyts}>Current Weather</Text>
-          <View style={styles.addresss}>
-            <Text style={styles.props}>Location: {weather.location_name}</Text>
-            <Text style={styles.props}>Localtime: {weather.location_localtime}</Text>
-            <View style={{ flexDirection: "row", alignItems: 'center' }}>
-              <Text style={styles.prop}>Condition: {weather.condition_text}</Text>
-              <View style={{}}>
-                <Image style={{ color: "black", height: 30, width: 30 }} source={{ uri: weather?.current_condition_icon }} />
+        <View style={{ paddingHorizontal: 16, }}>
+          <Text style={[styles.property, { marginTop: 20 }]}>Current Weather</Text>
+          <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <View style={[styles.addresss, {width:"40%"}]}>
+              <View style={{ marginBottom: 15 }}>
+                <Text style={styles.props}>Location  </Text>
+                <Text style={{ fontSize: 12, fontFamily: "Poppins-Light", color: "black" }}>{weather.location_name}</Text>
               </View>
+
+              <View style={{ marginBottom: 15 }}>
+                <Text style={styles.props}>Local Time </Text>
+                <Text style={{ fontSize: 12, fontFamily: "Poppins-Light", color: "black" }}>{weather.location_localtime}</Text>
+              </View>
+
+              <View style={{ marginBottom: 15 , position:"relative"}}>
+                <Text style={styles.props}>Conditions </Text>
+                <Text style={{ fontSize: 12, fontFamily: "Poppins-Light", color: "black" }}>{weather.condition_text}</Text>
+                <Image style={{ width: 30, height:30, position:"absolute",bottom:0,left:90 }} source={{ uri: weather?.current_condition_icon }} />
+              </View>
+              <View style={{ marginBottom: 15 }}>
+                <Text style={styles.props}>Current Temperature </Text>
+                <Text style={{ fontSize: 12, fontFamily: "Poppins-Light", color: "black" }}>{(+weather.current_temp * 9 / 5 + 32).toFixed(2)}{" ℉"}</Text>
+              </View>
+
             </View>
-            <Text style={styles.props}>Temperature: {(+weather.current_temp * 9 / 5 + 32).toFixed(2)}{" ℉"}</Text>
+           {/* <LottieView 
+            style={{ height:194, width: 200 ,}} 
+            source={require('../../assets/animations/WeatherCode.json')} 
+            autoPlay loop  />  */}
+        <LottieView style={{ height: 150, width: 150 }} source={require('../../assets/animations/WeatherCode.json')} autoPlay loop />
+
+    
+          </View>
+          <View style={{ marginBottom: 15 }}>
+            <Text style={styles.props}>Local Forecast</Text>
+            <Text style={{ fontSize: 12, fontFamily: "Poppins-Light", color: "black" }}>Mostly Sunny conditions expected today with a few scattered showers around 5pm.</Text>
           </View>
         </View>
       </>
@@ -628,11 +652,13 @@ Boat Facilities, Non Gated</Text></Text>
   const Calculator = () => {
     return (
       <>
+
         <View style={{ height: "100%", width: "100%" }}>
-          <Text style={styles.propertyt}>Mortgage Calculator</Text>
-          <View style={styles.addresss}>
+          <Text style={[styles.property, { marginTop: 20, paddingHorizontal: 16 }]}>Mortgage Calculator</Text>
+
+          <View style={[styles.addresss, { height: 2000 }]}>
             <WebView
-              style={{ height: 1000, marginLeft: 20, marginRight: 20 }}
+              style={{ height: 2000, }}
               scrollEnabled={true}
               nestedScrollEnabled
               source={{ uri: calData?.moartage_details }}
@@ -640,7 +666,9 @@ Boat Facilities, Non Gated</Text></Text>
             />
 
           </View>
+
         </View>
+
       </>
     )
   }
@@ -651,9 +679,9 @@ Boat Facilities, Non Gated</Text></Text>
 
     return (
       <>
-        <Text style={[styles.propertyt, { marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0 }]}>Nearby Schools</Text>
+        <Text style={[styles.property, { marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0, paddingHorizontal: 16, marginTop: 20, marginBottom: 5 }]}>Closest Schools</Text>
 
-        <View style={{ paddingHorizontal: 20 }}>
+        <View style={{ paddingHorizontal: 16 }}>
           <View>
             <FlatList
 
@@ -666,16 +694,17 @@ Boat Facilities, Non Gated</Text></Text>
 
                   <View style={{
                     flex: 1, flexDirection: 'row', alignContent: 'center', marginVertical: 5, justifyContent: 'space-between',
-                    borderBottomColor: Colors.BorderColor, borderBottomWidth: 1, paddingBottom: 15, marginBottom: 10
+                    // borderBottomColor: Colors.BorderColor, borderBottomWidth: 1,
+                    paddingBottom: 20, marginBottom: 10
                   }}>
                     <View style={{ width: "100%" }}>
                       {/* <Text style={{ color: "black" }}>{item.schools_id}</Text> */}
-                      <Text style={{ color: Colors.black, fontSize: 13, fontFamily: "Poppins-Medium" }}>School Name :-<Text style={{ color: Colors.black, fontSize: 13, fontFamily: "Poppins-Regular" }}>{item.schools_name}</Text></Text>
-                      <Text style={{ color: Colors.black, fontSize: 13, fontFamily: "Poppins-Medium", lineHeight: 23 }}>Summary:-  <Text style={{ color: Colors.black, fontSize: 13, fontFamily: "Poppins-Regular" }}>{item.school_summary}</Text></Text>
-                      <TouchableOpacity onPress={() => handleLinkPress(item.school_website)}>
+                      <Text style={{ color: Colors.black, fontSize: 12, fontFamily: "Poppins-Medium", marginBottom: 8 }}>{item.schools_name}</Text>
+                      <Text style={{ color: Colors.black, fontSize: 12, fontFamily: "Poppins-Light", lineHeight: 23 }}>{item.school_summary}</Text>
+                      {/* <TouchableOpacity onPress={() => handleLinkPress(item.school_website)}>
                         <Text style={{ color: Colors.black, fontSize: 13, fontFamily: "Poppins-Medium" }}>School link:-   <Text style={{ color: Colors.surfblur, fontSize: 12, fontFamily: "Poppins-Regular" }}>{item.school_website}</Text></Text>
 
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
 
                     </View>
                     {/* <View>
@@ -687,10 +716,10 @@ Boat Facilities, Non Gated</Text></Text>
 
           </View>
 
-          <View style={{ marginTop: 10, justifyContent: 'flex-end', alignContent: 'flex-end', marginBottom: 10 }}>
+          <View style={{ marginTop: 10, justifyContent: 'flex-end', alignContent: 'flex-end', marginBottom: 10, width: "100%" }}>
             <TouchableOpacity onPress={() => { navigation.navigate('Schoolinfo') }}
               style={{ backgroundColor: Colors.surfblur, borderRadius: 20, width: 100, paddingVertical: 10 }}>
-              <Text style={{ alignItems: 'center', textAlign: 'center', color: Colors.white }}>School Info</Text>
+              <Text style={{ alignItems: 'center', textAlign: 'center', color: Colors.white, fontFamily: "Poppins-medium" }}>School Info</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -728,7 +757,7 @@ Boat Facilities, Non Gated</Text></Text>
     <>
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView >
-          <View
+        <View
             style={{
               width: '100%',
               // alignSelf: 'center',
@@ -740,37 +769,37 @@ Boat Facilities, Non Gated</Text></Text>
 
             }}>
             <View style={styles.headerIcon}>
-            
-              
-          <TouchableOpacity
-            style={{
-              alignItems: 'center',
-              position: "absolute",
-              left: 5,
-              top:-2,
 
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              shadowColor: 'black',
-              shadowOffset: { width: 1, height: 2 },
-              shadowOpacity: 0.3,
-              shadowRadius: 5,
-            }}
-            onPress={() => navigation.goBack()}  >
-             <Image
-            style={{
-              width:27,
-              height: 27,
-              resizeMode: 'contain',
-              justifyContent: 'center',
-              flexDirection: 'row',
-              alignItems: 'center',
-              resizeMode:"contain",
-              tintColor:"white"
-            }}
-            source={Images.leftnewarrow}></Image>
-          </TouchableOpacity>
+
+              <TouchableOpacity
+                style={{
+                  alignItems: 'center',
+                  position: "absolute",
+                  left: 5,
+                  top: -2,
+
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  shadowColor: 'black',
+                  shadowOffset: { width: 1, height: 2 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 5,
+                }}
+                onPress={() => navigation.goBack()}  >
+                <Image
+                  style={{
+                    width: 27,
+                    height: 27,
+                    resizeMode: 'contain',
+                    justifyContent: 'center',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    resizeMode: "contain",
+                    tintColor: "white"
+                  }}
+                  source={Images.leftnewarrow}></Image>
+              </TouchableOpacity>
             </View>
             <View style={{
               position: 'relative', width: '100%', position: "relative",
@@ -935,48 +964,48 @@ Boat Facilities, Non Gated</Text></Text>
                               })
                             }}>
                             <Image
-                source={Images.startfill}
-                style={{ height: 23, width: 23, resizeMode: 'contain' }}></Image>
+                              source={Images.startfill}
+                              style={{ height: 23, width: 23, resizeMode: 'contain' }}></Image>
                           </TouchableOpacity>
                           <Text
                             style={{
                               fontSize: 18,
-                color: Colors.black,
-                fontFamily:"Poppins-Light",
-                marginLeft:4,
-                marginTop:8
+                              color: Colors.black,
+                              fontFamily: "Poppins-Light",
+                              marginLeft: 4,
+                              marginTop: 8
                             }}>
                             {item?.Total_average_rating}
-                            
+
                           </Text>
                         </View>
-             
+
                         <TouchableOpacity onPress={() => handleShare()}>
-                        <Image
-              source={Images.sendnew}
-              style={{
-                height: 18,
-                width: 23,
-                resizeMode: 'contain',
-              
-              }}></Image>
+                          <Image
+                            source={Images.sendnew}
+                            style={{
+                              height: 18,
+                              width: 23,
+                              resizeMode: 'contain',
+
+                            }}></Image>
                         </TouchableOpacity>
 
                       </View>
                       <Text
 
-style={{
-  fontSize:25,
-  color: "#1450B1",
-  fontWeight: '500',
-  fontFamily: 'Poppins-Medium',
-  width:"100%",
-  textAlign:"center"
-}}>
-{item?.price}
+                        style={{
+                          fontSize: 25,
+                          color: "#1450B1",
+                          fontWeight: '500',
+                          fontFamily: 'Poppins-Medium',
+                          width: "100%",
+                          textAlign: "center"
+                        }}>
+                        {item?.price}
 
 
-</Text>
+                      </Text>
                       <View
                         style={{
                           width: '100%',
@@ -984,7 +1013,7 @@ style={{
                           justifyContent: 'center',
                           backgroundColor: Colors.white,
                           paddingHorizontal: 12,
-                          marginBottom:8
+                          marginBottom: 8
                         }}>
                         <Text
 
@@ -994,7 +1023,9 @@ style={{
                             marginHorizontal: 8,
                             textAlign: 'center',
                             fontFamily: 'Poppins-Light',
-                          }}>
+                          }}
+                          numberOfLines={1}
+                          >
                           {property?.title}
                         </Text>
                       </View>
@@ -1010,49 +1041,49 @@ style={{
                       }}>
                         <View>
                           <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-              //  marginBottom: 20,
-               // marginTop: 5,
-                width: '100%',
-                alignSelf: 'center',
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  //paddingHorizontal: 12,
-                  justifyContent: 'center',
-                 // marginBottom: 12,
-                  width: '100%',
-                  alignSelf: 'center',
-                }}>
-                <View
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    // backgroundColor: "red",
-                    width:60,
-                  }}>
-                  <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <Image
-                      source={Images.newbed}
-                      style={{
-                        height: 21,
-                        width: 28,
-                        resizeMode: 'contain',
-                       //backgroundColor: "green",
-                        marginBottom:5
-                      }}></Image>
+                            style={{
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              //  marginBottom: 20,
+                              // marginTop: 5,
+                              width: '100%',
+                              alignSelf: 'center',
+                            }}>
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                //paddingHorizontal: 12,
+                                justifyContent: 'center',
+                                // marginBottom: 12,
+                                width: '100%',
+                                alignSelf: 'center',
+                              }}>
+                              <View
+                                style={{
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  // backgroundColor: "red",
+                                  width: 60,
+                                }}>
+                                <View
+                                  style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                  <Image
+                                    source={Images.newbed}
+                                    style={{
+                                      height: 21,
+                                      width: 28,
+                                      resizeMode: 'contain',
+                                      //backgroundColor: "green",
+                                      marginBottom: 5
+                                    }}></Image>
                                   <Text
                                     style={{
                                       fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
+                                      color: Colors.black,
+                                      textAlign: 'center',
+                                      fontFamily: 'Poppins-Light',
                                     }}>
                                     {item?.bedrooms ? item.bedrooms : "0"}
                                     {/* {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bedrooms.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bedrooms : 0} */}
@@ -1062,27 +1093,27 @@ style={{
                               </View>
 
                               <View
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: 60,
-                  }}>
-                  <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <Image
-                      source={Images.bathtub}
-                      style={{
-                        height: 26,
-                        width: 28,
-                        resizeMode: 'contain',
-                        marginBottom:5
-                      }}></Image>
+                                style={{
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  width: 60,
+                                }}>
+                                <View
+                                  style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                  <Image
+                                    source={Images.bathtub}
+                                    style={{
+                                      height: 26,
+                                      width: 28,
+                                      resizeMode: 'contain',
+                                      marginBottom: 5
+                                    }}></Image>
                                   <Text
                                     style={{
                                       fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
+                                      color: Colors.black,
+                                      textAlign: 'center',
+                                      fontFamily: 'Poppins-Light',
                                     }}>
                                     {item?.bathroomsfull.length > 0 ? item.bathroomsfull : "0"}
 
@@ -1094,30 +1125,30 @@ style={{
                               </View>
 
 
-                    
-                <View
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: 60,
-                  }}>
-                  <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <Image
-                      source={Images.measuringtape}
-                      style={{
-                        height: 26,
-                        width: 27,
-                        resizeMode: 'contain',
-                        marginBottom:5
-                      }}></Image>
-                    <Text
-                      style={{
-                        fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
-                      }}>
+
+                              <View
+                                style={{
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  width: 60,
+                                }}>
+                                <View
+                                  style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                  <Image
+                                    source={Images.measuringtape}
+                                    style={{
+                                      height: 26,
+                                      width: 27,
+                                      resizeMode: 'contain',
+                                      marginBottom: 5
+                                    }}></Image>
+                                  <Text
+                                    style={{
+                                      fontSize: 11,
+                                      color: Colors.black,
+                                      textAlign: 'center',
+                                      fontFamily: 'Poppins-Light',
+                                    }}>
                                     {item?.details.property_details.property_size.length > 0 ? item.details.property_details.property_size : "0"}
 
                                     {/* {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.property_size.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.property_size : 0} */}
@@ -1125,30 +1156,30 @@ style={{
                                   </Text>
                                 </View>
                               </View>
-     
+
                               <View
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: 60,
-                  }}>
-                  <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <Image
-                      source={Images.hoa2}
-                      style={{
-                        height: 26,
-                        width: 27,
-                        resizeMode: 'contain',
-                        marginBottom:5
-                      }}></Image>
-                    <Text
-                      style={{
-                        fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
-                      }}>
+                                style={{
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  width: 60,
+                                }}>
+                                <View
+                                  style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                  <Image
+                                    source={Images.hoa2}
+                                    style={{
+                                      height: 26,
+                                      width: 27,
+                                      resizeMode: 'contain',
+                                      marginBottom: 5
+                                    }}></Image>
+                                  <Text
+                                    style={{
+                                      fontSize: 11,
+                                      color: Colors.black,
+                                      textAlign: 'center',
+                                      fontFamily: 'Poppins-Light',
+                                    }}>
                                     {"$"}
                                     {item?.hoa_fee.length > 0 ? item.hoa_fee : "0"}
 
@@ -1158,29 +1189,29 @@ style={{
                                 </View>
                               </View>
                               <View
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: 60,
-                  }}>
-                  <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <Image
-                      source={Images.taxnew}
-                      style={{
-                        height: 27,
-                        width: 25,
-                        marginTop: 0,
-                        resizeMode: 'contain',
-                        marginBottom:5
-                      }}></Image>
-                    <Text
-                      style={{
-                        fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
-                      }}>
+                                style={{
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  width: 60,
+                                }}>
+                                <View
+                                  style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                  <Image
+                                    source={Images.taxnew}
+                                    style={{
+                                      height: 27,
+                                      width: 25,
+                                      marginTop: 0,
+                                      resizeMode: 'contain',
+                                      marginBottom: 5
+                                    }}></Image>
+                                  <Text
+                                    style={{
+                                      fontSize: 11,
+                                      color: Colors.black,
+                                      textAlign: 'center',
+                                      fontFamily: 'Poppins-Light',
+                                    }}>
                                     {item?.details.property_details.taxes.length > 0 ? item.details.property_details.taxes : "0"}
 
                                     {/* {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.taxes.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.taxes : 0} */}
@@ -1189,29 +1220,29 @@ style={{
                                 </View>
                               </View>
                               <View
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: 60,
-                  }}>
-                  <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <Image
-                      source={Images. cals}
-                      style={{
-                        height: 30,
-                        width: 30,
-                        marginTop: 0,
-                        resizeMode: 'contain',
-                        marginBottom:5
-                      }}></Image>
-                    <Text
-                      style={{
-                        fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
-                      }}>
+                                style={{
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  width: 60,
+                                }}>
+                                <View
+                                  style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                  <Image
+                                    source={Images.cals}
+                                    style={{
+                                      height: 30,
+                                      width: 30,
+                                      marginTop: 0,
+                                      resizeMode: 'contain',
+                                      marginBottom: 5
+                                    }}></Image>
+                                  <Text
+                                    style={{
+                                      fontSize: 11,
+                                      color: Colors.black,
+                                      textAlign: 'center',
+                                      fontFamily: 'Poppins-Light',
+                                    }}>
                                     {item?.details.property_details.yearbuilt.length > 0 ? item.details.property_details.yearbuilt : "0"}
 
                                     {/* {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.yearbuilt.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.yearbuilt : 0} */}
@@ -1239,7 +1270,7 @@ style={{
             width: '100%',
             // paddingLeft: 16,
             // paddingRight: 2,
-paddingHorizontal:8
+            paddingHorizontal: 8
 
           }}>
             <>
@@ -1302,7 +1333,7 @@ paddingHorizontal:8
                           borderBottomColor: selectedTab == 0 ? "#0165C5" : Colors.white,
                           borderBottomWidth: selectedTab == 0 ? 1 : 0,
                           textAlign: 'center',
-                          fontFamily: selectedTab == 0 ? 'Poppins-Medium' :'Poppins-Light',
+                          fontFamily: selectedTab == 0 ? 'Poppins-Medium' : 'Poppins-Light',
                         }}>Details</Text>
 
                       </TouchableOpacity>
@@ -1405,7 +1436,7 @@ paddingHorizontal:8
                           height: 20,
                           width: 20,
                           resizeMode: 'contain',
-                          tintColor: selectedTab == 3 ? "#0165C5": Colors.black,
+                          tintColor: selectedTab == 3 ? "#0165C5" : Colors.black,
                         }}></Image>
                       <Text style={{
                         fontSize: 11,
@@ -1432,12 +1463,12 @@ paddingHorizontal:8
                           tintColor: selectedTab == 7 ? "#0165C5" : Colors.black,
                         }}></Image>
                       <Text style={{
-                       fontSize: 11,
-                       color: selectedTab == 7 ? "#0165C5" : Colors.black,
-                       textAlign: 'center',
-                       fontFamily: 'Poppins-Regular',
-                       borderBottomColor: selectedTab == 7 ? "#0165C5" : Colors.white,
-                       borderBottomWidth: selectedTab == 7 ? 1 : 0,
+                        fontSize: 11,
+                        color: selectedTab == 7 ? "#0165C5" : Colors.black,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Regular',
+                        borderBottomColor: selectedTab == 7 ? "#0165C5" : Colors.white,
+                        borderBottomWidth: selectedTab == 7 ? 1 : 0,
                       }}>Schools</Text>
                     </TouchableOpacity>
                   </View>
@@ -1478,12 +1509,12 @@ paddingHorizontal:8
                           tintColor: selectedTab == 5 ? "#0165C5" : Colors.black,
                         }}></Image>
                       <Text style={{
-                           fontSize: 11,
-                           color: selectedTab == 5 ? "#0165C5" : Colors.black,
-                           textAlign: 'center',
-                           fontFamily: 'Poppins-Regular',
-                           borderBottomColor: selectedTab == 5 ? "#0165C5" : Colors.white,
-                           borderBottomWidth: selectedTab == 5 ? 1 : 0,
+                        fontSize: 11,
+                        color: selectedTab == 5 ? "#0165C5" : Colors.black,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Regular',
+                        borderBottomColor: selectedTab == 5 ? "#0165C5" : Colors.white,
+                        borderBottomWidth: selectedTab == 5 ? 1 : 0,
                       }}>Weather</Text>
                     </TouchableOpacity>
                   </View>
@@ -1666,7 +1697,7 @@ paddingHorizontal:8
                               }}>
 
 
-                              {ratingData.length >0  ? (
+                              {ratingData.length > 0 ? (
                                 <TextInput
                                   multiline={true}
                                   style={{
@@ -1682,7 +1713,7 @@ paddingHorizontal:8
                                 />
                               ) : (
                                 <TextInput
-                                onChangeText={text => setComentContent(text)}
+                                  onChangeText={text => setComentContent(text)}
 
                                   multiline={true}
                                   style={{
@@ -1704,7 +1735,7 @@ paddingHorizontal:8
                             justifyContent: "flex-end",
                             //s paddingHorizontal: 10
                           }}>
-                            {ratingData.length >0  ? (
+                            {ratingData.length > 0 ? (
                               <View style={{
                                 justifyContent: "flex-end", width: '100%',
                                 alignItems: "flex-end",
@@ -1776,17 +1807,17 @@ paddingHorizontal:8
           {selectedTab == 0 ? (<Details />) : selectedTab == 1 ? (<Featuers />) : selectedTab == 2 ? (<Address />) : selectedTab == 3 ? (<NearBy />) : selectedTab == 4 ? (<WalkSco />) : selectedTab == 5 ? (<CurrentWeather />) : selectedTab == 6 ? (<Calculator />) : (<School />)
           }
 
-<View style={{height:70}}></View>
+          <View style={{ height: 70 }}></View>
         </ScrollView >
-      
+
       </SafeAreaView >
-  <View
+      <View
         style={{
           flexDirection: 'row',
           width: '100%',
           justifyContent: 'space-between',
           backgroundColor: "#f8f8f8",
-         paddingVertical:8,
+          paddingVertical: 8,
           alignItems: 'center',
           alignContent: 'center',
         }}>
@@ -1796,7 +1827,7 @@ paddingHorizontal:8
             alignItems: 'center',
             width: '30%',
             flexDirection: 'row',
-            left:10
+            left: 10
 
           }}>
           <View
@@ -1878,13 +1909,13 @@ paddingHorizontal:8
             borderRadius: 50,
             paddingHorizontal: 16,
             lineHeight: 12,
-            marginRight:10,
-            borderWidth:2,
-            borderColor:Colors.surfblur,
-           
+            marginRight: 10,
+            borderWidth: 2,
+            borderColor: Colors.surfblur,
+
           }}
         >
-          
+
           <Text
             style={{
               fontSize: 13,
@@ -1895,22 +1926,25 @@ paddingHorizontal:8
               //  paddingTop:2
               position: "relative",
               top: 2,
-              letterSpacing:0
+              letterSpacing: 0
             }}
           >
-          Schedule a Tour
+            Schedule a Tour
           </Text>
-          <LottieView  style={{ height: 50, width:50}} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+         <LottieView 
+          style={{ height: 50, width: 50 }} 
+          source={require('../../assets/animations/SurfVan.json')} 
+          autoPlay loop /> 
 
 
-         
+
         </TouchableOpacity>
 
 
       </View>
 
-   
-  
+
+
 
     </>
   )
@@ -2014,9 +2048,8 @@ const styles = StyleSheet.create({
   },
   map: {
     width: "100%",
-    height: 328,
+    height: 326,
     borderRadius: 22,
-
     flex: 1,
   },
   maincovermap: {
@@ -2025,7 +2058,9 @@ const styles = StyleSheet.create({
     borderRadius: 20, // Set the border radius for the container View
     overflow: 'hidden',
     //backgroundColor: "red",
-    marginHorizontal: 16, position: "relative"
+    //marginHorizontal: 16,
+    position: "relative",
+    marginTop: 15
   },
   detail: {
     height: 20,
@@ -2212,7 +2247,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-SemiBold",
     // fontWeight: 'bold'
   },
-  addresss: { height: 1400 },
+  //addresss: { height: 1400 },
   propertyts: {
     fontSize: 14,
     color: Colors.black,

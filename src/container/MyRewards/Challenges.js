@@ -246,8 +246,8 @@ const Challenges = () => {
               flexDirection: 'row',
               alignItems: 'center',
            
-            }}>  
-              <LottieView  style={{ height: 120, width: 150,}} source={require('../../assets/animations/ChallengeScreen.json')} autoPlay loop />
+            }}> 
+            <LottieView  style={{ height: 120, width: 150,}} source={require('../../assets/animations/ChallengeScreen.json')} autoPlay loop />
         
             </View>
                   </View>

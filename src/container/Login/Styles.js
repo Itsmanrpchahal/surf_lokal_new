@@ -128,7 +128,7 @@ export default StyleSheet.create({
     color: Colors.black,
     fontSize: 20 * fontSizeRatio,
     fontWeight: '500',
-    marginLeft: 30,
+    marginLeft: 10,
     fontFamily: 'Poppins-Regular'
   },
   socialMediaButtonsImage: {
