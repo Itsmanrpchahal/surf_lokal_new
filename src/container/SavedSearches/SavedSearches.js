@@ -24,7 +24,7 @@ import { deleteSearch } from '../../modules/deleteSearch';
 import { editSearch } from '../../modules/editSearch';
 import * as Animatable from 'react-native-animatable';
 import { useIsFocused } from '@react-navigation/native';
-
+import AsyncStorage from '@react-native-community/async-storage';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const fontSizeRatio = screenHeight / 1000;
@@ -65,11 +65,12 @@ const MyFavorites = ({ navigation }) => {
     });
   };
 
-  const deleteSearchApiCall = (userId, postId) => {
-    const formData = new FormData()
-    formData.append('userID', userId)
-    formData.append('postID', postId)
+  const deleteSearchApiCall = async (userId, postId) => {
 
+    const formData = new FormData()
+    // formData.append('userID', userId)
+    formData.append('postID', postId)
+    // console.log('postId',formData)
     dispatch(deleteSearch(formData)).then(response => {
       getSavedApiCall();
     });
@@ -77,10 +78,11 @@ const MyFavorites = ({ navigation }) => {
 
   const editSearchApiCall = (userId, postId, updatedParameter) => {
     let data = {
-      userID: userId,
+      // userID: userId,
       searchid: postId,
-      SearchParameters: updatedParameter,
+      searchparameters: updatedParameter,
     };
+    console.log(data)
     dispatch(editSearch(data)).then(response => {
       getSavedApiCall();
     });
