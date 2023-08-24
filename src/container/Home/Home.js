@@ -384,7 +384,7 @@ const Home = () => {
   const savefile = async item => {
     favlistApi();
     const formData = new FormData();
-    formData.append('userID', user_ID);
+    // formData.append('userID', user_ID);
     formData.append('post_id', item);
 
     await dispatch(addToFavorite(formData)).then(response => {
@@ -406,7 +406,7 @@ const Home = () => {
   const trashfile = async post_id => {
     getTrashApiCall();
     const formData = new FormData();
-    formData.append('userID', user_ID);
+    // formData.append('userID', user_ID);
     formData.append('post_id', post_id);
 
     await dispatch(addRemoveTrash(formData)).then(response => {
@@ -734,7 +734,7 @@ const Home = () => {
                   setIsPressed1(!isPressed1);
                   setIsPressed(false);
                   const payload = {
-                    userID: user_ID,
+                    // userID: user_ID,
                     search_name: termName,
                   };
                   dispatch(filterSearch(payload)).then(response => {
@@ -2967,28 +2967,19 @@ const Home = () => {
                               <View style={{flexWrap: 'wrap', top: -5}}>
                                 <Text
                                   style={{
-                                    color: 'black',
-                                    fontSize: 20,
-                                    fontFamily: 'Poppins-Light',
-                                    paddingHorizontal: 10,
-                                    // fontWeight: '500',
+                                    color: 'black', marginLeft: 10, fontWeight: '500', flexWrap: "wrap"
                                   }}>
                                   {item.title}
                                 </Text>
                                 <Text
                                   style={{
-                                    color: '#1450B1',
-                                    paddingHorizontal: 10,
-                                    fontSize: 32,
-                                    // fontWeight: '500',
-                                    fontFamily: 'Poppins-Medium',
+                                    color: Colors.primaryBlue, marginLeft: 10, fontWeight: '500'
                                   }}>
                                   {item.property_price}
                                 </Text>
                                 <View
                                   style={{
-                                    flexDirection: 'row',
-                                    paddingHorizontal: 10,
+                                    flexDirection: 'row', marginLeft: 10, 
                                   }}>
                                   <Text
                                     style={{

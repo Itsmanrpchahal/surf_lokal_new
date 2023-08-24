@@ -1,17 +1,26 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {postAPI} from '../config/apiMethod';
+import {getAPI, postAPI} from '../config/apiMethod';
 import BASEURl from '../services/Api'
+// import AsyncStorage from '@react-native-community/async-storage';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const getFavoriteProperties = createAsyncThunk(
   'getFavoriteProperties',
   async () => {
-    const id = await AsyncStorage.getItem('userId');
-    return await postAPI(
-      BASEURl+'webapi/v1/favorites?userID=' + id,
+    const access_token = await AsyncStorage.getItem('access_token')
+
+    const Header={
+      security_key:"SurfLokal52",
+      access_token:access_token
+    }
+    console.log('hhdhh',Header)
+    // const id = await AsyncStorage.getItem('userId');
+    return await getAPI(
+      BASEURl+'webapi/v1/favorites',Header
     )
       .then(async response => {
         const {data} = response;
+        console.log("check fav",data)
         return data;
       })
       .catch(e => {

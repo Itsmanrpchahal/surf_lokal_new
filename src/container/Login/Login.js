@@ -244,10 +244,10 @@ export default function Login({ navigation }) {
         };
         setLoading(true);
         dispatch(loginUser(data)).then(response => {
-          let acces_token= response.payload?.metadata?.[fcmtoken].toString()
+          let access_token= response.payload?.metadata?.[fcmtoken].toString()
           async function storeToken() {
             try {
-              await AsyncStorage.setItem('acces_token', acces_token);
+              await AsyncStorage.setItem('access_token', access_token);
               console.log('Token stored successfully.');
             } catch (error) {
               console.error('Error storing token:', error);

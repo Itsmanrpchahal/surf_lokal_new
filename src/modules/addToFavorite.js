@@ -1,17 +1,20 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {uploadImageAPI} from '../config/apiMethod';
+import {postAPI, uploadImageAPI} from '../config/apiMethod';
 import BASEURl from '../services/Api'
 
 
 export const addToFavorite = createAsyncThunk(
   'addToFavorite',
   async dispatch => {
-    return await uploadImageAPI(
+
+  
+    return await postAPI(
       BASEURl+'webapi/v1/favorites/addremovefavorite.php',
-      dispatch,
+      dispatch,Header
     )
       .then(async response => {
         const {data} = response;
+        console.log("favvv",data)
         return data;
       })
       .catch(e => {

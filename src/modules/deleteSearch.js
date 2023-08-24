@@ -1,14 +1,24 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import BASEURl from '../services/Api'
-import {uploadImageAPI} from '../config/apiMethod';
+import {postAPI, uploadImageAPI} from '../config/apiMethod';
+import AsyncStorage from '@react-native-community/async-storage';
+ 
 
-export const deleteSearch = createAsyncThunk('deleteSearch', async dispatch => {
-  return await uploadImageAPI(
-    BASEURl+'webapi/v1/search/delete_searchlist.php',
-    dispatch,
+export const deleteSearch = createAsyncThunk('deleteSearch',
+ async (dispatch) => {
+  const access_token = await AsyncStorage.getItem('access_token')
+
+  const Header={
+    security_key:"SurfLokal52",
+    access_token:access_token
+  }
+  console.log('header',Header)
+  return await postAPI(
+    BASEURl+'webapi/v1/search/delete_searchlist.php ',dispatch,Header
   )
     .then(async response => {
       const {data} = response;
+      console.log('delete',data)
       return data;
     })
     .catch(e => {
