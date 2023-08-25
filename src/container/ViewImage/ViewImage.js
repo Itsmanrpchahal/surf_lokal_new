@@ -76,32 +76,38 @@ const ViewImage = props => {
             top: 10,
           }}>
 
-          <TouchableOpacity
+<TouchableOpacity
             style={{
               alignItems: 'center',
               position: "absolute",
-              right:-12,
-              top: -6,
+              left:-5,
+              top: 10,
 
-              backgroundColor: Colors.surfblur,
-              height: 25,
-              width: 25,
-              borderRadius: 100,
-              alignItems: "center",
-              justifyContent: "center",
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+      
+              justifyContent: 'flex-start',
+       
+             // backgroundColor:"green",
+  width:50,
+  height:50,
             }}
-            onPress={() => navigation.goBack()}
-          >
-            <Animatable.Image
-              source={Images.whiteclose}
-              style={{
-                height: 10,
-                width: 10,
-                resizeMode: 'contain',
-                tintColor: Colors.white,
-              }}
-              animation="flipInY"
-            />
+            onPress={() => navigation.goBack()}  >
+             <Image
+            style={{
+              width:27,
+              height: 27,
+              resizeMode: 'contain',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+              resizeMode:"contain",
+              //tintColor:"white"
+            }}
+            source={Images.leftnewarrow}></Image>
           </TouchableOpacity>
         </View>
         <View>

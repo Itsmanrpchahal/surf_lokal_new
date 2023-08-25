@@ -36,6 +36,7 @@ import { postRating } from '../../modules/postRating';
 import { useNavigation } from '@react-navigation/native';
 import { Rating } from 'react-native-ratings';
 import { getPopertiesDetails } from '../../modules/getPopertiesDetails';
+import DeviceInfo from 'react-native-device-info';
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import MapView, { PROVIDER_GOOGLE, Callout, Circle, Marker, PROVIDER_DEFAULT } from "react-native-maps";
 import { getRating } from '../../modules/getRating';
@@ -414,9 +415,9 @@ const ViewPropertiy = (props, imageUrl) => {
             </View>
             <View style={{ width: '50%' }}>
               <Text style={styles.property}>Community Details</Text>
-              <Text style={styles.props}>Community Name: <Text style={{ fontFamily: "Poppins-Light", lineHeight: 22 }}>{data.map((item) => item.details.community_details.community_name)}</Text></Text>
-              <Text style={styles.props}>HOA Fee Includes: <Text style={{ fontFamily: "Poppins-Light", lineHeight: 22 }}>{data.map((item) => item.hoa_fee)}</Text></Text>
-              <Text style={styles.props}>Community Features: <Text style={{ fontFamily: "Poppins-Light", lineHeight: 22 }}>Bike Storage, Community Kitchen, Fitness Center, Library, Barbecue, Picnic Area, Pool, Shuffleboard Court, Spa Hot Tub, Storage, Trash, Vehicle Wash Area, Elevators
+              <Text style={styles.props}>Community Name: <Text style={{ fontFamily: "Poppins-Light", lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?28:22, }}>{data.map((item) => item.details.community_details.community_name)}</Text></Text>
+              <Text style={styles.props}>HOA Fee Includes: <Text style={{ fontFamily: "Poppins-Light", lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?28:22, }}>{data.map((item) => item.hoa_fee)}</Text></Text>
+              <Text style={styles.props}>Community Features: <Text style={{ fontFamily: "Poppins-Light", lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?28:22, }}>Bike Storage, Community Kitchen, Fitness Center, Library, Barbecue, Picnic Area, Pool, Shuffleboard Court, Spa Hot Tub, Storage, Trash, Vehicle Wash Area, Elevators
                 Boat Facilities, Non Gated</Text></Text>
               {/* <Text style={styles.props}>HOA Fee Frequency: {data.map((item) => item.associationfeefrequency)}  </Text>
              */}
@@ -464,11 +465,11 @@ const ViewPropertiy = (props, imageUrl) => {
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (
                   <>
-                    <View style={{ width: "50%", paddingHorizontal: 4, marginBottom: 10, flexDirection: "row", justifyContent: "flex-start", alignItems: "center" }}>
+                    <View style={{ width: "50%", paddingHorizontal: 4, marginBottom: DeviceInfo.getDeviceType() === 'Tablet'?20:10, flexDirection: "row", justifyContent: "flex-start", alignItems: "center" }}>
                       <Image
                         source={Images.check}
-                        style={{ height: 18, width: 18, resizeMode: 'contain', marginRight: 5 }}></Image>
-                      <Text style={{ color: Colors.black, fontFamily: "Poppins-Light", fontSize: 12 }}>{item}</Text>
+                        style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?30:18, width: DeviceInfo.getDeviceType() === 'Tablet'?30:18, resizeMode: 'contain', marginRight: 5 }}></Image>
+                      <Text style={{ color: Colors.black, fontFamily: "Poppins-Light", fontSize: DeviceInfo.getDeviceType() === 'Tablet'?19:12,  }}>{item}</Text>
                     </View>
                   </>
                 )}
@@ -614,36 +615,36 @@ const ViewPropertiy = (props, imageUrl) => {
             <View style={[styles.addresss, {width:"40%"}]}>
               <View style={{ marginBottom: 15 }}>
                 <Text style={styles.props}>Location  </Text>
-                <Text style={{ fontSize: 12, fontFamily: "Poppins-Light", color: "black" }}>{weather.location_name}</Text>
+                <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?19:12, fontFamily: "Poppins-Light", color: "black" }}>{weather.location_name}</Text>
               </View>
 
               <View style={{ marginBottom: 15 }}>
                 <Text style={styles.props}>Local Time </Text>
-                <Text style={{ fontSize: 12, fontFamily: "Poppins-Light", color: "black" }}>{weather.location_localtime}</Text>
+                <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?19:12, fontFamily: "Poppins-Light", color: "black" }}>{weather.location_localtime}</Text>
               </View>
 
               <View style={{ marginBottom: 15 , position:"relative"}}>
                 <Text style={styles.props}>Conditions </Text>
-                <Text style={{ fontSize: 12, fontFamily: "Poppins-Light", color: "black" }}>{weather.condition_text}</Text>
-                <Image style={{ width: 30, height:30, position:"absolute",bottom:0,left:90 }} source={{ uri: weather?.current_condition_icon }} />
+                <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?19:12, fontFamily: "Poppins-Light", color: "black" }}>{weather.condition_text}</Text>
+                <Image style={{ width:DeviceInfo.getDeviceType() === 'Tablet'?60:30, height:DeviceInfo.getDeviceType() === 'Tablet'?60:30, position:"absolute",bottom:DeviceInfo.getDeviceType() === 'Tablet'?-12:0,left:90 }} source={{ uri: weather?.current_condition_icon }} />
               </View>
               <View style={{ marginBottom: 15 }}>
                 <Text style={styles.props}>Current Temperature </Text>
-                <Text style={{ fontSize: 12, fontFamily: "Poppins-Light", color: "black" }}>{(+weather.current_temp * 9 / 5 + 32).toFixed(2)}{" ℉"}</Text>
+                <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?19:12, fontFamily: "Poppins-Light", color: "black" }}>{(+weather.current_temp * 9 / 5 + 32).toFixed(2)}{" ℉"}</Text>
               </View>
 
             </View>
            {/* <LottieView 
-            style={{ height:194, width: 200 ,}} 
+            style={{ height:194, width: 200 ,}}      
             source={require('../../assets/animations/WeatherCode.json')} 
             autoPlay loop  />  */}
-        <LottieView style={{ height: 150, width: 150 }} source={require('../../assets/animations/WeatherCode.json')} autoPlay loop />
+        <LottieView style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?250:150, width: DeviceInfo.getDeviceType() === 'Tablet'?250:150}} source={require('../../assets/animations/WeatherCode.json')} autoPlay loop />
 
     
           </View>
           <View style={{ marginBottom: 15 }}>
             <Text style={styles.props}>Local Forecast</Text>
-            <Text style={{ fontSize: 12, fontFamily: "Poppins-Light", color: "black" }}>Mostly Sunny conditions expected today with a few scattered showers around 5pm.</Text>
+            <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?19:12, fontFamily: "Poppins-Light", color: "black" }}>Mostly Sunny conditions expected today with a few scattered showers around 5pm.</Text>
           </View>
         </View>
       </>
@@ -656,18 +657,19 @@ const ViewPropertiy = (props, imageUrl) => {
         <View style={{ height: "100%", width: "100%" }}>
           <Text style={[styles.property, { marginTop: 20, paddingHorizontal: 16 }]}>Mortgage Calculator</Text>
 
-          <View style={[styles.addresss, { height: 2000 }]}>
-            <WebView
-              style={{ height: 2000, }}
-              scrollEnabled={true}
-              nestedScrollEnabled
-              source={{ uri: calData?.moartage_details }}
-              onLoad={console.log("loaded")}
-            />
-
+          {/* <View style={[styles.addresss, { height: "100%" }]}> */}
+          <ScrollView style={[styles.addresss1, { flex: 1, flexGrow: 1 , height: "100%" }]}>
+  <WebView
+    style={{ flex: 1, height: 2300 }}
+   // scrollEnabled={true}
+    //nestedScrollEnabled
+    source={{ uri: calData?.moartage_details }}
+    onLoad={() => console.log("loaded")}
+  />
+</ScrollView>
           </View>
 
-        </View>
+        {/* </View> */}
 
       </>
     )
@@ -699,8 +701,8 @@ const ViewPropertiy = (props, imageUrl) => {
                   }}>
                     <View style={{ width: "100%" }}>
                       {/* <Text style={{ color: "black" }}>{item.schools_id}</Text> */}
-                      <Text style={{ color: Colors.black, fontSize: 12, fontFamily: "Poppins-Medium", marginBottom: 8 }}>{item.schools_name}</Text>
-                      <Text style={{ color: Colors.black, fontSize: 12, fontFamily: "Poppins-Light", lineHeight: 23 }}>{item.school_summary}</Text>
+                      <Text style={{ color: Colors.black, fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12, fontFamily: "Poppins-Medium", marginBottom: 8 }}>{item.schools_name}</Text>
+                      <Text style={{ color: Colors.black, fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12, fontFamily: "Poppins-Light", lineHeight: 23 }}>{item.school_summary}</Text>
                       {/* <TouchableOpacity onPress={() => handleLinkPress(item.school_website)}>
                         <Text style={{ color: Colors.black, fontSize: 13, fontFamily: "Poppins-Medium" }}>School link:-   <Text style={{ color: Colors.surfblur, fontSize: 12, fontFamily: "Poppins-Regular" }}>{item.school_website}</Text></Text>
 
@@ -773,14 +775,17 @@ const ViewPropertiy = (props, imageUrl) => {
 
               <TouchableOpacity
                 style={{
-                  alignItems: 'center',
                   position: "absolute",
                   left: 5,
                   top: -2,
-
                   flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  alignItems: 'flex-start',
+          
+                  justifyContent: 'flex-start',
+           
+                 // backgroundColor:"green",
+      width:50,
+      height:50,
                   shadowColor: 'black',
                   shadowOffset: { width: 1, height: 2 },
                   shadowOpacity: 0.3,
@@ -836,7 +841,7 @@ const ViewPropertiy = (props, imageUrl) => {
                     props.route.params.from === 'MyFavorites' || props.route.params.from === 'Home' ?
                       <View
                         style={{
-                          height: cardWidth, width: cardWidth - 16, backgroundColor: "red",
+                          height: cardWidth, width: cardWidth - 16,  backgroundColor: Colors.white,
                           borderRadius: 15,
                           overflow: "hidden",
                           top: 8,
@@ -913,7 +918,7 @@ const ViewPropertiy = (props, imageUrl) => {
                       width: cardWidth,
                       height: cardWidth + 180
                     }}>
-                      <TouchableOpacity
+                      <TouchableOpacity style={{ backgroundColor: Colors.white,}}
                         onPress={() => navigation.navigate('ViewPropertiyImage', { postid: postid.ID })}>
                         <Image
                           style={{
@@ -945,7 +950,7 @@ const ViewPropertiy = (props, imageUrl) => {
                           style={{
                             flexDirection: 'row',
                             justifyContent: 'center',
-                            alignItems: 'center',
+                            alignItems: 'center', backgroundColor: Colors.white,
                           }}>
                           <TouchableOpacity
                             onPress={() => {
@@ -995,12 +1000,12 @@ const ViewPropertiy = (props, imageUrl) => {
                       <Text
 
                         style={{
-                          fontSize: 25,
+                          fontSize:  DeviceInfo.getDeviceType() === 'Tablet'?35:25,
                           color: "#1450B1",
                           fontWeight: '500',
                           fontFamily: 'Poppins-Medium',
                           width: "100%",
-                          textAlign: "center"
+                          textAlign: "center", backgroundColor: Colors.white,
                         }}>
                         {item?.price}
 
@@ -1013,16 +1018,17 @@ const ViewPropertiy = (props, imageUrl) => {
                           justifyContent: 'center',
                           backgroundColor: Colors.white,
                           paddingHorizontal: 12,
-                          marginBottom: 8
+                          paddingBottom: 8
                         }}>
                         <Text
 
                           style={{
-                            fontSize: 16,
+                            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:16,
                             color: Colors.black,
                             marginHorizontal: 8,
                             textAlign: 'center',
                             fontFamily: 'Poppins-Light',
+                            backgroundColor: Colors.white,
                           }}
                           numberOfLines={1}
                           >
@@ -1065,22 +1071,22 @@ const ViewPropertiy = (props, imageUrl) => {
                                   justifyContent: 'center',
                                   alignItems: 'center',
                                   // backgroundColor: "red",
-                                  width: 60,
+                                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:60,
                                 }}>
                                 <View
                                   style={{ justifyContent: 'center', alignItems: 'center' }}>
                                   <Image
                                     source={Images.newbed}
                                     style={{
-                                      height: 21,
-                                      width: 28,
+                                      height: DeviceInfo.getDeviceType() === 'Tablet'?36:21,
+                                      width: DeviceInfo.getDeviceType() === 'Tablet'?49:28,
                                       resizeMode: 'contain',
                                       //backgroundColor: "green",
                                       marginBottom: 5
                                     }}></Image>
                                   <Text
                                     style={{
-                                      fontSize: 11,
+                                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                                       color: Colors.black,
                                       textAlign: 'center',
                                       fontFamily: 'Poppins-Light',
@@ -1096,21 +1102,22 @@ const ViewPropertiy = (props, imageUrl) => {
                                 style={{
                                   justifyContent: 'center',
                                   alignItems: 'center',
-                                  width: 60,
+                                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:60,
                                 }}>
                                 <View
                                   style={{ justifyContent: 'center', alignItems: 'center' }}>
                                   <Image
                                     source={Images.bathtub}
                                     style={{
-                                      height: 26,
-                                      width: 28,
+                                     
+                                      height: DeviceInfo.getDeviceType() === 'Tablet'?44:26,
+                                      width: DeviceInfo.getDeviceType() === 'Tablet'?49:28,
                                       resizeMode: 'contain',
                                       marginBottom: 5
                                     }}></Image>
                                   <Text
                                     style={{
-                                      fontSize: 11,
+                                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                                       color: Colors.black,
                                       textAlign: 'center',
                                       fontFamily: 'Poppins-Light',
@@ -1130,21 +1137,21 @@ const ViewPropertiy = (props, imageUrl) => {
                                 style={{
                                   justifyContent: 'center',
                                   alignItems: 'center',
-                                  width: 60,
+                                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:60,
                                 }}>
                                 <View
                                   style={{ justifyContent: 'center', alignItems: 'center' }}>
                                   <Image
                                     source={Images.measuringtape}
                                     style={{
-                                      height: 26,
-                                      width: 27,
+                                      height: DeviceInfo.getDeviceType() === 'Tablet'?45:26,
+                                      width: DeviceInfo.getDeviceType() === 'Tablet'?47:27,
                                       resizeMode: 'contain',
                                       marginBottom: 5
                                     }}></Image>
                                   <Text
                                     style={{
-                                      fontSize: 11,
+                                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                                       color: Colors.black,
                                       textAlign: 'center',
                                       fontFamily: 'Poppins-Light',
@@ -1161,21 +1168,21 @@ const ViewPropertiy = (props, imageUrl) => {
                                 style={{
                                   justifyContent: 'center',
                                   alignItems: 'center',
-                                  width: 60,
+                                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:60,
                                 }}>
                                 <View
                                   style={{ justifyContent: 'center', alignItems: 'center' }}>
                                   <Image
                                     source={Images.hoa2}
                                     style={{
-                                      height: 26,
-                                      width: 27,
+                                      height: DeviceInfo.getDeviceType() === 'Tablet'?47:26,
+                                      width: DeviceInfo.getDeviceType() === 'Tablet'?51:27,
                                       resizeMode: 'contain',
                                       marginBottom: 5
                                     }}></Image>
                                   <Text
                                     style={{
-                                      fontSize: 11,
+                                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                                       color: Colors.black,
                                       textAlign: 'center',
                                       fontFamily: 'Poppins-Light',
@@ -1192,22 +1199,22 @@ const ViewPropertiy = (props, imageUrl) => {
                                 style={{
                                   justifyContent: 'center',
                                   alignItems: 'center',
-                                  width: 60,
+                                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:60,
                                 }}>
                                 <View
                                   style={{ justifyContent: 'center', alignItems: 'center' }}>
                                   <Image
                                     source={Images.taxnew}
                                     style={{
-                                      height: 27,
-                                      width: 25,
+                                      height: DeviceInfo.getDeviceType() === 'Tablet'?47:27,
+                                      width: DeviceInfo.getDeviceType() === 'Tablet'?43:25,
                                       marginTop: 0,
                                       resizeMode: 'contain',
                                       marginBottom: 5
                                     }}></Image>
                                   <Text
                                     style={{
-                                      fontSize: 11,
+                                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                                       color: Colors.black,
                                       textAlign: 'center',
                                       fontFamily: 'Poppins-Light',
@@ -1223,22 +1230,22 @@ const ViewPropertiy = (props, imageUrl) => {
                                 style={{
                                   justifyContent: 'center',
                                   alignItems: 'center',
-                                  width: 60,
+                                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:60,
                                 }}>
                                 <View
                                   style={{ justifyContent: 'center', alignItems: 'center' }}>
                                   <Image
                                     source={Images.cals}
                                     style={{
-                                      height: 30,
-                                      width: 30,
+                                      height: DeviceInfo.getDeviceType() === 'Tablet'?34:30,
+                                      width: DeviceInfo.getDeviceType() === 'Tablet'?40:30,
                                       marginTop: 0,
                                       resizeMode: 'contain',
                                       marginBottom: 5
                                     }}></Image>
                                   <Text
                                     style={{
-                                      fontSize: 11,
+                                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                                       color: Colors.black,
                                       textAlign: 'center',
                                       fontFamily: 'Poppins-Light',
@@ -1277,11 +1284,12 @@ const ViewPropertiy = (props, imageUrl) => {
               <Text
                 numberOfLines={property?.ID == readmore ? 0 : 100}
                 style={{
-                  fontSize: 11,
+                  fontSize: DeviceInfo.getDeviceType() === 'Tablet'?21:11,
                   flexDirection: 'row',
                   color: Colors.black,
                   width: '100%',
-                  fontFamily: "Poppins-Light", lineHeight: 22
+                  fontFamily: "Poppins-Light", lineHeight: 22,
+                  marginTop:DeviceInfo.getDeviceType() === 'Tablet'?16:0,
                 }}>
                 {typeof property?.content.rendered === 'string' ? (
                   <>
@@ -1297,7 +1305,7 @@ const ViewPropertiy = (props, imageUrl) => {
               </Text>
               <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", width: "100%" }}
                 onPress={() => setShowFullContent(!showFullContent)}>
-                <Text style={{ color: "#1450B1", marginVertical: 10, fontSize: 11, fontFamily: "Poppins-Medium" }}>{showFullContent ? 'Show Less' : 'Read More'}</Text>
+                <Text style={{ color: "#1450B1", marginVertical: 10, fontSize:DeviceInfo.getDeviceType() === 'Tablet'?20:11, fontFamily: "Poppins-Medium" }}>{showFullContent ? 'Show Less' : 'Read More'}</Text>
               </TouchableOpacity>
 
             </>
@@ -1322,13 +1330,13 @@ const ViewPropertiy = (props, imageUrl) => {
                         <Image
                           source={Images.details}
                           style={{
-                            height: 21,
-                            width: 22,
+                            height: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
+                            width: DeviceInfo.getDeviceType() === 'Tablet'?40:21,
                             resizeMode: 'contain',
                             tintColor: selectedTab == 0 ? "#0165C5" : Colors.black,
                           }}></Image>
                         <Text style={{
-                          fontSize: 11,
+                          fontSize: DeviceInfo.getDeviceType() === 'Tablet'?21:11,
                           color: selectedTab == 0 ? "#0165C5" : Colors.black,
                           borderBottomColor: selectedTab == 0 ? "#0165C5" : Colors.white,
                           borderBottomWidth: selectedTab == 0 ? 1 : 0,
@@ -1349,13 +1357,14 @@ const ViewPropertiy = (props, imageUrl) => {
                       <Image
                         source={Images.featuresnew}
                         style={{
-                          height: 22,
-                          width: 21,
+                     
+                          height: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
+                          width: DeviceInfo.getDeviceType() === 'Tablet'?31:21,
                           resizeMode: 'contain',
                           tintColor: selectedTab == 1 ? "#0165C5" : Colors.black,
                         }}></Image>
                       <Text style={{
-                        fontSize: 11,
+                        fontSize: DeviceInfo.getDeviceType() === 'Tablet'?21:11,
                         color: selectedTab == 1 ? "#0165C5" : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
@@ -1373,13 +1382,13 @@ const ViewPropertiy = (props, imageUrl) => {
                       <Image
                         source={Images.mapnew}
                         style={{
-                          height: 20,
-                          width: 20,
+                          height: DeviceInfo.getDeviceType() === 'Tablet'?47:20,
+                          width: DeviceInfo.getDeviceType() === 'Tablet'?52:20,
                           resizeMode: 'contain',
                           tintColor: selectedTab == 2 ? "#0165C5" : Colors.black,
                         }}></Image>
                       <Text style={{
-                        fontSize: 11,
+                      fontSize: DeviceInfo.getDeviceType() === 'Tablet'?21:11,
                         color: selectedTab == 2 ? "#0165C5" : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
@@ -1397,13 +1406,13 @@ const ViewPropertiy = (props, imageUrl) => {
                       <Image
                         source={Images.payment}
                         style={{
-                          height: 20,
-                          width: 20,
+                          height: DeviceInfo.getDeviceType() === 'Tablet'?42:20,
+                          width: DeviceInfo.getDeviceType() === 'Tablet'?42:20,
                           resizeMode: 'contain',
                           tintColor: selectedTab == 6 ? "#0165C5" : Colors.black,
                         }}></Image>
                       <Text style={{
-                        fontSize: 11,
+                        fontSize: DeviceInfo.getDeviceType() === 'Tablet'?21:11,
                         color: selectedTab == 6 ? "#0165C5" : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
@@ -1433,13 +1442,13 @@ const ViewPropertiy = (props, imageUrl) => {
                       <Image
                         source={Images.nearBy1}
                         style={{
-                          height: 20,
-                          width: 20,
+                          height: DeviceInfo.getDeviceType() === 'Tablet'?48:20,
+                          width: DeviceInfo.getDeviceType() === 'Tablet'?52:20,
                           resizeMode: 'contain',
                           tintColor: selectedTab == 3 ? "#0165C5" : Colors.black,
                         }}></Image>
                       <Text style={{
-                        fontSize: 11,
+                        fontSize: DeviceInfo.getDeviceType() === 'Tablet'?21:11,
                         color: selectedTab == 3 ? "#0165C5" : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
@@ -1459,11 +1468,13 @@ const ViewPropertiy = (props, imageUrl) => {
                         style={{
                           height: 20,
                           width: 20,
+                          height: DeviceInfo.getDeviceType() === 'Tablet'?46:20,
+                          width: DeviceInfo.getDeviceType() === 'Tablet'?48:20,
                           resizeMode: 'contain',
                           tintColor: selectedTab == 7 ? "#0165C5" : Colors.black,
                         }}></Image>
                       <Text style={{
-                        fontSize: 11,
+                        fontSize: DeviceInfo.getDeviceType() === 'Tablet'?21:11,
                         color: selectedTab == 7 ? "#0165C5" : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
@@ -1503,13 +1514,13 @@ const ViewPropertiy = (props, imageUrl) => {
                       <Image
                         source={Images.cloudysun}
                         style={{
-                          height: 20,
-                          width: 20,
+                          height: DeviceInfo.getDeviceType() === 'Tablet'?47:20,
+                          width: DeviceInfo.getDeviceType() === 'Tablet'?55:20,
                           resizeMode: 'contain',
                           tintColor: selectedTab == 5 ? "#0165C5" : Colors.black,
                         }}></Image>
                       <Text style={{
-                        fontSize: 11,
+                        fontSize: DeviceInfo.getDeviceType() === 'Tablet'?21:11,
                         color: selectedTab == 5 ? "#0165C5" : Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Regular',
@@ -1811,7 +1822,7 @@ const ViewPropertiy = (props, imageUrl) => {
         </ScrollView >
 
       </SafeAreaView >
-      <View
+    <View
         style={{
           flexDirection: 'row',
           width: '100%',
@@ -1844,24 +1855,12 @@ const ViewPropertiy = (props, imageUrl) => {
                 marginRight: 10
               }}
               onPress={() => {
-                // setProductId(postID.postid.ID);
-                // setReviewTitle(postID.postid.title);
-                // toggleModal();
                 makePhoneCall()
               }}>
               <Image
                 source={Images.newcall}
-                style={{ height: 29, width: 29, resizeMode: 'contain' }}></Image>
-              {/* <Text
-                style={{
-                  fontSize: 14,
-                  color: Colors.black,
-                  textAlign: 'center',
-                  marginLeft: 5,
-                  fontFamily: 'Poppins-Regular',
-                }}>
-                Call
-              </Text> */}
+                style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?58:29, width: DeviceInfo.getDeviceType() === 'Tablet'?58:29, resizeMode: 'contain' }}></Image>
+   
             </TouchableOpacity>
           </View>
           <View
@@ -1879,17 +1878,8 @@ const ViewPropertiy = (props, imageUrl) => {
               onPress={() => navigation.navigate('ChatSearch')}>
               <Image
                 source={Images.chatnew}
-                style={{ height: 28, width: 28, resizeMode: 'contain' }}></Image>
-              {/* <Text
-                style={{
-                  fontSize: 14,
-                  color: Colors.black,
-                  textAlign: 'center',
-                  marginLeft: 5,
-                  fontFamily: 'Poppins-Regular',
-                }}>
-                Chat
-              </Text> */}
+                style={{ height:  DeviceInfo.getDeviceType() === 'Tablet'?60:28, width: DeviceInfo.getDeviceType() === 'Tablet'?60:28, resizeMode: 'contain' }}></Image>
+       
             </TouchableOpacity>
           </View>
         </View>
@@ -1918,12 +1908,11 @@ const ViewPropertiy = (props, imageUrl) => {
 
           <Text
             style={{
-              fontSize: 13,
+              fontSize:  DeviceInfo.getDeviceType() === 'Tablet'?21:13,
               color: Colors.surfblur,
               textAlign: 'center',
               marginLeft: 5,
               fontFamily: 'Poppins-Medium',
-              //  paddingTop:2
               position: "relative",
               top: 2,
               letterSpacing: 0
@@ -1932,7 +1921,8 @@ const ViewPropertiy = (props, imageUrl) => {
             Schedule a Tour
           </Text>
          <LottieView 
-          style={{ height: 50, width: 50 }} 
+          style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?70:50, 
+          width: DeviceInfo.getDeviceType() === 'Tablet'?70:50 }} 
           source={require('../../assets/animations/SurfVan.json')} 
           autoPlay loop /> 
 
@@ -1941,7 +1931,7 @@ const ViewPropertiy = (props, imageUrl) => {
         </TouchableOpacity>
 
 
-      </View>
+      </View> 
 
 
 
@@ -2110,7 +2100,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   property: {
-    fontSize: 15,
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?25:15,
     color: Colors.black,
     //fontWeight: 'bold',
     fontFamily: "Poppins-Medium"
@@ -2177,12 +2167,12 @@ const styles = StyleSheet.create({
   addresss: {
 
     width: '100%',
-    justifyContent: 'center',
+  justifyContent: 'center',
 
 
   },
   props: {
-    fontSize: 12,
+    fontSize:DeviceInfo.getDeviceType() === 'Tablet'?18:12,
     color: Colors.black,
     marginTop: 5,
     fontFamily: "Poppins-Medium"

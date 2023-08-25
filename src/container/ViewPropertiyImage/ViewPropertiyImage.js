@@ -16,6 +16,8 @@ import {
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
+import DeviceInfo from 'react-native-device-info';
+
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { WebView } from 'react-native-webview';
@@ -209,7 +211,7 @@ const ViewPropertiyImage = props => {
           </TouchableOpacity>
         )}
     
-
+{/* 
           <TouchableOpacity
             style={{
               alignItems: 'center',
@@ -220,6 +222,14 @@ const ViewPropertiyImage = props => {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+      
+              justifyContent: 'flex-start',
+       
+             // backgroundColor:"green",
+  width:50,
+  height:50,
             }}
             onPress={() => navigation.goBack()}  >
              <Image
@@ -234,20 +244,16 @@ const ViewPropertiyImage = props => {
               tintColor:"white"
             }}
             source={Images.leftnewarrow}></Image>
-          </TouchableOpacity>
-     
-      </View>
+          </TouchableOpacity> */}
+       
 
-      <View
+       <View
         style={{
           flexDirection: 'row',
           width: '100%',
-          position: 'absolute',
           justifyContent: 'space-between',
-     
-          bottom:0,
           backgroundColor: "#f8f8f8",
-        paddingVertical:16,
+          paddingVertical: 8,
           alignItems: 'center',
           alignContent: 'center',
         }}>
@@ -257,7 +263,7 @@ const ViewPropertiyImage = props => {
             alignItems: 'center',
             width: '30%',
             flexDirection: 'row',
-            left:10
+            left: 10
 
           }}>
           <View
@@ -274,24 +280,12 @@ const ViewPropertiyImage = props => {
                 marginRight: 10
               }}
               onPress={() => {
-                // setProductId(postID.postid.ID);
-                // setReviewTitle(postID.postid.title);
-                // toggleModal();
                 makePhoneCall()
               }}>
               <Image
                 source={Images.newcall}
-                style={{ height: 29, width: 29, resizeMode: 'contain' }}></Image>
-              {/* <Text
-                style={{
-                  fontSize: 14,
-                  color: Colors.black,
-                  textAlign: 'center',
-                  marginLeft: 5,
-                  fontFamily: 'Poppins-Regular',
-                }}>
-                Call
-              </Text> */}
+                style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?58:29, width: DeviceInfo.getDeviceType() === 'Tablet'?58:29, resizeMode: 'contain' }}></Image>
+   
             </TouchableOpacity>
           </View>
           <View
@@ -309,17 +303,8 @@ const ViewPropertiyImage = props => {
               onPress={() => navigation.navigate('ChatSearch')}>
               <Image
                 source={Images.chatnew}
-                style={{ height: 28, width: 28, resizeMode: 'contain' }}></Image>
-              {/* <Text
-                style={{
-                  fontSize: 14,
-                  color: Colors.black,
-                  textAlign: 'center',
-                  marginLeft: 5,
-                  fontFamily: 'Poppins-Regular',
-                }}>
-                Chat
-              </Text> */}
+                style={{ height:  DeviceInfo.getDeviceType() === 'Tablet'?60:28, width: DeviceInfo.getDeviceType() === 'Tablet'?60:28, resizeMode: 'contain' }}></Image>
+       
             </TouchableOpacity>
           </View>
         </View>
@@ -336,37 +321,156 @@ const ViewPropertiyImage = props => {
             alignItems: 'center',
             flexDirection: 'row',
             alignSelf: 'center',
-            //backgroundColor: Colors.surfblur,
             borderRadius: 50,
-            //paddingVertical: 8,
             paddingHorizontal: 16,
             lineHeight: 12,
-            marginRight:10,
-            borderWidth:2,
-            borderColor:Colors.surfblur
+            marginRight: 10,
+            borderWidth: 2,
+            borderColor: Colors.surfblur,
+
           }}
         >
-          
+
           <Text
             style={{
-              fontSize: 13,
+              fontSize:  DeviceInfo.getDeviceType() === 'Tablet'?21:13,
               color: Colors.surfblur,
               textAlign: 'center',
               marginLeft: 5,
               fontFamily: 'Poppins-Medium',
-              //  paddingTop:2
               position: "relative",
               top: 2,
-              letterSpacing:0
+              letterSpacing: 0
             }}
           >
-          Schedule a Tour
+            Schedule a Tour
           </Text>
-          <LottieView  style={{ height: 50, width:50}} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+         <LottieView 
+          style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?70:50, 
+          width: DeviceInfo.getDeviceType() === 'Tablet'?70:50 }} 
+          source={require('../../assets/animations/SurfVan.json')} 
+          autoPlay loop /> 
+
+
+
         </TouchableOpacity>
 
 
+      </View> 
+
       </View>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          width: '100%',
+          justifyContent: 'space-between',
+          backgroundColor: "#f8f8f8",
+          paddingVertical: 8,
+          alignItems: 'center',
+          alignContent: 'center',
+        }}>
+        <View
+          style={{
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '30%',
+            flexDirection: 'row',
+            left: 10
+
+          }}>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignContent: 'center',
+            }}>
+            <TouchableOpacity
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignContent: 'center',
+                marginRight: 10
+              }}
+              onPress={() => {
+                makePhoneCall()
+              }}>
+              <Image
+                source={Images.newcall}
+                style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?58:29, width: DeviceInfo.getDeviceType() === 'Tablet'?58:29, resizeMode: 'contain' }}></Image>
+   
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <TouchableOpacity
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignContent: 'center',
+              }}
+
+              onPress={() => navigation.navigate('ChatSearch')}>
+              <Image
+                source={Images.chatnew}
+                style={{ height:  DeviceInfo.getDeviceType() === 'Tablet'?60:28, width: DeviceInfo.getDeviceType() === 'Tablet'?60:28, resizeMode: 'contain' }}></Image>
+       
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('ChatSearch', {
+              initialMessage: 'When would you like to schedule a showing?',
+              agentReply: 'A Lokal agent will confirm with you within the next 2 hours',
+            });
+          }}
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+            alignSelf: 'center',
+            borderRadius: 50,
+            paddingHorizontal: 16,
+            lineHeight: 12,
+            marginRight: 10,
+            borderWidth: 2,
+            borderColor: Colors.surfblur,
+
+          }}
+        >
+
+          <Text
+            style={{
+              fontSize:  DeviceInfo.getDeviceType() === 'Tablet'?21:13,
+              color: Colors.surfblur,
+              textAlign: 'center',
+              marginLeft: 5,
+              fontFamily: 'Poppins-Medium',
+              position: "relative",
+              top: 2,
+              letterSpacing: 0
+            }}
+          >
+            Schedule a Tour
+          </Text>
+         <LottieView 
+          style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?70:50, 
+          width: DeviceInfo.getDeviceType() === 'Tablet'?70:50 }} 
+          source={require('../../assets/animations/SurfVan.json')} 
+          autoPlay loop /> 
+
+
+
+        </TouchableOpacity>
+
+
+      </View> 
+
       <Modal
         transparent={true}
         animationType="slide"

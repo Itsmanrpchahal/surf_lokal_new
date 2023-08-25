@@ -27,6 +27,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Loader from '../../components/Loader';
 import { ScrollView } from 'react-native-gesture-handler';
 import { propertyChatList } from '../../modules/propertyChats'
+import DeviceInfo from 'react-native-device-info';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -434,7 +435,9 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={isImage ? Images.upgreen : Images.upthumb}
-                  style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+                  style={{height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                  width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                  resizeMode: 'contain' }} />
                 <Text style={styles.text}>My Favorites</Text>
               </View>
               <View style={styles.line}></View>
@@ -451,7 +454,9 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.savedSearch}
-                  style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+                  style={{height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                  width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                  resizeMode: 'contain' }} />
                 <Text style={styles.text}>Saved Searches</Text>
               </View>
               <View style={styles.line}></View>
@@ -468,11 +473,15 @@ const MyFavorites = () => {
                 <View style={{ position: "relative" }}>
                   <Image
                     source={Images.notification}
-                    style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+                    style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                    width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                    resizeMode: 'contain' }} />
                   <Text style={{
-                    position: "absolute", backgroundColor: "red", right: -8, bottom: -5,
-                    height: 15, width: 15, borderRadius: 100, color: Colors.white,
-                    textAlign: "center", fontSize: 9, alignItems: "center",
+                    position: "absolute", backgroundColor: "red", right: DeviceInfo.getDeviceType() === 'Tablet'?-12:-8, bottom: DeviceInfo.getDeviceType() === 'Tablet'?-10:-5,
+                    height: DeviceInfo.getDeviceType() === 'Tablet'?25:15,
+                    width:  DeviceInfo.getDeviceType() === 'Tablet'?25:15,
+                   borderRadius: 100, color: Colors.white,
+                    textAlign: "center", fontSize: DeviceInfo.getDeviceType() === 'Tablet'?15:9, alignItems: "center",
                     justifyContent: "center"
                   }}>2</Text></View>
                 <Text style={styles.text}>Notifications</Text>
@@ -490,7 +499,9 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.contactAgent}
-                  style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+                  style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                  width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                  resizeMode: 'contain' }} />
                 <Text style={styles.text}>Contact my agent</Text>
               </View>
               <View style={styles.line}></View>
@@ -506,7 +517,9 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.surfReward}
-                  style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+                  style={{  height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                  width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                  resizeMode: 'contain' }} />
                 <Text style={styles.text}>Rewards</Text>
               </View>
               <View style={styles.line}></View>
@@ -541,7 +554,9 @@ const MyFavorites = () => {
                 <TouchableOpacity>
                   <Image
                     source={isImageChanged ? Images.redlike : Images.deletethumb}
-                    style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+                    style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                    width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                    resizeMode: 'contain' }} />
                 </TouchableOpacity>
                 <Text style={styles.text}>Recycle Bin</Text>
               </View>
@@ -559,7 +574,11 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.contactsurf}
-                  style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+                  style={{ 
+                     height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                  width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                  resizeMode: 'contain'
+                   }} />
                 <Text style={styles.text}>Contact surf lokal</Text>
               </View>
               <View style={styles.line}></View>
@@ -579,7 +598,10 @@ const MyFavorites = () => {
                   <TouchableOpacity>
                     <Image
                       source={isImageChanged ? Images.chatnew : Images.chatnew}
-                      style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+                      style={{ 
+                        height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                         width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+                          resizeMode: 'contain' }} />
                   </TouchableOpacity>
                   <Text style={styles.text}>Chat History</Text>
                 </View>
@@ -616,7 +638,7 @@ const styles = StyleSheet.create({
     // marginHorizontal: 50
   },
   text: {
-    fontSize: 14,
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?20:14,
     color: Colors.black,
     marginLeft: 8,
     fontFamily: 'Poppins-Regular'
