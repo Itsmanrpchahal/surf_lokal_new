@@ -1532,9 +1532,9 @@ const Home = () => {
 }/>
             </View>
           } */}
-          {homeData.length > 0 ? (
+          {homeData?.length > 0 ? (
             <View>
-              {!showMap && homeData.length > 0 ? (
+              {!showMap && homeData?.length > 0 ? (
                 <View style={{height: width, width: width, marginTop: 10}}>
                   <CardsSwipe
                     style={{

@@ -106,31 +106,6 @@ const BookaTour = (props) => {
     }
 
 
-    const handleTimeSelection = (event, selectedTime) => {
-        const currentDate = selectedTime || new Date();
-        setSelectedTime(currentDate);
-        setTimePickerVisible(false)
-        console.log('jfhjfjfj11', selectedTime)
-        setMessage("");
-        const updatedRes = res.map((item) => {
-            if (item.type === 0) {
-                return {
-                    ...item,
-                    message: selectedDate.toDateString() + " , " + new Date(selectedTime).getHours() + ":" + new Date(selectedTime).getMinutes(),
-                };
-            }
-            return item;
-        });
-
-        const initialReply = {
-            type: 1,
-            message: "A Lokal agent will confirm with you within the next 2 hours",
-        };
-        setRes([...updatedRes, initialReply]);
-        getBookTourAPicall()
-
-    };
-
     return (
         <SafeAreaView>
             <View style={{ height: "100%", position: "relative", paddingBottom: 100 }}>
