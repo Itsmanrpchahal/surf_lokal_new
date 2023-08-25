@@ -38,7 +38,7 @@ export const uploadImageAPI = async (url, data, header = {}) => {
       url: url,
       timeout: 1000 * 60, //Time out of 60 Sec
       data: data,
-      headers: {'Content-Type': 'multipart/form-data'},
+      headers: header,
     });
   } else {
     /* throw error for No internet connection */

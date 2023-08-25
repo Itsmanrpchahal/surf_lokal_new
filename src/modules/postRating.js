@@ -1,24 +1,44 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { postAPI } from '../config/apiMethod';
-import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
+import { uploadImageAPI } from '../config/apiMethod';
 
-export const postRating = createAsyncThunk('postRating', async (_, { dispatch }) => {
+export const postRating = createAsyncThunk('postRating', async (_, { dispatch, getState }) => {
   try {
     const access_token = await AsyncStorage.getItem('access_token');
-    const Header = {
+    const header = {
       security_key: "SurfLokal52",
-      access_token: access_token
+      access_token: access_token,
     };
-    console.log("postRating access_token", access_token);
 
-    const response = await postAPI(BASEURl + 'webapi/v1/rating/',dispatch, Header);
+    "access_token,postid,photo_quality_rating,desc_stars,price_stars,interest_stars,content,reviewtitle fields are required!"
+
+    const formData = new FormData();
+    formData.append('userID', 100);
+    formData.append('postid', 1609047);
+    formData.append('reviewtitle', 'hjvjbm');
+    formData.append('photo_quality_rating', 4);
+    formData.append('desc_stars', 2);
+    formData.append('price_stars', 1);
+    formData.append('interest_stars', 5);
+    formData.append('content', 'hjvhjhjb');
+    const response = await uploadImageAPI(
+      'https://www.surflokal.com/webapi/v1/rating/',
+      formData,
+      header
+    ).then((res)=>{
+      console.log('Post Ratinmg ====> ',res)
+    }).catch((e) => {
+      console.log('Post rating catch ===> ',e)
+    })
+
     const { data } = response;
-    console.log("postRating response", response);
+    console.log('postRating response', response);
 
     return data;
   } catch (error) {
-    console.error("postRating error", error);
+    console.error('postRating error', error);
+    throw error; // Re-throw the error so that it's captured by the rejected action
   }
 });
 

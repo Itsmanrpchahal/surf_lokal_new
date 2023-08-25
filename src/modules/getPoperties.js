@@ -34,12 +34,12 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
       : type.type === 2
         ?
         await uploadImageAPI(
-          BASEURl + 'wp-json/search/websearch',
+          BASEURl + 'wp-json/search/websearch',Header,
           type.data,
         )
           .then(async response => {
             const { data } = response;
-            console.log("access_token", access_token)
+            console.log("access_token", data)
 
             return data;
           })

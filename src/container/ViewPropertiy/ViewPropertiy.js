@@ -383,7 +383,7 @@ const ViewPropertiy = (props, imageUrl) => {
     dispatch(postRating(formData)).then(response => {
       ;
       if (response.payload.success) {
-        Alert.alert('Alert', response.payload.message);
+        // Alert.alert('Alert', response.payload.message);
         toggleModal();
       } else {
         toggleModal();
