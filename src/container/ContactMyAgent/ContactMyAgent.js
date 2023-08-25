@@ -94,11 +94,14 @@ const ContactMyAgent = () => {
 
 
   const fetchAgentData = async () => {
-    const id = await AsyncStorage.getItem('userId');
-
+    const access_token = await AsyncStorage.getItem('access_token')
+    const Header={
+      security_key:"SurfLokal52",
+      access_token:access_token
+    }
     try {
       const response = await axios.get(
-        BASEURl + 'webapi/v1/agent/?userID=' + id
+        BASEURl + 'webapi/v1/agent/?userID=' + id,Header
       );
       if (response.data.success) {
         const agentData = response.data.data[0];

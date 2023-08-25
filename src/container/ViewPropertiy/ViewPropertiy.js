@@ -77,7 +77,7 @@ const ViewPropertiy = (props, imageUrl) => {
   const [rating1, setRating1] = useState(0);
   const [rating2, setRating2] = useState(0);
   const [rating3, setRating3] = useState(0);
-  const [commentContent, setComentContent] = useState('');
+  const [commentContent, setComentContent] = useState('dada');
 
   const [review, setReview] = useState('');
   const [productId, setProductId] = useState('');
@@ -366,30 +366,38 @@ const ViewPropertiy = (props, imageUrl) => {
       }
     });
   };
-  const addReview = async post_id => {
+  const addReview = async (post_id) => {
     const id = await AsyncStorage.getItem('userId');
     const formData = new FormData();
     formData.append('userID', id);
     formData.append('postid', productId);
-    formData.append('comment_content', commentContent);
-    formData.append('review_title', reviewTitle);
+    formData.append('reviewtitle', reviewTitle);
     formData.append('photo_quality_rating', rating);
     formData.append('desc_stars', rating1);
     formData.append('price_stars', rating2);
     formData.append('interest_stars', rating3);
     formData.append('content', commentContent);
 
-    console.log("addddddddddd ratingggggg", formData)
+    let data = {
+      userID :id,
+      postid:productId,
+      reviewtitle:reviewTitle,
+      photo_quality_rating:rating,
+      desc_stars:rating1,
+      price_stars:rating2,
+      interest_stars:rating3,
+      content:'kjbnjkn'
+    }
 
-    dispatch(postRating(formData)).then(response => {
-      ;
-      if (response.payload.success) {
-        // Alert.alert('Alert', response.payload.message);
-        toggleModal();
-      } else {
-        toggleModal();
-        Alert.alert('Alert', response.payload.message);
-      }
+    dispatch(postRating(data)).then(response => {
+      alert(JSON.stringify(response.payload))  
+      // if (response.payload.success) {
+      //   // Alert.alert('Alert', response.payload.message);
+      //   toggleModal();
+      // } else {
+      //   toggleModal();
+      //   Alert.alert('Alert', response.payload.message);
+      // }
       // setFilterData(response.payload.data);
     });
   };
@@ -964,7 +972,7 @@ const ViewPropertiy = (props, imageUrl) => {
                                 setRating1(response?.payload?.data[0]?.description_review_stars)
                                 setRating2(response?.payload?.data[0]?.price_review_stars)
                                 setRating3(response?.payload?.data[0]?.interest_review_stars)
-                                console.log(" getRating response data", response?.payload?.data)
+                                // console.log(" getRating response data", response?.payload?.data)
 
                               })
                             }}>
@@ -1885,12 +1893,9 @@ const ViewPropertiy = (props, imageUrl) => {
         </View>
 
         <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('ChatSearch', {
-              initialMessage: 'When would you like to schedule a showing?',
-              agentReply: 'A Lokal agent will confirm with you within the next 2 hours',
-            });
-          }}
+         onPress={() => {
+          navigation.navigate('BookaTour', { ID: '', PropID: postid?.ID, user_id: '', user2_id: '' })
+        }}
           style={{
             justifyContent: 'center',
             alignItems: 'center',

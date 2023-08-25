@@ -7,14 +7,18 @@ import AsyncStorage from '@react-native-community/async-storage';
 export const getRewardListing = createAsyncThunk(
   "getRewardListings",
   async () => {
-    const user_id = await AsyncStorage.getItem('userId');
-
+    const access_token = await AsyncStorage.getItem('access_token')
+    const Header={
+      security_key:"SurfLokal52",
+      access_token:access_token
+    }
+  
     const urlDynamic =
-      BASEURl + "webapi/v1/rewards/reward_listing.php?user_id=" + user_id;
-    return await getAPI(urlDynamic)
+      BASEURl + "webapi/v1/rewards/reward_listing.php " ;
+    return await getAPI(urlDynamic,Header)
       .then(async (response) => {
         const { data } = response;
-
+  console.log('hkkkk',data)
         return data;
       })
       .catch((e) => {

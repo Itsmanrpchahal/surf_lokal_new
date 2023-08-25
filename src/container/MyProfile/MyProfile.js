@@ -525,7 +525,7 @@ const MyFavorites = () => {
               <View style={styles.line}></View>
             </TouchableOpacity>
           </View>
-          {/* <View style={styles.slideOuter}>
+          <View style={styles.slideOuter}>
             <TouchableOpacity onPress={() => navigation.navigate('MakeAnOffer')}
 
               activeOpacity={0.8}
@@ -541,7 +541,7 @@ const MyFavorites = () => {
               </View>
               <View style={styles.line}></View>
             </TouchableOpacity>
-          </View> */}
+          </View>
           <View style={styles.slideOuter}>
             <TouchableOpacity onPress={handleImagePress}
               activeOpacity={0.8}
