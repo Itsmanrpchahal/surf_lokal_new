@@ -9,7 +9,7 @@ import * as Animatable from 'react-native-animatable';
 import { getLeaderboard } from '../../modules/getLeaderboard';
 import { store } from '../../redux/store';
 import { getProfile } from '../../modules/getProfile';
-
+import DeviceInfo from 'react-native-device-info';
 const Leaderboard = () => {
   const [leaderboarddata, setleaderboarddata] = useState([]);
   const [getProfileData, setgetProfileData] = useState([]);
@@ -51,43 +51,43 @@ const Leaderboard = () => {
 
   return (
     <SafeAreaView style={{ backgroundColor: Colors.darbluec }}>
-         <View
+        <View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
           position: 'relative',
-          // height: 45,
           alignItems: 'center',
-          // borderBottomColor: Colors.gray,
-          // borderBottomWidth: 1,
           paddingTop: 16,
-          paddingBottom:2
-        
+          paddingBottom: 2,
         }}>
         <TouchableOpacity
           style={{
             flexDirection: 'row',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             position: 'absolute',
             left: 12,
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             // top: 12,
-            top: 13
+            top: 13,
+           // backgroundColor:"green",
+width:50,
+height:50
+
           }}
           onPress={() => {
             navigation.goBack();
           }}>
           <Image
             style={{
-              width:27,
-              height: 27,
+              width: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
+              height: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
               alignItems: 'center',
-              resizeMode:"contain",
-              tintColor:Colors.white
+              resizeMode: 'contain',
+              tintColor: Colors.white
             }}
             source={Images.leftnewarrow}></Image>
      
@@ -100,17 +100,17 @@ const Leaderboard = () => {
           }}>
           <Text
             style={{
-              fontSize: 20,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
               color: Colors.white,
               fontFamily: 'Poppins-Light',
-              lineHeight: 22,
+              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
             }}>
-          Leader Board
+         Leader Board
           </Text>
      
         </View>
-  
         <TouchableOpacity
+
           style={{
             position:"absolute",
     right:10,
@@ -125,6 +125,47 @@ const Leaderboard = () => {
             animation="flipInY"
           />
         </TouchableOpacity>
+
+        {/* <TouchableOpacity
+              onPress={() => {
+              
+              }}
+              activeOpacity={0.5}
+              style={{
+                height: 40,
+                width: 40,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderWidth: 1,
+                borderColor: Colors.surfblur,
+                borderRadius: 50,
+                position:"absolute",
+                right:10,
+                top:5
+              }}>
+             
+            
+                <View
+                  style={{
+                    height:35,
+                    width: 35,
+                    borderRadius: 20,
+                    backgroundColor: Colors.surfblur,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                  }}>
+               
+                    <Image
+                      style={{ height: 40, width: 40 }}
+                      source={Images.user}
+                    />
+            
+                </View>
+            
+         
+            </TouchableOpacity> */}
+
       </View>
       <View style={{ paddingTop:70, backgroundColor: Colors.darbluec, height: '100%', width: '100%', alignItems: 'flex-start' }}>
         <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>
@@ -135,13 +176,13 @@ const Leaderboard = () => {
         </View>
         <View style={{ width: '100%', marginTop: 12 }}>
           <View style={{ flexDirection: 'row', marginBottom: 20, marginHorizontal: 14, alignItems: 'flex-start' }}>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign: 'center' }}>
+            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: DeviceInfo.getDeviceType() === 'Tablet'?32:16, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign: 'center' }}>
               Rank
             </Text>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign: 'center' }}>
+            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: DeviceInfo.getDeviceType() === 'Tablet'?32:16, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign: 'center' }}>
               Score
             </Text>
-            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: 16, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign: 'center' }}>
+            <Text style={{ flex: 1, flexGrow: 1, flexShrink: 0, flexBasis: '33.33%', fontSize: DeviceInfo.getDeviceType() === 'Tablet'?32:16, color: Colors.white, fontFamily: 'Poppins-SemiBold', textAlign: 'center' }}>
               Surfer
             </Text>
           </View>
@@ -160,7 +201,7 @@ const Leaderboard = () => {
                   flexGrow: 1,
                   flexShrink: 0,
                   flexBasis: '33.33%',
-                  fontSize: 16,
+                  fontSize:DeviceInfo.getDeviceType() === 'Tablet'?32:16,
                   color: user.username === getProfileData[0]?.username ? '#2fff05' : Colors.white,
                   fontFamily: 'Poppins-SemiBold',
                   textAlign: 'center',
@@ -173,7 +214,7 @@ const Leaderboard = () => {
                   flexGrow: 1,
                   flexShrink: 0,
                   flexBasis: '33.33%',
-                  fontSize: 16,
+                  fontSize: DeviceInfo.getDeviceType() === 'Tablet'?32:16,
                   color: user.username === getProfileData[0]?.username ? '#2fff05' : Colors.white,
                   fontFamily: 'Poppins-SemiBold',
                   textAlign: 'center',
@@ -197,10 +238,10 @@ const Leaderboard = () => {
           ))}
         </View>
         <View style={{ justifyContent: 'center', alignItems: 'flex-end', width: '100%', height: '30%' }}>
-          <Text style={{ fontSize: 18, color: Colors.white, textAlign: 'center', fontFamily: 'Poppins-SemiBold', textAlign: 'center', width: '100%' }}>
+          <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?29:16, color: Colors.white, textAlign: 'center', fontFamily: 'Poppins-SemiBold', textAlign: 'center', width: '100%' }}>
             We think home buying should be fun!
           </Text>
-          <Text style={{ fontSize: 18, color: Colors.white, textAlign: 'center', fontFamily: 'Poppins-SemiBold', textAlign: 'center', width: '100%' }}>
+          <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?29:16, color: Colors.white, textAlign: 'center', fontFamily: 'Poppins-SemiBold', textAlign: 'center', width: '100%' }}>
             Here is where you rank.
           </Text>
         </View>

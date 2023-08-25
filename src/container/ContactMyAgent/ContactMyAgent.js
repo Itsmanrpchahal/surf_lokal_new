@@ -25,6 +25,7 @@ import FormData from 'form-data';
 import { idText } from 'typescript';
 import AsyncStorage from '@react-native-community/async-storage';
 import * as Animatable from 'react-native-animatable';
+import DeviceInfo from 'react-native-device-info';
 import BASEURl from '../../services/Api'
 import LottieView from 'lottie-react-native';
 
@@ -165,42 +166,42 @@ const ContactMyAgent = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-    <View
+         <View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
           position: 'relative',
-          // height: 45,
           alignItems: 'center',
-          // borderBottomColor: Colors.gray,
-          // borderBottomWidth: 1,
           paddingTop: 16,
-          paddingBottom:2
-        
+          paddingBottom: 2,
         }}>
         <TouchableOpacity
           style={{
             flexDirection: 'row',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             position: 'absolute',
             left: 12,
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             // top: 12,
-            top: 13
+            top: 13,
+           // backgroundColor:"green",
+width:50,
+height:50
+
           }}
           onPress={() => {
             navigation.goBack();
           }}>
           <Image
             style={{
-              width:27,
-              height: 27,
+              width: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
+              height: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
               alignItems: 'center',
-              resizeMode:"contain"
+              resizeMode: 'contain',
             }}
             source={Images.leftnewarrow}></Image>
      
@@ -213,17 +214,17 @@ const ContactMyAgent = () => {
           }}>
           <Text
             style={{
-              fontSize: 20,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
               color: Colors.black,
               fontFamily: 'Poppins-Light',
-              lineHeight: 22,
+              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
             }}>
-            Contact My Agent
+         Contact My Agent
           </Text>
      
         </View>
-  
         <TouchableOpacity
+
           style={{
             position:"absolute",
     right:10,
@@ -238,8 +239,48 @@ const ContactMyAgent = () => {
             animation="flipInY"
           />
         </TouchableOpacity>
+
+        {/* <TouchableOpacity
+              onPress={() => {
+              
+              }}
+              activeOpacity={0.5}
+              style={{
+                height: 40,
+                width: 40,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderWidth: 1,
+                borderColor: Colors.surfblur,
+                borderRadius: 50,
+                position:"absolute",
+                right:10,
+                top:5
+              }}>
+             
+            
+                <View
+                  style={{
+                    height:35,
+                    width: 35,
+                    borderRadius: 20,
+                    backgroundColor: Colors.surfblur,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                  }}>
+               
+                    <Image
+                      style={{ height: 40, width: 40 }}
+                      source={Images.user}
+                    />
+            
+                </View>
+            
+         
+            </TouchableOpacity> */}
+
       </View>
-    
 
       {agentData ? (
         // <ScrollView style={{ height: '100%', width: '100%' }}>

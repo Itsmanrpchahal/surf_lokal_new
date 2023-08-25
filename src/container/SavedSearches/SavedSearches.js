@@ -25,6 +25,7 @@ import { editSearch } from '../../modules/editSearch';
 import * as Animatable from 'react-native-animatable';
 import { useIsFocused } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
+import DeviceInfo from 'react-native-device-info';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const fontSizeRatio = screenHeight / 1000;
@@ -147,7 +148,7 @@ const MyFavorites = ({ navigation }) => {
                 </Text>
               )}
             </View>
-            <Text style={{ fontSize: 14, marginTop: 10, color: Colors.textColorLight, fontFamily: 'Poppins-Regular' }}>
+            <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?28:14, marginTop: 10, color: Colors.textColorLight, fontFamily: 'Poppins-Regular' }}>
               Parameters:
             </Text>
 
@@ -158,8 +159,9 @@ const MyFavorites = ({ navigation }) => {
                 style={{
                   color: 'black',
                   backgroundColor: isEditing ? Colors.gray : Colors.white,
-                  height: isEditing ? 40 : 40, borderColor: isEditing ? Colors.white : Colors.BorderColor, borderWidth: 1, padding: 12, borderRadius: 7, verticalAlign: "top",
-                  marginBottom: 12
+                  height: isEditing ? 40 : 40, borderColor: isEditing ? Colors.white : Colors.BorderColor,
+                   borderWidth: 1, padding: 12, borderRadius: 7, verticalAlign: "top",
+                  marginBottom: 12,fontSize:DeviceInfo.getDeviceType() === 'Tablet'?16:14
                 }}
                 onChangeText={text => {
                   handleChangeText(item.ID, parameterIndex, text);
@@ -190,7 +192,8 @@ const MyFavorites = ({ navigation }) => {
                     justifyContent: 'center',
                     alignItems: 'center', marginHorizontal: 5
                   }}>
-                  <Text style={{ marginHorizontal: 5, fontSize: 16, fontWeight: '600', color: Colors.white, fontFamily: 'Poppins-Regular' }}>
+                  <Text style={{ marginHorizontal: 5, fontSize: 16, 
+                    fontWeight: '600', color: Colors.white, fontFamily: 'Poppins-Regular' }}>
                     Save
                   </Text>
                 </TouchableOpacity>
@@ -198,9 +201,9 @@ const MyFavorites = ({ navigation }) => {
                 <TouchableOpacity
                   onPress={() => handleEditPress(item)}
                   style={{
-                    height: 40,
+                    height: DeviceInfo.getDeviceType() === 'Tablet'?50:40,
                     borderRadius: 40,
-                    width: 40,
+                    width:DeviceInfo.getDeviceType() === 'Tablet'?50:40,
                     backgroundColor: Colors.darbluec,
                     justifyContent: 'center',
                     alignItems: 'center', marginHorizontal: 5
@@ -208,8 +211,8 @@ const MyFavorites = ({ navigation }) => {
 
                   <Image
                     style={{
-                      width: 14,
-                      height: 14,
+                      width: DeviceInfo.getDeviceType() === 'Tablet'?28:14,
+                      height: DeviceInfo.getDeviceType() === 'Tablet'?28:14,
                       resizeMode: "contain",
                       tintColor: Colors.white
 
@@ -221,17 +224,17 @@ const MyFavorites = ({ navigation }) => {
               <TouchableOpacity
                 onPress={() => deleteSearchApiCall(item.UserID, item.ID)}
                 style={{
-                  height: 40,
+                  height: DeviceInfo.getDeviceType() === 'Tablet'?50:40,
                   borderRadius: 40,
-                  width: 40,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?50:40,
                   backgroundColor: 'red',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
                 <Image
                   style={{
-                    width: 14,
-                    height: 14,
+                    width: DeviceInfo.getDeviceType() === 'Tablet'?28:14,
+                    height:DeviceInfo.getDeviceType() === 'Tablet'?28:14,
                     resizeMode: "contain",
                     tintColor: Colors.white
 
@@ -249,7 +252,7 @@ const MyFavorites = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-     <View
+       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
@@ -257,30 +260,34 @@ const MyFavorites = ({ navigation }) => {
           position: 'relative',
           alignItems: 'center',
           paddingTop: 16,
-          paddingBottom:2
-        
+          paddingBottom: 12,
         }}>
         <TouchableOpacity
           style={{
             flexDirection: 'row',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             position: 'absolute',
             left: 12,
-            justifyContent: 'center',
-            top: 13
+            justifyContent: 'flex-start',
+            // top: 12,
+            top: 13,
+           // backgroundColor:"green",
+width:50,
+height:50
+
           }}
           onPress={() => {
             navigation.goBack();
           }}>
           <Image
             style={{
-              width:27,
-              height: 27,
+              width: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
+              height: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
               alignItems: 'center',
-              resizeMode:"contain"
+              resizeMode: 'contain',
             }}
             source={Images.leftnewarrow}></Image>
      
@@ -293,16 +300,17 @@ const MyFavorites = ({ navigation }) => {
           }}>
           <Text
             style={{
-              fontSize: 20,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
               color: Colors.black,
               fontFamily: 'Poppins-Light',
-              lineHeight: 22,
+              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
             }}>
-           Saved Searches
+          Saved Searches
           </Text>
      
         </View>
         <TouchableOpacity
+
           style={{
             position:"absolute",
     right:10,
@@ -357,6 +365,7 @@ const MyFavorites = ({ navigation }) => {
             
          
             </TouchableOpacity> */}
+
       </View>
 
       {/* <View

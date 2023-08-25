@@ -21,6 +21,7 @@ import { likeDisLike } from '../../modules/likeDislike';
 import { TypingAnimation } from 'react-native-typing-animation';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 import LottieView from 'lottie-react-native';
+import DeviceInfo from 'react-native-device-info';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const Challenges = () => {
@@ -63,43 +64,42 @@ const Challenges = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white ,}}>
-         <View
+        <View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
           position: 'relative',
-          // height: 45,
           alignItems: 'center',
-          // borderBottomColor: Colors.gray,
-          // borderBottomWidth: 1,
           paddingTop: 16,
-          paddingBottom:2
-        
+          paddingBottom: 2,
         }}>
         <TouchableOpacity
           style={{
             flexDirection: 'row',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             position: 'absolute',
             left: 12,
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             // top: 12,
-            top: 13
+            top: 13,
+           // backgroundColor:"green",
+width:50,
+height:50
+
           }}
           onPress={() => {
             navigation.goBack();
           }}>
           <Image
             style={{
-              width:27,
-              height: 27,
+              width: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
+              height: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
               alignItems: 'center',
-              resizeMode:"contain",
-              tintColor:"#8B8787"
+              resizeMode: 'contain',
             }}
             source={Images.leftnewarrow}></Image>
      
@@ -112,17 +112,17 @@ const Challenges = () => {
           }}>
           <Text
             style={{
-              fontSize: 20,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
               color: Colors.black,
               fontFamily: 'Poppins-Light',
-              lineHeight: 22,
+              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
             }}>
-         Challenges
+          Challenges
           </Text>
      
         </View>
-  
         <TouchableOpacity
+
           style={{
             position:"absolute",
     right:10,
@@ -137,6 +137,47 @@ const Challenges = () => {
             animation="flipInY"
           />
         </TouchableOpacity>
+
+        {/* <TouchableOpacity
+              onPress={() => {
+              
+              }}
+              activeOpacity={0.5}
+              style={{
+                height: 40,
+                width: 40,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderWidth: 1,
+                borderColor: Colors.surfblur,
+                borderRadius: 50,
+                position:"absolute",
+                right:10,
+                top:5
+              }}>
+             
+            
+                <View
+                  style={{
+                    height:35,
+                    width: 35,
+                    borderRadius: 20,
+                    backgroundColor: Colors.surfblur,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                  }}>
+               
+                    <Image
+                      style={{ height: 40, width: 40 }}
+                      source={Images.user}
+                    />
+            
+                </View>
+            
+         
+            </TouchableOpacity> */}
+
       </View>
      
    
@@ -168,7 +209,7 @@ const Challenges = () => {
                   >
                     <Text style={{
                       textAlign: "center", justifyContent: "center", alignItems: "center", paddingHorizontal: 12, width: screenWidth,
-                      fontSize: 18, marginTop: 20, color: Colors.black, fontFamily: 'Poppins-Regular', height: 60,
+                      fontSize: DeviceInfo.getDeviceType() === 'Tablet'?36:18, marginTop: 20, color: Colors.black, fontFamily: 'Poppins-Regular', height: 60,
                      
                     }}>
                       {"Q."}{index + 1}{" : "}{item?.post_title}</Text>
@@ -238,19 +279,7 @@ const Challenges = () => {
                     </View>
                
                   </View>
-                  <View style={{position:"absolute",bottom:40,left:0,right:0}}>
-                  <Text style={{textAlign:"center",width:"100%",fontSize:18,fontFamily:"Poppins-SemiBold",color:"#3348A3",marginBottom:20}}>Are you up for a challenge?</Text>
-                <View   style={{
-             
-              justifyContent: 'center',
-              flexDirection: 'row',
-              alignItems: 'center',
-           
-            }}> 
-            <LottieView  style={{ height: 120, width: 150,}} source={require('../../assets/animations/ChallengeScreen.json')} autoPlay loop />
-        
-            </View>
-                  </View>
+                 
                   </View>
                   
                 )
@@ -260,7 +289,8 @@ const Challenges = () => {
               }
             />
             : <>
-              <Text style={{ fontSize: 16, fontWeight: '500', marginTop: 20, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Wait for your challenges</Text>
+           
+              <Text style={{ fontSize:  DeviceInfo.getDeviceType() === 'Tablet'?32:16, fontWeight: '500', marginTop: 20, color: Colors.black, fontFamily: 'Poppins-Regular' }}>Wait for your challenges</Text>
               <TypingAnimation
                 dotColor="black"
                 dotMargin={10}
@@ -275,6 +305,20 @@ const Challenges = () => {
         }
 
       </View>
+      <View style={{position:"absolute",bottom:0,left:0,right:0}}>
+                  <Text style={{textAlign:"center",width:"100%",fontSize: DeviceInfo.getDeviceType() === 'Tablet'?34:18,
+                  fontFamily:"Poppins-SemiBold",color:"#3348A3",marginBottom:20}}>Are you up for a challenge?</Text>
+                <View   style={{
+             
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+           
+            }}> 
+            <LottieView  style={{ height: 120, width: 150,}} source={require('../../assets/animations/ChallengeScreen.json')} autoPlay loop />
+        
+            </View>
+                  </View>
     </SafeAreaView>
   )
 }
