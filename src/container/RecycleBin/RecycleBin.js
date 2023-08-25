@@ -184,7 +184,7 @@ const RecycleBin = () => {
     formData.append('price_stars', rating2);
     formData.append('interest_stars', rating3);
     formData.append('content', commentContent);
-    console.log("addddddddddd ratingggggg", formData);
+    // console.log("addddddddddd ratingggggg", formData);
     dispatch(postRating(formData)).then(response => {
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
@@ -273,7 +273,7 @@ const RecycleBin = () => {
             lineHeight: 14,
             paddingTop: 4,
           }}>
-        cbd-7767565
+       RX-{item.ListingKey}
         </Text>
       </View>
       {/* <View
@@ -325,7 +325,7 @@ const RecycleBin = () => {
             lineHeight: 14,
             paddingTop: 4,
           }}>
-          Pending
+        {item?.status}
         </Text>
       </View>
       {/* <View

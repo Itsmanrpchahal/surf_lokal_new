@@ -4,7 +4,7 @@ import axios from 'axios';
 export const postAPI = async (
   url,
   data,
-  header = {},
+  header = { 'Content-Type': 'multipart/form-data' },
   params = {},
   Authorization = {},
 ) => {
@@ -34,7 +34,7 @@ export const uploadImageAPI = async (url, data, header = {}) => {
   /* If successfully connected */
   if (connection) {
     return axios({
-      method: 'post',
+      method: 'POST',
       url: url,
       timeout: 1000 * 60, //Time out of 60 Sec
       data: data,

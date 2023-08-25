@@ -34,7 +34,7 @@ import {postRating} from '../../modules/postRating';
 import {getFilter} from '../../modules/getFilter';
 import {SvgUri} from 'react-native-svg';
 import {postUpdateRating} from '../../modules/postUpdateRating';
-import { MultiSelect} from 'react-native-element-dropdown';
+import { Dropdown, MultiSelect} from 'react-native-element-dropdown';
 import CardsSwipe from 'react-native-cards-swipe';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
@@ -903,7 +903,7 @@ const Home = () => {
                             Choose your city{' '}
                           </Text>
 
-                          <MultiSelect
+                          <Dropdown
                             style={[styles.dropdown, {width: '100%'}]}
                             placeholderStyle={styles.placeholderStyle}
                             selectedTextStyle={styles.selectedTextStyle}

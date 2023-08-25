@@ -1,17 +1,22 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { postAPI } from '../config/apiMethod';
+import { getAPI, postAPI } from '../config/apiMethod';
 import AsyncStorage from '@react-native-community/async-storage';
 import BASEURl from '../services/Api'
 
 
 export const getAgent = createAsyncThunk('getAgent', async () => {
-  const id = await AsyncStorage.getItem('userId');
+  const access_token = await AsyncStorage.getItem('access_token')
+  const Header={
+    security_key:"SurfLokal52",
+    access_token:access_token
+  }
 
-  return await postAPI(
-    BASEURl + 'webapi/v1/agent/?userID=' + id,
+  return await getAPI(
+    BASEURl + 'webapi/v1/agent/' ,Header
   )
     .then(async response => {
       const { data } = response;
+      console.log('agent',data)
       return data;
     })
     .catch(e => {
