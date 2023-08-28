@@ -50,10 +50,12 @@ const imageSizeRation = screenHeight / 1000;
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
   // const [emailId, setEmailId] = useState('');
+  // const [password, setPassword] = useState('');
 
   const [emailId, setEmailId] = useState('access@wpkraken.io');
-  // const [password, setPassword] = useState('');
   const [password, setPassword] = useState('CherryPicker1!');
+  // const [emailId, setEmailId] = useState('sourav@yopmail.com');
+  // const [password, setPassword] = useState('sourav@1234');
 
 
   const [phone, setPhone] = useState('');
@@ -250,16 +252,6 @@ export default function Login({ navigation }) {
         // formdata.append('device_token', fcmtoken)
         setLoading(true);
         dispatch(loginUser(data)).then(response => {
-          let access_token= response.payload?.metadata?.[fcmtoken].toString()
-          async function storeToken() {
-            try {
-              await AsyncStorage.setItem('access_token', access_token);
-              console.log('Token stored successfully.', access_token);
-            } catch (error) {
-              console.error('Error storing token:', error);
-            }
-          }
-          storeToken();
           if (response.payload.status) {
             setLoading(false);
             navigation.navigate('AppIntro');

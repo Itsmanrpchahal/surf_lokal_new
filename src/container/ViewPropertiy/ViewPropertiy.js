@@ -1893,9 +1893,11 @@ const ViewPropertiy = (props, imageUrl) => {
         </View>
 
         <TouchableOpacity
-         onPress={() => {
-          navigation.navigate('BookaTour', { ID: '', PropID: postid?.ID, user_id: '', user2_id: '' })
-        }}
+
+          onPress={() => {
+            navigation.navigate('BookaTour', { ID: '', PropID: postid?.ID, user_id: '', user2_id: '' })
+          }}
+
           style={{
             justifyContent: 'center',
             alignItems: 'center',
