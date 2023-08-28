@@ -1,17 +1,13 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {uploadImageAPI} from '../config/apiMethod';
 import BASEURl from '../services/Api'
-import AsyncStorage from '@react-native-community/async-storage';
 
-export const getNearBy = createAsyncThunk('getNearBy', async dispatch => {
-  let data = {
-    latitude: 26.4898,
-    longitude: -80.174854,
-  };
+export const getNearBy = createAsyncThunk('getNearBy', async (payload) => {
+
 
   return await uploadImageAPI(
     BASEURl+'webapi/v1/nearby/',
-    data,
+    payload,
   )
     .then(async response => {
       const {data} = response;

@@ -27,7 +27,6 @@
     "apisauce": "^3.0.0",
     "axios": "^1.4.0",
     "clamp": "^1.0.1",
-    "form-data": "^4.0.0",
     "install": "^0.13.0",
     "jwt-decode": "^3.1.2",
     "lottie-react-native": "^6.2.0",
