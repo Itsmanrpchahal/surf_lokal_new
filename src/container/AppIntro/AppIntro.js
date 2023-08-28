@@ -33,14 +33,16 @@ const slides = [
     renderContent: () => (
       <View style={{ flex: 1 }}>
         <Image
-          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0,resizeMode:"stretch" }}
+          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
           source={Images.firstscreen}// Replace with your image path
         />
         <LottieView
-          style={{ height: 200, width: screenWidth, 
-          transform: [{ rotate: '-100deg' }],
-            marginTop:DeviceInfo.getDeviceType() === 'Tablet'?100:80,
-            marginLeft:DeviceInfo.getDeviceType() === 'Tablet'?100:60, }}
+          style={{
+            height: 200, width: screenWidth,
+            transform: [{ rotate: '-100deg' }],
+            marginTop: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 80,
+            marginLeft: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 60,
+          }}
           source={require('../../assets/animations/Arrow.json')}
           autoPlay
           loop
@@ -57,13 +59,15 @@ const slides = [
     renderContent: () => (
       <View style={{ flex: 1 }}>
         <Image
-          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0,resizeMode:"stretch" }}
+          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
           source={Images.secondscreen}// Replace with your image path
         />
         <LottieView
-          style={{ height: 200, width: screenWidth, 
+          style={{
+            height: 200, width: screenWidth,
             transform: [{ rotate: '-100deg' }],
-            marginTop:DeviceInfo.getDeviceType() === 'Tablet'?130:90, }}
+            marginTop: DeviceInfo.getDeviceType() === 'Tablet' ? 130 : 90,
+          }}
           source={require('../../assets/animations/Arrow.json')}
           autoPlay
           loop
@@ -80,11 +84,11 @@ const slides = [
     renderContent: () => (
       <View style={{ flex: 1 }}>
         <Image
-          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0,resizeMode:"stretch" }}
+          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
           source={Images.tutorial3}// Replace with your image path
         />
         <LottieView
-          style={{ height: screenHeight, width: DeviceInfo.getDeviceType() === 'Tablet'?screenWidth - 80:screenWidth, }}
+          style={{ height: screenHeight, width: DeviceInfo.getDeviceType() === 'Tablet' ? screenWidth - 80 : screenWidth, }}
           source={require('../../assets/animations/SwipeRight.json')}
           autoPlay
           loop
@@ -100,11 +104,11 @@ const slides = [
     renderContent: () => (
       <View style={{ flex: 1 }}>
         <Image
-          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode:"stretch" }}
+          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
           source={Images.tutorial4}// Replace with your image path
         />
         <LottieView
-          style={{ height: screenHeight, width:  DeviceInfo.getDeviceType() === 'Tablet'?screenWidth - 80:screenWidth, }}
+          style={{ height: screenHeight, width: DeviceInfo.getDeviceType() === 'Tablet' ? screenWidth - 80 : screenWidth, }}
           source={require('../../assets/animations/Swipeleft.json')}
           autoPlay
           loop
@@ -127,36 +131,36 @@ const imageSizeRation = screenHeight / 1000;
 export default function AppIntro({ navigation }) {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-//   const renderItem = ({ item }) => {
-//     return <Image style={{ 
-//  height: screenHeight, 
-// width: screenWidth,
-//     resizeMode:"contain",
-//    // width:"100%",
-//      }} source={item.image} />;
+  //   const renderItem = ({ item }) => {
+  //     return <Image style={{ 
+  //  height: screenHeight, 
+  // width: screenWidth,
+  //     resizeMode:"contain",
+  //    // width:"100%",
+  //      }} source={item.image} />;
 
 
 
-     
-//   };
-const renderItem = ({ item }) => {
-  return (
-    <View style={{ flex: 1,position:"relative" }}>
-      {item.renderContent ? (
-        item.renderContent()
-      ) : (
-        <Image
-          style={{
-            height: screenHeight,
-            width: screenWidth,
-            resizeMode: "stretch"
-          }}
-          source={item.image}
-        />
-      )}
-    </View>
-  );
-};
+
+  //   };
+  const renderItem = ({ item }) => {
+    return (
+      <View style={{ flex: 1, position: "relative" }}>
+        {item.renderContent ? (
+          item.renderContent()
+        ) : (
+          <Image
+            style={{
+              height: screenHeight,
+              width: screenWidth,
+              resizeMode: "stretch"
+            }}
+            source={item.image}
+          />
+        )}
+      </View>
+    );
+  };
 
   const onDone = () => {
 
@@ -176,9 +180,9 @@ const renderItem = ({ item }) => {
 
   const renderDone = () => {
     return (
-      <TouchableOpacity onPress={() => { onDone() }} style={{position:"absolute",right:DeviceInfo.getDeviceType() === 'Tablet'?60:-50,height:screenHeight,top:0,marginTop:-30}}>
+      <TouchableOpacity onPress={() => { onDone() }} style={{ position: "absolute", right: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : -50, height: screenHeight, top: 0, marginTop: Platform.OS === 'android' ? -30 : -100 }}>
         <View style={{ height: 150, width: 150 }}>
-          <LottieView  style={{ height: 100, width: DeviceInfo.getDeviceType() === 'Tablet'?350:100 }} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+          <LottieView style={{ height: 100, width: DeviceInfo.getDeviceType() === 'Tablet' ? 350 : 100 }} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
         </View>
       </TouchableOpacity>
     )
@@ -186,26 +190,26 @@ const renderItem = ({ item }) => {
   return (
     <SafeAreaView
       style={{
-        height: screenHeight, 
+        height: screenHeight,
         width: screenWidth,
       }}>
-        <ScrollView >
-      <AppIntroSlider renderItem={renderItem} 
-        data={slides}
-        activeDotStyle={{ backgroundColor: "#707070"}}
-        dotClickEnabled={true}
-        renderDoneButton={renderDone}
-      />
-      
+      <ScrollView >
+        <AppIntroSlider renderItem={renderItem}
+          data={slides}
+          activeDotStyle={{ backgroundColor: "#707070" }}
+          dotClickEnabled={true}
+          renderDoneButton={renderDone}
+        />
+
       </ScrollView>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
   image: {
-    height: screenHeight, 
+    height: screenHeight,
     width: screenWidth,
-// resizeMode:"stretch"
+    // resizeMode:"stretch"
   },
 
 

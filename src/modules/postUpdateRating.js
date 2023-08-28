@@ -3,14 +3,24 @@ import { uploadImageAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
 
 export const postUpdateRating = createAsyncThunk('postUpdateRating', async dispatch => {
+  const header = Platform.OS === 'android' ?
+    {
+      security_key: "SurfLokal52",
+      access_token: '1f925480b75052134e842fc4f0970407',
+      'Content-Type': 'multipart/form-data'
+    } :
+    {
+      security_key: "SurfLokal52",
+      access_token: '1f925480b75052134e842fc4f0970407',
+    };
   return await uploadImageAPI(
-    BASEURl+'webapi/v1/rating/update_rating.php',
+    BASEURl + 'webapi/v1/rating/update_rating.php',
     dispatch,
+    header,
   )
     .then(async response => {
-      const { data } = response;
-      console.log("dispatch",dispatch)
-      return data;
+      console.log("dispatch ==> ", response)
+      return response;
     })
     .catch(e => {
       if (e.response) {
@@ -29,6 +39,7 @@ const postUpdateRatingSlice = createSlice({
   extraReducers: {
     [postUpdateRating.pending]: (state, action) => {
       state.status = 'loading';
+      state.postUpdateRatingData = action.payload;
     },
     [postUpdateRating.fulfilled]: (state, action) => {
       state.status = 'success';
@@ -36,6 +47,7 @@ const postUpdateRatingSlice = createSlice({
     },
     [postUpdateRating.rejected]: (state, action) => {
       state.status = 'failed';
+      state.postUpdateRatingData = action.payload;
     },
   },
 });

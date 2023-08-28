@@ -28,13 +28,13 @@ export const postAPI = async (
 };
 
 /* Upload image Webservice Here */
-export const uploadImageAPI = async (url, data, header = {}) => {
+export const uploadImageAPI = async (url, data, header = { 'Content-Type': 'multipart/form-data' }) => {
   /* Checking for Internet connection */
   const connection = true;
   /* If successfully connected */
   if (connection) {
     return axios({
-      method: 'POST',
+      method: 'post',
       url: url,
       timeout: 1000 * 60, //Time out of 60 Sec
       data: data,

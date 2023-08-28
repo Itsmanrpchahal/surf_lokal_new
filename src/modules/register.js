@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 export const register = createAsyncThunk('register', async dispatch => {
   return await uploadImageAPI(
-    BASEURl+'webapi/v1/register/',
+    BASEURl + 'webapi/v1/register/',
     dispatch,
   )
     .then(async response => {
@@ -29,6 +29,8 @@ const registerSlice = createSlice({
   extraReducers: {
     [register.pending]: (state, action) => {
       state.status = 'loading';
+      state.registerData = action.payload;
+
     },
     [register.fulfilled]: (state, action) => {
       state.status = 'success';
@@ -36,6 +38,8 @@ const registerSlice = createSlice({
     },
     [register.rejected]: (state, action) => {
       state.status = 'failed';
+      state.registerData = action.payload;
+
     },
   },
 });
