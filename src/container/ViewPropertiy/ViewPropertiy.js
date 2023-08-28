@@ -448,11 +448,14 @@ const ViewPropertiy = (props, imageUrl) => {
               <Text style={styles.props}>Water Source: <Text style={{ fontFamily: "Poppins-Light" }}>{data.map((item) => item.details.exterior_features.watersource)}</Text></Text>
             </View>
           </View>
-          <View style={styles.viewstyle1}>
+          <View style={styles.viewstyle}>
             <View style={{ width: '100%', marginTop: 30 }}>
               <Text style={styles.property}>Miscellaneous Details</Text>
               <Text style={styles.props}>Driving Directions: <Text style={{ fontFamily: "Poppins-Light", lineHeight: 25 }}>{data.map((item) => item.details.miscellaneous_details.driving_directions)}</Text> </Text>
               <Text style={styles.props}>Listing Office: <Text style={{ fontFamily: "Poppins-Light", lineHeight: 25 }}>{data.map((item) => item.details.miscellaneous_details.listing_office)}</Text> </Text>
+              <Text style={styles.props}>Listing Agent: <Text style={{ fontFamily: "Poppins-Light", lineHeight: 25 }}>{data.map((item) => item.details.miscellaneous_details.listing_agent)}</Text> </Text>
+              <Text style={styles.props}>Listing Office Phone: <Text style={{ fontFamily: "Poppins-Light", lineHeight: 25 }}>{data.map((item) => item.details.miscellaneous_details.listing_office_phone)}</Text> </Text>
+              <Text style={styles.props}>Data Disclaimer: <Text style={{ fontFamily: "Poppins-Light", lineHeight: 25 }}>{data.map((item) => item.details.miscellaneous_details.data_disclaimer)}</Text> </Text>
             </View>
           </View>
         </View>
