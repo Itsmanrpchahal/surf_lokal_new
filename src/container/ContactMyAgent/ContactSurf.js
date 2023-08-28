@@ -274,44 +274,45 @@ const ContactSurf = () => {
 
   return (
     <SafeAreaView style={[styles.container, Platform.OS === 'android' && { flex: 1, }]}>
-      <View
+       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
           position: 'relative',
-          // height: 45,
           alignItems: 'center',
-          // borderBottomColor: Colors.gray,
-          // borderBottomWidth: 1,
           paddingTop: 16,
-          paddingBottom: 2
+          paddingBottom: 2,
         }}>
         <TouchableOpacity
           style={{
             flexDirection: 'row',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             position: 'absolute',
             left: 12,
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             // top: 12,
-            top: 13
+            top: 13,
+           // backgroundColor:"green",
+width:50,
+height:50
+
           }}
           onPress={() => {
             navigation.goBack();
           }}>
           <Image
             style={{
-              width: 27,
-              height: 27,
+              width: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
+              height: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
               alignItems: 'center',
-              resizeMode: "contain"
+              resizeMode: 'contain',
             }}
             source={Images.leftnewarrow}></Image>
-
+     
         </TouchableOpacity>
         <View
           style={{
@@ -321,21 +322,21 @@ const ContactSurf = () => {
           }}>
           <Text
             style={{
-              fontSize: 20,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
               color: Colors.black,
-              fontFamily:  DeviceInfo.getDeviceType() === 'Tablet'?'Poppins-SemiBold':"Poppins-Light",
-              lineHeight: 22,
+              fontFamily: 'Poppins-Light',
+              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
             }}>
-            Contact surf lokal
+         Contact surf lokal
           </Text>
-
+     
         </View>
-
         <TouchableOpacity
+
           style={{
-            position: "absolute",
-            right: 10,
-            top: 15
+            position:"absolute",
+    right:10,
+    top:15
           }}
 
           onPress={() => navigation.goBack()}>
@@ -346,10 +347,51 @@ const ContactSurf = () => {
             animation="flipInY"
           />
         </TouchableOpacity>
+
+        {/* <TouchableOpacity
+              onPress={() => {
+              
+              }}
+              activeOpacity={0.5}
+              style={{
+                height: 40,
+                width: 40,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderWidth: 1,
+                borderColor: Colors.surfblur,
+                borderRadius: 50,
+                position:"absolute",
+                right:10,
+                top:5
+              }}>
+             
+            
+                <View
+                  style={{
+                    height:35,
+                    width: 35,
+                    borderRadius: 20,
+                    backgroundColor: Colors.surfblur,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                  }}>
+               
+                    <Image
+                      style={{ height: 40, width: 40 }}
+                      source={Images.user}
+                    />
+            
+                </View>
+            
+         
+            </TouchableOpacity> */}
+
       </View>
       <ScrollView style={{ height: '100%', width: '100%',}}>
         <View style={{ flexDirection: 'column', marginTop: 0, alignItems: "center", paddingVertical: 10, paddingBottom: 10 }}>
-          <Image source={Images.appLogo} style={{ maxWidth: 180, resizeMode: "contain", height: 150 }} />
+          <Image source={Images.appLogo} style={{ maxWidth: DeviceInfo.getDeviceType() === 'Tablet'?280:180, resizeMode: "contain", height: DeviceInfo.getDeviceType() === 'Tablet'?200:150 }} />
 
 
         </View>
@@ -363,8 +405,8 @@ const ContactSurf = () => {
             >
               <Image
                 style={{
-                  height: 20,
-                  width: 20,
+                  height: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
                   // margin: 2,
                   resizeMode: "contain",
                   tintColor: Colors.white,
@@ -379,8 +421,8 @@ const ContactSurf = () => {
             >
               <Image
                 style={{
-                  height: 20,
-                  width: 20,
+                  height: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
                   resizeMode: "contain",
                   tintColor: Colors.white,
                 }}
@@ -397,8 +439,8 @@ const ContactSurf = () => {
             >
               <Image
                 style={{
-                  height: 20,
-                  width: 20,
+                  height: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
                   resizeMode: "contain",
                   tintColor: Colors.white,
                 }}
@@ -410,8 +452,8 @@ const ContactSurf = () => {
             }} style={[styles.iconcover, { backgroundColor: Colors.black }]}>
               <Image
                 style={{
-                  height: 20,
-                  width: 20,
+                  height: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
                   resizeMode: "contain",
                   tintColor: Colors.white,
                 }}
@@ -424,7 +466,7 @@ const ContactSurf = () => {
           </View>
         </View>
 
-        <Text style={{ marginBottom: 16, fontSize: 18, textAlign: "center", color: Colors.black, fontFamily: 'Poppins-Regular' }}>
+        <Text style={{ marginBottom: 16, fontSize: DeviceInfo.getDeviceType() === 'Tablet'?32:18, textAlign: "center", color: Colors.black, fontFamily: 'Poppins-Regular' }}>
           3010 N Military trl {'\n'}
           Suite 310 {'\n'}
           Boca Raton, FL 33431
@@ -537,8 +579,8 @@ const ContactSurf = () => {
                 useNativeDriver>
                 <Image
                   style={{
-                    height: 38,
-                    width: 38,
+                    height: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
+                    width: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
                     resizeMode: "contain",
                     marginHorizontal: 5
                   }}
@@ -549,8 +591,8 @@ const ContactSurf = () => {
 
             <TouchableOpacity
               style={{
-                height: 38,
-                width: 38,
+                height: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
+                    width: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
@@ -562,8 +604,8 @@ const ContactSurf = () => {
                 useNativeDriver>
                 <Image
                   style={{
-                    height: 38,
-                    width: 38,
+                    height: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
+                    width: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
                     resizeMode: "contain",
                     marginHorizontal: 5
                   }}
@@ -588,8 +630,8 @@ const ContactSurf = () => {
                 useNativeDriver>
                 <Image
                   style={{
-                    height: 38,
-                    width: 38,
+                    height: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
+                    width: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
                     resizeMode: "contain",
                     marginHorizontal: 5
                   }}
@@ -605,7 +647,7 @@ const ContactSurf = () => {
       <View  style={{flexDirection:"row",justifyContent:"center",alignItems:"center",
       }}>
      
-     <LottieView  style={{ height: 150, width: 200,}} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+     <LottieView  style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?250:150, width: DeviceInfo.getDeviceType() === 'Tablet'?250:150,}} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
 
 </View>
       </ScrollView>
@@ -802,7 +844,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
 
   },
-  buttonText: { fontSize: 14, fontWeight: '400', color: Colors.white, fontFamily: 'Poppins-Regular', textAlign: "center" },
+  buttonText: { fontSize:DeviceInfo.getDeviceType() === 'Tablet'?28:14, fontWeight: '400', color: Colors.white, fontFamily: 'Poppins-Regular', textAlign: "center" },
   // slideOuter: {
   //   width: "100%",
   //   justifyContent: 'center',
@@ -817,7 +859,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 5,
 
-    padding: 8,
+    padding:DeviceInfo.getDeviceType() === 'Tablet'?16:8,
     display: "flex",
     borderRadius: 100,
   },

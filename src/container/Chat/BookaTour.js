@@ -332,12 +332,12 @@ const BookaTour = (props) => {
                             placeholderTextColor={Colors.textColorLight}
                             fontFamily="Poppins-Regular"
                             value={message}
-                            editable={getMesg.length <= 2 ? false : true}
+                            editable={getMesg?.length <= 2 ? false : true}
                             onChangeText={setMessage}
                         />
                         {
                             props?.route?.params?.ID === '' && <TouchableOpacity
-                                disabled={getMesg.length < 2 ? false : true}
+                                disabled={getMesg?.length < 2 ? false : true}
                                 onPress={() => {
                                     setOpen(true)
                                     setDate(new Date())

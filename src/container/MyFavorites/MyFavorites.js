@@ -154,7 +154,7 @@ const MyFavorites = props => {
     formData.append('price_stars', rating2);
     formData.append('interest_stars', rating3);
     formData.append('content', commentContent);
-    console.log('addddddddddd ratingggggg', formData);
+    // console.log('addddddddddd ratingggggg', formData);
     dispatch(postRating(formData)).then(response => {
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
@@ -284,11 +284,11 @@ const MyFavorites = props => {
         }}>
         <Text
           style={{
-            fontSize: 12,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?24:12,
             color: Colors.white,
             fontFamily: 'Poppins-Regular',
             marginBottom: 0,
-            lineHeight: 14,
+            lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?28:14,
             paddingTop: 4,
           }}>
           {item?.ListingKey}
@@ -310,14 +310,14 @@ const MyFavorites = props => {
         }}>
         <Text
           style={{
-            fontSize: 12,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?24:12,
             color: Colors.white,
             fontFamily: 'Poppins-Regular',
             marginBottom: 0,
-            lineHeight: 14,
+            lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?28:14,
             paddingTop: 4,
           }}>
-          Active
+      {item?.status}
         </Text>
       </View>
       {/* <View
@@ -462,7 +462,7 @@ const MyFavorites = props => {
           onPress={() => navigation.navigate('ViewPropertiy', { item })}>
           <Text
             style={{
-              fontSize: 28,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?55:28,
               color: "#1450B1",
               fontFamily: 'Poppins-Medium',
               marginTop: 0,
@@ -481,7 +481,7 @@ const MyFavorites = props => {
         <Text
           numberOfLines={1}
           style={{
-            fontSize: 20,
+            fontSize:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
             color: Colors.black,
             textAlign: 'center',
             fontFamily: 'Poppins-Light',
@@ -845,20 +845,21 @@ const MyFavorites = props => {
                   justifyContent: 'flex-start',
                   alignItems: 'flex-start',
                   // backgroundColor: "red",
-                  // width: 70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
                 }}>
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
                     source={Images.newbed}
                     style={{
-                      height: 20,
-                      width: 27,
+                      height: DeviceInfo.getDeviceType() === 'Tablet'?49:26,
+                      width: DeviceInfo.getDeviceType() === 'Tablet'?39:21,
                       resizeMode: 'contain',
+                      marginBottom: 5
                       //backgroundColor: "green"
                     }}></Image>
                   <Text
                     style={{
-                      fontSize: 11,
+                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -876,19 +877,20 @@ const MyFavorites = props => {
                   justifyContent: 'flex-start',
                   alignItems: 'flex-start',
 
-                  width: 70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
                 }}>
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
                     source={Images.bathtub}
                     style={{
-                      height: 20,
-                      width: 20,
+                      height: DeviceInfo.getDeviceType() === 'Tablet'?44:26,
+                      width: DeviceInfo.getDeviceType() === 'Tablet'?49:28,
                       resizeMode: 'contain',
+                      marginBottom: 5
                     }}></Image>
                   <Text
                     style={{
-                      fontSize: 11,
+                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -903,20 +905,20 @@ const MyFavorites = props => {
                 style={{
                   justifyContent: 'flex-start',
                   alignItems: 'flex-start',
-                  width: 70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
                 }}>
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
                     source={Images.measuringtape}
                     style={{
-                      height: 20,
-                      width: 20,
-                      resizeMode: 'contain',
-                      marginBottom: 5,
+                      height: DeviceInfo.getDeviceType() === 'Tablet'?45:26,
+                                      width: DeviceInfo.getDeviceType() === 'Tablet'?47:27,
+                                      resizeMode: 'contain',
+                                      marginBottom: 5
                     }}></Image>
                   <Text
                     style={{
-                      fontSize: 11,
+                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -931,7 +933,8 @@ const MyFavorites = props => {
                 style={{
                   justifyContent: 'center',
                   alignItems: 'center',
-                  width: 70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
+
                 }}>
 
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -939,8 +942,8 @@ const MyFavorites = props => {
                     source={Images.hoa2}
 
                     style={{
-                      height: 28,
-                      width: 29,
+                      height: DeviceInfo.getDeviceType() === 'Tablet'?47:26,
+                      width: DeviceInfo.getDeviceType() === 'Tablet'?51:27,
                       marginTop: 0,
                       resizeMode: 'contain',
                       marginBottom: 5,
@@ -948,7 +951,7 @@ const MyFavorites = props => {
 
                   <Text
                     style={{
-                      fontSize: 11,
+                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -962,21 +965,22 @@ const MyFavorites = props => {
                 style={{
                   justifyContent: 'center',
                   alignItems: 'center',
-                  width: 70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
+
                 }}>
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
                     source={Images.taxnew}
                     style={{
-                      height: 20,
-                      width: 20,
+                      height: DeviceInfo.getDeviceType() === 'Tablet'?47:27,
+                      width: DeviceInfo.getDeviceType() === 'Tablet'?43:25,
                       marginTop: 0,
                       resizeMode: 'contain',
                       marginBottom: 5,
                     }}></Image>
                   <Text
                     style={{
-                      fontSize: 11,
+                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -989,21 +993,22 @@ const MyFavorites = props => {
                 style={{
                   justifyContent: 'center',
                   alignItems: 'center',
-                  width: 70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
+
                 }}>
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
                     source={Images.calendar}
                     style={{
-                      height: 20,
-                      width: 20,
+                      height: DeviceInfo.getDeviceType() === 'Tablet'?34:30,
+                      width: DeviceInfo.getDeviceType() === 'Tablet'?40:30,
                       marginTop: 0,
                       resizeMode: 'contain',
                       marginBottom: 5,
                     }}></Image>
                   <Text
                     style={{
-                      fontSize: 11,
+                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -1059,7 +1064,7 @@ const MyFavorites = props => {
                       }}></Image>
                     <Text
                       style={{
-                        fontSize: 11,
+                        fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                         color: Colors.black,
                         textAlign: 'center',
                         fontFamily: 'Poppins-Light',
@@ -1243,14 +1248,15 @@ const MyFavorites = props => {
         <TouchableOpacity
           style={{
             flexDirection: 'row',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             position: 'absolute',
             left: 12,
-            justifyContent: 'center',
-
+            justifyContent: 'flex-start',
             // top: 12,
             top: 13,
-
+           // backgroundColor:"green",
+width:50,
+height:50
 
           }}
           onPress={() => {
@@ -1258,8 +1264,8 @@ const MyFavorites = props => {
           }}>
           <Image
             style={{
-              width: 27,
-              height: 27,
+              width: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
+              height: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
@@ -1277,10 +1283,10 @@ const MyFavorites = props => {
           }}>
           <Text
             style={{
-              fontSize: 20,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
               color: Colors.black,
               fontFamily: 'Poppins-Light',
-              lineHeight: 22,
+              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
             }}>
             Favorites
           </Text>
@@ -1352,7 +1358,9 @@ const MyFavorites = props => {
           marginBottom: 16,
         }}>
         <Image
-          style={{height: 15, width: 13, resizeMode: 'contain'}}
+          style={{height: DeviceInfo.getDeviceType() === 'Tablet'?30:15,
+           width: DeviceInfo.getDeviceType() === 'Tablet'?26:13,
+            resizeMode: 'contain'}}
           source={Images.favfilter}
         />
       </View>
@@ -1480,8 +1488,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray,
   },
   imagedata: {
-    height:19,
-    width: 29,
+    height:DeviceInfo.getDeviceType() === 'Tablet'?29:19,
+    width: DeviceInfo.getDeviceType() === 'Tablet'?49:29,
+
     resizeMode: 'contain',
    
   },

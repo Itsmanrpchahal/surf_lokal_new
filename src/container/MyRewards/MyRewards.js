@@ -18,6 +18,7 @@ import Slider from 'react-native-slider';
 import Speedmeter from '../../components/speedmeter';
 import LottieView from 'lottie-react-native';
 import Fonts from '../../utils/Fonts';
+import DeviceInfo from 'react-native-device-info';
 const App = (props) => {
   const navigation = useNavigation();
   const [meterValue, setMeterValue] = useState(500);
@@ -61,7 +62,7 @@ const App = (props) => {
 
   return (
     <SafeAreaView style={{  backgroundColor: Colors.white, height:"100%" }}>
-       <View
+       {/* <View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
@@ -75,12 +76,15 @@ const App = (props) => {
         <TouchableOpacity
           style={{
             flexDirection: 'row',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             position: 'absolute',
-            left: 10,
-            justifyContent: 'center',
+            left: 12,
+            justifyContent: 'flex-start',
             // top: 12,
-            top:12
+            top: 13,
+           // backgroundColor:"green",
+width:50,
+height:50
           }}
           onPress={() => {
             navigation.goBack();
@@ -132,6 +136,121 @@ const App = (props) => {
             animation="flipInY"
           />
         </TouchableOpacity>
+      </View> */}
+        <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          width: '100%',
+          position: 'relative',
+          alignItems: 'center',
+          paddingTop: 16,
+          paddingBottom: 2,
+        }}>
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            position: 'absolute',
+            left: 12,
+            justifyContent: 'flex-start',
+            // top: 12,
+            top: 13,
+           // backgroundColor:"green",
+width:50,
+height:50
+
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Image
+            style={{
+              width: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
+              height: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
+              resizeMode: 'contain',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+              resizeMode: 'contain',
+            }}
+            source={Images.leftnewarrow}></Image>
+     
+        </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
+              color: Colors.black,
+              fontFamily: 'Poppins-Light',
+              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
+            }}>
+           Surf Rewards
+          </Text>
+     
+        </View>
+        <TouchableOpacity
+
+          style={{
+            position:"absolute",
+    right:10,
+    top:15
+          }}
+
+          onPress={() => navigation.goBack()}>
+
+          <Animatable.Image
+            source={Images.menu}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
+
+        {/* <TouchableOpacity
+              onPress={() => {
+              
+              }}
+              activeOpacity={0.5}
+              style={{
+                height: 40,
+                width: 40,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderWidth: 1,
+                borderColor: Colors.surfblur,
+                borderRadius: 50,
+                position:"absolute",
+                right:10,
+                top:5
+              }}>
+             
+            
+                <View
+                  style={{
+                    height:35,
+                    width: 35,
+                    borderRadius: 20,
+                    backgroundColor: Colors.surfblur,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                  }}>
+               
+                    <Image
+                      style={{ height: 40, width: 40 }}
+                      source={Images.user}
+                    />
+            
+                </View>
+            
+         
+            </TouchableOpacity> */}
+
       </View>
       <ScrollView style={{}}>
 
@@ -141,16 +260,17 @@ const App = (props) => {
         }}>
           <View style={{ marginTop: 15, }}>
             <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: 20 }}>
-              <Text style={{ fontSize: 16, fontFamily: Fonts.light, color: "black", marginBottom: 0, width: '90%', textAlign: 'center' }}>Purchase Price
+              <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?26:16, fontFamily: Fonts.light, color: "black", marginBottom: 0,
+               width: '90%', textAlign: 'center' }}>Purchase Price
               </Text>
               <View style={{ flexDirection: 'row', width: '33.33%', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 16, color: "#0165C5", fontFamily: 'Poppins-SemiBold' }}>${meterValue}</Text>
+                <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?36:16, color: "#0165C5", fontFamily: 'Poppins-SemiBold' }}>${meterValue}</Text>
 
               </View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '90%' }}>
-                <Text style={{ fontSize: 14, fontFamily: Fonts.regular, color: "black", width: '33.33%', marginTop: 22 }}>$0</Text>
+                <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14, fontFamily: Fonts.regular, color: "black", width: '33.33%', marginTop: 22 }}>$0</Text>
 
-                <Text style={{ fontSize: 14, fontFamily: Fonts.regular, color: "black", width: '33.33%', textAlign: 'right', marginTop: 22 }}>$10MM</Text>
+                <Text style={{ fontSize:  DeviceInfo.getDeviceType() === 'Tablet'?22:14, fontFamily: Fonts.regular, color: "black", width: '33.33%', textAlign: 'right', marginTop: 22 }}>$10MM</Text>
               </View>
               <Slider
                 style={{ width: "90%", justifyContent: "center" }}
@@ -178,15 +298,15 @@ const App = (props) => {
             </View>
 
           </View>
-          <Text style={{ fontSize: 16, fontFamily: Fonts.light, textAlign: 'center', color: "black", paddingTop: 10 }}>Your Rebate </Text>
+          <Text style={{ fontSize:  DeviceInfo.getDeviceType() === 'Tablet'?32:16, fontFamily: Fonts.light, textAlign: 'center', color: "black", paddingTop: 10 }}>Your Rebate </Text>
           <View style={{
             position: "relative",
             // height: "50%",
           }}>
 
             <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', paddingTop:0 }}>
-              <Text style={{ fontSize: 60, fontFamily: Fonts.extrabold, color: "black", }}>$</Text>
-              <Text style={{ fontSize: 60, fontFamily: Fonts.extrabold, color: "black", }}>{Math.round(meterValue * 0.003)}</Text>
+              <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?123:60, fontFamily: Fonts.extrabold, color: "black", }}>$</Text>
+              <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?123:60, fontFamily: Fonts.extrabold, color: "black", }}>{Math.round(meterValue * 0.003)}</Text>
 
             </View>
           </View>
@@ -205,7 +325,8 @@ const App = (props) => {
                 },
               ]}
             >
-              <Text style={[styles.text, { color: isRewardsSelected ? Colors.surfblur : Colors.surfblur, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>Challenges</Text>
+              <Text style={[styles.text, { color: isRewardsSelected ? Colors.surfblur : Colors.surfblur, 
+                fontFamily: 'Poppins-Regular', fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:14 }]}>Challenges</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -218,7 +339,8 @@ const App = (props) => {
                 },
               ]}
             >
-              <Text style={[styles.text, { color: isRewardsSelected ? Colors.surfblur : Colors.surfblur, fontFamily: 'Poppins-Regular', fontSize: 14 }]}>Leaderboard</Text>
+              <Text style={[styles.text, { color: isRewardsSelected ? Colors.surfblur : Colors.surfblur, 
+                fontFamily: 'Poppins-Regular', fontSize:  DeviceInfo.getDeviceType() === 'Tablet'?18:14  }]}>Leaderboard</Text>
             </TouchableOpacity>
 
          
@@ -277,8 +399,8 @@ const styles = StyleSheet.create({
   },
 
   rew: {
-    height: 45,
-    width: 130,
+    height:  DeviceInfo.getDeviceType() === 'Tablet'?55:45,
+    width:  DeviceInfo.getDeviceType() === 'Tablet'?160:130 ,
     borderRadius: 17,
     borderWidth: 1,
     paddingHorizontal: 10,

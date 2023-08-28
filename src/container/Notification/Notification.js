@@ -6,7 +6,7 @@ import Images from '../../utils/Images';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import * as Animatable from 'react-native-animatable';
-
+import DeviceInfo from 'react-native-device-info';
 const Notification = () => {
   const navigation = useNavigation();
 
@@ -173,7 +173,7 @@ const Notification = () => {
           />
         </TouchableOpacity>
       </View> */}
-      <View
+        <View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
@@ -181,31 +181,36 @@ const Notification = () => {
           position: 'relative',
           alignItems: 'center',
           paddingTop: 16,
-          paddingBottom:10,
-          backgroundColor:Colors.white,
-marginBottom:10
+          paddingBottom: 2,
+          marginBottom:12
         }}>
         <TouchableOpacity
           style={{
             flexDirection: 'row',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             position: 'absolute',
             left: 12,
-            justifyContent: 'center',
-            top: 13
+            justifyContent: 'flex-start',
+            // top: 12,
+            top: 13,
+           // backgroundColor:"green",
+width:50,
+height:50,
+marginBottom:20
+
           }}
           onPress={() => {
             navigation.goBack();
           }}>
           <Image
             style={{
-              width:27,
-              height: 27,
+              width: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
+              height: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
               alignItems: 'center',
-              resizeMode:"contain"
+              resizeMode: 'contain',
             }}
             source={Images.leftnewarrow}></Image>
      
@@ -218,16 +223,17 @@ marginBottom:10
           }}>
           <Text
             style={{
-              fontSize: 20,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
               color: Colors.black,
               fontFamily: 'Poppins-Light',
-              lineHeight: 22,
+              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
             }}>
         Notifications
           </Text>
      
         </View>
         <TouchableOpacity
+
           style={{
             position:"absolute",
     right:10,
@@ -243,45 +249,7 @@ marginBottom:10
           />
         </TouchableOpacity>
 
-        {/* <TouchableOpacity
-              onPress={() => {
-              
-              }}
-              activeOpacity={0.5}
-              style={{
-                height: 40,
-                width: 40,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderWidth: 1,
-                borderColor: Colors.surfblur,
-                borderRadius: 50,
-                position:"absolute",
-                right:10,
-                top:5
-              }}>
-             
-            
-                <View
-                  style={{
-                    height:35,
-                    width: 35,
-                    borderRadius: 20,
-                    backgroundColor: Colors.surfblur,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    overflow: 'hidden',
-                  }}>
-               
-                    <Image
-                      style={{ height: 40, width: 40 }}
-                      source={Images.user}
-                    />
-            
-                </View>
-            
-         
-            </TouchableOpacity> */}
+
       </View>
       <View style={styles.container}>
 
@@ -296,10 +264,10 @@ marginBottom:10
             marginHorizontal: 12
           }}
         >
-          <Text style={{ fontSize: 16, color: Colors.black, fontFamily: 'Poppins-Medium', marginLeft: 12 }}>
+          <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?32:16, color: Colors.black, fontFamily: 'Poppins-Medium', marginLeft: 12 }}>
             You Have <Text style={{ color: "red", fontFamily: 'Poppins-SemiBold', }}>2</Text> New Notifications
           </Text>
-          <View style={{ marginTop: -4 }}>
+          <View style={{ marginTop: DeviceInfo.getDeviceType() === 'Tablet'?10:-4}}>
             <Switch
               trackColor={{ false: '#767577', true: '#11b03e' }}
               thumbColor={isEnabled ? '#fff' : '#f4f3f4'}

@@ -24,6 +24,7 @@ import Styles from './Styles';
 import AsyncStorage from '@react-native-community/async-storage';
 import jwt_decode from "jwt-decode";
 import { googleUser } from '../../modules/googleLogin';
+import DeviceInfo from 'react-native-device-info';
 // For Add Google SignIn
 import {
   GoogleSignin,
@@ -384,7 +385,7 @@ export default function Login({ navigation }) {
                 </View>
               </View>
               <View style={{ width: '85%', marginTop: 20 * viewSizeRatio }}>
-                <Text allowFontScaling={false} style={Styles.alertText}>
+                <Text allowFontScaling={false} style={[Styles.alertText,{ fontSize:DeviceInfo.getDeviceType() === 'Tablet'?18:12,}]}>
                   Please enter your email & password registerd with us and
                   start surfing
                 </Text>
@@ -420,8 +421,8 @@ export default function Login({ navigation }) {
             <TouchableOpacity onPress={() => navigation.navigate('Register')}>
               <Text
                 style={{
-                  fontSize: 14,
-                  color: Colors.primaryBlue,
+                  fontSize:DeviceInfo.getDeviceType() === 'Tablet'?18:14,
+                color: Colors.primaryBlue,
                   fontFamily: 'Poppins-Regular'
                 }}>
                 Sign Up
@@ -440,7 +441,7 @@ export default function Login({ navigation }) {
               onPress={() => navigation.navigate('ForgotPassword')}>
               <Text
                 style={{
-                  fontSize: 14,
+                  fontSize:DeviceInfo.getDeviceType() === 'Tablet'?18:14,
                   color: Colors.primaryBlue,
                   fontFamily: 'Poppins-Regular'
                 }}>

@@ -39,7 +39,8 @@ const slides = [
         <LottieView
           style={{ height: 200, width: screenWidth, 
           transform: [{ rotate: '-100deg' }],
-            marginTop:80,marginLeft:60 }}
+            marginTop:DeviceInfo.getDeviceType() === 'Tablet'?100:80,
+            marginLeft:DeviceInfo.getDeviceType() === 'Tablet'?100:60, }}
           source={require('../../assets/animations/Arrow.json')}
           autoPlay
           loop
@@ -62,7 +63,7 @@ const slides = [
         <LottieView
           style={{ height: 200, width: screenWidth, 
             transform: [{ rotate: '-100deg' }],
-            marginTop:90 }}
+            marginTop:DeviceInfo.getDeviceType() === 'Tablet'?130:90, }}
           source={require('../../assets/animations/Arrow.json')}
           autoPlay
           loop
@@ -83,7 +84,7 @@ const slides = [
           source={Images.tutorial3}// Replace with your image path
         />
         <LottieView
-          style={{ height: screenHeight, width: screenWidth }}
+          style={{ height: screenHeight, width: DeviceInfo.getDeviceType() === 'Tablet'?screenWidth - 80:screenWidth, }}
           source={require('../../assets/animations/SwipeRight.json')}
           autoPlay
           loop
@@ -103,7 +104,7 @@ const slides = [
           source={Images.tutorial4}// Replace with your image path
         />
         <LottieView
-          style={{ height: screenHeight, width: screenWidth }}
+          style={{ height: screenHeight, width:  DeviceInfo.getDeviceType() === 'Tablet'?screenWidth - 80:screenWidth, }}
           source={require('../../assets/animations/Swipeleft.json')}
           autoPlay
           loop
@@ -175,9 +176,9 @@ const renderItem = ({ item }) => {
 
   const renderDone = () => {
     return (
-      <TouchableOpacity onPress={() => { onDone() }} style={{position:"absolute",right:-50,height:screenHeight,top:0,marginTop:-30}}>
+      <TouchableOpacity onPress={() => { onDone() }} style={{position:"absolute",right:DeviceInfo.getDeviceType() === 'Tablet'?60:-50,height:screenHeight,top:0,marginTop:-30}}>
         <View style={{ height: 150, width: 150 }}>
-          <LottieView  style={{ height: 100, width: 100 }} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+          <LottieView  style={{ height: 100, width: DeviceInfo.getDeviceType() === 'Tablet'?350:100 }} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
         </View>
       </TouchableOpacity>
     )

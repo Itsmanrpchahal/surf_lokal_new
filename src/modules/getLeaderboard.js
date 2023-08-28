@@ -5,13 +5,18 @@ import BASEURl from '../services/Api'
 
 
 export const getLeaderboard = createAsyncThunk('getLeaderboard', async () => {
-  const id = await AsyncStorage.getItem('userId');
+  const access_token = await AsyncStorage.getItem('access_token')
+  const Header={
+    security_key:"SurfLokal52",
+    access_token:access_token
+  }
 
   return await getAPI(
-    BASEURl + 'webapi/v1/rewards/leaderboard.php',
+    BASEURl + 'webapi/v1/rewards/leaderboard.php ',Header
   )
     .then(async response => {
       const { data } = response;
+      console.log('leaderbopard',data)
       return data;
     })
     .catch(e => {

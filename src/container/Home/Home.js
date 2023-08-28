@@ -34,7 +34,7 @@ import {postRating} from '../../modules/postRating';
 import {getFilter} from '../../modules/getFilter';
 import {SvgUri} from 'react-native-svg';
 import {postUpdateRating} from '../../modules/postUpdateRating';
-import { MultiSelect} from 'react-native-element-dropdown';
+import { Dropdown, MultiSelect} from 'react-native-element-dropdown';
 import CardsSwipe from 'react-native-cards-swipe';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
@@ -903,7 +903,7 @@ const Home = () => {
                             Choose your city{' '}
                           </Text>
 
-                          <MultiSelect
+                          <Dropdown
                             style={[styles.dropdown, {width: '100%'}]}
                             placeholderStyle={styles.placeholderStyle}
                             selectedTextStyle={styles.selectedTextStyle}
@@ -1558,7 +1558,7 @@ const Home = () => {
                           backgroundColor: 'green',
                           paddingHorizontal: 8,
                           borderRadius: 15,
-                          marginTop: -35,
+                          marginTop: -22,
                           overflow: 'hidden',
                           position: 'absolute',
                           top: 0,
@@ -1602,7 +1602,7 @@ const Home = () => {
                           backgroundColor: 'red',
                           paddingHorizontal: 8,
                           borderRadius: 15,
-                          marginTop: -35,
+                          marginTop: -22,
                           overflow: 'hidden',
                         }}>
                         <View
@@ -1799,6 +1799,7 @@ const Home = () => {
                                   alignItems: 'center',
                                 }}>
                                 <TouchableOpacity
+                                style={{ height:40,width:40,justifyContent:"flex-start",alignItems:"flex-end"}}
                                   onPress={() => {
                                     setProductId(item.ID);
                                     setReviewTitle(item.title);
@@ -1871,7 +1872,8 @@ const Home = () => {
                                 {''}
                               </Text>
                               <TouchableOpacity
-                                onPress={() => handleShare(item.ID)}>
+                                onPress={() => handleShare(item.ID)} style={{
+                                 height:40,width:40,justifyContent:"flex-start",alignItems:"flex-end"}}>
                                 <Image
                                   source={Images.send}
                                   style={{
@@ -3000,20 +3002,32 @@ const Home = () => {
                 }}>
                 Would you like to extend your search radius by 10 miles?
               </Text>
-              <Button
+              <View
+      style={{
+        borderRadius: 50,
+        overflow: 'hidden', // This ensures the rounded corners are visible
+        width:"35%",
+      
+      
+      }}
+    > 
+     <Button
                 style={{
-                  height: '100%',
+                  height: 150, // Increase the height as needed
                   fontSize: 18,
                   textAlign: 'center',
                   alignItems: 'center',
-                  width: '100%',
                   justifyContent: 'center',
                   position: 'absolute',
                   left: 0,
                   right: 0,
-                  top: '37%',
+                  top: '32%',
+                  borderRadius:50,
+                  paddingVertical:50,
+                
                 }}
-                title="Estend"
+                title="Extend"
+                color="#0165C5" // Change this to your desired background color
                 onPress={() => {
                   dispatch(
                     getPoperties({
@@ -3027,9 +3041,12 @@ const Home = () => {
                   });
                 }}
               />
+               </View>
             </View>
           )}
+          
         </View>
+        
       </View>
     </SafeAreaView>
   );

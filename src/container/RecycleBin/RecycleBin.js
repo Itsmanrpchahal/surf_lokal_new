@@ -184,7 +184,7 @@ const RecycleBin = () => {
     formData.append('price_stars', rating2);
     formData.append('interest_stars', rating3);
     formData.append('content', commentContent);
-    console.log("addddddddddd ratingggggg", formData);
+    // console.log("addddddddddd ratingggggg", formData);
     dispatch(postRating(formData)).then(response => {
       if (response.payload.success) {
         Alert.alert('Alert', response.payload.message);
@@ -266,14 +266,14 @@ const RecycleBin = () => {
         }}>
         <Text
           style={{
-            fontSize: 12,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?24:12,
             color: Colors.white,
             fontFamily: 'Poppins-Regular',
             marginBottom: 0,
-            lineHeight: 14,
+            lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?28:14,
             paddingTop: 4,
           }}>
-        cbd-7767565
+       RX-{item.ListingKey}
         </Text>
       </View>
       {/* <View
@@ -318,14 +318,14 @@ const RecycleBin = () => {
         }}>
         <Text
           style={{
-            fontSize: 12,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?24:12,
             color: Colors.white,
             fontFamily: 'Poppins-Regular',
             marginBottom: 0,
-            lineHeight: 14,
+            lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?28:14,
             paddingTop: 4,
           }}>
-          Pending
+        {item?.status}
         </Text>
       </View>
       {/* <View
@@ -537,7 +537,7 @@ const RecycleBin = () => {
           onPress={() => navigation.navigate('ViewPropertiy', { item })}>
           <Text
             style={{
-              fontSize: 28,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?55:28,
               color: "#1450B1",
               fontFamily: 'Poppins-Medium',
               marginTop: 0,
@@ -556,11 +556,12 @@ const RecycleBin = () => {
         <Text
           numberOfLines={1}
           style={{
-            fontSize: 20,
+            fontSize:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
             color: Colors.black,
             textAlign: 'center',
             fontFamily: 'Poppins-Light',
-            marginTop:6
+            marginTop:DeviceInfo.getDeviceType() === 'Tablet'?10:6,
+            marginBottom:DeviceInfo.getDeviceType() === 'Tablet'?10:0,
           }}>
           {item?.title}
         </Text>
@@ -894,19 +895,20 @@ const RecycleBin = () => {
                   alignItems: 'flex-start',
                   // backgroundColor: "red",
                  // width: 70,
+                 width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
                 }}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                   <Image
                     source={Images.newbed}
                     style={{
-                      height: 20,
-                      width:27,
+                      height: DeviceInfo.getDeviceType() === 'Tablet'?49:26,
+                      width: DeviceInfo.getDeviceType() === 'Tablet'?39:21,
                       resizeMode: 'contain',
                     //backgroundColor: "green"
                     }}></Image>
                   <Text
                     style={{
-                      fontSize: 11,
+                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -923,20 +925,19 @@ const RecycleBin = () => {
                 style={{
                   justifyContent: 'flex-start',
                   alignItems: 'flex-start',
-
-                  width: 70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
                 }}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                   <Image
                     source={Images.bathtub}
                     style={{
-                      height: 20,
-                      width: 20,
-                      resizeMode: 'contain',
+                      height: DeviceInfo.getDeviceType() === 'Tablet'?44:26,
+                      width: DeviceInfo.getDeviceType() === 'Tablet'?49:28,
+                      resizeMode: 'contain', marginBottom: 5
                     }}></Image>
                   <Text
                     style={{
-                      fontSize: 11,
+                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -951,20 +952,20 @@ const RecycleBin = () => {
                 style={{
                   justifyContent: 'flex-start',
                   alignItems: 'flex-start',
-                  width: 70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
                 }}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                   <Image
                     source={Images.measuringtape}
                     style={{
-                      height: 20,
-                      width: 20,
-                      resizeMode: 'contain',
-                      marginBottom:5
+                      height: DeviceInfo.getDeviceType() === 'Tablet'?45:26,
+                                      width: DeviceInfo.getDeviceType() === 'Tablet'?47:27,
+                                      resizeMode: 'contain',
+                                      marginBottom: 5
                     }}></Image>
                   <Text
                     style={{
-                      fontSize: 11,
+                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -979,22 +980,22 @@ const RecycleBin = () => {
                 style={{
                   justifyContent: 'center',
                   alignItems: 'center',
-                  width: 70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
                 }}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Image
                     source={Images.hoa2}
                     style={{
-                      height: 28,
-                      width: 29,
+                      height: DeviceInfo.getDeviceType() === 'Tablet'?47:26,
+                      width: DeviceInfo.getDeviceType() === 'Tablet'?51:27,
                       marginTop: 0,
                       resizeMode: 'contain',
-                      marginBottom:5
+                      marginBottom: 5,
                     }}></Image>
 
                   <Text
                     style={{
-                      fontSize: 11,
+                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -1008,21 +1009,21 @@ const RecycleBin = () => {
                 style={{
                   justifyContent: 'center',
                   alignItems: 'center',
-                  width: 70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
                 }}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                   <Image
                     source={Images.taxnew}
                     style={{
-                      height: 20,
-                      width: 20,
+                      height: DeviceInfo.getDeviceType() === 'Tablet'?47:27,
+                      width: DeviceInfo.getDeviceType() === 'Tablet'?43:25,
                       marginTop: 0,
                       resizeMode: 'contain',
-                      marginBottom:5
+                      marginBottom: 5,
                     }}></Image>
                   <Text
                     style={{
-                      fontSize: 11,
+                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -1035,21 +1036,21 @@ const RecycleBin = () => {
                 style={{
                   justifyContent: 'center',
                   alignItems: 'center',
-                  width: 70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
                 }}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                   <Image
                     source={Images.calendar}
                     style={{
-                      height: 20,
-                      width: 20,
+                      height: DeviceInfo.getDeviceType() === 'Tablet'?34:30,
+                      width: DeviceInfo.getDeviceType() === 'Tablet'?40:30,
                       marginTop: 0,
                       resizeMode: 'contain',
-                      marginBottom:5
+                      marginBottom: 5,
                     }}></Image>
                   <Text
                     style={{
-                      fontSize: 11,
+                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -1481,36 +1482,36 @@ const RecycleBin = () => {
           justifyContent: 'center',
           width: '100%',
           position: 'relative',
-          // height: 45,
           alignItems: 'center',
-          // borderBottomColor: Colors.gray,
-          // borderBottomWidth: 1,
           paddingTop: 16,
-          paddingBottom:2
-        
+          paddingBottom: 2,
         }}>
         <TouchableOpacity
           style={{
             flexDirection: 'row',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             position: 'absolute',
             left: 12,
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             // top: 12,
-            top: 13
+            top: 13,
+           // backgroundColor:"green",
+width:50,
+height:50
+
           }}
           onPress={() => {
             navigation.goBack();
           }}>
           <Image
             style={{
-              width:27,
-              height: 27,
+              width: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
+              height: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
               alignItems: 'center',
-              resizeMode:"contain"
+              resizeMode: 'contain',
             }}
             source={Images.leftnewarrow}></Image>
      
@@ -1523,16 +1524,17 @@ const RecycleBin = () => {
           }}>
           <Text
             style={{
-              fontSize: 20,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
               color: Colors.black,
               fontFamily: 'Poppins-Light',
-              lineHeight: 22,
+              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
             }}>
-        Recycle Bin
+           Recycle Bin
           </Text>
      
         </View>
         <TouchableOpacity
+
           style={{
             position:"absolute",
     right:10,
@@ -1548,12 +1550,60 @@ const RecycleBin = () => {
           />
         </TouchableOpacity>
 
-      
+        {/* <TouchableOpacity
+              onPress={() => {
+              
+              }}
+              activeOpacity={0.5}
+              style={{
+                height: 40,
+                width: 40,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderWidth: 1,
+                borderColor: Colors.surfblur,
+                borderRadius: 50,
+                position:"absolute",
+                right:10,
+                top:5
+              }}>
+             
+            
+                <View
+                  style={{
+                    height:35,
+                    width: 35,
+                    borderRadius: 20,
+                    backgroundColor: Colors.surfblur,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                  }}>
+               
+                    <Image
+                      style={{ height: 40, width: 40 }}
+                      source={Images.user}
+                    />
+            
+                </View>
+            
+         
+            </TouchableOpacity> */}
+
       </View>
-      <View style={{alignItems:"center",justifyContent:"center",  marginBottom: 16}}><Image
-                      style={{ height: 14, width: 12,resizeMode:"contain" }}
-                      source={Images.favfilter}
-                    /></View>
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: 16,
+        }}>
+        <Image
+          style={{height: DeviceInfo.getDeviceType() === 'Tablet'?30:15,
+           width: DeviceInfo.getDeviceType() === 'Tablet'?26:13,
+            resizeMode: 'contain'}}
+          source={Images.favfilter}
+        />
+      </View>
       <View style={{ height: '100%', width: '100%' }}>
         {showNoDataMessage ? (
           <View
@@ -1610,9 +1660,10 @@ marginBottom:16
     margin: 20,
     marginTop: 0,
     marginBottom: 0,
+    resizeMode:"cover"
   },
   title: {
-    fontSize: 23,
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?39:23,
     //fontWeight: 'bold',
     marginBottom: 20,
   },
