@@ -39,7 +39,7 @@ import CardsSwipe from 'react-native-cards-swipe';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-
+import LottieView from 'lottie-react-native';
 import {store} from '../../redux/store';
 import {addToFavorite} from '../../modules/addToFavorite';
 import {addRemoveTrash} from '../../modules/addRemoveTrash';
@@ -712,6 +712,7 @@ const Home = () => {
                 justifyContent: 'center',
                 marginBottom: 20,
                 marginTop: 10,
+          
               }}>
               <TouchableOpacity
                 onPress={() => {
@@ -1918,7 +1919,8 @@ const Home = () => {
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                                visible={favModalVisiable}
+                               //visible={favModalVisiable}
+                                 visible={true}
                                 onRequestClose={() => {
                                   setfavModalVisiable(false);
                                 }}>
@@ -1969,94 +1971,62 @@ const Home = () => {
                                           }}></View>
                                       </View>
 
+                                
+                                  
+                                        <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?36:26,fontFamily:"Poppins-SemiBold",color:Colors.black,marginTop:40,textAlign:"center"}}>Congratulations!</Text>
+                                      <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?36:26,fontFamily:"Poppins-SemiBold",color:Colors.black,marginBottom:50,textAlign:"center"}}>You swiped right!</Text>
                                       <Text
                                         style={{
-                                          fontSize: 13,
-                                          fontFamily: 'Poppins-Regular',
+                                          fontSize: DeviceInfo.getDeviceType() === 'Tablet'?26:18,
+                                          fontFamily: 'Poppins-Light',
                                           color: 'black',
                                           alignItems: 'center',
                                           flexDirection: 'row',
-                                          lineHeight: 22,
+                                          lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?39:26,
                                           flexWrap: 'wrap',
+                                          textAlign:"center",
                                           flexDirection: 'row',
-                                          textAlign: 'justify',
+                                          alignItems: 'center',
+                                          textAlign: 'center',
+                                          paddingHorizontal:16
                                         }}>
-                                        You're on your way to locating your
-                                        dream home. You can review, rate,
-                                        comment and dispose of your Favorited
-                                        properties by tapping on your
-                                        <TouchableOpacity
+                                      These properties will be 
+saved in your Favorites 
+                                        {/* <TouchableOpacity
+                                          onPress={() => {
+                                            navigation.navigate('RecycleBin');
+                                          }}
                                           style={{
                                             flexDirection: 'row',
                                             alignItems: 'center',
                                             paddingHorizontal: 6,
                                           }}>
-                                          <Text
-                                            onPress={() => {
-                                              navigation.navigate('Favorites');
-                                            }}
-                                            style={{
-                                              color: Colors.surfblur,
-                                              fontFamily: 'Poppins-Regular',
-                                              position: 'relative',
-                                              top: 9,
-                                            }}>
-                                            Favorites
-                                          </Text>
-                                          <Image
-                                            source={Images.ThumbUp}
-                                            style={{
-                                              height: 18,
-                                              width: 18,
-                                              tintColor: 'green',
-                                              resizeMode: 'contain',
-                                              //marginTop: 3
-                                              position: 'relative',
-                                              top: 6,
-                                              marginLeft: 5,
-                                            }}></Image>
-                                        </TouchableOpacity>
-                                        <Text
-                                          style={{
-                                            fontSize: 13,
-                                            fontFamily: 'Poppins-Regular',
-                                            color: 'black',
-                                            alignItems: 'center',
-                                            flexDirection: 'row',
-                                            lineHeight: 22,
-                                            flexWrap: 'wrap',
-                                            flexDirection: 'row',
-                                            textAlign: 'justify',
-                                          }}>
-                                          below. I'm also available 24/7 to
-                                          assist you with your search. Simply
-                                          type your search criteria into our
-                                          chat or into the Surf bar at the top
-                                          of the page and I will populate all
-                                          the properties that match your
-                                          requested criteria. If you like that
-                                          search criteria, feel free to save
-                                          your search criteria
-                                          <TouchableOpacity>
-                                            <Image
-                                              source={Images.searchm}
-                                              style={{
-                                                height: 12,
-                                                width: 12,
-                                                tintColor: Colors.surfblur,
-                                                resizeMode: 'contain',
-                                                //marginTop: 3
-                                                marginHorizontal: 4,
-                                                position: 'relative',
-                                                top: 2,
-                                                marginRight: 4,
-                                                left: 2,
-                                              }}></Image>
-                                          </TouchableOpacity>
-                                          so you don't miss out on new listings
-                                          that meet your saved search criteria.
-                                        </Text>
+                                         
+                                        
+                                        </TouchableOpacity> */}
+                                      
                                       </Text>
+                               
+                                      <View style={{flexDirection:"row",marginTop:60,justifyContent:"flex-end",alignItems:"flex-start"}}>
+                                      <Image
+              source={Images.arrowleft}
+              style={{height: DeviceInfo.getDeviceType() === 'Tablet'?39:25, width: DeviceInfo.getDeviceType() === 'Tablet'?39:25, resizeMode: 'contain',tintColor:"#000" ,marginRight:30,transform: [{ rotate: '-180deg' }]}}>
+
+              </Image>
+                                      
+                                      <View style={{flexDirection:"column"}}>
+                                      <TouchableOpacity style={{alignItems:"center"}}
+                                          onPress={() => {
+                                            navigation.navigate('MyFavorites');
+                                          }} >
+                                           <Image
+              source={Images.ThumbUp}
+              style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?39:25, width: DeviceInfo.getDeviceType() === 'Tablet'?39:25, resizeMode: 'contain',tintColor:"#000" }}></Image>
+              <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?20:10,fontFamily:"Poppins-Light",color:"#000"}}>Favorites</Text>
+              </TouchableOpacity>
+                                      </View>
+                                     
+                                      </View>
                                     </Animated.View>
                                   </View>
                                 </View>
@@ -2066,8 +2036,8 @@ const Home = () => {
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                                visible={tashModalVisiable}
-                                // visible={true}
+                             visible={tashModalVisiable}
+                               ///visible={true}
                                 onRequestClose={() => {
                                   setTrashModalVisiable(false);
                                 }}>
@@ -2082,7 +2052,7 @@ const Home = () => {
                                   <View
                                     style={{
                                       alignItems: 'center',
-                                      justifyContent: 'center',
+                                     justifyContent: 'center',
                                       width: '100%',
                                     }}>
                                     <Animated.View
@@ -2104,7 +2074,7 @@ const Home = () => {
                                       <View
                                         style={{
                                           alignItems: 'center',
-                                          justifyContent: 'center',
+                                         justifyContent: 'center',
                                           marginBottom: 20,
                                         }}>
                                         <View
@@ -2113,27 +2083,31 @@ const Home = () => {
                                             height: 5,
                                             backgroundColor: '#bac1c3',
                                             marginTop: 0,
-                                            justifyContent: 'center',
+                                           justifyContent: 'center',
                                             borderRadius: 100,
                                           }}></View>
                                       </View>
+                                      <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?36:26,fontFamily:"Poppins-SemiBold",color:Colors.black,marginTop:40,textAlign:"center"}}>Woohoo! </Text>
+                                      <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?36:26,fontFamily:"Poppins-SemiBold",color:Colors.black,marginBottom:50,textAlign:"center"}}>You swiped left!</Text>
                                       <Text
                                         style={{
-                                          fontSize: 13,
-                                          fontFamily: 'Poppins-Regular',
+                                          fontSize: DeviceInfo.getDeviceType() === 'Tablet'?26:18,
+                                          fontFamily: 'Poppins-Light',
                                           color: 'black',
                                           alignItems: 'center',
                                           flexDirection: 'row',
-                                          lineHeight: 22,
+                                          lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?39:26,
                                           flexWrap: 'wrap',
+                                          textAlign:"center",
                                           flexDirection: 'row',
                                           alignItems: 'center',
-                                          textAlign: 'justify',
+                                          textAlign: 'center',
+                                          paddingHorizontal:16
                                         }}>
-                                        Congrats on your first surf swipe left!
-                                        If you decide to change your mind, you
-                                        can find this property in your
-                                        <TouchableOpacity
+                                       These properties will be saved in the
+“Recycle Bin” tab inside the 
+profile menu.
+                                        {/* <TouchableOpacity
                                           onPress={() => {
                                             navigation.navigate('RecycleBin');
                                           }}
@@ -2142,38 +2116,29 @@ const Home = () => {
                                             alignItems: 'center',
                                             paddingHorizontal: 6,
                                           }}>
-                                          <Text
-                                            style={{
-                                              fontSize: 13,
-                                              color: Colors.surfblur,
-                                              fontFamily: 'Poppins-Regular',
-                                              position: 'relative',
-                                              top: 8,
-                                            }}>
-                                            Recycle Bin
-                                          </Text>
-                                          <Image
-                                            source={Images.downThumb}
-                                            style={{
-                                              height: 18,
-                                              width: 18,
-                                              tintColor: 'red',
-                                              resizeMode: 'contain',
-                                              //marginTop: 3
-                                              position: 'relative',
-                                              top: 9,
-                                              marginLeft: 3,
-                                            }}></Image>
-                                        </TouchableOpacity>
-                                        <Text
-                                          style={{
-                                            color: Colors.black,
-                                            fontFamily: 'Poppins-Regular',
-                                          }}>
-                                          located in your Profile. I'm here 24/7
-                                          if you need my assistance.
-                                        </Text>
+                                         
+                                        
+                                        </TouchableOpacity> */}
+                                      
                                       </Text>
+
+                                      
+                                      <View style={{flexDirection:"row",marginTop:60,justifyContent:"flex-start",alignItems:"flex-start"}}>
+                                      <View style={{flexDirection:"column"}}>
+                                      <TouchableOpacity style={{alignItems:"center",justifyContent:"center"}}
+                                          onPress={() => {
+                                            navigation.navigate('MyProfile');
+                                          }} >
+                                           <Image
+              source={Images.newprofile}
+              style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?39:25, width: DeviceInfo.getDeviceType() === 'Tablet'?39:25, resizeMode: 'contain',tintColor:"#000" }}></Image>
+              <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?20:10,fontFamily:"Poppins-Light",color:"#000"}}>Profile</Text>
+              </TouchableOpacity>
+                                      </View>
+                                      <Image
+              source={Images.arrowleft}
+              style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?39:25, width:DeviceInfo.getDeviceType() === 'Tablet'?39:25, resizeMode: 'contain',tintColor:"#000" ,marginLeft:30}}></Image>
+                                      </View>
                                     </Animated.View>
                                   </View>
                                 </View>
@@ -2183,8 +2148,8 @@ const Home = () => {
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                                visible={saveModalVisible}
-                                // visible={true}
+                              visible={saveModalVisible}
+                               //visible={true}
                                 onRequestClose={() => {
                                   setSaveModalVisible(false);
                                 }}>
@@ -2234,19 +2199,173 @@ const Home = () => {
                                             borderRadius: 100,
                                           }}></View>
                                       </View>
+                                      <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?39:26,fontFamily:"Poppins-SemiBold",color:Colors.black,marginTop:40,textAlign:"center"}}>Righteous!
+</Text>
+                                      <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?39:26,fontFamily:"Poppins-SemiBold",color:Colors.black,marginBottom:50,textAlign:"center"}}>You saved your first search!</Text>
                                       <Text
                                         style={{
-                                          fontSize: 13,
-                                          fontFamily: 'Poppins-Regular',
+                                          fontSize: DeviceInfo.getDeviceType() === 'Tablet'?24:18,
+                                          fontFamily: 'Poppins-Light',
                                           color: 'black',
                                           alignItems: 'center',
                                           flexDirection: 'row',
-                                          lineHeight: 22,
+                                          lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?35:22,
                                           flexWrap: 'wrap',
+                                          textAlign:"center",
+                                          flexDirection: 'row',
+                                          alignItems: 'center',
+                                          textAlign: 'center',
+                                          paddingHorizontal:16
                                         }}>
-                                        Your Search will be Saved in your
-                                        Profile
+                                     You can find your Saved Search’s in the 
+“Saved Search” tab inside the profile menu. 
+You’ll also receive emails and push 
+notifications when new properties are listed.
+
+                                        {/* <TouchableOpacity
+                                          onPress={() => {
+                                            navigation.navigate('RecycleBin');
+                                          }}
+                                          style={{
+                                            flexDirection: 'row',
+                                            alignItems: 'center',
+                                            paddingHorizontal: 6,
+                                          }}>
+                                         
+                                        
+                                        </TouchableOpacity> */}
+                                      
                                       </Text>
+                                       
+                                      <View style={{flexDirection:"row",marginTop:60,justifyContent:"flex-start",alignItems:"flex-start"}}>
+                                      <View style={{flexDirection:"column"}}>
+                                      <TouchableOpacity style={{alignItems:"center",justifyContent:"center"}}
+                                          onPress={() => {
+                                            navigation.navigate('MyProfile');
+                                          }} >
+                                           <Image
+              source={Images.newprofile}
+              style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?39:25, width: DeviceInfo.getDeviceType() === 'Tablet'?39:25, resizeMode: 'contain',tintColor:"#000" }}></Image>
+              <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?20:10,fontFamily:"Poppins-Light",color:"#000"}}>Profile</Text>
+              </TouchableOpacity>
+                                      </View>
+                                      <Image
+              source={Images.arrowleft}
+              style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?39:25, width: DeviceInfo.getDeviceType() === 'Tablet'?39:25, resizeMode: 'contain',tintColor:"#000" ,marginLeft:30}}></Image>
+                                      </View>
+                                    </Animated.View>
+                                  </View>
+                                </View>
+                              </Modal>
+                            </KeyboardAvoidingView>
+
+                            <KeyboardAvoidingView behavior="padding">
+                              <Modal
+                                transparent={true}
+                                animationType="slide"
+                          visible={saveModalVisible}
+                                  //visible={true}
+                                onRequestClose={() => {
+                                  setSaveModalVisible(false);
+                                }}>
+                                <View style={styles.modalContainer1}>
+                                  <TouchableOpacity
+                                    activeOpacity={1}
+                                    style={styles.modalOverlay1}
+                                    onPress={() => {
+                                      setSaveModalVisible(false);
+                                    }}
+                                  />
+                                  <View
+                                    style={{
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      width: '100%',
+                                    }}>
+                                    <Animated.View
+                                      {...panResponder.panHandlers}
+                                      style={[
+                                        styles.modalContent1,
+                                        {
+                                          transform: [
+                                            {
+                                              translateY:
+                                                slideAnimation.interpolate({
+                                                  inputRange: [-300, 0],
+                                                  outputRange: [-300, 0],
+                                                }),
+                                            },
+                                          ],
+                                        },
+                                      ]}>
+                                      <View
+                                        style={{
+                                          alignItems: 'center',
+                                          justifyContent: 'center',
+                                          marginBottom: 20,
+                                        }}>
+                                        <View
+                                          style={{
+                                            width: 50,
+                                            height: 5,
+                                            backgroundColor: '#bac1c3',
+                                            marginTop: 0,
+                                            justifyContent: 'center',
+                                            borderRadius: 100,
+                                          }}></View>
+                                      </View>
+                                      <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?36:21,fontFamily:"Poppins-SemiBold",color:Colors.black,marginTop:40,textAlign:"center"}}>Cool Beans!
+
+</Text>
+                                      <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?24:14,fontFamily:"Poppins-Medium",color:Colors.black,
+                                      marginBottom:0,textAlign:"center"}}>You clicked the geo-lokator! 
+</Text>
+<View style={{width:"100%",justifyContent:"center",alignItems:"center",marginBottom:40}}>
+ <LottieView 
+          style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?200:200, justifyContent:"center",alignItems:"center",
+          width: DeviceInfo.getDeviceType() === 'Tablet'?270:270 }} 
+          source={require('../../assets/animations/map.json')} 
+          autoPlay loop /> 
+          </View>
+                                      <Text
+                                        style={{
+                                          fontSize: DeviceInfo.getDeviceType() === 'Tablet'?26:18,
+                                          fontFamily: 'Poppins-Light',
+                                          color: 'black',
+                                          alignItems: 'center',
+                                          flexDirection: 'row',
+                                          lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?39:22,
+                                          flexWrap: 'wrap',
+                                          textAlign:"center",
+                                          flexDirection: 'row',
+                                          alignItems: 'center',
+                                          textAlign: 'center',
+                                          paddingHorizontal:16
+                                        }}>
+                                   If you are in any neighborhood and 
+want to see the price or details of a 
+home without Googling it or 
+contacting the Realtor®, this 
+will be an invaluable tool in the 
+search for your new home
+
+                                        {/* <TouchableOpacity
+                                          onPress={() => {
+                                            navigation.navigate('RecycleBin');
+                                          }}
+                                          style={{
+                                            flexDirection: 'row',
+                                            alignItems: 'center',
+                                            paddingHorizontal: 6,
+                                          }}>
+                                         
+                                        
+                                        </TouchableOpacity> */}
+                                      
+                                      </Text>
+                                       
+                                    <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?26:15,fontFamily:"Poppins-SemiBold",color:"black", width:"100%",
+                                    textAlign:"center",marginTop:30}}>You’re Welcome!</Text>
                                     </Animated.View>
                                   </View>
                                 </View>
@@ -3164,9 +3283,9 @@ const styles = StyleSheet.create({
 
   modalOverlay1: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '98%',
+   // alignItems: 'center',
+   // justifyContent: 'center',
+    width: DeviceInfo.getDeviceType() === 'Tablet'?"100%":"98%",
     boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
   },
 
@@ -3195,8 +3314,8 @@ const styles = StyleSheet.create({
     padding: 16,
     maxHeight: '100%',
     width: '96%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    //alignItems: 'center',
+    //justifyContent: 'center',
     boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
   },
   shadowProp: {
