@@ -196,19 +196,18 @@ const Home = () => {
     dispatch(getUserScore()).then(response => {});
   };
   useEffect(() => {
-    getPopertiesApiCall({type: 0, data: {limit: limitCount}, lntLng})
-    // if (isFocused) {
-    //   Promise.all[
-    //     (getFilterApicall(),
-    //     getTrashApiCall(),
-    //     favlistApi(),
-    //     getSavedApiCall(),
-    //     getMoreFilterApiCall(),
-    //     getPopertiesApiCall({type: 0, data: {limit: limitCount}, lntLng}),
-    //     setAddres(''),
-    //     getUserScoreApiCall())
-    //   ];
-    // }
+    if (isFocused) {
+      Promise.all[
+        (getFilterApicall(),
+        getTrashApiCall(),
+        favlistApi(),
+        getSavedApiCall(),
+        getMoreFilterApiCall(),
+        getPopertiesApiCall({type: 0, data: {limit: limitCount}, lntLng}),
+        setAddres(''),
+        getUserScoreApiCall())
+      ];
+    }
   }, [isFocused]);
   const getFilterApicall = () => {
     dispatch(getFilter()).then(response => {
@@ -902,8 +901,34 @@ const Home = () => {
                             }}>
                             Choose your city{' '}
                           </Text>
-
-                          <Dropdown
+<View style={[styles.dropdown,{width:"100%",height:40, alignItems: 'center', flexDirection: 'row',justifyContent:"center"}]}> 
+<TextInput
+        style={{width: '85%', backgroundColor:"blue"}}
+        value={cities}
+        onChange={async item => {
+          setCities(item);
+          await dispatch(
+            getPoperties({
+              type: 3,
+              data: {
+                data_custom_taxonomy: 'property_city',
+                data_customvalue: item.toString(),
+              },
+            }),
+          ).then(res => {
+            setHomeData(res.payload.data);
+          });
+        }}
+        placeholder="Select city"
+        // keyboardType="numeric"
+      />
+<View style={{  
+    width: 20,
+    height: 20,
+    backgroundColor:"red",
+  }}></View>
+</View>
+                          {/* <Dropdown
                             style={[styles.dropdown, {width: '100%'}]}
                             placeholderStyle={styles.placeholderStyle}
                             selectedTextStyle={styles.selectedTextStyle}
@@ -935,7 +960,7 @@ const Home = () => {
                               });
                             }}
                             selectedStyle={styles.selectedStyle}
-                          />
+                          /> */}
 
                           <View style={{marginBottom: 12}}>
                             <Text
