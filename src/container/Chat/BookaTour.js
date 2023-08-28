@@ -11,7 +11,6 @@ import { store } from '../../redux/store';
 import { TypingAnimation } from "react-native-typing-animation";
 import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
 import Images from "../../utils/Images";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import AsyncStorage from '@react-native-community/async-storage';
 import { getBookTour } from "../../modules/getBookTour";
 import { bookChat } from "../../modules/bookChat";

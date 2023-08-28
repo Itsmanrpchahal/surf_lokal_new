@@ -1,16 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAPI, uploadImageAPI } from '../config/apiMethod';
-import AsyncStorage from '@react-native-community/async-storage';
 import BASEURl from '../services/Api'
 
 export const getPoperties = createAsyncThunk('getPoperties', async type => {
-  const access_token = await AsyncStorage.getItem('access_token')
-  const Header={
-    security_key:"SurfLokal52",
-    access_token:access_token
-  }
+
   return type.type === 0
-    ? await getAPI(BASEURl + "webapi/v1/property/?limit="  +type.data.limit,Header)
+    ? await getAPI(BASEURl + "webapi/v1/property/?limit="  +type?.data?.limit)
       .then(async response => {
         const { data } = response;
         return data;
@@ -34,7 +29,7 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
       : type.type === 2
         ?
         await uploadImageAPI(
-          BASEURl + 'wp-json/search/websearch',Header,
+          BASEURl + 'wp-json/search/websearch',
           type.data,
         )
           .then(async response => {

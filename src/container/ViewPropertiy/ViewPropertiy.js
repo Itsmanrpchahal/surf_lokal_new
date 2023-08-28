@@ -1896,10 +1896,7 @@ const ViewPropertiy = (props, imageUrl) => {
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('ChatSearch', {
-              initialMessage: 'When would you like to schedule a showing?',
-              agentReply: 'A Lokal agent will confirm with you within the next 2 hours',
-            });
+            navigation.navigate('BookaTour', { ID: '', PropID: postid?.ID, user_id: '', user2_id: '' })
           }}
           style={{
             justifyContent: 'center',

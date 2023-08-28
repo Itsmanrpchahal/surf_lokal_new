@@ -1,29 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-community/async-storage';
-import axios from 'axios';
-import { uploadImageAPI } from '../config/apiMethod';
+import { postAPI } from '../config/apiMethod';
 
-export const postRating = createAsyncThunk('postRating', async (_, { dispatch, getState }) => {
+export const postRating = createAsyncThunk('postRating', async (formData) => {
   try {
     const access_token = await AsyncStorage.getItem('access_token');
     const header = {
       security_key: "SurfLokal52",
       access_token: access_token,
     };
-
-    "access_token,postid,photo_quality_rating,desc_stars,price_stars,interest_stars,content,reviewtitle fields are required!"
-
-    const formData = new FormData();
-    formData.append('userID', 100);
-    formData.append('postid', 1609047);
-    formData.append('reviewtitle', 'hjvjbm');
-    formData.append('photo_quality_rating', 4);
-    formData.append('desc_stars', 2);
-    formData.append('price_stars', 1);
-    formData.append('interest_stars', 5);
-    formData.append('content', 'hjvhjhjb');
-    const response = await uploadImageAPI(
-      'https://www.surflokal.com/webapi/v1/rating/',
+    console.log("Header cd25ab6d7ee9f9daf09447f25ee48d60",header.access_token, formData)
+    const response = await postAPI(
+      `https://www.surflokal.com/webapi/v1/rating/`,
       formData,
       header
     ).then((res)=>{

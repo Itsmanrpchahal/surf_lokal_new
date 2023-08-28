@@ -11,6 +11,7 @@ import messaging from '@react-native-firebase/messaging';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { navigationRef } from './src/navigation/RootNavigation';
+import axios from 'axios';
 // Register background handler
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Message handled in the background!', remoteMessage);
@@ -19,7 +20,22 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 
 const App = () => {
   const [splash, setSplash] = useState(true);
+  const setToken = async () => {
+    const fcmtoken = await messaging().getToken()
+    axios.interceptors.request.use(function (config) {
+      config.headers['security_key'] = 'SurfLokal52';
+      config.headers['access_token'] = store?.getState().loginUser.loginData.metadata?.[fcmtoken].toString();
+      return config;
+    });
+     console.log("setToken ", store?.getState().loginUser)
+  }
+  setToken()
 
+  // axios.interceptors.request.use(function (config) {
+  //   config.headers['security_key'] = 'SurfLokal52';
+  //   config.headers['access_token'] = store?.getState().loginUser.loginData.metadata?.[fcmtoken].toString();
+  //   return config;
+  // });
   const HandleDeepLinking = () => {
     const navigation = useNavigation()
 
