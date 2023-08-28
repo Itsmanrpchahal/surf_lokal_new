@@ -306,7 +306,7 @@ const RecycleBin = () => {
         style={{
           // height: 30,
           //width: 20,
-          backgroundColor: "red",
+          backgroundColor: item?.status === 'Active' ? Colors.surfblur : 'red',
           position: 'absolute',
           top: 8,
           right: 16,

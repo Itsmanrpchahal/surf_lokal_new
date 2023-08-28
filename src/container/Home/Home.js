@@ -39,6 +39,7 @@ import CardsSwipe from 'react-native-cards-swipe';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
+
 import LottieView from 'lottie-react-native';
 import {store} from '../../redux/store';
 import {addToFavorite} from '../../modules/addToFavorite';
@@ -46,7 +47,6 @@ import {addRemoveTrash} from '../../modules/addRemoveTrash';
 import {getRating} from '../../modules/getRating';
 import {ScrollView} from 'react-native-gesture-handler';
 import DeviceInfo from 'react-native-device-info';
-
 import MapView, {
   Marker,
   Callout,
@@ -150,6 +150,7 @@ const Home = () => {
   const [mapType, setMapType] = useState('standard');
   const [isEditing, setIsEditing] = useState(false);
   const [moreFilter, setMoreFilter] = useState(false);
+  const [collapsibleStatus, setSetCollapsibleStatus] = useState(false)
   const [maxPriceRange, setMaxPriceRange] = useState();
   const [minPricerange, setMinPricerange] = useState();
   const [minSquareFeet, setMinSquareFeet] = useState();
@@ -203,15 +204,13 @@ const Home = () => {
     if (isFocused) {
       Promise.all[
         (getFilterApicall(),
-
-        getTrashApiCall(),
-        favlistApi(),
-        getSavedApiCall(),
-        getMoreFilterApiCall(),
-        getPopertiesApiCall({type: 0, data: {limit: limitCount}, lntLng}),
-        setAddres(''),
-        getUserScoreApiCall())
-
+          getTrashApiCall(),
+          favlistApi(),
+          getSavedApiCall(),
+          getMoreFilterApiCall(),
+          getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
+          setAddres(''),
+          getUserScoreApiCall())
       ];
     }
   }, [isFocused]);
@@ -570,12 +569,12 @@ const Home = () => {
       <View
         style={{
           height: '100%',
-          width:"100%",
-          alignItems:"center"
+          width: "100%",
+          alignItems: "center"
         }}>
         <View
           style={{
-            width:  DeviceInfo.getDeviceType() === 'Tablet'?"70%":"100%",
+            width: DeviceInfo.getDeviceType() === 'Tablet' ? "70%" : "100%",
             paddingVertical: 18,
             justifyContent: 'center',
             borderRadius: 5,
@@ -584,7 +583,7 @@ const Home = () => {
             flexDirection: 'row',
             backgroundColor: '#fff',
             paddingLeft: 10,
-            alignItems:"center"
+            alignItems: "center"
           }}>
           <View
             style={{
@@ -905,33 +904,206 @@ const Home = () => {
                             Choose your city{' '}
                           </Text>
 
-                            <View style={[styles.dropdown,{width:"100%",height:40, alignItems: 'center', flexDirection: 'row',justifyContent:"center"}]}> 
-                            <TextInput
-                                    style={{width: '85%', backgroundColor:"blue"}}
-                                    value={cities}
-                                    onChange={async item => {
-                                      setCities(item);
-                                      await dispatch(
-                                        getPoperties({
-                                          type: 3,
-                                          data: {
-                                            data_custom_taxonomy: 'property_city',
-                                            data_customvalue: item.toString(),
-                                          },
-                                        }),
-                                      ).then(res => {
-                                        setHomeData(res.payload.data);
-                                      });
-                                    }}
-                                    placeholder="Select city"
-                                    // keyboardType="numeric"
-                                  />
-                            <View style={{  
+
+                          <TouchableOpacity onPress={() => {
+                            setSetCollapsibleStatus(!collapsibleStatus)
+                          }} style={[styles.dropdown, { width: "100%", height: 40, alignItems: 'center', flexDirection: 'row', justifyContent: "center" }]}>
+                            <Text style={{ width: '85%',color:Colors.black, fontFamily:"Poppins-Regular" }}>
+                              All Cities
+                            </Text>
+                            {/* <TextInput
+                              style={{ width: '85%', }}
+                              value={cities}
+                              onChange={async item => {
+                                setCities(item);
+                                console.log("cities==>>>>>>",cities)
+                                // await dispatch(
+                                //   getPoperties({
+                                //     type: 3,
+                                //     data: {
+                                //       data_custom_taxonomy: 'property_city',
+                                //       data_customvalue: item.toString(),
+                                //     },
+                                //   }),
+                                // ).then(res => {
+                                //   setHomeData(res.payload.data);
+                                // });
+                              }}
+                              placeholder="All Cities"
+                            // keyboardType="numeric"
+                            /> */}
+
+                            <TouchableOpacity>
+                              <View style={{
                                 width: 20,
                                 height: 20,
-                                backgroundColor:"red",
-                              }}></View>
+                                position: "relative"
+                              }}>
+                                <Image source={Images.downArrow} style={{
+                                  width: 12,
+                                  height: 12,
+                                  resizeMode: "contain",
+                                  position: "absolute",
+                                  right: 0,
+                                  top: 5
+                                }}></Image>
+                              </View>
+                            </TouchableOpacity>
+                          </TouchableOpacity>
+                          <Collapsible collapsed={collapsibleStatus}>
+                            <View style={[styles.dropdown, { width: "100%", height: 150, alignItems: 'center', flexDirection: 'row', justifyContent: "center", padding: 10 }]}>
+                              <View
+                                style={{
+                                  alignContent: 'center',
+                                  width: '100%',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                }}>
+                                <FlatList
+                                  data={moreFilterData?.City}
+                                  style={{ alignContent: 'center', margin: -6, width: "100%" }}
+                                  nestedScrollEnabled
+                                  renderItem={({ item, index }) => {
+                                    const {
+                                      data_custom_taxonomy,
+                                      data_customvalue,
+                                    } = item;
+                                    const isSelectedMore =
+                                      selectedTabsMore.filter(
+                                        i => i === data_customvalue,
+                                      ).length > 0;
+                                    return (
+                                      <TouchableOpacity
+                                        style={{
+                                          width: '95%',
+                                          margin: 5,
+                                          borderRadius: 20,
+                                          borderWidth: 1,
+                                          borderColor: Colors.black,
+                                          backgroundColor: isSelectedMore
+                                            ? Colors.black
+                                            : Colors.white,
+                                          padding: 10,
+                                        }}
+                                        onPress={
+                                          async () => {
+                                            cities.push(item)
+                                            setSetCollapsibleStatus(!collapsibleStatus)
+                                            if (isSelectedMore) {
+                                              setSelectedTabsMore(prev =>
+                                                prev.filter(
+                                                  i => i !== data_customvalue,
+                                                ),
+                                              );
+                                            } else {
+                                              setSelectedTabsMore(prev => [
+                                                ...prev,
+                                                data_customvalue,
+                                              ]);
+                                            }
+                                             console.log("selectedTabsMore======>",selectedTabsMore)
+                                            //  await dispatch(
+                                            //     getPoperties({
+                                            //       type: 3,
+                                            //       data: {
+                                            //         data_custom_taxonomy: 'property_city',
+                                            //         data_customvalue: selectedTabsMore,
+                                            //       },
+                                            //     }),
+                                            //   ).then(res => {
+                                            //     setHomeData(res.payload.data);
+                                            //   });
+                                          }}
+                                      >
+                                        <Text
+                                          style={{
+                                            color: isSelectedMore
+                                              ? Colors.white
+                                              : Colors.black,
+                                            textAlign: 'center',
+                                          }}
+                                          numberOfLines={1}>
+                                          {item?.data_name}
+                                        </Text>
+                                      </TouchableOpacity>
+                                    );
+                                  }}></FlatList>
+                              </View>
                             </View>
+                          </Collapsible>
+                          {
+                            cities.length > 0 ?
+                              <View style={[styles.dropdown, { width: "100%", height: 60, alignItems: 'flex-start', flexDirection: 'row', justifyContent: "flex-start", padding: 10 }]}>
+                                <View
+                                  style={{
+                                    // alignContent: 'flex-start',
+                                    width: '100%',
+                                    justifyContent: 'flex-start',
+                                    alignItems: 'flex-start',
+                                  }}>
+                                  <FlatList
+                                    data={cities}
+                                    style={{ alignContent: 'center', margin: -6 }}
+                                    horizontal
+                                    nestedScrollEnabled
+                                    numColumns={1}
+                                    renderItem={({ item }) => {
+                                      const {
+                                        data_custom_taxonomy,
+                                        data_customvalue,
+                                      } = item;
+                                      const isSelectedMore =
+                                        selectedTabsMore.filter(
+                                          i => i === data_customvalue,
+                                        ).length > 0;
+                                      return (
+                                        <TouchableOpacity
+                                          style={{
+                                            margin: 5,
+                                            borderRadius: 20,
+                                            borderWidth: 1,
+                                            borderColor: Colors.black,
+                                            backgroundColor: isSelectedMore
+                                              ? Colors.black
+                                              : Colors.white,
+                                            padding: 10,
+                                          }}
+                                          onPress={async () => {
+                                            cities.pop(item)
+                                            if (isSelectedMore) {
+                                              setSelectedTabsMore(prev =>
+                                                prev.filter(
+                                                  i => i !== data_customvalue,
+                                                ),
+                                              );
+                                            } else {
+                                              setSelectedTabsMore(prev => [
+                                                ...prev,
+                                                data_customvalue,
+                                              ]);
+                                            }
+                                          }}
+                                        >
+                                          <Text
+                                            style={{
+                                              color: isSelectedMore
+                                                ? Colors.white
+                                                : Colors.black,
+                                              textAlign: 'center',
+
+                                            }}
+                                            numberOfLines={1}>
+                                            {item?.data_name}
+                                          </Text>
+                                        </TouchableOpacity>
+                                      );
+                                    }}></FlatList>
+                                </View>
+                              </View>
+                              : null
+                          }
+
+
                           {/* <Dropdown
                             style={[styles.dropdown, {width: '100%'}]}
 
