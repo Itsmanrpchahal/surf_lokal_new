@@ -182,6 +182,6 @@ const Images = {
   standard: require(BaseUrl + 'standard.png'),
   satellite: require(BaseUrl + 'satellite.png'),
   hybrid: require(BaseUrl + 'hybrid.png'),
-
+  arrowleft: require(BaseUrl + 'arrow-left.png'),
 };
 export default Images;

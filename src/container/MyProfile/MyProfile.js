@@ -391,7 +391,7 @@ const MyFavorites = () => {
               </View>
             </TouchableOpacity>
           </View>
-          <Text style={{ fontSize: 25, color: "#2144a0", fontFamily: 'Poppins-Medium', textTransform: "capitalize" }}>
+          <Text numberOfLines={1} style={{ fontSize: 25, color: "#2144a0", fontFamily: 'Poppins-Medium', textTransform: "capitalize", width:"80%",paddingHorizontal:12 }}>
             {details[0]?.username}
           </Text>
           <TouchableOpacity
