@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -26,43 +26,43 @@ import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
-import {getPoperties} from '../../modules/getPoperties';
-import {postRating} from '../../modules/postRating';
-import {getFilter} from '../../modules/getFilter';
-import {SvgUri} from 'react-native-svg';
-import {postUpdateRating} from '../../modules/postUpdateRating';
-import { Dropdown, MultiSelect} from 'react-native-element-dropdown';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { getPoperties } from '../../modules/getPoperties';
+import { postRating } from '../../modules/postRating';
+import { getFilter } from '../../modules/getFilter';
+import { SvgUri } from 'react-native-svg';
+import { postUpdateRating } from '../../modules/postUpdateRating';
+import { Dropdown, MultiSelect } from 'react-native-element-dropdown';
 import CardsSwipe from 'react-native-cards-swipe';
-import {SwiperFlatList} from 'react-native-swiper-flatlist';
+import { SwiperFlatList } from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-import {store} from '../../redux/store';
-import {addToFavorite} from '../../modules/addToFavorite';
-import {addRemoveTrash} from '../../modules/addRemoveTrash';
-import {getRating} from '../../modules/getRating';
-import {ScrollView} from 'react-native-gesture-handler';
+import { store } from '../../redux/store';
+import { addToFavorite } from '../../modules/addToFavorite';
+import { addRemoveTrash } from '../../modules/addRemoveTrash';
+import { getRating } from '../../modules/getRating';
+import { ScrollView } from 'react-native-gesture-handler';
 import MapView, {
   Marker,
   Callout,
   PROVIDER_DEFAULT,
 } from 'react-native-maps';
 import Collapsible from 'react-native-collapsible';
-import {useIsFocused} from '@react-navigation/native';
-import {getMoreFilter} from '../../modules/getMoreFilter';
-import {useRef} from 'react';
-import {getTrash} from '../../modules/getTrash';
-import {getFavoriteProperties} from '../../modules/getFavoriteProperties';
-import {filterSearch} from '../../modules/filterSearch';
-import {getSavedSearch} from '../../modules/getSavedSearch';
-import {clearFilter} from '../../modules/clearFilter';
-import {getUserScore} from '../../modules/getUserScore';
+import { useIsFocused } from '@react-navigation/native';
+import { getMoreFilter } from '../../modules/getMoreFilter';
+import { useRef } from 'react';
+import { getTrash } from '../../modules/getTrash';
+import { getFavoriteProperties } from '../../modules/getFavoriteProperties';
+import { filterSearch } from '../../modules/filterSearch';
+import { getSavedSearch } from '../../modules/getSavedSearch';
+import { clearFilter } from '../../modules/clearFilter';
+import { getUserScore } from '../../modules/getUserScore';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import GetLocation from 'react-native-get-location';
 
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 
 const Home = () => {
   const isFocused = useIsFocused();
@@ -93,8 +93,9 @@ const Home = () => {
           userID: user_ID,
           SearchParameters: adress,
         };
+
         console.log('SearchParameters payload', payload);
-        dispatch(getPoperties({type: 2, data: payload, lntLng})).then(res => {
+        dispatch(getPoperties({ type: 2, data: payload, lntLng })).then(res => {
           setHomeData(res.payload.data);
         });
         setKeyboardStatus('first');
@@ -140,7 +141,7 @@ const Home = () => {
   const [imageIndex, setImageIndex] = useState(0);
   const [viewHeight, setViewHeight] = useState(80);
   const [user_ID, setUser_ID] = useState();
-  const [lntLng, setLatLng] = useState({latitude: 0.0, longitude: 0.0});
+  const [lntLng, setLatLng] = useState({ latitude: 0.0, longitude: 0.0 });
   const [showMap, setShowMap] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [mapType, setMapType] = useState('standard');
@@ -193,12 +194,13 @@ const Home = () => {
   };
 
   const getUserScoreApiCall = () => {
-    dispatch(getUserScore()).then(response => {});
+    dispatch(getUserScore()).then(response => { });
   };
   useEffect(() => {
     if (isFocused) {
       Promise.all[
         (getFilterApicall(),
+
         getTrashApiCall(),
         favlistApi(),
         getSavedApiCall(),
@@ -206,6 +208,7 @@ const Home = () => {
         getPopertiesApiCall({type: 0, data: {limit: limitCount}, lntLng}),
         setAddres(''),
         getUserScoreApiCall())
+
       ];
     }
   }, [isFocused]);
@@ -217,7 +220,7 @@ const Home = () => {
   const getMoreFilterApiCall = () => {
     dispatch(getMoreFilter()).then(response => {
       setMoreFilterData(response.payload.data);
-      
+
     });
   };
   const slideAnimation = useRef(new Animated.Value(0)).current;
@@ -362,10 +365,10 @@ const Home = () => {
   };
 
   const getSavedApiCall = () => {
-    dispatch(getSavedSearch()).then(response => {});
+    dispatch(getSavedSearch()).then(response => { });
   };
   const favlistApi = () => {
-    dispatch(getFavoriteProperties()).then(res => {});
+    dispatch(getFavoriteProperties()).then(res => { });
   };
 
   const savefile = async item => {
@@ -388,7 +391,7 @@ const Home = () => {
     });
   };
   const getTrashApiCall = async () => {
-    await dispatch(getTrash()).then(res => {});
+    await dispatch(getTrash()).then(res => { });
   };
   const trashfile = async post_id => {
     getTrashApiCall();
@@ -414,10 +417,10 @@ const Home = () => {
         const formData = new FormData();
         formData.append('latitude', location.latitude);
         formData.append('longitude', location.longitude);
-        await getPopertiesApiCall({type: 1, data: '', latLng: formData});
+        await getPopertiesApiCall({ type: 1, data: '', latLng: formData });
       })
       .catch(error => {
-        const {code, message} = error;
+        const { code, message } = error;
       });
   };
 
@@ -426,43 +429,38 @@ const Home = () => {
     await dispatch(getPoperties(type));
     typeof store.getState().getPoperties.getPopertiesData?.data === 'object'
       ? store.getState().getPoperties.getPopertiesData?.data &&
-        setHomeData(store.getState().getPoperties.getPopertiesData?.data)
+      setHomeData(store.getState().getPoperties.getPopertiesData?.data)
       : setHomeData([]);
     setLoading(false);
   };
   const addReview = async post_id => {
     const id = await AsyncStorage.getItem('userId');
-    //  const payload ={
-    //   userID:id,
-    //   postid: productId,
-    //   commentContent : commentContent,
-    //   review_title:reviewTitle,
-    //   photo_quality_rating:rating,
-    //   desc_stars:rating1,
-    //   price_stars:rating2,
-    //   interest_stars:rating3,
-    //   content:commentContent,
-    //  }
-    // console.log('addddddddddd ratingggggg', payload);
+    const payload = {
+      postid: productId,
+      reviewtitle: reviewTitle,
+      photo_quality_rating: rating,
+      desc_stars: rating1,
+      price_stars: rating2,
+      interest_stars: rating3,
+      content: commentContent,
+    }
 
     const formData = new FormData();
-    formData.append('userID', id);
-    formData.append('postid', productId);
+    formData.append('postid', productId.toString());
     formData.append('reviewtitle', reviewTitle);
     formData.append('photo_quality_rating', rating);
     formData.append('desc_stars', rating1);
     formData.append('price_stars', rating2);
     formData.append('interest_stars', rating3);
     formData.append('content', commentContent);
- 
 
     dispatch(postRating(formData)).then(response => {
-      if (response.payload.success) {
-        Alert.alert('Alert', response.payload.message);
+      if (response.payload.data.success) {
+        Alert.alert('Alert', response.payload.data.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert('Alert error', response.payload.data.message);
       }
     });
   };
@@ -470,7 +468,6 @@ const Home = () => {
   const updateReview = async post_id => {
     const id = await AsyncStorage.getItem('userId');
     const formData = new FormData();
-    formData.append('userID', id);
     formData.append('postid', productId);
     formData.append('comment_content', commentContent);
     formData.append('review_title', reviewTitle);
@@ -478,21 +475,20 @@ const Home = () => {
     formData.append('description_review_stars', rating1);
     formData.append('price_review_stars', rating2);
     formData.append('interest_review_stars', rating3);
-    formData.append('reviewtitle', reviewTitle);
     console.log('postUpdateRating', formData);
 
     dispatch(postUpdateRating(formData)).then(response => {
       if (response.payload.success) {
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert('Alert', response.payload.data.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert('Alert', response.payload.data.message);
       }
     });
   };
-  const renderFillterItem = ({item, index}) => {
-    const {data_custom_taxonomy, data_customvalue} = item;
+  const renderFillterItem = ({ item, index }) => {
+    const { data_custom_taxonomy, data_customvalue } = item;
     const isSelected =
       selectedTabs.filter(i => i === data_customvalue).length > 0;
     return (
@@ -603,7 +599,7 @@ const Home = () => {
               elevation: 3,
               shadowColor: '#52006A',
             }}>
-            <View style={{width: '85%'}}>
+            <View style={{ width: '85%' }}>
               <TextInput
                 allowFontScaling={false}
                 placeholderTextColor={'#858383'}
@@ -770,7 +766,7 @@ const Home = () => {
                       width: 10,
                       marginRight: 6,
                     },
-                    {tintColor: 'black'},
+                    { tintColor: 'black' },
                   ]}
                 />
                 <Text
@@ -797,12 +793,12 @@ const Home = () => {
                   setMaxPriceRange('');
                   setMoreFilter(false);
                   setCities('');
-                  {handlePress2}
+                  { handlePress2 }
                   dispatch(clearFilter());
                   await dispatch(
                     getPoperties({
                       type: 0,
-                      data: {limit: limitCount + 1},
+                      data: { limit: limitCount + 1 },
                       lntLng,
                     }),
                   ).then(response => {
@@ -901,35 +897,37 @@ const Home = () => {
                             }}>
                             Choose your city{' '}
                           </Text>
-<View style={[styles.dropdown,{width:"100%",height:40, alignItems: 'center', flexDirection: 'row',justifyContent:"center"}]}> 
-<TextInput
-        style={{width: '85%', backgroundColor:"blue"}}
-        value={cities}
-        onChange={async item => {
-          setCities(item);
-          await dispatch(
-            getPoperties({
-              type: 3,
-              data: {
-                data_custom_taxonomy: 'property_city',
-                data_customvalue: item.toString(),
-              },
-            }),
-          ).then(res => {
-            setHomeData(res.payload.data);
-          });
-        }}
-        placeholder="Select city"
-        // keyboardType="numeric"
-      />
-<View style={{  
-    width: 20,
-    height: 20,
-    backgroundColor:"red",
-  }}></View>
-</View>
+
+                            <View style={[styles.dropdown,{width:"100%",height:40, alignItems: 'center', flexDirection: 'row',justifyContent:"center"}]}> 
+                            <TextInput
+                                    style={{width: '85%', backgroundColor:"blue"}}
+                                    value={cities}
+                                    onChange={async item => {
+                                      setCities(item);
+                                      await dispatch(
+                                        getPoperties({
+                                          type: 3,
+                                          data: {
+                                            data_custom_taxonomy: 'property_city',
+                                            data_customvalue: item.toString(),
+                                          },
+                                        }),
+                                      ).then(res => {
+                                        setHomeData(res.payload.data);
+                                      });
+                                    }}
+                                    placeholder="Select city"
+                                    // keyboardType="numeric"
+                                  />
+                            <View style={{  
+                                width: 20,
+                                height: 20,
+                                backgroundColor:"red",
+                              }}></View>
+                            </View>
                           {/* <Dropdown
                             style={[styles.dropdown, {width: '100%'}]}
+
                             placeholderStyle={styles.placeholderStyle}
                             selectedTextStyle={styles.selectedTextStyle}
                             inputSearchStyle={styles.inputSearchStyle}
@@ -944,7 +942,7 @@ const Home = () => {
                             placeholder="Select item"
                             searchPlaceholder="Search..."
                             value={cities}
-                            valuestyle={{color: 'red'}}
+                            valuestyle={{ color: 'red' }}
                             onChange={async item => {
                               setCities(item);
                               await dispatch(
@@ -962,7 +960,7 @@ const Home = () => {
                             selectedStyle={styles.selectedStyle}
                           /> */}
 
-                          <View style={{marginBottom: 12}}>
+                          <View style={{ marginBottom: 12 }}>
                             <Text
                               style={{
                                 color: 'black',
@@ -983,7 +981,7 @@ const Home = () => {
                                 // numColumns={4}
 
                                 showsHorizontalScrollIndicator={false}
-                                renderItem={({item, index}) => {
+                                renderItem={({ item, index }) => {
                                   return (
                                     <TouchableOpacity
                                       onPress={async () => {
@@ -1054,7 +1052,7 @@ const Home = () => {
                                 // numColumns={4}
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
-                                renderItem={({item, index}) => {
+                                renderItem={({ item, index }) => {
                                   return (
                                     <TouchableOpacity
                                       onPress={async () => {
@@ -1123,7 +1121,7 @@ const Home = () => {
                                 justifyContent: 'space-between',
                                 marginTop: 8,
                               }}>
-                              <View style={[styles.dropdown, {width: '48%'}]}>
+                              <View style={[styles.dropdown, { width: '48%' }]}>
                                 <SelectDropdown
                                   data={moreFilterData.min_square}
                                   buttonStyle={styles.dropdown1BtnStyle}
@@ -1133,7 +1131,7 @@ const Home = () => {
                                   rowStyle={styles.dropdown1RowStyle}
                                   rowTextStyle={styles.dropdown1RowTxtStyle}
                                   search={true}
-                                  searchInputStyle={{color: 'black'}}
+                                  searchInputStyle={{ color: 'black' }}
                                   searchPlaceholder="Search"
                                   searchPlaceHolderColor="black"
                                   searchInputTxtColor="black"
@@ -1144,7 +1142,7 @@ const Home = () => {
                                       <Image
                                         source={Images.downArrow}
                                         tintColor={Colors.gray}
-                                        style={{height: 12, width: 12}}></Image>
+                                        style={{ height: 12, width: 12 }}></Image>
                                     );
                                   }}
                                   onSelect={async (selectedItem, index) => {
@@ -1190,7 +1188,7 @@ const Home = () => {
                                 />
                               </View>
 
-                              <View style={[styles.dropdown, {width: '48%'}]}>
+                              <View style={[styles.dropdown, { width: '48%' }]}>
                                 <SelectDropdown
                                   data={moreFilterData.max_square}
                                   buttonStyle={styles.dropdown1BtnStyle}
@@ -1200,7 +1198,7 @@ const Home = () => {
                                   rowStyle={styles.dropdown1RowStyle}
                                   rowTextStyle={styles.dropdown1RowTxtStyle}
                                   search={true}
-                                  searchInputStyle={{color: 'black'}}
+                                  searchInputStyle={{ color: 'black' }}
                                   searchPlaceholder="Search"
                                   searchPlaceHolderColor="black"
                                   searchInputTxtColor="black"
@@ -1211,7 +1209,7 @@ const Home = () => {
                                       <Image
                                         source={Images.downArrow}
                                         tintColor={Colors.gray}
-                                        style={{height: 12, width: 12}}></Image>
+                                        style={{ height: 12, width: 12 }}></Image>
                                     );
                                   }}
                                   onSelect={async (selectedItem, index) => {
@@ -1258,7 +1256,7 @@ const Home = () => {
                               </View>
                             </View>
                           </View>
-                          <View style={{marginTop: 12}}>
+                          <View style={{ marginTop: 12 }}>
                             <Text
                               style={{
                                 color: 'black',
@@ -1274,7 +1272,7 @@ const Home = () => {
                                 marginBottom: 16,
                                 width: '100%',
                               }}>
-                              <View style={[styles.dropdown, {width: '48%'}]}>
+                              <View style={[styles.dropdown, { width: '48%' }]}>
                                 <SelectDropdown
                                   data={moreFilterData.min_price}
                                   buttonStyle={styles.dropdown1BtnStyle}
@@ -1284,7 +1282,7 @@ const Home = () => {
                                   rowStyle={styles.dropdown1RowStyle}
                                   rowTextStyle={styles.dropdown1RowTxtStyle}
                                   search={true}
-                                  searchInputStyle={{color: 'black'}}
+                                  searchInputStyle={{ color: 'black' }}
                                   searchPlaceholder="Search"
                                   searchPlaceHolderColor="black"
                                   searchInputTxtColor="black"
@@ -1295,7 +1293,7 @@ const Home = () => {
                                       <Image
                                         source={Images.downArrow}
                                         tintColor={Colors.gray}
-                                        style={{height: 12, width: 12}}></Image>
+                                        style={{ height: 12, width: 12 }}></Image>
                                     );
                                   }}
                                   onSelect={async (selectedItem, index) => {
@@ -1341,7 +1339,7 @@ const Home = () => {
                                 />
                               </View>
 
-                              <View style={[styles.dropdown, {width: '48%'}]}>
+                              <View style={[styles.dropdown, { width: '48%' }]}>
                                 <SelectDropdown
                                   data={moreFilterData.max_price}
                                   buttonStyle={styles.dropdown1BtnStyle}
@@ -1351,8 +1349,8 @@ const Home = () => {
                                   rowStyle={styles.dropdown1RowStyle}
                                   rowTextStyle={styles.dropdown1RowTxtStyle}
                                   search={true}
-                                  searchInputTxtStyle={{color: '#000000'}}
-                                  searchInputStyle={{color: '#000000'}}
+                                  searchInputTxtStyle={{ color: '#000000' }}
+                                  searchInputStyle={{ color: '#000000' }}
                                   searchPlaceholder="Search"
                                   searchPlaceHolderColor="#000000"
                                   searchInputTxtColor="#000000"
@@ -1363,7 +1361,7 @@ const Home = () => {
                                       <Image
                                         source={Images.downArrow}
                                         tintColor={Colors.gray}
-                                        style={{height: 12, width: 12}}></Image>
+                                        style={{ height: 12, width: 12 }}></Image>
                                     );
                                   }}
                                   onSelect={async (selectedItem, index) => {
@@ -1428,10 +1426,10 @@ const Home = () => {
                               }}>
                               <FlatList
                                 data={moreFilterData?.more_filter_data}
-                                style={{alignContent: 'center', margin: -6}}
+                                style={{ alignContent: 'center', margin: -6 }}
                                 nestedScrollEnabled
                                 numColumns={3}
-                                renderItem={({item, index}) => {
+                                renderItem={({ item, index }) => {
                                   const {
                                     data_custom_taxonomy,
                                     data_customvalue,
@@ -1528,7 +1526,7 @@ const Home = () => {
             alignItems: 'center',
             position: 'relative',
             height: '100%',
-           marginTop:30
+            marginTop: 30
           }}>
           {/* {
             homeData.length === 0 && 
@@ -1560,7 +1558,7 @@ const Home = () => {
           {homeData?.length > 0 ? (
             <View>
               {!showMap && homeData?.length > 0 ? (
-                <View style={{height: width, width: width, marginTop: 10}}>
+                <View style={{ height: width, width: width, marginTop: 10 }}>
                   <CardsSwipe
                     style={{
                       position: 'relative',
@@ -1673,7 +1671,7 @@ const Home = () => {
                           autoplayDelay={3000}
                           data={item?.featured_image_src}
                           refer={index}
-                          renderItem={({item1, index}) => (
+                          renderItem={({ item1, index }) => (
                             <>
                               <View
                                 style={{
@@ -1705,7 +1703,7 @@ const Home = () => {
                                         height: 25,
                                         width: 25,
                                         tintColor: Colors.white,
-                                        transform: [{rotate: '-180deg'}], // Specify the rotation angle here
+                                        transform: [{ rotate: '-180deg' }], // Specify the rotation angle here
                                         position: 'relative',
                                         left: 12,
                                         alignItems: 'center',
@@ -1748,7 +1746,7 @@ const Home = () => {
                                   <TouchableOpacity
                                     disabled={
                                       item?.featured_image_src?.length - 1 ===
-                                      imageIndex
+                                        imageIndex
                                         ? true
                                         : false
                                     }
@@ -1767,7 +1765,7 @@ const Home = () => {
                                 </View>
 
                                 <TouchableOpacity
-                                  style={{height: screenWidth}}
+                                  style={{ height: screenWidth }}
                                   onPress={() => {
                                     navigation.navigate('ViewPropertiy', {
                                       ID: item.ID,
@@ -1824,7 +1822,7 @@ const Home = () => {
                                   alignItems: 'center',
                                 }}>
                                 <TouchableOpacity
-                                style={{ height:40,width:40,justifyContent:"flex-start",alignItems:"flex-end"}}
+                                  style={{ height: 40, width: 40, justifyContent: "flex-start", alignItems: "flex-end" }}
                                   onPress={() => {
                                     setProductId(item.ID);
                                     setReviewTitle(item.title);
@@ -1898,7 +1896,8 @@ const Home = () => {
                               </Text>
                               <TouchableOpacity
                                 onPress={() => handleShare(item.ID)} style={{
-                                 height:40,width:40,justifyContent:"flex-start",alignItems:"flex-end"}}>
+                                  height: 40, width: 40, justifyContent: "flex-start", alignItems: "flex-end"
+                                }}>
                                 <Image
                                   source={Images.send}
                                   style={{
@@ -2307,7 +2306,7 @@ const Home = () => {
                                           Your Review
                                         </Text>
                                       </View>
-                                      <View style={{width: '100%'}}>
+                                      <View style={{ width: '100%' }}>
                                         <View
                                           style={{
                                             width: '100%',
@@ -2614,7 +2613,7 @@ const Home = () => {
                                 fontWeight: '500',
                                 fontFamily: 'Poppins-Medium',
                                 textAlign: 'center',
-                                marginTop:-15
+                                marginTop: -15
                               }}>
                               {item?.property_price}
                             </Text>
@@ -2627,7 +2626,7 @@ const Home = () => {
                                 justifyContent: 'center',
                                 paddingHorizontal: 12,
                                 marginTop: 5,
-                              
+
                               }}>
                               <Text
                                 style={{
@@ -2638,7 +2637,7 @@ const Home = () => {
                                   marginBottom: 0,
                                 }}
                                 numberOfLines={1}
-                                >
+                              >
                                 {item?.title}
                               </Text>
                             </View>
@@ -2647,7 +2646,7 @@ const Home = () => {
 
                         <View
                           style={{
-                            top:0,
+                            top: 0,
                             flexDirection: 'row',
                             width: width - 16,
                             marginLeft: 8,
@@ -2657,7 +2656,7 @@ const Home = () => {
                             backgroundColor: 'white',
                             justifyContent: 'space-between',
                             marginTop: 20,
-         }}>
+                          }}>
                           <View
                             style={{
                               justifyContent: 'center',
@@ -2793,7 +2792,7 @@ const Home = () => {
                   />
                 </View>
               ) : showMap ? (
-                <View style={{height: '100%', width: width, marginTop: 10}}>
+                <View style={{ height: '100%', width: width, marginTop: 10 }}>
                   {/* <View style={styles.coverlocation}>
                     <Image source={Images.graylocation} style={styles.locationpic}></Image>
   
@@ -2954,7 +2953,7 @@ const Home = () => {
                                   }}
                                 />
                               </Text>
-                              <View style={{flexWrap: 'wrap', top: -5}}>
+                              <View style={{ flexWrap: 'wrap', top: -5 }}>
                                 <Text
                                   style={{
                                     color: 'black', marginLeft: 10, fontWeight: '500', flexWrap: "wrap"
@@ -2969,7 +2968,7 @@ const Home = () => {
                                 </Text>
                                 <View
                                   style={{
-                                    flexDirection: 'row', marginLeft: 10, 
+                                    flexDirection: 'row', marginLeft: 10,
                                   }}>
                                   <Text
                                     style={{
@@ -3028,50 +3027,50 @@ const Home = () => {
                 Would you like to extend your search radius by 10 miles?
               </Text>
               <View
-      style={{
-        borderRadius: 50,
-        overflow: 'hidden', // This ensures the rounded corners are visible
-        width:"35%",
-      
-      
-      }}
-    > 
-     <Button
                 style={{
-                  height: 150, // Increase the height as needed
-                  fontSize: 18,
-                  textAlign: 'center',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  position: 'absolute',
-                  left: 0,
-                  right: 0,
-                  top: '32%',
-                  borderRadius:50,
-                  paddingVertical:50,
-                
+                  borderRadius: 50,
+                  overflow: 'hidden', // This ensures the rounded corners are visible
+                  width: "35%",
+
+
                 }}
-                title="Extend"
-                color="#0165C5" // Change this to your desired background color
-                onPress={() => {
-                  dispatch(
-                    getPoperties({
-                      type: 0,
-                      data: {
-                        limit: limitCount + 1,
-                      },
-                    }),
-                  ).then(res => {
-                    setHomeData(res.payload.data);
-                  });
-                }}
-              />
-               </View>
+              >
+                <Button
+                  style={{
+                    height: 150, // Increase the height as needed
+                    fontSize: 18,
+                    textAlign: 'center',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: '32%',
+                    borderRadius: 50,
+                    paddingVertical: 50,
+
+                  }}
+                  title="Extend"
+                  color="#0165C5" // Change this to your desired background color
+                  onPress={() => {
+                    dispatch(
+                      getPoperties({
+                        type: 0,
+                        data: {
+                          limit: limitCount + 1,
+                        },
+                      }),
+                    ).then(res => {
+                      setHomeData(res.payload.data);
+                    });
+                  }}
+                />
+              </View>
             </View>
           )}
-          
+
         </View>
-        
+
       </View>
     </SafeAreaView>
   );
@@ -3079,10 +3078,10 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
-  dropdown1BtnTxtStyle: {color: '#444', textAlign: 'left'},
-  dropdown1DropdownStyle: {backgroundColor: '#EFEFEF'},
-  dropdown1RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
-  dropdown1RowTxtStyle: {color: '#444', textAlign: 'left'},
+  dropdown1BtnTxtStyle: { color: '#444', textAlign: 'left' },
+  dropdown1DropdownStyle: { backgroundColor: '#EFEFEF' },
+  dropdown1RowStyle: { backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5' },
+  dropdown1RowTxtStyle: { color: '#444', textAlign: 'left' },
 
   dropdown1BtnStyle: {
     width: '100%',
@@ -3120,7 +3119,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 3,
     right: 12,
-    shadowOffset: {width: -2, height: 4},
+    shadowOffset: { width: -2, height: 4 },
     shadowColor: '#171717',
     shadowOpacity: 0.2,
     shadowRadius: 3,
@@ -3134,7 +3133,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 3,
     // right: 12,
-    shadowOffset: {width: -2, height: 4},
+    shadowOffset: { width: -2, height: 4 },
     shadowColor: '#171717',
     shadowOpacity: 0.2,
     shadowRadius: 3,

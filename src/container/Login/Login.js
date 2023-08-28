@@ -49,16 +49,13 @@ const imageSizeRation = screenHeight / 1000;
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
-  // const [emailId, setEmailId] = useState('');
-  // const [password, setPassword] = useState('');
 
-  // const [emailId, setEmailId] = useState('access@wpkraken.io');
-  // const [password, setPassword] = useState('CherryPicker1!');
-  const [emailId, setEmailId] = useState('sourav@yopmail.com');
-  const [password, setPassword] = useState('sourav@1234');
+  const [emailId, setEmailId] = useState('access@wpkraken.io');
+  const [password, setPassword] = useState('CherryPicker1!');
+  // const [emailId, setEmailId] = useState('sourav@yopmail.com');
+  // const [password, setPassword] = useState('sourav@1234');
   // const [emailId, setEmailId] = useState('saurav.webperfection@gmail.com');
   // const [password, setPassword] = useState('Kumar@123');
-
 
   const [phone, setPhone] = useState('');
   const [countryName, setCountryName] = useState('');
@@ -106,11 +103,9 @@ export default function Login({ navigation }) {
       formdata.append('device_token', fcmtoken)
       setLoading(true);
       dispatch(googleUser(formdata)).then(response => {
-        alert(JSON.stringify(response))
 
         if (response.payload.success) {
           setLoading(false);
-
           navigation.replace('AppIntro');
         } else {
           setLoading(false);
@@ -209,9 +204,7 @@ export default function Login({ navigation }) {
       }
 
     };
-
   }
-
 
   const handleFacebookLogin = async () => {
     try {
@@ -254,6 +247,7 @@ export default function Login({ navigation }) {
         // formdata.append('device_token', fcmtoken)
         setLoading(true);
         dispatch(loginUser(data)).then(response => {
+
           if (response.payload.status) {
             setLoading(false);
             navigation.navigate('AppIntro');
@@ -274,7 +268,7 @@ export default function Login({ navigation }) {
           await dispatch(loginPhoneUser(formdata)).then(response => {
             console.log('OTP SENT', response?.payload)
 
-            if (response?.payload?.success === true) {
+            if (response?.payload?.success) {
               setLoading(false);
               navigation.navigate('OtpScreen', { cc: cc, phone: phone });
             } else {
@@ -387,7 +381,7 @@ export default function Login({ navigation }) {
                 </View>
               </View>
               <View style={{ width: '85%', marginTop: 20 * viewSizeRatio }}>
-                <Text allowFontScaling={false} style={[Styles.alertText,{ fontSize:DeviceInfo.getDeviceType() === 'Tablet'?18:12,}]}>
+                <Text allowFontScaling={false} style={[Styles.alertText, { fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12, }]}>
                   Please enter your email & password registerd with us and
                   start surfing
                 </Text>
@@ -423,8 +417,8 @@ export default function Login({ navigation }) {
             <TouchableOpacity onPress={() => navigation.navigate('Register')}>
               <Text
                 style={{
-                  fontSize:DeviceInfo.getDeviceType() === 'Tablet'?18:14,
-                color: Colors.primaryBlue,
+                  fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
+                  color: Colors.primaryBlue,
                   fontFamily: 'Poppins-Regular'
                 }}>
                 Sign Up
@@ -443,7 +437,7 @@ export default function Login({ navigation }) {
               onPress={() => navigation.navigate('ForgotPassword')}>
               <Text
                 style={{
-                  fontSize:DeviceInfo.getDeviceType() === 'Tablet'?18:14,
+                  fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
                   color: Colors.primaryBlue,
                   fontFamily: 'Poppins-Regular'
                 }}>

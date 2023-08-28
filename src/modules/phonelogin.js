@@ -9,7 +9,7 @@ export const loginPhoneUser = createAsyncThunk('loginPhoneUser', async dispatch 
   )
     .then(async response => {
       const { data } = response;
-      if (data.success) {
+      if (data.data.success) {
         const ids = data.data.ID;
         await AsyncStorage.setItem('userId', ids);
         await AsyncStorage.setItem('userDetails', JSON.stringify(data.data));
@@ -23,7 +23,7 @@ export const loginPhoneUser = createAsyncThunk('loginPhoneUser', async dispatch 
       }
     })
     .catch(e => {
-        
+
       if (e.response) {
       } else if (e.request) {
       } else {
