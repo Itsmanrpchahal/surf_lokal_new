@@ -18,7 +18,6 @@ export const getUserScore = createAsyncThunk('getUserScore', async () => {
   )
     .then(async response => {
       const { data } = response;
-      console.log('score',data)
       return data;
     })
     .catch(e => {
