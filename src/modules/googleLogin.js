@@ -1,18 +1,18 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {uploadImageAPI} from '../config/apiMethod';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { uploadImageAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const googleUser = createAsyncThunk('googleUser', async dispatch => {
   return await uploadImageAPI(
-    BASEURl+'webapi/v1/login/emaillogin.php',
+    BASEURl + 'webapi/v1/login/emaillogin.php',
     // 'https://surf.topsearchrealty.com/' + 'wp-json/custom-plugin/login/',
     dispatch,
   )
     .then(async response => {
-      const {data} = response;
-      console.log('google ',response)
-      if (data.success) {
+      const { data } = response;
+      console.log('google ', response)
+      if (data.data.success) {
         const ids = data.data[0].userID;
         await AsyncStorage.setItem('userId', ids + '');
         await AsyncStorage.setItem('userDetails', JSON.stringify(data.data));

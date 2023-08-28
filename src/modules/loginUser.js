@@ -1,19 +1,20 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { postAPI } from '../config/apiMethod';
+import { postAPI, uploadImageAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
 
-const Header={
-  security_key:"SurfLokal52"
+const Header = {
+  security_key: "SurfLokal52"
 }
 export const loginUser = createAsyncThunk('loginUser', async dispatch => {
-  return await postAPI(
+  return await uploadImageAPI(
     BASEURl + 'wp-json/custom-plugin/login/',
-    dispatch,Header
+    dispatch, Header
   )
     .then(async response => {
       const { data } = response;
-      if (data.status) {
+
+      if (data.data.status) {
         const ids = data.data.ID;
         await AsyncStorage.setItem('userId', ids);
         await AsyncStorage.setItem('userDetails', JSON.stringify(data.data));

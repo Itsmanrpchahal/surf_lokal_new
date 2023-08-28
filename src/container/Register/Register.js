@@ -88,7 +88,15 @@ export default function Register({ navigation }) {
       user_address: address,
       password: password,
     };
-    dispatch(register(data)).then(response => {
+
+    const formData = new FormData()
+    formData.append('username', userName)
+    formData.append('email', emailId)
+    formData.append('mobile', phone)
+    formData.append('user_address', address)
+    formData.append('password', password)
+    dispatch(register(formData)).then(response => {
+      console.log('register ==>', response)
       if (response.payload.success == true) {
         Alert.alert(response.payload.message);
         navigation.goBack();
@@ -173,6 +181,18 @@ export default function Register({ navigation }) {
             returnKeyType="done"
             maxLength={12}
             onChangeText={phone => setPhone(phone)}
+          />
+        </View>
+
+        <View style={Styles.socialMediaButtons}>
+          <TextInput
+            allowFontScaling={false}
+            style={Styles.inputStyle}
+            placeholderTextColor={Colors.textColorLight}
+            placeholder={'Address'}
+            keyboardType="default"
+            returnKeyType="done"
+            onChangeText={address => setAddress(address)}
           />
         </View>
         {/* <View style={Styles.socialMediaButtons}>
