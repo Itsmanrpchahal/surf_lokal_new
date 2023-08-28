@@ -805,8 +805,8 @@ const ViewPropertiy = (props, imageUrl) => {
                 onPress={() => navigation.goBack()}  >
                 <Image
                   style={{
-                    width: 27,
-                    height: 27,
+                    width: DeviceInfo.getDeviceType() === 'Tablet'?57:27,
+                    height: DeviceInfo.getDeviceType() === 'Tablet'?57:27,
                     resizeMode: 'contain',
                     justifyContent: 'center',
                     flexDirection: 'row',

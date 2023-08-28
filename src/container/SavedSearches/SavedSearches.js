@@ -148,7 +148,7 @@ const MyFavorites = ({ navigation }) => {
                 </Text>
               )}
             </View>
-            <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?28:14, marginTop: 10, color: Colors.textColorLight, fontFamily: 'Poppins-Regular' }}>
+            <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?25:14, marginTop: 10, color: Colors.textColorLight, fontFamily: 'Poppins-Regular' }}>
               Parameters:
             </Text>
 
@@ -159,9 +159,10 @@ const MyFavorites = ({ navigation }) => {
                 style={{
                   color: 'black',
                   backgroundColor: isEditing ? Colors.gray : Colors.white,
-                  height: isEditing ? 40 : 40, borderColor: isEditing ? Colors.white : Colors.BorderColor,
+                  height: isEditing ?DeviceInfo.getDeviceType() === 'Tablet'?60:40 :DeviceInfo.getDeviceType() === 'Tablet'?60:40, 
+                  borderColor: isEditing ? Colors.white : Colors.BorderColor,
                    borderWidth: 1, padding: 12, borderRadius: 7, verticalAlign: "top",
-                  marginBottom: 12,fontSize:DeviceInfo.getDeviceType() === 'Tablet'?16:14
+                  marginBottom: 12,fontSize:DeviceInfo.getDeviceType() === 'Tablet'?22:14
                 }}
                 onChangeText={text => {
                   handleChangeText(item.ID, parameterIndex, text);
@@ -185,14 +186,14 @@ const MyFavorites = ({ navigation }) => {
                 <TouchableOpacity
                   onPress={() => handleSavePress(item)}
                   style={{
-                    height: 40,
+                    height: DeviceInfo.getDeviceType() === 'Tablet'?50:40,
                     borderRadius: 40,
-                    width: 70,
-                    backgroundColor: Colors.surfblur,
+                    width: DeviceInfo.getDeviceType() === 'Tablet'?110:70,
+                    backgroundColor: Colors.darbluec,
                     justifyContent: 'center',
                     alignItems: 'center', marginHorizontal: 5
                   }}>
-                  <Text style={{ marginHorizontal: 5, fontSize: 16, 
+                  <Text style={{ marginHorizontal: 5, fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:16, 
                     fontWeight: '600', color: Colors.white, fontFamily: 'Poppins-Regular' }}>
                     Save
                   </Text>

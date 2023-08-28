@@ -443,8 +443,8 @@ const RecycleBin = () => {
             <Image
               source={Images.chatnew}
               style={{
-                height:28,
-                width: 28,
+                height: DeviceInfo.getDeviceType() === 'Tablet'?40:28,
+                width: DeviceInfo.getDeviceType() === 'Tablet'?40:28,
                 resizeMode: 'cover',
                 marginRight: 15,
                
@@ -452,7 +452,10 @@ const RecycleBin = () => {
           </TouchableOpacity>
 
          <TouchableOpacity onPress={() => makePhoneCall()}>
-            <Image source={Images.calenderwedding} style={{ height:27, width: 33 }}></Image>
+            <Image source={Images.calenderwedding} style={{
+              height:  DeviceInfo.getDeviceType() === 'Tablet'?37:27,
+              width: DeviceInfo.getDeviceType() === 'Tablet'?44:33}}>
+              </Image>
           </TouchableOpacity>
         </View>
       
@@ -497,8 +500,8 @@ const RecycleBin = () => {
                                           : Images.star2
                                       }
                                       style={{
-                                        height: 22,
-                                        width: 22,
+                                        height: DeviceInfo.getDeviceType() === 'Tablet'?33:22,
+                                        width: DeviceInfo.getDeviceType() === 'Tablet'?33:22,
                                         resizeMode: 'contain',
                                         tintColor:
                                           item.total_average_rating > 0
@@ -523,8 +526,8 @@ const RecycleBin = () => {
             <Image
               source={Images.sendnew}
               style={{
-                height: 18,
-                width: 23,
+                height: DeviceInfo.getDeviceType() === 'Tablet'?26:18,
+                width: DeviceInfo.getDeviceType() === 'Tablet'?33:23,
                 resizeMode: 'contain',
               
               }}></Image>

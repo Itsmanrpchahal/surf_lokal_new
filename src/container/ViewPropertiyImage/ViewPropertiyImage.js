@@ -211,7 +211,7 @@ const ViewPropertiyImage = props => {
           </TouchableOpacity>
         )}
     
-{/* 
+
           <TouchableOpacity
             style={{
               alignItems: 'center',
@@ -234,8 +234,8 @@ const ViewPropertiyImage = props => {
             onPress={() => navigation.goBack()}  >
              <Image
             style={{
-              width:27,
-              height: 27,
+              width: DeviceInfo.getDeviceType() === 'Tablet'?57:27,
+              height: DeviceInfo.getDeviceType() === 'Tablet'?57:27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
@@ -244,7 +244,7 @@ const ViewPropertiyImage = props => {
               tintColor:"white"
             }}
             source={Images.leftnewarrow}></Image>
-          </TouchableOpacity> */}
+          </TouchableOpacity> 
        
 
        <View

@@ -56,17 +56,18 @@ const Notification = () => {
       <View style={styles.slideOuter}>
         <Image
           source={{ uri: item.featured_image_url }}
-          style={{ height: 100, width: 90, resizeMode: 'contain', borderRadius: 4, marginRight: 8 }}
+          style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?100:100, width: DeviceInfo.getDeviceType() === 'Tablet'?120:90, resizeMode: 'contain', borderRadius: 4, marginRight: 8 }}
         />
         <View style={{ flex: 1, flexDirection: 'column', width: '100%', alignItems: 'flex-start', paddingVertical: 8 }}>
 
 
-          <Text style={{ marginRight: 8, width: "100%", fontSize: 14, color: Colors.black, fontFamily: "Poppins-Medium", }}>{item.post_title}</Text>
-          <Text numberOfLines={2} style={{ width: "100%", fontSize: 13, color: Colors.textColorLight, fontFamily: "Poppins-Regular", }}>
+          <Text numberOfLines={1} style={{ marginRight: 8, width: "100%", fontSize: DeviceInfo.getDeviceType() === 'Tablet'?20:14, 
+          color: Colors.black, fontFamily: "Poppins-Medium", }}>{item.post_title}</Text>
+          <Text numberOfLines={2} style={{ width: "100%", fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:13, color: Colors.textColorLight, fontFamily: "Poppins-Regular", }}>
             {item.post_content}
           </Text>
 
-          <Text style={{ width: "100%", fontSize: 11, color: Colors.textColorLight, fontFamily: "Poppins-Light", alignItems: "flex-end", justifyContent: "flex-end", textAlign: "right", marginTop: 0, position: "relative", top: 6 }}>
+          <Text style={{ width: "100%", fontSize: DeviceInfo.getDeviceType() === 'Tablet'?14:11, color: Colors.textColorLight, fontFamily: "Poppins-Light", alignItems: "flex-end", justifyContent: "flex-end", textAlign: "right", marginTop: 0, position: "relative", top: DeviceInfo.getDeviceType() === 'Tablet'?0:6 }}>
             {item.post_date}
           </Text>
         </View>
@@ -312,7 +313,7 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     paddingHorizontal: 9,
     width: '95%',
-    height: 110,
+    height: DeviceInfo.getDeviceType() === 'Tablet'?110:110,
     flex: 1,
     flexDirection: "row",
     alignSelf: 'center',

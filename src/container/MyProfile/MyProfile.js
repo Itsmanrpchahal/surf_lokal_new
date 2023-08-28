@@ -536,7 +536,7 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.surfShop}
-                  style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+                  style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?35:20, width: DeviceInfo.getDeviceType() === 'Tablet'?35:20, resizeMode: 'contain' }} />
                 <Text style={styles.text}>Surf Shop</Text>
               </View>
               <View style={styles.line}></View>
@@ -629,7 +629,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     // height: 60,
     alignItems: 'center',
-    paddingVertical: 18
+    paddingVertical: DeviceInfo.getDeviceType() === 'Tablet'?25:18
   },
   line: {
     height: 1,
