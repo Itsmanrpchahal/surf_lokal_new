@@ -44,6 +44,7 @@ import {addToFavorite} from '../../modules/addToFavorite';
 import {addRemoveTrash} from '../../modules/addRemoveTrash';
 import {getRating} from '../../modules/getRating';
 import {ScrollView} from 'react-native-gesture-handler';
+import DeviceInfo from 'react-native-device-info';
 import MapView, {
   Marker,
   Callout,
@@ -572,10 +573,12 @@ const Home = () => {
       <View
         style={{
           height: '100%',
+          width:"100%",
+          alignItems:"center"
         }}>
         <View
           style={{
-            width: '100%',
+            width:  DeviceInfo.getDeviceType() === 'Tablet'?"70%":"100%",
             paddingVertical: 18,
             justifyContent: 'center',
             borderRadius: 5,
@@ -584,6 +587,7 @@ const Home = () => {
             flexDirection: 'row',
             backgroundColor: '#fff',
             paddingLeft: 10,
+            alignItems:"center"
           }}>
           <View
             style={{

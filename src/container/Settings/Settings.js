@@ -29,6 +29,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { getProfile } from '../../modules/getProfile';
 import { useSelector, useDispatch } from 'react-redux';
 import { propertyChatList } from '../../modules/propertyChats'
+import DeviceInfo from 'react-native-device-info';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -191,7 +192,8 @@ const Settings = props => {
           alignSelf: 'center',
           alignItems: 'center',
           paddingVertical: 6,
-          paddingHorizontal:16
+          paddingHorizontal:16,
+          marginTop:DeviceInfo.getDeviceType() === 'Tablet'?20:0
         }}>
         <TouchableOpacity
           onPress={() => { _pickImage() }}
@@ -208,9 +210,9 @@ const Settings = props => {
           }}>
           <View
             style={{
-              height:35,
-              width: 35,
-              borderRadius: 20,
+              height:DeviceInfo.getDeviceType() === 'Tablet'?60:35,
+              width: DeviceInfo.getDeviceType() === 'Tablet'?60:35,
+              borderRadius: DeviceInfo.getDeviceType() === 'Tablet'?100:20,
               backgroundColor: Colors.primaryBlue,
               justifyContent: 'center',
               alignItems: 'center',
@@ -218,7 +220,7 @@ const Settings = props => {
             }}>
             {image != null ? (
               <Image
-                style={{ height: 40, width: 40 }}
+                style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?65:40, width: DeviceInfo.getDeviceType() === 'Tablet'?65:40}}
                 source={{ uri: image }}
               />
             ) : (
@@ -229,10 +231,10 @@ const Settings = props => {
 
         </TouchableOpacity>
 
-        <Text style={{  fontSize: 20,
+        <Text style={{   fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
               color: Colors.black,
               fontFamily: 'Poppins-Light',
-              lineHeight: 22, }}>Settings</Text>
+              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22, }}>Settings</Text>
 
 
         <TouchableOpacity
@@ -265,7 +267,7 @@ const Settings = props => {
           }}>
           <Text
             style={{
-              fontSize: 18,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?27:18,
               color: Colors.black,
               fontFamily: 'Poppins-SemiBold',
               color: Colors.darbluec
@@ -303,14 +305,15 @@ const Settings = props => {
         <View
           style={{
             flexDirection: 'row',
-            width: '90%',
+            width: '100%',
             marginTop: 6,
             alignSelf: 'center',
+            paddingHorizontal:16
 
           }}>
           <Text
             style={{
-              fontSize: 14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -328,7 +331,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: 14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -344,13 +347,14 @@ const Settings = props => {
         <View
           style={{
             flexDirection: 'row',
-            width: '90%',
+            width: '100%',
             marginTop: 6,
             alignSelf: 'center',
+            paddingHorizontal:16
           }}>
           <Text
             style={{
-              fontSize: 14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -368,14 +372,14 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: 14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
             marginBottom: 17
           }}
           placeholderTextColor={Colors.black}
-          fontSize={14}
+         
           value={lastName}
           keyboardType="default"
           returnKeyType="done"
@@ -386,13 +390,14 @@ const Settings = props => {
         <View
           style={{
             flexDirection: 'row',
-            width: '90%',
+            width: '100%',
             marginTop: 6,
             alignSelf: 'center',
+            paddingHorizontal:16
           }}>
           <Text
             style={{
-              fontSize: 14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -411,7 +416,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: 14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -430,13 +435,14 @@ const Settings = props => {
         <View
           style={{
             flexDirection: 'row',
-            width: '90%',
+            width: '100%',
             marginTop: 6,
             alignSelf: 'center',
+            paddingHorizontal:16
           }}>
           <Text
             style={{
-              fontSize: 14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -454,7 +460,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: 14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -471,13 +477,14 @@ const Settings = props => {
         <View
           style={{
             flexDirection: 'row',
-            width: '90%',
+            width: '100%',
             marginTop: 6,
             alignSelf: 'center',
+            paddingHorizontal:16
           }}>
           <Text
             style={{
-              fontSize: 14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -495,7 +502,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: 14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -512,13 +519,14 @@ const Settings = props => {
         <View
           style={{
             flexDirection: 'row',
-            width: '90%',
+            width: '100%',
             marginTop: 6,
             alignSelf: 'center',
+            paddingHorizontal:16
           }}>
           <Text
             style={{
-              fontSize: 14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -536,7 +544,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: 14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -553,13 +561,14 @@ const Settings = props => {
         <View
           style={{
             flexDirection: 'row',
-            width: '90%',
+            width: '100%',
             marginTop: 6,
             alignSelf: 'center',
+            paddingHorizontal:16
           }}>
           <Text
             style={{
-              fontSize: 14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -577,7 +586,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: 14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -594,13 +603,14 @@ const Settings = props => {
         <View
           style={{
             flexDirection: 'row',
-            width: '90%',
+            width: '100%',
             marginTop: 6,
             alignSelf: 'center',
+            paddingHorizontal:16
           }}>
           <Text
             style={{
-              fontSize: 14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -618,7 +628,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: 14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -635,13 +645,14 @@ const Settings = props => {
         <View
           style={{
             flexDirection: 'row',
-            width: '90%',
+            width: '100%',
             marginTop: 6,
             alignSelf: 'center',
+            paddingHorizontal:16
           }}>
           <Text
             style={{
-              fontSize: 14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -659,7 +670,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: 14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -677,13 +688,13 @@ const Settings = props => {
           <TouchableOpacity onPress={() => navigation.navigate('Login')}
             style={{ flexDirection: 'row', alignItems: "center" }}>
             <Image source={Images.signOut} style={{ height: 20, width: 20 }} />
-            <Text style={{ marginLeft: 6, fontSize: 16, color: "black", fontFamily: 'Poppins-Regular' }}>Signout</Text>
+            <Text style={{ marginLeft: 6,fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:16, color: "black", fontFamily: 'Poppins-Regular' }}>Signout</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => saveFile()}
             style={{
-              height: 45,
+              height:  DeviceInfo.getDeviceType() === 'Tablet'?50:45,
               width: 130,
               borderRadius: 100,
               backgroundColor: Colors.surfblur,
@@ -709,7 +720,7 @@ const Settings = props => {
 
                 <Text
                   style={{
-                    fontSize: 14,
+                fontSize: DeviceInfo.getDeviceType() === 'Tablet'?20:14,
 
                     color: Colors.white,
                     fontFamily: 'Poppins-Regular',
@@ -794,8 +805,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray,
   },
   imagedata: {
-    height:19,
-    width: 29,
+    height:DeviceInfo.getDeviceType() === 'Tablet'?38:19,
+    width: DeviceInfo.getDeviceType() === 'Tablet'?50:29,
     resizeMode: 'contain',
     // transform: [{ rotate: '90deg' }],
   },

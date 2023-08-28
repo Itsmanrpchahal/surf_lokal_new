@@ -9,6 +9,7 @@ import { TypingAnimation } from 'react-native-typing-animation';
 import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
 import Images from "../../utils/Images";
 import { sendMessage } from '../../modules/send_message'
+import DeviceInfo from 'react-native-device-info';
 
 const ChatSearch = (props) => {
   const navigation = useNavigation();
@@ -50,12 +51,14 @@ const ChatSearch = (props) => {
         height: "100%", position: 'relative', paddingBottom: 100,
         backgroundColor: 'white'
       }}>
-        <View style={{ paddingVertical: 10, paddingHorizontal: 12, backgroundColor: Colors.white, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderColor: '#c9c9c5' }}>
+        <View style={{ paddingVertical: 10, paddingHorizontal: 12, backgroundColor: Colors.white,
+           flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', 
+           borderBottomWidth: 1, borderColor: '#c9c9c5' }}>
           <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center' }}>
             <Image
               style={{
-                height: 40,
-                width: 40,
+                height: DeviceInfo.getDeviceType() === 'Tablet'?50:40,
+                width: DeviceInfo.getDeviceType() === 'Tablet'?50:40,
                 resizeMode: "contain",
                 borderRadius: 50,
                 // marginLeft: 2
@@ -68,7 +71,8 @@ const ChatSearch = (props) => {
               source={Images.user}
             ></Image>
 
-            <Text style={{ fontSize: 15, fontFamily: 'Poppins-Medium', color: Colors.black }}> Powered by Cynthia</Text>
+            <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:15,
+             fontFamily: 'Poppins-Medium', color: Colors.black }}> Powered by Cynthia</Text>
           </View>
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginRight: 0 }}>
@@ -83,8 +87,8 @@ const ChatSearch = (props) => {
             >
               <Image
                 style={{
-                  height: 25,
-                  width: 25,
+                  height: DeviceInfo.getDeviceType() === 'Tablet'?35:25,
+                  width:  DeviceInfo.getDeviceType() === 'Tablet'?35:25,
                   resizeMode: "contain",
                   tintColor: Colors.black,
                 }}
@@ -95,8 +99,8 @@ const ChatSearch = (props) => {
               onPress={() => { props.route?.params?.from === 'detail' ? navigation.goBack() : navigation.navigate('Home') }}
               style={{
 
-                height: 35,
-                width: 35,
+                height: DeviceInfo.getDeviceType() === 'Tablet'?35:35,
+                width: DeviceInfo.getDeviceType() === 'Tablet'?35:35,
                 borderRadius: 100,
                 // backgroundColor: Colors.surfblur,
                 alignItems: "center",
@@ -106,9 +110,9 @@ const ChatSearch = (props) => {
             >
               <Image
                 style={{
-                  height: 20,
-                  width: 20,
-                  top: 7,
+                  height: DeviceInfo.getDeviceType() === 'Tablet'?25:20,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?25:20,
+                  top: DeviceInfo.getDeviceType() === 'Tablet'?4:7,
                   resizeMode: "contain",
                   borderRadius: 50,
                   marginLeft: 2,
@@ -122,7 +126,7 @@ const ChatSearch = (props) => {
         </View>
         <Text style={{
           marginLeft: 15,
-          marginRight: 13, fontSize: 16, borderRadius: 16, alignSelf: 'flex-start', maxWidth: '100%', marginTop: 22, color: Colors.black, fontFamily: "Poppins-Medium",
+          marginRight: 13, fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:16, borderRadius: 16, alignSelf: 'flex-start', maxWidth: '100%', marginTop: 22, color: Colors.black, fontFamily: "Poppins-Medium",
         }}>Hi I'm Cynthia. What can I help you with today ?</Text>
 
 
@@ -136,7 +140,7 @@ const ChatSearch = (props) => {
                 <Text
                   style={{
                     padding: 8,
-                    fontSize: 16,
+                    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?20:16,
                     borderRadius: 10,
                     backgroundColor: item.type === 0 ? Colors.surfblur : '#d3d3d3',
                     alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
@@ -152,7 +156,7 @@ const ChatSearch = (props) => {
                 </Text>
                 <Text
                   style={{
-                    fontSize: 12,
+                    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12,
                     marginLeft: item.type === 0 ? 8 : 16,
                     marginRight: item.type === 0 ? 16 : 8,
                     marginBottom: 8,
@@ -176,7 +180,7 @@ const ChatSearch = (props) => {
           {
             loading && <Text style={{
               padding: 16,
-              fontSize: 16,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?20:16,
               borderRadius: 16,
               backgroundColor: Colors.surfblur,
               alignSelf: 'flex-end',
@@ -192,7 +196,7 @@ const ChatSearch = (props) => {
           {
             loading && <View style={{ flexDirection: 'row' }}>
               <Text style={{
-                fontSize: 12,
+                fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12,
                 borderRadius: 16,
                 alignSelf: 'flex-start',
                 maxWidth: '70%',
@@ -218,14 +222,15 @@ const ChatSearch = (props) => {
             backgroundColor: Colors.white,
             borderColor: Colors.BorderColor,
             borderWidth: 1, borderRadius: 5,
-            height: 45, margin: 16,
+            height:DeviceInfo.getDeviceType() === 'Tablet'?55:45, margin: 16,
             paddingLeft: 8, paddingRight: 8,
             flexDirection: 'row',
             justifyContent: 'space-between',
             marginTop: 8
           }}>
             <TextInput
-              style={{ width: '90%', backgroundColor: Colors.white, color: Colors.black }}
+              style={{ width: '90%', backgroundColor: Colors.white, color: Colors.black,
+              fontSize:DeviceInfo.getDeviceType() === 'Tablet'?20:14 }}
               placeholder="Type here ....."
               placeholderTextColor={Colors.textColorLight}
               fontFamily="Poppins-Regular"
@@ -266,8 +271,8 @@ const ChatSearch = (props) => {
             >
               <Image
                 style={{
-                  height: 25,
-                  width: 25,
+                  height: DeviceInfo.getDeviceType() === 'Tablet'?35:25,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?35:25,
                   resizeMode: "contain",
                   tintColor: Colors.primaryBlue,
                 }}

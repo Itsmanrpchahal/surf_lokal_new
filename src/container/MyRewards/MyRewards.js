@@ -313,7 +313,7 @@ height:50
 <View style={{alignItems:"center"}}>
           <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between',
            //paddingTop: 80,
-           width:"90%" }}>
+           width:DeviceInfo.getDeviceType() === 'Tablet'?"70%":"90%" }}>
 
             <TouchableOpacity
               onPress={() => { handlePress, navigation.navigate('Challenges') }}

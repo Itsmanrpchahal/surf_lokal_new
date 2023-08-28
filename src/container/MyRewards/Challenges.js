@@ -208,8 +208,13 @@ height:50
                     }}
                   >
                     <Text style={{
-                      textAlign: "center", justifyContent: "center", alignItems: "center", paddingHorizontal: 12, width: screenWidth,
-                      fontSize: DeviceInfo.getDeviceType() === 'Tablet'?36:18, marginTop: 20, color: Colors.black, fontFamily: 'Poppins-Regular', height: 60,
+                      textAlign: "center", justifyContent: "center", alignItems: "center", 
+                      paddingHorizontal: 12, width: screenWidth,
+                      fontSize: DeviceInfo.getDeviceType() === 'Tablet'?30:18, 
+                      marginTop: 20, color: Colors.black, 
+                      fontFamily: 'Poppins-Regular', 
+                      height: DeviceInfo.getDeviceType() === 'Tablet'?120:60,
+                     
                      
                     }}>
                       {"Q."}{index + 1}{" : "}{item?.post_title}</Text>
@@ -246,7 +251,10 @@ height:50
                         }}>
                         <Image
                           source={isSelected || item.is_like === '2' ? Images.redlike : Images.deletethumb}
-                          style={{ height: 50, width: 50, resizeMode: 'contain' }} />
+                          style={{ 
+                          height: DeviceInfo.getDeviceType() === 'Tablet'?60:50, 
+                          width: DeviceInfo.getDeviceType() === 'Tablet'?60:50, 
+                          resizeMode: 'contain' }} />
                       </TouchableOpacity>
                       <TouchableOpacity disabled={item?.is_like != '0' || isSelected || isSelected2 && true} onPress={() => {
                         if (isSelected2) {
@@ -273,7 +281,8 @@ height:50
                         <View style={styles.viewstyle}>
                           <Image
                             source={isSelected2 || item.is_like === '1' ? Images.upgreen : Images.upthumb}
-                            style={{ height: 50, width: 50, resizeMode: 'contain' }} />
+                            style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?60:50, 
+                            width: DeviceInfo.getDeviceType() === 'Tablet'?60:50,  resizeMode: 'contain' }} />
                         </View>
                       </TouchableOpacity>
                     </View>

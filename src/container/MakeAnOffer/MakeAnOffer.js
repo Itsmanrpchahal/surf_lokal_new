@@ -23,7 +23,7 @@ import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
-
+import DeviceInfo from 'react-native-device-info';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const fontSizeRatio = screenHeight / 1000;
@@ -253,58 +253,122 @@ const MakeAnOffer = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View
+
+        <View
         style={{
-          marginTop: 4,
           flexDirection: 'row',
           justifyContent: 'center',
           width: '100%',
-          marginLeft: 0,
-          marginBottom: 4
+          position: 'relative',
+          alignItems: 'center',
+          paddingTop: 16,
+          paddingBottom: 2,
+          marginBottom: DeviceInfo.getDeviceType() === 'Tablet'?20:0
         }}>
-        <Text style={{ fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium' }}>Make an offer</Text>
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            position: 'absolute',
+            left: 5,
+            justifyContent: 'flex-start',
+            // top: 12,
+            top: 13,
+           // backgroundColor:"green",
+width:50,
+height:50
+
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Image
+            style={{
+              width: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
+              height: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
+              resizeMode: 'contain',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+              resizeMode: 'contain',
+            }}
+            source={Images.leftnewarrow}></Image>
+     
+        </TouchableOpacity>
         <View
           style={{
             flexDirection: 'row',
-            width: '90%',
-            alignSelf: 'center',
-
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-            overflow: 'visible',
-            zIndex: 99,
-            position: 'absolute',
-            top: 10,
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
-
-          <TouchableOpacity
+          <Text
             style={{
-              alignItems: 'center',
-              position: "absolute",
-              right: -12,
-              top: -5,
-
-              backgroundColor: Colors.surfblur,
-              height: 25,
-              width: 25,
-              borderRadius: 100,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            onPress={() => navigation.goBack()}
-          >
-            <Animatable.Image
-              source={Images.whiteclose}
-              style={{
-                height: 10,
-                width: 10,
-                resizeMode: 'contain',
-                tintColor: Colors.white,
-              }}
-              animation="flipInY"
-            />
-          </TouchableOpacity>
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
+              color: Colors.black,
+              fontFamily: 'Poppins-Light',
+              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?43:22,
+            }}>
+         Make an offer
+          </Text>
+     
         </View>
+        <TouchableOpacity
+
+          style={{
+            position:"absolute",
+    right:10,
+    top:15
+          }}
+
+          onPress={() => navigation.goBack()}>
+
+          <Animatable.Image
+            source={Images.menu}
+            style={styles.imagedata}
+            animation="flipInY"
+          />
+        </TouchableOpacity>
+
+        {/* <TouchableOpacity
+              onPress={() => {
+              
+              }}
+              activeOpacity={0.5}
+              style={{
+                height: 40,
+                width: 40,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderWidth: 1,
+                borderColor: Colors.surfblur,
+                borderRadius: 50,
+                position:"absolute",
+                right:10,
+                top:5
+              }}>
+             
+            
+                <View
+                  style={{
+                    height:35,
+                    width: 35,
+                    borderRadius: 20,
+                    backgroundColor: Colors.surfblur,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                  }}>
+               
+                    <Image
+                      style={{ height: 40, width: 40 }}
+                      source={Images.user}
+                    />
+            
+                </View>
+            
+         
+            </TouchableOpacity> */}
+
       </View>
       <KeyboardAwareScrollView
         keyboardDismissMode="interactive"
@@ -460,7 +524,7 @@ const MakeAnOffer = () => {
               <TouchableOpacity
                 onPress={() => makeOfferAPI()}
                 style={{
-                  height: 45,
+                  height: DeviceInfo.getDeviceType() === 'Tablet'?55:45,
                   width: 130,
                   borderRadius: 100,
                   backgroundColor: Colors.surfblur,
@@ -473,7 +537,7 @@ const MakeAnOffer = () => {
                 }}>
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:14,
                     color: Colors.white,
                     fontFamily: 'Poppins-Regular',
 
@@ -547,7 +611,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   labelText: {
-    fontSize: 14,
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?20:14,
     // fontWeight: '700',
     marginBottom: 0,
     color: Colors.black,
@@ -555,7 +619,7 @@ const styles = StyleSheet.create({
   },
   input: {
 
-    height: 40,
+    height:DeviceInfo.getDeviceType() === 'Tablet'?60:40,
     borderColor: Colors.BorderColor,
     borderWidth: 1,
     borderRadius: 4,
@@ -563,7 +627,7 @@ const styles = StyleSheet.create({
     width: '100%',
     color: Colors.textColorDark,
     paddingBottom: 5,
-    fontSize: 12
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12
 
   },
   datePickerContainer: {
@@ -578,7 +642,7 @@ const styles = StyleSheet.create({
 
   },
   datePickerText: {
-    fontSize: 12,
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12,
     color: 'gray',
     fontFamily: 'Poppins-Light',
     height: 40, lineHeight: 40

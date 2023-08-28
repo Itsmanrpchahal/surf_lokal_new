@@ -24,7 +24,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import * as Animatable from 'react-native-animatable';
-
+import DeviceInfo from 'react-native-device-info';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -98,8 +98,8 @@ const ViewImage = props => {
             onPress={() => navigation.goBack()}  >
              <Image
             style={{
-              width:27,
-              height: 27,
+              width: DeviceInfo.getDeviceType() === 'Tablet'?57:27,
+              height: DeviceInfo.getDeviceType() === 'Tablet'?57:27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',

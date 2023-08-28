@@ -227,7 +227,7 @@ height:50
                   flexGrow: 1,
                   flexShrink: 0,
                   flexBasis: '33.33%',
-                  fontSize: 16,
+                  fontSize: DeviceInfo.getDeviceType() === 'Tablet'?32:16,
                   color: user.username === getProfileData[0]?.username ? '#2fff05' : Colors.white,
                   fontFamily: 'Poppins-SemiBold',
                   textAlign: 'center',

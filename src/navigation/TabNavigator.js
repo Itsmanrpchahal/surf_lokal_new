@@ -32,7 +32,7 @@ import Notification from '../container/Notification/Notification';
 import Styles from '../container/Rewards/Styles';
 import { store } from '../redux/store';
 import { useIsFocused } from '@react-navigation/native';
-
+import DeviceInfo from 'react-native-device-info';
 
 
 
@@ -66,7 +66,8 @@ const BottomTabNavigator = () => {
         options={{
           tabBarLabel: (
 
-            <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
+            <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12, 
+            fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
               Profile
 
               <View style={{ position: "relative" }}>
@@ -115,7 +116,7 @@ const BottomTabNavigator = () => {
               <Text style={{
                 fontFamily:'Poppins-Bold',
                 position: "absolute",
-                fontSize: 13,
+                fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12,
                 top: -30,
                 color: Colors.black,
                 flexDirection: "row",
@@ -127,7 +128,8 @@ const BottomTabNavigator = () => {
               }}
 
                 allowFontScaling={true}>{data ? '$' + data : '$' + 0}</Text>
-              <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular', color: isFocused ? Colors.textColorDark : null }} allowFontScaling={false}>Rebate</Text>
+              <Text style={{ fontSize:DeviceInfo.getDeviceType() === 'Tablet'?18:12, fontFamily: 'Poppins-Regular', color: isFocused ? Colors.textColorDark : null }}
+               allowFontScaling={false}>Rebate</Text>
 
             </View>
           ),
@@ -142,8 +144,8 @@ const BottomTabNavigator = () => {
         options={{
           tabBarLabel: null,
 
-          tabBarIcon: Images.homebig,
-
+        tabBarIcon: Images.homebig,
+         
           keyboardHidesTabBar: true,
           tabBarHideOnKeyboard: true,
         }}
@@ -153,7 +155,7 @@ const BottomTabNavigator = () => {
         component={MyFavorites}
         options={{
           tabBarLabel: (
-            <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
+            <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
               Favorites
             </Text>
           ),
@@ -168,7 +170,7 @@ const BottomTabNavigator = () => {
         component={ChatSearch}
         options={{
           tabBarLabel: (
-            <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
+            <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
               Chat
             </Text>
           ),
