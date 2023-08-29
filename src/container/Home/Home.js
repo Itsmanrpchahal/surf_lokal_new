@@ -41,11 +41,11 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 import LottieView from 'lottie-react-native';
-import {store} from '../../redux/store';
-import {addToFavorite} from '../../modules/addToFavorite';
-import {addRemoveTrash} from '../../modules/addRemoveTrash';
-import {getRating} from '../../modules/getRating';
-import {ScrollView} from 'react-native-gesture-handler';
+import { store } from '../../redux/store';
+import { addToFavorite } from '../../modules/addToFavorite';
+import { addRemoveTrash } from '../../modules/addRemoveTrash';
+import { getRating } from '../../modules/getRating';
+import { ScrollView } from 'react-native-gesture-handler';
 import DeviceInfo from 'react-native-device-info';
 import MapView, {
   Marker,
@@ -92,13 +92,10 @@ const Home = () => {
   const updateKeyboard = async () => {
     if (keyboardStatus === 'Keyboard Hidden') {
       if (adress.length > 0) {
-        let payload = {
-          userID: user_ID,
-          SearchParameters: adress,
-        };
-
-        console.log('SearchParameters payload', payload);
-        dispatch(getPoperties({ type: 2, data: payload, lntLng })).then(res => {
+        const formData = new FormData();
+        formData.append('SearchParameters', adress);
+        console.log('SearchParameters payload', formData);
+        dispatch(getPoperties({ type: 2, data: formData, lntLng })).then(res => {
           setHomeData(res.payload.data);
         });
         setKeyboardStatus('first');
@@ -130,6 +127,7 @@ const Home = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [tashModalVisiable, setTrashModalVisiable] = useState(false);
   const [saveModalVisible, setSaveModalVisible] = useState(false);
+  const [gpsModalVisiavle, setGpsModalVisiavle] = useState(false)
   const [favModalVisiable, setfavModalVisiable] = useState(false);
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [commentContent, setComentContent] = useState('');
@@ -264,6 +262,9 @@ const Home = () => {
     setTrashModalVisiable(!tashModalVisiable);
   };
   const saveToogleModal = () => {
+    setSaveModalVisible(!saveModalVisible);
+  };
+  const gpsModal = () => {
     setSaveModalVisible(!saveModalVisible);
   };
   const favToggleModal = () => {
@@ -419,6 +420,7 @@ const Home = () => {
         const formData = new FormData();
         formData.append('latitude', location.latitude);
         formData.append('longitude', location.longitude);
+        console.log("getPopertiesApiCall formData ", formData)
         await getPopertiesApiCall({ type: 1, data: '', latLng: formData });
       })
       .catch(error => {
@@ -711,7 +713,7 @@ const Home = () => {
                 justifyContent: 'center',
                 marginBottom: 20,
                 marginTop: 10,
-          
+
               }}>
               <TouchableOpacity
                 onPress={() => {
@@ -908,7 +910,7 @@ const Home = () => {
                           <TouchableOpacity onPress={() => {
                             setSetCollapsibleStatus(!collapsibleStatus)
                           }} style={[styles.dropdown, { width: "100%", height: 40, alignItems: 'center', flexDirection: 'row', justifyContent: "center" }]}>
-                            <Text style={{ width: '85%',color:Colors.black, fontFamily:"Poppins-Regular" }}>
+                            <Text style={{ width: '85%', color: Colors.black, fontFamily: "Poppins-Regular" }}>
                               All Cities
                             </Text>
                             {/* <TextInput
@@ -1001,7 +1003,7 @@ const Home = () => {
                                                 data_customvalue,
                                               ]);
                                             }
-                                             console.log("selectedTabsMore======>",selectedTabsMore)
+                                            console.log("selectedTabsMore======>", selectedTabsMore)
                                             //  await dispatch(
                                             //     getPoperties({
                                             //       type: 3,
@@ -2091,7 +2093,7 @@ const Home = () => {
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                               visible={favModalVisiable}
+                                visible={favModalVisiable}
                                 //  visible={true}
                                 onRequestClose={() => {
                                   setfavModalVisiable(false);
@@ -2143,27 +2145,27 @@ const Home = () => {
                                           }}></View>
                                       </View>
 
-                                
-                                  
-                                        <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?36:26,fontFamily:"Poppins-SemiBold",color:Colors.black,marginTop:40,textAlign:"center"}}>Congratulations!</Text>
-                                      <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?36:26,fontFamily:"Poppins-SemiBold",color:Colors.black,marginBottom:50,textAlign:"center"}}>You swiped right!</Text>
+
+
+                                      <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 36 : 26, fontFamily: "Poppins-SemiBold", color: Colors.black, marginTop: 40, textAlign: "center" }}>Congratulations!</Text>
+                                      <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 36 : 26, fontFamily: "Poppins-SemiBold", color: Colors.black, marginBottom: 50, textAlign: "center" }}>You swiped right!</Text>
                                       <Text
                                         style={{
-                                          fontSize: DeviceInfo.getDeviceType() === 'Tablet'?26:18,
+                                          fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 18,
                                           fontFamily: 'Poppins-Light',
                                           color: 'black',
                                           alignItems: 'center',
                                           flexDirection: 'row',
-                                          lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?39:26,
+                                          lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 26,
                                           flexWrap: 'wrap',
-                                          textAlign:"center",
+                                          textAlign: "center",
                                           flexDirection: 'row',
                                           alignItems: 'center',
                                           textAlign: 'center',
-                                          paddingHorizontal:16
+                                          paddingHorizontal: 16
                                         }}>
-                                      These properties will be 
-saved in your Favorites 
+                                        These properties will be
+                                        saved in your Favorites
                                         {/* <TouchableOpacity
                                           onPress={() => {
                                             navigation.navigate('RecycleBin');
@@ -2176,28 +2178,28 @@ saved in your Favorites
                                          
                                         
                                         </TouchableOpacity> */}
-                                      
-                                      </Text>
-                               
-                                      <View style={{flexDirection:"row",marginTop:60,justifyContent:"flex-end",alignItems:"flex-start"}}>
-                                      <Image
-              source={Images.arrowleft}
-              style={{height: DeviceInfo.getDeviceType() === 'Tablet'?39:25, width: DeviceInfo.getDeviceType() === 'Tablet'?39:25, resizeMode: 'contain',tintColor:"#000" ,marginRight:30,transform: [{ rotate: '-180deg' }]}}>
 
-              </Image>
-                                      
-                                      <View style={{flexDirection:"column"}}>
-                                      <TouchableOpacity style={{alignItems:"center"}}
-                                          onPress={() => {
-                                            navigation.navigate('MyFavorites');
-                                          }} >
-                                           <Image
-              source={Images.ThumbUp}
-              style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?39:25, width: DeviceInfo.getDeviceType() === 'Tablet'?39:25, resizeMode: 'contain',tintColor:"#000" }}></Image>
-              <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?20:10,fontFamily:"Poppins-Light",color:"#000"}}>Favorites</Text>
-              </TouchableOpacity>
-                                      </View>
-                                     
+                                      </Text>
+
+                                      <View style={{ flexDirection: "row", marginTop: 60, justifyContent: "flex-end", alignItems: "flex-start" }}>
+                                        <Image
+                                          source={Images.arrowleft}
+                                          style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000", marginRight: 30, transform: [{ rotate: '-180deg' }] }}>
+
+                                        </Image>
+
+                                        <View style={{ flexDirection: "column" }}>
+                                          <TouchableOpacity style={{ alignItems: "center" }}
+                                            onPress={() => {
+                                              navigation.navigate('MyFavorites');
+                                            }} >
+                                            <Image
+                                              source={Images.ThumbUp}
+                                              style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000" }}></Image>
+                                            <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 10, fontFamily: "Poppins-Light", color: "#000" }}>Favorites</Text>
+                                          </TouchableOpacity>
+                                        </View>
+
                                       </View>
                                     </Animated.View>
                                   </View>
@@ -2208,8 +2210,8 @@ saved in your Favorites
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                             visible={tashModalVisiable}
-                               ///visible={true}
+                                visible={tashModalVisiable}
+                                ///visible={true}
                                 onRequestClose={() => {
                                   setTrashModalVisiable(false);
                                 }}>
@@ -2224,7 +2226,7 @@ saved in your Favorites
                                   <View
                                     style={{
                                       alignItems: 'center',
-                                     justifyContent: 'center',
+                                      justifyContent: 'center',
                                       width: '100%',
                                     }}>
                                     <Animated.View
@@ -2246,7 +2248,7 @@ saved in your Favorites
                                       <View
                                         style={{
                                           alignItems: 'center',
-                                         justifyContent: 'center',
+                                          justifyContent: 'center',
                                           marginBottom: 20,
                                         }}>
                                         <View
@@ -2255,30 +2257,30 @@ saved in your Favorites
                                             height: 5,
                                             backgroundColor: '#bac1c3',
                                             marginTop: 0,
-                                           justifyContent: 'center',
+                                            justifyContent: 'center',
                                             borderRadius: 100,
                                           }}></View>
                                       </View>
-                                      <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?36:26,fontFamily:"Poppins-SemiBold",color:Colors.black,marginTop:40,textAlign:"center"}}>Woohoo! </Text>
-                                      <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?36:26,fontFamily:"Poppins-SemiBold",color:Colors.black,marginBottom:50,textAlign:"center"}}>You swiped left!</Text>
+                                      <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 36 : 26, fontFamily: "Poppins-SemiBold", color: Colors.black, marginTop: 40, textAlign: "center" }}>Woohoo! </Text>
+                                      <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 36 : 26, fontFamily: "Poppins-SemiBold", color: Colors.black, marginBottom: 50, textAlign: "center" }}>You swiped left!</Text>
                                       <Text
                                         style={{
-                                          fontSize: DeviceInfo.getDeviceType() === 'Tablet'?26:18,
+                                          fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 18,
                                           fontFamily: 'Poppins-Light',
                                           color: 'black',
                                           alignItems: 'center',
                                           flexDirection: 'row',
-                                          lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?39:26,
+                                          lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 26,
                                           flexWrap: 'wrap',
-                                          textAlign:"center",
+                                          textAlign: "center",
                                           flexDirection: 'row',
                                           alignItems: 'center',
                                           textAlign: 'center',
-                                          paddingHorizontal:16
+                                          paddingHorizontal: 16
                                         }}>
-                                       These properties will be saved in the
-“Recycle Bin” tab inside the 
-profile menu.
+                                        These properties will be saved in the
+                                        “Recycle Bin” tab inside the
+                                        profile menu.
                                         {/* <TouchableOpacity
                                           onPress={() => {
                                             navigation.navigate('RecycleBin');
@@ -2291,25 +2293,25 @@ profile menu.
                                          
                                         
                                         </TouchableOpacity> */}
-                                      
+
                                       </Text>
 
-                                      
-                                      <View style={{flexDirection:"row",marginTop:60,justifyContent:"flex-start",alignItems:"flex-start"}}>
-                                      <View style={{flexDirection:"column"}}>
-                                      <TouchableOpacity style={{alignItems:"center",justifyContent:"center"}}
-                                          onPress={() => {
-                                            navigation.navigate('MyProfile');
-                                          }} >
-                                           <Image
-              source={Images.newprofile}
-              style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?39:25, width: DeviceInfo.getDeviceType() === 'Tablet'?39:25, resizeMode: 'contain',tintColor:"#000" }}></Image>
-              <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?20:10,fontFamily:"Poppins-Light",color:"#000"}}>Profile</Text>
-              </TouchableOpacity>
-                                      </View>
-                                      <Image
-              source={Images.arrowleft}
-              style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?39:25, width:DeviceInfo.getDeviceType() === 'Tablet'?39:25, resizeMode: 'contain',tintColor:"#000" ,marginLeft:30}}></Image>
+
+                                      <View style={{ flexDirection: "row", marginTop: 60, justifyContent: "flex-start", alignItems: "flex-start" }}>
+                                        <View style={{ flexDirection: "column" }}>
+                                          <TouchableOpacity style={{ alignItems: "center", justifyContent: "center" }}
+                                            onPress={() => {
+                                              navigation.navigate('MyProfile');
+                                            }} >
+                                            <Image
+                                              source={Images.newprofile}
+                                              style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000" }}></Image>
+                                            <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 10, fontFamily: "Poppins-Light", color: "#000" }}>Profile</Text>
+                                          </TouchableOpacity>
+                                        </View>
+                                        <Image
+                                          source={Images.arrowleft}
+                                          style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000", marginLeft: 30 }}></Image>
                                       </View>
                                     </Animated.View>
                                   </View>
@@ -2320,8 +2322,8 @@ profile menu.
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                              visible={saveModalVisible}
-                               //visible={true}
+                                visible={saveModalVisible}
+                                //visible={true}
                                 onRequestClose={() => {
                                   setSaveModalVisible(false);
                                 }}>
@@ -2371,28 +2373,28 @@ profile menu.
                                             borderRadius: 100,
                                           }}></View>
                                       </View>
-                                      <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?39:26,fontFamily:"Poppins-SemiBold",color:Colors.black,marginTop:40,textAlign:"center"}}>Righteous!
-</Text>
-                                      <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?39:26,fontFamily:"Poppins-SemiBold",color:Colors.black,marginBottom:50,textAlign:"center"}}>You saved your first search!</Text>
+                                      <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 26, fontFamily: "Poppins-SemiBold", color: Colors.black, marginTop: 40, textAlign: "center" }}>Righteous!
+                                      </Text>
+                                      <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 26, fontFamily: "Poppins-SemiBold", color: Colors.black, marginBottom: 50, textAlign: "center" }}>You saved your first search!</Text>
                                       <Text
                                         style={{
-                                          fontSize: DeviceInfo.getDeviceType() === 'Tablet'?24:18,
+                                          fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 24 : 18,
                                           fontFamily: 'Poppins-Light',
                                           color: 'black',
                                           alignItems: 'center',
                                           flexDirection: 'row',
-                                          lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?35:22,
+                                          lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 22,
                                           flexWrap: 'wrap',
-                                          textAlign:"center",
+                                          textAlign: "center",
                                           flexDirection: 'row',
                                           alignItems: 'center',
                                           textAlign: 'center',
-                                          paddingHorizontal:16
+                                          paddingHorizontal: 16
                                         }}>
-                                     You can find your Saved Search’s in the 
-“Saved Search” tab inside the profile menu. 
-You’ll also receive emails and push 
-notifications when new properties are listed.
+                                        You can find your Saved Search’s in the
+                                        “Saved Search” tab inside the profile menu.
+                                        You’ll also receive emails and push
+                                        notifications when new properties are listed.
 
                                         {/* <TouchableOpacity
                                           onPress={() => {
@@ -2406,24 +2408,24 @@ notifications when new properties are listed.
                                          
                                         
                                         </TouchableOpacity> */}
-                                      
+
                                       </Text>
-                                       
-                                      <View style={{flexDirection:"row",marginTop:60,justifyContent:"flex-start",alignItems:"flex-start"}}>
-                                      <View style={{flexDirection:"column"}}>
-                                      <TouchableOpacity style={{alignItems:"center",justifyContent:"center"}}
-                                          onPress={() => {
-                                            navigation.navigate('MyProfile');
-                                          }} >
-                                           <Image
-              source={Images.newprofile}
-              style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?39:25, width: DeviceInfo.getDeviceType() === 'Tablet'?39:25, resizeMode: 'contain',tintColor:"#000" }}></Image>
-              <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?20:10,fontFamily:"Poppins-Light",color:"#000"}}>Profile</Text>
-              </TouchableOpacity>
-                                      </View>
-                                      <Image
-              source={Images.arrowleft}
-              style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?39:25, width: DeviceInfo.getDeviceType() === 'Tablet'?39:25, resizeMode: 'contain',tintColor:"#000" ,marginLeft:30}}></Image>
+
+                                      <View style={{ flexDirection: "row", marginTop: 60, justifyContent: "flex-start", alignItems: "flex-start" }}>
+                                        <View style={{ flexDirection: "column" }}>
+                                          <TouchableOpacity style={{ alignItems: "center", justifyContent: "center" }}
+                                            onPress={() => {
+                                              navigation.navigate('MyProfile');
+                                            }} >
+                                            <Image
+                                              source={Images.newprofile}
+                                              style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000" }}></Image>
+                                            <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 10, fontFamily: "Poppins-Light", color: "#000" }}>Profile</Text>
+                                          </TouchableOpacity>
+                                        </View>
+                                        <Image
+                                          source={Images.arrowleft}
+                                          style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000", marginLeft: 30 }}></Image>
                                       </View>
                                     </Animated.View>
                                   </View>
@@ -2435,17 +2437,17 @@ notifications when new properties are listed.
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                          visible={saveModalVisible}
-                                  //visible={true}
+                                visible={gpsModalVisiavle}
+                                // visible={true}
                                 onRequestClose={() => {
-                                  setSaveModalVisible(false);
+                                  setGpsModalVisiavle(false);
                                 }}>
                                 <View style={styles.modalContainer1}>
                                   <TouchableOpacity
                                     activeOpacity={1}
                                     style={styles.modalOverlay1}
                                     onPress={() => {
-                                      setSaveModalVisible(false);
+                                      setGpsModalVisiavle(false);
                                     }}
                                   />
                                   <View
@@ -2486,40 +2488,44 @@ notifications when new properties are listed.
                                             borderRadius: 100,
                                           }}></View>
                                       </View>
-                                      <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?36:21,fontFamily:"Poppins-SemiBold",color:Colors.black,marginTop:40,textAlign:"center"}}>Cool Beans!
+                                      <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 36 : 21, fontFamily: "Poppins-SemiBold", color: Colors.black, marginTop: 40, textAlign: "center" }}>Cool Beans!
 
-</Text>
-                                      <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?24:14,fontFamily:"Poppins-Medium",color:Colors.black,
-                                      marginBottom:0,textAlign:"center"}}>You clicked the geo-lokator! 
-</Text>
-<View style={{width:"100%",justifyContent:"center",alignItems:"center",marginBottom:40}}>
- <LottieView 
-          style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?200:200, justifyContent:"center",alignItems:"center",
-          width: DeviceInfo.getDeviceType() === 'Tablet'?270:270 }} 
-          source={require('../../assets/animations/map.json')} 
-          autoPlay loop /> 
-          </View>
+                                      </Text>
+                                      <Text style={{
+                                        fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 24 : 14, fontFamily: "Poppins-Medium", color: Colors.black,
+                                        marginBottom: 0, textAlign: "center"
+                                      }}>You clicked the geo-lokator!
+                                      </Text>
+                                      <View style={{ width: "100%", justifyContent: "center", alignItems: "center", marginBottom: 40 }}>
+                                        <LottieView
+                                          style={{
+                                            height: DeviceInfo.getDeviceType() === 'Tablet' ? 200 : 200, justifyContent: "center", alignItems: "center",
+                                            width: DeviceInfo.getDeviceType() === 'Tablet' ? 270 : 270
+                                          }}
+                                          source={require('../../assets/animations/map.json')}
+                                          autoPlay loop />
+                                      </View>
                                       <Text
                                         style={{
-                                          fontSize: DeviceInfo.getDeviceType() === 'Tablet'?26:18,
+                                          fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 18,
                                           fontFamily: 'Poppins-Light',
                                           color: 'black',
                                           alignItems: 'center',
                                           flexDirection: 'row',
-                                          lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?39:22,
+                                          lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 22,
                                           flexWrap: 'wrap',
-                                          textAlign:"center",
+                                          textAlign: "center",
                                           flexDirection: 'row',
                                           alignItems: 'center',
                                           textAlign: 'center',
-                                          paddingHorizontal:16
+                                          paddingHorizontal: 16
                                         }}>
-                                   If you are in any neighborhood and 
-want to see the price or details of a 
-home without Googling it or 
-contacting the Realtor®, this 
-will be an invaluable tool in the 
-search for your new home
+                                        If you are in any neighborhood and
+                                        want to see the price or details of a
+                                        home without Googling it or
+                                        contacting the Realtor®, this
+                                        will be an invaluable tool in the
+                                        search for your new home
 
                                         {/* <TouchableOpacity
                                           onPress={() => {
@@ -2533,11 +2539,13 @@ search for your new home
                                          
                                         
                                         </TouchableOpacity> */}
-                                      
+
                                       </Text>
-                                       
-                                    <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?26:15,fontFamily:"Poppins-SemiBold",color:"black", width:"100%",
-                                    textAlign:"center",marginTop:30}}>You’re Welcome!</Text>
+
+                                      <Text style={{
+                                        fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 15, fontFamily: "Poppins-SemiBold", color: "black", width: "100%",
+                                        textAlign: "center", marginTop: 30
+                                      }}>You’re Welcome!</Text>
                                     </Animated.View>
                                   </View>
                                 </View>
@@ -3455,9 +3463,9 @@ const styles = StyleSheet.create({
 
   modalOverlay1: {
     flex: 1,
-   // alignItems: 'center',
-   // justifyContent: 'center',
-    width: DeviceInfo.getDeviceType() === 'Tablet'?"100%":"98%",
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? "100%" : "98%",
     boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
   },
 

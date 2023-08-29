@@ -48,8 +48,7 @@ import { getAgent } from '../../modules/getAgent';
 import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
 import * as Animatable from 'react-native-animatable';
 import { TypingAnimation } from 'react-native-typing-animation';
-// import { schoolChat } from '../../modules/schoolChat';
-import { schoolChat } from '../../modules/schoolChat';
+
 // const data = [
 //   { label: 'Test', type: 0 },
 //   { label: 'Test', type: 0 },
