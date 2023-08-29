@@ -153,7 +153,7 @@ export default function AppIntro({ navigation }) {
             style={{
               height: screenHeight,
               width: screenWidth,
-              resizeMode: "stretch"
+              resizeMode: "contain"
             }}
             source={item.image}
           />

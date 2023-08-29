@@ -720,7 +720,6 @@ const Home = () => {
                 marginBottom: 5,
                 marginTop: 10,
                 alignItems:"center",
-                //backgroundColor:"red"
               }}>
               <TouchableOpacity
                 onPress={() => {
@@ -912,6 +911,7 @@ const Home = () => {
                               fontFamily: 'Poppins-Regular',
                               width: '99%',
                               marginBottom: 8,
+                              fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
                             }}>
                             Choose your city{' '}
                           </Text>
@@ -919,31 +919,11 @@ const Home = () => {
 
                           <TouchableOpacity onPress={() => {
                             setSetCollapsibleStatus(!collapsibleStatus)
-                          }} style={[styles.dropdown, { width: "100%", height: 40, alignItems: 'center', flexDirection: 'row', justifyContent: "center" }]}>
-                            <Text style={{ width: '85%', color: Colors.black, fontFamily: "Poppins-Regular" }}>
+                          }} style={[styles.dropdown, { width: "100%", height: 40, alignItems: 'center', flexDirection: 'row', justifyContent: "space-between",paddingHorizontal:12 }]}>
+                            <Text style={{  color: Colors.black, fontFamily: "Poppins-Regular",fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14, }}>
                               All Cities
                             </Text>
-                            {/* <TextInput
-                              style={{ width: '85%', }}
-                              value={cities}
-                              onChange={async item => {
-                                setCities(item);
-                                console.log("cities==>>>>>>",cities)
-                                // await dispatch(
-                                //   getPoperties({
-                                //     type: 3,
-                                //     data: {
-                                //       data_custom_taxonomy: 'property_city',
-                                //       data_customvalue: item.toString(),
-                                //     },
-                                //   }),
-                                // ).then(res => {
-                                //   setHomeData(res.payload.data);
-                                // });
-                              }}
-                              placeholder="All Cities"
-                            // keyboardType="numeric"
-                            /> */}
+                           
 
                             <TouchableOpacity>
                               <View style={{
@@ -972,8 +952,9 @@ const Home = () => {
                                   alignItems: 'center',
                                 }}>
                                 <FlatList
+                                numColumns={3}
                                   data={moreFilterData?.City}
-                                  style={{ alignContent: 'center', margin: -6, width: "100%" }}
+                                  style={{ alignContent: 'center',}}
                                   nestedScrollEnabled
                                   renderItem={({ item, index }) => {
                                     const {
@@ -987,15 +968,7 @@ const Home = () => {
                                     return (
                                       <TouchableOpacity
                                         style={{
-                                          width: '95%',
-                                          margin: 5,
-                                          borderRadius: 20,
-                                          borderWidth: 1,
-                                          borderColor: Colors.black,
-                                          backgroundColor: isSelectedMore
-                                            ? Colors.black
-                                            : Colors.white,
-                                          padding: 10,
+                                          width: '33.33%',   paddingHorizontal:8
                                         }}
                                         onPress={
                                           async () => {
@@ -1029,10 +1002,19 @@ const Home = () => {
                                       >
                                         <Text
                                           style={{
+                                            fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
                                             color: isSelectedMore
-                                              ? Colors.white
-                                              : Colors.black,
-                                            textAlign: 'center',
+                                            ? Colors.white
+                                            : Colors.black,
+                                          textAlign: 'center',
+                                          borderRadius: 20,
+                                          borderWidth: 1,
+                                          borderColor: Colors.black,
+                                          backgroundColor: isSelectedMore
+                                            ? Colors.black
+                                            : Colors.white,
+                                         padding: 10,
+                                         marginBottom:8,
                                           }}
                                           numberOfLines={1}>
                                           {item?.data_name}
@@ -1156,6 +1138,7 @@ const Home = () => {
                               style={{
                                 color: 'black',
                                 fontFamily: 'Poppins-Regular',
+                                fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14
                               }}>
                               Bedrooms
                             </Text>
@@ -1166,7 +1149,7 @@ const Home = () => {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                               }}>
-                              <FlatList
+                              <FlatList style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14}}
                                 data={moreFilterData?.bedroom}
                                 horizontal={true}
                                 // numColumns={4}
@@ -1210,6 +1193,7 @@ const Home = () => {
                                         <Text
                                           style={{
                                             fontFamily: 'poppins-regular',
+                                            fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
                                             color:
                                               bedroomitem === index
                                                 ? Colors.white
@@ -1228,6 +1212,7 @@ const Home = () => {
                               style={{
                                 color: 'black',
                                 fontFamily: 'Poppins-Regular',
+                                fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14
                               }}>
                               Bathrooms
                             </Text>
@@ -1280,7 +1265,7 @@ const Home = () => {
                                         }}>
                                         <Text
                                           style={{
-                                            fontSize: 14,
+                                            fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
                                             fontFamily: 'Poppins-Regular',
                                             color:
                                               bathRoom === index
@@ -1302,6 +1287,7 @@ const Home = () => {
                                 color: 'black',
                                 fontFamily: 'Poppins-Regular',
                                 marginTop: 12,
+                                fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14
                               }}>
                               Square Feet
                             </Text>
@@ -1452,8 +1438,9 @@ const Home = () => {
                               style={{
                                 color: 'black',
                                 fontFamily: 'Poppins-Regular',
+                                fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14
                               }}>
-                              Price Range
+                              Price Range 
                             </Text>
 
                             <View
@@ -1617,7 +1604,9 @@ const Home = () => {
                               }}>
                               <FlatList
                                 data={moreFilterData?.more_filter_data}
-                                style={{ alignContent: 'center', margin: -6 }}
+                                style={{ alignContent: 'center',
+                                 //margin: -6
+                                 }}
                                 nestedScrollEnabled
                                 numColumns={3}
                                 renderItem={({ item, index }) => {
@@ -1632,15 +1621,15 @@ const Home = () => {
                                   return (
                                     <TouchableOpacity
                                       style={{
-                                        width: '30%',
-                                        margin: 5,
-                                        borderRadius: 20,
-                                        borderWidth: 1,
-                                        borderColor: Colors.black,
-                                        backgroundColor: isSelectedMore
-                                          ? Colors.black
-                                          : Colors.white,
-                                        padding: 10,
+                                        width: '33.33%',
+                                       //margin: 5,
+                                       
+                                        //borderWidth: 1,
+                                        //borderColor: Colors.black,
+                                       
+                                      // padding: 10,
+                                      // marginBottom:8,
+                                      paddingHorizontal:8
                                       }}
                                       onPress={async () => {
                                         if (isSelectedMore) {
@@ -1662,6 +1651,15 @@ const Home = () => {
                                             ? Colors.white
                                             : Colors.black,
                                           textAlign: 'center',
+                                          borderRadius: 20,
+                                          borderWidth: 1,
+                                          borderColor: Colors.black,
+                                          backgroundColor: isSelectedMore
+                                            ? Colors.black
+                                            : Colors.white,
+                                         padding: 10,
+                                         marginBottom:8,
+                                         fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14
                                         }}
                                         numberOfLines={1}>
                                         {item?.data_name}
@@ -1684,7 +1682,7 @@ const Home = () => {
                               }}
                               style={{
                                 height: 50,
-                                width: '40%',
+                                width: 170,
                                 borderRadius: 100,
                                 backgroundColor: Colors.surfblur,
                                 marginTop: 10,
@@ -3352,10 +3350,10 @@ const Home = () => {
                 }}>
                 Would you like to extend your search radius by 10 miles?
               </Text>
-              <View
+              {/* <View
                 style={{
                   borderRadius: 50,
-                  overflow: 'hidden', // This ensures the rounded corners are visible
+                  overflow: 'hidden', 
                   width: "38%",
                   backgroundColor:"#0165C5",
                   paddingHorizontal:20,
@@ -3365,7 +3363,7 @@ const Home = () => {
               >
                 <Button
                   style={{
-                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 170 : 150, // Increase the height as needed
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 170 : 150, 
                     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 32 : 18,
                     textAlign: 'center',
                     alignItems: 'center',
@@ -3381,7 +3379,7 @@ const Home = () => {
                     boxShadow:"none"
                   }}
                   title="Extend"
-                  color="transparent" // Change this to your desired background color
+                  color="transparent" 
                   boxShadow="none"
                   onPress={() => {
                     dispatch(
@@ -3396,7 +3394,44 @@ const Home = () => {
                     });
                   }}
                 />
-              </View>
+              </View> */}
+              <View style={{
+                    width: '40%',
+                    flexDirection: 'row',
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: 30,
+                  }}>
+
+                    <TouchableOpacity
+                      onPress={async () => {
+                        setLimit(limit + 1)
+                        await dispatch(getPopertiess({ type: 0, limit: limit + 1, ID: store?.getState()?.loginUserReducer?.loginData?.data?.ID })).then((res) => {
+                          setHomeData(res.payload.data)
+                        })
+                      }}
+                      style={{
+                        height: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
+                        width: '100%',
+                        borderRadius: 100,
+                        backgroundColor: Colors.PrimaryColor,
+                        marginTop: 10,
+                        flexDirection: 'row',
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginBottom: 40
+
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 18,
+                          color: Colors.white,
+                          fontFamily: "poppins-regular",
+                        }}>
+                        Extend
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
             </View>
           )}
 
