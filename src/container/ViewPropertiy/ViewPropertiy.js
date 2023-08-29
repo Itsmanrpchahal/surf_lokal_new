@@ -568,8 +568,8 @@ const ViewPropertiy = (props, imageUrl) => {
                 <>
                   <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                     <View style={{ width: "100%", flexDirection: 'row', alignItems: 'center', marginBottom: 3 }}>
-                      <Text style={{ color: "black", fontSize: 12, fontFamily: "Poppins-Light", marginRight: 5 }}>{item.unite_name}</Text>
-                      <Text style={{ color: "black", fontSize: 12, fontFamily: "Poppins-Light", lineHeight: 22 }}>{item.unit_distance}</Text>
+                      <Text style={{ color: "black", fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12, fontFamily: "Poppins-Light", marginRight: 5 }}>{item.unite_name}</Text>
+                      <Text style={{ color: "black", fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12, fontFamily: "Poppins-Light", lineHeight: 22 }}>{item.unit_distance}</Text>
                     </View>
                     {/* <View>
                       <Image style={{ height: 15, width: 100, resizeMode: "contain" }} source={{ uri: item.image_url }} />
@@ -713,8 +713,8 @@ const ViewPropertiy = (props, imageUrl) => {
 
           <View style={{ marginTop: 10, justifyContent: 'flex-end', alignContent: 'flex-end', marginBottom: 10, width: "100%" }}>
             <TouchableOpacity onPress={() => { navigation.navigate('Schoolinfo') }}
-              style={{ backgroundColor: Colors.surfblur, borderRadius: 20, width: 100, paddingVertical: 10 }}>
-              <Text style={{ alignItems: 'center', textAlign: 'center', color: Colors.white, fontFamily: "Poppins-medium" }}>School Info</Text>
+              style={{ backgroundColor: Colors.surfblur, borderRadius: 20, width: 100, paddingVertical: 10 ,width:120}}>
+              <Text style={{ alignItems: 'center', textAlign: 'center', color: Colors.white, fontFamily: "Poppins-medium" ,fontSize:DeviceInfo.getDeviceType() === 'Tablet'?18:14}}>School Info</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -1816,7 +1816,7 @@ const ViewPropertiy = (props, imageUrl) => {
         </ScrollView >
 
       </SafeAreaView >
-    <View
+ <View
         style={{
           flexDirection: 'row',
           width: '100%',

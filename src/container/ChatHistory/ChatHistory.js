@@ -6,7 +6,7 @@ import { propertyChatList } from '../../modules/propertyChats'
 import { useDispatch } from 'react-redux';
 import { url } from "../../config/url";
 import { useIsFocused } from "@react-navigation/native";
-
+import DeviceInfo from 'react-native-device-info';
 const ChatHistory = ({ navigation }) => {
     const dispatch = useDispatch();
     const [propertyChat, setPropertyChat] = useState([])
@@ -41,35 +41,38 @@ const ChatHistory = ({ navigation }) => {
                         // height: 45,
                         alignItems: 'center',
                         paddingVertical: 12,
-                        borderBottomColor: Colors.gray,
-                        borderBottomWidth: 1,
+                        //borderBottomColor: Colors.gray,
+                       // borderBottomWidth: 1,
                         paddingTop: 16,
                         marginBottom: 16,
                         backgroundColor: Colors.white
                     }}>
-              <TouchableOpacity
+                 <TouchableOpacity
           style={{
             flexDirection: 'row',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             position: 'absolute',
             left: 12,
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             // top: 12,
-            top: 13
+            top: 13,
+           // backgroundColor:"green",
+width:50,
+height:50
+
           }}
           onPress={() => {
             navigation.goBack();
           }}>
           <Image
             style={{
-              width:27,
-              height: 27,
+              width: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
+              height: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
               alignItems: 'center',
-              resizeMode:"contain",
-              tintColor:"#8B8787"
+              resizeMode: 'contain',
             }}
             source={Images.leftnewarrow}></Image>
      
@@ -82,10 +85,10 @@ const ChatHistory = ({ navigation }) => {
           }}>
           <Text
             style={{
-              fontSize: 20,
-              color: Colors.black,
-              fontFamily: 'Poppins-Light',
-              lineHeight: 22,
+                fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
+                color: Colors.black,
+                fontFamily: 'Poppins-Light',
+                lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
             }}>
          Chat History
           </Text>
@@ -129,15 +132,21 @@ const ChatHistory = ({ navigation }) => {
                                             maxWidth: '80%',
                                         }}>
 
-                                            <Text numberOfLines={1} style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Medium' : 'Poppins-Medium', textTransform: 'capitalize', fontSize: 16, lineHeight: 18 }}>{item?.item?.post_title}</Text>
-                                            <Text style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-SemiBold', textTransform: 'capitalize', fontSize: 15, lineHeight: 18 }}>${item?.item?.property_price}</Text>
-                                            <Text style={{ color: Colors.newgray, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-Regular', textTransform: 'capitalize', fontSize: 12 }}>{item.item.post_date}</Text>
+                                            <Text numberOfLines={1} style={{ color: Colors.black, 
+                                            fontFamily: item.item.Is_read === '0' ? 'Poppins-Regular' : 'Poppins-Regular', textTransform: 'capitalize', 
+                                            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?26:16, lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?36:18 }}>{item?.item?.post_title}</Text>
+                                            <Text style={{ color: Colors.black, 
+                                                fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-SemiBold',
+                                                 textTransform: 'capitalize', fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:15,  lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?36:18 }}>${item?.item?.property_price}</Text>
+                                            <Text style={{ color: Colors.newgray,
+                                                 fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-Regular',
+                                                  textTransform: 'capitalize', fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12 }}>{item.item.post_date}</Text>
                                         </View>
                                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                             <Image
                                                 style={{
-                                                    height: 40,
-                                                    width: 40,
+                                                    height: DeviceInfo.getDeviceType() === 'Tablet'?60:40,
+                                                    width: DeviceInfo.getDeviceType() === 'Tablet'?60:40,
                                                     resizeMode: 'contain',
                                                     borderRadius: 50,
                                                     marginRight: 5,
@@ -148,10 +157,10 @@ const ChatHistory = ({ navigation }) => {
                                             />
                                             <Image
                                                 style={{
-                                                    width: 14,
-                                                    height: 14,
+                                                    width: DeviceInfo.getDeviceType() === 'Tablet'?18:14,
+                                                    height: DeviceInfo.getDeviceType() === 'Tablet'?18:14,
                                                     resizeMode: 'contain',
-                                                    marginRight: 12,
+                                                    marginRight: DeviceInfo.getDeviceType() === 'Tablet'?20:12,
                                                     transform: [{ rotate: '-90deg' }],
                                                 }}
                                                 source={Images.downArrow}
@@ -184,8 +193,9 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.gray,
     },
     imagedata: {
-        height:19,
-        width: 29,
+        height:DeviceInfo.getDeviceType() === 'Tablet'?29:19,
+        width: DeviceInfo.getDeviceType() === 'Tablet'?49:29,
+    
         resizeMode: 'contain',
        
       },

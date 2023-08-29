@@ -260,11 +260,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray,
   },
   imagedata: {
-    height:19,
-    width: 29,
+    height:DeviceInfo.getDeviceType() === 'Tablet'?29:19,
+    width: DeviceInfo.getDeviceType() === 'Tablet'?49:29,
+tintColor:Colors.white,
     resizeMode: 'contain',
-    tintColor: Colors.white,
-    // transform: [{ rotate: '90deg' }],
+   
   },
 });
 export default Leaderboard;

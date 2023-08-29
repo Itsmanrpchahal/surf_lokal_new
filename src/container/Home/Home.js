@@ -522,15 +522,15 @@ const Home = () => {
               marginBottom: 8,
             }}>
             <SvgUri
-              height={25}
-              width={25}
+              height={DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25}
+              width={DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25}
               uri={item.term_icon_url}
               fontWeight="bold"
               fill={isSelected ? Colors.PrimaryColor : 'black'}
             />
             <Text
               style={{
-                fontSize: 12,
+                fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
 
                 color: isSelected ? Colors.darbluec : Colors.newgray,
 
@@ -565,7 +565,7 @@ const Home = () => {
         }}>
         <View
           style={{
-            width: DeviceInfo.getDeviceType() === 'Tablet' ? "70%" : "100%",
+            width: DeviceInfo.getDeviceType() === 'Tablet' ? "80%" : "100%",
             paddingVertical: 18,
             justifyContent: 'center',
             borderRadius: 5,
@@ -578,7 +578,7 @@ const Home = () => {
           }}>
           <View
             style={{
-              height: 42,
+              height: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 42,
               width: '90%',
               borderRadius: 100,
               borderWidth: 1,
@@ -607,7 +607,7 @@ const Home = () => {
                 onSubmitEditing={Keyboard.dismiss}
                 onChangeText={text => setAddres(text)}
                 style={{
-                  fontSize: 12,
+                  fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18: 12,
                   letterSpacing: 1,
                   color: '#000',
                   marginLeft: 1,
@@ -642,10 +642,10 @@ const Home = () => {
                 }}>
                 <Image
                   source={Images.address}
-                  tintColor={showMap ? Colors.PrimaryColor : Colors.black}
+                  tintColor={showMap ? Colors.PrimaryColor : Colors.PrimaryColor}
                   style={{
-                    height: 20,
-                    width: 20,
+                    height:DeviceInfo.getDeviceType() === 'Tablet' ? 25: 20,
+                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 25: 20,
                     alignItems: 'center',
                     justifyContent: 'center',
                     resizeMode: 'contain',
@@ -671,8 +671,8 @@ const Home = () => {
                 <Image
                   source={Images.gps}
                   style={{
-                    height: 25,
-                    width: 25,
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 35: 25,
+                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 35: 25,
                     resizeMode: 'contain',
                   }}></Image>
               </TouchableOpacity>
@@ -705,7 +705,6 @@ const Home = () => {
                 marginBottom: 5,
                 marginTop: 10,
                 alignItems:"center",
-                //backgroundColor:"red"
               }}>
               <TouchableOpacity
                 onPress={() => {
@@ -742,6 +741,7 @@ const Home = () => {
 
                     // Change text color on press,
                     fontFamily: 'Poppins-Regular',
+                    fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12
                   }}>
                   Save Search
                 </Text>
@@ -762,8 +762,8 @@ const Home = () => {
                   source={Images.filtericon}
                   style={[
                     {
-                      height: 10,
-                      width: 10,
+                      height: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
+                      width: DeviceInfo.getDeviceType() === 'Tablet' ? 18: 10,
                       marginRight: 6,
                     },
                     { tintColor: 'black' },
@@ -773,6 +773,7 @@ const Home = () => {
                   style={{
                     color: 'black',
                     fontFamily: 'Poppins-Regular',
+                    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12
                   }}>
                   Filters
                 </Text>
@@ -817,6 +818,7 @@ const Home = () => {
                   style={{
                     color: isPressed2 ? 'white' : 'black',
                     fontFamily: 'Poppins-Regular',
+                    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12
                   }}>
                   Clear filters
                 </Text>
@@ -894,6 +896,7 @@ const Home = () => {
                               fontFamily: 'Poppins-Regular',
                               width: '99%',
                               marginBottom: 8,
+                              fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
                             }}>
                             Choose your city{' '}
                           </Text>
@@ -901,31 +904,11 @@ const Home = () => {
 
                           <TouchableOpacity onPress={() => {
                             setSetCollapsibleStatus(!collapsibleStatus)
-                          }} style={[styles.dropdown, { width: "100%", height: 40, alignItems: 'center', flexDirection: 'row', justifyContent: "center" }]}>
-                            <Text style={{ width: '85%', color: Colors.black, fontFamily: "Poppins-Regular" }}>
+                          }} style={[styles.dropdown, { width: "100%", height: 40, alignItems: 'center', flexDirection: 'row', justifyContent: "space-between",paddingHorizontal:12 }]}>
+                            <Text style={{  color: Colors.black, fontFamily: "Poppins-Regular",fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14, }}>
                               All Cities
                             </Text>
-                            {/* <TextInput
-                              style={{ width: '85%', }}
-                              value={cities}
-                              onChange={async item => {
-                                setCities(item);
-                                console.log("cities==>>>>>>",cities)
-                                // await dispatch(
-                                //   getPoperties({
-                                //     type: 3,
-                                //     data: {
-                                //       data_custom_taxonomy: 'property_city',
-                                //       data_customvalue: item.toString(),
-                                //     },
-                                //   }),
-                                // ).then(res => {
-                                //   setHomeData(res.payload.data);
-                                // });
-                              }}
-                              placeholder="All Cities"
-                            // keyboardType="numeric"
-                            /> */}
+                           
 
                             <TouchableOpacity>
                               <View style={{
@@ -954,8 +937,9 @@ const Home = () => {
                                   alignItems: 'center',
                                 }}>
                                 <FlatList
+                                numColumns={3}
                                   data={moreFilterData?.City}
-                                  style={{ alignContent: 'center', margin: -6, width: "100%" }}
+                                  style={{ alignContent: 'center',}}
                                   nestedScrollEnabled
                                   renderItem={({ item, index }) => {
                                     const {
@@ -969,15 +953,7 @@ const Home = () => {
                                     return (
                                       <TouchableOpacity
                                         style={{
-                                          width: '95%',
-                                          margin: 5,
-                                          borderRadius: 20,
-                                          borderWidth: 1,
-                                          borderColor: Colors.black,
-                                          backgroundColor: isSelectedMore
-                                            ? Colors.black
-                                            : Colors.white,
-                                          padding: 10,
+                                          width: '33.33%',   paddingHorizontal:8
                                         }}
                                         onPress={
                                           async () => {
@@ -1011,10 +987,19 @@ const Home = () => {
                                       >
                                         <Text
                                           style={{
+                                            fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
                                             color: isSelectedMore
-                                              ? Colors.white
-                                              : Colors.black,
-                                            textAlign: 'center',
+                                            ? Colors.white
+                                            : Colors.black,
+                                          textAlign: 'center',
+                                          borderRadius: 20,
+                                          borderWidth: 1,
+                                          borderColor: Colors.black,
+                                          backgroundColor: isSelectedMore
+                                            ? Colors.black
+                                            : Colors.white,
+                                         padding: 10,
+                                         marginBottom:8,
                                           }}
                                           numberOfLines={1}>
                                           {item?.data_name}
@@ -1138,6 +1123,7 @@ const Home = () => {
                               style={{
                                 color: 'black',
                                 fontFamily: 'Poppins-Regular',
+                                fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14
                               }}>
                               Bedrooms
                             </Text>
@@ -1148,7 +1134,7 @@ const Home = () => {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                               }}>
-                              <FlatList
+                              <FlatList style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14}}
                                 data={moreFilterData?.bedroom}
                                 horizontal={true}
                                 // numColumns={4}
@@ -1192,6 +1178,7 @@ const Home = () => {
                                         <Text
                                           style={{
                                             fontFamily: 'poppins-regular',
+                                            fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
                                             color:
                                               bedroomitem === index
                                                 ? Colors.white
@@ -1210,6 +1197,7 @@ const Home = () => {
                               style={{
                                 color: 'black',
                                 fontFamily: 'Poppins-Regular',
+                                fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14
                               }}>
                               Bathrooms
                             </Text>
@@ -1262,7 +1250,7 @@ const Home = () => {
                                         }}>
                                         <Text
                                           style={{
-                                            fontSize: 14,
+                                            fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
                                             fontFamily: 'Poppins-Regular',
                                             color:
                                               bathRoom === index
@@ -1284,6 +1272,7 @@ const Home = () => {
                                 color: 'black',
                                 fontFamily: 'Poppins-Regular',
                                 marginTop: 12,
+                                fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14
                               }}>
                               Square Feet
                             </Text>
@@ -1434,8 +1423,9 @@ const Home = () => {
                               style={{
                                 color: 'black',
                                 fontFamily: 'Poppins-Regular',
+                                fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14
                               }}>
-                              Price Range
+                              Price Range 
                             </Text>
 
                             <View
@@ -1599,7 +1589,9 @@ const Home = () => {
                               }}>
                               <FlatList
                                 data={moreFilterData?.more_filter_data}
-                                style={{ alignContent: 'center', margin: -6 }}
+                                style={{ alignContent: 'center',
+                                 //margin: -6
+                                 }}
                                 nestedScrollEnabled
                                 numColumns={3}
                                 renderItem={({ item, index }) => {
@@ -1614,15 +1606,15 @@ const Home = () => {
                                   return (
                                     <TouchableOpacity
                                       style={{
-                                        width: '30%',
-                                        margin: 5,
-                                        borderRadius: 20,
-                                        borderWidth: 1,
-                                        borderColor: Colors.black,
-                                        backgroundColor: isSelectedMore
-                                          ? Colors.black
-                                          : Colors.white,
-                                        padding: 10,
+                                        width: '33.33%',
+                                       //margin: 5,
+                                       
+                                        //borderWidth: 1,
+                                        //borderColor: Colors.black,
+                                       
+                                      // padding: 10,
+                                      // marginBottom:8,
+                                      paddingHorizontal:8
                                       }}
                                       onPress={async () => {
                                         if (isSelectedMore) {
@@ -1644,6 +1636,15 @@ const Home = () => {
                                             ? Colors.white
                                             : Colors.black,
                                           textAlign: 'center',
+                                          borderRadius: 20,
+                                          borderWidth: 1,
+                                          borderColor: Colors.black,
+                                          backgroundColor: isSelectedMore
+                                            ? Colors.black
+                                            : Colors.white,
+                                         padding: 10,
+                                         marginBottom:8,
+                                         fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14
                                         }}
                                         numberOfLines={1}>
                                         {item?.data_name}
@@ -1666,7 +1667,7 @@ const Home = () => {
                               }}
                               style={{
                                 height: 50,
-                                width: '40%',
+                                width: 170,
                                 borderRadius: 100,
                                 backgroundColor: Colors.surfblur,
                                 marginTop: 10,
@@ -2085,8 +2086,8 @@ const Home = () => {
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                             visible={favModalVisiable}
-                              ///visible={true}
+                           visible={favModalVisiable}
+                              //visible={true}
                                 onRequestClose={() => {
                                   setfavModalVisiable(false);
                                 }}>
@@ -2175,12 +2176,12 @@ const Home = () => {
 
 
                                       <View style={{ flexDirection: "row", marginTop: 60, justifyContent: "flex-end", alignItems: "flex-start" }}>
-                                        <Image
-                                          source={Images.arrowleft}
-                                          style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000", marginRight: 30, transform: [{ rotate: '-180deg' }] }}>
-
-                                        </Image>
-
+   
+                                        <LottieView 
+          style={{ height:  DeviceInfo.getDeviceType() === 'Tablet'?79:49, 
+          width: DeviceInfo.getDeviceType() === 'Tablet'?79:59, marginRight: 30, transform: [{ rotate: '-180deg' }] ,marginTop:0,position:"relative",top:DeviceInfo.getDeviceType() === 'Tablet'?-15:-10 }} 
+          source={require('../../assets/animations/leftarrow.json')} 
+          autoPlay loop /> 
                                         <View style={{ flexDirection: "column" }}>
                                           <TouchableOpacity style={{ alignItems: "center" }}
                                             onPress={() => {
@@ -2204,8 +2205,8 @@ const Home = () => {
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                                 visible={tashModalVisiable}
-                                 //visible={true}
+                                visible={tashModalVisiable}
+                             //visible={true}
                                 onRequestClose={() => {
                                   setTrashModalVisiable(false);
                                 }}>
@@ -2302,10 +2303,14 @@ const Home = () => {
                                             <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 10, fontFamily: "Poppins-Light", color: "#000" }}>Profile</Text>
                                           </TouchableOpacity>
                                         </View>
-                                        <Image
-                                          source={Images.arrowleft}
-                                          style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000", marginLeft: 30 }}></Image>
-                                      </View>
+                                        
+                                        <LottieView 
+          style={{ height:  DeviceInfo.getDeviceType() === 'Tablet'?79:49, 
+          width: DeviceInfo.getDeviceType() === 'Tablet'?79:59, marginLeft:10,marginTop:0,position:"relative",top:DeviceInfo.getDeviceType() === 'Tablet'?-15:-10 }} 
+          source={require('../../assets/animations/leftarrow.json')} 
+          autoPlay loop /> 
+                                        
+                                           </View>
 
                                     </Animated.View>
                                   </View>
@@ -2316,8 +2321,8 @@ const Home = () => {
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                                visible={saveModalVisible}
-                                //visible={true}
+                               visible={saveModalVisible}
+                             //visible={true}
                                 onRequestClose={() => {
                                   setSaveModalVisible(false);
                                 }}>
@@ -2418,9 +2423,12 @@ const Home = () => {
                                             <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 10, fontFamily: "Poppins-Light", color: "#000" }}>Profile</Text>
                                           </TouchableOpacity>
                                         </View>
-                                        <Image
-                                          source={Images.arrowleft}
-                                          style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000", marginLeft: 30 }}></Image>
+                                
+                                           <LottieView 
+          style={{ height:  DeviceInfo.getDeviceType() === 'Tablet'?79:49, 
+          width: DeviceInfo.getDeviceType() === 'Tablet'?79:59, marginLeft:10,marginTop:0,position:"relative",top:DeviceInfo.getDeviceType() === 'Tablet'?-15:-10 }} 
+          source={require('../../assets/animations/leftarrow.json')} 
+          autoPlay loop /> 
                                       </View>
 
                                     </Animated.View>
@@ -2434,7 +2442,7 @@ const Home = () => {
                                 transparent={true}
                                 animationType="slide"
                                 visible={gpsModalVisiavle}
-                                // visible={true}
+                                //visible={true}
                                 onRequestClose={() => {
                                   setGpsModalVisiavle(false);
                                 }}>
@@ -3323,36 +3331,41 @@ const Home = () => {
                   width: '100%',
                   position: 'absolute',
                   top: '30%',
-                  fontSize: 20,
+                  fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
                 }}>
                 Would you like to extend your search radius by 10 miles?
               </Text>
-              <View
+              {/* <View
                 style={{
                   borderRadius: 50,
-                  overflow: 'hidden', // This ensures the rounded corners are visible
-                  width: "35%",
-
-
+                  overflow: 'hidden', 
+                  width: "38%",
+                  backgroundColor:"#0165C5",
+                  paddingHorizontal:20,
+                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 40,
+                  lineHeight:DeviceInfo.getDeviceType() === 'Tablet' ? 170 : 150,
                 }}
               >
                 <Button
                   style={{
-                    height: 150, // Increase the height as needed
-                    fontSize: 18,
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 170 : 150, 
+                    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 32 : 18,
                     textAlign: 'center',
                     alignItems: 'center',
                     justifyContent: 'center',
                     position: 'absolute',
                     left: 0,
                     right: 0,
-                    top: '32%',
+                    top: '33%',
                     borderRadius: 50,
                     paddingVertical: 50,
-
+                    paddingHorizontal:20,
+                    width: "38%",
+                    boxShadow:"none"
                   }}
                   title="Extend"
-                  color="#0165C5" // Change this to your desired background color
+                  color="transparent" 
+                  boxShadow="none"
                   onPress={() => {
                     dispatch(
                       getPoperties({
@@ -3366,7 +3379,44 @@ const Home = () => {
                     });
                   }}
                 />
-              </View>
+              </View> */}
+              <View style={{
+                    width: '40%',
+                    flexDirection: 'row',
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: 30,
+                  }}>
+
+                    <TouchableOpacity
+                      onPress={async () => {
+                        setLimit(limit + 1)
+                        await dispatch(getPopertiess({ type: 0, limit: limit + 1, ID: store?.getState()?.loginUserReducer?.loginData?.data?.ID })).then((res) => {
+                          setHomeData(res.payload.data)
+                        })
+                      }}
+                      style={{
+                        height: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
+                        width: '100%',
+                        borderRadius: 100,
+                        backgroundColor: Colors.PrimaryColor,
+                        marginTop: 10,
+                        flexDirection: 'row',
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginBottom: 40
+
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 18,
+                          color: Colors.white,
+                          fontFamily: "poppins-regular",
+                        }}>
+                        Extend
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
             </View>
           )}
 

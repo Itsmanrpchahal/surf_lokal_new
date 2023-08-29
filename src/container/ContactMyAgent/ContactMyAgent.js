@@ -454,7 +454,6 @@ const styles = StyleSheet.create({
   imagedata: {
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 29 : 19,
     width: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 29,
-
     resizeMode: 'contain',
 
   },
