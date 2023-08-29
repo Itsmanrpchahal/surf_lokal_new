@@ -571,13 +571,11 @@ height:50
                 alignItems: 'center',
               }}
             >
-
-              <Animatable.View // Wrap your content in Animatable.View
-                animation="bounceIn" // Choose an animation type (e.g., bounceIn, zoomIn, fadeIn)
-                duration={4000} // Duration of the animation
-                iterationCount="infinite"
-                useNativeDriver>
-                <Image
+ <LottieView  style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
+  width: DeviceInfo.getDeviceType() === 'Tablet'?64:38,}} 
+     source={require('../../assets/animations/facebook.json')} autoPlay loop />
+           
+                {/* <Image
                   style={{
                     height: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
                     width: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
@@ -585,8 +583,8 @@ height:50
                     marginHorizontal: 5
                   }}
                   source={Images.facebook1}
-                />
-              </Animatable.View>
+                /> */}
+        
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -597,21 +595,9 @@ height:50
                 alignItems: 'center',
               }}
             >
-              <Animatable.View // Wrap your content in Animatable.View
-                animation="bounceIn" // Choose an animation type (e.g., bounceIn, zoomIn, fadeIn)
-                duration={4000} // Duration of the animation
-                iterationCount="infinite"
-                useNativeDriver>
-                <Image
-                  style={{
-                    height: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
-                    width: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
-                    resizeMode: "contain",
-                    marginHorizontal: 5
-                  }}
-                  source={Images.tw1}
-                />
-              </Animatable.View>
+              <LottieView  style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
+  width: DeviceInfo.getDeviceType() === 'Tablet'?64:38,}} 
+     source={require('../../assets/animations/twitter.json')} autoPlay loop />
 
             </TouchableOpacity>
 
@@ -623,21 +609,9 @@ height:50
                 alignItems: 'center',
               }}
             >
-              <Animatable.View // Wrap your content in Animatable.View
-                animation="bounceIn" // Choose an animation type (e.g., bounceIn, zoomIn, fadeIn)
-                duration={4000} // Duration of the animation
-                iterationCount="infinite"
-                useNativeDriver>
-                <Image
-                  style={{
-                    height: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
-                    width: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
-                    resizeMode: "contain",
-                    marginHorizontal: 5
-                  }}
-                  source={Images.instag}
-                />
-              </Animatable.View>
+            <LottieView  style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?64:38,
+  width: DeviceInfo.getDeviceType() === 'Tablet'?64:38,}} 
+     source={require('../../assets/animations/instagram.json')} autoPlay loop />
             </TouchableOpacity>
 
           </View>
@@ -647,7 +621,8 @@ height:50
       <View  style={{flexDirection:"row",justifyContent:"center",alignItems:"center",
       }}>
      
-     <LottieView  style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?250:150, width: DeviceInfo.getDeviceType() === 'Tablet'?250:150,}} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+     <LottieView  style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?250:150, width: DeviceInfo.getDeviceType() === 'Tablet'?250:150,}} 
+     source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
 
 </View>
       </ScrollView>
