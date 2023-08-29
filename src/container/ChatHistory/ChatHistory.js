@@ -6,7 +6,7 @@ import { propertyChatList } from '../../modules/propertyChats'
 import { useDispatch } from 'react-redux';
 import { url } from "../../config/url";
 import { useIsFocused } from "@react-navigation/native";
-
+import DeviceInfo from 'react-native-device-info';
 const ChatHistory = ({ navigation }) => {
     const dispatch = useDispatch();
     const [propertyChat, setPropertyChat] = useState([])
@@ -41,8 +41,8 @@ const ChatHistory = ({ navigation }) => {
                         // height: 45,
                         alignItems: 'center',
                         paddingVertical: 12,
-                        borderBottomColor: Colors.gray,
-                        borderBottomWidth: 1,
+                        //borderBottomColor: Colors.gray,
+                       // borderBottomWidth: 1,
                         paddingTop: 16,
                         marginBottom: 16,
                         backgroundColor: Colors.white
@@ -82,10 +82,10 @@ const ChatHistory = ({ navigation }) => {
           }}>
           <Text
             style={{
-              fontSize: 20,
-              color: Colors.black,
-              fontFamily: 'Poppins-Light',
-              lineHeight: 22,
+                fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
+                color: Colors.black,
+                fontFamily: 'Poppins-Light',
+                lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
             }}>
          Chat History
           </Text>
@@ -129,7 +129,7 @@ const ChatHistory = ({ navigation }) => {
                                             maxWidth: '80%',
                                         }}>
 
-                                            <Text numberOfLines={1} style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Medium' : 'Poppins-Medium', textTransform: 'capitalize', fontSize: 16, lineHeight: 18 }}>{item?.item?.post_title}</Text>
+                                            <Text numberOfLines={1} style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Regular' : 'Poppins-Regular', textTransform: 'capitalize', fontSize: 16, lineHeight: 18 }}>{item?.item?.post_title}</Text>
                                             <Text style={{ color: Colors.black, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-SemiBold', textTransform: 'capitalize', fontSize: 15, lineHeight: 18 }}>${item?.item?.property_price}</Text>
                                             <Text style={{ color: Colors.newgray, fontFamily: item.item.Is_read === '0' ? 'Poppins-Bold' : 'Poppins-Regular', textTransform: 'capitalize', fontSize: 12 }}>{item.item.post_date}</Text>
                                         </View>

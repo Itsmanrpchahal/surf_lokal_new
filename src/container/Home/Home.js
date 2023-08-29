@@ -535,15 +535,15 @@ const Home = () => {
               marginBottom: 8,
             }}>
             <SvgUri
-              height={25}
-              width={25}
+              height={DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25}
+              width={DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25}
               uri={item.term_icon_url}
               fontWeight="bold"
               fill={isSelected ? Colors.PrimaryColor : 'black'}
             />
             <Text
               style={{
-                fontSize: 12,
+                fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
 
                 color: isSelected ? Colors.darbluec : Colors.newgray,
 
@@ -580,7 +580,7 @@ const Home = () => {
         }}>
         <View
           style={{
-            width: DeviceInfo.getDeviceType() === 'Tablet' ? "70%" : "100%",
+            width: DeviceInfo.getDeviceType() === 'Tablet' ? "80%" : "100%",
             paddingVertical: 18,
             justifyContent: 'center',
             borderRadius: 5,
@@ -593,7 +593,7 @@ const Home = () => {
           }}>
           <View
             style={{
-              height: 42,
+              height: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 42,
               width: '90%',
               borderRadius: 100,
               borderWidth: 1,
@@ -622,7 +622,7 @@ const Home = () => {
                 onSubmitEditing={Keyboard.dismiss}
                 onChangeText={text => setAddres(text)}
                 style={{
-                  fontSize: 12,
+                  fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18: 12,
                   letterSpacing: 1,
                   color: '#000',
                   marginLeft: 1,
@@ -657,10 +657,10 @@ const Home = () => {
                 }}>
                 <Image
                   source={Images.address}
-                  tintColor={showMap ? Colors.PrimaryColor : Colors.black}
+                  tintColor={showMap ? Colors.PrimaryColor : Colors.PrimaryColor}
                   style={{
-                    height: 20,
-                    width: 20,
+                    height:DeviceInfo.getDeviceType() === 'Tablet' ? 25: 20,
+                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 25: 20,
                     alignItems: 'center',
                     justifyContent: 'center',
                     resizeMode: 'contain',
@@ -686,8 +686,8 @@ const Home = () => {
                 <Image
                   source={Images.gps}
                   style={{
-                    height: 25,
-                    width: 25,
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 35: 25,
+                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 35: 25,
                     resizeMode: 'contain',
                   }}></Image>
               </TouchableOpacity>
@@ -757,6 +757,7 @@ const Home = () => {
 
                     // Change text color on press,
                     fontFamily: 'Poppins-Regular',
+                    fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12
                   }}>
                   Save Search
                 </Text>
@@ -777,8 +778,8 @@ const Home = () => {
                   source={Images.filtericon}
                   style={[
                     {
-                      height: 10,
-                      width: 10,
+                      height: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
+                      width: DeviceInfo.getDeviceType() === 'Tablet' ? 18: 10,
                       marginRight: 6,
                     },
                     { tintColor: 'black' },
@@ -788,6 +789,7 @@ const Home = () => {
                   style={{
                     color: 'black',
                     fontFamily: 'Poppins-Regular',
+                    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12
                   }}>
                   Filters
                 </Text>
@@ -832,6 +834,7 @@ const Home = () => {
                   style={{
                     color: isPressed2 ? 'white' : 'black',
                     fontFamily: 'Poppins-Regular',
+                    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12
                   }}>
                   Clear filters
                 </Text>
@@ -2100,8 +2103,8 @@ const Home = () => {
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                             visible={favModalVisiable}
-                              ///visible={true}
+                           visible={favModalVisiable}
+                              //visible={true}
                                 onRequestClose={() => {
                                   setfavModalVisiable(false);
                                 }}>
@@ -2190,12 +2193,12 @@ const Home = () => {
 
 
                                       <View style={{ flexDirection: "row", marginTop: 60, justifyContent: "flex-end", alignItems: "flex-start" }}>
-                                        <Image
-                                          source={Images.arrowleft}
-                                          style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000", marginRight: 30, transform: [{ rotate: '-180deg' }] }}>
-
-                                        </Image>
-
+   
+                                        <LottieView 
+          style={{ height:  DeviceInfo.getDeviceType() === 'Tablet'?79:49, 
+          width: DeviceInfo.getDeviceType() === 'Tablet'?79:59, marginRight: 30, transform: [{ rotate: '-180deg' }] ,marginTop:0,position:"relative",top:DeviceInfo.getDeviceType() === 'Tablet'?-15:-10 }} 
+          source={require('../../assets/animations/leftarrow.json')} 
+          autoPlay loop /> 
                                         <View style={{ flexDirection: "column" }}>
                                           <TouchableOpacity style={{ alignItems: "center" }}
                                             onPress={() => {
@@ -2219,8 +2222,8 @@ const Home = () => {
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                                 visible={tashModalVisiable}
-                                 //visible={true}
+                                visible={tashModalVisiable}
+                             //visible={true}
                                 onRequestClose={() => {
                                   setTrashModalVisiable(false);
                                 }}>
@@ -2317,10 +2320,14 @@ const Home = () => {
                                             <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 10, fontFamily: "Poppins-Light", color: "#000" }}>Profile</Text>
                                           </TouchableOpacity>
                                         </View>
-                                        <Image
-                                          source={Images.arrowleft}
-                                          style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000", marginLeft: 30 }}></Image>
-                                      </View>
+                                        
+                                        <LottieView 
+          style={{ height:  DeviceInfo.getDeviceType() === 'Tablet'?79:49, 
+          width: DeviceInfo.getDeviceType() === 'Tablet'?79:59, marginLeft:10,marginTop:0,position:"relative",top:DeviceInfo.getDeviceType() === 'Tablet'?-15:-10 }} 
+          source={require('../../assets/animations/leftarrow.json')} 
+          autoPlay loop /> 
+                                        
+                                           </View>
 
                                     </Animated.View>
                                   </View>
@@ -2331,8 +2338,8 @@ const Home = () => {
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                                visible={saveModalVisible}
-                                //visible={true}
+                               visible={saveModalVisible}
+                             //visible={true}
                                 onRequestClose={() => {
                                   setSaveModalVisible(false);
                                 }}>
@@ -2433,9 +2440,12 @@ const Home = () => {
                                             <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 10, fontFamily: "Poppins-Light", color: "#000" }}>Profile</Text>
                                           </TouchableOpacity>
                                         </View>
-                                        <Image
-                                          source={Images.arrowleft}
-                                          style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000", marginLeft: 30 }}></Image>
+                                
+                                           <LottieView 
+          style={{ height:  DeviceInfo.getDeviceType() === 'Tablet'?79:49, 
+          width: DeviceInfo.getDeviceType() === 'Tablet'?79:59, marginLeft:10,marginTop:0,position:"relative",top:DeviceInfo.getDeviceType() === 'Tablet'?-15:-10 }} 
+          source={require('../../assets/animations/leftarrow.json')} 
+          autoPlay loop /> 
                                       </View>
 
                                     </Animated.View>
@@ -2449,7 +2459,7 @@ const Home = () => {
                                 transparent={true}
                                 animationType="slide"
                                 visible={gpsModalVisiavle}
-                                // visible={true}
+                                //visible={true}
                                 onRequestClose={() => {
                                   setGpsModalVisiavle(false);
                                 }}>
@@ -3338,7 +3348,7 @@ const Home = () => {
                   width: '100%',
                   position: 'absolute',
                   top: '30%',
-                  fontSize: 20,
+                  fontSize:DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
                 }}>
                 Would you like to extend your search radius by 10 miles?
               </Text>
@@ -3346,28 +3356,33 @@ const Home = () => {
                 style={{
                   borderRadius: 50,
                   overflow: 'hidden', // This ensures the rounded corners are visible
-                  width: "35%",
-
-
+                  width: "38%",
+                  backgroundColor:"#0165C5",
+                  paddingHorizontal:20,
+                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 40,
+                  lineHeight:DeviceInfo.getDeviceType() === 'Tablet' ? 170 : 150,
                 }}
               >
                 <Button
                   style={{
-                    height: 150, // Increase the height as needed
-                    fontSize: 18,
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 170 : 150, // Increase the height as needed
+                    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 32 : 18,
                     textAlign: 'center',
                     alignItems: 'center',
                     justifyContent: 'center',
                     position: 'absolute',
                     left: 0,
                     right: 0,
-                    top: '32%',
+                    top: '33%',
                     borderRadius: 50,
                     paddingVertical: 50,
-
+                    paddingHorizontal:20,
+                    width: "38%",
+                    boxShadow:"none"
                   }}
                   title="Extend"
-                  color="#0165C5" // Change this to your desired background color
+                  color="transparent" // Change this to your desired background color
+                  boxShadow="none"
                   onPress={() => {
                     dispatch(
                       getPoperties({

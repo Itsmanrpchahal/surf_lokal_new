@@ -263,7 +263,7 @@ const MakeAnOffer = () => {
           alignItems: 'center',
           paddingTop: 16,
           paddingBottom: 2,
-          marginBottom: DeviceInfo.getDeviceType() === 'Tablet'?20:0
+          marginBottom: DeviceInfo.getDeviceType() === 'Tablet'?20:20
         }}>
         <TouchableOpacity
           style={{
@@ -668,6 +668,12 @@ const styles = StyleSheet.create({
   submitButtonText: {
     fontSize: 16, fontWeight: '400',
     color: Colors.white, fontFamily: 'Poppins-Regular'
+  },  imagedata: {
+    height:DeviceInfo.getDeviceType() === 'Tablet'?29:19,
+    width: DeviceInfo.getDeviceType() === 'Tablet'?49:29,
+
+    resizeMode: 'contain',
+   
   },
 });
 

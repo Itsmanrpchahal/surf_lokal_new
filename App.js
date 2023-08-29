@@ -21,7 +21,7 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const [splash, setSplash] = useState(true);
   const setToken = async () => {
