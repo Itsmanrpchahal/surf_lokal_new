@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import StackNavigator from './src/navigation/StackNavigator';
+import { View, StyleSheet, Text } from 'react-native';
 import Splash from './src/components/Splash';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { store } from './src/redux/store';
 import { Provider } from 'react-redux';
 import Colors from './src/utils/Colors';
+import Loader from "./src/components/Loader"
 // Add Firebase
 import firebase from '@react-native-firebase/app';
 import messaging from '@react-native-firebase/messaging';
@@ -19,6 +21,8 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 
 
 const App = () => {
+  const [loading, setLoading] = useState(true);
+
   const [splash, setSplash] = useState(true);
   const setToken = async () => {
     const fcmtoken = await messaging().getToken()
@@ -36,6 +40,8 @@ const App = () => {
   //   config.headers['access_token'] = store?.getState().loginUser.loginData.metadata?.[fcmtoken].toString();
   //   return config;
   // });
+
+
   const HandleDeepLinking = () => {
     const navigation = useNavigation()
 
@@ -43,7 +49,7 @@ const App = () => {
       let productId = link.url.split('=').pop()
       navigation.navigate('ViewPropertiy', { ID: productId });
     }
-
+   
     useEffect(() => {
       const unsubscribe = dynamicLinks().onLink(handleDynamicLinks)
       return () => unsubscribe()
@@ -83,28 +89,61 @@ const App = () => {
       setSplash(false);
     }, 3000);
   });
-  if (splash == true) {
-    return <Splash />;
-  } else {
+//   if (splash == true) {
+//     return <Splash />;
+//   } else {
+    
 
-    return (
-      <SafeAreaView
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          backgroundColor: Colors.primaryBlue,
-        }}>
-        <Provider store={store}>
-          <NavigationContainer ref={navigationRef} >
-            <HandleDeepLinking />
+//     return (
+//       <SafeAreaView
+//         style={{
+//           flex: 1,
+//           justifyContent: 'center',
+//           backgroundColor: Colors.primaryBlue,
+//         }}>
+//         <Provider store={store}>
+//           <NavigationContainer ref={navigationRef} >
+//             <HandleDeepLinking />
 
+//             <StackNavigator />
+
+//           </NavigationContainer>
+//         </Provider>
+//       </SafeAreaView >
+//     );
+//   }
+// };
+
+if (splash) {
+  return <Splash />;
+} else {
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: Colors.primaryBlue,
+      }}>
+      <Provider store={store}>
+        <NavigationContainer ref={navigationRef}>
+          {/* Only render loader if loading is true */}
+          {loading ? (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <Loader />
+            </View>
+          ) : (
             <StackNavigator />
-
-          </NavigationContainer>
-        </Provider>
-      </SafeAreaView >
-    );
-  }
+          )}
+        </NavigationContainer>
+      </Provider>
+    </SafeAreaView>
+  );
+}
 };
 
 export default App;
+
+
+
+
+
+

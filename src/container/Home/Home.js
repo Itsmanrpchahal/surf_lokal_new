@@ -64,6 +64,7 @@ import { clearFilter } from '../../modules/clearFilter';
 import { getUserScore } from '../../modules/getUserScore';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import GetLocation from 'react-native-get-location';
+import Loader from '../../components/Loader';
 
 const { width } = Dimensions.get('screen');
 
@@ -558,13 +559,15 @@ const Home = () => {
     );
   };
 
-  if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="gray" />
-      </View>
-    );
-  }
+//   if (!loading) {
+//     return (
+// <View style={{
+//         position:"absolute",
+//       backgroundColor:"rgba(255,255,255,0.3)",height:"100%",width:"100%"}}>
+//    <Loader/> 
+//       </View>
+//     );
+//   }
   return (
     <SafeAreaView
       style={Platform.OS == 'android' ? styles.container : styles.containerIos}>
@@ -572,7 +575,8 @@ const Home = () => {
         style={{
           height: '100%',
           width: "100%",
-          alignItems: "center"
+          alignItems: "center",
+        
         }}>
         <View
           style={{
@@ -705,15 +709,18 @@ const Home = () => {
           />
         </View>
         {isSelected && (
-          <View>
+          <View style={{ position:"relative",
+          //backgroundColor:"green",
+          alignItems:"center",justifyContent:"center",width:"100%"}}>
             <View
               style={{
                 width: '100%',
                 flexDirection: 'row',
                 justifyContent: 'center',
-                marginBottom: 20,
+                marginBottom: 5,
                 marginTop: 10,
-
+                alignItems:"center",
+                //backgroundColor:"red"
               }}>
               <TouchableOpacity
                 onPress={() => {
@@ -2093,8 +2100,8 @@ const Home = () => {
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                                visible={favModalVisiable}
-                                //  visible={true}
+                             visible={favModalVisiable}
+                              ///visible={true}
                                 onRequestClose={() => {
                                   setfavModalVisiable(false);
                                 }}>
@@ -2181,6 +2188,7 @@ const Home = () => {
 
                                       </Text>
 
+
                                       <View style={{ flexDirection: "row", marginTop: 60, justifyContent: "flex-end", alignItems: "flex-start" }}>
                                         <Image
                                           source={Images.arrowleft}
@@ -2200,6 +2208,7 @@ const Home = () => {
                                           </TouchableOpacity>
                                         </View>
 
+
                                       </View>
                                     </Animated.View>
                                   </View>
@@ -2210,8 +2219,8 @@ const Home = () => {
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                                visible={tashModalVisiable}
-                                ///visible={true}
+                                 visible={tashModalVisiable}
+                                 //visible={true}
                                 onRequestClose={() => {
                                   setTrashModalVisiable(false);
                                 }}>
@@ -2296,7 +2305,6 @@ const Home = () => {
 
                                       </Text>
 
-
                                       <View style={{ flexDirection: "row", marginTop: 60, justifyContent: "flex-start", alignItems: "flex-start" }}>
                                         <View style={{ flexDirection: "column" }}>
                                           <TouchableOpacity style={{ alignItems: "center", justifyContent: "center" }}
@@ -2313,6 +2321,7 @@ const Home = () => {
                                           source={Images.arrowleft}
                                           style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000", marginLeft: 30 }}></Image>
                                       </View>
+
                                     </Animated.View>
                                   </View>
                                 </View>
@@ -2411,6 +2420,7 @@ const Home = () => {
 
                                       </Text>
 
+
                                       <View style={{ flexDirection: "row", marginTop: 60, justifyContent: "flex-start", alignItems: "flex-start" }}>
                                         <View style={{ flexDirection: "column" }}>
                                           <TouchableOpacity style={{ alignItems: "center", justifyContent: "center" }}
@@ -2427,6 +2437,7 @@ const Home = () => {
                                           source={Images.arrowleft}
                                           style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000", marginLeft: 30 }}></Image>
                                       </View>
+
                                     </Animated.View>
                                   </View>
                                 </View>
@@ -3674,7 +3685,7 @@ const styles = StyleSheet.create({
   rew: {
     //  width: 110,
     borderRadius: 8,
-    paddingHorizontal: 13,
+  paddingHorizontal: 13,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
