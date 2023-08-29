@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { postAPI, uploadImageAPI } from '../config/apiMethod';
+import {uploadImageAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -40,17 +40,21 @@ const loginUserSlice = createSlice({
   initialState: {
     loginData: [],
     status: null,
+    isLoading: false, 
   },
   extraReducers: {
     [loginUser.pending]: (state, action) => {
       state.status = 'loading';
+      state.isLoading = true; 
     },
     [loginUser.fulfilled]: (state, action) => {
       state.status = 'success';
       state.loginData = action.payload;
+      state.isLoading = false
     },
     [loginUser.rejected]: (state, action) => {
       state.status = 'failed';
+      state.isLoading = false;
     },
   },
 });

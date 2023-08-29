@@ -147,10 +147,9 @@ const RecycleBin = () => {
     handleModalAnimation();
   }, [modalVisible]);
 
-  const updateReview = async (post_id) => {
-    const id = await AsyncStorage.getItem('userId');
+
+  const updateReview = async post_id => {
     const formData = new FormData();
-    formData.append('userID', id);
     formData.append('postid', productId);
     formData.append('comment_content', commentContent);
     formData.append('review_title', reviewTitle);
@@ -158,42 +157,37 @@ const RecycleBin = () => {
     formData.append('description_review_stars', rating1);
     formData.append('price_review_stars', rating2);
     formData.append('interest_review_stars', rating3);
-    formData.append('reviewtitle', reviewTitle);
-    console.log("postUpdateRating", formData)
+    console.log('postUpdateRating', formData);
 
-    dispatch(postUpdateRating(formData)).then((response) => {
+    dispatch(postUpdateRating(formData)).then(response => {
       if (response.payload.success) {
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert('Alert', response.payload.data.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert('Alert', response.payload.data.message);
       }
     });
   };
 
   const addReview = async post_id => {
-    const id = await AsyncStorage.getItem('userId');
     const formData = new FormData();
-    formData.append('userID', id);
-    formData.append('postid', productId);
-    formData.append('comment_content', commentContent);
-    formData.append('review_title', reviewTitle);
+    formData.append('postid', productId.toString());
+    formData.append('reviewtitle', reviewTitle);
     formData.append('photo_quality_rating', rating);
     formData.append('desc_stars', rating1);
     formData.append('price_stars', rating2);
     formData.append('interest_stars', rating3);
     formData.append('content', commentContent);
-    // console.log("addddddddddd ratingggggg", formData);
+
     dispatch(postRating(formData)).then(response => {
-      if (response.payload.success) {
-        Alert.alert('Alert', response.payload.message);
+      if (response.payload.data.success) {
+        Alert.alert('Alert', response.payload.data.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert('Alert error', response.payload.data.message);
       }
-      // setFilterData(response.payload.data);
     });
   };
   const flatListRef = useRef(null);

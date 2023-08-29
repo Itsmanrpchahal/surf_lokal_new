@@ -126,13 +126,13 @@ if (splash) {
       <Provider store={store}>
         <NavigationContainer ref={navigationRef}>
           {/* Only render loader if loading is true */}
-          {loading ? (
+          {/* {loading ? (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
               <Loader />
             </View>
-          ) : (
+          ) : ( */}
             <StackNavigator />
-          )}
+          {/* )} */}
         </NavigationContainer>
       </Provider>
     </SafeAreaView>

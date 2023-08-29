@@ -1,3 +1,4 @@
+import { View, StyleSheet, Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from '../container/Login/Login';
 import Colors from '../utils/Colors';
@@ -26,12 +27,13 @@ import ChatHistory from '../container/ChatHistory/ChatHistory';
 import ContactSurf from '../container/ContactMyAgent/ContactSurf';
 import Video from '../components/Video/video'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
-
-
+import { useSelector } from 'react-redux';
+import Loader from '../components/Loader';
 const Stack = createStackNavigator();
 
 const StackNavigator = () => {
+  const loading = useSelector((state) => state?.loginUser?.isLoading)
+  console.log("useSelector loading",loading)
   const [route, setRoute] = useState(null);
   const changeScreen = async () => {
     const value = await AsyncStorage.getItem('userId');
@@ -43,13 +45,19 @@ const StackNavigator = () => {
   };
 
   useEffect(() => {
-  }, [])
-  useEffect(() => {
     changeScreen();
   }, []);
 
+  //   if (loading) {
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+  //     <Loader />
+  //   </View>
+  //   );
+  // }
   return route != null ? (
-    <SafeAreaProvider style={{ backgroundColor: 'white' }}>
+    <SafeAreaProvider style={{ backgroundColor: Colors.PrimaryColor }}>
+   
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
@@ -57,9 +65,9 @@ const StackNavigator = () => {
         }}
         initialRouteName={'Login'}
       >
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="BookaTour" component={BookaTour} />
         <Stack.Screen name="Video" component={Video} />
-        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         <Stack.Screen name="AppIntro" component={AppIntro} />
@@ -78,10 +86,8 @@ const StackNavigator = () => {
         <Stack.Screen name="RecycleBin" component={RecycleBin} />
         <Stack.Screen name="ChatHistory" component={ChatHistory} />
         <Stack.Screen name="ContactSurf" component={ContactSurf} />
-
-
-
       </Stack.Navigator>
+
     </SafeAreaProvider>
 
 
