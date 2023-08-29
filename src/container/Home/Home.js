@@ -64,6 +64,7 @@ import { clearFilter } from '../../modules/clearFilter';
 import { getUserScore } from '../../modules/getUserScore';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import GetLocation from 'react-native-get-location';
+import Loader from '../../components/Loader';
 
 const { width } = Dimensions.get('screen');
 
@@ -556,13 +557,15 @@ const Home = () => {
     );
   };
 
-  if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="gray" />
-      </View>
-    );
-  }
+//   if (!loading) {
+//     return (
+// <View style={{
+//         position:"absolute",
+//       backgroundColor:"rgba(255,255,255,0.3)",height:"100%",width:"100%"}}>
+//    <Loader/> 
+//       </View>
+//     );
+//   }
   return (
     <SafeAreaView
       style={Platform.OS == 'android' ? styles.container : styles.containerIos}>
@@ -570,7 +573,8 @@ const Home = () => {
         style={{
           height: '100%',
           width: "100%",
-          alignItems: "center"
+          alignItems: "center",
+        
         }}>
         <View
           style={{
@@ -703,14 +707,18 @@ const Home = () => {
           />
         </View>
         {isSelected && (
-          <View>
+          <View style={{ position:"relative",
+          //backgroundColor:"green",
+          alignItems:"center",justifyContent:"center",width:"100%"}}>
             <View
               style={{
                 width: '100%',
                 flexDirection: 'row',
                 justifyContent: 'center',
-                marginBottom: 20,
+                marginBottom: 5,
                 marginTop: 10,
+                alignItems:"center",
+                //backgroundColor:"red"
           
               }}>
               <TouchableOpacity
@@ -2091,8 +2099,8 @@ const Home = () => {
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                               visible={favModalVisiable}
-                                //  visible={true}
+                             visible={favModalVisiable}
+                              ///visible={true}
                                 onRequestClose={() => {
                                   setfavModalVisiable(false);
                                 }}>
@@ -2180,11 +2188,12 @@ saved in your Favorites
                                       </Text>
                                
                                       <View style={{flexDirection:"row",marginTop:60,justifyContent:"flex-end",alignItems:"flex-start"}}>
-                                      <Image
-              source={Images.arrowleft}
-              style={{height: DeviceInfo.getDeviceType() === 'Tablet'?39:25, width: DeviceInfo.getDeviceType() === 'Tablet'?39:25, resizeMode: 'contain',tintColor:"#000" ,marginRight:30,transform: [{ rotate: '-180deg' }]}}>
-
-              </Image>
+                                  
+              <LottieView 
+          style={{ height:  DeviceInfo.getDeviceType() === 'Tablet'?59:49, 
+          width: DeviceInfo.getDeviceType() === 'Tablet'?59:59,marginRight:20,transform: [{ rotate: '-180deg' }],marginTop:0,position:"relative",top:-10 }} 
+          source={require('../../assets/animations/leftarrow.json')} 
+          autoPlay loop /> 
                                       
                                       <View style={{flexDirection:"column"}}>
                                       <TouchableOpacity style={{alignItems:"center"}}
@@ -2208,8 +2217,8 @@ saved in your Favorites
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                             visible={tashModalVisiable}
-                               ///visible={true}
+                           visible={tashModalVisiable}
+                             //visible={true}
                                 onRequestClose={() => {
                                   setTrashModalVisiable(false);
                                 }}>
@@ -2307,10 +2316,12 @@ profile menu.
               <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?20:10,fontFamily:"Poppins-Light",color:"#000"}}>Profile</Text>
               </TouchableOpacity>
                                       </View>
-                                      <Image
-              source={Images.arrowleft}
-              style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?39:25, width:DeviceInfo.getDeviceType() === 'Tablet'?39:25, resizeMode: 'contain',tintColor:"#000" ,marginLeft:30}}></Image>
-                                      </View>
+                                      <LottieView 
+          style={{ height:  DeviceInfo.getDeviceType() === 'Tablet'?59:49, 
+          width: DeviceInfo.getDeviceType() === 'Tablet'?59:59, marginLeft:10,marginTop:0,position:"relative",top:-10 }} 
+          source={require('../../assets/animations/leftarrow.json')} 
+          autoPlay loop /> 
+                                               </View>
                                     </Animated.View>
                                   </View>
                                 </View>
@@ -2320,7 +2331,7 @@ profile menu.
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                              visible={saveModalVisible}
+                            visible={saveModalVisible}
                                //visible={true}
                                 onRequestClose={() => {
                                   setSaveModalVisible(false);
@@ -2421,10 +2432,19 @@ notifications when new properties are listed.
               <Text style={{fontSize:DeviceInfo.getDeviceType() === 'Tablet'?20:10,fontFamily:"Poppins-Light",color:"#000"}}>Profile</Text>
               </TouchableOpacity>
                                       </View>
-                                      <Image
-              source={Images.arrowleft}
-              style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?39:25, width: DeviceInfo.getDeviceType() === 'Tablet'?39:25, resizeMode: 'contain',tintColor:"#000" ,marginLeft:30}}></Image>
-                                      </View>
+                                     
+                                     
+                                     
+                                      <LottieView 
+          style={{ height:  DeviceInfo.getDeviceType() === 'Tablet'?59:49, 
+          width: DeviceInfo.getDeviceType() === 'Tablet'?59:59, marginLeft:10,marginTop:0,position:"relative",top:-10 }} 
+          source={require('../../assets/animations/leftarrow.json')} 
+          autoPlay loop /> 
+                                     
+                                     
+                                     
+                                     
+                                               </View>
                                     </Animated.View>
                                   </View>
                                 </View>
@@ -2435,8 +2455,8 @@ notifications when new properties are listed.
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                          visible={saveModalVisible}
-                                  //visible={true}
+                        visible={saveModalVisible}
+                                 //visible={true}
                                 onRequestClose={() => {
                                   setSaveModalVisible(false);
                                 }}>
@@ -3666,7 +3686,7 @@ const styles = StyleSheet.create({
   rew: {
     //  width: 110,
     borderRadius: 8,
-    paddingHorizontal: 13,
+  paddingHorizontal: 13,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
