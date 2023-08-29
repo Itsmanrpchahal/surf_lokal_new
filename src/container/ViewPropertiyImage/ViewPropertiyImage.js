@@ -31,6 +31,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { Rating } from 'react-native-ratings';
 import * as Animatable from 'react-native-animatable';
 import LottieView from 'lottie-react-native';
+import Loader from '../../components/Loader';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -163,9 +164,9 @@ const ViewPropertiyImage = props => {
   const navigation = useNavigation();
   if (loading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="gray" />
-      </View>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:Colors.PrimaryColor }}>
+      <Loader />
+    </View>
     );
   }
   return (

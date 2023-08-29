@@ -28,6 +28,8 @@ import * as Animatable from 'react-native-animatable';
 import DeviceInfo from 'react-native-device-info';
 import BASEURl from '../../services/Api'
 import LottieView from 'lottie-react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import {getAgent} from '../../modules/getAgent';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -82,6 +84,8 @@ const ContactMyAgent = () => {
   const [responseMessage, setResponseMessage] = useState('')
   const [message, setMessage] = useState('')
   const [note, setNote] = useState('')
+  const dispatch = useDispatch();
+
   const flatListRef = useRef(null);
   const navigation = useNavigation();
   const FormData = require('form-data');
@@ -92,27 +96,26 @@ const ContactMyAgent = () => {
     fetchAgentData();
   }, []);
 
+  const fetchAgentData = () => {
+    dispatch(getAgent()).then(response => {
+      setAgentData(response.payload.data[0]);
+    });
+    // dispatch(getAgent()).then(response => {
+    //    console.log(" fetchAgentData fetchAgentData ",response)
 
-  const fetchAgentData = async () => {
-    const access_token = await AsyncStorage.getItem('access_token')
-    const Header={
-      security_key:"SurfLokal52",
-      access_token:access_token
-    }
-    try {
-      const response = await axios.get(
-        BASEURl + 'webapi/v1/agent/?userID=' + id,Header
-      );
-      if (response.data.success) {
-        const agentData = response.data.data[0];
-        setAgentData(agentData);
-      }
-    } catch (error) {
-    }
+      // if (response.payload.data === 'Record not found!') {
+      //   setShowNoDataMessage(true);
+      // } else {
+      //   setShowNoDataMessage(false)
+      //   setHomeData(response.payload.data);
+      // }
+    // });
+
   };
   const makePhoneCall = () => {
     let phoneNumber = agentData?.agent_phone;
     Linking.openURL(`tel:${phoneNumber}`);
+    console.log("phoneNumber phoneNumber",phoneNumber)
   };
   const handleEmailLink = () => {
     const email = agentData?.agent_email;
@@ -169,7 +172,7 @@ const ContactMyAgent = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-         <View
+      <View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
@@ -188,9 +191,9 @@ const ContactMyAgent = () => {
             justifyContent: 'flex-start',
             // top: 12,
             top: 13,
-           // backgroundColor:"green",
-width:50,
-height:50
+            // backgroundColor:"green",
+            width: 50,
+            height: 50
 
           }}
           onPress={() => {
@@ -198,8 +201,8 @@ height:50
           }}>
           <Image
             style={{
-              width: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
-              height: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
+              width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 27,
+              height: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 27,
               resizeMode: 'contain',
               justifyContent: 'center',
               flexDirection: 'row',
@@ -207,7 +210,7 @@ height:50
               resizeMode: 'contain',
             }}
             source={Images.leftnewarrow}></Image>
-     
+
         </TouchableOpacity>
         <View
           style={{
@@ -217,21 +220,21 @@ height:50
           }}>
           <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 20,
               color: Colors.black,
               fontFamily: 'Poppins-Light',
-              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
+              lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 42 : 22,
             }}>
-         Contact My Agent
+            Contact My Agent
           </Text>
-     
+
         </View>
         <TouchableOpacity
 
           style={{
-            position:"absolute",
-    right:10,
-    top:15
+            position: "absolute",
+            right: 10,
+            top: 15
           }}
 
           onPress={() => navigation.goBack()}>
@@ -242,297 +245,13 @@ height:50
             animation="flipInY"
           />
         </TouchableOpacity>
-
-        {/* <TouchableOpacity
-              onPress={() => {
-              
-              }}
-              activeOpacity={0.5}
-              style={{
-                height: 40,
-                width: 40,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderWidth: 1,
-                borderColor: Colors.surfblur,
-                borderRadius: 50,
-                position:"absolute",
-                right:10,
-                top:5
-              }}>
-             
-            
-                <View
-                  style={{
-                    height:35,
-                    width: 35,
-                    borderRadius: 20,
-                    backgroundColor: Colors.surfblur,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    overflow: 'hidden',
-                  }}>
-               
-                    <Image
-                      style={{ height: 40, width: 40 }}
-                      source={Images.user}
-                    />
-            
-                </View>
-            
-         
-            </TouchableOpacity> */}
-
       </View>
-
-      {agentData ? (
-        // <ScrollView style={{ height: '100%', width: '100%' }}>
-
-        //   <View
-        //     style={{
-        //       // height: 70,
-        //       width: '90%',
-        //       //  alignSelf: 'center',
-        //       alignItems: 'center',
-        //       flexDirection: 'row',
-        //       marginHorizontal: 12,
-        //       borderBottomColor: Colors.BorderColor,
-        //       borderBottomWidth: 1,
-
-        //     }}>
-        //     <TouchableOpacity
-        //       style={{
-        //         // height: 40,
-        //         // width: 40,
-        //         //justifyContent: 'center',
-        //         //  alignItems: 'center',
-
-        //       }}>
-        //       {!index ? (
-        //         <Image
-        //           source={Images.search}
-        //           style={{
-        //             height: 18, width: 18, resizeMode: 'contain'
-        //           }}></Image>
-        //       ) : (
-        //         <View
-        //           style={{
-        //             // height: 40,
-        //             //  width: 40,
-        //             //  borderRadius: 50,
-        //             // backgroundColor: Colors.primaryBlue,
-        //             // justifyContent: 'center',
-        //             //alignItems: 'center',
-        //           }}>
-        //           <Image source={{ uri: agentData?.featured_image_url }} style={{ height: 55, width: 20, tintColor: Colors.surfblur }} />
-        //         </View>
-        //       )}
-        //     </TouchableOpacity>
-
-        //     <Text style={{
-        //       fontSize: 16,
-        //       color: Colors.newgray,
-        //       marginLeft: 8,
-        //       fontFamily: 'Poppins-Regular'
-        //     }}>
-        //       {agentData ? `${agentData?.agent_title} ${agentData?.last_name}` : 'No Agent Data'}
-        //     </Text>
-        //   </View>
-
-        //   <View>
-
-        //     <View style={styles.slideOuter}>
-        //       <TouchableOpacity onPress={() => makePhoneCall()}
-        //         style={{
-        //           width: '90%',
-        //           alignItems: 'center',
-        //           marginHorizontal: 12,
-        //           borderBottomColor: Colors.BorderColor,
-        //           borderBottomWidth: 1,
-        //           marginHorizontal: 12,
-        //           paddingVertical: 12
-        //         }}>
-        //         <View
-        //           style={{
-        //             flexDirection: 'row',
-        //             width: '100%',
-
-        //             alignItems: 'center',
-
-        //           }}>
-        //           <Image
-        //             source={Images.call}
-        //             style={{ height: 18, width: 18, resizeMode: 'contain', tintColor: Colors.surfblur }}></Image>
-
-        //           <Text
-        //             style={{
-        //               fontSize: 16,
-        //               color: Colors.newgray,
-        //               marginLeft: 8,
-        //               fontFamily: 'Poppins-Regular'
-
-        //             }}>
-        //             {agentData?.agent_phone}
-        //           </Text>
-        //         </View>
-
-        //       </TouchableOpacity>
-        //     </View>
-        //     <View style={styles.slideOuter}>
-        //       <TouchableOpacity
-        //         onPress={() => navigation.navigate('ChatSearch')}
-        //         style={{
-        //           width: '90%',
-        //           alignItems: 'center',
-        //           marginHorizontal: 12,
-        //           borderBottomColor: Colors.BorderColor,
-        //           borderBottomWidth: 1,
-        //           marginHorizontal: 12,
-        //           paddingVertical: 12
-
-        //         }}>
-        //         <View
-        //           style={{
-        //             flexDirection: 'row',
-        //             width: '100%',
-        //             alignItems: "center"
-        //           }}>
-        //           <Image
-        //             source={Images.chat}
-        //             style={{ height: 18, width: 18, resizeMode: 'contain', tintColor: Colors.surfblur }}></Image>
-
-        //           <Text
-        //             style={{
-        //               fontSize: 16,
-        //               color: Colors.newgray,
-        //               marginLeft: 8,
-        //               fontFamily: 'Poppins-Regular'
-        //             }}>
-        //             Send {agentData?.first_name} a Message
-        //           </Text>
-        //         </View>
-
-        //       </TouchableOpacity>
-        //     </View>
-        //     <View style={styles.slideOuter}>
-        //       <TouchableOpacity
-        //         onPress={() => handleEmailLink()}
-        //         style={{
-        //           width: '90%',
-        //           alignItems: 'center',
-        //           marginHorizontal: 12,
-        //           borderBottomColor: Colors.BorderColor,
-        //           borderBottomWidth: 1,
-        //           marginHorizontal: 12,
-        //           paddingVertical: 12
-
-        //         }}>
-        //         <View
-        //           style={{
-        //             flexDirection: 'row',
-        //             width: '100%',
-        //             alignItems: "center"
-        //           }}>
-        //           <Image
-        //             source={Images.agentTel}
-        //             style={{ height: 18, width: 18, resizeMode: 'contain', tintColor: Colors.surfblur }}></Image>
-
-        //           <Text
-        //             style={{
-        //               fontSize: 16,
-        //               color: Colors.newgray,
-        //               marginLeft: 8,
-        //               fontFamily: 'Poppins-Regular'
-        //             }}>
-        //             {agentData?.agent_email}
-        //           </Text>
-        //         </View>
-
-        //       </TouchableOpacity>
-        //     </View>
-
-
-        //     <View style={styles.slideOuter}>
-        //       <TouchableOpacity
-        //         //onPress={() => navigation.navigate(item.navigation)}
-        //         style={{
-        //           width: '100%',
-        //           padding: 12
-        //         }}>
-
-        //         <View style={{ flexDirection: "row", justifyContent: "flex-start", flexWrap: "wrap", textAlign: "center", marginBottom: 12 }}>
-        //           <TouchableOpacity
-        //             onPress={() => navigation.navigate("ChatSearch", { agentData })}
-
-        //             style={styles.buttonview}>
-        //             <Text style={styles.buttonText}>Request A Showing
-        //             </Text>
-
-        //           </TouchableOpacity>
-
-        //           <TouchableOpacity
-        //             onPress={() => navigation.navigate("ChatSearch", { agentData })}
-        //             style={styles.buttonview}>
-        //             {/* <Image
-        //           source={Images.lokal}
-        //           resizeMode="contain"
-        //           style={{ height: 15, width: 15, tintColor: Colors.white }}></Image> */}
-        //             <Text style={styles.buttonText}>Start Offer
-        //             </Text>
-
-        //           </TouchableOpacity>
-        //           <TouchableOpacity
-        //             onPress={() => navigation.navigate("ChatSearch", { agentData })}
-
-        //             style={styles.buttonview}>
-
-        //             <Text style={styles.buttonText}>List My Home
-        //             </Text>
-
-        //           </TouchableOpacity>
-        //           <TouchableOpacity
-        //             onPress={() => makePhoneCall()}
-        //             style={styles.buttonview}
-        //           >
-
-        //             <Text style={styles.buttonText}>Call
-        //             </Text>
-
-        //           </TouchableOpacity>
-        //           <TouchableOpacity
-        //             onPress={() => handleEmailLink()}
-        //             style={styles.buttonview}>
-
-        //             <Text style={styles.buttonText}>E-mail
-        //             </Text>
-
-        //           </TouchableOpacity>
-        //           <TouchableOpacity
-        //             onPress={() => navigation.navigate('ChatSearch')}
-        //             style={styles.buttonview}>
-
-        //             <Text style={styles.buttonText}>Chat
-        //             </Text>
-
-        //           </TouchableOpacity>
-        //         </View>
-        //         <View>
-
-        //         </View>
-
-
-        //       </TouchableOpacity>
-        //     </View>
-        //   </View>
-
-        //   <View style={{ height: 50 }}></View>
-        // </ScrollView>
-        <ScrollView style={{  width: '100%', height:"100%", }}>
-          <View style={{width:"100%",alignItems:"center",justifyContent:"center",paddingTop:40}}>
-        <View style={{ flexDirection: 'column', marginTop: 0,borderRadius:100,maxWidth: 122,height: 122,width:122,alignItems:"center",justifyContent:"center", }}>
-          <Image source={Images.useimage} style={{resizeMode: "contain", maxWidth: 122,height: 122,width:122,alignItems:"center",justifyContent:"center", }} />
+      <ScrollView style={{ width: '100%', height: "100%", }}>
+        <View style={{ width: "100%", alignItems: "center", justifyContent: "center", paddingTop: 40 }}>
+          <View style={{ flexDirection: 'column', marginTop: 0, borderRadius: 100, maxWidth: 122, height: 122, width: 122, alignItems: "center", justifyContent: "center", }}>
+            <Image source={{uri:agentData?.featured_image_url}} style={{ resizeMode: "contain", maxWidth: 122, height: 122, width: 122, alignItems: "center", justifyContent: "center", }} />
           </View>
-<Text style={{fontSize:18,color:"black",fontFamily:"Poppins-SemiBold",paddingTop:16,textAlign:"center"}}>Muhammad Ali</Text>
+          <Text style={{ fontSize: 18, color: "black", fontFamily: "Poppins-SemiBold", paddingTop: 16, textAlign: "center" }}>{agentData?.agent_title}</Text>
         </View>
         <View style={styles.informationicons}>
           <View style={styles.maininfoicons}>
@@ -610,7 +329,7 @@ height:50
           Suite 310 {'\n'}
           Boca Raton, FL 33431
         </Text>
-        <View style={{ flexDirection: 'column' , }}>
+        <View style={{ flexDirection: 'column', }}>
           <View
             style={{
               // height: 70,
@@ -626,7 +345,7 @@ height:50
 
           </View>
 
-          <View style={{ }}>
+          <View style={{}}>
             <View style={styles.slideOuter}>
               <TouchableOpacity
                 //onPress={() => navigation.navigate(item.navigation)}
@@ -635,9 +354,11 @@ height:50
                   padding: 12
                 }}>
 
-                <View style={{ flexDirection: "row", justifyContent: "flex-start", flexWrap: "wrap", textAlign: "center",
-                 marginBottom: 8 }}>
-        
+                <View style={{
+                  flexDirection: "row", justifyContent: "flex-start", flexWrap: "wrap", textAlign: "center",
+                  marginBottom: 8
+                }}>
+
                   <TouchableOpacity
                     onPress={() => makePhoneCall()}
                     style={styles.buttonview}
@@ -675,21 +396,22 @@ height:50
 
           </View>
 
-         
+
         </View>
 
 
 
-        <View  style={{flexDirection:"row",justifyContent:"center",alignItems:"center",
-      }}>
-     
-     <LottieView  style={{ height: 150, width: 200,}} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+        <View style={{
+          flexDirection: "row", justifyContent: "center", alignItems: "center",
+        }}>
 
-</View>
+          <LottieView style={{ height: 150, width: 200, }} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+
+        </View>
 
       </ScrollView>
-      ) : null}
-        
+
+
     </SafeAreaView>
   );
 
@@ -697,7 +419,7 @@ height:50
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.white,
-   height: "100%",
+    height: "100%",
   },
   modalOverlay: {
     flex: 1,
@@ -730,11 +452,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray,
   },
   imagedata: {
-    height:DeviceInfo.getDeviceType() === 'Tablet'?29:19,
-    width: DeviceInfo.getDeviceType() === 'Tablet'?49:29,
-
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 29 : 19,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 29,
     resizeMode: 'contain',
-   
+
   },
   buttonText: { fontSize: 14, fontWeight: '400', color: Colors.white, fontFamily: 'Poppins-Regular', textAlign: "center" },
   // slideOuter: {
@@ -787,7 +508,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     flexDirection: 'row',
   },
-  informationicons: { alignItems: "center", marginBottom:30, marginTop: 20},
+  informationicons: { alignItems: "center", marginBottom: 30, marginTop: 20 },
   maininfoicons: { flexDirection: "row", alignItems: "center" },
   title: {
     fontSize: 32,

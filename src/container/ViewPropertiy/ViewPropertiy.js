@@ -53,6 +53,7 @@ import { schoolChat } from '../../modules/schoolChat';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import StarRating from 'react-native-star-rating-widget';
 import LottieView from 'lottie-react-native';
+import Loader from '../../components/Loader';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const fontSizeRatio = screenHeight / 1000;
@@ -341,10 +342,9 @@ const ViewPropertiy = (props, imageUrl) => {
     navigation.goBack()
   };
 
-  const updateReview = async (post_id) => {
-    const id = await AsyncStorage.getItem('userId');
+
+  const updateReview = async post_id => {
     const formData = new FormData();
-    formData.append('userID', id);
     formData.append('postid', productId);
     formData.append('comment_content', commentContent);
     formData.append('review_title', reviewTitle);
@@ -352,25 +352,21 @@ const ViewPropertiy = (props, imageUrl) => {
     formData.append('description_review_stars', rating1);
     formData.append('price_review_stars', rating2);
     formData.append('interest_review_stars', rating3);
-    formData.append('reviewtitle', reviewTitle);
-    console.log("postUpdateRating", formData)
+    console.log('postUpdateRating', formData);
 
-    dispatch(postUpdateRating(formData)).then((response) => {
-
+    dispatch(postUpdateRating(formData)).then(response => {
       if (response.payload.success) {
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert('Alert', response.payload.data.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert('Alert', response.payload.data.message);
       }
     });
   };
-  const addReview = async (post_id) => {
-    const id = await AsyncStorage.getItem('userId');
+  const addReview = async post_id => {
     const formData = new FormData();
-    formData.append('userID', id);
-    formData.append('postid', productId);
+    formData.append('postid', productId.toString());
     formData.append('reviewtitle', reviewTitle);
     formData.append('photo_quality_rating', rating);
     formData.append('desc_stars', rating1);
@@ -378,30 +374,16 @@ const ViewPropertiy = (props, imageUrl) => {
     formData.append('interest_stars', rating3);
     formData.append('content', commentContent);
 
-    let data = {
-      userID :id,
-      postid:productId,
-      reviewtitle:reviewTitle,
-      photo_quality_rating:rating,
-      desc_stars:rating1,
-      price_stars:rating2,
-      interest_stars:rating3,
-      content:'kjbnjkn'
-    }
-
-    dispatch(postRating(data)).then(response => {
-      alert(JSON.stringify(response.payload))  
-      // if (response.payload.success) {
-      //   // Alert.alert('Alert', response.payload.message);
-      //   toggleModal();
-      // } else {
-      //   toggleModal();
-      //   Alert.alert('Alert', response.payload.message);
-      // }
-      // setFilterData(response.payload.data);
+    dispatch(postRating(formData)).then(response => {
+      if (response.payload.data.success) {
+        Alert.alert('Alert', response.payload.data.message);
+        toggleModal();
+      } else {
+        toggleModal();
+        Alert.alert('Alert error', response.payload.data.message);
+      }
     });
   };
-
   const Details = () => {
     return (
       <>
@@ -761,11 +743,12 @@ const ViewPropertiy = (props, imageUrl) => {
 
   if (loading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="gray" />
-      </View>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:Colors.PrimaryColor }}>
+      <Loader />
+    </View>
     );
   }
+  
   return (
     <>
       <SafeAreaView style={{ flex: 1 }}>

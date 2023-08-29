@@ -378,7 +378,6 @@ const Home = () => {
   const savefile = async item => {
     favlistApi();
     const formData = new FormData();
-    // formData.append('userID', user_ID);
     formData.append('post_id', item);
 
     await dispatch(addToFavorite(formData)).then(response => {
@@ -439,17 +438,6 @@ const Home = () => {
     setLoading(false);
   };
   const addReview = async post_id => {
-    const id = await AsyncStorage.getItem('userId');
-    const payload = {
-      postid: productId,
-      reviewtitle: reviewTitle,
-      photo_quality_rating: rating,
-      desc_stars: rating1,
-      price_stars: rating2,
-      interest_stars: rating3,
-      content: commentContent,
-    }
-
     const formData = new FormData();
     formData.append('postid', productId.toString());
     formData.append('reviewtitle', reviewTitle);
@@ -471,7 +459,6 @@ const Home = () => {
   };
 
   const updateReview = async post_id => {
-    const id = await AsyncStorage.getItem('userId');
     const formData = new FormData();
     formData.append('postid', productId);
     formData.append('comment_content', commentContent);
@@ -559,15 +546,13 @@ const Home = () => {
     );
   };
 
-//   if (!loading) {
-//     return (
-// <View style={{
-//         position:"absolute",
-//       backgroundColor:"rgba(255,255,255,0.3)",height:"100%",width:"100%"}}>
-//    <Loader/> 
-//       </View>
-//     );
-//   }
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' ,backgroundColor:Colors.PrimaryColor}}>
+      <Loader />
+    </View>
+    );
+  }
   return (
     <SafeAreaView
       style={Platform.OS == 'android' ? styles.container : styles.containerIos}>
