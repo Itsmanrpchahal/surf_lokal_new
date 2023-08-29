@@ -2091,8 +2091,8 @@ const Home = () => {
                               <Modal
                                 transparent={true}
                                 animationType="slide"
-                               //visible={favModalVisiable}
-                                 visible={true}
+                               visible={favModalVisiable}
+                                //  visible={true}
                                 onRequestClose={() => {
                                   setfavModalVisiable(false);
                                 }}>
