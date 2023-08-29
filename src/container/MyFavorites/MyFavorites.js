@@ -272,7 +272,7 @@ const MyFavorites = props => {
         style={{
           // height: 30,
           //width: 20,
-          backgroundColor: item?.status === 'Active' ? Colors.surfblur : 'red',
+          backgroundColor: Colors.surfblur,
           position: 'absolute',
           top: 8,
           left: 16,
@@ -298,7 +298,7 @@ const MyFavorites = props => {
         style={{
           // height: 30,
           //width: 20,
-          backgroundColor: Colors.surfblur,
+          backgroundColor: item?.status === 'Active' ? Colors.surfblur : 'red',
           position: 'absolute',
           top: 8,
           right: 16,

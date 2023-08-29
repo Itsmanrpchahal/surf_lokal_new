@@ -80,8 +80,8 @@ const ViewImage = props => {
             style={{
               alignItems: 'center',
               position: "absolute",
-              left:-5,
-              top: 10,
+              left:-15,
+              top: 7,
 
               flexDirection: 'row',
               justifyContent: 'center',

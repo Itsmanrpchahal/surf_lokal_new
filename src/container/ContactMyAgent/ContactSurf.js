@@ -814,10 +814,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray,
   },
   imagedata: {
-    height: 19,
-    width: 29,
-    resizeMode: 'contain',
+    height:DeviceInfo.getDeviceType() === 'Tablet'?29:19,
+    width: DeviceInfo.getDeviceType() === 'Tablet'?49:29,
 
+    resizeMode: 'contain',
+   
   },
   buttonText: { fontSize:DeviceInfo.getDeviceType() === 'Tablet'?28:14, fontWeight: '400', color: Colors.white, fontFamily: 'Poppins-Regular', textAlign: "center" },
   // slideOuter: {
