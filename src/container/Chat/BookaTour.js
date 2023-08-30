@@ -75,7 +75,7 @@ const BookaTour = (props) => {
         // }
         console.log('logodata',formData)
         dispatch(sendMessage({
-            user_id: props?.route?.params?.user_id ? props?.route?.params?.user_id : userID,
+            // user_id: props?.route?.params?.user_id ? props?.route?.params?.user_id : userID,
             propid: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.post_id,
             user2_id: props?.route?.params?.user2_id ? props?.route?.params?.user2_id : '',
             message: selectedDate.getDate() + '/' + selectedDate.getMonth() + '/' + selectedDate.getFullYear() + ',' + selectedTime.getHours() + ':' + selectedDate.getMinutes()
