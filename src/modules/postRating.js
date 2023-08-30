@@ -16,7 +16,7 @@ export const postRating = createAsyncThunk('postRating', async (formData) => {
         security_key: "SurfLokal52",
         access_token: '1f925480b75052134e842fc4f0970407',
       };
-    console.log("Header cd25ab6d7ee9f9daf09447f25ee48d60", formData)
+    console.log("Header cd25ab6d7ee9f9daf09447f25ee48d60", access_token)
     const response = await uploadImageAPI(
       `https://www.surflokal.com/webapi/v1/rating/`,
       formData,

@@ -166,7 +166,7 @@ const MyFavorites = props => {
   }, [isFocused]);
   const getFavoritePropertiesApiCall = () => {
     dispatch(getFavoriteProperties()).then(response => {
-      if (response.payload.data === 'Record not found!') {
+      if (response.payload.data.length<1) {
         setShowNoDataMessage(true);
       } else {
         setShowNoDataMessage(false);

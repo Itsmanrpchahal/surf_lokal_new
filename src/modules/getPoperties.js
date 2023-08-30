@@ -1,17 +1,20 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAPI, uploadImageAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 export const getPoperties = createAsyncThunk('getPoperties', async type => {
+  const access_token = await AsyncStorage.getItem('access_token');
   const header = Platform.OS === 'android' ?
   {
     security_key: "SurfLokal52",
-    access_token: '1f925480b75052134e842fc4f0970407',
+    access_token: access_token,
     'Content-Type': 'multipart/form-data'
   } :
   {
     security_key: "SurfLokal52",
-    access_token: '1f925480b75052134e842fc4f0970407',
+    access_token: access_token,
   };
 
   return type.type === 0

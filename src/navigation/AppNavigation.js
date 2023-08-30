@@ -57,6 +57,7 @@ export const SignedOutStack = () => {
         <Stack.Screen name="ChatHistory" component={ChatHistory} />
         <Stack.Screen name="ContactSurf" component={ContactSurf} />
         <Stack.Screen name="Video" component={Video} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -81,6 +82,8 @@ export const SignedInStack = () => {
         <Stack.Screen name="ChatHistory" component={ChatHistory} />
         <Stack.Screen name="ContactSurf" component={ContactSurf} />
         <Stack.Screen name="Video" component={Video} />
+        <Stack.Screen name="Login" component={Login} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
