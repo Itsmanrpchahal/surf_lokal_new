@@ -828,14 +828,14 @@ const ViewPropertiy = (props, imageUrl) => {
                   loop={true}
                   cards={data}
                   onSwipedLeft={() => {
-                    trashfile(property.ID)
+                    trashfile(property?.ID)
                   }}
-                  onSwipedRight={() => { savefile(property.ID) }}
+                  onSwipedRight={() => { savefile(property?.ID) }}
                   renderNope={() =>
                     props.route.params.from === 'MyFavorites' || props.route.params.from === 'Home' ?
                       <View
                         style={{
-                          height: cardWidth, width: cardWidth - 16,  backgroundColor: Colors.white,
+                          height: cardWidth, width: cardWidth - 16,  backgroundColor:'red',
                           borderRadius: 15,
                           overflow: "hidden",
                           top: 8,

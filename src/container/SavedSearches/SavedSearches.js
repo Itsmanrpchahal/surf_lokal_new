@@ -78,13 +78,13 @@ const MyFavorites = ({ navigation }) => {
   };
 
   const editSearchApiCall = (userId, postId, updatedParameter) => {
-    let data = {
+   const formData =new FormData()
       // userID: userId,
-      searchid: postId,
-      searchparameters: updatedParameter,
-    };
-    console.log(data)
-    dispatch(editSearch(data)).then(response => {
+      formData.append ('searchid', postId)
+      formData.append ('searchparameters', updatedParameter)
+
+    console.log(formData)
+    dispatch(editSearch(formData)).then(response => {
       getSavedApiCall();
     });
   };
