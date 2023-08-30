@@ -324,7 +324,7 @@ const MyFavorites = () => {
           }}>
           <View
             style={{
-              flexDirection: 'row',
+              flexDirection: 'row', width: "15%"
             }}>
             <TouchableOpacity
               onPress={() => {
@@ -391,8 +391,14 @@ const MyFavorites = () => {
               </View>
             </TouchableOpacity>
           </View>
-          <Text numberOfLines={1} style={{ fontSize: 25, color: "#2144a0", fontFamily: 'Poppins-Medium', textTransform: "capitalize", width:"80%",paddingHorizontal:12 }}>
+          <Text numberOfLines={1} style={{
+            fontSize: 25, color: "#2144a0",
+            fontFamily: 'Poppins-Medium', textTransform: "capitalize", 
+            width: "70%", paddingHorizontal: 12,
+           textAlign:"center",
+          }}>
             {details[0]?.username}
+           
           </Text>
           <TouchableOpacity
             onPress={() => handleIconPressSetting()}
@@ -401,6 +407,7 @@ const MyFavorites = () => {
             style={{
               height: 40,
               width: 40,
+              width: "15%",
               justifyContent: 'center',
               alignItems: 'center',
               transform: [
@@ -435,9 +442,11 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={isImage ? Images.upgreen : Images.upthumb}
-                  style={{height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                  width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                  resizeMode: 'contain' }} />
+                  style={{
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                    resizeMode: 'contain'
+                  }} />
                 <Text style={styles.text}>My Favorites</Text>
               </View>
               <View style={styles.line}></View>
@@ -454,9 +463,11 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.savedSearch}
-                  style={{height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                  width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                  resizeMode: 'contain' }} />
+                  style={{
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                    resizeMode: 'contain'
+                  }} />
                 <Text style={styles.text}>Saved Searches</Text>
               </View>
               <View style={styles.line}></View>
@@ -473,15 +484,17 @@ const MyFavorites = () => {
                 <View style={{ position: "relative" }}>
                   <Image
                     source={Images.notification}
-                    style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                    width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                    resizeMode: 'contain' }} />
+                    style={{
+                      height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                      width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                      resizeMode: 'contain'
+                    }} />
                   <Text style={{
-                    position: "absolute", backgroundColor: "red", right: DeviceInfo.getDeviceType() === 'Tablet'?-12:-8, bottom: DeviceInfo.getDeviceType() === 'Tablet'?-10:-5,
-                    height: DeviceInfo.getDeviceType() === 'Tablet'?25:15,
-                    width:  DeviceInfo.getDeviceType() === 'Tablet'?25:15,
-                   borderRadius: 100, color: Colors.white,
-                    textAlign: "center", fontSize: DeviceInfo.getDeviceType() === 'Tablet'?15:9, alignItems: "center",
+                    position: "absolute", backgroundColor: "red", right: DeviceInfo.getDeviceType() === 'Tablet' ? -12 : -8, bottom: DeviceInfo.getDeviceType() === 'Tablet' ? -10 : -5,
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 15,
+                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 15,
+                    borderRadius: 100, color: Colors.white,
+                    textAlign: "center", fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 15 : 9, alignItems: "center",
                     justifyContent: "center"
                   }}>2</Text></View>
                 <Text style={styles.text}>Notifications</Text>
@@ -499,9 +512,11 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.contactAgent}
-                  style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                  width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                  resizeMode: 'contain' }} />
+                  style={{
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                    resizeMode: 'contain'
+                  }} />
                 <Text style={styles.text}>Contact my agent</Text>
               </View>
               <View style={styles.line}></View>
@@ -517,9 +532,11 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.surfReward}
-                  style={{  height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                  width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                  resizeMode: 'contain' }} />
+                  style={{
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                    resizeMode: 'contain'
+                  }} />
                 <Text style={styles.text}>Rewards</Text>
               </View>
               <View style={styles.line}></View>
@@ -536,7 +553,7 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.surfShop}
-                  style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?35:20, width: DeviceInfo.getDeviceType() === 'Tablet'?35:20, resizeMode: 'contain' }} />
+                  style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20, width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20, resizeMode: 'contain' }} />
                 <Text style={styles.text}>Surf Shop</Text>
               </View>
               <View style={styles.line}></View>
@@ -554,9 +571,11 @@ const MyFavorites = () => {
                 <TouchableOpacity>
                   <Image
                     source={isImageChanged ? Images.redlike : Images.deletethumb}
-                    style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                    width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                    resizeMode: 'contain' }} />
+                    style={{
+                      height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                      width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                      resizeMode: 'contain'
+                    }} />
                 </TouchableOpacity>
                 <Text style={styles.text}>Recycle Bin</Text>
               </View>
@@ -574,11 +593,11 @@ const MyFavorites = () => {
               <View style={styles.viewstyle}>
                 <Image
                   source={Images.contactsurf}
-                  style={{ 
-                     height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                  width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                  resizeMode: 'contain'
-                   }} />
+                  style={{
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                    resizeMode: 'contain'
+                  }} />
                 <Text style={styles.text}>Contact surf lokal</Text>
               </View>
               <View style={styles.line}></View>
@@ -598,10 +617,11 @@ const MyFavorites = () => {
                   <TouchableOpacity>
                     <Image
                       source={isImageChanged ? Images.chatnew : Images.chatnew}
-                      style={{ 
-                        height: DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                         width:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-                          resizeMode: 'contain' }} />
+                      style={{
+                        height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                        width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                        resizeMode: 'contain'
+                      }} />
                   </TouchableOpacity>
                   <Text style={styles.text}>Chat History</Text>
                 </View>
@@ -629,7 +649,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     // height: 60,
     alignItems: 'center',
-    paddingVertical: DeviceInfo.getDeviceType() === 'Tablet'?25:18
+    paddingVertical: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 18
   },
   line: {
     height: 1,
@@ -638,7 +658,7 @@ const styles = StyleSheet.create({
     // marginHorizontal: 50
   },
   text: {
-    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?20:14,
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 14,
     color: Colors.black,
     marginLeft: 8,
     fontFamily: 'Poppins-Regular'

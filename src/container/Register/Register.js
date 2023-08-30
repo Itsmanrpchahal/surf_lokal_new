@@ -135,14 +135,14 @@ export default function Register({ navigation }) {
               height: 40,
               width: 40,
               borderRadius: 100,
-              backgroundColor: Colors.gray,
+              // backgroundColor: Colors.gray,
             }}>
-            <Image source={Images.downArrow} style={{
-              height: 12,
-              width: 12,
+            <Image source={Images.leftnewarrow} style={{
+              height: 30,
+              width:30,
               resizeMode: 'contain',
               tintColor: Colors.black,
-              transform: [{ rotate: '90deg' }],
+              transform: [{ rotate: '0deg' }],
             }}></Image>
           </TouchableOpacity>
         </View>
@@ -247,12 +247,12 @@ export default function Register({ navigation }) {
             marginTop: 50,
           }}
         />
-
-        <Text style={{ marginTop: 20, fontFamily: "Poppins-Regular", fontSize: 15, textAlign: "center", color:Colors.gray }}>Already have an account ? 
-        <TouchableOpacity onPress={()=>{navigation.navigate("Login")}}>
-        <Text style={{ textDecorationLine: "underline", color:Colors.PrimaryColor }}> Sign-in here</Text>
+<View style={{alignItems:"center",justifyContent:"center",flexDirection:"row", marginTop: 20, }}>
+        <Text style={{fontFamily: "Poppins-Regular", fontSize: 14, textAlign: "center", color:Colors.gray,alignItems:"center",justifyContent:"center",flexDirection:"row" }}>Already have an account ? 
+</Text><TouchableOpacity onPress={()=>{navigation.navigate("Login")}}>
+        <Text style={{fontFamily: "Poppins-Regular", fontSize: 14, textDecorationLine: "underline", color:Colors.PrimaryColor }}> Sign-in here</Text>
         </TouchableOpacity>
-        </Text>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

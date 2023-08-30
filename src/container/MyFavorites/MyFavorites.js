@@ -295,7 +295,7 @@ const MyFavorites = props => {
           borderRadius: 5,
           justifyContent: 'center',
           alignItems: 'center',
-          paddingHorizontal: 25,
+          paddingHorizontal:12,
           paddingVertical: 4,
         }}>
         <Text
