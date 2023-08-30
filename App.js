@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import StackNavigator from './src/navigation/StackNavigator';
-import { View, StyleSheet, Text } from 'react-native';
 import Splash from './src/components/Splash';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { store } from './src/redux/store';
 import { Provider } from 'react-redux';
-import Colors from './src/utils/Colors';
-import Loader from "./src/components/Loader"
 // Add Firebase
 import firebase from '@react-native-firebase/app';
 import messaging from '@react-native-firebase/messaging';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { navigationRef } from './src/navigation/RootNavigation';
 import axios from 'axios';
+import AuthNavigation from './src/navigation/AuthNavigation';
 // Register background handler
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Message handled in the background!', remoteMessage);
@@ -21,8 +17,6 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 
 
 const App = () => {
-  const [loading, setLoading] = useState(false);
-
   const [splash, setSplash] = useState(true);
   const setToken = async () => {
     const fcmtoken = await messaging().getToken()
@@ -34,13 +28,6 @@ const App = () => {
      console.log("setToken ", store?.getState().loginUser)
   }
   setToken()
-
-  // axios.interceptors.request.use(function (config) {
-  //   config.headers['security_key'] = 'SurfLokal52';
-  //   config.headers['access_token'] = store?.getState().loginUser.loginData.metadata?.[fcmtoken].toString();
-  //   return config;
-  // });
-
 
   const HandleDeepLinking = () => {
     const navigation = useNavigation()
@@ -89,51 +76,13 @@ const App = () => {
       setSplash(false);
     }, 3000);
   });
-//   if (splash == true) {
-//     return <Splash />;
-//   } else {
-    
-
-//     return (
-//       <SafeAreaView
-//         style={{
-//           flex: 1,
-//           justifyContent: 'center',
-//           backgroundColor: Colors.primaryBlue,
-//         }}>
-//         <Provider store={store}>
-//           <NavigationContainer ref={navigationRef} >
-//             <HandleDeepLinking />
-
-//             <StackNavigator />
-
-//           </NavigationContainer>
-//         </Provider>
-//       </SafeAreaView >
-//     );
-//   }
-// };
-
 if (splash) {
   return <Splash />;
 } else {
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: Colors.primaryBlue,
-      }}>
+    <SafeAreaView style={{ flex: 1}}>
       <Provider store={store}>
-        <NavigationContainer ref={navigationRef}>
-          {/* Only render loader if loading is true */}
-          {/* {loading ? (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-              <Loader />
-            </View>
-          ) : ( */}
-            <StackNavigator />
-          {/* )} */}
-        </NavigationContainer>
+         <AuthNavigation/>
       </Provider>
     </SafeAreaView>
   );

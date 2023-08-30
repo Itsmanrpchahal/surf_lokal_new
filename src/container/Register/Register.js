@@ -39,7 +39,6 @@ export default function Register({ navigation }) {
   const [phone, setPhone] = useState('');
   const [userName, setUserName] = useState('');
   const [address, setAddress] = useState('');
-  useEffect(() => { }, []);
 
   const getData = async () => {
     const id = await AsyncStorage.getItem('userId');
@@ -249,7 +248,11 @@ export default function Register({ navigation }) {
           }}
         />
 
-        <Text style={{ marginTop: 20, fontFamily: "Poppins-Regular", fontSize: 15, textAlign: "center" }}>Already have an account? <Text style={{ textDecorationLine: "underline" }}>Sign-in here</Text></Text>
+        <Text style={{ marginTop: 20, fontFamily: "Poppins-Regular", fontSize: 15, textAlign: "center", color:Colors.gray }}>Already have an account ? 
+        <TouchableOpacity onPress={()=>{navigation.navigate("Login")}}>
+        <Text style={{ textDecorationLine: "underline", color:Colors.PrimaryColor }}> Sign-in here</Text>
+        </TouchableOpacity>
+        </Text>
       </ScrollView>
     </SafeAreaView>
   );

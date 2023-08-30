@@ -5,7 +5,6 @@ import BASEURl from '../services/Api'
 
 export const clearFilter = createAsyncThunk('clearFilter', async () => {
   const access_token = await AsyncStorage.getItem('access_token')
-
   const Header={
     security_key:"SurfLokal52",
     access_token:access_token
@@ -14,7 +13,6 @@ export const clearFilter = createAsyncThunk('clearFilter', async () => {
   return await getAPI( BASEURl + 'webapi/v1/AppFilter/clearfilter.php',Header)
     .then(async response => {
       const { data } = response;
-       console.log("clearFilter response",response)
       return data;
     })
     .catch(e => {

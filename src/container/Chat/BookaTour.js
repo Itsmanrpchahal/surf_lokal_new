@@ -38,7 +38,9 @@ const BookaTour = (props) => {
     const [open, setOpen] = useState(false)
     const postid = props.route.params
 
+
     useEffect(() => {
+
         getUserID()
         if (props?.route?.params?.ID) {
         Promise.all([dispatch(isRead({ ID: props?.route?.params?.ID })),

@@ -28,8 +28,8 @@ import * as Animatable from 'react-native-animatable';
 import ImagePicker from 'react-native-image-crop-picker';
 import { getProfile } from '../../modules/getProfile';
 import { useSelector, useDispatch } from 'react-redux';
-import { propertyChatList } from '../../modules/propertyChats'
 import DeviceInfo from 'react-native-device-info';
+import {logOut} from '../../modules/logOut';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -685,7 +685,18 @@ const Settings = props => {
 
 
         <View style={{ paddingHorizontal: 22, marginTop: 20, justifyContent: 'space-between', marginHorizontal: 0, width: "100%", flexDirection: "row", alignItems: "center" }}>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}
+          <TouchableOpacity onPress={async () => {
+          await dispatch(logOut()).then(response => {
+            if (
+              response.payload.data?.status
+            ) {
+                AsyncStorage.clear();
+               navigation.navigate("Login")
+            } else{
+              navigation.navigate("Login")
+            }
+           })
+          }}
             style={{ flexDirection: 'row', alignItems: "center" }}>
             <Image source={Images.signOut} style={{ height: 20, width: 20 }} />
             <Text style={{ marginLeft: 6,fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:16, color: "black", fontFamily: 'Poppins-Regular' }}>Signout</Text>
