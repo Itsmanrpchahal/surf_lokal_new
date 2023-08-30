@@ -149,7 +149,7 @@ const Home = () => {
   const [mapType, setMapType] = useState('standard');
   const [isEditing, setIsEditing] = useState(false);
   const [moreFilter, setMoreFilter] = useState(false);
-  const [collapsibleStatus, setSetCollapsibleStatus] = useState(false)
+  const [collapsibleStatus, setSetCollapsibleStatus] = useState(true)
   const [maxPriceRange, setMaxPriceRange] = useState();
   const [minPricerange, setMinPricerange] = useState();
   const [minSquareFeet, setMinSquareFeet] = useState();

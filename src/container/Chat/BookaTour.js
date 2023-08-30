@@ -38,9 +38,9 @@ const BookaTour = (props) => {
     const [open, setOpen] = useState(false)
     const postid = props.route.params
 
-ct(() => {
+    useEffect(() => {
         getUserID()
-        // if (props?.route?.params?.ID) {
+        if (props?.route?.params?.ID) {
         Promise.all([dispatch(isRead({ ID: props?.route?.params?.ID })),
         dispatch(getChatDetail({ ID: props?.route?.params?.PropID })).then((res) => {
             setGetMessg(res?.payload?.data)
@@ -48,7 +48,7 @@ ct(() => {
 
         })])
 
-        // }
+        }
     }, [])
 
     const getUserID = async () => {
@@ -58,20 +58,20 @@ ct(() => {
 
     const getBookTourAPicall = async () => {
         const id = await AsyncStorage.getItem('userId');
-        // const formData =new FormData ();
-        // formData.append("propid",postid.post_id)
-        // formData.append('schedule_hour',selectedTime)
-        // formData.append('schedule_day',selectedDate)
-        // formData.append('user_mobile', store.getState().loginUser.loginData.metadata.mobile[0])
+        const formData =new FormData ();
+        formData.append("propid",postid.post_id)
+        formData.append('schedule_hour',selectedTime)
+        formData.append('schedule_day',selectedDate)
+        formData.append('user_mobile', store.getState().loginUser.loginData.metadata.mobile[0])
         // console.log('forndata',JSON.stringify(store.getState().loginUser.loginData.metadata.mobile[0]))
-        const formData = {
-            user_id: id,
-            propid: postid.post_id,
-            schedule_hour: selectedTime,
-            schedule_day: selectedDate,
-            user_mobile: store.getState()?.loginUser?.loginData?.metadata?.mobile[0]
-        }
-        // console.log('logodata',formData)
+        // const formData = {
+        //     user_id: id,
+        //     propid: postid.post_id,
+        //     schedule_hour: selectedTime,
+        //     schedule_day: selectedDate,
+        //     user_mobile: store.getState()?.loginUser?.loginData?.metadata?.mobile[0]
+        // }
+        console.log('logodata',formData)
         dispatch(sendMessage({
             user_id: props?.route?.params?.user_id ? props?.route?.params?.user_id : userID,
             propid: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.post_id,
@@ -338,6 +338,7 @@ ct(() => {
                                 onPress={() => {
                                     setOpen(true)
                                     setDate(new Date())
+
                                 }} style={{
                                     flexDirection: "row",
                                     justifyContent: "center",
@@ -360,6 +361,7 @@ ct(() => {
                             <TouchableOpacity
                                 disabled={getMesg?.length > 2 ? false : true}
                                 onPress={() => {
+                              
                                     setLoading(true);
                                     {
                                         dispatch(sendMessage({
@@ -417,6 +419,7 @@ ct(() => {
                             setOpen(false)
                             const now = date.toDateString()
                             const time = date.getHours() + ":" + date.getMinutes()
+                            
                             setLoading(true);
                             {
                                 dispatch(sendMessage({
