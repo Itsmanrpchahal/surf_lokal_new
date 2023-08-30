@@ -250,6 +250,16 @@ export default function Login({ navigation }) {
 
           if (response.payload.status) {
             setLoading(false);
+            let access_token= response.payload?.metadata?.[fcmtoken].toString()
+            async function storeToken() {
+              try {
+                await AsyncStorage.setItem('access_token', access_token);
+                console.log('Token stored successfully.', access_token);
+              } catch (error) {
+                console.error('Error storing token:', error);
+              }
+            }
+            storeToken();
             navigation.navigate('AppIntro');
           } else {
             setLoading(false);

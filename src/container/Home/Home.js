@@ -181,7 +181,7 @@ const Home = () => {
           },
         }),
       ).then(res => {
-        setHomeData(res.payload.data);
+        // setHomeData(res.payload.data);
       });
     }
   }, [selectedTabsMore]);
@@ -929,9 +929,6 @@ const Home = () => {
                             }}>
                               All Cities
                             </Text>
-
-
-                            <TouchableOpacity>
                               <View style={{
                                 width: 20,
                                 height: 20,
@@ -946,7 +943,6 @@ const Home = () => {
                                   top: 5
                                 }}></Image>
                               </View>
-                            </TouchableOpacity>
                           </TouchableOpacity>
                           <Collapsible collapsed={collapsibleStatus} style={{ width: "100%" }}>
                             <View style={[styles.dropdownz, {

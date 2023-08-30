@@ -25,7 +25,7 @@ const App = () => {
       config.headers['access_token'] = store?.getState().loginUser.loginData.metadata?.[fcmtoken].toString();
       return config;
     });
-     console.log("setToken ", store?.getState().loginUser)
+     console.log("setToken ", store?.getState().loginUser.loginData.metadata?.[fcmtoken].toString())
   }
   setToken()
 
