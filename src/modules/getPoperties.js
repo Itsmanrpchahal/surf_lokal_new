@@ -3,8 +3,6 @@ import { getAPI, uploadImageAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
 
 export const getPoperties = createAsyncThunk('getPoperties', async type => {
-  console.log("websearch response", type)
-
   const header = Platform.OS === 'android' ?
   {
     security_key: "SurfLokal52",

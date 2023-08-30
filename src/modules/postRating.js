@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-community/async-storage';
-import { postAPI, uploadImageAPI } from '../config/apiMethod';
+import {  uploadImageAPI } from '../config/apiMethod';
 import { Platform } from 'react-native';
 
 export const postRating = createAsyncThunk('postRating', async (formData) => {

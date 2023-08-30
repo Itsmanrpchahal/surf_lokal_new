@@ -5,18 +5,20 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const AuthNavigation = () => {
 
-  const [currentUser, setCurrentUser] = useState(null);
-
-//   const userHandler = user => user ? setCurrentUser(user) : setCurrentUser(null);
+  const [ currentToken, setCurrentToken ] = useState(null);
+  const getAccessToken = async () => {
+    const access_token = await AsyncStorage.getItem('access_token');
+    setCurrentToken(access_token);
+     console.log("current Access Token",currentToken)
+  };
 
   useEffect(() => {
-
-    // return auth.onAuthStateChanged((user) => userHandler(user));
+    getAccessToken();
   }, []);
 
   return (
     <>
-      {currentUser ? <SignedInStack /> : <SignedOutStack />}
+      {currentToken ? <SignedInStack /> : <SignedOutStack />}
     </>
   );
 };

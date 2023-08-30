@@ -24,6 +24,7 @@ import ChatHistory from '../container/ChatHistory/ChatHistory';
 import ContactSurf from '../container/ContactMyAgent/ContactSurf';
 import AppIntro from '../container/AppIntro/AppIntro';
 import Video from '../components/Video/video';
+import BookaTour from '../container/Chat/BookaTour';
 
 const Stack = createStackNavigator();
 const screenOptions = {
@@ -40,6 +41,7 @@ export const SignedOutStack = () => {
         <Stack.Screen name="OtpScreen" component={OtpScreen} />
 
         <Stack.Screen name="AppIntro" component={AppIntro} />
+        <Stack.Screen name="BookaTour" component={BookaTour} />
         <Stack.Screen name="Tabs" component={BottomTabNavigator} />
         <Stack.Screen name="ViewPropertiy" component={ViewPropertiy} />
         <Stack.Screen name="ViewProperty2" component={ViewProperty2} />

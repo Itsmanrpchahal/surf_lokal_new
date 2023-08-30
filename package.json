@@ -43,6 +43,7 @@
     "react-native-deck-swiper": "^2.0.14",
     "react-native-device-info": "^10.8.0",
     "react-native-element-dropdown": "^2.9.0",
+    "react-native-elements": "^3.4.3",
     "react-native-fbsdk": "^3.0.0",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-get-location": "^3.0.1",
