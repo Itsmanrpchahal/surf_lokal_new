@@ -554,14 +554,21 @@ const Home = () => {
     );
   };
 
-  if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Colors.PrimaryColor }}>
-        <Loader />
-      </View>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Colors.PrimaryColor }}>
+  //       <Loader />
+  //     </View>
+  //   );
+  // }
   return (
+    <View style={{ flex: 1 }}>
+    {
+      loading ? <View style={{ height: '100%', width: '100%', backgroundColor: 'rgba(0,0,0,.7)', position: 'absolute', zIndex: 99, left: 0, top: 0 }
+      }>
+        <Loader />
+      </View > : null
+    }
     <SafeAreaView
       style={Platform.OS == 'android' ? styles.container : styles.containerIos}>
       <View
@@ -865,6 +872,7 @@ const Home = () => {
                     <ScrollView
                       style={{
                         width: '99%',
+                     
                       }}>
                       <View
                         style={{
@@ -1337,6 +1345,7 @@ const Home = () => {
                                   searchInputTxtColor="black"
                                   placeholder="Min square"
                                   defaultButtonText="Min square"
+                                
                                   renderDropdownIcon={isOpened => {
                                     return (
                                       <Image
@@ -1676,8 +1685,8 @@ const Home = () => {
                                             : Colors.black,
                                           textAlign: 'center',
                                           borderRadius: 20,
-                                          borderWidth: 1,
-                                          borderColor: Colors.black,
+                                          borderWidth: .8,
+                                          borderColor: Colors.gray,
                                           backgroundColor: isSelectedMore
                                             ? Colors.black
                                             : Colors.white,
@@ -1706,7 +1715,7 @@ const Home = () => {
                               }}
                               style={{
                                 height: 50,
-                                width: 170,
+                                width: 130,
                                 borderRadius: 100,
                                 backgroundColor: Colors.surfblur,
                                 marginTop: 10,
@@ -2016,9 +2025,11 @@ const Home = () => {
                               marginLeft: 8,
                               width: width - 16,
                               marginRight: 8,
-                              paddingTop: 8,
-                              height: 80,
+                              //paddingTop: 8,
+                              //height: 80,
                               backgroundColor: Colors.white,
+                              //backgroundColor:"red",
+                              //marginTop:-15
                             }}>
                             <View
                               style={{
@@ -2027,6 +2038,7 @@ const Home = () => {
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
                                 paddingHorizontal: 12,
+                                // paddingTop:0,
                               }}>
                               <View
                                 style={{
@@ -2967,7 +2979,7 @@ const Home = () => {
                                 fontWeight: '500',
                                 fontFamily: 'Poppins-Medium',
                                 textAlign: 'center',
-                                marginTop: -15
+                                marginTop: -20
                               }}>
                               {item?.property_price}
                             </Text>
@@ -3469,12 +3481,13 @@ const Home = () => {
 
       </View>
     </SafeAreaView>
+    </View>
   );
 };
 export default Home;
 
 const styles = StyleSheet.create({
-  dropdown1BtnTxtStyle: { color: '#444', textAlign: 'left' },
+  dropdown1BtnTxtStyle: { color: '#444', textAlign: 'left' ,fontSize:14,fontFamily:"Poppins-Regular"},
   dropdown1DropdownStyle: { backgroundColor: '#EFEFEF' },
   dropdown1RowStyle: { backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5' },
   dropdown1RowTxtStyle: { color: '#444', textAlign: 'left' },

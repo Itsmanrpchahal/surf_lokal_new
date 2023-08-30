@@ -104,25 +104,25 @@ export default function ForgotPassword({ navigation }) {
         left: 10
 
       }}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 40,
-            width: 40,
-            borderRadius: 100,
-            backgroundColor: Colors.gray,
-          }}>
-          <Image source={Images.downArrow} style={{
-            height: 12,
-            width: 12,
-            resizeMode: 'contain',
-            tintColor: Colors.black,
-            transform: [{ rotate: '90deg' }],
-          }}></Image>
-        </TouchableOpacity>
+  <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 40,
+              width: 40,
+              borderRadius: 100,
+              // backgroundColor: Colors.gray,
+            }}>
+            <Image source={Images.leftnewarrow} style={{
+              height: 30,
+              width:30,
+              resizeMode: 'contain',
+              tintColor: Colors.black,
+              transform: [{ rotate: '0deg' }],
+            }}></Image>
+          </TouchableOpacity>
 
       </View>
       {/* <View style={Styles.loginView}>

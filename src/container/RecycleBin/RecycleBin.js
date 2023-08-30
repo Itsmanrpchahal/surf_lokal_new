@@ -307,7 +307,7 @@ const RecycleBin = () => {
           borderRadius: 5,
           justifyContent: 'center',
           alignItems: 'center',
-          paddingHorizontal: 8,
+          paddingHorizontal: 12,
           paddingVertical: 4,
         }}>
         <Text

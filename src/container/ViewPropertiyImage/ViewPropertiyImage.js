@@ -162,14 +162,21 @@ const ViewPropertiyImage = props => {
   };
 
   const navigation = useNavigation();
-  if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:Colors.PrimaryColor }}>
-      <Loader />
-    </View>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:Colors.PrimaryColor }}>
+  //     <Loader />
+  //   </View>
+  //   );
+  // }
   return (
+    <View style={{ flex: 1 }}>
+    {
+      loading ? <View style={{ height: '100%', width: '100%', backgroundColor: 'rgba(0,0,0,.7)', position: 'absolute', zIndex: 99, left: 0, top: 0 }
+      }>
+        <Loader />
+      </View > : null
+    }
     <SafeAreaView style={styles.container}>
       <View style={{
         height: '100%',
@@ -773,6 +780,7 @@ const ViewPropertiyImage = props => {
         </View>
       </Modal>
     </SafeAreaView>
+    </View>
   );
 };
 

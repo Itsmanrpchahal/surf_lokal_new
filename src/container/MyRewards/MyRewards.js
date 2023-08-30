@@ -22,6 +22,7 @@ import DeviceInfo from 'react-native-device-info';
 const App = (props) => {
   const navigation = useNavigation();
   const [meterValue, setMeterValue] = useState(500);
+  // const [meterValue, setMeterValue] = useState(1000);
   const [backgroundColor, setBackgroundColor] = useState('blue');
   const [textColor, setTextColor] = useState('white');
   const [borderColor, setBorderColor] = useState('black');
@@ -289,6 +290,7 @@ height:50
                   borderRadius: 100,
                   borderWidth: 2, // Set the desired border width
                   borderColor: Colors.darbluec, // Set the desired border color
+                  marginHorizontal:2
                 }}
                 trackStyle={{
                   height: 10, // Set the desired height of the track

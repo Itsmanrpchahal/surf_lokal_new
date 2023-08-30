@@ -740,18 +740,16 @@ const ViewPropertiy = (props, imageUrl) => {
     )
   }
 
-
-  if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:Colors.PrimaryColor }}>
-      <Loader />
-    </View>
-    );
-  }
   
   return (
-    <>
-      <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
+      {
+        loading ? <View style={{ height: '100%', width: '100%', backgroundColor: 'rgba(0,0,0,.7)', position: 'absolute', zIndex: 99, left: 0, top: 0 }
+        }>
+          <Loader />
+        </View > : null
+      }
+      <SafeAreaView style={{ flex: 1 ,backgroundColor:Colors.white}}>
         <ScrollView >
         <View
             style={{
@@ -1816,13 +1814,14 @@ const ViewPropertiy = (props, imageUrl) => {
         </ScrollView >
 
       </SafeAreaView >
+    
  <View
         style={{
           flexDirection: 'row',
           width: '100%',
           justifyContent: 'space-between',
           backgroundColor: "#f8f8f8",
-          paddingVertical: 8,
+          paddingVertical: 4,
           alignItems: 'center',
           alignContent: 'center',
         }}>
@@ -1924,12 +1923,12 @@ const ViewPropertiy = (props, imageUrl) => {
         </TouchableOpacity>
 
 
-      </View> 
+      </View>  
 
 
 
 
-    </>
+      </View>
   )
 }
 
