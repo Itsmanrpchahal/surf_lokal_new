@@ -66,7 +66,7 @@ const StackNavigator = () => {
         initialRouteName={'Login'}
       >
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="BookaTour" component={BookaTour} />
+       
         <Stack.Screen name="Video" component={Video} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
@@ -74,6 +74,7 @@ const StackNavigator = () => {
         <Stack.Screen name="OtpScreen" component={OtpScreen} />
         <Stack.Screen name="Tabs" component={TabNavigator} />
         <Stack.Screen name="ViewPropertiy" component={ViewPropertiy} />
+        <Stack.Screen name="BookaTour" component={BookaTour} />
         <Stack.Screen name="ViewProperty2" component={ViewProperty2} />
         <Stack.Screen name="ViewPropertiyImage" component={ViewPropertiyImage} />
         <Stack.Screen name="ViewImage" component={ViewImage} />

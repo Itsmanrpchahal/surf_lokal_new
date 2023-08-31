@@ -67,6 +67,7 @@ export const SignedInStack = () => {
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator initialRouteName="AppIntro" screenOptions={screenOptions}>
         <Stack.Screen name="AppIntro" component={AppIntro} />
+        <Stack.Screen name="BookaTour" component={BookaTour} />
         <Stack.Screen name="Tabs" component={BottomTabNavigator} />
         <Stack.Screen name="ViewPropertiy" component={ViewPropertiy} />
         <Stack.Screen name="ViewProperty2" component={ViewProperty2} />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -25,50 +25,45 @@ import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
-import { getPoperties } from '../../modules/getPoperties';
-import { postRating } from '../../modules/postRating';
-import { getFilter } from '../../modules/getFilter';
-import { SvgUri } from 'react-native-svg';
-import { postUpdateRating } from '../../modules/postUpdateRating';
-import { Dropdown, MultiSelect } from 'react-native-element-dropdown';
-import { CheckBox, } from 'react-native-elements';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {getPoperties} from '../../modules/getPoperties';
+import {postRating} from '../../modules/postRating';
+import {getFilter} from '../../modules/getFilter';
+import {SvgUri} from 'react-native-svg';
+import {postUpdateRating} from '../../modules/postUpdateRating';
+import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
+import {CheckBox} from 'react-native-elements';
 
 import CardsSwipe from 'react-native-cards-swipe';
-import { SwiperFlatList } from 'react-native-swiper-flatlist';
+import {SwiperFlatList} from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 import LottieView from 'lottie-react-native';
-import { store } from '../../redux/store';
-import { addToFavorite } from '../../modules/addToFavorite';
-import { addRemoveTrash } from '../../modules/addRemoveTrash';
-import { getRating } from '../../modules/getRating';
-import { ScrollView } from 'react-native-gesture-handler';
+import {store} from '../../redux/store';
+import {addToFavorite} from '../../modules/addToFavorite';
+import {addRemoveTrash} from '../../modules/addRemoveTrash';
+import {getRating} from '../../modules/getRating';
+import {ScrollView} from 'react-native-gesture-handler';
 import DeviceInfo from 'react-native-device-info';
-import MapView, {
-  Marker,
-  Callout,
-  PROVIDER_DEFAULT,
-} from 'react-native-maps';
+import MapView, {Marker, Callout, PROVIDER_DEFAULT} from 'react-native-maps';
 import Collapsible from 'react-native-collapsible';
-import { useIsFocused } from '@react-navigation/native';
-import { getMoreFilter } from '../../modules/getMoreFilter';
-import { useRef } from 'react';
-import { getTrash } from '../../modules/getTrash';
-import { getFavoriteProperties } from '../../modules/getFavoriteProperties';
-import { filterSearch } from '../../modules/filterSearch';
-import { getSavedSearch } from '../../modules/getSavedSearch';
-import { clearFilter } from '../../modules/clearFilter';
-import { getUserScore } from '../../modules/getUserScore';
+import {useIsFocused} from '@react-navigation/native';
+import {getMoreFilter} from '../../modules/getMoreFilter';
+import {useRef} from 'react';
+import {getTrash} from '../../modules/getTrash';
+import {getFavoriteProperties} from '../../modules/getFavoriteProperties';
+import {filterSearch} from '../../modules/filterSearch';
+import {getSavedSearch} from '../../modules/getSavedSearch';
+import {clearFilter} from '../../modules/clearFilter';
+import {getUserScore} from '../../modules/getUserScore';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import GetLocation from 'react-native-get-location';
 import Loader from '../../components/Loader';
 
-
-const { width } = Dimensions.get('screen');
+const {width} = Dimensions.get('screen');
 // const toggleCheckbox = () => {
 //   setIsChecked(!isChecked);
 // };
@@ -100,7 +95,7 @@ const Home = () => {
         const formData = new FormData();
         formData.append('SearchParameters', adress);
         console.log('SearchParameters payload', formData);
-        dispatch(getPoperties({ type: 2, data: formData, lntLng })).then(res => {
+        dispatch(getPoperties({type: 2, data: formData, lntLng})).then(res => {
           setHomeData(res.payload.data);
         });
         setKeyboardStatus('first');
@@ -132,7 +127,7 @@ const Home = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [tashModalVisiable, setTrashModalVisiable] = useState(false);
   const [saveModalVisible, setSaveModalVisible] = useState(false);
-  const [gpsModalVisiavle, setGpsModalVisiavle] = useState(false)
+  const [gpsModalVisiavle, setGpsModalVisiavle] = useState(false);
   const [favModalVisiable, setfavModalVisiable] = useState(false);
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [commentContent, setComentContent] = useState('');
@@ -147,13 +142,13 @@ const Home = () => {
   const [imageIndex, setImageIndex] = useState(0);
   const [viewHeight, setViewHeight] = useState(80);
   const [user_ID, setUser_ID] = useState();
-  const [lntLng, setLatLng] = useState({ latitude: 0.0, longitude: 0.0 });
+  const [lntLng, setLatLng] = useState({latitude: 0.0, longitude: 0.0});
   const [showMap, setShowMap] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [mapType, setMapType] = useState('standard');
   const [isEditing, setIsEditing] = useState(false);
   const [moreFilter, setMoreFilter] = useState(false);
-  const [collapsibleStatus, setSetCollapsibleStatus] = useState(true)
+  const [collapsibleStatus, setSetCollapsibleStatus] = useState(true);
   const [maxPriceRange, setMaxPriceRange] = useState();
   const [minPricerange, setMinPricerange] = useState();
   const [minSquareFeet, setMinSquareFeet] = useState();
@@ -165,16 +160,20 @@ const Home = () => {
   const [isPressed1, setIsPressed1] = useState(false);
   const [isPressed2, setIsPressed2] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [mainViewHeight, setMainViewHeight] = useState(0)
-  const [topViewHeight, setTopViewHeight] = useState(0)
+  const [mainViewHeight, setMainViewHeight] = useState(0);
+  const [topViewHeight, setTopViewHeight] = useState(0);
   // const [bottomViewHeight, setBottomViewHight] = useState(0)
-  const [centerHeight, setCenterHeight] = useState(0)
-
-
+  const [centerHeight, setCenterHeight] = useState(0);
+  const [imageHeight, setImageHeight] = useState(0);
+  const [imageWidth, setImageWidth] = useState(0);
 
   useEffect(() => {
-    setCenterHeight(mainViewHeight - (topViewHeight + 50))
-  }, [topViewHeight])
+    setCenterHeight(mainViewHeight - topViewHeight);
+  }, [topViewHeight]);
+
+  useEffect(() => {
+  }, [topViewHeight]);
+
   useEffect(() => {
     getID();
   }, []);
@@ -212,19 +211,19 @@ const Home = () => {
   };
 
   const getUserScoreApiCall = () => {
-    dispatch(getUserScore()).then(response => { });
+    dispatch(getUserScore()).then(response => {});
   };
   useEffect(() => {
     if (isFocused) {
       Promise.all[
         (getFilterApicall(),
-          getTrashApiCall(),
-          favlistApi(),
-          getSavedApiCall(),
-          getMoreFilterApiCall(),
-          getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
-          setAddres(''),
-          getUserScoreApiCall())
+        getTrashApiCall(),
+        favlistApi(),
+        getSavedApiCall(),
+        getMoreFilterApiCall(),
+        getPopertiesApiCall({type: 0, data: {limit: limitCount}, lntLng}),
+        setAddres(''),
+        getUserScoreApiCall())
       ];
     }
   }, [isFocused]);
@@ -236,7 +235,6 @@ const Home = () => {
   const getMoreFilterApiCall = () => {
     dispatch(getMoreFilter()).then(response => {
       setMoreFilterData(response.payload.data);
-
     });
   };
   const slideAnimation = useRef(new Animated.Value(0)).current;
@@ -386,10 +384,10 @@ const Home = () => {
   };
 
   const getSavedApiCall = () => {
-    dispatch(getSavedSearch()).then(response => { });
+    dispatch(getSavedSearch()).then(response => {});
   };
   const favlistApi = () => {
-    dispatch(getFavoriteProperties()).then(res => { });
+    dispatch(getFavoriteProperties()).then(res => {});
   };
 
   const savefile = async item => {
@@ -411,7 +409,7 @@ const Home = () => {
     });
   };
   const getTrashApiCall = async () => {
-    await dispatch(getTrash()).then(res => { });
+    await dispatch(getTrash()).then(res => {});
   };
   const trashfile = async post_id => {
     getTrashApiCall();
@@ -437,11 +435,11 @@ const Home = () => {
         const formData = new FormData();
         formData.append('latitude', location.latitude);
         formData.append('longitude', location.longitude);
-        console.log("getPopertiesApiCall formData ", formData)
-        await getPopertiesApiCall({ type: 1, data: '', latLng: formData });
+        console.log('getPopertiesApiCall formData ', formData);
+        await getPopertiesApiCall({type: 1, data: '', latLng: formData});
       })
       .catch(error => {
-        const { code, message } = error;
+        const {code, message} = error;
       });
   };
 
@@ -450,7 +448,7 @@ const Home = () => {
     await dispatch(getPoperties(type));
     typeof store.getState().getPoperties.getPopertiesData?.data === 'object'
       ? store.getState().getPoperties.getPopertiesData?.data &&
-      setHomeData(store.getState().getPoperties.getPopertiesData?.data)
+        setHomeData(store.getState().getPoperties.getPopertiesData?.data)
       : setHomeData([]);
     setLoading(false);
   };
@@ -496,12 +494,11 @@ const Home = () => {
       }
     });
   };
-  const renderFillterItem = ({ item, index }) => {
-    const { data_custom_taxonomy, data_customvalue } = item;
+  const renderFillterItem = ({item, index}) => {
+    const {data_custom_taxonomy, data_customvalue} = item;
     const isSelected =
       selectedTabs.filter(i => i === data_customvalue).length > 0;
     return (
-
       <TouchableOpacity
         onPress={() => {
           if (isSelected) {
@@ -559,38 +556,46 @@ const Home = () => {
           </Text>
         </View>
       </TouchableOpacity>
-
     );
   };
 
-
   return (
-    <View style={{ flex: 1 }}>
-      {
-        loading ? <View style={{ height: '100%', width: '100%', backgroundColor: 'rgba(0,0,0,.7)', position: 'absolute', zIndex: 99, left: 0, top: 0 }
-        }>
-          <Loader />
-        </View > : null
-      }
-      <SafeAreaView
-        style={Platform.OS == 'android' ? styles.container : styles.containerIos}>
+    <View style={{flex: 1}}>
+      {loading ? (
         <View
-          onLayout={({ nativeEvent }) => {
-            const { x, y, width, height } = nativeEvent.layout
-            setMainViewHeight(height)
+          style={{
+            height: '100%',
+            width: '100%',
+            backgroundColor: 'rgba(0,0,0,.7)',
+            position: 'absolute',
+            zIndex: 99,
+            left: 0,
+            top: 0,
+          }}>
+          <Loader />
+        </View>
+      ) : null}
+      <SafeAreaView
+        style={
+          Platform.OS == 'android' ? styles.container : styles.containerIos
+        }>
+        <View
+          onLayout={({nativeEvent}) => {
+            const {x, y, width, height} = nativeEvent.layout;
+            setMainViewHeight(height);
           }}
           style={{
             height: '100%',
             backgroundColor: Colors.white,
-          }}
-        >
-          <View onLayout={({ nativeEvent }) => {
-            const { x, y, width, height } = nativeEvent.layout
-            setTopViewHeight(height)
           }}>
+          <View
+            onLayout={({nativeEvent}) => {
+              const {x, y, width, height} = nativeEvent.layout;
+              setTopViewHeight(height);
+            }}>
             <View
               style={{
-                width: DeviceInfo.getDeviceType() === 'Tablet' ? "80%" : "100%",
+                width: DeviceInfo.getDeviceType() === 'Tablet' ? '100%' : '100%',
                 paddingVertical: 15,
                 justifyContent: 'center',
                 borderRadius: 5,
@@ -599,7 +604,7 @@ const Home = () => {
                 flexDirection: 'row',
                 // backgroundColor: '#fff',
                 paddingLeft: 10,
-                alignItems: "center"
+                alignItems: 'center',
               }}>
               <View
                 style={{
@@ -620,7 +625,7 @@ const Home = () => {
                   elevation: 3,
                   shadowColor: '#52006A',
                 }}>
-                <View style={{ width: '85%' }}>
+                <View style={{width: '85%'}}>
                   <TextInput
                     allowFontScaling={false}
                     placeholderTextColor={'#858383'}
@@ -632,7 +637,8 @@ const Home = () => {
                     onSubmitEditing={Keyboard.dismiss}
                     onChangeText={text => setAddres(text)}
                     style={{
-                      fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
+                      fontSize:
+                        DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
                       letterSpacing: 1,
                       color: '#000',
                       marginLeft: 1,
@@ -667,10 +673,14 @@ const Home = () => {
                     }}>
                     <Image
                       source={Images.address}
-                      tintColor={showMap ? Colors.PrimaryColor : Colors.PrimaryColor}
+                      tintColor={
+                        showMap ? Colors.PrimaryColor : Colors.PrimaryColor
+                      }
                       style={{
-                        height: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
-                        width: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
+                        height:
+                          DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
+                        width:
+                          DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
                         alignItems: 'center',
                         justifyContent: 'center',
                         resizeMode: 'contain',
@@ -696,8 +706,10 @@ const Home = () => {
                     <Image
                       source={Images.gps}
                       style={{
-                        height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
-                        width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
+                        height:
+                          DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
+                        width:
+                          DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
                         resizeMode: 'contain',
                       }}></Image>
                   </TouchableOpacity>
@@ -709,7 +721,7 @@ const Home = () => {
                 width: '92%',
                 alignSelf: 'center',
                 justifyContent: 'center',
-                backgroundColor: "green"
+                // backgroundColor: "green"
               }}>
               <FlatList
                 data={filterData}
@@ -719,278 +731,324 @@ const Home = () => {
                 renderItem={renderFillterItem}
               />
             </View>
-          </View>
-          {isSelected && (
-            <View style={{
-              position: "relative",
-              //backgroundColor:"green",
-              alignItems: "center", justifyContent: "center", width: "100%",
-            }}>
+            {isSelected && (
               <View
                 style={{
-                  width: '100%',
-                  flexDirection: 'row',
+                  position: 'relative',
+                  //backgroundColor:"green",
+                  alignItems: 'center',
                   justifyContent: 'center',
-                  marginBottom: 5,
-                  marginTop: 10,
-                  alignItems: "center",
+                  width: '100%',
                 }}>
-                <TouchableOpacity
-                  onPress={() => {
-                    getSavedApiCall();
-                    setIsPressed1(!isPressed1);
-                    setIsPressed(false);
-                    const payload = {
-                      search_name: termName,
-                    };
-                    dispatch(filterSearch(payload)).then(response => {
-                      if (
-                        store.getState().getSavedSearch.getSavedSearchData
-                          .count == 0
-                      ) {
-                        saveToogleModal();
-                      } else {
-                      }
-                    });
-                  }}
-                  style={[
-                    styles.rew,
-                    {
-                      borderColor: Colors.gray,
-                      borderRadius: 10,
-                      backgroundColor: isPressed1 ? 'black' : 'white',
-                      // backgroundColor: "white",
-                      // Change background color on press
-                    },
-                  ]}>
-                  <Text
-                    style={{
-                      color: isPressed1 ? 'white' : 'black',
-                      // color: 'black',
-
-                      // Change text color on press,
-                      fontFamily: 'Poppins-Regular',
-                      fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12
-                    }}>
-                    Save Search
-                  </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  onPress={handlePress}
-                  style={[
-                    styles.rew,
-                    {
-                      flexDirection: 'row',
-                      backgroundColor: 'white',
-                      borderColor: Colors.gray,
-                      borderRadius: 10,
-                    },
-                  ]}>
-                  <Image
-                    source={Images.filtericon}
+                <View
+                  style={{
+                    width: '100%',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    marginBottom: 5,
+                    marginTop: 10,
+                    alignItems: 'center',
+                  }}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      getSavedApiCall();
+                      setIsPressed1(!isPressed1);
+                      setIsPressed(false);
+                      const payload = {
+                        search_name: termName,
+                      };
+                      dispatch(filterSearch(payload)).then(response => {
+                        if (
+                          store.getState().getSavedSearch.getSavedSearchData
+                            .count == 0
+                        ) {
+                          saveToogleModal();
+                        } else {
+                        }
+                      });
+                    }}
                     style={[
+                      styles.rew,
                       {
-                        height: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
-                        width: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
-                        marginRight: 6,
+                        borderColor: Colors.gray,
+                        borderRadius: 10,
+                        backgroundColor: isPressed1 ? 'black' : 'white',
+                        // backgroundColor: "white",
+                        // Change background color on press
                       },
-                      { tintColor: 'black' },
-                    ]}
-                  />
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontFamily: 'Poppins-Regular',
-                      fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12
-                    }}>
-                    Filters
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={async () => {
-                    setSelectedTabs([]);
-                    setIsSelected(false);
-                    setIsPressed1(false);
-                    setIsPressed(false);
-                    // setSelectedItem(null);
-                    // setCities(null)
-                    setBedroomItem(null);
-                    setBathRoomItem(null);
-                    setMinSquareFeet('');
-                    setMaxSquareFeet('');
-                    setMinPricerange('');
-                    setMaxPriceRange('');
-                    setMoreFilter(false);
-                    setCities('');
-                    { handlePress2 }
-                    dispatch(clearFilter());
-                    await dispatch(
-                      getPoperties({
-                        type: 0,
-                        data: { limit: limitCount + 1 },
-                        lntLng,
-                      }),
-                    ).then(response => {
-                      setHomeData(response.payload.data);
-                    });
-                  }}
-                  style={[
-                    styles.rew,
-                    {
-                      backgroundColor: isPressed2 ? 'black' : 'white',
-                      borderColor: Colors.gray,
-                      borderRadius: 10,
-                    },
-                  ]}>
-                  <Text
-                    style={{
-                      color: isPressed2 ? 'white' : 'black',
-                      fontFamily: 'Poppins-Regular',
-                      fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12
-                    }}>
-                    Clear filters
-                  </Text>
-                </TouchableOpacity>
-              </View>
+                    ]}>
+                    <Text
+                      style={{
+                        color: isPressed1 ? 'white' : 'black',
+                        // color: 'black',
 
-              <KeyboardAvoidingView behavior="padding">
-                <Modal
-                  transparent={true}
-                  animationType="slide"
-                  visible={filterModalVisible}
-                  onRequestClose={filtertoggleModal}>
-                  <View style={styles.modalContainer}>
-                    <TouchableOpacity
-                      activeOpacity={1}
-                      style={styles.modalOverlay}
-                      onPress={closeModals}
-                    />
-                    <Animated.View
-                      {...panResponders.panHandlers}
+                        // Change text color on press,
+                        fontFamily: 'Poppins-Regular',
+                        fontSize:
+                          DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
+                      }}>
+                      Save Search
+                    </Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    onPress={handlePress}
+                    style={[
+                      styles.rew,
+                      {
+                        flexDirection: 'row',
+                        backgroundColor: 'white',
+                        borderColor: Colors.gray,
+                        borderRadius: 10,
+                      },
+                    ]}>
+                    <Image
+                      source={Images.filtericon}
                       style={[
-                        styles.modalContent,
                         {
-                          transform: [
-                            {
-                              translateY: slideAnimations.interpolate({
-                                inputRange: [-300, 0],
-                                outputRange: [-300, 0],
-                              }),
-                            },
-                          ],
+                          height:
+                            DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
+                          width:
+                            DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
+                          marginRight: 6,
                         },
-                      ]}>
-                      <ScrollView
-                        style={{
-                          width: '99%',
+                        {tintColor: 'black'},
+                      ]}
+                    />
+                    <Text
+                      style={{
+                        color: 'black',
+                        fontFamily: 'Poppins-Regular',
+                        fontSize:
+                          DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
+                      }}>
+                      Filters
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={async () => {
+                      setSelectedTabs([]);
+                      setIsSelected(false);
+                      setIsPressed1(false);
+                      setIsPressed(false);
+                      // setSelectedItem(null);
+                      // setCities(null)
+                      setBedroomItem(null);
+                      setBathRoomItem(null);
+                      setMinSquareFeet('');
+                      setMaxSquareFeet('');
+                      setMinPricerange('');
+                      setMaxPriceRange('');
+                      setMoreFilter(false);
+                      setCities('');
+                      {
+                        handlePress2;
+                      }
+                      dispatch(clearFilter());
+                      await dispatch(
+                        getPoperties({
+                          type: 0,
+                          data: {limit: limitCount + 1},
+                          lntLng,
+                        }),
+                      ).then(response => {
+                        setHomeData(response.payload.data);
+                      });
+                    }}
+                    style={[
+                      styles.rew,
+                      {
+                        backgroundColor: isPressed2 ? 'black' : 'white',
+                        borderColor: Colors.gray,
+                        borderRadius: 10,
+                      },
+                    ]}>
+                    <Text
+                      style={{
+                        color: isPressed2 ? 'white' : 'black',
+                        fontFamily: 'Poppins-Regular',
+                        fontSize:
+                          DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
+                      }}>
+                      Clear filters
+                    </Text>
+                  </TouchableOpacity>
+                </View>
 
-                        }}>
-                        <View
-                          style={{
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                          }}>
-                          <View
-                            style={{
-                              width: 50,
-                              height: 5,
-                              backgroundColor: '#bac1c3',
-                              marginTop: 0,
-                              justifyContent: 'center',
-                              borderRadius: 100,
-                            }}></View>
-                        </View>
-                        <View
-                          style={{
-                            width: '100%',
-                            flexDirection: 'row',
-                            justifyContent: 'flex-end',
-                            alignItems: 'center',
-                          }}>
-                          <View
-                            style={{
-                              width: '100%',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                            }}></View>
-                        </View>
-                        <View
+                <KeyboardAvoidingView behavior="padding">
+                  <Modal
+                    transparent={true}
+                    animationType="slide"
+                    visible={filterModalVisible}
+                    onRequestClose={filtertoggleModal}>
+                    <View style={styles.modalContainer}>
+                      <TouchableOpacity
+                        activeOpacity={1}
+                        style={styles.modalOverlay}
+                        onPress={closeModals}
+                      />
+                      <Animated.View
+                        {...panResponders.panHandlers}
+                        style={[
+                          styles.modalContent,
+                          {
+                            transform: [
+                              {
+                                translateY: slideAnimations.interpolate({
+                                  inputRange: [-300, 0],
+                                  outputRange: [-300, 0],
+                                }),
+                              },
+                            ],
+                          },
+                        ]}>
+                        <ScrollView
                           style={{
                             width: '99%',
                           }}>
-                          <View>
-                            <Text
+                          <View
+                            style={{
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}>
+                            <View
                               style={{
-                                color: 'black',
-                                fontFamily: 'Poppins-Regular',
-                                width: '99%',
-                                marginBottom: 8,
-                                fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
-                              }}>
-                              Choose your city{' '}
-                            </Text>
-
-
-                            <TouchableOpacity onPress={() => {
-                              setSetCollapsibleStatus(!collapsibleStatus)
-                            }} style={[styles.dropdown, { width: "100%", height: 40, alignItems: 'center', flexDirection: 'row', justifyContent: "space-between", paddingHorizontal: 12 }]}>
-                              <Text style={{
-                                color: Colors.black, fontFamily: "Poppins-Regular",
-                                fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
-                              }}>
-                                All Cities
+                                width: 50,
+                                height: 5,
+                                backgroundColor: '#bac1c3',
+                                marginTop: 0,
+                                justifyContent: 'center',
+                                borderRadius: 100,
+                              }}></View>
+                          </View>
+                          <View
+                            style={{
+                              width: '100%',
+                              flexDirection: 'row',
+                              justifyContent: 'flex-end',
+                              alignItems: 'center',
+                            }}>
+                            <View
+                              style={{
+                                width: '100%',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                              }}></View>
+                          </View>
+                          <View
+                            style={{
+                              width: '99%',
+                            }}>
+                            <View>
+                              <Text
+                                style={{
+                                  color: 'black',
+                                  fontFamily: 'Poppins-Regular',
+                                  width: '99%',
+                                  marginBottom: 8,
+                                  fontSize:
+                                    DeviceInfo.getDeviceType() === 'Tablet'
+                                      ? 18
+                                      : 14,
+                                }}>
+                                Choose your city{' '}
                               </Text>
-                              <View style={{
-                                width: 20,
-                                height: 20,
-                                position: "relative"
-                              }}>
-                                <Image source={Images.downArrow} style={{
-                                  width: 12,
-                                  height: 12,
-                                  resizeMode: "contain",
-                                  position: "absolute",
-                                  right: 0,
-                                  top: 5
-                                }}></Image>
-                              </View>
-                            </TouchableOpacity>
-                            <Collapsible collapsed={collapsibleStatus} style={{ width: "100%" }}>
-                              <View style={[styles.dropdownz, {
-                                width: "100%", height: 150, backgroundColor: "#fff",
-                                alignItems: 'center', flexDirection: 'row', justifyContent: "center", paddingTop: 10
-                              }]}>
+
+                              <TouchableOpacity
+                                onPress={() => {
+                                  setSetCollapsibleStatus(!collapsibleStatus);
+                                }}
+                                style={[
+                                  styles.dropdown,
+                                  {
+                                    width: '100%',
+                                    height: 40,
+                                    alignItems: 'center',
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    paddingHorizontal: 12,
+                                  },
+                                ]}>
+                                <Text
+                                  style={{
+                                    color: Colors.black,
+                                    fontFamily: 'Poppins-Regular',
+                                    fontSize:
+                                      DeviceInfo.getDeviceType() === 'Tablet'
+                                        ? 18
+                                        : 14,
+                                  }}>
+                                  All Cities
+                                </Text>
                                 <View
                                   style={{
-                                    alignContent: 'center',
-                                    width: '100%',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
+                                    width: 20,
+                                    height: 20,
+                                    position: 'relative',
                                   }}>
-                                  <FlatList
-                                    data={moreFilterData?.City}
-                                    // data={[1]}
-                                    style={{ alignContent: 'center', width: "100%" }}
-                                    nestedScrollEnabled
-                                    renderItem={({ item, index }) => {
-                                      const {
-                                        data_custom_taxonomy,
-                                        data_customvalue,
-                                      } = item;
-                                      const isSelectedMore =
-                                        selectedTabsMore.filter(
-                                          i => i === data_customvalue,
-                                        ).length > 0;
-                                      return (
-                                        <TouchableOpacity
-                                          style={{
-                                            width: '100%', paddingHorizontal: 8
-                                          }}
-                                          onPress={
-                                            async () => {
-                                              cities.push(item)
-                                              setSetCollapsibleStatus(!collapsibleStatus)
+                                  <Image
+                                    source={Images.downArrow}
+                                    style={{
+                                      width: 12,
+                                      height: 12,
+                                      resizeMode: 'contain',
+                                      position: 'absolute',
+                                      right: 0,
+                                      top: 5,
+                                    }}></Image>
+                                </View>
+                              </TouchableOpacity>
+                              <Collapsible
+                                collapsed={collapsibleStatus}
+                                style={{width: '100%'}}>
+                                <View
+                                  style={[
+                                    styles.dropdownz,
+                                    {
+                                      width: '100%',
+                                      height: 150,
+                                      backgroundColor: '#fff',
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                      justifyContent: 'center',
+                                      paddingTop: 10,
+                                    },
+                                  ]}>
+                                  <View
+                                    style={{
+                                      alignContent: 'center',
+                                      width: '100%',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                    }}>
+                                    <FlatList
+                                      data={moreFilterData?.City}
+                                      // data={[1]}
+                                      style={{
+                                        alignContent: 'center',
+                                        width: '100%',
+                                      }}
+                                      nestedScrollEnabled
+                                      renderItem={({item, index}) => {
+                                        const {
+                                          data_custom_taxonomy,
+                                          data_customvalue,
+                                        } = item;
+                                        const isSelectedMore =
+                                          selectedTabsMore.filter(
+                                            i => i === data_customvalue,
+                                          ).length > 0;
+                                        return (
+                                          <TouchableOpacity
+                                            style={{
+                                              width: '100%',
+                                              paddingHorizontal: 8,
+                                            }}
+                                            onPress={async () => {
+                                              cities.push(item);
+                                              setSetCollapsibleStatus(
+                                                !collapsibleStatus,
+                                              );
                                               if (isSelectedMore) {
                                                 setSelectedTabsMore(prev =>
                                                   prev.filter(
@@ -1003,7 +1061,10 @@ const Home = () => {
                                                   data_customvalue,
                                                 ]);
                                               }
-                                              console.log("selectedTabsMore======>", selectedTabsMore)
+                                              console.log(
+                                                'selectedTabsMore======>',
+                                                selectedTabsMore,
+                                              );
                                               //  await dispatch(
                                               //     getPoperties({
                                               //       type: 3,
@@ -1015,47 +1076,72 @@ const Home = () => {
                                               //   ).then(res => {
                                               //     setHomeData(res.payload.data);
                                               //   });
-                                            }}
-                                        >
-                                          <View
-                                            style={styles.checkboxContainer}>
-                                            <View style={[styles.checkbox, isChecked && styles.checked]}>
-                                              {isSelectedMore && <Image
+                                            }}>
+                                            <View
+                                              style={styles.checkboxContainer}>
+                                              <View
+                                                style={[
+                                                  styles.checkbox,
+                                                  isChecked && styles.checked,
+                                                ]}>
+                                                {isSelectedMore && (
+                                                  <Image
+                                                    style={{
+                                                      width:
+                                                        DeviceInfo.getDeviceType() ===
+                                                        'Tablet'
+                                                          ? 40
+                                                          : 18,
+                                                      height:
+                                                        DeviceInfo.getDeviceType() ===
+                                                        'Tablet'
+                                                          ? 40
+                                                          : 18,
+
+                                                      resizeMode: 'contain',
+                                                    }}
+                                                    source={
+                                                      Images.checkok
+                                                    }></Image>
+                                                )}
+                                              </View>
+                                              <Text
                                                 style={{
-                                                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 18,
-                                                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 18,
-
-                                                  resizeMode: 'contain',
+                                                  fontSize:
+                                                    DeviceInfo.getDeviceType() ===
+                                                    'Tablet'
+                                                      ? 18
+                                                      : 14,
+                                                  color: Colors.black,
+                                                  textAlign: 'left',
+                                                  backgroundColor: Colors.white,
+                                                  padding: 10,
+                                                  marginBottom: 8,
+                                                  width: '100%',
                                                 }}
-                                                source={Images.checkok}></Image>}
+                                                numberOfLines={1}>
+                                                {item?.data_name}
+                                              </Text>
                                             </View>
-                                            <Text
-                                              style={{
-                                                fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
-                                                color: Colors.black,
-                                                textAlign: 'left',
-                                                backgroundColor
-                                                  : Colors.white,
-                                                padding: 10,
-                                                marginBottom: 8,
-                                                width: "100%"
-                                              }}
-                                              numberOfLines={1}>
-                                              {item?.data_name}
-                                            </Text>
-                                          </View>
-
-
-
-                                        </TouchableOpacity>
-                                      );
-                                    }}></FlatList>
+                                          </TouchableOpacity>
+                                        );
+                                      }}></FlatList>
+                                  </View>
                                 </View>
-                              </View>
-                            </Collapsible>
-                            {
-                              cities.length > 0 ?
-                                <View style={[styles.dropdown, { width: "100%", height: 60, alignItems: 'flex-start', flexDirection: 'row', justifyContent: "flex-start", padding: 10 }]}>
+                              </Collapsible>
+                              {cities.length > 0 ? (
+                                <View
+                                  style={[
+                                    styles.dropdown,
+                                    {
+                                      width: '100%',
+                                      height: 60,
+                                      alignItems: 'flex-start',
+                                      flexDirection: 'row',
+                                      justifyContent: 'flex-start',
+                                      padding: 10,
+                                    },
+                                  ]}>
                                   <View
                                     style={{
                                       // alignContent: 'flex-start',
@@ -1065,11 +1151,14 @@ const Home = () => {
                                     }}>
                                     <FlatList
                                       data={cities}
-                                      style={{ alignContent: 'center', margin: -6 }}
+                                      style={{
+                                        alignContent: 'center',
+                                        margin: -6,
+                                      }}
                                       horizontal
                                       nestedScrollEnabled
                                       numColumns={1}
-                                      renderItem={({ item }) => {
+                                      renderItem={({item}) => {
                                         const {
                                           data_custom_taxonomy,
                                           data_customvalue,
@@ -1089,11 +1178,11 @@ const Home = () => {
                                                 ? Colors.black
                                                 : Colors.white,
                                               padding: 10,
-                                              flexDirection: "row",
-                                              alignItems: "center"
+                                              flexDirection: 'row',
+                                              alignItems: 'center',
                                             }}
                                             onPress={async () => {
-                                              cities.pop(item)
+                                              cities.pop(item);
                                               if (isSelectedMore) {
                                                 setSelectedTabsMore(prev =>
                                                   prev.filter(
@@ -1106,23 +1195,29 @@ const Home = () => {
                                                   data_customvalue,
                                                 ]);
                                               }
-                                            }}
-                                          >
+                                            }}>
                                             <Text
                                               style={{
                                                 color: isSelectedMore
                                                   ? Colors.white
                                                   : Colors.black,
                                                 textAlign: 'center',
-
                                               }}
                                               numberOfLines={1}>
                                               {item?.data_name}
                                             </Text>
                                             <Image
                                               style={{
-                                                width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 12,
-                                                height: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 12,
+                                                width:
+                                                  DeviceInfo.getDeviceType() ===
+                                                  'Tablet'
+                                                    ? 40
+                                                    : 12,
+                                                height:
+                                                  DeviceInfo.getDeviceType() ===
+                                                  'Tablet'
+                                                    ? 40
+                                                    : 12,
                                                 marginLeft: 8,
                                                 marginTop: 2,
                                                 resizeMode: 'contain',
@@ -1133,44 +1228,132 @@ const Home = () => {
                                       }}></FlatList>
                                   </View>
                                 </View>
-                                : null
-                            }
+                              ) : null}
 
+                              <View style={{marginBottom: 12}}>
+                                <Text
+                                  style={{
+                                    color: 'black',
+                                    fontFamily: 'Poppins-Regular',
+                                    fontSize:
+                                      DeviceInfo.getDeviceType() === 'Tablet'
+                                        ? 18
+                                        : 14,
+                                  }}>
+                                  Bedrooms
+                                </Text>
+                                <View
+                                  style={{
+                                    alignContent: 'center',
+                                    width: '100%',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                  }}>
+                                  <FlatList
+                                    style={{
+                                      fontSize:
+                                        DeviceInfo.getDeviceType() === 'Tablet'
+                                          ? 18
+                                          : 14,
+                                    }}
+                                    data={moreFilterData?.bedroom}
+                                    horizontal={true}
+                                    // numColumns={4}
 
-
-
-                            <View style={{ marginBottom: 12 }}>
-                              <Text
-                                style={{
-                                  color: 'black',
-                                  fontFamily: 'Poppins-Regular',
-                                  fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14
-                                }}>
-                                Bedrooms
-                              </Text>
-                              <View
-                                style={{
-                                  alignContent: 'center',
-                                  width: '100%',
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                }}>
-                                <FlatList style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14 }}
-                                  data={moreFilterData?.bedroom}
-                                  horizontal={true}
-                                  // numColumns={4}
-
-                                  showsHorizontalScrollIndicator={false}
-                                  renderItem={({ item, index }) => {
-                                    return (
-                                      <TouchableOpacity
-                                        onPress={async () => {
-                                          setBedroomItem(index),
+                                    showsHorizontalScrollIndicator={false}
+                                    renderItem={({item, index}) => {
+                                      return (
+                                        <TouchableOpacity
+                                          onPress={async () => {
+                                            setBedroomItem(index),
+                                              await dispatch(
+                                                getPoperties({
+                                                  type: 3,
+                                                  data: {
+                                                    data_custom_taxonomy:
+                                                      'bedroom',
+                                                    data_customvalue:
+                                                      item.data_customvalue,
+                                                  },
+                                                }),
+                                              ).then(res => {
+                                                setHomeData(res.payload.data);
+                                              });
+                                            // setFilterModalVisible(false);
+                                          }}>
+                                          <View
+                                            style={{
+                                              width: 70,
+                                              height: 40,
+                                              marginTop: 8,
+                                              marginHorizontal: 3,
+                                              borderRadius: 20,
+                                              alignItems: 'center',
+                                              justifyContent: 'center',
+                                              borderWidth: 1,
+                                              borderColor: Colors.BorderColor,
+                                              backgroundColor:
+                                                bedroomitem === index
+                                                  ? Colors.black
+                                                  : Colors.white,
+                                            }}>
+                                            <Text
+                                              style={{
+                                                fontFamily: 'poppins-regular',
+                                                fontSize:
+                                                  DeviceInfo.getDeviceType() ===
+                                                  'Tablet'
+                                                    ? 18
+                                                    : 14,
+                                                color:
+                                                  bedroomitem === index
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              }}>
+                                              {item?.data_name}
+                                            </Text>
+                                          </View>
+                                        </TouchableOpacity>
+                                      );
+                                    }}></FlatList>
+                                </View>
+                              </View>
+                              <View>
+                                <Text
+                                  style={{
+                                    color: 'black',
+                                    fontFamily: 'Poppins-Regular',
+                                    fontSize:
+                                      DeviceInfo.getDeviceType() === 'Tablet'
+                                        ? 18
+                                        : 14,
+                                  }}>
+                                  Bathrooms
+                                </Text>
+                                <View
+                                  style={{
+                                    alignContent: 'center',
+                                    width: '100%',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                  }}>
+                                  <FlatList
+                                    data={moreFilterData.bathroom}
+                                    // numColumns={4}
+                                    horizontal={true}
+                                    showsHorizontalScrollIndicator={false}
+                                    renderItem={({item, index}) => {
+                                      return (
+                                        <TouchableOpacity
+                                          onPress={async () => {
+                                            setBathRoomItem(index);
+                                            setBathRoomCount(item.data_name);
                                             await dispatch(
                                               getPoperties({
                                                 type: 3,
                                                 data: {
-                                                  data_custom_taxonomy: 'bedroom',
+                                                  data_custom_taxonomy:
+                                                    'bathroom',
                                                   data_customvalue:
                                                     item.data_customvalue,
                                                 },
@@ -1178,564 +1361,537 @@ const Home = () => {
                                             ).then(res => {
                                               setHomeData(res.payload.data);
                                             });
-                                          // setFilterModalVisible(false);
-                                        }}>
-                                        <View
-                                          style={{
-                                            width: 70,
-                                            height: 40,
-                                            marginTop: 8,
-                                            marginHorizontal: 3,
-                                            borderRadius: 20,
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            borderWidth: 1,
-                                            borderColor: Colors.BorderColor,
-                                            backgroundColor:
-                                              bedroomitem === index
-                                                ? Colors.black
-                                                : Colors.white,
                                           }}>
-                                          <Text
+                                          <View
                                             style={{
-                                              fontFamily: 'poppins-regular',
-                                              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
-                                              color:
-                                                bedroomitem === index
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            }}>
-                                            {item?.data_name}
-                                          </Text>
-                                        </View>
-                                      </TouchableOpacity>
-                                    );
-                                  }}></FlatList>
-                              </View>
-                            </View>
-                            <View>
-                              <Text
-                                style={{
-                                  color: 'black',
-                                  fontFamily: 'Poppins-Regular',
-                                  fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14
-                                }}>
-                                Bathrooms
-                              </Text>
-                              <View
-                                style={{
-                                  alignContent: 'center',
-                                  width: '100%',
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                }}>
-                                <FlatList
-                                  data={moreFilterData.bathroom}
-                                  // numColumns={4}
-                                  horizontal={true}
-                                  showsHorizontalScrollIndicator={false}
-                                  renderItem={({ item, index }) => {
-                                    return (
-                                      <TouchableOpacity
-                                        onPress={async () => {
-                                          setBathRoomItem(index);
-                                          setBathRoomCount(item.data_name);
-                                          await dispatch(
-                                            getPoperties({
-                                              type: 3,
-                                              data: {
-                                                data_custom_taxonomy: 'bathroom',
-                                                data_customvalue:
-                                                  item.data_customvalue,
-                                              },
-                                            }),
-                                          ).then(res => {
-                                            setHomeData(res.payload.data);
-                                          });
-                                        }}>
-                                        <View
-                                          style={{
-                                            width: 75,
-                                            height: 40,
-                                            marginTop: 8,
-                                            marginHorizontal: 3,
-                                            borderRadius: 20,
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            borderWidth: 1,
-                                            borderColor: Colors.BorderColor,
-                                            backgroundColor:
-                                              bathRoom === index
-                                                ? Colors.newgray
-                                                : Colors.white,
-                                          }}>
-                                          <Text
-                                            style={{
-                                              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
-                                              fontFamily: 'Poppins-Regular',
-                                              color:
+                                              width: 75,
+                                              height: 40,
+                                              marginTop: 8,
+                                              marginHorizontal: 3,
+                                              borderRadius: 20,
+                                              alignItems: 'center',
+                                              justifyContent: 'center',
+                                              borderWidth: 1,
+                                              borderColor: Colors.BorderColor,
+                                              backgroundColor:
                                                 bathRoom === index
-                                                  ? Colors.white
-                                                  : Colors.newgray,
+                                                  ? Colors.newgray
+                                                  : Colors.white,
                                             }}>
-                                            {item?.data_name}
+                                            <Text
+                                              style={{
+                                                fontSize:
+                                                  DeviceInfo.getDeviceType() ===
+                                                  'Tablet'
+                                                    ? 18
+                                                    : 14,
+                                                fontFamily: 'Poppins-Regular',
+                                                color:
+                                                  bathRoom === index
+                                                    ? Colors.white
+                                                    : Colors.newgray,
+                                              }}>
+                                              {item?.data_name}
+                                            </Text>
+                                          </View>
+                                        </TouchableOpacity>
+                                      );
+                                    }}></FlatList>
+                                </View>
+                              </View>
+
+                              <View>
+                                <Text
+                                  style={{
+                                    color: 'black',
+                                    fontFamily: 'Poppins-Regular',
+                                    marginTop: 12,
+                                    fontSize:
+                                      DeviceInfo.getDeviceType() === 'Tablet'
+                                        ? 18
+                                        : 14,
+                                  }}>
+                                  Square Feet
+                                </Text>
+
+                                <View
+                                  style={{
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    marginTop: 8,
+                                  }}>
+                                  <View
+                                    style={[styles.dropdown, {width: '48%'}]}>
+                                    <SelectDropdown
+                                      data={moreFilterData.min_square}
+                                      buttonStyle={styles.dropdown1BtnStyle}
+                                      buttonTextStyle={
+                                        styles.dropdown1BtnTxtStyle
+                                      }
+                                      dropdownIconPosition={'right'}
+                                      dropdownStyle={
+                                        styles.dropdown1DropdownStyle
+                                      }
+                                      rowStyle={styles.dropdown1RowStyle}
+                                      rowTextStyle={styles.dropdown1RowTxtStyle}
+                                      search={true}
+                                      searchInputStyle={{color: 'black'}}
+                                      searchPlaceholder="Search"
+                                      searchPlaceHolderColor="black"
+                                      searchInputTxtColor="black"
+                                      placeholder="Min square"
+                                      defaultButtonText="Min square"
+                                      renderDropdownIcon={isOpened => {
+                                        return (
+                                          <Image
+                                            source={Images.downArrow}
+                                            tintColor={Colors.gray}
+                                            style={{
+                                              height: 12,
+                                              width: 12,
+                                            }}></Image>
+                                        );
+                                      }}
+                                      onSelect={async (selectedItem, index) => {
+                                        setMinSquareFeet(item.data_name);
+                                        await dispatch(
+                                          getPoperties({
+                                            type: 3,
+                                            data: {
+                                              data_custom_taxonomy:
+                                                'min_square',
+                                              data_customvalue:
+                                                item.data_customvalue,
+                                            },
+                                          }),
+                                        ).then(res => {
+                                          setHomeData(res.payload.data);
+                                        });
+                                      }}
+                                      buttonTextAfterSelection={(
+                                        selectedItem,
+                                        index,
+                                      ) => {
+                                        return (
+                                          <Text
+                                            style={{
+                                              color: 'black',
+                                              textAlign: 'left',
+                                            }}>
+                                            {selectedItem?.data_customvalue}
                                           </Text>
-                                        </View>
-                                      </TouchableOpacity>
-                                    );
-                                  }}></FlatList>
-                              </View>
-                            </View>
+                                        );
+                                      }}
+                                      rowTextForSelection={(item, index) => {
+                                        return (
+                                          <Text
+                                            style={{
+                                              color: 'black',
+                                              textAlign: 'left',
+                                            }}>
+                                            {item?.data_customvalue}
+                                          </Text>
+                                        );
+                                      }}
+                                    />
+                                  </View>
 
-                            <View>
-                              <Text
-                                style={{
-                                  color: 'black',
-                                  fontFamily: 'Poppins-Regular',
-                                  marginTop: 12,
-                                  fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14
-                                }}>
-                                Square Feet
-                              </Text>
-
-                              <View
-                                style={{
-                                  flexDirection: 'row',
-                                  justifyContent: 'space-between',
-                                  marginTop: 8,
-                                }}>
-                                <View style={[styles.dropdown, { width: '48%' }]}>
-                                  <SelectDropdown
-                                    data={moreFilterData.min_square}
-                                    buttonStyle={styles.dropdown1BtnStyle}
-                                    buttonTextStyle={styles.dropdown1BtnTxtStyle}
-                                    dropdownIconPosition={'right'}
-                                    dropdownStyle={styles.dropdown1DropdownStyle}
-                                    rowStyle={styles.dropdown1RowStyle}
-                                    rowTextStyle={styles.dropdown1RowTxtStyle}
-                                    search={true}
-                                    searchInputStyle={{ color: 'black' }}
-                                    searchPlaceholder="Search"
-                                    searchPlaceHolderColor="black"
-                                    searchInputTxtColor="black"
-                                    placeholder="Min square"
-                                    defaultButtonText="Min square"
-
-                                    renderDropdownIcon={isOpened => {
-                                      return (
-                                        <Image
-                                          source={Images.downArrow}
-                                          tintColor={Colors.gray}
-                                          style={{ height: 12, width: 12 }}></Image>
-                                      );
-                                    }}
-                                    onSelect={async (selectedItem, index) => {
-                                      setMinSquareFeet(item.data_name);
-                                      await dispatch(
-                                        getPoperties({
-                                          type: 3,
-                                          data: {
-                                            data_custom_taxonomy: 'min_square',
-                                            data_customvalue:
-                                              item.data_customvalue,
-                                          },
-                                        }),
-                                      ).then(res => {
-                                        setHomeData(res.payload.data);
-                                      });
-                                    }}
-                                    buttonTextAfterSelection={(
-                                      selectedItem,
-                                      index,
-                                    ) => {
-                                      return (
-                                        <Text
-                                          style={{
-                                            color: 'black',
-                                            textAlign: 'left',
-                                          }}>
-                                          {selectedItem?.data_customvalue}
-                                        </Text>
-                                      );
-                                    }}
-                                    rowTextForSelection={(item, index) => {
-                                      return (
-                                        <Text
-                                          style={{
-                                            color: 'black',
-                                            textAlign: 'left',
-                                          }}>
-                                          {item?.data_customvalue}
-                                        </Text>
-                                      );
-                                    }}
-                                  />
-                                </View>
-
-                                <View style={[styles.dropdown, { width: '48%' }]}>
-                                  <SelectDropdown
-                                    data={moreFilterData.max_square}
-                                    buttonStyle={styles.dropdown1BtnStyle}
-                                    buttonTextStyle={styles.dropdown1BtnTxtStyle}
-                                    dropdownIconPosition={'right'}
-                                    dropdownStyle={styles.dropdown1DropdownStyle}
-                                    rowStyle={styles.dropdown1RowStyle}
-                                    rowTextStyle={styles.dropdown1RowTxtStyle}
-                                    search={true}
-                                    searchInputStyle={{ color: 'black' }}
-                                    searchPlaceholder="Search"
-                                    searchPlaceHolderColor="black"
-                                    searchInputTxtColor="black"
-                                    placeholder="Max Square"
-                                    defaultButtonText="Max Square"
-                                    renderDropdownIcon={isOpened => {
-                                      return (
-                                        <Image
-                                          source={Images.downArrow}
-                                          tintColor={Colors.gray}
-                                          style={{ height: 12, width: 12 }}></Image>
-                                      );
-                                    }}
-                                    onSelect={async (selectedItem, index) => {
-                                      setMaxSquareFeet(item.data_name);
-                                      await dispatch(
-                                        getPoperties({
-                                          type: 3,
-                                          data: {
-                                            data_custom_taxonomy: 'max_square',
-                                            data_customvalue:
-                                              selectedItem.data_customvalue,
-                                          },
-                                        }),
-                                      ).then(res => {
-                                        setHomeData(res.payload.data);
-                                      });
-                                    }}
-                                    buttonTextAfterSelection={(
-                                      selectedItem,
-                                      index,
-                                    ) => {
-                                      return (
-                                        <Text
-                                          style={{
-                                            color: 'black',
-                                            textAlign: 'left',
-                                          }}>
-                                          {selectedItem?.data_customvalue}
-                                        </Text>
-                                      );
-                                    }}
-                                    rowTextForSelection={(item, index) => {
-                                      return (
-                                        <Text
-                                          style={{
-                                            color: 'black',
-                                            textAlign: 'left',
-                                          }}>
-                                          {item?.data_customvalue}
-                                        </Text>
-                                      );
-                                    }}
-                                  />
+                                  <View
+                                    style={[styles.dropdown, {width: '48%'}]}>
+                                    <SelectDropdown
+                                      data={moreFilterData.max_square}
+                                      buttonStyle={styles.dropdown1BtnStyle}
+                                      buttonTextStyle={
+                                        styles.dropdown1BtnTxtStyle
+                                      }
+                                      dropdownIconPosition={'right'}
+                                      dropdownStyle={
+                                        styles.dropdown1DropdownStyle
+                                      }
+                                      rowStyle={styles.dropdown1RowStyle}
+                                      rowTextStyle={styles.dropdown1RowTxtStyle}
+                                      search={true}
+                                      searchInputStyle={{color: 'black'}}
+                                      searchPlaceholder="Search"
+                                      searchPlaceHolderColor="black"
+                                      searchInputTxtColor="black"
+                                      placeholder="Max Square"
+                                      defaultButtonText="Max Square"
+                                      renderDropdownIcon={isOpened => {
+                                        return (
+                                          <Image
+                                            source={Images.downArrow}
+                                            tintColor={Colors.gray}
+                                            style={{
+                                              height: 12,
+                                              width: 12,
+                                            }}></Image>
+                                        );
+                                      }}
+                                      onSelect={async (selectedItem, index) => {
+                                        setMaxSquareFeet(item.data_name);
+                                        await dispatch(
+                                          getPoperties({
+                                            type: 3,
+                                            data: {
+                                              data_custom_taxonomy:
+                                                'max_square',
+                                              data_customvalue:
+                                                selectedItem.data_customvalue,
+                                            },
+                                          }),
+                                        ).then(res => {
+                                          setHomeData(res.payload.data);
+                                        });
+                                      }}
+                                      buttonTextAfterSelection={(
+                                        selectedItem,
+                                        index,
+                                      ) => {
+                                        return (
+                                          <Text
+                                            style={{
+                                              color: 'black',
+                                              textAlign: 'left',
+                                            }}>
+                                            {selectedItem?.data_customvalue}
+                                          </Text>
+                                        );
+                                      }}
+                                      rowTextForSelection={(item, index) => {
+                                        return (
+                                          <Text
+                                            style={{
+                                              color: 'black',
+                                              textAlign: 'left',
+                                            }}>
+                                            {item?.data_customvalue}
+                                          </Text>
+                                        );
+                                      }}
+                                    />
+                                  </View>
                                 </View>
                               </View>
-                            </View>
-                            <View style={{ marginTop: 12 }}>
-                              <Text
-                                style={{
-                                  color: 'black',
-                                  fontFamily: 'Poppins-Regular',
-                                  fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14
-                                }}>
-                                Price Range
-                              </Text>
+                              <View style={{marginTop: 12}}>
+                                <Text
+                                  style={{
+                                    color: 'black',
+                                    fontFamily: 'Poppins-Regular',
+                                    fontSize:
+                                      DeviceInfo.getDeviceType() === 'Tablet'
+                                        ? 18
+                                        : 14,
+                                  }}>
+                                  Price Range
+                                </Text>
 
-                              <View
-                                style={{
-                                  flexDirection: 'row',
-                                  justifyContent: 'space-between',
-                                  marginBottom: 16,
-                                  width: '100%',
-                                }}>
-                                <View style={[styles.dropdown, { width: '48%' }]}>
-                                  <SelectDropdown
-                                    data={moreFilterData.min_price}
-                                    buttonStyle={styles.dropdown1BtnStyle}
-                                    buttonTextStyle={styles.dropdown1BtnTxtStyle}
-                                    dropdownIconPosition={'right'}
-                                    dropdownStyle={styles.dropdown1DropdownStyle}
-                                    rowStyle={styles.dropdown1RowStyle}
-                                    rowTextStyle={styles.dropdown1RowTxtStyle}
-                                    search={true}
-                                    searchInputStyle={{ color: 'black' }}
-                                    searchPlaceholder="Search"
-                                    searchPlaceHolderColor="black"
-                                    searchInputTxtColor="black"
-                                    placeholder="Min Price"
-                                    defaultButtonText="Min Price"
-                                    renderDropdownIcon={isOpened => {
-                                      return (
-                                        <Image
-                                          source={Images.downArrow}
-                                          tintColor={Colors.gray}
-                                          style={{ height: 12, width: 12 }}></Image>
-                                      );
-                                    }}
-                                    onSelect={async (selectedItem, index) => {
-                                      setMinPricerange(item.data_name);
-                                      await dispatch(
-                                        getPoperties({
-                                          type: 3,
-                                          data: {
-                                            data_custom_taxonomy: 'min_price',
-                                            data_customvalue:
-                                              item.data_customvalue,
-                                          },
-                                        }),
-                                      ).then(res => {
-                                        setHomeData(res.payload.data);
-                                      });
-                                    }}
-                                    buttonTextAfterSelection={(
-                                      selectedItem,
-                                      index,
-                                    ) => {
-                                      return (
-                                        <Text
-                                          style={{
-                                            color: 'black',
-                                            textAlign: 'left',
-                                          }}>
-                                          {selectedItem?.data_customvalue}
-                                        </Text>
-                                      );
-                                    }}
-                                    rowTextForSelection={(item, index) => {
-                                      return (
-                                        <Text
-                                          style={{
-                                            color: 'black',
-                                            textAlign: 'left',
-                                          }}>
-                                          {item?.data_customvalue}
-                                        </Text>
-                                      );
-                                    }}
-                                  />
+                                <View
+                                  style={{
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    marginBottom: 16,
+                                    width: '100%',
+                                  }}>
+                                  <View
+                                    style={[styles.dropdown, {width: '48%'}]}>
+                                    <SelectDropdown
+                                      data={moreFilterData.min_price}
+                                      buttonStyle={styles.dropdown1BtnStyle}
+                                      buttonTextStyle={
+                                        styles.dropdown1BtnTxtStyle
+                                      }
+                                      dropdownIconPosition={'right'}
+                                      dropdownStyle={
+                                        styles.dropdown1DropdownStyle
+                                      }
+                                      rowStyle={styles.dropdown1RowStyle}
+                                      rowTextStyle={styles.dropdown1RowTxtStyle}
+                                      search={true}
+                                      searchInputStyle={{color: 'black'}}
+                                      searchPlaceholder="Search"
+                                      searchPlaceHolderColor="black"
+                                      searchInputTxtColor="black"
+                                      placeholder="Min Price"
+                                      defaultButtonText="Min Price"
+                                      renderDropdownIcon={isOpened => {
+                                        return (
+                                          <Image
+                                            source={Images.downArrow}
+                                            tintColor={Colors.gray}
+                                            style={{
+                                              height: 12,
+                                              width: 12,
+                                            }}></Image>
+                                        );
+                                      }}
+                                      onSelect={async (selectedItem, index) => {
+                                        setMinPricerange(item.data_name);
+                                        await dispatch(
+                                          getPoperties({
+                                            type: 3,
+                                            data: {
+                                              data_custom_taxonomy: 'min_price',
+                                              data_customvalue:
+                                                item.data_customvalue,
+                                            },
+                                          }),
+                                        ).then(res => {
+                                          setHomeData(res.payload.data);
+                                        });
+                                      }}
+                                      buttonTextAfterSelection={(
+                                        selectedItem,
+                                        index,
+                                      ) => {
+                                        return (
+                                          <Text
+                                            style={{
+                                              color: 'black',
+                                              textAlign: 'left',
+                                            }}>
+                                            {selectedItem?.data_customvalue}
+                                          </Text>
+                                        );
+                                      }}
+                                      rowTextForSelection={(item, index) => {
+                                        return (
+                                          <Text
+                                            style={{
+                                              color: 'black',
+                                              textAlign: 'left',
+                                            }}>
+                                            {item?.data_customvalue}
+                                          </Text>
+                                        );
+                                      }}
+                                    />
+                                  </View>
+
+                                  <View
+                                    style={[styles.dropdown, {width: '48%'}]}>
+                                    <SelectDropdown
+                                      data={moreFilterData.max_price}
+                                      buttonStyle={styles.dropdown1BtnStyle}
+                                      buttonTextStyle={
+                                        styles.dropdown1BtnTxtStyle
+                                      }
+                                      dropdownIconPosition={'right'}
+                                      dropdownStyle={
+                                        styles.dropdown1DropdownStyle
+                                      }
+                                      rowStyle={styles.dropdown1RowStyle}
+                                      rowTextStyle={styles.dropdown1RowTxtStyle}
+                                      search={true}
+                                      searchInputTxtStyle={{color: '#000000'}}
+                                      searchInputStyle={{color: '#000000'}}
+                                      searchPlaceholder="Search"
+                                      searchPlaceHolderColor="#000000"
+                                      searchInputTxtColor="#000000"
+                                      placeholder="Max Price"
+                                      defaultButtonText="Max Price"
+                                      renderDropdownIcon={isOpened => {
+                                        return (
+                                          <Image
+                                            source={Images.downArrow}
+                                            tintColor={Colors.gray}
+                                            style={{
+                                              height: 12,
+                                              width: 12,
+                                            }}></Image>
+                                        );
+                                      }}
+                                      onSelect={async (selectedItem, index) => {
+                                        setMaxPriceRange(item.data_name);
+                                        await dispatch(
+                                          getPoperties({
+                                            type: 3,
+                                            data: {
+                                              data_custom_taxonomy: 'max_price',
+                                              data_customvalue:
+                                                item.data_customvalue,
+                                            },
+                                          }),
+                                        ).then(res => {
+                                          setHomeData(res.payload.data);
+                                        });
+                                      }}
+                                      buttonTextAfterSelection={(
+                                        selectedItem,
+                                        index,
+                                      ) => {
+                                        return (
+                                          <Text
+                                            style={{
+                                              color: 'black',
+                                              textAlign: 'left',
+                                            }}>
+                                            {selectedItem?.data_customvalue}
+                                          </Text>
+                                        );
+                                      }}
+                                      rowTextForSelection={(item, index) => {
+                                        return (
+                                          <Text
+                                            style={{
+                                              color: 'black',
+                                              textAlign: 'left',
+                                            }}>
+                                            {item?.data_customvalue}
+                                          </Text>
+                                        );
+                                      }}
+                                    />
+                                  </View>
+
+                                  {/* </View> */}
                                 </View>
-
-                                <View style={[styles.dropdown, { width: '48%' }]}>
-                                  <SelectDropdown
-                                    data={moreFilterData.max_price}
-                                    buttonStyle={styles.dropdown1BtnStyle}
-                                    buttonTextStyle={styles.dropdown1BtnTxtStyle}
-                                    dropdownIconPosition={'right'}
-                                    dropdownStyle={styles.dropdown1DropdownStyle}
-                                    rowStyle={styles.dropdown1RowStyle}
-                                    rowTextStyle={styles.dropdown1RowTxtStyle}
-                                    search={true}
-                                    searchInputTxtStyle={{ color: '#000000' }}
-                                    searchInputStyle={{ color: '#000000' }}
-                                    searchPlaceholder="Search"
-                                    searchPlaceHolderColor="#000000"
-                                    searchInputTxtColor="#000000"
-                                    placeholder="Max Price"
-                                    defaultButtonText="Max Price"
-                                    renderDropdownIcon={isOpened => {
-                                      return (
-                                        <Image
-                                          source={Images.downArrow}
-                                          tintColor={Colors.gray}
-                                          style={{ height: 12, width: 12 }}></Image>
-                                      );
-                                    }}
-                                    onSelect={async (selectedItem, index) => {
-                                      setMaxPriceRange(item.data_name);
-                                      await dispatch(
-                                        getPoperties({
-                                          type: 3,
-                                          data: {
-                                            data_custom_taxonomy: 'max_price',
-                                            data_customvalue:
-                                              item.data_customvalue,
-                                          },
-                                        }),
-                                      ).then(res => {
-                                        setHomeData(res.payload.data);
-                                      });
-                                    }}
-                                    buttonTextAfterSelection={(
-                                      selectedItem,
-                                      index,
-                                    ) => {
-                                      return (
-                                        <Text
-                                          style={{
-                                            color: 'black',
-                                            textAlign: 'left',
-                                          }}>
-                                          {selectedItem?.data_customvalue}
-                                        </Text>
-                                      );
-                                    }}
-                                    rowTextForSelection={(item, index) => {
-                                      return (
-                                        <Text
-                                          style={{
-                                            color: 'black',
-                                            textAlign: 'left',
-                                          }}>
-                                          {item?.data_customvalue}
-                                        </Text>
-                                      );
-                                    }}
-                                  />
-                                </View>
-
-                                {/* </View> */}
                               </View>
-                            </View>
-                            {/* <View style={{ width: '100%', justifyContent: 'center', alignItems: "center" }}>
+                              {/* <View style={{ width: '100%', justifyContent: 'center', alignItems: "center" }}>
                             <TouchableOpacity onPress={() => { setMoreFilter(!moreFilter); }}>
                               <Text style={{ color: Colors.white, padding: 10, borderRadius: 25, textAlign: 'center', width: 130, fontSize: 14, fontWeight: 700, backgroundColor: Colors.black, marginVertical: 12, paddingVertical: 15 }}>More Filters</Text>
 
                             </TouchableOpacity>
                           </View> */}
-                            <Collapsible collapsed={moreFilter}>
-                              <View
-                                style={{
-                                  alignContent: 'center',
-                                  width: '100%',
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                }}>
-                                <FlatList
-                                  data={moreFilterData?.more_filter_data}
+                              <Collapsible collapsed={moreFilter}>
+                                <View
                                   style={{
                                     alignContent: 'center',
-                                    //margin: -6
-                                  }}
-                                  nestedScrollEnabled
-                                  numColumns={3}
-                                  renderItem={({ item, index }) => {
-                                    const {
-                                      data_custom_taxonomy,
-                                      data_customvalue,
-                                    } = item;
-                                    const isSelectedMore =
-                                      selectedTabsMore.filter(
-                                        i => i === data_customvalue,
-                                      ).length > 0;
-                                    return (
-                                      <TouchableOpacity
-                                        style={{
-                                          width: '33.33%',
-                                          //margin: 5,
-
-                                          //borderWidth: 1,
-                                          //borderColor: Colors.black,
-
-                                          // padding: 10,
-                                          // marginBottom:8,
-                                          paddingHorizontal: 8
-                                        }}
-                                        onPress={async () => {
-                                          if (isSelectedMore) {
-                                            setSelectedTabsMore(prev =>
-                                              prev.filter(
-                                                i => i !== data_customvalue,
-                                              ),
-                                            );
-                                          } else {
-                                            setSelectedTabsMore(prev => [
-                                              ...prev,
-                                              data_customvalue,
-                                            ]);
-                                          }
-                                        }}>
-                                        <Text
+                                    width: '100%',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                  }}>
+                                  <FlatList
+                                    data={moreFilterData?.more_filter_data}
+                                    style={{
+                                      alignContent: 'center',
+                                      //margin: -6
+                                    }}
+                                    nestedScrollEnabled
+                                    numColumns={3}
+                                    renderItem={({item, index}) => {
+                                      const {
+                                        data_custom_taxonomy,
+                                        data_customvalue,
+                                      } = item;
+                                      const isSelectedMore =
+                                        selectedTabsMore.filter(
+                                          i => i === data_customvalue,
+                                        ).length > 0;
+                                      return (
+                                        <TouchableOpacity
                                           style={{
-                                            color: isSelectedMore
-                                              ? Colors.white
-                                              : Colors.black,
-                                            textAlign: 'center',
-                                            borderRadius: 20,
-                                            borderWidth: .8,
-                                            borderColor: Colors.gray,
-                                            backgroundColor: isSelectedMore
-                                              ? Colors.black
-                                              : Colors.white,
-                                            padding: 10,
-                                            marginBottom: 8,
-                                            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14
+                                            width: '33.33%',
+                                            //margin: 5,
+
+                                            //borderWidth: 1,
+                                            //borderColor: Colors.black,
+
+                                            // padding: 10,
+                                            // marginBottom:8,
+                                            paddingHorizontal: 8,
                                           }}
-                                          numberOfLines={1}>
-                                          {item?.data_name}
-                                        </Text>
-                                      </TouchableOpacity>
-                                    );
-                                  }}></FlatList>
-                              </View>
-                            </Collapsible>
-                            <View
-                              style={{
-                                width: '100%',
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-end',
-                              }}>
-                              <TouchableOpacity
-                                onPress={async () => {
-                                  setFilterModalVisible(false);
-                                }}
+                                          onPress={async () => {
+                                            if (isSelectedMore) {
+                                              setSelectedTabsMore(prev =>
+                                                prev.filter(
+                                                  i => i !== data_customvalue,
+                                                ),
+                                              );
+                                            } else {
+                                              setSelectedTabsMore(prev => [
+                                                ...prev,
+                                                data_customvalue,
+                                              ]);
+                                            }
+                                          }}>
+                                          <Text
+                                            style={{
+                                              color: isSelectedMore
+                                                ? Colors.white
+                                                : Colors.black,
+                                              textAlign: 'center',
+                                              borderRadius: 20,
+                                              borderWidth: 0.8,
+                                              borderColor: Colors.gray,
+                                              backgroundColor: isSelectedMore
+                                                ? Colors.black
+                                                : Colors.white,
+                                              padding: 10,
+                                              marginBottom: 8,
+                                              fontSize:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 18
+                                                  : 14,
+                                            }}
+                                            numberOfLines={1}>
+                                            {item?.data_name}
+                                          </Text>
+                                        </TouchableOpacity>
+                                      );
+                                    }}></FlatList>
+                                </View>
+                              </Collapsible>
+                              <View
                                 style={{
-                                  height: 50,
-                                  width: 130,
-                                  borderRadius: 100,
-                                  backgroundColor: Colors.surfblur,
-                                  marginTop: 10,
+                                  width: '100%',
                                   flexDirection: 'row',
                                   alignItems: 'center',
-                                  justifyContent: 'center',
-                                  marginBottom: 40,
+                                  justifyContent: 'flex-end',
                                 }}>
-                                <Text
+                                <TouchableOpacity
+                                  onPress={async () => {
+                                    setFilterModalVisible(false);
+                                  }}
                                   style={{
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontFamily: 'Poppins-Regular',
+                                    height: 50,
+                                    width: 130,
+                                    borderRadius: 100,
+                                    backgroundColor: Colors.surfblur,
+                                    marginTop: 10,
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    marginBottom: 40,
                                   }}>
-                                  Apply
-                                </Text>
-                              </TouchableOpacity>
+                                  <Text
+                                    style={{
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontFamily: 'Poppins-Regular',
+                                    }}>
+                                    Apply
+                                  </Text>
+                                </TouchableOpacity>
+                              </View>
                             </View>
                           </View>
-                        </View>
-                      </ScrollView>
-                    </Animated.View>
-                  </View>
-                </Modal>
-              </KeyboardAvoidingView>
-            </View>
-          )}
-          <View
-            onLayout={({ nativeEvent }) => {
-              const { x, y, width, height } = nativeEvent.layout
-              setCenterHeight(height)
-            }} style={{}}>
+                        </ScrollView>
+                      </Animated.View>
+                    </View>
+                  </Modal>
+                </KeyboardAvoidingView>
+              </View>
+            )}
+          </View>
 
+          <View style={{}}>
             {homeData?.length > 0 ? (
-              <View style={{ height: centerHeight, width: "100%", }}  >
+              <View
+                onLayout={({nativeEvent}) => {
+                  const {x, y, width, height} = nativeEvent.layout;
+                  setCenterHeight(height);
+                }}
+                style={{height: centerHeight, width: '100%'}}>
                 {!showMap && homeData?.length > 0 ? (
-                  <View
-                    style={{ height: centerHeight, width: "100%", }}>
+                  <View style={{height: centerHeight, width: '100%'}}>
                     <CardsSwipe
                       style={{
                         position: 'relative',
                         width: '100%',
                         height: '100%',
                         overflow: 'hidden',
-
                       }}
                       // loop={false}
                       cards={homeData}
@@ -1745,17 +1901,16 @@ const Home = () => {
                       renderYep={() => (
                         <View
                           style={{
-
-                            marginLeft: 8,
-                            height: width - (viewHeight + 4),
-                            width: width,
+                            height:imageHeight,
+                            width: imageWidth,
                             backgroundColor: 'green',
                             paddingHorizontal: 8,
                             borderRadius: 15,
+                            marginLeft:10,
+                            // marginRight:5,
                             // marginTop: -22,
                             overflow: 'hidden',
                             position: 'absolute',
-
                           }}>
                           <View
                             style={{
@@ -1790,19 +1945,20 @@ const Home = () => {
                         <View
                           style={{
                             marginLeft: -width,
-                            marginRight: 8,
-                            height: width - (viewHeight + 4),
-                            width: width,
+                            height:imageHeight,
+                            width: imageWidth,
                             backgroundColor: 'red',
                             paddingHorizontal: 8,
                             borderRadius: 15,
+                            // marginLeft:20,
                             overflow: 'hidden',
+                            position:'absolute'
                           }}>
                           <View
                             style={{
                               position: 'absolute',
                               width: '100%',
-                              height: '92%',
+                              height: '100%',
                               justifyContent: 'center',
                               alignItems: 'center',
                             }}>
@@ -1834,21 +1990,26 @@ const Home = () => {
                         savefile(homeData[item].ID);
                       }}
                       renderCard={(item, index) => (
-                        <View style={[styles.shadowProp, { height: centerHeight }]}>
-                          <SwiperFlatList style={{ height: "60%" }}
+                        <View style={[styles.shadowProp, {height: '100%'}]}>
+                          <SwiperFlatList
+                            style={{height: '60%'}}
                             index={imageIndex}
                             autoPlay={true}
                             autoplayDelay={3000}
                             data={item?.featured_image_src}
                             refer={index}
-                            renderItem={({ item1, index }) => (
+                            renderItem={({item1, index}) => (
                               <>
                                 <View
+                                 onLayout={({nativeEvent}) => {
+                                  const {x, y, width, height} = nativeEvent.layout;
+                                  setImageHeight(height);
+                                  setImageWidth(width)
+                                }}
                                   style={{
-                                    height: "100%",
+                                    height: '100%',
                                     width: width,
                                     position: 'relative',
-
                                   }}>
                                   <View
                                     style={{
@@ -1873,7 +2034,7 @@ const Home = () => {
                                           height: 25,
                                           width: 25,
                                           tintColor: Colors.white,
-                                          transform: [{ rotate: '-180deg' }], // Specify the rotation angle here
+                                          transform: [{rotate: '-180deg'}], // Specify the rotation angle here
                                           position: 'relative',
                                           left: 12,
                                           alignItems: 'center',
@@ -1916,7 +2077,7 @@ const Home = () => {
                                     <TouchableOpacity
                                       disabled={
                                         item?.featured_image_src?.length - 1 ===
-                                          imageIndex
+                                        imageIndex
                                           ? true
                                           : false
                                       }
@@ -1933,9 +2094,8 @@ const Home = () => {
                                         }}></View>
                                     </TouchableOpacity>
                                   </View>
-
                                   <TouchableOpacity
-                                    style={{ height: '100%' }}
+                                    style={{height: '100%'}}
                                     onPress={() => {
                                       navigation.navigate('ViewPropertiy', {
                                         ID: item.ID,
@@ -1944,7 +2104,7 @@ const Home = () => {
                                     }}>
                                     <Image
                                       style={{
-                                        width: width - 16,
+                                        width: '95%',
                                         height: '100%',
                                         borderRadius: 0,
                                         justifyContent: 'space-between',
@@ -1955,8 +2115,9 @@ const Home = () => {
                                         overflow: 'hidden',
                                       }}
                                       source={{
-                                        uri: item?.featured_image_src[imageIndex]
-                                          ?.guid,
+                                        uri: item?.featured_image_src[
+                                          imageIndex
+                                        ]?.guid,
                                       }}
                                     />
                                   </TouchableOpacity>
@@ -1964,16 +2125,19 @@ const Home = () => {
                               </>
                             )}
                           />
-                          <View style={{ height: "40%", paddingTop: 16 }}>
+                          <View
+                            style={{
+                              height: '40%',
+                              paddingTop: 8,
+                              // justifyContent: 'space-evenly',
+                            }}>
                             {!loading && (
-
                               <View
                                 style={{
-                                  marginTop: -6,
                                   marginLeft: 8,
-                                  width: width - 16,
+                                  width: "97%",
                                   marginRight: 8,
-                                  justifyContent: 'space-between',
+                                  justifyContent: 'space-evenly',
                                   backgroundColor: Colors.white,
                                 }}>
                                 <View
@@ -1983,7 +2147,6 @@ const Home = () => {
                                     justifyContent: 'space-between',
                                     alignItems: 'center',
                                     paddingHorizontal: 12,
-                                    // paddingTop:0,
                                   }}>
                                   <View
                                     style={{
@@ -1992,14 +2155,22 @@ const Home = () => {
                                       alignItems: 'center',
                                     }}>
                                     <TouchableOpacity
-                                      style={{ height: 40, width: 40, justifyContent: "flex-start", alignItems: "flex-end" }}
+                                      style={{
+                                        height: 40,
+                                        width: 40,
+                                        justifyContent: 'flex-start',
+                                        alignItems: 'flex-start',
+                                      right:15
+                                      }}
                                       onPress={() => {
                                         setProductId(item.ID);
                                         setReviewTitle(item.title);
                                         toggleModal();
                                         dispatch(getRating(item.ID)).then(
                                           response => {
-                                            setRatingData(response?.payload?.data);
+                                            setRatingData(
+                                              response?.payload?.data,
+                                            );
                                             setRating(
                                               response?.payload?.data[0]
                                                 ?.photo_wuality_rating,
@@ -2048,7 +2219,9 @@ const Home = () => {
                                               color: Colors.black,
                                               fontFamily: 'Poppins-Light',
                                             }}>
-                                            {Math.round(item.total_average_rating)}
+                                            {Math.round(
+                                              item.total_average_rating,
+                                            )}
                                           </Text>
                                         ) : null}
                                       </View>
@@ -2065,8 +2238,14 @@ const Home = () => {
                                     {''}
                                   </Text>
                                   <TouchableOpacity
-                                    onPress={() => handleShare(item.ID)} style={{
-                                      height: 40, width: 40, justifyContent: "flex-start", alignItems: "flex-end"
+                                    onPress={() => handleShare(item.ID)}
+                                    style={{
+                                      height: 40,
+                                      width: 40,
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      bottom:10,
+                                     marginRight:20
                                     }}>
                                     <Image
                                       source={Images.send}
@@ -2134,27 +2313,59 @@ const Home = () => {
                                               }}></View>
                                           </View>
 
-
-
-                                          <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 36 : 26, fontFamily: "Poppins-SemiBold", color: Colors.black, marginTop: 40, textAlign: "center" }}>Congratulations!</Text>
-                                          <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 36 : 26, fontFamily: "Poppins-SemiBold", color: Colors.black, marginBottom: 50, textAlign: "center" }}>You swiped right!</Text>
                                           <Text
                                             style={{
-                                              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 18,
+                                              fontSize:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 36
+                                                  : 26,
+                                              fontFamily: 'Poppins-SemiBold',
+                                              color: Colors.black,
+                                              marginTop: 40,
+                                              textAlign: 'center',
+                                            }}>
+                                            Congratulations!
+                                          </Text>
+                                          <Text
+                                            style={{
+                                              fontSize:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 36
+                                                  : 26,
+                                              fontFamily: 'Poppins-SemiBold',
+                                              color: Colors.black,
+                                              marginBottom: 50,
+                                              textAlign: 'center',
+                                            }}>
+                                            You swiped right!
+                                          </Text>
+                                          <Text
+                                            style={{
+                                              fontSize:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 26
+                                                  : 18,
                                               fontFamily: 'Poppins-Light',
                                               color: 'black',
                                               alignItems: 'center',
                                               flexDirection: 'row',
-                                              lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 26,
+                                              lineHeight:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 39
+                                                  : 26,
                                               flexWrap: 'wrap',
-                                              textAlign: "center",
+                                              textAlign: 'center',
                                               flexDirection: 'row',
                                               alignItems: 'center',
                                               textAlign: 'center',
-                                              paddingHorizontal: 16
+                                              paddingHorizontal: 16,
                                             }}>
-                                            These properties will be
-                                            saved in your Favorites
+                                            These properties will be saved in
+                                            your Favorites
                                             {/* <TouchableOpacity
                                           onPress={() => {
                                             navigation.navigate('RecycleBin');
@@ -2167,32 +2378,82 @@ const Home = () => {
                                          
                                         
                                         </TouchableOpacity> */}
-
                                           </Text>
 
-
-                                          <View style={{ flexDirection: "row", marginTop: 60, justifyContent: "flex-end", alignItems: "flex-start" }}>
-
+                                          <View
+                                            style={{
+                                              flexDirection: 'row',
+                                              marginTop: 60,
+                                              justifyContent: 'flex-end',
+                                              alignItems: 'flex-start',
+                                            }}>
                                             <LottieView
                                               style={{
-                                                height: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 49,
-                                                width: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 59, marginRight: 30, transform: [{ rotate: '-180deg' }], marginTop: 0, position: "relative", top: DeviceInfo.getDeviceType() === 'Tablet' ? -15 : -10
+                                                height:
+                                                  DeviceInfo.getDeviceType() ===
+                                                  'Tablet'
+                                                    ? 79
+                                                    : 49,
+                                                width:
+                                                  DeviceInfo.getDeviceType() ===
+                                                  'Tablet'
+                                                    ? 79
+                                                    : 59,
+                                                marginRight: 30,
+                                                transform: [
+                                                  {rotate: '-180deg'},
+                                                ],
+                                                marginTop: 0,
+                                                position: 'relative',
+                                                top:
+                                                  DeviceInfo.getDeviceType() ===
+                                                  'Tablet'
+                                                    ? -15
+                                                    : -10,
                                               }}
                                               source={require('../../assets/animations/leftarrow.json')}
-                                              autoPlay loop />
-                                            <View style={{ flexDirection: "column" }}>
-                                              <TouchableOpacity style={{ alignItems: "center" }}
+                                              autoPlay
+                                              loop
+                                            />
+                                            <View
+                                              style={{flexDirection: 'column'}}>
+                                              <TouchableOpacity
+                                                style={{alignItems: 'center'}}
                                                 onPress={() => {
-                                                  navigation.navigate('MyFavorites');
-                                                }} >
+                                                  navigation.navigate(
+                                                    'MyFavorites',
+                                                  );
+                                                }}>
                                                 <Image
                                                   source={Images.ThumbUp}
-                                                  style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000" }}></Image>
-                                                <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 10, fontFamily: "Poppins-Light", color: "#000" }}>Favorites</Text>
+                                                  style={{
+                                                    height:
+                                                      DeviceInfo.getDeviceType() ===
+                                                      'Tablet'
+                                                        ? 39
+                                                        : 25,
+                                                    width:
+                                                      DeviceInfo.getDeviceType() ===
+                                                      'Tablet'
+                                                        ? 39
+                                                        : 25,
+                                                    resizeMode: 'contain',
+                                                    tintColor: '#000',
+                                                  }}></Image>
+                                                <Text
+                                                  style={{
+                                                    fontSize:
+                                                      DeviceInfo.getDeviceType() ===
+                                                      'Tablet'
+                                                        ? 20
+                                                        : 10,
+                                                    fontFamily: 'Poppins-Light',
+                                                    color: '#000',
+                                                  }}>
+                                                  Favorites
+                                                </Text>
                                               </TouchableOpacity>
                                             </View>
-
-
                                           </View>
                                         </Animated.View>
                                       </View>
@@ -2254,25 +2515,59 @@ const Home = () => {
                                                 borderRadius: 100,
                                               }}></View>
                                           </View>
-                                          <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 36 : 26, fontFamily: "Poppins-SemiBold", color: Colors.black, marginTop: 40, textAlign: "center" }}>Woohoo! </Text>
-                                          <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 36 : 26, fontFamily: "Poppins-SemiBold", color: Colors.black, marginBottom: 50, textAlign: "center" }}>You swiped left!</Text>
                                           <Text
                                             style={{
-                                              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 18,
+                                              fontSize:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 36
+                                                  : 26,
+                                              fontFamily: 'Poppins-SemiBold',
+                                              color: Colors.black,
+                                              marginTop: 40,
+                                              textAlign: 'center',
+                                            }}>
+                                            Woohoo!{' '}
+                                          </Text>
+                                          <Text
+                                            style={{
+                                              fontSize:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 36
+                                                  : 26,
+                                              fontFamily: 'Poppins-SemiBold',
+                                              color: Colors.black,
+                                              marginBottom: 50,
+                                              textAlign: 'center',
+                                            }}>
+                                            You swiped left!
+                                          </Text>
+                                          <Text
+                                            style={{
+                                              fontSize:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 26
+                                                  : 18,
                                               fontFamily: 'Poppins-Light',
                                               color: 'black',
                                               alignItems: 'center',
                                               flexDirection: 'row',
-                                              lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 26,
+                                              lineHeight:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 39
+                                                  : 26,
                                               flexWrap: 'wrap',
-                                              textAlign: "center",
+                                              textAlign: 'center',
                                               flexDirection: 'row',
                                               alignItems: 'center',
                                               textAlign: 'center',
-                                              paddingHorizontal: 16
+                                              paddingHorizontal: 16,
                                             }}>
-                                            These properties will be saved in the
-                                            “Recycle Bin” tab inside the
+                                            These properties will be saved in
+                                            the “Recycle Bin” tab inside the
                                             profile menu.
                                             {/* <TouchableOpacity
                                           onPress={() => {
@@ -2286,32 +2581,84 @@ const Home = () => {
                                          
                                         
                                         </TouchableOpacity> */}
-
                                           </Text>
 
-                                          <View style={{ flexDirection: "row", marginTop: 60, justifyContent: "flex-start", alignItems: "flex-start" }}>
-                                            <View style={{ flexDirection: "column" }}>
-                                              <TouchableOpacity style={{ alignItems: "center", justifyContent: "center" }}
+                                          <View
+                                            style={{
+                                              flexDirection: 'row',
+                                              marginTop: 60,
+                                              justifyContent: 'flex-start',
+                                              alignItems: 'flex-start',
+                                            }}>
+                                            <View
+                                              style={{flexDirection: 'column'}}>
+                                              <TouchableOpacity
+                                                style={{
+                                                  alignItems: 'center',
+                                                  justifyContent: 'center',
+                                                }}
                                                 onPress={() => {
-                                                  navigation.navigate('MyProfile');
-                                                }} >
+                                                  navigation.navigate(
+                                                    'MyProfile',
+                                                  );
+                                                }}>
                                                 <Image
                                                   source={Images.newprofile}
-                                                  style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000" }}></Image>
-                                                <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 10, fontFamily: "Poppins-Light", color: "#000" }}>Profile</Text>
+                                                  style={{
+                                                    height:
+                                                      DeviceInfo.getDeviceType() ===
+                                                      'Tablet'
+                                                        ? 39
+                                                        : 25,
+                                                    width:
+                                                      DeviceInfo.getDeviceType() ===
+                                                      'Tablet'
+                                                        ? 39
+                                                        : 25,
+                                                    resizeMode: 'contain',
+                                                    tintColor: '#000',
+                                                  }}></Image>
+                                                <Text
+                                                  style={{
+                                                    fontSize:
+                                                      DeviceInfo.getDeviceType() ===
+                                                      'Tablet'
+                                                        ? 20
+                                                        : 10,
+                                                    fontFamily: 'Poppins-Light',
+                                                    color: '#000',
+                                                  }}>
+                                                  Profile
+                                                </Text>
                                               </TouchableOpacity>
                                             </View>
 
                                             <LottieView
                                               style={{
-                                                height: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 49,
-                                                width: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 59, marginLeft: 10, marginTop: 0, position: "relative", top: DeviceInfo.getDeviceType() === 'Tablet' ? -15 : -10
+                                                height:
+                                                  DeviceInfo.getDeviceType() ===
+                                                  'Tablet'
+                                                    ? 79
+                                                    : 49,
+                                                width:
+                                                  DeviceInfo.getDeviceType() ===
+                                                  'Tablet'
+                                                    ? 79
+                                                    : 59,
+                                                marginLeft: 10,
+                                                marginTop: 0,
+                                                position: 'relative',
+                                                top:
+                                                  DeviceInfo.getDeviceType() ===
+                                                  'Tablet'
+                                                    ? -15
+                                                    : -10,
                                               }}
                                               source={require('../../assets/animations/leftarrow.json')}
-                                              autoPlay loop />
-
+                                              autoPlay
+                                              loop
+                                            />
                                           </View>
-
                                         </Animated.View>
                                       </View>
                                     </View>
@@ -2372,29 +2719,62 @@ const Home = () => {
                                                 borderRadius: 100,
                                               }}></View>
                                           </View>
-                                          <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 26, fontFamily: "Poppins-SemiBold", color: Colors.black, marginTop: 40, textAlign: "center" }}>Righteous!
-                                          </Text>
-                                          <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 26, fontFamily: "Poppins-SemiBold", color: Colors.black, marginBottom: 50, textAlign: "center" }}>You saved your first search!</Text>
                                           <Text
                                             style={{
-                                              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 24 : 18,
+                                              fontSize:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 39
+                                                  : 26,
+                                              fontFamily: 'Poppins-SemiBold',
+                                              color: Colors.black,
+                                              marginTop: 40,
+                                              textAlign: 'center',
+                                            }}>
+                                            Righteous!
+                                          </Text>
+                                          <Text
+                                            style={{
+                                              fontSize:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 39
+                                                  : 26,
+                                              fontFamily: 'Poppins-SemiBold',
+                                              color: Colors.black,
+                                              marginBottom: 50,
+                                              textAlign: 'center',
+                                            }}>
+                                            You saved your first search!
+                                          </Text>
+                                          <Text
+                                            style={{
+                                              fontSize:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 24
+                                                  : 18,
                                               fontFamily: 'Poppins-Light',
                                               color: 'black',
                                               alignItems: 'center',
                                               flexDirection: 'row',
-                                              lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 22,
+                                              lineHeight:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 35
+                                                  : 22,
                                               flexWrap: 'wrap',
-                                              textAlign: "center",
+                                              textAlign: 'center',
                                               flexDirection: 'row',
                                               alignItems: 'center',
                                               textAlign: 'center',
-                                              paddingHorizontal: 16
+                                              paddingHorizontal: 16,
                                             }}>
-                                            You can find your Saved Search’s in the
-                                            “Saved Search” tab inside the profile menu.
-                                            You’ll also receive emails and push
-                                            notifications when new properties are listed.
-
+                                            You can find your Saved Search’s in
+                                            the “Saved Search” tab inside the
+                                            profile menu. You’ll also receive
+                                            emails and push notifications when
+                                            new properties are listed.
                                             {/* <TouchableOpacity
                                           onPress={() => {
                                             navigation.navigate('RecycleBin');
@@ -2407,32 +2787,84 @@ const Home = () => {
                                          
                                         
                                         </TouchableOpacity> */}
-
                                           </Text>
 
-
-                                          <View style={{ flexDirection: "row", marginTop: 60, justifyContent: "flex-start", alignItems: "flex-start" }}>
-                                            <View style={{ flexDirection: "column" }}>
-                                              <TouchableOpacity style={{ alignItems: "center", justifyContent: "center" }}
+                                          <View
+                                            style={{
+                                              flexDirection: 'row',
+                                              marginTop: 60,
+                                              justifyContent: 'flex-start',
+                                              alignItems: 'flex-start',
+                                            }}>
+                                            <View
+                                              style={{flexDirection: 'column'}}>
+                                              <TouchableOpacity
+                                                style={{
+                                                  alignItems: 'center',
+                                                  justifyContent: 'center',
+                                                }}
                                                 onPress={() => {
-                                                  navigation.navigate('MyProfile');
-                                                }} >
+                                                  navigation.navigate(
+                                                    'MyProfile',
+                                                  );
+                                                }}>
                                                 <Image
                                                   source={Images.newprofile}
-                                                  style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25, resizeMode: 'contain', tintColor: "#000" }}></Image>
-                                                <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 10, fontFamily: "Poppins-Light", color: "#000" }}>Profile</Text>
+                                                  style={{
+                                                    height:
+                                                      DeviceInfo.getDeviceType() ===
+                                                      'Tablet'
+                                                        ? 39
+                                                        : 25,
+                                                    width:
+                                                      DeviceInfo.getDeviceType() ===
+                                                      'Tablet'
+                                                        ? 39
+                                                        : 25,
+                                                    resizeMode: 'contain',
+                                                    tintColor: '#000',
+                                                  }}></Image>
+                                                <Text
+                                                  style={{
+                                                    fontSize:
+                                                      DeviceInfo.getDeviceType() ===
+                                                      'Tablet'
+                                                        ? 20
+                                                        : 10,
+                                                    fontFamily: 'Poppins-Light',
+                                                    color: '#000',
+                                                  }}>
+                                                  Profile
+                                                </Text>
                                               </TouchableOpacity>
                                             </View>
 
                                             <LottieView
                                               style={{
-                                                height: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 49,
-                                                width: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 59, marginLeft: 10, marginTop: 0, position: "relative", top: DeviceInfo.getDeviceType() === 'Tablet' ? -15 : -10
+                                                height:
+                                                  DeviceInfo.getDeviceType() ===
+                                                  'Tablet'
+                                                    ? 79
+                                                    : 49,
+                                                width:
+                                                  DeviceInfo.getDeviceType() ===
+                                                  'Tablet'
+                                                    ? 79
+                                                    : 59,
+                                                marginLeft: 10,
+                                                marginTop: 0,
+                                                position: 'relative',
+                                                top:
+                                                  DeviceInfo.getDeviceType() ===
+                                                  'Tablet'
+                                                    ? -15
+                                                    : -10,
                                               }}
                                               source={require('../../assets/animations/leftarrow.json')}
-                                              autoPlay loop />
+                                              autoPlay
+                                              loop
+                                            />
                                           </View>
-
                                         </Animated.View>
                                       </View>
                                     </View>
@@ -2494,45 +2926,90 @@ const Home = () => {
                                                 borderRadius: 100,
                                               }}></View>
                                           </View>
-                                          <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 36 : 21, fontFamily: "Poppins-SemiBold", color: Colors.black, marginTop: 40, textAlign: "center" }}>Cool Beans!
-
+                                          <Text
+                                            style={{
+                                              fontSize:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 36
+                                                  : 21,
+                                              fontFamily: 'Poppins-SemiBold',
+                                              color: Colors.black,
+                                              marginTop: 40,
+                                              textAlign: 'center',
+                                            }}>
+                                            Cool Beans!
                                           </Text>
-                                          <Text style={{
-                                            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 24 : 14, fontFamily: "Poppins-Medium", color: Colors.black,
-                                            marginBottom: 0, textAlign: "center"
-                                          }}>You clicked the geo-lokator!
+                                          <Text
+                                            style={{
+                                              fontSize:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 24
+                                                  : 14,
+                                              fontFamily: 'Poppins-Medium',
+                                              color: Colors.black,
+                                              marginBottom: 0,
+                                              textAlign: 'center',
+                                            }}>
+                                            You clicked the geo-lokator!
                                           </Text>
-                                          <View style={{ width: "100%", justifyContent: "center", alignItems: "center", marginBottom: 40 }}>
+                                          <View
+                                            style={{
+                                              width: '100%',
+                                              justifyContent: 'center',
+                                              alignItems: 'center',
+                                              marginBottom: 40,
+                                            }}>
                                             <LottieView
                                               style={{
-                                                height: DeviceInfo.getDeviceType() === 'Tablet' ? 200 : 200, justifyContent: "center", alignItems: "center",
-                                                width: DeviceInfo.getDeviceType() === 'Tablet' ? 270 : 270
+                                                height:
+                                                  DeviceInfo.getDeviceType() ===
+                                                  'Tablet'
+                                                    ? 200
+                                                    : 200,
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                width:
+                                                  DeviceInfo.getDeviceType() ===
+                                                  'Tablet'
+                                                    ? 270
+                                                    : 270,
                                               }}
                                               source={require('../../assets/animations/map.json')}
-                                              autoPlay loop />
+                                              autoPlay
+                                              loop
+                                            />
                                           </View>
                                           <Text
                                             style={{
-                                              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 18,
+                                              fontSize:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 26
+                                                  : 18,
                                               fontFamily: 'Poppins-Light',
                                               color: 'black',
                                               alignItems: 'center',
                                               flexDirection: 'row',
-                                              lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 22,
+                                              lineHeight:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 39
+                                                  : 22,
                                               flexWrap: 'wrap',
-                                              textAlign: "center",
+                                              textAlign: 'center',
                                               flexDirection: 'row',
                                               alignItems: 'center',
                                               textAlign: 'center',
-                                              paddingHorizontal: 16
+                                              paddingHorizontal: 16,
                                             }}>
                                             If you are in any neighborhood and
-                                            want to see the price or details of a
-                                            home without Googling it or
-                                            contacting the Realtor®, this
-                                            will be an invaluable tool in the
-                                            search for your new home
-
+                                            want to see the price or details of
+                                            a home without Googling it or
+                                            contacting the Realtor®, this will
+                                            be an invaluable tool in the search
+                                            for your new home
                                             {/* <TouchableOpacity
                                           onPress={() => {
                                             navigation.navigate('RecycleBin');
@@ -2545,13 +3022,23 @@ const Home = () => {
                                          
                                         
                                         </TouchableOpacity> */}
-
                                           </Text>
 
-                                          <Text style={{
-                                            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 15, fontFamily: "Poppins-SemiBold", color: "black", width: "100%",
-                                            textAlign: "center", marginTop: 30
-                                          }}>You’re Welcome!</Text>
+                                          <Text
+                                            style={{
+                                              fontSize:
+                                                DeviceInfo.getDeviceType() ===
+                                                'Tablet'
+                                                  ? 26
+                                                  : 15,
+                                              fontFamily: 'Poppins-SemiBold',
+                                              color: 'black',
+                                              width: '100%',
+                                              textAlign: 'center',
+                                              marginTop: 30,
+                                            }}>
+                                            You’re Welcome!
+                                          </Text>
                                         </Animated.View>
                                       </View>
                                     </View>
@@ -2617,7 +3104,7 @@ const Home = () => {
                                               Your Review
                                             </Text>
                                           </View>
-                                          <View style={{ width: '100%' }}>
+                                          <View style={{width: '100%'}}>
                                             <View
                                               style={{
                                                 width: '100%',
@@ -2626,7 +3113,8 @@ const Home = () => {
                                               <View
                                                 style={{
                                                   flexDirection: 'row',
-                                                  justifyContent: 'space-between',
+                                                  justifyContent:
+                                                    'space-between',
                                                   alignItems: 'center',
                                                   marginTop: 10,
                                                 }}>
@@ -2634,7 +3122,8 @@ const Home = () => {
                                                   style={{
                                                     fontSize: 12,
                                                     color: Colors.black,
-                                                    fontFamily: 'Poppins-Regular',
+                                                    fontFamily:
+                                                      'Poppins-Regular',
                                                   }}>
                                                   Photos :
                                                 </Text>
@@ -2661,14 +3150,16 @@ const Home = () => {
                                               <View
                                                 style={{
                                                   flexDirection: 'row',
-                                                  justifyContent: 'space-between',
+                                                  justifyContent:
+                                                    'space-between',
                                                   alignItems: 'center',
                                                 }}>
                                                 <Text
                                                   style={{
                                                     fontSize: 12,
                                                     color: Colors.black,
-                                                    fontFamily: 'Poppins-Regular',
+                                                    fontFamily:
+                                                      'Poppins-Regular',
                                                   }}>
                                                   Description Accuracy :
                                                 </Text>
@@ -2694,14 +3185,16 @@ const Home = () => {
                                               <View
                                                 style={{
                                                   flexDirection: 'row',
-                                                  justifyContent: 'space-between',
+                                                  justifyContent:
+                                                    'space-between',
                                                   alignItems: 'center',
                                                 }}>
                                                 <Text
                                                   style={{
                                                     fontSize: 12,
                                                     color: Colors.black,
-                                                    fontFamily: 'Poppins-Regular',
+                                                    fontFamily:
+                                                      'Poppins-Regular',
                                                   }}>
                                                   Price :
                                                 </Text>
@@ -2728,14 +3221,16 @@ const Home = () => {
                                               <View
                                                 style={{
                                                   flexDirection: 'row',
-                                                  justifyContent: 'space-between',
+                                                  justifyContent:
+                                                    'space-between',
                                                   alignItems: 'center',
                                                 }}>
                                                 <Text
                                                   style={{
                                                     fontSize: 12,
                                                     color: Colors.black,
-                                                    fontFamily: 'Poppins-Regular',
+                                                    fontFamily:
+                                                      'Poppins-Regular',
                                                   }}>
                                                   Interest in Property :
                                                 </Text>
@@ -2763,7 +3258,8 @@ const Home = () => {
                                               <Text
                                                 style={{
                                                   fontSize: 18,
-                                                  fontFamily: 'Poppins-SemiBold',
+                                                  fontFamily:
+                                                    'Poppins-SemiBold',
                                                   color: Colors.black,
                                                   marginTop: 10,
                                                   // marginRight: 180
@@ -2797,7 +3293,8 @@ const Home = () => {
                                                       fontSize: 12,
                                                       flexWrap: 'wrap',
                                                       color: Colors.newgray,
-                                                      fontFamily: 'Poppins-Regular',
+                                                      fontFamily:
+                                                        'Poppins-Regular',
                                                       height: 100,
                                                       width: '100%',
                                                     }}
@@ -2822,7 +3319,8 @@ const Home = () => {
                                                       fontSize: 12,
                                                       flexWrap: 'wrap',
                                                       color: Colors.newgray,
-                                                      fontFamily: 'Poppins-Regular',
+                                                      fontFamily:
+                                                        'Poppins-Regular',
                                                       height: 100,
                                                       width: '100%',
                                                     }}>
@@ -2848,7 +3346,9 @@ const Home = () => {
                                                     alignItems: 'flex-end',
                                                   }}>
                                                   <TouchableOpacity
-                                                    onPress={() => updateReview()}
+                                                    onPress={() =>
+                                                      updateReview()
+                                                    }
                                                     style={{
                                                       height: 50,
                                                       width: '40%',
@@ -2918,43 +3418,35 @@ const Home = () => {
                                 <Text
                                   // onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }); }}
                                   style={{
-                                    top: 0,
                                     fontSize: 22,
+                                    marginTop: -16,
                                     color: Colors.primaryBlue,
                                     fontWeight: '500',
                                     fontFamily: 'Poppins-Medium',
                                     textAlign: 'center',
-                                    marginTop: -20
                                   }}>
                                   {item?.property_price}
                                 </Text>
-
-                                <View
-                                  style={{
-                                    top: 0,
-                                    width: '100%',
-                                    alignSelf: 'center',
-                                    justifyContent: 'center',
-                                    paddingHorizontal: 12,
-                                    marginTop: 5,
-
-                                  }}>
-                                  <Text
-                                    style={{
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      textAlign: 'center',
-                                      fontFamily: 'Poppins-Light',
-                                      marginBottom: 0,
-                                    }}
-                                    numberOfLines={1}
-                                  >
-                                    {item?.title}
-                                  </Text>
-                                </View>
                               </View>
                             )}
-
+                            <View
+                              style={{
+                                width: '100%',
+                                alignSelf: 'center',
+                                justifyContent: 'center',
+                                paddingHorizontal: 12,
+                              }}>
+                              <Text
+                                style={{
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                  textAlign: 'center',
+                                  fontFamily: 'Poppins-Light',
+                                }}
+                                numberOfLines={1}>
+                                {item?.title}
+                              </Text>
+                            </View>
                             <View
                               style={{
                                 top: 0,
@@ -2966,7 +3458,6 @@ const Home = () => {
                                 paddingHorizontal: 15,
                                 backgroundColor: 'white',
                                 justifyContent: 'space-between',
-                                marginTop: 20,
                               }}>
                               <View
                                 style={{
@@ -3104,7 +3595,7 @@ const Home = () => {
                     />
                   </View>
                 ) : showMap ? (
-                  <View style={{ height: '100%', width: width, }}>
+                  <View style={{height: '100%', width: width}}>
                     {/* <View style={styles.coverlocation}>
                     <Image source={Images.graylocation} style={styles.locationpic}></Image>
   
@@ -3265,22 +3756,28 @@ const Home = () => {
                                     }}
                                   />
                                 </Text>
-                                <View style={{ flexWrap: 'wrap', top: -5 }}>
+                                <View style={{flexWrap: 'wrap', top: -5}}>
                                   <Text
                                     style={{
-                                      color: 'black', marginLeft: 10, fontWeight: '500', flexWrap: "wrap"
+                                      color: 'black',
+                                      marginLeft: 10,
+                                      fontWeight: '500',
+                                      flexWrap: 'wrap',
                                     }}>
                                     {item.title}
                                   </Text>
                                   <Text
                                     style={{
-                                      color: Colors.primaryBlue, marginLeft: 10, fontWeight: '500'
+                                      color: Colors.primaryBlue,
+                                      marginLeft: 10,
+                                      fontWeight: '500',
                                     }}>
                                     {item.property_price}
                                   </Text>
                                   <View
                                     style={{
-                                      flexDirection: 'row', marginLeft: 10,
+                                      flexDirection: 'row',
+                                      marginLeft: 10,
                                     }}>
                                     <Text
                                       style={{
@@ -3339,20 +3836,27 @@ const Home = () => {
                   Would you like to extend your search radius by 10 miles?
                 </Text>
 
-                <View style={{
-                  width: '40%',
-                  flexDirection: 'row',
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginTop: 30,
-                }}>
-
+                <View
+                  style={{
+                    width: '40%',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginTop: 30,
+                  }}>
                   <TouchableOpacity
                     onPress={async () => {
-                      setLimit(limit + 1)
-                      await dispatch(getPopertiess({ type: 0, limit: limit + 1, ID: store?.getState()?.loginUserReducer?.loginData?.data?.ID })).then((res) => {
-                        setHomeData(res.payload.data)
-                      })
+                      setLimit(limit + 1);
+                      await dispatch(
+                        getPopertiess({
+                          type: 0,
+                          limit: limit + 1,
+                          ID: store?.getState()?.loginUserReducer?.loginData
+                            ?.data?.ID,
+                        }),
+                      ).then(res => {
+                        setHomeData(res.payload.data);
+                      });
                     }}
                     style={{
                       height: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
@@ -3361,16 +3865,16 @@ const Home = () => {
                       backgroundColor: Colors.PrimaryColor,
                       marginTop: 10,
                       flexDirection: 'row',
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginBottom: 40
-
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: 40,
                     }}>
                     <Text
                       style={{
-                        fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 18,
+                        fontSize:
+                          DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 18,
                         color: Colors.white,
-                        fontFamily: "poppins-regular",
+                        fontFamily: 'poppins-regular',
                       }}>
                       Extend
                     </Text>
@@ -3378,9 +3882,7 @@ const Home = () => {
                 </View>
               </View>
             )}
-
           </View>
-
         </View>
       </SafeAreaView>
     </View>
@@ -3389,10 +3891,15 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
-  dropdown1BtnTxtStyle: { color: '#444', textAlign: 'left', fontSize: 14, fontFamily: "Poppins-Regular" },
-  dropdown1DropdownStyle: { backgroundColor: '#EFEFEF' },
-  dropdown1RowStyle: { backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5' },
-  dropdown1RowTxtStyle: { color: '#444', textAlign: 'left' },
+  dropdown1BtnTxtStyle: {
+    color: '#444',
+    textAlign: 'left',
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+  },
+  dropdown1DropdownStyle: {backgroundColor: '#EFEFEF'},
+  dropdown1RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
+  dropdown1RowTxtStyle: {color: '#444', textAlign: 'left'},
 
   dropdown1BtnStyle: {
     width: '100%',
@@ -3430,7 +3937,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 3,
     right: 12,
-    shadowOffset: { width: -2, height: 4 },
+    shadowOffset: {width: -2, height: 4},
     shadowColor: '#171717',
     shadowOpacity: 0.2,
     shadowRadius: 3,
@@ -3444,7 +3951,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 3,
     // right: 12,
-    shadowOffset: { width: -2, height: 4 },
+    shadowOffset: {width: -2, height: 4},
     shadowColor: '#171717',
     shadowOpacity: 0.2,
     shadowRadius: 3,
@@ -3471,7 +3978,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // alignItems: 'center',
     // justifyContent: 'center',
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? "100%" : "98%",
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? '100%' : '98%',
     boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
   },
 
@@ -3505,12 +4012,13 @@ const styles = StyleSheet.create({
     boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
   },
   shadowProp: {
-    width: '100%',
+    width: '95%',
     alignContent: 'center',
     backgroundColor: 'white',
   },
   container: {
     backgroundColor: Colors.white,
+    height: '100%',
   },
   marrowcover: {
     width: '100%',
@@ -3750,8 +4258,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
-    width: "100%",
-    borderBottomWidth: .5,
+    width: '100%',
+    borderBottomWidth: 0.5,
     borderBottomColor: Colors.gray,
   },
   checkbox: {
