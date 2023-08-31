@@ -11,10 +11,8 @@ import {
   Dimensions,
   Platform,
   FlatList,
-  ImageBackground,
   Animated,
   PanResponder,
-  Vibration,
   Linking,
   Share,
   Modal,
@@ -29,8 +27,6 @@ import {useSelector, useDispatch} from 'react-redux';
 import {getFavoriteProperties} from '../../modules/getFavoriteProperties';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-import {Rating, AirbnbRating} from 'react-native-ratings';
-import AsyncStorage from '@react-native-community/async-storage';
 import {postRating} from '../../modules/postRating';
 import {getAgent} from '../../modules/getAgent';
 import {getRating} from '../../modules/getRating';
@@ -39,7 +35,6 @@ import * as Animatable from 'react-native-animatable';
 import {useIsFocused} from '@react-navigation/native';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import DeviceInfo from 'react-native-device-info';
-import {store} from '../../redux/store';
 
 import StarRating from 'react-native-star-rating-widget';
 
@@ -166,7 +161,7 @@ const MyFavorites = props => {
   }, [isFocused]);
   const getFavoritePropertiesApiCall = () => {
     dispatch(getFavoriteProperties()).then(response => {
-      if (response.payload.data.length<1) {
+      if (response.payload.data.length < 1) {
         setShowNoDataMessage(true);
       } else {
         setShowNoDataMessage(false);
@@ -180,11 +175,6 @@ const MyFavorites = props => {
       setAgentData(response.payload.data);
     });
   };
-  // const getRatingApicall = () => {
-  //   dispatch(getRating()).then(response => {
-  //     setRatingData(response.payload.data)
-  //   })
-  // }
 
   const makePhoneCall = () => {
     let phoneNumber = agentData[0]?.agent_phone;
@@ -258,133 +248,35 @@ const MyFavorites = props => {
         />
       </TouchableOpacity>
 
-      <View
-        style={{
-          // height: 30,
-          //width: 20,
-          backgroundColor: Colors.surfblur,
-          position: 'absolute',
-          top: 8,
-          left: 16,
-          borderRadius: 5,
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingHorizontal: 8,
-          paddingVertical: 4,
-        }}>
-        <Text
-          style={{
-            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?24:12,
-            color: Colors.white,
-            fontFamily: 'Poppins-Regular',
-            marginBottom: 0,
-            lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?28:14,
-            paddingTop: 4,
-          }}>
-          {item?.ListingKey}
-        </Text>
+      <View style={styles.listingkeystyle}>
+        <Text style={styles.listingkeytext}>{item?.ListingKey}</Text>
       </View>
       <View
-        style={{
-          // height: 30,
-          //width: 20,
-          backgroundColor: item?.status === 'Active' ? Colors.surfblur : 'red',
-          position: 'absolute',
-          top: 8,
-          right: 16,
-          borderRadius: 5,
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingHorizontal:12,
-          paddingVertical: 4,
-        }}>
-        <Text
-          style={{
-            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?24:12,
-            color: Colors.white,
-            fontFamily: 'Poppins-Regular',
-            marginBottom: 0,
-            lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?28:14,
-            paddingTop: 4,
-          }}>
-      {item?.status}
-        </Text>
+        style={[
+          {
+            backgroundColor:
+              item?.status === 'Active' ? Colors.surfblur : 'red',
+          },
+          styles.statusmain,
+        ]}>
+        <Text style={styles.secstatus}>{item?.status}</Text>
       </View>
-      {/* <View
-        style={{
-          // height: 30,
-          //width: 20,
-          backgroundColor: "red",
-          position: 'absolute',
-          top: 8,
-          right: 16,
-          borderRadius: 5,
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingHorizontal: 8,
-          paddingVertical: 4,
-        }}>
-        <Text
-          style={{
-            fontSize: 12,
-            color: Colors.white,
-            fontFamily: 'Poppins-Regular',
-            marginBottom: 0,
-            lineHeight: 14,
-            paddingTop: 4,
-          }}>
-          Pending
-        </Text>
-      </View> */}
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          width: '100%',
-          justifyContent: 'space-between',
-          paddingTop: 16,
-          paddingHorizontal: 16,
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            // width: '15%',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
+
+      <View style={styles.iconscover}>
+        <View style={styles.iconsiner}>
           <TouchableOpacity onPress={() => navigation.navigate('ChatSearch')}>
-            <Image
-              source={Images.chatnew}
-              style={{
-                height: DeviceInfo.getDeviceType() === 'Tablet'?40:28,
-                width: DeviceInfo.getDeviceType() === 'Tablet'?40:28,
-                resizeMode: 'cover',
-                marginRight: 15,
-              }}></Image>
+            <Image source={Images.chatnew} style={styles.chaticon}></Image>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => makePhoneCall()}>
             <Image
               source={Images.calenderwedding}
-              style={{
-              height:  DeviceInfo.getDeviceType() === 'Tablet'?37:27,
-              width: DeviceInfo.getDeviceType() === 'Tablet'?44:33}}></Image>
+              style={styles.caldericon}></Image>
           </TouchableOpacity>
         </View>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            // width: '20%',
-            // alignSelf: 'flex-end',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <View
-            style={{
-              position: 'relative',
-              flexDirection: 'row',
-            }}>
+        <View style={styles.anothericon}>
+          <View style={styles.staricon}>
             <TouchableOpacity
               onPress={() => {
                 setProductId(item.ID);
@@ -398,87 +290,44 @@ const MyFavorites = props => {
                   );
                   setRating2(response?.payload?.data[0]?.price_review_stars);
                   setRating3(response?.payload?.data[0]?.interest_review_stars);
-                  // console.log(" getRating response data", response?.payload?.data)
                 });
               }}>
-               <View
-                                    style={{
-                                      flexDirection: 'row',
-                                      alignItems: 'center',
-                                      alignSelf: 'center',
-                                    }}>
-                                    <Image
-                                      source={
-                                        item.total_average_rating > 0
-                                          ? Images.startfill
-                                          : Images.star2
-                                      }
-                                      style={{
-                                        height: DeviceInfo.getDeviceType() === 'Tablet'?33:22,
-                                        width: DeviceInfo.getDeviceType() === 'Tablet'?33:22,
-                                        resizeMode: 'contain',
-                                        tintColor:
-                                          item.total_average_rating > 0
-                                            ? undefined
-                                            : 'black',
-                                      }}
-                                    />
-                                    {item.total_average_rating > 0 ? (
-                                      <Text
-                                        style={{
-                                          fontSize: 18,
-                                          color: Colors.black,
-                                          fontFamily: 'Poppins-Light',
-                                        }}>
-                                        {Math.round(item.total_average_rating)}
-                                      </Text>
-                                    ) : null}
-                                  </View>
+              <View style={styles.ratingmain}>
+                <Image
+                  source={
+                    item.total_average_rating > 0
+                      ? Images.startfill
+                      : Images.star2
+                  }
+                  style={{
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 33 : 22,
+                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 33 : 22,
+                    resizeMode: 'contain',
+                    tintColor:
+                      item.total_average_rating > 0 ? undefined : 'black',
+                  }}
+                />
+                {item.total_average_rating > 0 ? (
+                  <Text style={styles.lightrating}>
+                    {Math.round(item.total_average_rating)}
+                  </Text>
+                ) : null}
+              </View>
             </TouchableOpacity>
-
           </View>
           <TouchableOpacity
-            style={{marginLeft: 15}}
+            style={styles.ml15}
             onPress={() => handleShare(item.ID)}>
-            <Image
-              source={Images.sendnew}
-              style={{
-                height: DeviceInfo.getDeviceType() === 'Tablet'?26:18,
-                width: DeviceInfo.getDeviceType() === 'Tablet'?33:23,
-                resizeMode: 'contain',
-              }}></Image>
+            <Image source={Images.sendnew} style={styles.sendbutton}></Image>
           </TouchableOpacity>
         </View>
       </View>
       <TouchableOpacity
-          onPress={() => navigation.navigate('ViewPropertiy', { item })}>
-          <Text
-            style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?55:28,
-              color: "#1450B1",
-              fontFamily: 'Poppins-Medium',
-              marginTop: 0,
-            }}>
-            {item.property_price}
-          </Text>
-        </TouchableOpacity>
-      <View
-        style={{
-          width: '100%',
-          alignSelf: 'center',
-          justifyContent: 'center',
-          paddingHorizontal: 12,
-          marginBottom: 8,
-        }}>
-        <Text
-          numberOfLines={1}
-          style={{
-            fontSize:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
-            color: Colors.black,
-            textAlign: 'center',
-            fontFamily: 'Poppins-Light',
-            marginTop:6
-          }}>
+        onPress={() => navigation.navigate('ViewPropertiy', {item})}>
+        <Text style={styles.propertyprice}>{item.property_price}</Text>
+      </TouchableOpacity>
+      <View style={styles.titlecover}>
+        <Text numberOfLines={1} style={styles.titletext}>
           {item?.title}
         </Text>
       </View>
@@ -509,47 +358,22 @@ const MyFavorites = props => {
                   ],
                 },
               ]}>
-              <ScrollView style={{width: '100%'}}>
-                <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                  <View
-                    style={{
-                      width: 50,
-                      height: 5,
-                      backgroundColor: '#bac1c3',
-                      marginTop: 0,
-                      justifyContent: 'center',
-                      borderRadius: 100,
-                    }}></View>
+              <ScrollView style={styles.w100}>
+                <View style={styles.covermodal}>
+                  <View style={styles.indicatormodal}></View>
                 </View>
                 <View style={{}}>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontFamily: 'Poppins-SemiBold',
-                      color: Colors.black,
-                      marginTop: 5,
-                      // marginRight: 180
-                    }}>
-                    Your Review
-                  </Text>
+                  <Text style={styles.yourreview}>Your Review</Text>
                 </View>
-                <View style={{width: '100%'}}>
-                  <View style={{width: '100%', alignSelf: 'center'}}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        marginTop: 10,
-                      }}>
-                      <Text
-                        style={{
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontFamily: 'Poppins-Regular',
-                        }}>
-                        Photos :
-                      </Text>
+                <View style={styles.w100}>
+                  <View
+                    style={{
+                      width: '100%',
+                      alignSelf: 'center',
+                      marginBottom: 10,
+                    }}>
+                    <View style={styles.labelcover}>
+                      <Text style={styles.labeltext}>Photos :</Text>
 
                       <StarRating
                         maxStars={5}
@@ -566,18 +390,8 @@ const MyFavorites = props => {
                   </View>
 
                   <View style={{width: '100%', alignSelf: 'center'}}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}>
-                      <Text
-                        style={{
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontFamily: 'Poppins-Regular',
-                        }}>
+                    <View style={styles.labelcover}>
+                      <Text style={styles.labeltext}>
                         Description Accuracy :
                       </Text>
 
@@ -595,20 +409,8 @@ const MyFavorites = props => {
                     </View>
                   </View>
                   <View style={{width: '100%', alignSelf: 'center'}}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}>
-                      <Text
-                        style={{
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontFamily: 'Poppins-Regular',
-                        }}>
-                        Price :
-                      </Text>
+                    <View style={styles.labelcover}>
+                      <Text style={styles.labeltext}>Price :</Text>
 
                       <StarRating
                         maxStars={5}
@@ -625,18 +427,8 @@ const MyFavorites = props => {
                   </View>
 
                   <View style={{width: '100%', alignSelf: 'center'}}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}>
-                      <Text
-                        style={{
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontFamily: 'Poppins-Regular',
-                        }}>
+                    <View style={styles.labelcover}>
+                      <Text style={styles.labeltext}>
                         Interest in Property :
                       </Text>
 
@@ -654,52 +446,13 @@ const MyFavorites = props => {
                     </View>
                   </View>
 
-                  <View
-                    style={{
-                      width: '100%',
-                      alignSelf: 'center',
-                      overflow: 'hidden',
-                    }}>
-                    <Text
-                      style={{
-                        fontSize: 18,
-                        fontFamily: 'Poppins-SemiBold',
-                        color: Colors.black,
-                        marginTop: 10,
-                        // marginRight: 180
-                      }}>
-                      Review
-                    </Text>
-                    <View
-                      style={{
-                        width: '100%',
-                        //height: 100,
-                        marginTop: 0,
-                        //justifyContent: 'center',
-                        flexWrap: 'wrap',
-                        whiteSpace: 'pre-wrap',
-                        wordWrap: 'break-word',
-                        height: 100,
-                        width: '100%',
-                        flexWrap: 'wrap',
-                        overflow: 'hidden',
-                      }}>
+                  <View style={styles.reviewtextcover}>
+                    <Text style={styles.reviewtext}>Review</Text>
+                    <View style={styles.reviewcover}>
                       {ratingData.length > 0 ? (
                         <TextInput
                           multiline={true}
-                          style={{
-                            verticalAlign: 'top',
-                            borderWidth: 1,
-                            borderColor: Colors.BorderColor,
-                            borderRadius: 8,
-                            paddingHorizontal: 12,
-                            fontSize: 12,
-                            flexWrap: 'wrap',
-                            color: Colors.newgray,
-                            fontFamily: 'Poppins-Regular',
-                            height: 100,
-                            width: '100%',
-                          }}
+                          style={styles.textinputstyle}
                           onChangeText={text => setComentContent(text)}
                           autoFocus
                         />
@@ -707,91 +460,25 @@ const MyFavorites = props => {
                         <TextInput
                           onChangeText={text => setComentContent(text)}
                           multiline={true}
-                          style={{
-                            verticalAlign: 'top',
-                            borderWidth: 1,
-                            borderColor: Colors.BorderColor,
-                            borderRadius: 8,
-                            paddingHorizontal: 12,
-                            fontSize: 12,
-                            flexWrap: 'wrap',
-                            color: Colors.newgray,
-                            fontFamily: 'Poppins-Regular',
-                            height: 100,
-                            width: '100%',
-                          }}></TextInput>
+                          style={styles.textinputstyle}></TextInput>
                       )}
                     </View>
                   </View>
-                  <View
-                    style={{
-                      width: '100%',
-
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'flex-end',
-                      //s paddingHorizontal: 10
-                    }}>
+                  <View style={styles.buttoncover}>
                     {ratingData.length > 0 ? (
-                      <View
-                        style={{
-                          justifyContent: 'flex-end',
-                          width: '100%',
-                          alignItems: 'flex-end',
-                        }}>
+                      <View style={styles.buttonuppercover}>
                         <TouchableOpacity
                           onPress={() => updateReview()}
-                          style={{
-                            height: 50,
-                            width: '40%',
-                            borderRadius: 100,
-                            backgroundColor: Colors.surfblur,
-                            marginTop: 10,
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            marginBottom: 40,
-                          }}>
-                          <Text
-                            style={{
-                              fontSize: 16,
-                              // fontWeight: '700',
-                              color: Colors.white,
-                              fontFamily: 'Poppins-Regular',
-                            }}>
-                            Update
-                          </Text>
+                          style={styles.mainbuttoncover}>
+                          <Text style={styles.buttontextupdate}>Update</Text>
                         </TouchableOpacity>
                       </View>
                     ) : (
-                      <View
-                        style={{
-                          justifyContent: 'flex-end',
-                          width: '100%',
-                          alignItems: 'flex-end',
-                        }}>
+                      <View style={styles.submitbuttonuppercover}>
                         <TouchableOpacity
                           onPress={() => addReview()}
-                          style={{
-                            height: 45,
-                            width: 130,
-                            borderRadius: 100,
-                            backgroundColor: Colors.surfblur,
-                            marginTop: 10,
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            marginBottom: 20,
-                          }}>
-                          <Text
-                            style={{
-                              fontSize: 14,
-                              // fontWeight: '700',
-                              color: Colors.white,
-                              fontFamily: 'Poppins-Regular',
-                            }}>
-                            Submit
-                          </Text>
+                          style={styles.submitbuttoncover}>
+                          <Text style={styles.submittxt}>Submit</Text>
                         </TouchableOpacity>
                       </View>
                     )}
@@ -803,59 +490,16 @@ const MyFavorites = props => {
         </Modal>
       </KeyboardAvoidingView>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          width: '100%',
-          alignItems: 'center',
-          justifyContent: 'center',
-          paddingHorizontal: 18,
-        }}>
+      <View style={styles.iconcovertop}>
         {DeviceInfo.getDeviceType() === 'Tablet' ? (
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: 20,
-              marginTop: 5,
-              width: '100%',
-              alignSelf: 'center',
-            }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                //paddingHorizontal: 12,
-                justifyContent: 'space-between',
-                marginBottom: 12,
-                width: '100%',
-                alignSelf: 'center',
-              }}>
-              <View
-                style={{
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-start',
-                  // backgroundColor: "red",
-                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
-                }}>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+          <View style={styles.modalmaincover}>
+            <View style={styles.icontextcover}>
+              <View style={styles.icontext}>
+                <View style={styles.innericontext}>
                   <Image
                     source={Images.newbed}
-                    style={{
-                      height: DeviceInfo.getDeviceType() === 'Tablet'?49:26,
-                      width: DeviceInfo.getDeviceType() === 'Tablet'?39:21,
-                      resizeMode: 'contain',
-                      marginBottom: 5
-                      //backgroundColor: "green"
-                    }}></Image>
-                  <Text
-                    style={{
-                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
-                    }}>
+                    style={styles.newbedstyle}></Image>
+                  <Text style={styles.newtexticon}>
                     {item.property_bedrooms.length > 0
                       ? item.property_bedrooms
                       : 0}{' '}
@@ -864,147 +508,54 @@ const MyFavorites = props => {
                 </View>
               </View>
 
-              <View
-                style={{
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-start',
-
-                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
-                }}>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.icontext}>
+                <View style={styles.innericontext}>
                   <Image
                     source={Images.bathtub}
-                    style={{
-                      height: DeviceInfo.getDeviceType() === 'Tablet'?44:26,
-                      width: DeviceInfo.getDeviceType() === 'Tablet'?49:28,
-                      resizeMode: 'contain',
-                      marginBottom: 5
-                    }}></Image>
-                  <Text
-                    style={{
-                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
-                    }}>
+                    style={styles.bathtubicon}></Image>
+                  <Text style={styles.newtexticon}>
                     {item.bathroomsfull.length > 0 ? item.bathroomsfull : 0}{' '}
                     {'Baths'}
                   </Text>
                 </View>
               </View>
 
-              <View
-                style={{
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-start',
-                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
-                }}>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.icontext}>
+                <View style={styles.innericontext}>
                   <Image
                     source={Images.measuringtape}
-                    style={{
-                      height: DeviceInfo.getDeviceType() === 'Tablet'?45:26,
-                                      width: DeviceInfo.getDeviceType() === 'Tablet'?47:27,
-                                      resizeMode: 'contain',
-                                      marginBottom: 5
-                    }}></Image>
-                  <Text
-                    style={{
-                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
-                    }}>
+                    style={styles.measureicon}></Image>
+                  <Text style={styles.newtexticon}>
                     {item.property_size.length > 0 ? item.property_size : 0}{' '}
                     {'sq ft'}
                   </Text>
                 </View>
               </View>
 
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
+              <View style={styles.icontext}>
+                <View style={styles.innericontext}>
+                  <Image source={Images.hoa2} style={styles.hoaicon}></Image>
 
-                }}>
-
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Image
-                    source={Images.hoa2}
-
-                    style={{
-                      height: DeviceInfo.getDeviceType() === 'Tablet'?47:26,
-                      width: DeviceInfo.getDeviceType() === 'Tablet'?51:27,
-                      marginTop: 0,
-                      resizeMode: 'contain',
-                      marginBottom: 5,
-                    }}></Image>
-
-                  <Text
-                    style={{
-                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
-                    }}>
+                  <Text style={styles.newtexticon}>
                     {item.associationfee.length > 0 ? item.associationfee : 0}
                   </Text>
                 </View>
               </View>
 
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
-
-                }}>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                  <Image
-                    source={Images.taxnew}
-                    style={{
-                      height: DeviceInfo.getDeviceType() === 'Tablet'?47:27,
-                      width: DeviceInfo.getDeviceType() === 'Tablet'?43:25,
-                      marginTop: 0,
-                      resizeMode: 'contain',
-                      marginBottom: 5,
-                    }}></Image>
-                  <Text
-                    style={{
-                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
-                    }}>
+              <View style={styles.icontext}>
+                <View style={styles.innericontext}>
+                  <Image source={Images.taxnew} style={styles.taxicon}></Image>
+                  <Text style={styles.newtexticon}>
                     {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
                   </Text>
                 </View>
               </View>
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
-
-                }}>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.icontext}>
+                <View style={styles.innericontext}>
                   <Image
                     source={Images.calendar}
-                    style={{
-                      height: DeviceInfo.getDeviceType() === 'Tablet'?34:30,
-                      width: DeviceInfo.getDeviceType() === 'Tablet'?40:30,
-                      marginTop: 0,
-                      resizeMode: 'contain',
-                      marginBottom: 5,
-                    }}></Image>
-                  <Text
-                    style={{
-                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
-                    }}>
+                    style={styles.calsicon}></Image>
+                  <Text style={styles.newtexticon}>
                     {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
                   </Text>
                 </View>
@@ -1016,51 +567,14 @@ const MyFavorites = props => {
             horizontal={true}
             scrollEnabled={true}
             showsHorizontalScrollIndicator={false}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginBottom: 20,
-                marginTop: 5,
-                width: '100%',
-                alignSelf: 'center',
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  //paddingHorizontal: 12,
-                  justifyContent: 'space-between',
-                  marginBottom: 12,
-                  width: '100%',
-                  alignSelf: 'center',
-                }}>
-                <View
-                  style={{
-                    justifyContent: 'flex-start',
-                    alignItems: 'flex-start',
-                    // backgroundColor: "red",
-                    width: 70,
-                  }}>
-                  <View
-                    style={{justifyContent: 'center', alignItems: 'center'}}>
+            <View style={styles.iconsuppercover}>
+              <View style={styles.icontextcover}>
+                <View style={styles.icontext}>
+                  <View style={styles.innericontext}>
                     <Image
                       source={Images.newbed}
-                      style={{
-                        height: 21,
-                        width: 28,
-                        resizeMode: 'contain',
-                        //backgroundColor: "green",
-                        marginBottom: 5,
-                      }}></Image>
-                    <Text
-                      style={{
-                        fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
-                        color: Colors.black,
-                        textAlign: 'center',
-                        fontFamily: 'Poppins-Light',
-                      }}>
+                      style={styles.newbedstyle}></Image>
+                    <Text style={styles.newtexticon}>
                       {item.property_bedrooms.length > 0
                         ? item.property_bedrooms
                         : 0}{' '}
@@ -1069,150 +583,55 @@ const MyFavorites = props => {
                   </View>
                 </View>
 
-                <View
-                  style={{
-                    justifyContent: 'flex-start',
-                    alignItems: 'flex-start',
-
-                    width: 70,
-                  }}>
-                  <View
-                    style={{justifyContent: 'center', alignItems: 'center'}}>
+                <View style={styles.icontext}>
+                  <View style={styles.innericontext}>
                     <Image
                       source={Images.bathtub}
-                      style={{
-                        height: 26,
-                        width: 28,
-                        resizeMode: 'contain',
-                        marginBottom: 5,
-                      }}></Image>
-                    <Text
-                      style={{
-                        fontSize: 11,
-                        color: Colors.black,
-                        textAlign: 'center',
-                        fontFamily: 'Poppins-Light',
-                      }}>
+                      style={styles.bathtubicon}></Image>
+                    <Text style={styles.newtexticon}>
                       {item.bathroomsfull.length > 0 ? item.bathroomsfull : 0}{' '}
                       {'Baths'}
                     </Text>
                   </View>
                 </View>
 
-                <View
-                  style={{
-                    justifyContent: 'flex-start',
-                    alignItems: 'flex-start',
-                    width: 70,
-                  }}>
-                  <View
-                    style={{justifyContent: 'center', alignItems: 'center'}}>
+                <View style={styles.icontext}>
+                  <View style={styles.innericontext}>
                     <Image
                       source={Images.measuringtape}
-                      style={{
-                        height: 26,
-                        width: 27,
-                        resizeMode: 'contain',
-                        marginBottom: 5,
-                      }}></Image>
-                    <Text
-                      style={{
-                        fontSize: 11,
-                        color: Colors.black,
-                        textAlign: 'center',
-                        fontFamily: 'Poppins-Light',
-                      }}>
+                      style={styles.measureicon}></Image>
+                    <Text style={styles.newtexticon}>
                       {item.property_size.length > 0 ? item.property_size : 0}{' '}
                       {'sq ft'}
                     </Text>
                   </View>
                 </View>
 
-                <View
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: 70,
-                  }}>
-                  <View
-
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
-                   <Image
-                      source={Images.hoa2}
-
-                      style={{
-                        height: 28,
-                        width: 29,
-                        resizeMode: 'contain',
-                        marginBottom: 5,
-                        //backgroundColor:"red"
-                      }}></Image>
-                    <Text
-                      style={{
-                        fontSize: 11,
-                        color: Colors.black,
-                        textAlign: 'center',
-                        fontFamily: 'Poppins-Light',
-                      }}>
+                <View style={styles.icontext}>
+                  <View style={styles.innericontext}>
+                    <Image source={Images.hoa2} style={styles.hoaicon}></Image>
+                    <Text style={styles.newtexticon}>
                       {item.associationfee.length > 0 ? item.associationfee : 0}
                     </Text>
                   </View>
                 </View>
 
-                <View
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: 70,
-                  }}>
-                  <View
-                    style={{justifyContent: 'center', alignItems: 'center'}}>
+                <View style={styles.icontext}>
+                  <View style={styles.innericontext}>
                     <Image
                       source={Images.taxnew}
-                      style={{
-                        height: 27,
-                        width: 25,
-                        marginTop: 0,
-                        resizeMode: 'contain',
-                        marginBottom: 5,
-                      }}></Image>
-                    <Text
-                      style={{
-                        fontSize: 11,
-                        color: Colors.black,
-                        textAlign: 'center',
-                        fontFamily: 'Poppins-Light',
-                      }}>
+                      style={styles.taxicon}></Image>
+                    <Text style={styles.newtexticon}>
                       {item.taxannualamount.length > 0
                         ? item.taxannualamount
                         : 0}
                     </Text>
                   </View>
                 </View>
-                <View
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: 70,
-                  }}>
-                  <View
-                    style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Image
-                      source={Images.cals}
-                      style={{
-                        height: 30,
-                        width: 30,
-                        marginTop: 0,
-                        resizeMode: 'contain',
-                        marginBottom: 5,
-                      }}></Image>
-                    <Text
-                      style={{
-                        fontSize: 11,
-                        color: Colors.black,
-                        textAlign: 'center',
-                        fontFamily: 'Poppins-Light',
-                      }}>
+                <View style={styles.icontext}>
+                  <View style={styles.innericontext}>
+                    <Image source={Images.cals} style={styles.calsicon}></Image>
+                    <Text style={styles.newtexticon}>
                       {item.yearbuilt.length > 0 ? item.yearbuilt : 0}
                     </Text>
                   </View>
@@ -1227,151 +646,36 @@ const MyFavorites = props => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          width: '100%',
-          position: 'relative',
-          alignItems: 'center',
-          paddingTop: 16,
-          paddingBottom: 2,
-        }}>
+      <View style={styles.mainheader}>
         <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            alignItems: 'flex-start',
-            position: 'absolute',
-            left: 12,
-            justifyContent: 'flex-start',
-            // top: 12,
-            top: 13,
-           // backgroundColor:"green",
-width:50,
-height:50
-
-          }}
+          style={styles.leftheader}
           onPress={() => {
             navigation.goBack();
           }}>
           <Image
-            style={{
-              width: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
-              height: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
-              resizeMode: 'contain',
-              justifyContent: 'center',
-              flexDirection: 'row',
-              alignItems: 'center',
-              resizeMode: 'contain',
-            }}
+            style={styles.leftheaderimage}
             source={Images.leftnewarrow}></Image>
-     
         </TouchableOpacity>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
-              color: Colors.black,
-              fontFamily: 'Poppins-Light',
-              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
-            }}>
-            Favorites
-          </Text>
-     
+        <View style={styles.centerheader}>
+          <Text style={styles.centertext}>Favorites</Text>
         </View>
         <TouchableOpacity
-
-          style={{
-            position:"absolute",
-    right:10,
-    top:15
-          }}
-
+          style={styles.rightheader}
           onPress={() => navigation.goBack()}>
-
           <Animatable.Image
             source={Images.menu}
             style={styles.imagedata}
             animation="flipInY"
           />
         </TouchableOpacity>
-
-        {/* <TouchableOpacity
-              onPress={() => {
-              
-              }}
-              activeOpacity={0.5}
-              style={{
-                height: 40,
-                width: 40,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderWidth: 1,
-                borderColor: Colors.surfblur,
-                borderRadius: 50,
-                position:"absolute",
-                right:10,
-                top:5
-              }}>
-             
-            
-                <View
-                  style={{
-                    height:35,
-                    width: 35,
-                    borderRadius: 20,
-                    backgroundColor: Colors.surfblur,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    overflow: 'hidden',
-                  }}>
-               
-                    <Image
-                      style={{ height: 40, width: 40 }}
-                      source={Images.user}
-                    />
-            
-                </View>
-            
-         
-            </TouchableOpacity> */}
-
       </View>
-      {/* </View> */}
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: 16,
-        }}>
-        <Image
-          style={{height: DeviceInfo.getDeviceType() === 'Tablet'?30:15,
-           width: DeviceInfo.getDeviceType() === 'Tablet'?26:13,
-            resizeMode: 'contain'}}
-          source={Images.favfilter}
-        />
+      <View style={styles.filtercover}>
+        <Image style={styles.filterimage} source={Images.favfilter} />
       </View>
       <View style={{height: '100%', width: '100%'}}>
         {showNoDataMessage ? (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text
-              style={{
-                fontSize: 18,
-                color: Colors.black,
-                fontFamily: 'Poppins-Medium',
-              }}>
-              No Property in Favorite !!
-            </Text>
+          <View style={styles.nofav}>
+            <Text style={styles.nofavtext}>No Property in Favorite !!</Text>
           </View>
         ) : (
           <FlatList
@@ -1392,12 +696,32 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     position: 'relative',
   },
+  filtercover: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 16,
+  },
   slideOuter: {
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderRadius: 18,
-    marginBottom:16
+    marginBottom: 16,
+  },
+  rightheader: {
+    position: 'absolute',
+    right: 10,
+    top: 15,
+  },
+  nofavtext: {
+    fontSize: 18,
+    color: Colors.black,
+    fontFamily: 'Poppins-Medium',
+  },
+  nofav: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   emptyContainer: {
     flex: 1,
@@ -1412,6 +736,11 @@ const styles = StyleSheet.create({
     margin: 20,
     marginTop: 0,
     marginBottom: 0,
+  },
+  filterimage: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 15,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 13,
+    resizeMode: 'contain',
   },
   title: {
     fontSize: 23,
@@ -1480,11 +809,351 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray,
   },
   imagedata: {
-    height:DeviceInfo.getDeviceType() === 'Tablet'?29:19,
-    width: DeviceInfo.getDeviceType() === 'Tablet'?49:29,
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 29 : 19,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 29,
 
     resizeMode: 'contain',
-   
+  },
+  listingkeystyle: {
+    backgroundColor: Colors.surfblur,
+    position: 'absolute',
+    top: 8,
+    left: 16,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+  },
+  listingkeytext: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 24 : 12,
+    color: Colors.white,
+    fontFamily: 'Poppins-Regular',
+    marginBottom: 0,
+    lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 28 : 14,
+    paddingTop: 4,
+  },
+  statusmain: {
+    position: 'absolute',
+    top: 8,
+    right: 16,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+  },
+  secstatus: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 24 : 12,
+    color: Colors.white,
+    fontFamily: 'Poppins-Regular',
+    marginBottom: 0,
+    lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 28 : 14,
+    paddingTop: 4,
+  },
+  iconscover: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    justifyContent: 'space-between',
+    paddingTop: 16,
+    paddingHorizontal: 16,
+  },
+  iconsiner: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  chaticon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 28,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 28,
+    resizeMode: 'cover',
+    marginRight: 15,
+  },
+  caldericon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 37 : 27,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 44 : 33,
+  },
+  anothericon: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  staricon: {
+    position: 'relative',
+    flexDirection: 'row',
+  },
+  ratingmain: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  lightrating: {
+    fontSize: 18,
+    color: Colors.black,
+    fontFamily: 'Poppins-Light',
+  },
+  sendbutton: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 18,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 33 : 23,
+    resizeMode: 'contain',
+  },
+  ml15: {marginLeft: 15},
+  propertyprice: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 28,
+    color: '#1450B1',
+    fontFamily: 'Poppins-Medium',
+    marginTop: 0,
+  },
+  titlecover: {
+    width: '100%',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    marginBottom: 8,
+  },
+  titletext: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+    color: Colors.black,
+    textAlign: 'center',
+    fontFamily: 'Poppins-Light',
+    marginTop: 6,
+  },
+  w100: {width: '100%'},
+  covermodal: {alignItems: 'center', justifyContent: 'center'},
+  indicatormodal: {
+    width: 50,
+    height: 5,
+    backgroundColor: '#bac1c3',
+    marginTop: 0,
+    justifyContent: 'center',
+    borderRadius: 100,
+  },
+  yourreview: {
+    fontSize: 18,
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
+    marginTop: 5,
+  },
+  icontext: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 70,
+  },
+  innericontext: {justifyContent: 'center', alignItems: 'center'},
+  newbedstyle: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 26,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 21,
+    resizeMode: 'contain',
+    marginBottom: 5,
+  },
+  newtexticon: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 17 : 11,
+    color: Colors.black,
+    textAlign: 'center',
+    fontFamily: 'Poppins-Light',
+  },
+  calsicon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 34 : 30,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 30,
+    marginTop: 0,
+    resizeMode: 'contain',
+    marginBottom: 5,
+  },
+  labeltext: {
+    fontSize: 12,
+    color: Colors.black,
+    fontFamily: 'Poppins-Regular',
+  },
+  taxicon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 47 : 27,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 43 : 25,
+    marginTop: 0,
+    resizeMode: 'contain',
+    marginBottom: 5,
+  },
+  hoaicon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 47 : 26,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 51 : 27,
+    marginTop: 0,
+    resizeMode: 'contain',
+    marginBottom: 5,
+  },
+  measureicon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 45 : 26,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 47 : 27,
+    resizeMode: 'contain',
+    marginBottom: 5,
+  },
+  bathtubicon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 44 : 26,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 28,
+    resizeMode: 'contain',
+    marginBottom: 5,
+  },
+  icontextcover: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+    width: '100%',
+    alignSelf: 'center',
+  },
+  iconsuppercover: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+    marginTop: 5,
+    width: '100%',
+    alignSelf: 'center',
+  },
+  modalmaincover: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+    marginTop: 5,
+    width: '100%',
+    alignSelf: 'center',
+  },
+  mainheader: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%',
+    position: 'relative',
+    alignItems: 'center',
+    paddingTop: 16,
+    paddingBottom: 2,
+  },
+  leftheader: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    position: 'absolute',
+    left: 12,
+    justifyContent: 'flex-start',
+    // top: 12,
+    top: 13,
+    // backgroundColor:"green",
+    width: 50,
+    height: 50,
+  },
+  centerheader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  leftheaderimage: {
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 27,
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 27,
+    resizeMode: 'contain',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    resizeMode: 'contain',
+  },
+  buttontextupdate: {
+    fontSize: 16,
+    color: Colors.white,
+    fontFamily: 'Poppins-Regular',
+  },
+  mainbuttoncover: {
+    height: 50,
+    width: '40%',
+    borderRadius: 100,
+    backgroundColor: Colors.surfblur,
+    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 40,
+  },
+  buttoncover: {
+    width: '100%',
+
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  buttonuppercover: {
+    justifyContent: 'flex-end',
+    width: '100%',
+    alignItems: 'flex-end',
+  },
+  textinputstyle: {
+    verticalAlign: 'top',
+    borderWidth: 1,
+    borderColor: Colors.BorderColor,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    fontSize: 12,
+    flexWrap: 'wrap',
+    color: Colors.newgray,
+    fontFamily: 'Poppins-Regular',
+    height: 100,
+    width: '100%',
+  },
+  reviewcover: {
+    width: '100%',
+    marginTop: 0,
+    flexWrap: 'wrap',
+    whiteSpace: 'pre-wrap',
+    wordWrap: 'break-word',
+    height: 100,
+    width: '100%',
+    flexWrap: 'wrap',
+    overflow: 'hidden',
+  },
+  reviewtext: {
+    fontSize: 18,
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
+    marginTop: 10,
+    // marginRight: 180
+  },
+  centertext: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 20,
+    color: Colors.black,
+    fontFamily: 'Poppins-Light',
+    lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 42 : 22,
+  },
+  reviewtextcover: {
+    width: '100%',
+    alignSelf: 'center',
+    overflow: 'hidden',
+  },
+  submittxt: {
+    fontSize: 14,
+    color: Colors.white,
+    fontFamily: 'Poppins-Regular',
+  },
+  submitbuttoncover: {
+    height: 45,
+    width: 130,
+    borderRadius: 100,
+    backgroundColor: Colors.surfblur,
+    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+  submitbuttonuppercover: {
+    justifyContent: 'flex-end',
+    width: '100%',
+    alignItems: 'flex-end',
+  },
+  labelcover: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  iconcovertop: {
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 18,
   },
 });
 
