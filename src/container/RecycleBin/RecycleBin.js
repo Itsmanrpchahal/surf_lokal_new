@@ -204,7 +204,7 @@ const RecycleBin = () => {
   }, [isFocused]);
   const getTrashApiCall = () => {
     dispatch(getTrash()).then(response => {
-      if (response.payload.data === 'Record not found!') {
+      if (response?.payload?.data?.length===0)  {
         setShowNoDataMessage(true);
       } else {
         setShowNoDataMessage(false)
@@ -242,7 +242,8 @@ const RecycleBin = () => {
 
     <View style={styles.slideOuter}>
       <TouchableOpacity onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID, from: 'RecycleBin' }) }}>
-        <Image source={{ uri: item?.featured_image_src[0].guid }} style={styles.slide} />
+        <Image   source={{uri: item?.featured_image_src?.guid}}
+         style={styles.slide} />
       </TouchableOpacity>
       <View
         style={{
