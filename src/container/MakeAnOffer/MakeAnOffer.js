@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,21 +7,21 @@ import {
   Dimensions,
   TextInput,
   Alert,
-  Image
+  Image,
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Colors from '../../utils/Colors';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import Styles from './Styles';
-import { useNavigation } from '@react-navigation/native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { makeOffer } from '../../modules/makeOffer';
+import {useNavigation} from '@react-navigation/native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {makeOffer} from '../../modules/makeOffer';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { ScrollView } from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
 import DeviceInfo from 'react-native-device-info';
 const screenHeight = Dimensions.get('window').height;
@@ -100,8 +100,8 @@ const MakeAnOffer = () => {
 
   const getData = async () => {
     const id = await AsyncStorage.getItem('userId');
-    setUserID(id)
-  }
+    setUserID(id);
+  };
 
   useEffect(() => {
     getData();
@@ -128,7 +128,6 @@ const MakeAnOffer = () => {
 
   const validateInputs = () => {
     let valid = true;
-
 
     if (priceOffer === '') {
       setpricerror(true);
@@ -196,12 +195,12 @@ const MakeAnOffer = () => {
     return valid;
   };
 
-  const validateEmail = (email) => {
+  const validateEmail = email => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
   };
 
-  const validatePhoneNumber = (phone) => {
+  const validatePhoneNumber = phone => {
     const phoneRegex = /^\d{10}$/;
     return phoneRegex.test(phone);
   };
@@ -223,8 +222,10 @@ const MakeAnOffer = () => {
           closeing_date: selectedDate,
         };
 
-        const response = await axios.post('https://surf.topsearchrealty.com/webapi/v1/makeoffer/', data);
-
+        const response = await axios.post(
+          'https://surf.topsearchrealty.com/webapi/v1/makeoffer/',
+          data,
+        );
 
         setAddress('');
         setPriceOffer('');
@@ -238,10 +239,10 @@ const MakeAnOffer = () => {
 
         if (response.status === 200) {
           if (response.data.success) {
-            Alert.alert("Offer submitted");
-            navigation.navigate("MyProfile");
+            Alert.alert('Offer submitted');
+            navigation.navigate('MyProfile');
           } else {
-            Alert.alert("Offer submit");
+            Alert.alert('Offer submit');
           }
         }
       } catch (error) {
@@ -253,148 +254,46 @@ const MakeAnOffer = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-
-        <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          width: '100%',
-          position: 'relative',
-          alignItems: 'center',
-          paddingTop: 16,
-          paddingBottom: 2,
-          marginBottom: DeviceInfo.getDeviceType() === 'Tablet'?20:20
-        }}>
+      <View style={styles.headercover}>
         <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            alignItems: 'flex-start',
-            position: 'absolute',
-            left: 5,
-            justifyContent: 'flex-start',
-            // top: 12,
-            top: 13,
-           // backgroundColor:"green",
-width:50,
-height:50
-
-          }}
+          style={styles.leftheaderstyle}
           onPress={() => {
             navigation.goBack();
           }}>
-          <Image
-            style={{
-              width: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
-              height: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
-              resizeMode: 'contain',
-              justifyContent: 'center',
-              flexDirection: 'row',
-              alignItems: 'center',
-              resizeMode: 'contain',
-            }}
-            source={Images.leftnewarrow}></Image>
-     
+          <Image style={styles.arrowimage} source={Images.leftnewarrow}></Image>
         </TouchableOpacity>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
-              color: Colors.black,
-              fontFamily: 'Poppins-Light',
-              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?43:22,
-            }}>
-         Make an offer
-          </Text>
-     
+        <View style={styles.maincenter}>
+          <Text style={styles.centertext}>Make an offer</Text>
         </View>
         <TouchableOpacity
-
-          style={{
-            position:"absolute",
-    right:10,
-    top:15
-          }}
-
+          style={styles.rightmenu}
           onPress={() => navigation.goBack()}>
-
           <Animatable.Image
             source={Images.menu}
             style={styles.imagedata}
             animation="flipInY"
           />
         </TouchableOpacity>
-
-        {/* <TouchableOpacity
-              onPress={() => {
-              
-              }}
-              activeOpacity={0.5}
-              style={{
-                height: 40,
-                width: 40,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderWidth: 1,
-                borderColor: Colors.surfblur,
-                borderRadius: 50,
-                position:"absolute",
-                right:10,
-                top:5
-              }}>
-             
-            
-                <View
-                  style={{
-                    height:35,
-                    width: 35,
-                    borderRadius: 20,
-                    backgroundColor: Colors.surfblur,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    overflow: 'hidden',
-                  }}>
-               
-                    <Image
-                      style={{ height: 40, width: 40 }}
-                      source={Images.user}
-                    />
-            
-                </View>
-            
-         
-            </TouchableOpacity> */}
-
       </View>
       <KeyboardAwareScrollView
         keyboardDismissMode="interactive"
         showsVerticalScrollIndicator={false}
         enableOnAndroid={true}
-        extraScrollHeight={90}
-      >
+        extraScrollHeight={90}>
         <View style={styles.cardContainer}>
-
-
           <View style={styles.formContainer}>
             <ScrollView
               showsVerticalScrollIndicator={false}
-              keyboardShouldPersistTaps="handled"
-            >
+              keyboardShouldPersistTaps="handled">
               <View style={styles.inputContainer}>
                 <Text style={styles.labelText}>Property Address*</Text>
                 <TextInput
                   style={styles.input}
                   placeholder="Property Address"
-                  // lineHeight={40}
-
-                  fontFamily='Poppins-Light'
+                  fontFamily="Poppins-Light"
                   placeholderTextColor={'gray'}
                   value={address}
-                  onChangeText={(text) => setAddress(text)}
+                  onChangeText={text => setAddress(text)}
                 />
               </View>
               <View style={styles.inputContainer}>
@@ -402,14 +301,16 @@ height:50
                 <TextInput
                   style={styles.input}
                   placeholder="Offer Price"
-                  fontFamily='Poppins-Light'
+                  fontFamily="Poppins-Light"
                   placeholderTextColor={'gray'}
                   keyboardType="default"
                   value={priceOffer}
-                  onChangeText={(text) => setPriceOffer(text)}
+                  onChangeText={text => setPriceOffer(text)}
                 />
                 {pricerror && (
-                  <Text style={styles.errorText}>Please enter a valid price</Text>
+                  <Text style={styles.errorText}>
+                    Please enter a valid price
+                  </Text>
                 )}
               </View>
               <View style={styles.inputContainer}>
@@ -417,23 +318,23 @@ height:50
                 <TextInput
                   style={styles.input}
                   placeholder="Cash Loan"
-
-                  fontFamily='Poppins-Light'
+                  fontFamily="Poppins-Light"
                   placeholderTextColor={'gray'}
                   keyboardType="default"
                   value={cashLoan}
-                  onChangeText={(text) => setCashLoan(text)}
+                  onChangeText={text => setCashLoan(text)}
                 />
                 {casherror && (
-                  <Text style={styles.errorText}>Please enter a valid cash loan</Text>
+                  <Text style={styles.errorText}>
+                    Please enter a valid cash loan
+                  </Text>
                 )}
               </View>
               <View style={styles.inputContainer}>
                 <Text style={styles.labelText}>Close Date*</Text>
                 <TouchableOpacity
                   style={styles.datePickerContainer}
-                  onPress={showDatepicker}
-                >
+                  onPress={showDatepicker}>
                   <Text style={styles.datePickerText}>
                     {selectedDate ? selectedDate.toDateString() : 'Select Date'}
                   </Text>
@@ -442,14 +343,16 @@ height:50
                   <DateTimePicker
                     value={selectedDate || new Date()}
                     mode="date"
-                    fontFamily='Poppins-Light'
+                    fontFamily="Poppins-Light"
                     is24Hour={true}
                     display="default"
                     onChange={handleDateChange}
                   />
                 )}
                 {dateerror && (
-                  <Text style={styles.errorText}>Please select a close date</Text>
+                  <Text style={styles.errorText}>
+                    Please select a close date
+                  </Text>
                 )}
               </View>
               <View style={styles.inputContainer}>
@@ -457,13 +360,15 @@ height:50
                 <TextInput
                   style={styles.input}
                   placeholder="Legal Name"
-                  fontFamily='Poppins-Light'
+                  fontFamily="Poppins-Light"
                   placeholderTextColor={'gray'}
                   value={legalName}
-                  onChangeText={(text) => setLegalName(text)}
+                  onChangeText={text => setLegalName(text)}
                 />
                 {nameerror && (
-                  <Text style={styles.errorText}>Please enter a valid legal name</Text>
+                  <Text style={styles.errorText}>
+                    Please enter a valid legal name
+                  </Text>
                 )}
               </View>
               <View style={styles.inputContainer}>
@@ -471,13 +376,15 @@ height:50
                 <TextInput
                   style={styles.input}
                   placeholder="Current Address"
-                  fontFamily='Poppins-Light'
+                  fontFamily="Poppins-Light"
                   placeholderTextColor={'gray'}
                   value={currentAddress}
-                  onChangeText={(text) => setCurrentAddress(text)}
+                  onChangeText={text => setCurrentAddress(text)}
                 />
                 {currenterror && (
-                  <Text style={styles.errorText}>Please enter a valid address</Text>
+                  <Text style={styles.errorText}>
+                    Please enter a valid address
+                  </Text>
                 )}
               </View>
               <View style={styles.inputContainer}>
@@ -485,13 +392,15 @@ height:50
                 <TextInput
                   style={styles.input}
                   placeholder="Email"
-                  fontFamily='Poppins-Light'
+                  fontFamily="Poppins-Light"
                   placeholderTextColor={'gray'}
                   value={email}
-                  onChangeText={(text) => setEmail(text)}
+                  onChangeText={text => setEmail(text)}
                 />
                 {emailerror && (
-                  <Text style={styles.errorText}>Please enter a valid email address</Text>
+                  <Text style={styles.errorText}>
+                    Please enter a valid email address
+                  </Text>
                 )}
               </View>
               <View style={styles.inputContainer}>
@@ -499,56 +408,29 @@ height:50
                 <TextInput
                   style={styles.input}
                   placeholder="Phone"
-                  fontFamily='Poppins-Light'
+                  fontFamily="Poppins-Light"
                   placeholderTextColor={'gray'}
                   keyboardType="numeric"
                   value={phone}
-                  onChangeText={(text) => setPhone(text)}
+                  onChangeText={text => setPhone(text)}
                 />
                 {phoneerror && (
-                  <Text style={styles.errorText}>Please enter a valid phone number</Text>
+                  <Text style={styles.errorText}>
+                    Please enter a valid phone number
+                  </Text>
                 )}
               </View>
             </ScrollView>
 
-
-            <View
-              style={{
-                width: '100%',
-
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'flex-end',
-
-              }}>
+            <View style={styles.buttoncover}>
               <TouchableOpacity
                 onPress={() => makeOfferAPI()}
-                style={{
-                  height: DeviceInfo.getDeviceType() === 'Tablet'?55:45,
-                  width: 130,
-                  borderRadius: 100,
-                  backgroundColor: Colors.surfblur,
-                  marginTop: 10,
-                  lineHeight: 50,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: 10
-                }}>
-                <Text
-                  style={{
-                    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:14,
-                    color: Colors.white,
-                    fontFamily: 'Poppins-Regular',
-
-                  }}>
-                  Submit
-                </Text>
+                style={styles.buttoninner}>
+                <Text style={styles.submittext}>Submit</Text>
               </TouchableOpacity>
             </View>
           </View>
         </View>
-
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
@@ -559,7 +441,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
     paddingHorizontal: 10,
-    // paddingVertical:10
   },
   bodyContainer: {
     flex: 1,
@@ -570,7 +451,6 @@ const styles = StyleSheet.create({
   cardContainer: {
     width: '100%',
     backgroundColor: Colors.white,
-    // borderRadius: 8,
     shadowColor: Colors.black,
     shadowOffset: {
       width: 0,
@@ -579,8 +459,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    //paddingHorizontal: 16,
-    // paddingVertical: 20,
   },
   cardTitleText: {
     fontSize: 24,
@@ -588,38 +466,26 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   viewStyle: {
-    // flexDirection: 'row',
-    // width: '90%',
-    // height: 60,
-    // justifyContent: 'space-around',
-    // alignSelf: 'center',
-    // alignItems: 'center',
-    // marginLeft: 40,
-    // marginBottom:10
     marginTop: 8,
     flexDirection: 'row',
     justifyContent: 'center',
     width: '100%',
-    marginLeft: 0
+    marginLeft: 0,
   },
   formContainer: {
-
     justifyContent: 'center',
-
   },
   inputContainer: {
     marginBottom: 16,
   },
   labelText: {
-    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?20:14,
-    // fontWeight: '700',
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 14,
     marginBottom: 0,
     color: Colors.black,
-    fontFamily: "Poppins-Medium"
+    fontFamily: 'Poppins-Medium',
   },
   input: {
-
-    height:DeviceInfo.getDeviceType() === 'Tablet'?60:40,
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 40,
     borderColor: Colors.BorderColor,
     borderWidth: 1,
     borderRadius: 4,
@@ -627,25 +493,23 @@ const styles = StyleSheet.create({
     width: '100%',
     color: Colors.textColorDark,
     paddingBottom: 5,
-    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12
-
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
   },
   datePickerContainer: {
     width: '100%',
-    //height: 40,
     justifyContent: 'center',
     borderColor: Colors.BorderColor,
     borderWidth: 1,
     borderRadius: 4,
     paddingHorizontal: 8,
     fontFamily: 'Poppins-Regular',
-
   },
   datePickerText: {
-    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12,
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
     color: 'gray',
     fontFamily: 'Poppins-Light',
-    height: 40, lineHeight: 40
+    height: 40,
+    lineHeight: 40,
   },
   errorText: {
     color: 'red',
@@ -657,23 +521,92 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: 100,
     marginTop: 10,
-    // marginRight: '5%',
     backgroundColor: Colors.surfblur,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'flex-end',
     flexDirection: 'row',
-
   },
   submitButtonText: {
-    fontSize: 16, fontWeight: '400',
-    color: Colors.white, fontFamily: 'Poppins-Regular'
-  },  imagedata: {
-    height:DeviceInfo.getDeviceType() === 'Tablet'?29:19,
-    width: DeviceInfo.getDeviceType() === 'Tablet'?49:29,
+    fontSize: 16,
+    fontWeight: '400',
+    color: Colors.white,
+    fontFamily: 'Poppins-Regular',
+  },
+  imagedata: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 29 : 19,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 29,
 
     resizeMode: 'contain',
-   
+  },
+  headercover: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%',
+    position: 'relative',
+    alignItems: 'center',
+    paddingTop: 16,
+    paddingBottom: 2,
+    marginBottom: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 20,
+  },
+  leftheaderstyle: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    position: 'absolute',
+    left: 5,
+    justifyContent: 'flex-start',
+    top: 13,
+    width: 50,
+    height: 50,
+  },
+  arrowimage: {
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 27,
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 27,
+    resizeMode: 'contain',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    resizeMode: 'contain',
+  },
+  maincenter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  centertext: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 20,
+    color: Colors.black,
+    fontFamily: 'Poppins-Light',
+    lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 43 : 22,
+  },
+  rightmenu: {
+    position: 'absolute',
+    right: 10,
+    top: 15,
+  },
+  buttoncover: {
+    width: '100%',
+
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  buttoninner: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 45,
+    width: 130,
+    borderRadius: 100,
+    backgroundColor: Colors.surfblur,
+    marginTop: 10,
+    lineHeight: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+  },
+  submittext: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
+    color: Colors.white,
+    fontFamily: 'Poppins-Regular',
   },
 });
 

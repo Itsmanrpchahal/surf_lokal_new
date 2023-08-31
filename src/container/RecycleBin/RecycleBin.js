@@ -246,8 +246,6 @@ const RecycleBin = () => {
       </TouchableOpacity>
       <View
         style={{
-          // height: 30,
-          //width: 20,
           backgroundColor: Colors.surfblur,
           position: 'absolute',
           top: 8,
