@@ -165,7 +165,16 @@ const Home = () => {
   const [isPressed1, setIsPressed1] = useState(false);
   const [isPressed2, setIsPressed2] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [mainViewHeight, setMainViewHeight] = useState(0)
+  const [topViewHeight, setTopViewHeight] = useState(0)
+  // const [bottomViewHeight, setBottomViewHight] = useState(0)
+  const [centerHeight, setCenterHeight] = useState(0)
 
+
+
+  useEffect(() => {
+    setCenterHeight(mainViewHeight - (topViewHeight ))
+  }, [topViewHeight])
   useEffect(() => {
     getID();
   }, []);
@@ -492,7 +501,7 @@ const Home = () => {
     const isSelected =
       selectedTabs.filter(i => i === data_customvalue).length > 0;
     return (
-      <View style={{}}>
+   
         <TouchableOpacity
           onPress={() => {
             if (isSelected) {
@@ -550,17 +559,11 @@ const Home = () => {
             </Text>
           </View>
         </TouchableOpacity>
-      </View>
+  
     );
   };
 
-  // if (loading) {
-  //   return (
-  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Colors.PrimaryColor }}>
-  //       <Loader />
-  //     </View>
-  //   );
-  // }
+ 
   return (
     <View style={{ flex: 1 }}>
     {
@@ -571,23 +574,30 @@ const Home = () => {
     }
     <SafeAreaView
       style={Platform.OS == 'android' ? styles.container : styles.containerIos}>
-      <View
-        style={{
-          height: '100%',
-          width: "100%",
-          alignItems: "center",
-
-        }}>
+     <View
+          onLayout={({ nativeEvent }) => {
+            const { x, y, width, height } = nativeEvent.layout
+            setMainViewHeight(height)
+          }}
+          style={{
+            height: '100%',
+            backgroundColor: Colors.white,
+          }}
+        >
+            <View onLayout={({ nativeEvent }) => {
+            const { x, y, width, height } = nativeEvent.layout
+            setTopViewHeight(height)
+          }}>
         <View
           style={{
             width: DeviceInfo.getDeviceType() === 'Tablet' ? "80%" : "100%",
-            paddingVertical: 18,
+            paddingVertical: 15,
             justifyContent: 'center',
             borderRadius: 5,
             marginBottom: 4,
             alignItems: 'center',
             flexDirection: 'row',
-            backgroundColor: '#fff',
+            // backgroundColor: '#fff',
             paddingLeft: 10,
             alignItems: "center"
           }}>
@@ -627,8 +637,8 @@ const Home = () => {
                   color: '#000',
                   marginLeft: 1,
                   position: 'relative',
-                  top: 3,
-                  width: '100%',
+                  // top: 3,
+                  // width: "85%",
                   marginLeft: 15,
                 }}
               />
@@ -699,6 +709,7 @@ const Home = () => {
             width: '92%',
             alignSelf: 'center',
             justifyContent: 'center',
+            backgroundColor:"green"
           }}>
           <FlatList
             data={filterData}
@@ -708,11 +719,12 @@ const Home = () => {
             renderItem={renderFillterItem}
           />
         </View>
+        </View>
         {isSelected && (
           <View style={{
             position: "relative",
             //backgroundColor:"green",
-            alignItems: "center", justifyContent: "center", width: "100%"
+            alignItems: "center", justifyContent: "center", width: "100%",
           }}>
             <View
               style={{
@@ -1125,40 +1137,7 @@ const Home = () => {
                           }
 
 
-                          {/* <Dropdown
-                            style={[styles.dropdown, {width: '100%'}]}
-
-                            placeholderStyle={styles.placeholderStyle}
-                            selectedTextStyle={styles.selectedTextStyle}
-                            inputSearchStyle={styles.inputSearchStyle}
-                            iconStyle={styles.iconStyle}
-                            visibleSelectedItem={true}
-                            itemTextStyle={styles.itemTextStyle}
-                            placeholderTextColor="red"
-                            search
-                            data={moreFilterData.City}
-                            labelField="data_name"
-                            valueField="data_customvalue"
-                            placeholder="Select item"
-                            searchPlaceholder="Search..."
-                            value={cities}
-                            valuestyle={{ color: 'red' }}
-                            onChange={async item => {
-                              setCities(item);
-                              await dispatch(
-                                getPoperties({
-                                  type: 3,
-                                  data: {
-                                    data_custom_taxonomy: 'property_city',
-                                    data_customvalue: item.toString(),
-                                  },
-                                }),
-                              ).then(res => {
-                                setHomeData(res.payload.data);
-                              });
-                            }}
-                            selectedStyle={styles.selectedStyle}
-                          /> */}
+                 
 
                           <View style={{ marginBottom: 12 }}>
                             <Text
@@ -1740,49 +1719,23 @@ const Home = () => {
           </View>
         )}
         <View
-          style={{
-            alignItems: 'center',
-            position: 'relative',
-            height: '100%',
-            marginTop: 30
-          }}>
-          {/* {
-            homeData.length === 0 && 
-            <View >
-            <Text style={{
-              height: "100%",
-              fontSize: 18,
-              textAlign: "center", alignItems: "center", width: "100%",
-              justifyContent: "center", position: "absolute", left: 0, right: 0, top: "37%",
-            }}>Record not found! </Text>
-            <Button style={{
-              height: "100%",
-              fontSize: 18,
-              textAlign: "center", alignItems: "center", width: "100%",
-              justifyContent: "center", position: "absolute", left: 0, right: 0, top: "37%",
-            }} title='next' onPress={()=>{
-             dispatch(getPoperties(
-              { type: 0, data: {
-                UserId: user_ID,
-                data_custom_taxonomy: "more_filter_data",
-                data_customvalue: selectedTabsMore.toString(),
-              },
-            })).then((res) => {
-              setHomeData(res.payload.data);
-            })}
-}/>
-            </View>
-          } */}
+     onLayout={({ nativeEvent }) => {
+          const { x, y, width, height } = nativeEvent.layout
+          setCenterHeight(height)
+        }}style={{}}>
+       
           {homeData?.length > 0 ? (
-            <View>
+            <View style ={{height:centerHeight,width:"100%",backgroundColor:"purple"}}  >
               {!showMap && homeData?.length > 0 ? (
-                <View style={{ height: width, width: width, marginTop: 10 }}>
+                <View 
+                style={{ height:screenHeight, width: "100%" ,backgroundColor:'yellow'}}>
                   <CardsSwipe
                     style={{
                       position: 'relative',
                       width: '100%',
                       height: '100%',
                       overflow: 'hidden',
+                   
                     }}
                     // loop={false}
                     cards={homeData}
@@ -1792,17 +1745,17 @@ const Home = () => {
                     renderYep={() => (
                       <View
                         style={{
-                          top: 0,
+               
                           marginLeft: 8,
                           height: width - (viewHeight + 4),
                           width: width,
                           backgroundColor: 'green',
                           paddingHorizontal: 8,
                           borderRadius: 15,
-                          marginTop: -22,
+                          // marginTop: -22,
                           overflow: 'hidden',
                           position: 'absolute',
-                          top: 0,
+                          
                         }}>
                         <View
                           style={{
@@ -1843,7 +1796,6 @@ const Home = () => {
                           backgroundColor: 'red',
                           paddingHorizontal: 8,
                           borderRadius: 15,
-                          marginTop: -22,
                           overflow: 'hidden',
                         }}>
                         <View
@@ -1896,7 +1848,7 @@ const Home = () => {
                                   height: width,
                                   width: width,
                                   position: 'relative',
-                                  marginTop: 1,
+                                 
                                 }}>
                                 <View
                                   style={{
@@ -1993,7 +1945,7 @@ const Home = () => {
                                   <Image
                                     style={{
                                       width: width - 16,
-                                      height: '80%',
+                                      height: '94%',
                                       borderRadius: 0,
                                       alignSelf: 'center',
                                       justifyContent: 'space-between',
@@ -3152,9 +3104,9 @@ const Home = () => {
                       </View>
                     )}
                   />
-                </View>
+             </View>
               ) : showMap ? (
-                <View style={{ height: '100%', width: width, marginTop: 10 }}>
+                <View style={{ height: '100%', width: width,  }}>
                   {/* <View style={styles.coverlocation}>
                     <Image source={Images.graylocation} style={styles.locationpic}></Image>
   
@@ -3388,51 +3340,7 @@ const Home = () => {
                 }}>
                 Would you like to extend your search radius by 10 miles?
               </Text>
-              {/* <View
-                style={{
-                  borderRadius: 50,
-                  overflow: 'hidden', 
-                  width: "38%",
-                  backgroundColor:"#0165C5",
-                  paddingHorizontal:20,
-                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 40,
-                  lineHeight:DeviceInfo.getDeviceType() === 'Tablet' ? 170 : 150,
-                }}
-              >
-                <Button
-                  style={{
-                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 170 : 150, 
-                    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 32 : 18,
-                    textAlign: 'center',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    top: '33%',
-                    borderRadius: 50,
-                    paddingVertical: 50,
-                    paddingHorizontal:20,
-                    width: "38%",
-                    boxShadow:"none"
-                  }}
-                  title="Extend"
-                  color="transparent" 
-                  boxShadow="none"
-                  onPress={() => {
-                    dispatch(
-                      getPoperties({
-                        type: 0,
-                        data: {
-                          limit: limitCount + 1,
-                        },
-                      }),
-                    ).then(res => {
-                      setHomeData(res.payload.data);
-                    });
-                  }}
-                />
-              </View> */}
+      
               <View style={{
                 width: '40%',
                 flexDirection: 'row',
@@ -3599,13 +3507,12 @@ const styles = StyleSheet.create({
     boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
   },
   shadowProp: {
-    marginTop: 50,
     width: '100%',
     alignContent: 'center',
     backgroundColor: 'white',
   },
   container: {
-    flex: 1,
+  
     backgroundColor: Colors.white,
   },
   marrowcover: {

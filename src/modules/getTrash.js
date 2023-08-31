@@ -13,12 +13,13 @@ export const getTrash = createAsyncThunk('getTrash', async () => {
     security_key:"SurfLokal52",
     access_token:access_token
   }
-console.log("getTrash access_token",access_token)
+// console.log("getTrash access_token")
   return await getAPI(
     BASEURl+'webapi/v1/trashlist',Header
   )
     .then(async response => {
       const {data} = response;
+      console.log('dsyusyys',data)
       return data;
     })
     .catch(e => {

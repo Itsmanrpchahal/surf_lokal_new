@@ -242,7 +242,7 @@ const RecycleBin = () => {
 
     <View style={styles.slideOuter}>
       <TouchableOpacity onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID, from: 'RecycleBin' }) }}>
-        <Image source={{ uri: item.featured_image_src[0].guid }} style={styles.slide} />
+        <Image source={{ uri: item?.featured_image_src[0].guid }} style={styles.slide} />
       </TouchableOpacity>
       <View
         style={{
@@ -270,32 +270,7 @@ const RecycleBin = () => {
        RX-{item.ListingKey}
         </Text>
       </View>
-      {/* <View
-        style={{
-          // height: 30,
-          //width: 20,
-          backgroundColor: Colors.surfblur,
-          position: 'absolute',
-          top: 8,
-          right: 16,
-          borderRadius: 5,
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingHorizontal: 25,
-          paddingVertical: 4,
-        }}>
-        <Text
-          style={{
-            fontSize: 12,
-            color: Colors.white,
-            fontFamily: 'Poppins-Regular',
-            marginBottom: 0,
-            lineHeight: 14,
-            paddingTop: 4,
-          }}>
-          Active
-        </Text>
-      </View> */}
+
         <View
         style={{
           // height: 30,
@@ -322,100 +297,7 @@ const RecycleBin = () => {
         {item?.status}
         </Text>
       </View>
-      {/* <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          width: '90%',
-          justifyContent: 'space-between',
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            width: '15%',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <TouchableOpacity onPress={() => makePhoneCall()}>
-            <Image
-              source={Images.call}
-              style={{ height: 18, width: 18, resizeMode: 'contain', marginRight: 15, position: "relative", left: 0, top: 1 }}></Image>
-          </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => navigation.navigate('ChatSearch')}>
-            <Image
-              source={Images.chat}
-              style={{ height: 18, width: 18 }}></Image>
-          </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity onPress={() => navigation.navigate('ViewPropertiy', { item })}>
-          <Text
-            style={{
-              fontSize: 18,
-              color: Colors.surfblur,
-              fontFamily: 'Poppins-Bold',
-              marginTop: 5
-            }}>
-            {item.property_price}
-          </Text>
-        </TouchableOpacity>
-
-        <View
-          style={{
-            flexDirection: 'row',
-            // width: '20%',
-            // alignSelf: 'flex-end',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-
-          }}>
-          <TouchableOpacity
-            onPress={() => {
-              setProductId(item.ID);
-              setReviewTitle(item.title)
-              toggleModal();
-              dispatch(getRating(item.ID)).then((response) => {
-                setRatingData(response?.payload?.data)
-                setRating(response?.payload?.data[0]?.photo_wuality_rating)
-                setRating1(response?.payload?.data[0]?.description_review_stars)
-                setRating2(response?.payload?.data[0]?.price_review_stars)
-                setRating3(response?.payload?.data[0]?.interest_review_stars)
-                console.log(" getRating response data", response?.payload?.data)
-              })
-            }}
-          >
-           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                {item.total_average_rating > 0 ? (
-                  <Image
-                    source={Images.startfill}
-                    style={{height: 22, width: 22, resizeMode: 'contain'}}
-                  />
-                ) : (
-                  <Image
-                    source={Images.star2}
-                    style={{height: 22, width: 22, resizeMode: 'contain',tintColor:'black'}}
-                  />
-                )}
-                <Text
-                  style={{
-                    fontSize: 18,
-                    color: Colors.black,
-                    fontFamily: 'Poppins-Light',
-                  }}>
-                  {item.total_average_rating}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleShare(item.ID)}>
-            <Image
-              source={Images.send}
-              style={{ height: 18, width: 18, resizeMode: 'contain', position: "relative", left: 8, marginLeft: 0 }}></Image>
-          </TouchableOpacity>
-        </View>
-
-      </View> */}
          <View
         style={{
           flexDirection: 'row',
