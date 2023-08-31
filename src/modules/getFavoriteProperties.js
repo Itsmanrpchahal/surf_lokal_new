@@ -19,6 +19,7 @@ export const getFavoriteProperties = createAsyncThunk('getFavoriteProperties', a
   )
     .then(async response => {
       const {data} = response;
+      console.log('favprop',data)
       return data;
     })
     .catch(e => {
