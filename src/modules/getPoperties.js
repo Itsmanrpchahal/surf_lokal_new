@@ -62,6 +62,9 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
           .then(async response => {
 
             const { data } = response;
+             console.log("type.data.data_custom_taxonomy",type.data.data_custom_taxonomy)
+             console.log("type.data.data_customvalue",type.data.data_customvalue)
+             console.log("type.data.response",response)
             return data;
           })
           .catch(e => {

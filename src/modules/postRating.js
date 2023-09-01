@@ -5,18 +5,17 @@ import { Platform } from 'react-native';
 
 export const postRating = createAsyncThunk('postRating', async (formData) => {
   try {
-    const access_token = await AsyncStorage.getItem('access_token');
+    const accesToken = await AsyncStorage.getItem('access_token');
     const header = Platform.OS === 'android' ?
       {
         security_key: "SurfLokal52",
-        access_token: '1f925480b75052134e842fc4f0970407',
+        access_token: accesToken,
         'Content-Type': 'multipart/form-data'
       } :
       {
         security_key: "SurfLokal52",
-        access_token: '1f925480b75052134e842fc4f0970407',
+        access_token: accesToken,
       };
-    console.log("Header cd25ab6d7ee9f9daf09447f25ee48d60", access_token)
     const response = await uploadImageAPI(
       `https://www.surflokal.com/webapi/v1/rating/`,
       formData,

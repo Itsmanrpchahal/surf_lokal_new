@@ -34,8 +34,6 @@ import {getFilter} from '../../modules/getFilter';
 import {SvgUri} from 'react-native-svg';
 import {postUpdateRating} from '../../modules/postUpdateRating';
 import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
-import {CheckBox} from 'react-native-elements';
-
 import CardsSwipe from 'react-native-cards-swipe';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
@@ -85,6 +83,7 @@ const Home = () => {
     };
   }, []);
 
+  useEffect(() => {}, []);
   useEffect(() => {
     updateKeyboard();
   }, [keyboardStatus]);
@@ -118,7 +117,6 @@ const Home = () => {
   const [adress, setAddres] = useState('');
   const [filterData, setFilterData] = useState([]);
   const [moreFilterData, setMoreFilterData] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null);
   const [termName, setTermName] = useState(null);
   const [cities, setCities] = useState([]);
   const navigation = useNavigation();
@@ -140,7 +138,6 @@ const Home = () => {
   const [bedroomitem, setBedroomItem] = useState(-1);
   const [bathRoom, setBathRoomItem] = useState(-1);
   const [imageIndex, setImageIndex] = useState(0);
-  const [viewHeight, setViewHeight] = useState(80);
   const [user_ID, setUser_ID] = useState();
   const [lntLng, setLatLng] = useState({latitude: 0.0, longitude: 0.0});
   const [showMap, setShowMap] = useState(false);
@@ -166,13 +163,12 @@ const Home = () => {
   const [centerHeight, setCenterHeight] = useState(0);
   const [imageHeight, setImageHeight] = useState(0);
   const [imageWidth, setImageWidth] = useState(0);
-
+  const ref = useRef();
   useEffect(() => {
     setCenterHeight(mainViewHeight - topViewHeight);
   }, [topViewHeight]);
 
-  useEffect(() => {
-  }, [topViewHeight]);
+  useEffect(() => {}, [topViewHeight]);
 
   useEffect(() => {
     getID();
@@ -206,8 +202,9 @@ const Home = () => {
     filtertoggleModal();
   };
   const getID = async () => {
-    const id = await AsyncStorage.getItem('userId');
-    setUser_ID(id);
+    const token = await AsyncStorage.getItem('access_token');
+    console.log('token========>', token);
+    // setUser_ID(id);
   };
 
   const getUserScoreApiCall = () => {
@@ -595,7 +592,8 @@ const Home = () => {
             }}>
             <View
               style={{
-                width: DeviceInfo.getDeviceType() === 'Tablet' ? '100%' : '100%',
+                width:
+                  DeviceInfo.getDeviceType() === 'Tablet' ? '100%' : '100%',
                 paddingVertical: 15,
                 justifyContent: 'center',
                 borderRadius: 5,
@@ -953,282 +951,42 @@ const Home = () => {
                                 }}>
                                 Choose your city{' '}
                               </Text>
-
-                              <TouchableOpacity
-                                onPress={() => {
-                                  setSetCollapsibleStatus(!collapsibleStatus);
-                                }}
-                                style={[
-                                  styles.dropdown,
-                                  {
-                                    width: '100%',
-                                    height: 40,
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-between',
-                                    paddingHorizontal: 12,
+                              <MultiSelect
+                                ref={ref}
+                            style={[styles.dropdown, { width: '100%' }]}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+                            visibleSelectedItem={true}
+                            itemTextStyle={styles.itemTextStyle}
+                            placeholderTextColor="red"
+                            search
+                            data={moreFilterData.City}
+                            labelField="data_name"
+                            valueField="data_customvalue"
+                            placeholder="All Cities"
+                            searchPlaceholder="Search..."
+                            value={cities}
+                            valuestyle={{ color: 'red' }}
+                            onChange={async item => {
+                              setCities(item);
+                              ref.current.close();
+                              await dispatch(
+                                getPoperties({
+                                  type: 3,
+                                  data: {
+                                    data_custom_taxonomy: 'property_city',
+                                    data_customvalue: item.toString(),
                                   },
-                                ]}>
-                                <Text
-                                  style={{
-                                    color: Colors.black,
-                                    fontFamily: 'Poppins-Regular',
-                                    fontSize:
-                                      DeviceInfo.getDeviceType() === 'Tablet'
-                                        ? 18
-                                        : 14,
-                                  }}>
-                                  All Cities
-                                </Text>
-                                <View
-                                  style={{
-                                    width: 20,
-                                    height: 20,
-                                    position: 'relative',
-                                  }}>
-                                  <Image
-                                    source={Images.downArrow}
-                                    style={{
-                                      width: 12,
-                                      height: 12,
-                                      resizeMode: 'contain',
-                                      position: 'absolute',
-                                      right: 0,
-                                      top: 5,
-                                    }}></Image>
-                                </View>
-                              </TouchableOpacity>
-                              <Collapsible
-                                collapsed={collapsibleStatus}
-                                style={{width: '100%'}}>
-                                <View
-                                  style={[
-                                    styles.dropdownz,
-                                    {
-                                      width: '100%',
-                                      height: 150,
-                                      backgroundColor: '#fff',
-                                      alignItems: 'center',
-                                      flexDirection: 'row',
-                                      justifyContent: 'center',
-                                      paddingTop: 10,
-                                    },
-                                  ]}>
-                                  <View
-                                    style={{
-                                      alignContent: 'center',
-                                      width: '100%',
-                                      justifyContent: 'center',
-                                      alignItems: 'center',
-                                    }}>
-                                    <FlatList
-                                      data={moreFilterData?.City}
-                                      // data={[1]}
-                                      style={{
-                                        alignContent: 'center',
-                                        width: '100%',
-                                      }}
-                                      nestedScrollEnabled
-                                      renderItem={({item, index}) => {
-                                        const {
-                                          data_custom_taxonomy,
-                                          data_customvalue,
-                                        } = item;
-                                        const isSelectedMore =
-                                          selectedTabsMore.filter(
-                                            i => i === data_customvalue,
-                                          ).length > 0;
-                                        return (
-                                          <TouchableOpacity
-                                            style={{
-                                              width: '100%',
-                                              paddingHorizontal: 8,
-                                            }}
-                                            onPress={async () => {
-                                              cities.push(item);
-                                              setSetCollapsibleStatus(
-                                                !collapsibleStatus,
-                                              );
-                                              if (isSelectedMore) {
-                                                setSelectedTabsMore(prev =>
-                                                  prev.filter(
-                                                    i => i !== data_customvalue,
-                                                  ),
-                                                );
-                                              } else {
-                                                setSelectedTabsMore(prev => [
-                                                  ...prev,
-                                                  data_customvalue,
-                                                ]);
-                                              }
-                                              console.log(
-                                                'selectedTabsMore======>',
-                                                selectedTabsMore,
-                                              );
-                                              //  await dispatch(
-                                              //     getPoperties({
-                                              //       type: 3,
-                                              //       data: {
-                                              //         data_custom_taxonomy: 'property_city',
-                                              //         data_customvalue: selectedTabsMore,
-                                              //       },
-                                              //     }),
-                                              //   ).then(res => {
-                                              //     setHomeData(res.payload.data);
-                                              //   });
-                                            }}>
-                                            <View
-                                              style={styles.checkboxContainer}>
-                                              <View
-                                                style={[
-                                                  styles.checkbox,
-                                                  isChecked && styles.checked,
-                                                ]}>
-                                                {isSelectedMore && (
-                                                  <Image
-                                                    style={{
-                                                      width:
-                                                        DeviceInfo.getDeviceType() ===
-                                                        'Tablet'
-                                                          ? 40
-                                                          : 18,
-                                                      height:
-                                                        DeviceInfo.getDeviceType() ===
-                                                        'Tablet'
-                                                          ? 40
-                                                          : 18,
-
-                                                      resizeMode: 'contain',
-                                                    }}
-                                                    source={
-                                                      Images.checkok
-                                                    }></Image>
-                                                )}
-                                              </View>
-                                              <Text
-                                                style={{
-                                                  fontSize:
-                                                    DeviceInfo.getDeviceType() ===
-                                                    'Tablet'
-                                                      ? 18
-                                                      : 14,
-                                                  color: Colors.black,
-                                                  textAlign: 'left',
-                                                  backgroundColor: Colors.white,
-                                                  padding: 10,
-                                                  marginBottom: 8,
-                                                  width: '100%',
-                                                }}
-                                                numberOfLines={1}>
-                                                {item?.data_name}
-                                              </Text>
-                                            </View>
-                                          </TouchableOpacity>
-                                        );
-                                      }}></FlatList>
-                                  </View>
-                                </View>
-                              </Collapsible>
-                              {cities.length > 0 ? (
-                                <View
-                                  style={[
-                                    styles.dropdown,
-                                    {
-                                      width: '100%',
-                                      height: 60,
-                                      alignItems: 'flex-start',
-                                      flexDirection: 'row',
-                                      justifyContent: 'flex-start',
-                                      padding: 10,
-                                    },
-                                  ]}>
-                                  <View
-                                    style={{
-                                      // alignContent: 'flex-start',
-                                      width: '100%',
-                                      justifyContent: 'flex-start',
-                                      alignItems: 'flex-start',
-                                    }}>
-                                    <FlatList
-                                      data={cities}
-                                      style={{
-                                        alignContent: 'center',
-                                        margin: -6,
-                                      }}
-                                      horizontal
-                                      nestedScrollEnabled
-                                      numColumns={1}
-                                      renderItem={({item}) => {
-                                        const {
-                                          data_custom_taxonomy,
-                                          data_customvalue,
-                                        } = item;
-                                        const isSelectedMore =
-                                          selectedTabsMore.filter(
-                                            i => i === data_customvalue,
-                                          ).length > 0;
-                                        return (
-                                          <TouchableOpacity
-                                            style={{
-                                              margin: 5,
-                                              borderRadius: 20,
-                                              borderWidth: 1,
-                                              borderColor: Colors.black,
-                                              backgroundColor: isSelectedMore
-                                                ? Colors.black
-                                                : Colors.white,
-                                              padding: 10,
-                                              flexDirection: 'row',
-                                              alignItems: 'center',
-                                            }}
-                                            onPress={async () => {
-                                              cities.pop(item);
-                                              if (isSelectedMore) {
-                                                setSelectedTabsMore(prev =>
-                                                  prev.filter(
-                                                    i => i !== data_customvalue,
-                                                  ),
-                                                );
-                                              } else {
-                                                setSelectedTabsMore(prev => [
-                                                  ...prev,
-                                                  data_customvalue,
-                                                ]);
-                                              }
-                                            }}>
-                                            <Text
-                                              style={{
-                                                color: isSelectedMore
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                                textAlign: 'center',
-                                              }}
-                                              numberOfLines={1}>
-                                              {item?.data_name}
-                                            </Text>
-                                            <Image
-                                              style={{
-                                                width:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? 40
-                                                    : 12,
-                                                height:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? 40
-                                                    : 12,
-                                                marginLeft: 8,
-                                                marginTop: 2,
-                                                resizeMode: 'contain',
-                                              }}
-                                              source={Images.close}></Image>
-                                          </TouchableOpacity>
-                                        );
-                                      }}></FlatList>
-                                  </View>
-                                </View>
-                              ) : null}
+                                }),
+                              ).then(res => {
+                                setHomeData(res.payload.data);
+                                refRBSheet.current.close();
+                              });
+                            }}
+                            selectedStyle={styles.selectedStyle}
+                          />
 
                               <View style={{marginBottom: 12}}>
                                 <Text
@@ -1258,8 +1016,6 @@ const Home = () => {
                                     }}
                                     data={moreFilterData?.bedroom}
                                     horizontal={true}
-                                    // numColumns={4}
-
                                     showsHorizontalScrollIndicator={false}
                                     renderItem={({item, index}) => {
                                       return (
@@ -1413,7 +1169,6 @@ const Home = () => {
                                   }}>
                                   Square Feet
                                 </Text>
-
                                 <View
                                   style={{
                                     flexDirection: 'row',
@@ -1901,12 +1656,12 @@ const Home = () => {
                       renderYep={() => (
                         <View
                           style={{
-                            height:imageHeight,
+                            height: imageHeight,
                             width: imageWidth,
                             backgroundColor: 'green',
                             paddingHorizontal: 8,
                             borderRadius: 15,
-                            marginLeft:10,
+                            marginLeft: 10,
                             // marginRight:5,
                             // marginTop: -22,
                             overflow: 'hidden',
@@ -1945,14 +1700,14 @@ const Home = () => {
                         <View
                           style={{
                             marginLeft: -width,
-                            height:imageHeight,
+                            height: imageHeight,
                             width: imageWidth,
                             backgroundColor: 'red',
                             paddingHorizontal: 8,
                             borderRadius: 15,
                             // marginLeft:20,
                             overflow: 'hidden',
-                            position:'absolute'
+                            position: 'absolute',
                           }}>
                           <View
                             style={{
@@ -2001,11 +1756,12 @@ const Home = () => {
                             renderItem={({item1, index}) => (
                               <>
                                 <View
-                                 onLayout={({nativeEvent}) => {
-                                  const {x, y, width, height} = nativeEvent.layout;
-                                  setImageHeight(height);
-                                  setImageWidth(width)
-                                }}
+                                  onLayout={({nativeEvent}) => {
+                                    const {x, y, width, height} =
+                                      nativeEvent.layout;
+                                    setImageHeight(height);
+                                    setImageWidth(width);
+                                  }}
                                   style={{
                                     height: '100%',
                                     width: width,
@@ -2135,7 +1891,7 @@ const Home = () => {
                               <View
                                 style={{
                                   marginLeft: 8,
-                                  width: "97%",
+                                  width: '97%',
                                   marginRight: 8,
                                   justifyContent: 'space-evenly',
                                   backgroundColor: Colors.white,
@@ -2160,7 +1916,7 @@ const Home = () => {
                                         width: 40,
                                         justifyContent: 'flex-start',
                                         alignItems: 'flex-start',
-                                      right:15
+                                        right: 15,
                                       }}
                                       onPress={() => {
                                         setProductId(item.ID);
@@ -2244,8 +2000,8 @@ const Home = () => {
                                       width: 40,
                                       justifyContent: 'center',
                                       alignItems: 'center',
-                                      bottom:10,
-                                     marginRight:20
+                                      bottom: 10,
+                                      marginRight: 20,
                                     }}>
                                     <Image
                                       source={Images.send}
@@ -4233,6 +3989,7 @@ const styles = StyleSheet.create({
   placeholderStyle: {
     fontSize: 16,
     color: 'gray',
+     paddingLeft:10
   },
   selectedStyle: {
     borderRadius: 12,

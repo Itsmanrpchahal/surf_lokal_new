@@ -5,17 +5,18 @@ import { Platform } from 'react-native';
 
 export const logOut = createAsyncThunk('logOut', async () => {
   try {
-    const access_token = await AsyncStorage.getItem('access_token');
+    const accessToken = await AsyncStorage.getItem('access_token');
     const header = Platform.OS === 'android' ?
       {
         security_key: "SurfLokal52",
-        access_token: access_token,
+        access_token: accessToken,
         'Content-Type': 'multipart/form-data'
       } :
       {
         security_key: "SurfLokal52",
-        access_token: access_token,
+        access_token: accessToken,
       };
+       console.log(" logOut accessToken ======>",accessToken)
     const response = await uploadImageAPI(
       `https://www.surflokal.com/wp-json/custom-plugin/logout/`,
        header,
