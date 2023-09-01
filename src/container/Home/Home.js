@@ -795,7 +795,7 @@ const Home = () => {
                           />
 
 
-                              <View style={{marginBottom: 12}}>
+                              <View style={{marginBottom: 12,marginTop:12}}>
                                 <Text style={styles.modallabel}>Bedrooms</Text>
                                 <View style={styles.dataupeercover}>
                                   <FlatList
@@ -907,7 +907,7 @@ const Home = () => {
                               </View>
 
                               <View>
-                                <Text style={styles.modallabel}>
+                                <Text style={[styles.modallabel,{marginTop:12}]}>
                                   Square Feet
                                 </Text>
                                 <View
@@ -1198,7 +1198,7 @@ const Home = () => {
                                 </View>
                               </View>
                               <Collapsible collapsed={moreFilter}>
-                                <View style={style.moreffiltercover}>
+                                <View style={styles.moreffiltercover}>
                                   <FlatList
                                     data={moreFilterData?.more_filter_data}
                                     style={{
