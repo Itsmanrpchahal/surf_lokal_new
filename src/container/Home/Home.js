@@ -33,7 +33,9 @@ import {postRating} from '../../modules/postRating';
 import {getFilter} from '../../modules/getFilter';
 import {SvgUri} from 'react-native-svg';
 import {postUpdateRating} from '../../modules/postUpdateRating';
+
 import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
+
 import CardsSwipe from 'react-native-cards-swipe';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
@@ -62,9 +64,6 @@ import GetLocation from 'react-native-get-location';
 import Loader from '../../components/Loader';
 
 const {width} = Dimensions.get('screen');
-// const toggleCheckbox = () => {
-//   setIsChecked(!isChecked);
-// };
 const Home = () => {
   const isFocused = useIsFocused();
 
@@ -101,7 +100,6 @@ const Home = () => {
         setIsSelected(false);
         setIsPressed1(false);
         setIsPressed(false);
-        // setSelectedItem(null);
         setSelectedTabs([]);
       }
     }
@@ -110,7 +108,6 @@ const Home = () => {
   const [homeData, setHomeData] = useState([]);
   const [selectedTabs, setSelectedTabs] = useState([]);
   const [selectedTabsMore, setSelectedTabsMore] = useState([]);
-  // const [selectedMoreCity, setselectedMoreCity] = useState([])
   const [selected, setSelected] = useState(-1);
   const [activity, setActivity] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -159,7 +156,6 @@ const Home = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [mainViewHeight, setMainViewHeight] = useState(0);
   const [topViewHeight, setTopViewHeight] = useState(0);
-  // const [bottomViewHeight, setBottomViewHight] = useState(0)
   const [centerHeight, setCenterHeight] = useState(0);
   const [imageHeight, setImageHeight] = useState(0);
   const [imageWidth, setImageWidth] = useState(0);
@@ -184,9 +180,7 @@ const Home = () => {
             data_customvalue: selectedTabsMore.toString(),
           },
         }),
-      ).then(res => {
-        // setHomeData(res.payload.data);
-      });
+      ).then(res => {});
     }
   }, [selectedTabsMore]);
 
@@ -398,10 +392,7 @@ const Home = () => {
           .count == 0
       ) {
         favToggleModal();
-        // Alert.alert('Alert', response.payload.message);
       } else {
-        // favToggleModal()
-        // Alert.alert('Alert', response.payload.message);
       }
     });
   };
@@ -411,7 +402,6 @@ const Home = () => {
   const trashfile = async post_id => {
     getTrashApiCall();
     const formData = new FormData();
-    // formData.append('userID', user_ID);
     formData.append('post_id', post_id);
 
     await dispatch(addRemoveTrash(formData)).then(response => {
@@ -523,15 +513,7 @@ const Home = () => {
           setActivity(true);
           setLoading(false);
         }}>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginLeft: 5,
-            marginRight: 5,
-            paddingRight: 10,
-            marginBottom: 8,
-          }}>
+        <View style={styles.filtericoncover}>
           <SvgUri
             height={DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25}
             width={DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25}
@@ -542,9 +524,7 @@ const Home = () => {
           <Text
             style={{
               fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
-
               color: isSelected ? Colors.darbluec : Colors.newgray,
-
               fontFamily: isSelected ? 'Poppins-SemiBold' : 'Poppins-Regular',
               borderBottomColor: isSelected ? Colors.darbluec : 'transparent',
               borderBottomWidth: isSelected ? 1 : 0,
@@ -559,16 +539,7 @@ const Home = () => {
   return (
     <View style={{flex: 1}}>
       {loading ? (
-        <View
-          style={{
-            height: '100%',
-            width: '100%',
-            backgroundColor: 'rgba(0,0,0,.7)',
-            position: 'absolute',
-            zIndex: 99,
-            left: 0,
-            top: 0,
-          }}>
+        <View style={styles.loaderstyle}>
           <Loader />
         </View>
       ) : null}
@@ -581,49 +552,16 @@ const Home = () => {
             const {x, y, width, height} = nativeEvent.layout;
             setMainViewHeight(height);
           }}
-          style={{
-            height: '100%',
-            backgroundColor: Colors.white,
-          }}>
+          style={styles.bgcover}>
           <View
             onLayout={({nativeEvent}) => {
               const {x, y, width, height} = nativeEvent.layout;
               setTopViewHeight(height);
             }}>
-            <View
-              style={{
-                width:
-                  DeviceInfo.getDeviceType() === 'Tablet' ? '100%' : '100%',
-                paddingVertical: 15,
-                justifyContent: 'center',
-                borderRadius: 5,
-                marginBottom: 4,
-                alignItems: 'center',
-                flexDirection: 'row',
-                // backgroundColor: '#fff',
-                paddingLeft: 10,
-                alignItems: 'center',
-              }}>
-              <View
-                style={{
-                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 42,
-                  width: '90%',
-                  borderRadius: 100,
-                  borderWidth: 1,
-                  borderColor: Colors.BorderColor,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  shadowColor: '#000',
-                  backgroundColor: Colors.white,
 
-                  shadowOffset: {
-                    width: 0,
-                    height: 3,
-                  },
-                  elevation: 3,
-                  shadowColor: '#52006A',
-                }}>
-                <View style={{width: '85%'}}>
+            <View style={styles.searchuppercover}>
+              <View style={styles.searchinnercover}>
+                <View style={styles.w85}>
                   <TextInput
                     allowFontScaling={false}
                     placeholderTextColor={'#858383'}
@@ -634,64 +572,25 @@ const Home = () => {
                     value={adress}
                     onSubmitEditing={Keyboard.dismiss}
                     onChangeText={text => setAddres(text)}
-                    style={{
-                      fontSize:
-                        DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
-                      letterSpacing: 1,
-                      color: '#000',
-                      marginLeft: 1,
-                      position: 'relative',
-                      // top: 3,
-                      // width: "85%",
-                      marginLeft: 15,
-                    }}
+                    style={styles.searchinputtextarea}
                   />
                 </View>
-                <View
-                  style={{
-                    alignItems: 'center',
-                    width: '15%',
-                    height: '100%',
-                    justifyContent: 'center',
-                    height: 42,
-                    position: 'relative',
-                    justifyContent: 'center',
-                    borderLeftWidth: 1,
-                    borderLeftColor: Colors.BorderColor,
-                  }}>
+                <View style={styles.searchboarder}>
                   <TouchableOpacity
                     onPress={() => {
                       setShowMap(!showMap);
                     }}
-                    style={{
-                      flex: 1,
-                      width: '100%',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
+                    style={styles.searchborderinner}>
                     <Image
                       source={Images.address}
                       tintColor={
                         showMap ? Colors.PrimaryColor : Colors.PrimaryColor
                       }
-                      style={{
-                        height:
-                          DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
-                        width:
-                          DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        resizeMode: 'contain',
-                      }}></Image>
+                      style={styles.addressstyle}></Image>
                   </TouchableOpacity>
                 </View>
               </View>
-              <View
-                style={{
-                  width: '10%',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
+              <View style={styles.gpscover}>
                 {loading ? (
                   <ActivityIndicator size="small" color="blue" />
                 ) : (
@@ -701,26 +600,12 @@ const Home = () => {
                       setShowMap(false);
                       setAddres('');
                     }}>
-                    <Image
-                      source={Images.gps}
-                      style={{
-                        height:
-                          DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
-                        width:
-                          DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
-                        resizeMode: 'contain',
-                      }}></Image>
+                    <Image source={Images.gps} style={styles.gpsstyle}></Image>
                   </TouchableOpacity>
                 )}
               </View>
             </View>
-            <View
-              style={{
-                width: '92%',
-                alignSelf: 'center',
-                justifyContent: 'center',
-                // backgroundColor: "green"
-              }}>
+            <View style={styles.filterupper}>
               <FlatList
                 data={filterData}
                 keyExtractor={item => item.id}
@@ -730,23 +615,8 @@ const Home = () => {
               />
             </View>
             {isSelected && (
-              <View
-                style={{
-                  position: 'relative',
-                  //backgroundColor:"green",
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '100%',
-                }}>
-                <View
-                  style={{
-                    width: '100%',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    marginBottom: 5,
-                    marginTop: 10,
-                    alignItems: 'center',
-                  }}>
+              <View style={styles.filterinner}>
+                <View style={styles.filterinnermain}>
                   <TouchableOpacity
                     onPress={() => {
                       getSavedApiCall();
@@ -771,20 +641,13 @@ const Home = () => {
                         borderColor: Colors.gray,
                         borderRadius: 10,
                         backgroundColor: isPressed1 ? 'black' : 'white',
-                        // backgroundColor: "white",
-                        // Change background color on press
                       },
                     ]}>
                     <Text
-                      style={{
-                        color: isPressed1 ? 'white' : 'black',
-                        // color: 'black',
-
-                        // Change text color on press,
-                        fontFamily: 'Poppins-Regular',
-                        fontSize:
-                          DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
-                      }}>
+                      style={[
+                        styles.savesearchstyle,
+                        {color: isPressed1 ? 'white' : 'black'},
+                      ]}>
                       Save Search
                     </Text>
                   </TouchableOpacity>
@@ -802,26 +665,9 @@ const Home = () => {
                     ]}>
                     <Image
                       source={Images.filtericon}
-                      style={[
-                        {
-                          height:
-                            DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
-                          width:
-                            DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
-                          marginRight: 6,
-                        },
-                        {tintColor: 'black'},
-                      ]}
+                      style={styles.filtericonstyles}
                     />
-                    <Text
-                      style={{
-                        color: 'black',
-                        fontFamily: 'Poppins-Regular',
-                        fontSize:
-                          DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
-                      }}>
-                      Filters
-                    </Text>
+                    <Text style={styles.filtericontext}>Filters</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={async () => {
@@ -829,8 +675,6 @@ const Home = () => {
                       setIsSelected(false);
                       setIsPressed1(false);
                       setIsPressed(false);
-                      // setSelectedItem(null);
-                      // setCities(null)
                       setBedroomItem(null);
                       setBathRoomItem(null);
                       setMinSquareFeet('');
@@ -862,12 +706,12 @@ const Home = () => {
                       },
                     ]}>
                     <Text
-                      style={{
-                        color: isPressed2 ? 'white' : 'black',
-                        fontFamily: 'Poppins-Regular',
-                        fontSize:
-                          DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
-                      }}>
+                      style={[
+                        {
+                          color: isPressed2 ? 'white' : 'black',
+                        },
+                        styles.clearfilterbutton,
+                      ]}>
                       Clear filters
                     </Text>
                   </TouchableOpacity>
@@ -904,51 +748,13 @@ const Home = () => {
                           style={{
                             width: '99%',
                           }}>
-                          <View
-                            style={{
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                            }}>
-                            <View
-                              style={{
-                                width: 50,
-                                height: 5,
-                                backgroundColor: '#bac1c3',
-                                marginTop: 0,
-                                justifyContent: 'center',
-                                borderRadius: 100,
-                              }}></View>
+                          <View style={styles.modalcover}>
+                            <View style={styles.indicator}></View>
                           </View>
-                          <View
-                            style={{
-                              width: '100%',
-                              flexDirection: 'row',
-                              justifyContent: 'flex-end',
-                              alignItems: 'center',
-                            }}>
-                            <View
-                              style={{
-                                width: '100%',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                              }}></View>
-                          </View>
-                          <View
-                            style={{
-                              width: '99%',
-                            }}>
+
+                          <View style={styles.w99}>
                             <View>
-                              <Text
-                                style={{
-                                  color: 'black',
-                                  fontFamily: 'Poppins-Regular',
-                                  width: '99%',
-                                  marginBottom: 8,
-                                  fontSize:
-                                    DeviceInfo.getDeviceType() === 'Tablet'
-                                      ? 18
-                                      : 14,
-                                }}>
+                              <Text style={styles.modallabel}>
                                 Choose your city{' '}
                               </Text>
                               <MultiSelect
@@ -988,32 +794,12 @@ const Home = () => {
                             selectedStyle={styles.selectedStyle}
                           />
 
+
                               <View style={{marginBottom: 12}}>
-                                <Text
-                                  style={{
-                                    color: 'black',
-                                    fontFamily: 'Poppins-Regular',
-                                    fontSize:
-                                      DeviceInfo.getDeviceType() === 'Tablet'
-                                        ? 18
-                                        : 14,
-                                  }}>
-                                  Bedrooms
-                                </Text>
-                                <View
-                                  style={{
-                                    alignContent: 'center',
-                                    width: '100%',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                  }}>
+                                <Text style={styles.modallabel}>Bedrooms</Text>
+                                <View style={styles.dataupeercover}>
                                   <FlatList
-                                    style={{
-                                      fontSize:
-                                        DeviceInfo.getDeviceType() === 'Tablet'
-                                          ? 18
-                                          : 14,
-                                    }}
+                                    style={styles.slidervalue}
                                     data={moreFilterData?.bedroom}
                                     horizontal={true}
                                     showsHorizontalScrollIndicator={false}
@@ -1035,37 +821,27 @@ const Home = () => {
                                               ).then(res => {
                                                 setHomeData(res.payload.data);
                                               });
-                                            // setFilterModalVisible(false);
                                           }}>
                                           <View
-                                            style={{
-                                              width: 70,
-                                              height: 40,
-                                              marginTop: 8,
-                                              marginHorizontal: 3,
-                                              borderRadius: 20,
-                                              alignItems: 'center',
-                                              justifyContent: 'center',
-                                              borderWidth: 1,
-                                              borderColor: Colors.BorderColor,
-                                              backgroundColor:
-                                                bedroomitem === index
-                                                  ? Colors.black
-                                                  : Colors.white,
-                                            }}>
-                                            <Text
-                                              style={{
-                                                fontFamily: 'poppins-regular',
-                                                fontSize:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? 18
-                                                    : 14,
-                                                color:
+                                            style={[
+                                              {
+                                                backgroundColor:
                                                   bedroomitem === index
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              }}>
+                                                    ? Colors.black
+                                                    : Colors.white,
+                                              },
+                                              styles.itemdtacover,
+                                            ]}>
+                                            <Text
+                                              style={[
+                                                styles.itemdata,
+                                                {
+                                                  color:
+                                                    bedroomitem === index
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                },
+                                              ]}>
                                               {item?.data_name}
                                             </Text>
                                           </View>
@@ -1075,27 +851,10 @@ const Home = () => {
                                 </View>
                               </View>
                               <View>
-                                <Text
-                                  style={{
-                                    color: 'black',
-                                    fontFamily: 'Poppins-Regular',
-                                    fontSize:
-                                      DeviceInfo.getDeviceType() === 'Tablet'
-                                        ? 18
-                                        : 14,
-                                  }}>
-                                  Bathrooms
-                                </Text>
-                                <View
-                                  style={{
-                                    alignContent: 'center',
-                                    width: '100%',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                  }}>
+                                <Text style={styles.modallabel}>Bathrooms</Text>
+                                <View style={styles.dataupeercover}>
                                   <FlatList
                                     data={moreFilterData.bathroom}
-                                    // numColumns={4}
                                     horizontal={true}
                                     showsHorizontalScrollIndicator={false}
                                     renderItem={({item, index}) => {
@@ -1119,34 +878,25 @@ const Home = () => {
                                             });
                                           }}>
                                           <View
-                                            style={{
-                                              width: 75,
-                                              height: 40,
-                                              marginTop: 8,
-                                              marginHorizontal: 3,
-                                              borderRadius: 20,
-                                              alignItems: 'center',
-                                              justifyContent: 'center',
-                                              borderWidth: 1,
-                                              borderColor: Colors.BorderColor,
-                                              backgroundColor:
-                                                bathRoom === index
-                                                  ? Colors.newgray
-                                                  : Colors.white,
-                                            }}>
-                                            <Text
-                                              style={{
-                                                fontSize:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? 18
-                                                    : 14,
-                                                fontFamily: 'Poppins-Regular',
-                                                color:
+                                            style={[
+                                              {
+                                                backgroundColor:
                                                   bathRoom === index
-                                                    ? Colors.white
-                                                    : Colors.newgray,
-                                              }}>
+                                                    ? Colors.black
+                                                    : Colors.white,
+                                              },
+                                              styles.itemdtacover,
+                                            ]}>
+                                            <Text
+                                              style={[
+                                                {
+                                                  color:
+                                                    bathRoom === index
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                },
+                                                styles.itemdata,
+                                              ]}>
                                               {item?.data_name}
                                             </Text>
                                           </View>
@@ -1157,16 +907,7 @@ const Home = () => {
                               </View>
 
                               <View>
-                                <Text
-                                  style={{
-                                    color: 'black',
-                                    fontFamily: 'Poppins-Regular',
-                                    marginTop: 12,
-                                    fontSize:
-                                      DeviceInfo.getDeviceType() === 'Tablet'
-                                        ? 18
-                                        : 14,
-                                  }}>
+                                <Text style={styles.modallabel}>
                                   Square Feet
                                 </Text>
                                 <View
@@ -1201,10 +942,9 @@ const Home = () => {
                                           <Image
                                             source={Images.downArrow}
                                             tintColor={Colors.gray}
-                                            style={{
-                                              height: 12,
-                                              width: 12,
-                                            }}></Image>
+                                            style={
+                                              styles.downarrowmain
+                                            }></Image>
                                         );
                                       }}
                                       onSelect={async (selectedItem, index) => {
@@ -1228,22 +968,14 @@ const Home = () => {
                                         index,
                                       ) => {
                                         return (
-                                          <Text
-                                            style={{
-                                              color: 'black',
-                                              textAlign: 'left',
-                                            }}>
+                                          <Text style={styles.datacustomvalue}>
                                             {selectedItem?.data_customvalue}
                                           </Text>
                                         );
                                       }}
                                       rowTextForSelection={(item, index) => {
                                         return (
-                                          <Text
-                                            style={{
-                                              color: 'black',
-                                              textAlign: 'left',
-                                            }}>
+                                          <Text style={styles.datacustomvalue}>
                                             {item?.data_customvalue}
                                           </Text>
                                         );
@@ -1277,10 +1009,9 @@ const Home = () => {
                                           <Image
                                             source={Images.downArrow}
                                             tintColor={Colors.gray}
-                                            style={{
-                                              height: 12,
-                                              width: 12,
-                                            }}></Image>
+                                            style={
+                                              styles.downarrowmain
+                                            }></Image>
                                         );
                                       }}
                                       onSelect={async (selectedItem, index) => {
@@ -1304,22 +1035,14 @@ const Home = () => {
                                         index,
                                       ) => {
                                         return (
-                                          <Text
-                                            style={{
-                                              color: 'black',
-                                              textAlign: 'left',
-                                            }}>
+                                          <Text style={styles.datacustomvalue}>
                                             {selectedItem?.data_customvalue}
                                           </Text>
                                         );
                                       }}
                                       rowTextForSelection={(item, index) => {
                                         return (
-                                          <Text
-                                            style={{
-                                              color: 'black',
-                                              textAlign: 'left',
-                                            }}>
+                                          <Text style={styles.datacustomvalue}>
                                             {item?.data_customvalue}
                                           </Text>
                                         );
@@ -1329,15 +1052,7 @@ const Home = () => {
                                 </View>
                               </View>
                               <View style={{marginTop: 12}}>
-                                <Text
-                                  style={{
-                                    color: 'black',
-                                    fontFamily: 'Poppins-Regular',
-                                    fontSize:
-                                      DeviceInfo.getDeviceType() === 'Tablet'
-                                        ? 18
-                                        : 14,
-                                  }}>
+                                <Text style={styles.modallabel}>
                                   Price Range
                                 </Text>
 
@@ -1374,10 +1089,9 @@ const Home = () => {
                                           <Image
                                             source={Images.downArrow}
                                             tintColor={Colors.gray}
-                                            style={{
-                                              height: 12,
-                                              width: 12,
-                                            }}></Image>
+                                            style={
+                                              styles.downarrowmain
+                                            }></Image>
                                         );
                                       }}
                                       onSelect={async (selectedItem, index) => {
@@ -1400,22 +1114,14 @@ const Home = () => {
                                         index,
                                       ) => {
                                         return (
-                                          <Text
-                                            style={{
-                                              color: 'black',
-                                              textAlign: 'left',
-                                            }}>
+                                          <Text style={styles.datacustomvalue}>
                                             {selectedItem?.data_customvalue}
                                           </Text>
                                         );
                                       }}
                                       rowTextForSelection={(item, index) => {
                                         return (
-                                          <Text
-                                            style={{
-                                              color: 'black',
-                                              textAlign: 'left',
-                                            }}>
+                                          <Text style={styles.datacustomvalue}>
                                             {item?.data_customvalue}
                                           </Text>
                                         );
@@ -1450,10 +1156,9 @@ const Home = () => {
                                           <Image
                                             source={Images.downArrow}
                                             tintColor={Colors.gray}
-                                            style={{
-                                              height: 12,
-                                              width: 12,
-                                            }}></Image>
+                                            style={
+                                              styles.downarrowmain
+                                            }></Image>
                                         );
                                       }}
                                       onSelect={async (selectedItem, index) => {
@@ -1476,51 +1181,28 @@ const Home = () => {
                                         index,
                                       ) => {
                                         return (
-                                          <Text
-                                            style={{
-                                              color: 'black',
-                                              textAlign: 'left',
-                                            }}>
+                                          <Text style={styles.datacustomvalue}>
                                             {selectedItem?.data_customvalue}
                                           </Text>
                                         );
                                       }}
                                       rowTextForSelection={(item, index) => {
                                         return (
-                                          <Text
-                                            style={{
-                                              color: 'black',
-                                              textAlign: 'left',
-                                            }}>
+                                          <Text style={styles.datacustomvalue}>
                                             {item?.data_customvalue}
                                           </Text>
                                         );
                                       }}
                                     />
                                   </View>
-
-                                  {/* </View> */}
                                 </View>
                               </View>
-                              {/* <View style={{ width: '100%', justifyContent: 'center', alignItems: "center" }}>
-                            <TouchableOpacity onPress={() => { setMoreFilter(!moreFilter); }}>
-                              <Text style={{ color: Colors.white, padding: 10, borderRadius: 25, textAlign: 'center', width: 130, fontSize: 14, fontWeight: 700, backgroundColor: Colors.black, marginVertical: 12, paddingVertical: 15 }}>More Filters</Text>
-
-                            </TouchableOpacity>
-                          </View> */}
                               <Collapsible collapsed={moreFilter}>
-                                <View
-                                  style={{
-                                    alignContent: 'center',
-                                    width: '100%',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                  }}>
+                                <View style={style.moreffiltercover}>
                                   <FlatList
                                     data={moreFilterData?.more_filter_data}
                                     style={{
                                       alignContent: 'center',
-                                      //margin: -6
                                     }}
                                     nestedScrollEnabled
                                     numColumns={3}
@@ -1537,13 +1219,6 @@ const Home = () => {
                                         <TouchableOpacity
                                           style={{
                                             width: '33.33%',
-                                            //margin: 5,
-
-                                            //borderWidth: 1,
-                                            //borderColor: Colors.black,
-
-                                            // padding: 10,
-                                            // marginBottom:8,
                                             paddingHorizontal: 8,
                                           }}
                                           onPress={async () => {
@@ -1588,36 +1263,13 @@ const Home = () => {
                                     }}></FlatList>
                                 </View>
                               </Collapsible>
-                              <View
-                                style={{
-                                  width: '100%',
-                                  flexDirection: 'row',
-                                  alignItems: 'center',
-                                  justifyContent: 'flex-end',
-                                }}>
+                              <View style={styles.applymaincover}>
                                 <TouchableOpacity
                                   onPress={async () => {
                                     setFilterModalVisible(false);
                                   }}
-                                  style={{
-                                    height: 50,
-                                    width: 130,
-                                    borderRadius: 100,
-                                    backgroundColor: Colors.surfblur,
-                                    marginTop: 10,
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    marginBottom: 40,
-                                  }}>
-                                  <Text
-                                    style={{
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                      fontFamily: 'Poppins-Regular',
-                                    }}>
-                                    Apply
-                                  </Text>
+                                  style={styles.apllycover}>
+                                  <Text style={styles.applytext}>Apply</Text>
                                 </TouchableOpacity>
                               </View>
                             </View>
@@ -1642,55 +1294,23 @@ const Home = () => {
                 {!showMap && homeData?.length > 0 ? (
                   <View style={{height: centerHeight, width: '100%'}}>
                     <CardsSwipe
-                      style={{
-                        position: 'relative',
-                        width: '100%',
-                        height: '100%',
-                        overflow: 'hidden',
-                      }}
-                      // loop={false}
+                      style={styles.cardswipercover}
                       cards={homeData}
                       onNoMoreCards={() => {
                         setHomeData([]);
                       }}
                       renderYep={() => (
                         <View
-                          style={{
-                            height: imageHeight,
-                            width: imageWidth,
-                            backgroundColor: 'green',
-                            paddingHorizontal: 8,
-                            borderRadius: 15,
-                            marginLeft: 10,
-                            // marginRight:5,
-                            // marginTop: -22,
-                            overflow: 'hidden',
-                            position: 'absolute',
-                          }}>
-                          <View
-                            style={{
-                              position: 'absolute',
-                              height: '92%',
-                              width: '100%',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                            }}>
-                            <View
-                              style={{
-                                backgroundColor: Colors.white,
-                                height: 50,
-                                width: 50,
-                                borderRadius: 100,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                              }}>
+
+                          style={[
+                            styles.cardinnercover,
+                            {height: imageHeight, width: imageWidth},
+                          ]}>
+                          <View style={styles.cardinner}>
+                            <View style={styles.thumpupcover}>
                               <Image
                                 source={Images.ThumbUp}
-                                style={{
-                                  height: 25,
-                                  width: 25,
-                                  tintColor: 'green',
-                                }}
+                                style={styles.thumpinnergreen}
                               />
                             </View>
                           </View>
@@ -1698,41 +1318,20 @@ const Home = () => {
                       )}
                       renderNope={() => (
                         <View
-                          style={{
-                            marginLeft: -width,
-                            height: imageHeight,
-                            width: imageWidth,
-                            backgroundColor: 'red',
-                            paddingHorizontal: 8,
-                            borderRadius: 15,
-                            // marginLeft:20,
-                            overflow: 'hidden',
-                            position: 'absolute',
-                          }}>
-                          <View
-                            style={{
-                              position: 'absolute',
-                              width: '100%',
-                              height: '100%',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                            }}>
-                            <View
-                              style={{
-                                backgroundColor: Colors.white,
-                                height: 50,
-                                width: 50,
-                                borderRadius: 100,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                              }}>
+
+                          style={[
+                            styles.redoverlay,
+                            {
+                              marginLeft: -imageWidth - 10,
+                              height: imageHeight,
+                              width: imageWidth,
+                            },
+                          ]}>
+                          <View style={styles.redthumbcover}>
+                            <View style={styles.redinnercover}>
                               <Image
                                 source={Images.deletethumb}
-                                style={{
-                                  height: 25,
-                                  width: 25,
-                                  tintColor: 'red',
-                                }}
+                                style={styles.thumbiconred}
                               />
                             </View>
                           </View>
@@ -1767,47 +1366,16 @@ const Home = () => {
                                     width: width,
                                     position: 'relative',
                                   }}>
-                                  <View
-                                    style={{
-                                      flexDirection: 'row',
-                                      justifyContent: 'space-between',
-                                      width: '100%',
-                                      zIndex: 99,
-                                    }}>
-                                    <View
-                                      style={{
-                                        opacity: 0,
-                                        position: 'absolute',
-                                        zIndex: 9,
-                                        top: '40%',
-                                        justifyContent: 'space-between',
-                                        width: '100%',
-                                        height: '100%',
-                                      }}>
+                                  <View style={styles.upperarrowcover}>
+                                    <View style={styles.arroescovr}>
                                       <Image
                                         source={Images.next}
-                                        style={{
-                                          height: 25,
-                                          width: 25,
-                                          tintColor: Colors.white,
-                                          transform: [{rotate: '-180deg'}], // Specify the rotation angle here
-                                          position: 'relative',
-                                          left: 12,
-                                          alignItems: 'center',
-                                          justifyContent: 'center',
-                                          zIndex: 999,
-                                        }}
+                                        style={styles.nextcover}
                                       />
 
                                       <Image
                                         source={Images.next}
-                                        style={{
-                                          height: 25,
-                                          width: 25,
-                                          tintColor: Colors.white,
-                                          position: 'absolute',
-                                          right: 12,
-                                        }}
+                                        style={styles.nextimage}
                                       />
                                     </View>
                                     <TouchableOpacity
@@ -1859,17 +1427,7 @@ const Home = () => {
                                       });
                                     }}>
                                     <Image
-                                      style={{
-                                        width: '95%',
-                                        height: '100%',
-                                        borderRadius: 0,
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center',
-                                        flexDirection: 'row',
-                                        borderRadius: 15,
-                                        backgroundColor: 'gray',
-                                        overflow: 'hidden',
-                                      }}
+                                      style={styles.featuredimage}
                                       source={{
                                         uri: item?.featured_image_src[
                                           imageIndex
@@ -1881,43 +1439,13 @@ const Home = () => {
                               </>
                             )}
                           />
-                          <View
-                            style={{
-                              height: '40%',
-                              paddingTop: 8,
-                              // justifyContent: 'space-evenly',
-                            }}>
+                          <View style={styles.h40}>
                             {!loading && (
-                              <View
-                                style={{
-                                  marginLeft: 8,
-                                  width: '97%',
-                                  marginRight: 8,
-                                  justifyContent: 'space-evenly',
-                                  backgroundColor: Colors.white,
-                                }}>
-                                <View
-                                  style={{
-                                    flexDirection: 'row',
-                                    width: width - 16,
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
-                                    paddingHorizontal: 12,
-                                  }}>
-                                  <View
-                                    style={{
-                                      flexDirection: 'row',
-                                      justifyContent: 'center',
-                                      alignItems: 'center',
-                                    }}>
+                              <View style={styles.bgcover1}>
+                                <View style={styles.uperrtaing}>
+                                  <View style={styles.mainrat}>
                                     <TouchableOpacity
-                                      style={{
-                                        height: 40,
-                                        width: 40,
-                                        justifyContent: 'flex-start',
-                                        alignItems: 'flex-start',
-                                        right: 15,
-                                      }}
+                                      style={styles.coverrat}
                                       onPress={() => {
                                         setProductId(item.ID);
                                         setReviewTitle(item.title);
@@ -1946,35 +1474,25 @@ const Home = () => {
                                           },
                                         );
                                       }}>
-                                      <View
-                                        style={{
-                                          flexDirection: 'row',
-                                          alignItems: 'center',
-                                          alignSelf: 'center',
-                                        }}>
+                                      <View style={styles.ratingcover}>
                                         <Image
                                           source={
                                             item.total_average_rating > 0
                                               ? Images.startfill
                                               : Images.star2
                                           }
-                                          style={{
-                                            height: 22,
-                                            width: 22,
-                                            resizeMode: 'contain',
-                                            tintColor:
-                                              item.total_average_rating > 0
-                                                ? undefined
-                                                : 'black',
-                                          }}
+                                          style={[
+                                            {
+                                              tintColor:
+                                                item.total_average_rating > 0
+                                                  ? undefined
+                                                  : 'black',
+                                            },
+                                            styles.ratingimage,
+                                          ]}
                                         />
                                         {item.total_average_rating > 0 ? (
-                                          <Text
-                                            style={{
-                                              fontSize: 18,
-                                              color: Colors.black,
-                                              fontFamily: 'Poppins-Light',
-                                            }}>
+                                          <Text style={styles.ratingstyle}>
                                             {Math.round(
                                               item.total_average_rating,
                                             )}
@@ -1983,33 +1501,13 @@ const Home = () => {
                                       </View>
                                     </TouchableOpacity>
                                   </View>
-                                  <Text
-                                    // onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }); }}
-                                    style={{
-                                      fontSize: 20,
-                                      color: Colors.primaryBlue,
-                                      fontWeight: '500',
-                                      fontFamily: 'Poppins-SemiBold',
-                                    }}>
-                                    {''}
-                                  </Text>
                                   <TouchableOpacity
                                     onPress={() => handleShare(item.ID)}
-                                    style={{
-                                      height: 40,
-                                      width: 40,
-                                      justifyContent: 'center',
-                                      alignItems: 'center',
-                                      bottom: 10,
-                                      marginRight: 20,
-                                    }}>
+
+                                    style={styles.sendcover}>
                                     <Image
                                       source={Images.send}
-                                      style={{
-                                        height: 20,
-                                        width: 20,
-                                        resizeMode: 'contain',
-                                      }}
+                                      style={styles.sendbtn}
                                     />
                                   </TouchableOpacity>
                                 </View>
@@ -2031,11 +1529,12 @@ const Home = () => {
                                         }}
                                       />
                                       <View
-                                        style={{
-                                          alignItems: 'center',
-                                          justifyContent: 'center',
-                                          width: '100%',
-                                        }}>
+                                        style={[
+                                          {
+                                            width: '100%',
+                                          },
+                                          styles.modalaligned,
+                                        ]}>
                                         <Animated.View
                                           {...panResponder.panHandlers}
                                           style={[
@@ -2052,121 +1551,26 @@ const Home = () => {
                                               ],
                                             },
                                           ]}>
-                                          <View
-                                            style={{
-                                              alignItems: 'center',
-                                              justifyContent: 'center',
-                                              marginBottom: 20,
-                                            }}>
+                                          <View style={styles.modalstart}>
                                             <View
-                                              style={{
-                                                width: 50,
-                                                height: 5,
-                                                backgroundColor: '#bac1c3',
-                                                marginTop: 0,
-                                                justifyContent: 'center',
-                                                borderRadius: 100,
-                                              }}></View>
+                                              style={styles.indicator}></View>
                                           </View>
 
                                           <Text
-                                            style={{
-                                              fontSize:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 36
-                                                  : 26,
-                                              fontFamily: 'Poppins-SemiBold',
-                                              color: Colors.black,
-                                              marginTop: 40,
-                                              textAlign: 'center',
-                                            }}>
+                                            style={styles.congratulationstxt}>
                                             Congratulations!
                                           </Text>
-                                          <Text
-                                            style={{
-                                              fontSize:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 36
-                                                  : 26,
-                                              fontFamily: 'Poppins-SemiBold',
-                                              color: Colors.black,
-                                              marginBottom: 50,
-                                              textAlign: 'center',
-                                            }}>
+                                          <Text style={styles.swipedright}>
                                             You swiped right!
                                           </Text>
-                                          <Text
-                                            style={{
-                                              fontSize:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 26
-                                                  : 18,
-                                              fontFamily: 'Poppins-Light',
-                                              color: 'black',
-                                              alignItems: 'center',
-                                              flexDirection: 'row',
-                                              lineHeight:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 39
-                                                  : 26,
-                                              flexWrap: 'wrap',
-                                              textAlign: 'center',
-                                              flexDirection: 'row',
-                                              alignItems: 'center',
-                                              textAlign: 'center',
-                                              paddingHorizontal: 16,
-                                            }}>
+                                          <Text style={styles.modaldes}>
                                             These properties will be saved in
                                             your Favorites
-                                            {/* <TouchableOpacity
-                                          onPress={() => {
-                                            navigation.navigate('RecycleBin');
-                                          }}
-                                          style={{
-                                            flexDirection: 'row',
-                                            alignItems: 'center',
-                                            paddingHorizontal: 6,
-                                          }}>
-                                         
-                                        
-                                        </TouchableOpacity> */}
                                           </Text>
 
-                                          <View
-                                            style={{
-                                              flexDirection: 'row',
-                                              marginTop: 60,
-                                              justifyContent: 'flex-end',
-                                              alignItems: 'flex-start',
-                                            }}>
+                                          <View style={styles.inermodaltop}>
                                             <LottieView
-                                              style={{
-                                                height:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? 79
-                                                    : 49,
-                                                width:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? 79
-                                                    : 59,
-                                                marginRight: 30,
-                                                transform: [
-                                                  {rotate: '-180deg'},
-                                                ],
-                                                marginTop: 0,
-                                                position: 'relative',
-                                                top:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? -15
-                                                    : -10,
-                                              }}
+                                              style={styles.leftarrow2}
                                               source={require('../../assets/animations/leftarrow.json')}
                                               autoPlay
                                               loop
@@ -2182,30 +1586,10 @@ const Home = () => {
                                                 }}>
                                                 <Image
                                                   source={Images.ThumbUp}
-                                                  style={{
-                                                    height:
-                                                      DeviceInfo.getDeviceType() ===
-                                                      'Tablet'
-                                                        ? 39
-                                                        : 25,
-                                                    width:
-                                                      DeviceInfo.getDeviceType() ===
-                                                      'Tablet'
-                                                        ? 39
-                                                        : 25,
-                                                    resizeMode: 'contain',
-                                                    tintColor: '#000',
-                                                  }}></Image>
-                                                <Text
-                                                  style={{
-                                                    fontSize:
-                                                      DeviceInfo.getDeviceType() ===
-                                                      'Tablet'
-                                                        ? 20
-                                                        : 10,
-                                                    fontFamily: 'Poppins-Light',
-                                                    color: '#000',
-                                                  }}>
+                                                  style={
+                                                    styles.modalthumpup
+                                                  }></Image>
+                                                <Text style={styles.favtext}>
                                                   Favorites
                                                 </Text>
                                               </TouchableOpacity>
@@ -2221,7 +1605,6 @@ const Home = () => {
                                     transparent={true}
                                     animationType="slide"
                                     visible={tashModalVisiable}
-                                    //visible={true}
                                     onRequestClose={() => {
                                       setTrashModalVisiable(false);
                                     }}>
@@ -2234,11 +1617,12 @@ const Home = () => {
                                         }}
                                       />
                                       <View
-                                        style={{
-                                          alignItems: 'center',
-                                          justifyContent: 'center',
-                                          width: '100%',
-                                        }}>
+                                        style={[
+                                          {
+                                            width: '100%',
+                                          },
+                                          styles.modalaligned,
+                                        ]}>
                                         <Animated.View
                                           {...panResponder.panHandlers}
                                           style={[
@@ -2255,104 +1639,27 @@ const Home = () => {
                                               ],
                                             },
                                           ]}>
-                                          <View
-                                            style={{
-                                              alignItems: 'center',
-                                              justifyContent: 'center',
-                                              marginBottom: 20,
-                                            }}>
+                                          <View style={styles.modalstart}>
                                             <View
-                                              style={{
-                                                width: 50,
-                                                height: 5,
-                                                backgroundColor: '#bac1c3',
-                                                marginTop: 0,
-                                                justifyContent: 'center',
-                                                borderRadius: 100,
-                                              }}></View>
+                                              style={styles.indicator}></View>
                                           </View>
-                                          <Text
-                                            style={{
-                                              fontSize:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 36
-                                                  : 26,
-                                              fontFamily: 'Poppins-SemiBold',
-                                              color: Colors.black,
-                                              marginTop: 40,
-                                              textAlign: 'center',
-                                            }}>
+                                          <Text style={styles.wohotxt}>
                                             Woohoo!{' '}
                                           </Text>
-                                          <Text
-                                            style={{
-                                              fontSize:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 36
-                                                  : 26,
-                                              fontFamily: 'Poppins-SemiBold',
-                                              color: Colors.black,
-                                              marginBottom: 50,
-                                              textAlign: 'center',
-                                            }}>
+                                          <Text style={styles.swipedleft1}>
                                             You swiped left!
                                           </Text>
-                                          <Text
-                                            style={{
-                                              fontSize:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 26
-                                                  : 18,
-                                              fontFamily: 'Poppins-Light',
-                                              color: 'black',
-                                              alignItems: 'center',
-                                              flexDirection: 'row',
-                                              lineHeight:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 39
-                                                  : 26,
-                                              flexWrap: 'wrap',
-                                              textAlign: 'center',
-                                              flexDirection: 'row',
-                                              alignItems: 'center',
-                                              textAlign: 'center',
-                                              paddingHorizontal: 16,
-                                            }}>
+                                          <Text style={styles.modaldes1}>
                                             These properties will be saved in
                                             the “Recycle Bin” tab inside the
                                             profile menu.
-                                            {/* <TouchableOpacity
-                                          onPress={() => {
-                                            navigation.navigate('RecycleBin');
-                                          }}
-                                          style={{
-                                            flexDirection: 'row',
-                                            alignItems: 'center',
-                                            paddingHorizontal: 6,
-                                          }}>
-                                         
-                                        
-                                        </TouchableOpacity> */}
                                           </Text>
 
-                                          <View
-                                            style={{
-                                              flexDirection: 'row',
-                                              marginTop: 60,
-                                              justifyContent: 'flex-start',
-                                              alignItems: 'flex-start',
-                                            }}>
+                                          <View style={styles.inermodaltop}>
                                             <View
                                               style={{flexDirection: 'column'}}>
                                               <TouchableOpacity
-                                                style={{
-                                                  alignItems: 'center',
-                                                  justifyContent: 'center',
-                                                }}
+                                                style={styles.modalaligned}
                                                 onPress={() => {
                                                   navigation.navigate(
                                                     'MyProfile',
@@ -2360,56 +1667,17 @@ const Home = () => {
                                                 }}>
                                                 <Image
                                                   source={Images.newprofile}
-                                                  style={{
-                                                    height:
-                                                      DeviceInfo.getDeviceType() ===
-                                                      'Tablet'
-                                                        ? 39
-                                                        : 25,
-                                                    width:
-                                                      DeviceInfo.getDeviceType() ===
-                                                      'Tablet'
-                                                        ? 39
-                                                        : 25,
-                                                    resizeMode: 'contain',
-                                                    tintColor: '#000',
-                                                  }}></Image>
-                                                <Text
-                                                  style={{
-                                                    fontSize:
-                                                      DeviceInfo.getDeviceType() ===
-                                                      'Tablet'
-                                                        ? 20
-                                                        : 10,
-                                                    fontFamily: 'Poppins-Light',
-                                                    color: '#000',
-                                                  }}>
+                                                  style={
+                                                    styles.userimage1
+                                                  }></Image>
+                                                <Text style={styles.profiletxt}>
                                                   Profile
                                                 </Text>
                                               </TouchableOpacity>
                                             </View>
 
                                             <LottieView
-                                              style={{
-                                                height:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? 79
-                                                    : 49,
-                                                width:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? 79
-                                                    : 59,
-                                                marginLeft: 10,
-                                                marginTop: 0,
-                                                position: 'relative',
-                                                top:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? -15
-                                                    : -10,
-                                              }}
+                                              style={styles.leftarrow1}
                                               source={require('../../assets/animations/leftarrow.json')}
                                               autoPlay
                                               loop
@@ -2437,12 +1705,7 @@ const Home = () => {
                                           setSaveModalVisible(false);
                                         }}
                                       />
-                                      <View
-                                        style={{
-                                          alignItems: 'center',
-                                          justifyContent: 'center',
-                                          width: '100%',
-                                        }}>
+                                      <View style={styles.modalcovermain}>
                                         <Animated.View
                                           {...panResponder.panHandlers}
                                           style={[
@@ -2459,106 +1722,37 @@ const Home = () => {
                                               ],
                                             },
                                           ]}>
-                                          <View
-                                            style={{
-                                              alignItems: 'center',
-                                              justifyContent: 'center',
-                                              marginBottom: 20,
-                                            }}>
+                                          <View style={styles.modalstart}>
                                             <View
-                                              style={{
-                                                width: 50,
-                                                height: 5,
-                                                backgroundColor: '#bac1c3',
-                                                marginTop: 0,
-                                                justifyContent: 'center',
-                                                borderRadius: 100,
-                                              }}></View>
+                                              style={styles.indicator}></View>
                                           </View>
                                           <Text
-                                            style={{
-                                              fontSize:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 39
-                                                  : 26,
-                                              fontFamily: 'Poppins-SemiBold',
-                                              color: Colors.black,
-                                              marginTop: 40,
-                                              textAlign: 'center',
-                                            }}>
+                                            style={[
+                                              styles.savedsearchheadin,
+                                              {marginTop: 40},
+                                            ]}>
                                             Righteous!
                                           </Text>
                                           <Text
-                                            style={{
-                                              fontSize:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 39
-                                                  : 26,
-                                              fontFamily: 'Poppins-SemiBold',
-                                              color: Colors.black,
-                                              marginBottom: 50,
-                                              textAlign: 'center',
-                                            }}>
+                                            style={[
+                                              styles.savedsearchheadin,
+                                              {marginBottom: 50},
+                                            ]}>
                                             You saved your first search!
                                           </Text>
-                                          <Text
-                                            style={{
-                                              fontSize:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 24
-                                                  : 18,
-                                              fontFamily: 'Poppins-Light',
-                                              color: 'black',
-                                              alignItems: 'center',
-                                              flexDirection: 'row',
-                                              lineHeight:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 35
-                                                  : 22,
-                                              flexWrap: 'wrap',
-                                              textAlign: 'center',
-                                              flexDirection: 'row',
-                                              alignItems: 'center',
-                                              textAlign: 'center',
-                                              paddingHorizontal: 16,
-                                            }}>
+                                          <Text style={styles.savedsearchdes}>
                                             You can find your Saved Search’s in
                                             the “Saved Search” tab inside the
                                             profile menu. You’ll also receive
                                             emails and push notifications when
                                             new properties are listed.
-                                            {/* <TouchableOpacity
-                                          onPress={() => {
-                                            navigation.navigate('RecycleBin');
-                                          }}
-                                          style={{
-                                            flexDirection: 'row',
-                                            alignItems: 'center',
-                                            paddingHorizontal: 6,
-                                          }}>
-                                         
-                                        
-                                        </TouchableOpacity> */}
                                           </Text>
 
-                                          <View
-                                            style={{
-                                              flexDirection: 'row',
-                                              marginTop: 60,
-                                              justifyContent: 'flex-start',
-                                              alignItems: 'flex-start',
-                                            }}>
+                                          <View style={styles.inermodaltop}>
                                             <View
                                               style={{flexDirection: 'column'}}>
                                               <TouchableOpacity
-                                                style={{
-                                                  alignItems: 'center',
-                                                  justifyContent: 'center',
-                                                }}
+                                                style={styles.modalaligned}
                                                 onPress={() => {
                                                   navigation.navigate(
                                                     'MyProfile',
@@ -2566,56 +1760,17 @@ const Home = () => {
                                                 }}>
                                                 <Image
                                                   source={Images.newprofile}
-                                                  style={{
-                                                    height:
-                                                      DeviceInfo.getDeviceType() ===
-                                                      'Tablet'
-                                                        ? 39
-                                                        : 25,
-                                                    width:
-                                                      DeviceInfo.getDeviceType() ===
-                                                      'Tablet'
-                                                        ? 39
-                                                        : 25,
-                                                    resizeMode: 'contain',
-                                                    tintColor: '#000',
-                                                  }}></Image>
-                                                <Text
-                                                  style={{
-                                                    fontSize:
-                                                      DeviceInfo.getDeviceType() ===
-                                                      'Tablet'
-                                                        ? 20
-                                                        : 10,
-                                                    fontFamily: 'Poppins-Light',
-                                                    color: '#000',
-                                                  }}>
+                                                  style={
+                                                    styles.userimage
+                                                  }></Image>
+                                                <Text style={styles.profiletxt}>
                                                   Profile
                                                 </Text>
                                               </TouchableOpacity>
                                             </View>
 
                                             <LottieView
-                                              style={{
-                                                height:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? 79
-                                                    : 49,
-                                                width:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? 79
-                                                    : 59,
-                                                marginLeft: 10,
-                                                marginTop: 0,
-                                                position: 'relative',
-                                                top:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? -15
-                                                    : -10,
-                                              }}
+                                              style={styles.leftarrow}
                                               source={require('../../assets/animations/leftarrow.json')}
                                               autoPlay
                                               loop
@@ -2644,12 +1799,7 @@ const Home = () => {
                                           setGpsModalVisiavle(false);
                                         }}
                                       />
-                                      <View
-                                        style={{
-                                          alignItems: 'center',
-                                          justifyContent: 'center',
-                                          width: '100%',
-                                        }}>
+                                      <View style={styles.modalcovermain}>
                                         <Animated.View
                                           {...panResponder.panHandlers}
                                           style={[
@@ -2666,133 +1816,34 @@ const Home = () => {
                                               ],
                                             },
                                           ]}>
-                                          <View
-                                            style={{
-                                              alignItems: 'center',
-                                              justifyContent: 'center',
-                                              marginBottom: 20,
-                                            }}>
+                                          <View style={styles.modalstart}>
                                             <View
-                                              style={{
-                                                width: 50,
-                                                height: 5,
-                                                backgroundColor: '#bac1c3',
-                                                marginTop: 0,
-                                                justifyContent: 'center',
-                                                borderRadius: 100,
-                                              }}></View>
+                                              style={styles.indicator}></View>
                                           </View>
-                                          <Text
-                                            style={{
-                                              fontSize:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 36
-                                                  : 21,
-                                              fontFamily: 'Poppins-SemiBold',
-                                              color: Colors.black,
-                                              marginTop: 40,
-                                              textAlign: 'center',
-                                            }}>
+                                          <Text style={styles.upperheader}>
                                             Cool Beans!
                                           </Text>
-                                          <Text
-                                            style={{
-                                              fontSize:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 24
-                                                  : 14,
-                                              fontFamily: 'Poppins-Medium',
-                                              color: Colors.black,
-                                              marginBottom: 0,
-                                              textAlign: 'center',
-                                            }}>
+                                          <Text style={styles.headingtops}>
                                             You clicked the geo-lokator!
                                           </Text>
-                                          <View
-                                            style={{
-                                              width: '100%',
-                                              justifyContent: 'center',
-                                              alignItems: 'center',
-                                              marginBottom: 40,
-                                            }}>
+                                          <View style={styles.animationcover}>
                                             <LottieView
-                                              style={{
-                                                height:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? 200
-                                                    : 200,
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                                width:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? 270
-                                                    : 270,
-                                              }}
+                                              style={styles.mapicon}
                                               source={require('../../assets/animations/map.json')}
                                               autoPlay
                                               loop
                                             />
                                           </View>
-                                          <Text
-                                            style={{
-                                              fontSize:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 26
-                                                  : 18,
-                                              fontFamily: 'Poppins-Light',
-                                              color: 'black',
-                                              alignItems: 'center',
-                                              flexDirection: 'row',
-                                              lineHeight:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 39
-                                                  : 22,
-                                              flexWrap: 'wrap',
-                                              textAlign: 'center',
-                                              flexDirection: 'row',
-                                              alignItems: 'center',
-                                              textAlign: 'center',
-                                              paddingHorizontal: 16,
-                                            }}>
+                                          <Text style={styles.welcomdesc}>
                                             If you are in any neighborhood and
                                             want to see the price or details of
                                             a home without Googling it or
                                             contacting the Realtor®, this will
                                             be an invaluable tool in the search
                                             for your new home
-                                            {/* <TouchableOpacity
-                                          onPress={() => {
-                                            navigation.navigate('RecycleBin');
-                                          }}
-                                          style={{
-                                            flexDirection: 'row',
-                                            alignItems: 'center',
-                                            paddingHorizontal: 6,
-                                          }}>
-                                         
-                                        
-                                        </TouchableOpacity> */}
                                           </Text>
 
-                                          <Text
-                                            style={{
-                                              fontSize:
-                                                DeviceInfo.getDeviceType() ===
-                                                'Tablet'
-                                                  ? 26
-                                                  : 15,
-                                              fontFamily: 'Poppins-SemiBold',
-                                              color: 'black',
-                                              width: '100%',
-                                              textAlign: 'center',
-                                              marginTop: 30,
-                                            }}>
+                                          <Text style={styles.welcometxt}>
                                             You’re Welcome!
                                           </Text>
                                         </Animated.View>
@@ -2828,59 +1879,25 @@ const Home = () => {
                                             ],
                                           },
                                         ]}>
-                                        <ScrollView
-                                          style={{
-                                            width: '100%',
-                                            backgroundColor: Colors.white,
-                                          }}>
-                                          <View
-                                            style={{
-                                              alignItems: 'center',
-                                              justifyContent: 'center',
-                                            }}>
+                                        <ScrollView style={styles.bgcover}>
+                                          <View style={styles.modalaligned}>
                                             <View
-                                              style={{
-                                                width: 50,
-                                                height: 5,
-                                                backgroundColor: '#bac1c3',
-                                                marginTop: 0,
-                                                justifyContent: 'center',
-                                                borderRadius: 100,
-                                              }}></View>
+                                              style={styles.indicator}></View>
                                           </View>
                                           <View style={{}}>
-                                            <Text
-                                              style={{
-                                                fontSize: 18,
-                                                fontFamily: 'Poppins-SemiBold',
-                                                color: Colors.black,
-                                                marginTop: 10,
-                                                // marginRight: 180
-                                              }}>
+                                            <Text style={styles.reviewtxt}>
                                               Your Review
                                             </Text>
                                           </View>
-                                          <View style={{width: '100%'}}>
-                                            <View
-                                              style={{
-                                                width: '100%',
-                                                alignSelf: 'center',
-                                              }}>
+                                          <View style={styles.w100}>
+                                            <View style={styles.maincov}>
                                               <View
-                                                style={{
-                                                  flexDirection: 'row',
-                                                  justifyContent:
-                                                    'space-between',
-                                                  alignItems: 'center',
-                                                  marginTop: 10,
-                                                }}>
+                                                style={[
+                                                  styles.labelcover,
+                                                  {marginTop: 10},
+                                                ]}>
                                                 <Text
-                                                  style={{
-                                                    fontSize: 12,
-                                                    color: Colors.black,
-                                                    fontFamily:
-                                                      'Poppins-Regular',
-                                                  }}>
+                                                  style={styles.propertlabel}>
                                                   Photos :
                                                 </Text>
 
@@ -2898,25 +1915,10 @@ const Home = () => {
                                               </View>
                                             </View>
 
-                                            <View
-                                              style={{
-                                                width: '100%',
-                                                alignSelf: 'center',
-                                              }}>
-                                              <View
-                                                style={{
-                                                  flexDirection: 'row',
-                                                  justifyContent:
-                                                    'space-between',
-                                                  alignItems: 'center',
-                                                }}>
+                                            <View style={styles.maincov}>
+                                              <View style={styles.labelcover}>
                                                 <Text
-                                                  style={{
-                                                    fontSize: 12,
-                                                    color: Colors.black,
-                                                    fontFamily:
-                                                      'Poppins-Regular',
-                                                  }}>
+                                                  style={styles.propertlabel}>
                                                   Description Accuracy :
                                                 </Text>
 
@@ -2933,25 +1935,10 @@ const Home = () => {
                                                 />
                                               </View>
                                             </View>
-                                            <View
-                                              style={{
-                                                width: '100%',
-                                                alignSelf: 'center',
-                                              }}>
-                                              <View
-                                                style={{
-                                                  flexDirection: 'row',
-                                                  justifyContent:
-                                                    'space-between',
-                                                  alignItems: 'center',
-                                                }}>
+                                            <View style={styles.reviewcover}>
+                                              <View style={styles.labelcover}>
                                                 <Text
-                                                  style={{
-                                                    fontSize: 12,
-                                                    color: Colors.black,
-                                                    fontFamily:
-                                                      'Poppins-Regular',
-                                                  }}>
+                                                  style={styles.propertlabel}>
                                                   Price :
                                                 </Text>
 
@@ -2969,25 +1956,10 @@ const Home = () => {
                                               </View>
                                             </View>
 
-                                            <View
-                                              style={{
-                                                width: '100%',
-                                                alignSelf: 'center',
-                                              }}>
-                                              <View
-                                                style={{
-                                                  flexDirection: 'row',
-                                                  justifyContent:
-                                                    'space-between',
-                                                  alignItems: 'center',
-                                                }}>
+                                            <View style={styles.reviewcover}>
+                                              <View style={styles.labelcover}>
                                                 <Text
-                                                  style={{
-                                                    fontSize: 12,
-                                                    color: Colors.black,
-                                                    fontFamily:
-                                                      'Poppins-Regular',
-                                                  }}>
+                                                  style={styles.propertlabel}>
                                                   Interest in Property :
                                                 </Text>
 
@@ -3005,55 +1977,18 @@ const Home = () => {
                                               </View>
                                             </View>
 
-                                            <View
-                                              style={{
-                                                width: '100%',
-                                                alignSelf: 'center',
-                                                overflow: 'hidden',
-                                              }}>
-                                              <Text
-                                                style={{
-                                                  fontSize: 18,
-                                                  fontFamily:
-                                                    'Poppins-SemiBold',
-                                                  color: Colors.black,
-                                                  marginTop: 10,
-                                                  // marginRight: 180
-                                                }}>
+                                            <View style={styles.reviewcover}>
+                                              <Text style={styles.reviewtxt}>
                                                 Review
                                               </Text>
                                               <View
-                                                style={{
-                                                  width: '100%',
-                                                  //height: 100,
-                                                  marginTop: 0,
-                                                  //justifyContent: 'center',
-                                                  flexWrap: 'wrap',
-                                                  whiteSpace: 'pre-wrap',
-                                                  wordWrap: 'break-word',
-                                                  height: 100,
-                                                  width: '100%',
-                                                  flexWrap: 'wrap',
-                                                  overflow: 'hidden',
-                                                }}>
+                                                style={styles.textinputcover}>
                                                 {ratingData?.length > 0 ? (
                                                   <TextInput
                                                     multiline={true}
-                                                    style={{
-                                                      verticalAlign: 'top',
-                                                      borderWidth: 1,
-                                                      borderColor:
-                                                        Colors.BorderColor,
-                                                      borderRadius: 8,
-                                                      paddingHorizontal: 12,
-                                                      fontSize: 12,
-                                                      flexWrap: 'wrap',
-                                                      color: Colors.newgray,
-                                                      fontFamily:
-                                                        'Poppins-Regular',
-                                                      height: 100,
-                                                      width: '100%',
-                                                    }}
+                                                    style={
+                                                      styles.textinputstyle1
+                                                    }
                                                     onChangeText={text =>
                                                       setComentContent(text)
                                                     }
@@ -3065,99 +2000,43 @@ const Home = () => {
                                                       setComentContent(text)
                                                     }
                                                     multiline={true}
-                                                    style={{
-                                                      verticalAlign: 'top',
-                                                      borderWidth: 1,
-                                                      borderColor:
-                                                        Colors.BorderColor,
-                                                      borderRadius: 8,
-                                                      paddingHorizontal: 12,
-                                                      fontSize: 12,
-                                                      flexWrap: 'wrap',
-                                                      color: Colors.newgray,
-                                                      fontFamily:
-                                                        'Poppins-Regular',
-                                                      height: 100,
-                                                      width: '100%',
-                                                    }}>
-                                                    {/* {ratingData[0]?.comment_content}{"000"} */}
-                                                  </TextInput>
+                                                    style={
+                                                      styles.textinputstyle
+                                                    }></TextInput>
                                                 )}
                                               </View>
                                             </View>
-                                            <View
-                                              style={{
-                                                width: '100%',
-
-                                                flexDirection: 'row',
-                                                alignItems: 'center',
-                                                justifyContent: 'flex-end',
-                                                //s paddingHorizontal: 10
-                                              }}>
+                                            <View style={styles.btnmaincover}>
                                               {ratingData?.length > 0 ? (
                                                 <View
-                                                  style={{
-                                                    justifyContent: 'flex-end',
-                                                    width: '100%',
-                                                    alignItems: 'flex-end',
-                                                  }}>
+                                                  style={styles.submitbtnmain}>
                                                   <TouchableOpacity
                                                     onPress={() =>
                                                       updateReview()
                                                     }
-                                                    style={{
-                                                      height: 50,
-                                                      width: '40%',
-                                                      borderRadius: 100,
-                                                      backgroundColor:
-                                                        Colors.surfblur,
-                                                      marginTop: 10,
-                                                      flexDirection: 'row',
-                                                      alignItems: 'center',
-                                                      justifyContent: 'center',
-                                                      marginBottom: 40,
-                                                    }}>
+                                                    style={
+                                                      styles.submitbtncover
+                                                    }>
                                                     <Text
-                                                      style={{
-                                                        fontSize: 16,
-                                                        // fontWeight: '700',
-                                                        color: Colors.white,
-                                                        fontFamily:
-                                                          'Poppins-Regular',
-                                                      }}>
+                                                      style={
+                                                        styles.submitbtntxt
+                                                      }>
                                                       Update
                                                     </Text>
                                                   </TouchableOpacity>
                                                 </View>
                                               ) : (
                                                 <View
-                                                  style={{
-                                                    justifyContent: 'flex-end',
-                                                    width: '100%',
-                                                    alignItems: 'flex-end',
-                                                  }}>
+                                                  style={styles.submitbtnmain}>
                                                   <TouchableOpacity
                                                     onPress={() => addReview()}
-                                                    style={{
-                                                      height: 50,
-                                                      width: '45%',
-                                                      borderRadius: 100,
-                                                      backgroundColor:
-                                                        Colors.surfblur,
-                                                      marginTop: 10,
-                                                      flexDirection: 'row',
-                                                      alignItems: 'center',
-                                                      justifyContent: 'center',
-                                                      marginBottom: 20,
-                                                    }}>
+                                                    style={
+                                                      styles.submitbtncover
+                                                    }>
                                                     <Text
-                                                      style={{
-                                                        fontSize: 16,
-                                                        // fontWeight: '700',
-                                                        color: Colors.white,
-                                                        fontFamily:
-                                                          'Poppins-Regular',
-                                                      }}>
+                                                      style={
+                                                        styles.submitbtntxt
+                                                      }>
                                                       Submit
                                                     </Text>
                                                   </TouchableOpacity>
@@ -3171,94 +2050,33 @@ const Home = () => {
                                   </Modal>
                                 </KeyboardAvoidingView>
 
-                                <Text
-                                  // onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID }); }}
-                                  style={{
-                                    fontSize: 22,
-                                    marginTop: -16,
-                                    color: Colors.primaryBlue,
-                                    fontWeight: '500',
-                                    fontFamily: 'Poppins-Medium',
-                                    textAlign: 'center',
-                                  }}>
+                                <Text style={styles.pricetext}>
                                   {item?.property_price}
                                 </Text>
                               </View>
                             )}
-                            <View
-                              style={{
-                                width: '100%',
-                                alignSelf: 'center',
-                                justifyContent: 'center',
-                                paddingHorizontal: 12,
-                              }}>
-                              <Text
-                                style={{
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  textAlign: 'center',
-                                  fontFamily: 'Poppins-Light',
-                                }}
-                                numberOfLines={1}>
+                            <View style={styles.titlecover}>
+                              <Text style={styles.titletext} numberOfLines={1}>
                                 {item?.title}
                               </Text>
                             </View>
-                            <View
-                              style={{
-                                top: 0,
-                                flexDirection: 'row',
-                                width: width - 16,
-                                marginLeft: 8,
-                                marginRight: 8,
-                                alignSelf: 'center',
-                                paddingHorizontal: 15,
-                                backgroundColor: 'white',
-                                justifyContent: 'space-between',
-                              }}>
-                              <View
-                                style={{
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                }}>
+                            <View style={styles.iconmaincover}>
+                              <View style={styles.iconcover}>
                                 <Image
                                   source={Images.newbed}
-                                  style={{
-                                    height: 20,
-                                    width: 27,
-                                    resizeMode: 'contain',
-                                  }}></Image>
-                                <Text
-                                  style={{
-                                    fontSize: 11,
-                                    color: Colors.black,
-                                    textAlign: 'center',
-                                    fontFamily: 'Poppins-Light',
-                                  }}>
+                                  style={styles.newbedstyle}></Image>
+                                <Text style={styles.labelicon}>
                                   {item?.property_bedrooms.length > 0
                                     ? item?.property_bedrooms
                                     : 0}
                                   {' Beds'}
                                 </Text>
                               </View>
-                              <View
-                                style={{
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                }}>
+                              <View style={styles.iconcover}>
                                 <Image
                                   source={Images.bathtub}
-                                  style={{
-                                    height: 20,
-                                    width: 20,
-                                    resizeMode: 'contain',
-                                  }}></Image>
-                                <Text
-                                  style={{
-                                    fontSize: 11,
-                                    color: Colors.black,
-                                    textAlign: 'center',
-                                    fontFamily: 'Poppins-Light',
-                                  }}>
+                                  style={styles.bathtubicon}></Image>
+                                <Text style={styles.labelicon}>
                                   {item?.bathroomsfull.length > 0
                                     ? item?.bathroomsfull
                                     : 0}
@@ -3266,79 +2084,32 @@ const Home = () => {
                                   {' Baths'}
                                 </Text>
                               </View>
-                              <View
-                                style={{
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                }}>
+                              <View style={styles.iconcover}>
                                 <Image
                                   source={Images.measuringtape}
-                                  style={{
-                                    height: 20,
-                                    width: 20,
-                                    resizeMode: 'contain',
-                                    marginBottom: 5,
-                                  }}></Image>
-                                <Text
-                                  style={{
-                                    fontSize: 12,
-                                    color: '#000000',
-                                    textAlign: 'center',
-                                    fontFamily: 'Poppins-Light',
-                                  }}>
+                                  style={styles.measureicon}></Image>
+                                <Text style={styles.labelicon}>
                                   {item?.property_size.length > 1
                                     ? item?.property_size
                                     : 0}
                                   {' sq ft'}
                                 </Text>
                               </View>
-                              <View
-                                style={{
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                }}>
+                              <View style={styles.iconcover}>
                                 <Image
                                   source={Images.hoa2}
-                                  style={{
-                                    height: 28,
-                                    width: 29,
-                                    marginTop: 0,
-                                    resizeMode: 'contain',
-                                  }}></Image>
-                                <Text
-                                  style={{
-                                    fontSize: 11,
-                                    color: Colors.black,
-                                    marginTop: 6,
-                                    textAlign: 'center',
-                                    fontFamily: 'Poppins-Light',
-                                  }}>
+                                  style={styles.hoaicon}></Image>
+                                <Text style={styles.labelicon}>
                                   {item?.associationfee.length > 1
                                     ? item?.associationfee
                                     : '$' + 0}
                                 </Text>
                               </View>
-                              <View
-                                style={{
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                }}>
+                              <View style={styles.iconcover}>
                                 <Image
                                   source={Images.taxnew}
-                                  style={{
-                                    height: 20,
-                                    width: 20,
-                                    marginTop: 0,
-                                    resizeMode: 'contain',
-                                    marginBottom: 5,
-                                  }}></Image>
-                                <Text
-                                  style={{
-                                    fontSize: 11,
-                                    color: Colors.black,
-                                    textAlign: 'center',
-                                    fontFamily: 'Poppins-Light',
-                                  }}>
+                                  style={styles.taxicon}></Image>
+                                <Text style={styles.labelicon}>
                                   {item?.taxannualamount.length > 1
                                     ? item?.taxannualamount
                                     : '$' + 0}
@@ -3351,18 +2122,8 @@ const Home = () => {
                     />
                   </View>
                 ) : showMap ? (
-                  <View style={{height: '100%', width: width}}>
-                    {/* <View style={styles.coverlocation}>
-                    <Image source={Images.graylocation} style={styles.locationpic}></Image>
-  
-                  </View> */}
-                    <View
-                      style={{
-                        position: 'absolute',
-                        zIndex: 99,
-                        right: 12,
-                        top: 60,
-                      }}>
+                  <View style={styles.mapstarthere}>
+                    <View style={styles.mapuppercover}>
                       <TouchableOpacity
                         style={styles.coverlocation1}
                         onPress={() => {
@@ -3374,19 +2135,8 @@ const Home = () => {
                       </TouchableOpacity>
                       <Collapsible
                         collapsed={!isCollapsed}
-                        style={{
-                          backgroundColor: Colors.white,
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          position: 'relative',
-                          paddingVertical: 12,
-                        }}>
-                        <View
-                          style={{
-                            backgroundColor: Colors.white,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                          }}>
+                        style={styles.collapsecover}>
+                        <View style={styles.collapsebg}>
                           <TouchableOpacity
                             onPress={() => {
                               setMapType('satellite');
@@ -3468,11 +2218,7 @@ const Home = () => {
                             }}>
                             <Image
                               source={Images.locationss}
-                              style={{
-                                height: 50,
-                                width: 100,
-                                resizeMode: 'contain',
-                              }}
+                              style={styles.locationimage}
                             />
                             <Callout
                               onPress={() => {
@@ -3480,83 +2226,31 @@ const Home = () => {
                                   ID: item.ID,
                                 });
                               }}
-                              style={{
-                                height: 70,
-                                alignItems: 'center',
-                                alignSelf: 'center',
-                                marginLeft: 20,
-                                top: -15,
-                              }}>
-                              <View
-                                style={{
-                                  flexDirection: 'row',
-                                  alignItems: 'center',
-                                  alignContent: 'center',
-                                  marginLeft: 20,
-                                  top: -12,
-                                }}>
-                                <Text
-                                  style={{
-                                    position: 'relative',
-                                    height: 100,
-                                    top: -20,
-                                  }}>
+                              style={styles.calloutcover}>
+                              <View style={styles.uppercallout}>
+                                <Text style={styles.innercallout}>
                                   <Image
-                                    style={{
-                                      height: 80,
-                                      width: 100,
-                                      resizeMode: 'stretch',
-                                    }}
+                                    style={styles.calloutfeatureimg}
                                     source={{
                                       uri: item.featured_image_src[0]?.guid,
                                     }}
                                   />
                                 </Text>
-                                <View style={{flexWrap: 'wrap', top: -5}}>
-                                  <Text
-                                    style={{
-                                      color: 'black',
-                                      marginLeft: 10,
-                                      fontWeight: '500',
-                                      flexWrap: 'wrap',
-                                    }}>
+                                <View style={styles.detailcover}>
+                                  <Text style={styles.itemtitle}>
                                     {item.title}
                                   </Text>
-                                  <Text
-                                    style={{
-                                      color: Colors.primaryBlue,
-                                      marginLeft: 10,
-                                      fontWeight: '500',
-                                    }}>
+                                  <Text style={style.propertyprice}>
                                     {item.property_price}
                                   </Text>
-                                  <View
-                                    style={{
-                                      flexDirection: 'row',
-                                      marginLeft: 10,
-                                    }}>
-                                    <Text
-                                      style={{
-                                        color: Colors.black,
-                                        marginleft: 10,
-                                        fontWeight: '500',
-                                      }}>
+                                  <View style={styles.labelinnercover}>
+                                    <Text style={styles.labelinner}>
                                       {item.property_bedrooms} Beds{' '}
                                     </Text>
-                                    <Text
-                                      style={{
-                                        color: Colors.black,
-                                        marginleft: 10,
-                                        fontWeight: '500',
-                                      }}>
+                                    <Text style={styles.labelinner}>
                                       {item.bathroomsfull} Baths{' '}
                                     </Text>
-                                    <Text
-                                      style={{
-                                        color: Colors.black,
-                                        marginleft: 10,
-                                        fontWeight: '500',
-                                      }}>
+                                    <Text style={styles.labelinner}>
                                       {item.property_size} sq ft{' '}
                                     </Text>
                                   </View>
@@ -3571,35 +2265,11 @@ const Home = () => {
                 ) : null}
               </View>
             ) : (
-              <View
-                style={{
-                  height: '100%',
-                  width: '100%',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  position: 'relative',
-                }}>
-                <Text
-                  style={{
-                    color: 'black',
-                    textAlign: 'center',
-                    fontFamily: 'Poppins-Regular',
-                    width: '100%',
-                    position: 'absolute',
-                    top: '30%',
-                    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
-                  }}>
+              <View style={styles.extendescover}>
+                <Text style={styles.extenddes}>
                   Would you like to extend your search radius by 10 miles?
                 </Text>
-
-                <View
-                  style={{
-                    width: '40%',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginTop: 30,
-                  }}>
+                <View style={styles.extencovermain}>
                   <TouchableOpacity
                     onPress={async () => {
                       setLimit(limit + 1);
@@ -3614,26 +2284,8 @@ const Home = () => {
                         setHomeData(res.payload.data);
                       });
                     }}
-                    style={{
-                      height: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
-                      width: '100%',
-                      borderRadius: 100,
-                      backgroundColor: Colors.PrimaryColor,
-                      marginTop: 10,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginBottom: 40,
-                    }}>
-                    <Text
-                      style={{
-                        fontSize:
-                          DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 18,
-                        color: Colors.white,
-                        fontFamily: 'poppins-regular',
-                      }}>
-                      Extend
-                    </Text>
+                    style={styles.extencover}>
+                    <Text style={styles.extendtext}>Extend</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -3647,6 +2299,441 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
+  h40: {
+    height: '40%',
+    paddingTop: 6,
+  },
+  uperrtaing: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  mainrat: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  coverrat: {
+    height: 40,
+    width: 40,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
+  ratingstyle: {
+    fontSize: 18,
+    color: Colors.black,
+    fontFamily: 'Poppins-Light',
+    marginTop: 12,
+  },
+  ratingimage: {
+    height: 22,
+    width: 22,
+    resizeMode: 'contain',
+  },
+  ratingcover: {
+    height: 40,
+    width: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  sendcover: {
+    height: 40,
+    width: 40,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    position:"relative",
+    top:8
+  },
+  sendbtn: {
+    height: 20,
+    width: 20,
+    resizeMode: 'contain',
+  },
+  modalaligned: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  calloutfeatureimg: {
+    height: 80,
+    width: 100,
+    resizeMode: 'stretch',
+  },
+  innercallout: {
+    position: 'relative',
+    height: 100,
+    top: -20,
+  },
+  uppercallout: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignContent: 'center',
+    marginLeft: 20,
+    top: -12,
+  },
+  calloutcover: {
+    height: 70,
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginLeft: 20,
+    top: -15,
+  },
+  locationimage: {
+    height: 50,
+    width: 100,
+    resizeMode: 'contain',
+  },
+  moreffiltercover: {
+    alignContent: 'center',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  favtext: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 10,
+    fontFamily: 'Poppins-Light',
+    color: '#000',
+  },
+  modalthumpup: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25,
+    resizeMode: 'contain',
+    tintColor: '#000',
+  },
+  inermodaltop: {
+    flexDirection: 'row',
+    marginTop: 60,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
+  modaldes1: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 18,
+    fontFamily: 'Poppins-Light',
+    color: 'black',
+    alignItems: 'center',
+    flexDirection: 'row',
+    lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 26,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    textAlign: 'center',
+    paddingHorizontal: 16,
+  },
+  swipedleft1: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 36 : 26,
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
+    marginBottom: 50,
+    textAlign: 'center',
+  },
+  wohotxt: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 36 : 26,
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
+    marginTop: 40,
+    textAlign: 'center',
+  },
+  modaldes: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 18,
+    fontFamily: 'Poppins-Light',
+    color: 'black',
+    alignItems: 'center',
+    flexDirection: 'row',
+    lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 26,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    textAlign: 'center',
+    paddingHorizontal: 16,
+  },
+  swipedright: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 36 : 26,
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
+    marginBottom: 50,
+    textAlign: 'center',
+  },
+  congratulationstxt: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 36 : 26,
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
+    marginTop: 40,
+    textAlign: 'center',
+  },
+  leftarrow1: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 49,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 59,
+    marginLeft: 10,
+    marginTop: 0,
+    position: 'relative',
+    top: DeviceInfo.getDeviceType() === 'Tablet' ? -15 : -10,
+  },
+  userimage1: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25,
+    resizeMode: 'contain',
+    tintColor: '#000',
+  },
+  modalcovermain: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  savedsearchheadin: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 26,
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
+    marginBottom: 50,
+    textAlign: 'center',
+  },
+  savedsearchdes: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 24 : 18,
+    fontFamily: 'Poppins-Light',
+    color: 'black',
+    alignItems: 'center',
+    flexDirection: 'row',
+    lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 22,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    textAlign: 'center',
+    paddingHorizontal: 16,
+  },
+  userimage: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 25,
+    resizeMode: 'contain',
+    tintColor: '#000',
+  },
+  profiletxt: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 10,
+    fontFamily: 'Poppins-Light',
+    color: '#000',
+  },
+  leftarrow: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 49,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 59,
+    marginLeft: 10,
+    marginTop: 0,
+    position: 'relative',
+    top: DeviceInfo.getDeviceType() === 'Tablet' ? -15 : -10,
+  },
+  leftarrow2: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 49,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 59,
+    marginRight: 30,
+    transform: [{rotate: '-180deg'}],
+    marginTop: 0,
+    position: 'relative',
+    top: DeviceInfo.getDeviceType() === 'Tablet' ? -15 : -10,
+  },
+  modalstart: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+  upperheader: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 36 : 21,
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
+    marginTop: 40,
+    textAlign: 'center',
+  },
+  headingtops: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 24 : 14,
+    fontFamily: 'Poppins-Medium',
+    color: Colors.black,
+    marginBottom: 0,
+    textAlign: 'center',
+  },
+  animationcover: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 40,
+  },
+  mapicon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 200 : 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 270 : 270,
+  },
+  welcomdesc: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 18,
+    fontFamily: 'Poppins-Light',
+    color: 'black',
+    alignItems: 'center',
+    flexDirection: 'row',
+    lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 22,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    textAlign: 'center',
+    paddingHorizontal: 16,
+  },
+  propertlabel: {
+    fontSize: 12,
+    color: Colors.black,
+    fontFamily: 'Poppins-Regular',
+  },
+  reviewcover: {
+    width: '100%',
+    alignSelf: 'center',
+    overflow: 'hidden',
+  },
+  reviewtxt: {
+    fontSize: 18,
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
+    marginTop: 10,
+  },
+  textinputcover: {
+    width: '100%',
+    marginTop: 0,
+    flexWrap: 'wrap',
+    whiteSpace: 'pre-wrap',
+    wordWrap: 'break-word',
+    height: 100,
+    width: '100%',
+    flexWrap: 'wrap',
+    overflow: 'hidden',
+  },
+  textinputstyle1: {
+    verticalAlign: 'top',
+    borderWidth: 1,
+    borderColor: Colors.BorderColor,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    fontSize: 12,
+    flexWrap: 'wrap',
+    color: Colors.newgray,
+    fontFamily: 'Poppins-Regular',
+    height: 100,
+    width: '100%',
+  },
+  textinputstyle: {
+    verticalAlign: 'top',
+    borderWidth: 1,
+    borderColor: Colors.BorderColor,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    fontSize: 12,
+    flexWrap: 'wrap',
+    color: Colors.newgray,
+    fontFamily: 'Poppins-Regular',
+    height: 100,
+    width: '100%',
+  },
+  btnmaincover: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  submitbtnmain: {
+    justifyContent: 'flex-end',
+    width: '100%',
+    alignItems: 'flex-end',
+  },
+  submitbtncover: {
+    height: 50,
+    width: '45%',
+    borderRadius: 100,
+    backgroundColor: Colors.surfblur,
+    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+  submitbtntxt: {
+    fontSize: 16,
+    color: Colors.white,
+    fontFamily: 'Poppins-Regular',
+  },
+  mapstarthere: {height: '100%', width: width},
+  mapuppercover: {
+    position: 'absolute',
+    zIndex: 99,
+    right: 12,
+    top: 60,
+  },
+  collapsebg: {
+    backgroundColor: Colors.white,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  collapsecover: {
+    backgroundColor: Colors.white,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    paddingVertical: 12,
+  },
+  detailcover: {flexWrap: 'wrap', top: -5},
+  itemtitle: {
+    color: 'black',
+    marginLeft: 10,
+    fontWeight: '500',
+    flexWrap: 'wrap',
+  },
+  propertyprice: {
+    color: Colors.primaryBlue,
+    marginLeft: 10,
+    fontWeight: '500',
+  },
+  labelinnercover: {
+    flexDirection: 'row',
+    marginLeft: 10,
+  },
+  labelinner: {
+    color: Colors.black,
+    marginleft: 10,
+    fontWeight: '500',
+  },
+  extendescover: {
+    height: '100%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  extenddes: {
+    color: 'black',
+    textAlign: 'center',
+    fontFamily: 'Poppins-Regular',
+    width: '100%',
+    position: 'absolute',
+    top: '30%',
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+  },
+  extencovermain: {
+    width: '40%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 30,
+  },
+  extencover: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
+    width: '100%',
+    borderRadius: 100,
+    backgroundColor: Colors.PrimaryColor,
+    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 40,
+  },
+  extendtext: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 18,
+    color: Colors.white,
+    fontFamily: 'poppins-regular',
+  },
   dropdown1BtnTxtStyle: {
     color: '#444',
     textAlign: 'left',
@@ -3737,7 +2824,14 @@ const styles = StyleSheet.create({
     width: DeviceInfo.getDeviceType() === 'Tablet' ? '100%' : '98%',
     boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
   },
-
+  welcometxt: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 15,
+    fontFamily: 'Poppins-SemiBold',
+    color: 'black',
+    width: '100%',
+    textAlign: 'center',
+    marginTop: 30,
+  },
   modalOverlay: {
     flex: 1,
     alignItems: 'center',
@@ -3962,16 +3056,37 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 8,
   },
-
+  dropdowninner: {
+    borderWidth: 1,
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+    color: Colors.newgray,
+    width: '50%',
+    borderColor: Colors.BorderColor,
+    borderRadius: 10,
+    marginBottom: 8,
+    width: '100%',
+    height: 60,
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    padding: 10,
+    marginBottom: 25,
+  },
   dropdownz: {
     fontSize: 14,
-    //borderBottomWidth: 1,
     fontFamily: 'Poppins-Regular',
     color: Colors.newgray,
     width: '100%',
-    //borderBottomColor: Colors.BorderColor,
     borderRadius: 2,
     marginBottom: 8,
+    width: '100%',
+    height: 150,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingTop: 10,
   },
   icon: {
     marginRight: 5,
@@ -4033,5 +3148,488 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     marginLeft: 10,
+  },
+  labelicon: {
+    fontSize: 11,
+    color: Colors.black,
+    textAlign: 'center',
+    fontFamily: 'Poppins-Light',
+  },
+  taxicon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 47 : 27,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 43 : 25,
+    marginTop: 0,
+    resizeMode: 'contain',
+    marginBottom: 5,
+  },
+  hoaicon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 47 : 26,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 51 : 27,
+    marginTop: 0,
+    resizeMode: 'contain',
+    marginBottom: 5,
+  },
+  measureicon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 45 : 26,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 47 : 27,
+    resizeMode: 'contain',
+    marginBottom: 5,
+  },
+  bathtubicon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 44 : 26,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 28,
+    resizeMode: 'contain',
+    marginBottom: 5,
+  },
+  newbedstyle: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 26,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 21,
+    resizeMode: 'contain',
+    marginBottom: 5,
+  },
+  iconcover: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconmaincover: {
+    flexDirection: 'row',
+    width: width - 16,
+    marginLeft: 8,
+    marginRight: 8,
+    alignSelf: 'center',
+    paddingHorizontal: 15,
+    backgroundColor: 'white',
+    justifyContent: 'space-between',
+    marginTop: 8,
+  },
+  titletext: {
+    fontSize: 20,
+    color: Colors.black,
+    textAlign: 'center',
+    fontFamily: 'Poppins-Light',
+  },
+  titlecover: {
+    width: '100%',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    marginBottom: 8,
+  },
+  pricetext: {
+    fontSize: 32,
+    marginTop: -30,
+    color: Colors.primaryBlue,
+    fontWeight: '500',
+    fontFamily: 'Poppins-Medium',
+    textAlign: 'center',
+  },
+  filtericoncover: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 5,
+    marginRight: 5,
+    paddingRight: 10,
+    marginBottom: 8,
+  },
+  loaderstyle: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'rgba(0,0,0,.7)',
+    position: 'absolute',
+    zIndex: 99,
+    left: 0,
+    top: 0,
+  },
+  searchuppercover: {
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? '100%' : '100%',
+    paddingVertical: 15,
+    justifyContent: 'center',
+    borderRadius: 5,
+    marginBottom: 4,
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingLeft: 10,
+    alignItems: 'center',
+  },
+  searchinnercover: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 42,
+    width: '90%',
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: Colors.BorderColor,
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#000',
+    backgroundColor: Colors.white,
+
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    elevation: 3,
+    shadowColor: '#52006A',
+  },
+  searchinputtextarea: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
+    letterSpacing: 1,
+    color: '#000',
+    marginLeft: 1,
+    position: 'relative',
+    marginLeft: 15,
+  },
+  searchboarder: {
+    alignItems: 'center',
+    width: '15%',
+    height: '100%',
+    justifyContent: 'center',
+    height: 42,
+    position: 'relative',
+    justifyContent: 'center',
+    borderLeftWidth: 1,
+    borderLeftColor: Colors.BorderColor,
+  },
+  searchborderinner: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addressstyle: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    resizeMode: 'contain',
+  },
+  gpsstyle: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
+    resizeMode: 'contain',
+  },
+  gpscover: {
+    width: '10%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  filterupper: {
+    width: '92%',
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  filterinner: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  filterinnermain: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 5,
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  savesearchstyle: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
+  },
+  filtericonstyles: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
+    marginRight: 6,
+    tintColor: 'black',
+  },
+  filtericontext: {
+    color: 'black',
+    fontFamily: 'Poppins-Regular',
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
+  },
+  clearfilterbutton: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
+  },
+  cardswipercover: {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
+  },
+  cardinnercover: {
+    backgroundColor: 'green',
+    paddingHorizontal: 8,
+    borderRadius: 15,
+    marginLeft: 10,
+    overflow: 'hidden',
+    position: 'absolute',
+  },
+  cardinner: {
+    position: 'absolute',
+    height: '92%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  thumpupcover: {
+    backgroundColor: Colors.white,
+    height: 50,
+    width: 50,
+    borderRadius: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  thumpinnergreen: {
+    height: 25,
+    width: 25,
+    tintColor: 'green',
+  },
+  redoverlay: {
+    backgroundColor: 'red',
+    borderRadius: 15,
+    overflow: 'hidden',
+    position: 'absolute',
+  },
+  redthumbcover: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  redinnercover: {
+    backgroundColor: Colors.white,
+    height: 50,
+    width: 50,
+    borderRadius: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  thumbiconred: {
+    height: 25,
+    width: 25,
+    tintColor: 'red',
+  },
+  featuredimage: {
+    width: '95%',
+    height: '100%',
+    borderRadius: 0,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderRadius: 15,
+    backgroundColor: 'gray',
+    overflow: 'hidden',
+  },
+  nextimage: {
+    height: 25,
+    width: 25,
+    tintColor: Colors.white,
+    position: 'absolute',
+    right: 12,
+  },
+  nextcover: {
+    height: 25,
+    width: 25,
+    tintColor: Colors.white,
+    transform: [{rotate: '-180deg'}],
+    position: 'relative',
+    left: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 999,
+  },
+  arroescovr: {
+    opacity: 0,
+    position: 'absolute',
+    zIndex: 9,
+    top: '40%',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: '100%',
+  },
+  upperarrowcover: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    zIndex: 99,
+  },
+  bgcover: {
+    height: '100%',
+    backgroundColor: Colors.white,
+  },
+  w85: {width: '85%'},
+  modalcover: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  indicator: {
+    width: 50,
+    height: 5,
+    backgroundColor: '#bac1c3',
+    marginTop: 0,
+    justifyContent: 'center',
+    borderRadius: 100,
+  },
+  w99: {
+    width: '99%',
+  },
+  modallabel: {
+    color: 'black',
+    fontFamily: 'Poppins-Regular',
+    width: '99%',
+    marginBottom: 8,
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
+  },
+  dropdownnew: {
+    borderWidth: 1,
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+    color: Colors.newgray,
+    width: '50%',
+    borderColor: Colors.BorderColor,
+    borderRadius: 10,
+    marginBottom: 8,
+    width: '100%',
+    height: 40,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 12,
+  },
+  dropdowntxt: {
+    color: Colors.black,
+    fontFamily: 'Poppins-Regular',
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
+  },
+  dropdownarrow: {
+    width: 12,
+    height: 12,
+    resizeMode: 'contain',
+    position: 'absolute',
+    right: 0,
+    top: 5,
+  },
+  arrowcover: {
+    width: 20,
+    height: 20,
+    position: 'relative',
+  },
+  dropdownoutput: {
+    alignContent: 'center',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  outputcover: {
+    alignContent: 'center',
+    width: '100%',
+  },
+  checkboxcovaer: {
+    width: '100%',
+    paddingHorizontal: 8,
+  },
+  checkimg: {
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 18,
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 18,
+
+    resizeMode: 'contain',
+  },
+  checkboxlabel: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
+    color: Colors.black,
+    textAlign: 'left',
+    backgroundColor: Colors.white,
+    padding: 10,
+    marginBottom: 8,
+    width: '100%',
+  },
+  selectedcities: {
+    width: '100%',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
+  innercities: {
+    alignContent: 'center',
+    margin: -6,
+  },
+  slidervalue: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
+  },
+  itemdata: {
+    fontFamily: 'poppins-regular',
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
+  },
+  itemdtacover: {
+    width: 70,
+    height: 40,
+    marginTop: 8,
+    marginHorizontal: 3,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: Colors.BorderColor,
+  },
+  dataupeercover: {
+    alignContent: 'center',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  closeicon: {
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 12,
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 12,
+    marginLeft: 8,
+    marginTop: 2,
+    resizeMode: 'contain',
+    tintColor: Colors.white,
+  },
+  selecteditemcity: {
+    margin: 5,
+    borderRadius: 20,
+    borderWidth: 1,
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  applytext: {
+    fontSize: 16,
+    color: Colors.white,
+    fontFamily: 'Poppins-Regular',
+  },
+  apllycover: {
+    height: 50,
+    width: 130,
+    borderRadius: 100,
+    backgroundColor: Colors.surfblur,
+    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 40,
+  },
+  applymaincover: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  datacustomvalue: {
+    color: 'black',
+    textAlign: 'left',
+  },
+  downarrowmain: {
+    height: 12,
+    width: 12,
+  },
+  w100: {width: '100%'},
+  maincov: {
+    width: '100%',
+    alignSelf: 'center',
+  },
+  labelcover: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });

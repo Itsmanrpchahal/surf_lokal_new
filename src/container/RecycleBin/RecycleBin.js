@@ -236,26 +236,9 @@ const RecycleBin = () => {
          style={styles.slide} />
       </TouchableOpacity>
       <View
-        style={{
-          backgroundColor: Colors.surfblur,
-          position: 'absolute',
-          top: 8,
-          left: 16,
-          borderRadius: 5,
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingHorizontal: 8,
-          paddingVertical: 4,
-        }}>
+        style={styles.listingkeycover}>
         <Text
-          style={{
-            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?24:12,
-            color: Colors.white,
-            fontFamily: 'Poppins-Regular',
-            marginBottom: 0,
-            lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?28:14,
-            paddingTop: 4,
-          }}>
+          style={styles.innerlistingkey}>
        RX-{item.ListingKey}
         </Text>
       </View>
@@ -1225,6 +1208,25 @@ const RecycleBin = () => {
 };
 
 const styles = StyleSheet.create({
+  innerlistingkey:{
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?24:12,
+    color: Colors.white,
+    fontFamily: 'Poppins-Regular',
+    marginBottom: 0,
+    lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?28:14,
+    paddingTop: 4,
+  },
+  listingkeycover:{
+    backgroundColor: Colors.surfblur,
+    position: 'absolute',
+    top: 8,
+    left: 16,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.white,
