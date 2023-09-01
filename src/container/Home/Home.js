@@ -1493,9 +1493,9 @@ const Home = () => {
                                         />
                                         {item.total_average_rating > 0 ? (
                                           <Text style={styles.ratingstyle}>
-                                            {Math.round(
+                                          {Math.round(
                                               item.total_average_rating,
-                                            )}
+                                            )} 
                                           </Text>
                                         ) : null}
                                       </View>
@@ -2323,7 +2323,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: Colors.black,
     fontFamily: 'Poppins-Light',
-    marginTop: 12,
+    marginTop: 0,
+    //marginLeft:8
+    position:"relative",
+    left:8
   },
   ratingimage: {
     height: 22,
@@ -2334,8 +2337,10 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     flexDirection: 'row',
+    marginLeft:5
+  
   },
   sendcover: {
     height: 40,
@@ -2343,7 +2348,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     position:"relative",
-    top:8
+    //top:8
   },
   sendbtn: {
     height: 20,
