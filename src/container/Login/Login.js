@@ -1,30 +1,27 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
   ScrollView,
   Alert,
   Dimensions,
   SafeAreaView,
   Platform,
-  Modal,
-  FlatList,
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import AppButton from '../../components/AppButton';
 import Styles from './Styles';
-import AsyncStorage from '@react-native-community/async-storage';
 import jwt_decode from "jwt-decode";
 import { googleUser } from '../../modules/googleLogin';
 import DeviceInfo from 'react-native-device-info';
+import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 // For Add Google SignIn
 import {
   GoogleSignin,
@@ -41,21 +38,18 @@ import { requestUserPermission, NotificationListerner, } from '../../utils/pushn
 import messaging from '@react-native-firebase/messaging';
 
 const screenHeight = Dimensions.get('window').height;
-const screenWidth = Dimensions.get('window').width;
-
 const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
-const imageSizeRation = screenHeight / 1000;
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
 
-  // const [emailId, setEmailId] = useState('access@wpkraken.io');
-  // const [password, setPassword] = useState('CherryPicker1!');
+  const [emailId, setEmailId] = useState('access@wpkraken.io');
+  const [password, setPassword] = useState('CherryPicker1!');
   // const [emailId, setEmailId] = useState('sourav@yopmail.com');
   // const [password, setPassword] = useState('sourav@1234');
-  const [emailId, setEmailId] = useState('saurav.webperfection@gmail.com');
-  const [password, setPassword] = useState('Kumar@123');
+  // const [emailId, setEmailId] = useState('saurav.webperfection@gmail.com');
+  // const [password, setPassword] = useState('Kumar@123');
 
   const [phone, setPhone] = useState('');
   const [countryName, setCountryName] = useState('');
@@ -65,6 +59,13 @@ export default function Login({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [loading, setLoading] = useState(false);
+  const [fcmtoken, setFcmtoken] = useState()
+  useEffect(async () => {
+    const fcmtoken_ = await messaging().getToken()
+    console.log('fcmtoken stored successfully.', fcmtoken_);
+    setFcmtoken(fcmtoken_)
+  }, []);
+
   useEffect(() => {
     NotificationListerner()
     requestUserPermission()
@@ -91,9 +92,6 @@ export default function Login({ navigation }) {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-
-      const fcmtoken = await messaging().getToken()
-
       var formdata = new FormData();
       formdata.append('email', userInfo.user.email);
       formdata.append('username', userInfo.user.name);
@@ -135,7 +133,6 @@ export default function Login({ navigation }) {
   const handleAppleLogin = async () => {
     // performs login request
     var formdata = new FormData();
-    const fcmtoken = await messaging().getToken()
     Platform.OS === 'ios'
     const appleAuthRequestResponse = await appleAuth.performRequest({
       requestedOperation: appleAuth.Operation.LOGIN,
@@ -231,7 +228,6 @@ export default function Login({ navigation }) {
   //   navigation.navigate('Tabs', {screen: 'Home'});
   // };
   const accessRequestAction = async () => {
-    const fcmtoken = await messaging().getToken()
     if (emailId && password != '') {
       if (withEmail) {
         let data = {
@@ -247,20 +243,20 @@ export default function Login({ navigation }) {
         // formdata.append('device_token', fcmtoken)
         setLoading(true);
         dispatch(loginUser(data)).then(response => {
-
           if (response.payload.status) {
             setLoading(false);
             let access_token= response.payload?.metadata?.[fcmtoken].toString()
-            async function storeToken() {
+            const setToken = async () => {
+              console.log('fcmtoken stored successfully.', fcmtoken);
+              console.log('access_token stored successfully.', access_token);
               try {
                 await AsyncStorage.setItem('access_token', access_token);
-                console.log('Token stored successfully.', access_token);
               } catch (error) {
                 console.error('Error storing token:', error);
               }
+              navigation.navigate("AppIntro")
             }
-            storeToken();
-            navigation.navigate('AppIntro');
+            setToken()
           } else {
             setLoading(false);
             Alert.alert('Alert', response.payload.message);

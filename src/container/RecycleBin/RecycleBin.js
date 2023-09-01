@@ -19,7 +19,6 @@ import {
   Modal
 
 } from 'react-native';
-import { Rating, AirbnbRating } from 'react-native-ratings';
 import { postRating } from '../../modules/postRating';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import 'react-native-gesture-handler';
@@ -27,7 +26,7 @@ import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 import { getTrash } from '../../modules/getTrash';
 import { getAgent } from '../../modules/getAgent';
 import { getRating } from '../../modules/getRating';
@@ -38,22 +37,15 @@ import DeviceInfo from 'react-native-device-info';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-import AsyncStorage from '@react-native-community/async-storage';
 import StarRating from 'react-native-star-rating-widget';
 
-const fontSizeRatio = screenHeight / 1000;
-const viewSizeRatio = screenHeight / 1000;
-const imageSizeRation = screenHeight / 1000;
 
 
 const RecycleBin = () => {
   const isFocused = useIsFocused();
 
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [data, setHomeData] = useState([]);
-  const [index, setIndex] = useState(0);
   const [agentData, setAgentData] = useState([])
-  const [readmore, setreadmore] = useState('');
   const [ratingData, setRatingData] = useState([])
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -66,7 +58,6 @@ const RecycleBin = () => {
   const [commentContent, setComentContent] = useState('');
 
   const [rating3, setRating3] = useState(0);
-  const [review, setReview] = useState('');
   const [productId, setProductId] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
 
@@ -190,7 +181,6 @@ const RecycleBin = () => {
       }
     });
   };
-  const flatListRef = useRef(null);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -242,7 +232,7 @@ const RecycleBin = () => {
 
     <View style={styles.slideOuter}>
       <TouchableOpacity onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID, from: 'RecycleBin' }) }}>
-        <Image   source={{uri: item?.featured_image_src?.guid}}
+        <Image   source={{uri: item?.featured_image_src[0]?.guid}}
          style={styles.slide} />
       </TouchableOpacity>
       <View
@@ -255,8 +245,6 @@ const RecycleBin = () => {
 
         <View
         style={{
-          // height: 30,
-          //width: 20,
           backgroundColor: item?.status === 'Active' ? Colors.surfblur : 'red',
           position: 'absolute',
           top: 8,
@@ -293,7 +281,6 @@ const RecycleBin = () => {
         <View
           style={{
             flexDirection: 'row',
-           // width: '15%',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
@@ -320,8 +307,6 @@ const RecycleBin = () => {
         <View
           style={{
             flexDirection: 'row',
-            // width: '20%',
-            // alignSelf: 'flex-end',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
@@ -342,7 +327,6 @@ const RecycleBin = () => {
                   setRating1(response?.payload?.data[0]?.description_review_stars)
                   setRating2(response?.payload?.data[0]?.price_review_stars)
                   setRating3(response?.payload?.data[0]?.interest_review_stars)
-                  // console.log(" getRating response data", response?.payload?.data)
                 })
               }}>
                <View
@@ -427,24 +411,6 @@ const RecycleBin = () => {
           {item?.title}
         </Text>
       </View>
-      {/* <View
-        style={{
-          width: '100%',
-          alignSelf: 'center',
-          justifyContent: 'center',
-          paddingHorizontal: 12,
-        }}>
-        <Text
-
-          style={{
-            fontSize: 15,
-            color: Colors.black,
-            textAlign: 'center',
-            fontFamily: 'Poppins-Medium',
-          }}>
-          {item?.title}
-        </Text>
-      </View> */}
       <KeyboardAvoidingView behavior="padding">
 
         <Modal
@@ -496,7 +462,6 @@ const RecycleBin = () => {
                       fontFamily: "Poppins-SemiBold",
                       color: Colors.black,
                       marginTop: 10,
-                      // marginRight: 180
                     }}>
                     Your Review
                   </Text>
@@ -602,16 +567,13 @@ const RecycleBin = () => {
                         fontFamily: "Poppins-SemiBold",
                         color: Colors.black,
                         marginTop: 10,
-                        // marginRight: 180
                       }}>
                       Review
                     </Text>
                     <View
                       style={{
                         width: '100%',
-                        //height: 100,
                         marginTop: 0,
-                        //justifyContent: 'center',
                         flexWrap: "wrap",
                         whiteSpace: "pre-wrap",
                         wordWrap: "break-word", height: 100, width: "100%", flexWrap: "wrap", overflow: "hidden"
@@ -642,7 +604,6 @@ const RecycleBin = () => {
                             width: "100%"
 
                           }}>
-                          {/* {ratingData[0]?.comment_content} */}
                         </TextInput>
                       )}
                     </View>
@@ -674,7 +635,6 @@ const RecycleBin = () => {
                         }}>
                           <Text style={{
                             fontSize: 16,
-                            // fontWeight: '700',
                             color: Colors.white,
                             fontFamily: "Poppins-Regular",
                           }}>Update</Text>
@@ -703,7 +663,6 @@ const RecycleBin = () => {
                           <Text
                             style={{
                               fontSize: 16,
-                              // fontWeight: '700',
                               color: Colors.white,
                               fontFamily: "Poppins-Regular",
                             }}>
@@ -744,7 +703,6 @@ const RecycleBin = () => {
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                //paddingHorizontal: 12,
                 justifyContent: 'space-between',
                 marginBottom: 12,
                 width: '100%',
@@ -754,8 +712,6 @@ const RecycleBin = () => {
                 style={{
                   justifyContent: 'flex-start',
                   alignItems: 'flex-start',
-                  // backgroundColor: "red",
-                 // width: 70,
                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
                 }}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -1054,7 +1010,6 @@ const RecycleBin = () => {
                         width: 29,
                         resizeMode: 'contain',
                         marginBottom:5,
-                        //backgroundColor:"red"
                       }}></Image>
                     <Text
                       style={{
@@ -1131,206 +1086,6 @@ const RecycleBin = () => {
           </ScrollView>
         )}
       </View>
-
-      {/* <View style={{
-        flexDirection: 'row',
-        width: '100%',
-        paddingHorizontal: 18,
-        justifyContent: 'space-between',
-
-      }}>
-        <ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}  >
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: "center",
-              justifyContent: 'space-between',
-              marginBottom: 20,
-              marginTop: 5,
-              width: "100%",
-              alignSelf: "center"
-            }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: "center",
-                //paddingHorizontal: 12,
-                justifyContent: 'space-between',
-                marginBottom: 12,
-                width: "100%",
-                alignSelf: "center",
-
-              }}>
-
-              <View
-                style={{
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-start',
-                  // backgroundColor: "red",
-                  width: 70,
-                }}>
-                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                  <Image
-                    source={Images.bed}
-                    style={{
-                      height: 20,
-                      width: 20,
-                      resizeMode: 'contain',
-                      //backgroundColor: "green"
-                    }}></Image>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Regular'
-                    }}>
-                    {item.property_bedrooms.length > 0 ? item.property_bedrooms : 0} {'Beds'}
-                  </Text>
-                </View>
-              </View>
-
-
-              <View
-                style={{
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-start',
-
-                  width: 70,
-                }}>
-                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                  <Image
-                    source={Images.bath}
-                    style={{
-                      height: 20,
-                      width: 20,
-                      resizeMode: 'contain',
-                    }}></Image>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: Colors.black,
-                      textAlign: 'center',
-                    }}>
-                    {item.bathroomsfull.length > 0 ? item.bathroomsfull : 0} {'Baths'}
-                  </Text>
-                </View>
-              </View>
-
-
-
-              <View
-                style={{
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-start',
-                  width: 70,
-                }}>
-                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                  <Image
-                    source={Images.measuring}
-                    style={{
-                      height: 20,
-                      width: 20,
-                      resizeMode: 'contain',
-                    }}></Image>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Regular'
-                    }}>
-                    {item.property_size.length > 0 ? item.property_size : 0} {'sq ft'}
-                  </Text>
-                </View>
-              </View>
-
-
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: 70,
-                }}>
-                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontWeight: 'bold',
-                    }}>
-                    {'HOA'}
-                  </Text>
-
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: Colors.black,
-                      textAlign: 'center',
-                    }}>
-                    {item.associationfee.length > 0 ? item.associationfee : 0}
-                  </Text>
-                </View>
-              </View>
-
-
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center', width: 70,
-
-                }}>
-                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                  <Image
-                    source={Images.tax}
-                    style={{
-                      height: 20,
-                      width: 20,
-                      marginTop: 0,
-                      resizeMode: 'contain',
-                    }}></Image>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: Colors.black,
-                      textAlign: 'center',
-                    }}>
-                    {item.taxannualamount.length > 0 ? item.taxannualamount : 0}
-                  </Text>
-                </View>
-
-              </View>
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: 70,
-                }}>
-                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                  <Image
-                    source={Images.calendar}
-                    style={{
-                      height: 20,
-                      width: 20,
-                      marginTop: 0,
-                      resizeMode: 'contain',
-                    }}></Image>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: Colors.black,
-                      textAlign: 'center',
-                    }}>
-                    {item.yearbuilt.length > 0 ? item.yearbuilt : 0}
-                  </Text>
-                </View>
-              </View>
-            </View>
-
-          </View>
-        </ScrollView>
-      </View> */}
     </View>
   );
 
@@ -1354,11 +1109,9 @@ const RecycleBin = () => {
             position: 'absolute',
             left: 12,
             justifyContent: 'flex-start',
-            // top: 12,
             top: 13,
-           // backgroundColor:"green",
-width:50,
-height:50
+            width:50,
+            height:50
 
           }}
           onPress={() => {
@@ -1410,47 +1163,6 @@ height:50
             animation="flipInY"
           />
         </TouchableOpacity>
-
-        {/* <TouchableOpacity
-              onPress={() => {
-              
-              }}
-              activeOpacity={0.5}
-              style={{
-                height: 40,
-                width: 40,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderWidth: 1,
-                borderColor: Colors.surfblur,
-                borderRadius: 50,
-                position:"absolute",
-                right:10,
-                top:5
-              }}>
-             
-            
-                <View
-                  style={{
-                    height:35,
-                    width: 35,
-                    borderRadius: 20,
-                    backgroundColor: Colors.surfblur,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    overflow: 'hidden',
-                  }}>
-               
-                    <Image
-                      style={{ height: 40, width: 40 }}
-                      source={Images.user}
-                    />
-            
-                </View>
-            
-         
-            </TouchableOpacity> */}
-
       </View>
       <View
         style={{
@@ -1534,7 +1246,6 @@ marginBottom:16
   },
   slide: {
     width: screenWidth - 16,
-    // height: screenHeight / 3,
     height: screenWidth - 100,
     borderRadius: 12,
     margin: 20,
@@ -1544,7 +1255,6 @@ marginBottom:16
   },
   title: {
     fontSize: DeviceInfo.getDeviceType() === 'Tablet'?39:23,
-    //fontWeight: 'bold',
     marginBottom: 20,
   },
   button: {
@@ -1587,17 +1297,14 @@ marginBottom:16
   paginationDotActive: {
     backgroundColor: 'blue',
   },
-  //fliter
   filter: {
     height: 60,
   },
   rating: {
     marginVertical: 5,
-    // color: "red"
   },
   ratingText: {
     fontSize: 18,
-    //fontWeight: 'bold',
   },
   screen1: {
     flexDirection: 'row',

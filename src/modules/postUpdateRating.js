@@ -1,17 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { uploadImageAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
-
+import AsyncStorage from '@react-native-community/async-storage';
 export const postUpdateRating = createAsyncThunk('postUpdateRating', async dispatch => {
+  const accesToken = await AsyncStorage.getItem('access_token');
+
   const header = Platform.OS === 'android' ?
     {
       security_key: "SurfLokal52",
-      access_token: '1f925480b75052134e842fc4f0970407',
+      access_token: accesToken,
       'Content-Type': 'multipart/form-data'
     } :
     {
       security_key: "SurfLokal52",
-      access_token: '1f925480b75052134e842fc4f0970407',
+      access_token: accesToken,
     };
   return await uploadImageAPI(
     BASEURl + 'webapi/v1/rating/update_rating.php',

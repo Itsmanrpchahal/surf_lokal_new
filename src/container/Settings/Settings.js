@@ -688,12 +688,19 @@ const Settings = props => {
           <TouchableOpacity onPress={async () => {
           await dispatch(logOut()).then(response => {
             if (
-              response.payload.data?.status
+              response.payload?.status
             ) {
-                AsyncStorage.clear();
-               navigation.navigate("Login")
-            } else{
-              navigation.navigate("Login")
+              const clearToken = async () => {
+                try {
+                  await AsyncStorage.removeItem('access_token');
+                  console.log('access_token remove successfully.');
+                   navigation.navigate("Login")
+                   navigation.popToTop();
+                } catch (error) {
+                  console.error('Error clearing token:', error);
+                }
+              };
+              clearToken();
             }
            })
           }}

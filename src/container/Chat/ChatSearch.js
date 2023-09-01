@@ -240,9 +240,12 @@ const ChatSearch = (props) => {
             <TouchableOpacity
               disabled={message === '' && true}
               onPress={() => {
+                // setMessage('')
                 setLoading(true)
                 dispatch(chat({ message: message })).then((ress) => {
+                  setMessage('')
                   setLoading(false)
+
 
                   const newTodo1 = {
 

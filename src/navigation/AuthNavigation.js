@@ -7,8 +7,8 @@ const AuthNavigation = () => {
 
   const [ currentToken, setCurrentToken ] = useState(null);
   const getAccessToken = async () => {
-    const access_token = await AsyncStorage.getItem('access_token');
-    setCurrentToken(access_token);
+    const accessToken = await AsyncStorage.getItem('access_token');
+    setCurrentToken(accessToken);
      console.log("current Access Token",currentToken)
   };
 

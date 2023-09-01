@@ -43,12 +43,12 @@ const BookaTour = (props) => {
 
         getUserID()
         if (props?.route?.params?.ID) {
-        Promise.all([dispatch(isRead({ ID: props?.route?.params?.ID })),
-        dispatch(getChatDetail({ ID: props?.route?.params?.PropID })).then((res) => {
-            setGetMessg(res?.payload?.data)
-        }).catch((e) => {
+            Promise.all([dispatch(isRead({ ID: props?.route?.params?.ID })),
+            dispatch(getChatDetail({ ID: props?.route?.params?.PropID })).then((res) => {
+                setGetMessg(res?.payload?.data)
+            }).catch((e) => {
 
-        })])
+            })])
 
         }
     }, [])
@@ -60,10 +60,10 @@ const BookaTour = (props) => {
 
     const getBookTourAPicall = async () => {
         const id = await AsyncStorage.getItem('userId');
-        const formData =new FormData ();
-        formData.append("propid",postid.post_id)
-        formData.append('schedule_hour',selectedTime)
-        formData.append('schedule_day',selectedDate)
+        const formData = new FormData();
+        formData.append("propid", postid.post_id)
+        formData.append('schedule_hour', selectedTime)
+        formData.append('schedule_day', selectedDate)
         formData.append('user_mobile', store.getState().loginUser.loginData.metadata.mobile[0])
         // console.log('forndata',JSON.stringify(store.getState().loginUser.loginData.metadata.mobile[0]))
         // const formData = {
@@ -73,7 +73,7 @@ const BookaTour = (props) => {
         //     schedule_day: selectedDate,
         //     user_mobile: store.getState()?.loginUser?.loginData?.metadata?.mobile[0]
         // }
-        console.log('logodata',formData)
+        console.log('logodata', formData)
         dispatch(sendMessage({
             // user_id: props?.route?.params?.user_id ? props?.route?.params?.user_id : userID,
             propid: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.post_id,
@@ -363,7 +363,7 @@ const BookaTour = (props) => {
                             <TouchableOpacity
                                 disabled={getMesg?.length > 2 ? false : true}
                                 onPress={() => {
-                              
+
                                     setLoading(true);
                                     {
                                         dispatch(sendMessage({
@@ -421,19 +421,20 @@ const BookaTour = (props) => {
                             setOpen(false)
                             const now = date.toDateString()
                             const time = date.getHours() + ":" + date.getMinutes()
-                            
+
                             setLoading(true);
                             {
-                                dispatch(sendMessage({
-                                    user_id: userID,
+                                const payload = {
                                     propid: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.PropID,
-                                    user2_id: props?.route?.params?.user2_id ? props?.route?.params?.user2_id : '',
+                                    user2_id: props?.route?.params?.user2_id ? props?.route?.params?.user2_id : 18,
                                     message: now + "," + time
-                                })).then((res) => {
+                                }
+                                console.log(payload)
+                                dispatch(sendMessage(payload)).then((res) => {
                                     setLoading(false)
                                     setMessage('')
-                                    if (res.payload.success) {
-                                        dispatch(getChatDetail({ ID: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.post_id })).then((res) => {
+                                    if (res.payload?.data.success) {
+                                        dispatch(getChatDetail({ propid:props?.route?.params?.PropID})).then((res) => {
                                             setGetMessg(res?.payload?.data)
                                         }).catch((e) => {
 
