@@ -28,8 +28,6 @@ const BookaTour = (props) => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
     const [res, setRes] = useState([]);
-    const [isDatePickerVisible, setDatePickerVisible] = useState(false);
-    const [isTimePickerVisible, setTimePickerVisible] = useState(false);
     const [getMesg, setGetMessg] = useState([])
     const [userID, setUserID] = useState()
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -424,13 +422,12 @@ const BookaTour = (props) => {
 
                             setLoading(true);
                             {
-                                const payload = {
-                                    propid: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.PropID,
-                                    user2_id: props?.route?.params?.user2_id ? props?.route?.params?.user2_id : 18,
-                                    message: now + "," + time
-                                }
-                                console.log(payload)
-                                dispatch(sendMessage(payload)).then((res) => {
+                                const formData = new FormData();
+                                formData.append('propid', props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.PropID);
+                                formData.append('user2_id', props?.route?.params?.user2_id ? props?.route?.params?.user2_id : 18);
+                                formData.append('message',  now + "," + time);
+                                console.log(formData)
+                                dispatch(sendMessage(formData)).then((res) => {
                                     setLoading(false)
                                     setMessage('')
                                     if (res.payload?.data.success) {

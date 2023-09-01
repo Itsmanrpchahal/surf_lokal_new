@@ -23,11 +23,11 @@ export const sendMessage = createAsyncThunk('sendMessage', async (formData) => {
     ).then((res) => {
       return res;
     }).catch((e) => {
-      // console.log('sendMessage catch ===> ', e)
+      console.log('sendMessage catch ===> ', e)
       return e
     })
 
-    // console.log('sendMessage response', response);
+    console.log('sendMessage response', response);
 
     return response;
   } catch (error) {
