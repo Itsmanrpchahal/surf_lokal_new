@@ -60,6 +60,7 @@ import dynamicLinks from '@react-native-firebase/dynamic-links';
 import StarRating from 'react-native-star-rating-widget';
 import LottieView from 'lottie-react-native';
 import Loader from '../../components/Loader';
+import { ScreenWidth } from 'react-native-elements/dist/helpers';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const fontSizeRatio = screenHeight / 1000;
@@ -251,20 +252,7 @@ const ViewPropertiy = (props, imageUrl) => {
               useNativeDriver: false,
             }),
           ]).start();
-          // if (velocity > 0) {
-
-          //   (
-          //     idPost = store.getState().getPopertiesDetails.getPopertiesDetails.data[0].ID)
-
-          //   savefile(idPost);
-          // } else {
-
-          //   (
-          //     idPost = store.getState().getPopertiesDetails.getPopertiesDetails.data[0].ID)
-
-          //   trashfile(idPost);
-
-          // }
+         
         } else {
           Animated.spring(animation, {
             toValue: {x: 0, y: 0},
@@ -1203,8 +1191,6 @@ const ViewPropertiy = (props, imageUrl) => {
     alignItems: 'flex-start',
 
     justifyContent: 'flex-start',
-
-   // backgroundColor:"green",
 width:50,
 height:50,
     shadowColor: 'black',
@@ -1227,12 +1213,19 @@ height:50,
     source={Images.leftnewarrow}></Image>
 </TouchableOpacity>
 </View>
-        <View>
+        <View  style={{
+justifyContent:"center",
+alignItems:"center"
+            }}>
         <View
             style={{
               height: firstViewHeight,
-              width: '100%',
+              width: ScreenWidth - 16,
               zIndex: 999,
+              alignItems:"center",
+              marginTop:8
+              
+              
             }}>
             <View
               style={{
@@ -1263,12 +1256,9 @@ height:50,
                     props.route.params.from === 'MyFavorites' || props.route.params.from === 'Home' ?
                       <View
                         style={{
-                          height: screenHeight-firstViewHeight-20, width:screenWidth ,  backgroundColor:'red',
+                          height: screenHeight - firstViewHeight - 27, width:screenWidth - 16 ,  backgroundColor:'red',
                           borderRadius: 15,
                           overflow: "hidden",
-                          // top: -8,
-                          // right: 5
-                          // marginBottom:40
                         }}>
                         <View style={{
                           position: "absolute",
@@ -1301,7 +1291,7 @@ height:50,
                       <View
                         style={{
 
-                          height: screenHeight-firstViewHeight-20, width: screenWidth, backgroundColor: "green",
+                          height:  screenHeight - firstViewHeight - 27, width: screenWidth, backgroundColor: "green",
                           borderRadius: 15,
                           // marginTop: 10,
                           overflow: "hidden", position: "absolute",
@@ -1825,23 +1815,30 @@ height:50,
             </View>
           </View>
 
-          <View style={{}} >
+          <View style={{flexWrap:"wrap",
+          //backgroundColor:"red",
+          marginHorizontal:16,flexDirection:"column",}} >
             <View
               style={{
-                width: '100%',
+            // width: '100%',
                 paddingHorizontal: 8,
-                paddingVertical:50
-               
+                paddingVertical:16,
+                flexWrap:"wrap",
+              
               }}>
               <>
-                <Text
-                  numberOfLines={property?.ID == readmore ? 0 : 100}
+                
+                <View style={{flexDirection:"row",
+              flexWrap:"wrap",}}>
+           
+            <Text
+                  numberOfLines={property?.ID == readmore ? 0 :100}
                   style={{
-                    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 21 : 11,
+                    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 21 : 12,
                     flexDirection: 'row',
                     color: Colors.black,
-                    width: '100%',
                     fontFamily: 'Poppins-Light',
+                    flexWrap:"wrap",
                     lineHeight: 22,
                     marginTop: DeviceInfo.getDeviceType() === 'Tablet' ? 16 : 0,
                   }}>
@@ -1853,18 +1850,20 @@ height:50,
                         : property?.content.rendered.slice(0, 100) + ''}
                     </>
                   ) : null}
-                </Text>
+                </Text> 
+            </View>
                 <TouchableOpacity
                   style={{
                     justifyContent: 'center',
                     alignItems: 'center',
-                    width: '100%',
+                   // width: '100%',
                   }}
                   onPress={() => setShowFullContent(!showFullContent)}>
                   <Text
                     style={{
                       color: '#1450B1',
                       marginVertical: 10,
+                      marginBottom:0,
                       fontSize:
                         DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 11,
                       fontFamily: 'Poppins-Medium',
@@ -1878,7 +1877,7 @@ height:50,
               style={{
                 borderTopColor: Colors.BorderColor,
                 borderTopWidth: 1,
-                width: '90%',
+                width: '100%',
                 alignSelf: 'center',
                 marginBottom: 12,
               }}></View>
@@ -2518,9 +2517,7 @@ height:50,
 
           <View style={{height: 70}}></View>
         </ScrollView>
-      </SafeAreaView>
-
-      <View
+        <View
         style={{
           flexDirection: 'row',
           width: '100%',
@@ -2631,6 +2628,9 @@ height:50,
           />
         </TouchableOpacity>
       </View>
+      </SafeAreaView>
+
+    
     </View>
   );
 };
@@ -2896,9 +2896,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // borderTopWidth: 1,
     // borderBottomWidth: 1,
-    paddingVertical: 10,
+    paddingVertical: 0,
     justifyContent: 'center',
     // borderColor: Colors.BorderColor,
+
   },
 
   featuersComtainer: {

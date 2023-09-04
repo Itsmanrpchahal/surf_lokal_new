@@ -744,9 +744,11 @@ const Home = () => {
                             ],
                           },
                         ]}>
+                          <SafeAreaView>
                         <ScrollView
                           style={{
-                            width: '99%',
+                            width: '100%',
+                            marginTop:16
                           }}>
                           <View style={styles.modalcover}>
                             <View style={styles.indicator}></View>
@@ -1275,6 +1277,7 @@ const Home = () => {
                             </View>
                           </View>
                         </ScrollView>
+                        </SafeAreaView>
                       </Animated.View>
                     </View>
                   </Modal>
@@ -1516,14 +1519,14 @@ const Home = () => {
                                     transparent={true}
                                     animationType="slide"
                                     visible={favModalVisiable}
-                                    //visible={true}
+                                   //visible={true}
                                     onRequestClose={() => {
                                       setfavModalVisiable(false);
                                     }}>
-                                    <View style={styles.modalContainer1}>
+                                    <View style={[styles.modalContainer1]}>
                                       <TouchableOpacity
                                         activeOpacity={1}
-                                        style={styles.modalOverlay1}
+                                        style={[styles.modalOverlay1]}
                                         onPress={() => {
                                           setfavModalVisiable(false);
                                         }}
@@ -1532,6 +1535,7 @@ const Home = () => {
                                         style={[
                                           {
                                             width: '100%',
+                                          
                                           },
                                           styles.modalaligned,
                                         ]}>
@@ -1539,7 +1543,7 @@ const Home = () => {
                                           {...panResponder.panHandlers}
                                           style={[
                                             styles.modalContent1,
-                                            {
+                                            {width:"100%", backgroundColor:"#f1f1f1",
                                               transform: [
                                                 {
                                                   translateY:
@@ -1551,7 +1555,7 @@ const Home = () => {
                                               ],
                                             },
                                           ]}>
-                                          <View style={styles.modalstart}>
+                                          <View style={[styles.modalstart,]}>
                                             <View
                                               style={styles.indicator}></View>
                                           </View>
@@ -1605,6 +1609,7 @@ const Home = () => {
                                     transparent={true}
                                     animationType="slide"
                                     visible={tashModalVisiable}
+                                    //visible={true}
                                     onRequestClose={() => {
                                       setTrashModalVisiable(false);
                                     }}>
@@ -1628,6 +1633,7 @@ const Home = () => {
                                           style={[
                                             styles.modalContent1,
                                             {
+                                            width:"100%", backgroundColor:"#f1f1f1",
                                               transform: [
                                                 {
                                                   translateY:
@@ -1692,8 +1698,8 @@ const Home = () => {
                                   <Modal
                                     transparent={true}
                                     animationType="slide"
-                                    visible={saveModalVisible}
-                                    //visible={true}
+                                   visible={saveModalVisible}
+                                   //visible={true}
                                     onRequestClose={() => {
                                       setSaveModalVisible(false);
                                     }}>
@@ -1711,6 +1717,7 @@ const Home = () => {
                                           style={[
                                             styles.modalContent1,
                                             {
+                                              width:"100%", backgroundColor:"#f1f1f1",
                                               transform: [
                                                 {
                                                   translateY:
@@ -1786,7 +1793,7 @@ const Home = () => {
                                   <Modal
                                     transparent={true}
                                     animationType="slide"
-                                    visible={gpsModalVisiavle}
+                                   visible={gpsModalVisiavle}
                                     //visible={true}
                                     onRequestClose={() => {
                                       setGpsModalVisiavle(false);
@@ -1804,7 +1811,7 @@ const Home = () => {
                                           {...panResponder.panHandlers}
                                           style={[
                                             styles.modalContent1,
-                                            {
+                                            {width:"100%", backgroundColor:"#f1f1f1",
                                               transform: [
                                                 {
                                                   translateY:
@@ -1855,7 +1862,7 @@ const Home = () => {
                                   <Modal
                                     transparent={true}
                                     animationType="slide"
-                                    visible={modalVisible}
+                                  visible={modalVisible}
                                     onRequestClose={toggleModal}>
                                     <View style={styles.modalContainer}>
                                       <TouchableOpacity
@@ -2714,14 +2721,15 @@ const styles = StyleSheet.create({
     width: '100%',
     position: 'absolute',
     top: '30%',
-    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 16,
+    paddingHorizontal:15
   },
   extencovermain: {
     width: '40%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 30,
+    marginTop: 20,
   },
   extencover: {
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
@@ -2735,7 +2743,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   extendtext: {
-    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 18,
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
     color: Colors.white,
     fontFamily: 'poppins-regular',
   },
