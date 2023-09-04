@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import BASEURl from '../services/Api'
 
 export const getBookTour = createAsyncThunk('getBookTour', async (data) => {
+  console.log("userdata",data)
   const access_token = await AsyncStorage.getItem('access_token')
 
   const Header={

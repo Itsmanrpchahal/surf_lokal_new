@@ -30,6 +30,7 @@ import { getProfile } from '../../modules/getProfile';
 import { useSelector, useDispatch } from 'react-redux';
 import DeviceInfo from 'react-native-device-info';
 import {logOut} from '../../modules/logOut';
+import { postAPI, uploadImageAPI } from '../../config/apiMethod';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -57,6 +58,7 @@ const Settings = props => {
   const detials = props.route.params.data;
   const dispatch = useDispatch();
   const [propertyChat, setPropertyChat] = useState([])
+
 
   const _pickImage = () => {
     ImagePicker.openPicker({
@@ -94,7 +96,7 @@ const Settings = props => {
     }).catch((e) => {
     });
   };
-
+ console.log("mobbb",mob)
   useEffect(() => {
     getProfileApiCall()
   }, [])
@@ -145,41 +147,61 @@ const Settings = props => {
 
   const saveFile = async () => {
     setLoading(true);
-    const userID = await AsyncStorage.getItem('userId');
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-    let data = new FormData();
-    data.append('UserID', userID);
-    data.append('first_name', firstName);
-    data.append('last_name', lastName);
-    data.append('user_address', address);
-    data.append('mobile', mob);
-    data.append('email_notification', toggle)
-    data.append('facebook', facebook)
-    data.append('twitter', twitter)
-    data.append('linkedin', linkedin)
-    data.append('instagram', instagram)
-    data.append('threads', threads)
     try {
-      var res = await axios.post(
-        'https://www.surflokal.com/webapi/v1/userprofile/profileupdate.php',
-        data,
-      );
-
-      if (res.status == 200) {
+      const accessToken = await AsyncStorage.getItem('access_token');
+      const securityKey = 'SurfLokal52';
+  
+      // Define headers based on the platform
+      const headers = Platform.OS === 'android'
+        ? {
+            security_key: "SurfLokal52",
+            access_token: accessToken,
+            'Content-Type': 'multipart/form-data',
+          }
+        : {
+            security_key: securityKey,
+            access_token: accessToken,
+          };
+  
+      // Create a FormData object and append the data
+      const data = new FormData();
+      // data.append('UserID', userID);
+      data.append('first_name', firstName);
+      data.append('last_name', lastName);
+      data.append('user_address', address);
+      data.append('mobile', mob);
+      data.append('email_notification', toggle);
+      data.append('facebook', facebook);
+      data.append('twitter', twitter);
+      data.append('linkedin', linkedin);
+      data.append('instagram', instagram);
+      data.append('threads', threads);
+  
+      // Make the API request using the uploadImageAPI function or fetch
+      try {
+        const res = await uploadImageAPI(
+          'https://www.surflokal.com/webapi/v1/userprofile/profileupdate.php',
+          data,headers
+         
+        );
+  
+        if (res.status === 200) {
+          setLoading(false);
+          Alert.alert(res.data.message);
+          navigation.goBack();
+        } else {
+          setLoading(false);
+          Alert.alert('Something went wrong!');
+        }
+      } catch (err) {
         setLoading(false);
-        Alert.alert(res.data.message);
-        navigation.goBack();
-      } else {
-        setLoading(false);
-        Alert.alert('something went wrong!.');
+        Alert.alert('Request failed: ' + err.message);
       }
-    } catch (err) {
+    } catch (error) {
       setLoading(false);
+      Alert.alert('AsyncStorage error: ' + error.message);
     }
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -445,7 +467,8 @@ const Settings = props => {
               fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
-              opacity: .6
+              opacity: .6,
+              // keyboardType:"numeric"
             }}>
             Phone
           </Text>
@@ -468,7 +491,7 @@ const Settings = props => {
           }}
           placeholderTextColor={Colors.textColorLight}
           value={mob}
-          keyboardType="default"
+          keyboardType="numeric"
           returnKeyType="done"
           onChangeText={mob => setMob(mob)}
         />

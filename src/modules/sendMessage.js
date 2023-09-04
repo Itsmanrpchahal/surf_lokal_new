@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {  uploadImageAPI } from '../config/apiMethod';
 import { Platform } from 'react-native';
 
-export const sendMessage = createAsyncThunk('sendMessage', async (formData) => {
+export const sendMessage = createAsyncThunk('sendMessage', async dispatch=> {
   try {
     const accesToken = await AsyncStorage.getItem('access_token');
     const header = Platform.OS === 'android' ?
@@ -18,7 +18,7 @@ export const sendMessage = createAsyncThunk('sendMessage', async (formData) => {
       };
     const response = await uploadImageAPI(
       `https://www.surflokal.com/webapi/v1/chat/send_message.php`,
-      formData,
+      dispatch,
       header,
     ).then((res) => {
       return res;

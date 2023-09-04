@@ -3,7 +3,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {  uploadImageAPI } from '../config/apiMethod';
 import { Platform } from 'react-native';
 
-export const getChatDetail = createAsyncThunk('getChatDetail', async (formData) => {
+export const getChatDetail = createAsyncThunk('getChatDetail', async (dispatch) => {
+  const formData = new FormData()
+  formData.append(' propid', dispatch.ID)
   try {
     const accesToken = await AsyncStorage.getItem('access_token');
     const header = Platform.OS === 'android' ?
@@ -30,7 +32,7 @@ export const getChatDetail = createAsyncThunk('getChatDetail', async (formData) 
       return e
     })
 
-    console.log('getChatDetail response', response);
+    console.log('getChatDetaildata', response);
 
     return response;
   } catch (error) {

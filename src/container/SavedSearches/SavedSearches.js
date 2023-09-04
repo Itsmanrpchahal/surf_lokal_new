@@ -30,11 +30,7 @@ const MyFavorites = ({navigation}) => {
   const isFocused = useIsFocused();
 
   const dispatch = useDispatch();
-  const [apiResponse, setApiResponse] = useState(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [address, setAddress] = useState('');
   const [images, setImages] = useState([]);
-  const [editing, setEditing] = useState(false);
   const [editingItemId, setEditingItemId] = useState(null);
   const [updatedParameters, setUpdatedParameters] = useState({});
   const flatListRef = useRef(null);
@@ -49,7 +45,7 @@ const MyFavorites = ({navigation}) => {
 
   const getSavedApiCall = () => {
     dispatch(getSavedSearch()).then(response => {
-      if (response.payload.data === 'Record not found!') {
+      if (response.payload.data.length<1) {
         setShowNoDataMessage(true);
       } else {
         setImages(response.payload.data);

@@ -6,12 +6,10 @@ import { useNavigation, useIsFocused, useRoute } from "@react-navigation/native"
 
 
 export const propertyChatList = createAsyncThunk('propertyChatList', async dispatch => {
-    const id = await AsyncStorage.getItem('userId')
-    const formdata = new FormData()
-    formdata.append('user_id', id)
+   
     return await uploadImageAPI(
         BASEURl + 'webapi/v1/chat/chatpropertylisting.php',
-        formdata,
+  
     )
         .then(async response => {
             const { data } = response;

@@ -27,6 +27,7 @@ const ChatHistory = ({navigation}) => {
           // setPropertyChat(res?.payload?.data)
           if (res?.payload?.success) {
             setPropertyChat(res?.payload?.data);
+            console.log('fata',res?.payload?.data)
           } else {
             setPropertyChat([]);
           }
@@ -75,7 +76,7 @@ const ChatHistory = ({navigation}) => {
                     navigation.navigate('BookaTour', {
                       ID: item?.item?.chat_id,
                       PropID: item?.item?.ID,
-                      user_id: item?.item?.user_id,
+                      // user_id: item?.item?.user_id,
                       user2_id: item?.item?.user2_id,
                     });
                   }}>
