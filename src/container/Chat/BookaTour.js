@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import {
     View, Text, TouchableOpacity, Image, TextInput, SafeAreaView, StyleSheet, Animatable,
     PanResponder,
@@ -38,12 +38,13 @@ const BookaTour = (props) => {
 
 
     useEffect(() => {
-
+          
         getUserID()
         if (props?.route?.params?.ID) {
             Promise.all([dispatch(isRead({ ID: props?.route?.params?.ID })),
             dispatch(getChatDetail({ ID: props?.route?.params?.PropID })).then((res) => {
                 setGetMessg(res?.payload?.data)
+                // alert(JSON.stringify(res?.payload?.data))
             }).catch((e) => {
 
             })])
@@ -191,6 +192,7 @@ const BookaTour = (props) => {
                     data={getMesg}
                     threshold={20}
                     renderItem={({ item, index }) => {
+                 
                         return (
                             <View style={{ marginBottom: 5 }}>
 
@@ -200,7 +202,7 @@ const BookaTour = (props) => {
                                             // padding: 8,
                                             fontSize: 16,
                                             borderRadius: 16,
-                                            backgroundColor: Colors.white,
+                                            backgroundColor: 'red',
                                             alignSelf: "flex-start",
                                             textAlignVertical: 'center',
                                             alignItems: 'center',
@@ -214,19 +216,21 @@ const BookaTour = (props) => {
                                             color: Colors.black,
                                         }}
                                     >
+                                      
                                         {item.message}
+                                        
                                     </Text> :
                                         <Text
                                             style={{
                                                 // padding: 8,
                                                 fontSize: 16,
                                                 borderRadius: 16,
-                                                backgroundColor: item.user_id === userID ? Colors.surfblur : Colors.white,
+                                                backgroundColor: item.user_id === userID ? Colors.white : Colors.surfblur,
                                                 alignSelf: item.user_id === userID ? "flex-end" : "flex-start",
                                                 textAlignVertical: 'center',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
-                                                alignContent: item.user_id === userID ? 'center' : 'center',
+                                                alignContent: item.user_id === userID? 'center' : 'center',
                                                 maxWidth: "70%",
                                                 marginLeft: 8,
                                                 marginRight: 8,
@@ -235,6 +239,7 @@ const BookaTour = (props) => {
                                                 color: item.user_id === userID ? Colors.white : Colors.black,
                                             }}
                                         >
+                                     
                                             {item.message}
                                         </Text>
                                 }
@@ -338,7 +343,7 @@ const BookaTour = (props) => {
                                 onPress={() => {
                                     setOpen(true)
                                     setDate(new Date())
-
+                                     
                                 }} style={{
                                     flexDirection: "row",
                                     justifyContent: "center",
@@ -421,11 +426,13 @@ const BookaTour = (props) => {
                             const time = date.getHours() + ":" + date.getMinutes()
 
                             setLoading(true);
-                            {
+                            { 
                                 const formData = new FormData();
+
                                 formData.append('propid', props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.PropID);
                                 formData.append('user2_id', props?.route?.params?.user2_id ? props?.route?.params?.user2_id : 18);
                                 formData.append('message',  now + "," + time);
+                                // formData.append("user_mobile",store.getState().getProfile?.getProfileData?.data[0]?.mobile)
                                 console.log(formData)
                                 dispatch(sendMessage(formData)).then((res) => {
                                     setLoading(false)
@@ -433,6 +440,9 @@ const BookaTour = (props) => {
                                     if (res.payload?.data.success) {
                                         dispatch(getChatDetail({ propid:props?.route?.params?.PropID})).then((res) => {
                                             setGetMessg(res?.payload?.data)
+                                            dispatch(getBookTour(formData)).then ((res)=>{
+                                                console.log("push notification",res)
+                                            })
                                         }).catch((e) => {
 
                                         })
@@ -449,23 +459,7 @@ const BookaTour = (props) => {
                 </View>
 
 
-                {/* {isDatePickerVisible && (
-                    <DateTimePicker
-                        value={selectedDate}
-                        display="default"
-                    // onChange={handleDateSelection}
-                    />
-                )}
-
-                {isTimePickerVisible && (
-                    <DateTimePicker
-                        value={selectedTime}
-                        mode="time"
-                        is24Hour={false}
-                        display="default"
-                        // onChange={handleTimeSelection}
-                    />
-                )} */}
+         
             </View>
         </SafeAreaView>
     );

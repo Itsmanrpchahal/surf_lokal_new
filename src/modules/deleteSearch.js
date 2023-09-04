@@ -11,12 +11,12 @@ try {
   const header = Platform.OS === 'android' ?
     {
       security_key: "SurfLokal52",
-      access_token: '1f925480b75052134e842fc4f0970407',
+      access_token: access_token,
       'Content-Type': 'multipart/form-data'
     } :
     {
       security_key: "SurfLokal52",
-      access_token: '1f925480b75052134e842fc4f0970407',
+      access_token: access_token,
     };
   console.log("Header cd25ab6d7ee9f9daf09447f25ee48d60", formData)
   const response = await uploadImageAPI(
