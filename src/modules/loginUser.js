@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import {uploadImageAPI } from '../config/apiMethod';
+import { uploadImageAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -13,7 +13,7 @@ export const loginUser = createAsyncThunk('loginUser', async dispatch => {
   )
     .then(async response => {
       const { data } = response;
-
+      console.log('login  REs ==>  ', data)
       if (data.data.status) {
         const ids = data.data.ID;
         await AsyncStorage.setItem('userId', ids);
@@ -38,14 +38,14 @@ export const loginUser = createAsyncThunk('loginUser', async dispatch => {
 const loginUserSlice = createSlice({
   name: 'login',
   initialState: {
-    loginData: [],
+    loginData: {},
     status: null,
-    isLoading: false, 
+    isLoading: false,
   },
   extraReducers: {
     [loginUser.pending]: (state, action) => {
       state.status = 'loading';
-      state.isLoading = true; 
+      state.isLoading = true;
     },
     [loginUser.fulfilled]: (state, action) => {
       state.status = 'success';

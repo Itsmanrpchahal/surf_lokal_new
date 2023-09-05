@@ -20,7 +20,7 @@ import Colors from '../../utils/Colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 // import Orientation from 'react-native-orientation-locker';
 import Styles from './Styles';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -29,8 +29,9 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { getProfile } from '../../modules/getProfile';
 import { useSelector, useDispatch } from 'react-redux';
 import DeviceInfo from 'react-native-device-info';
-import {logOut} from '../../modules/logOut';
+import { logOut } from '../../modules/logOut';
 import { postAPI, uploadImageAPI } from '../../config/apiMethod';
+import { loginUser } from '../../modules/loginUser';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -96,7 +97,7 @@ const Settings = props => {
     }).catch((e) => {
     });
   };
- console.log("mobbb",mob)
+  console.log("mobbb", mob)
   useEffect(() => {
     getProfileApiCall()
   }, [])
@@ -150,19 +151,19 @@ const Settings = props => {
     try {
       const accessToken = await AsyncStorage.getItem('access_token');
       const securityKey = 'SurfLokal52';
-  
+
       // Define headers based on the platform
       const headers = Platform.OS === 'android'
         ? {
-            security_key: "SurfLokal52",
-            access_token: accessToken,
-            'Content-Type': 'multipart/form-data',
-          }
+          security_key: "SurfLokal52",
+          access_token: accessToken,
+          'Content-Type': 'multipart/form-data',
+        }
         : {
-            security_key: securityKey,
-            access_token: accessToken,
-          };
-  
+          security_key: securityKey,
+          access_token: accessToken,
+        };
+
       // Create a FormData object and append the data
       const data = new FormData();
       // data.append('UserID', userID);
@@ -176,15 +177,15 @@ const Settings = props => {
       data.append('linkedin', linkedin);
       data.append('instagram', instagram);
       data.append('threads', threads);
-  
+
       // Make the API request using the uploadImageAPI function or fetch
       try {
         const res = await uploadImageAPI(
           'https://www.surflokal.com/webapi/v1/userprofile/profileupdate.php',
-          data,headers
-         
+          data, headers
+
         );
-  
+
         if (res.status === 200) {
           setLoading(false);
           Alert.alert(res.data.message);
@@ -214,14 +215,14 @@ const Settings = props => {
           alignSelf: 'center',
           alignItems: 'center',
           paddingVertical: 6,
-          paddingHorizontal:16,
-          marginTop:DeviceInfo.getDeviceType() === 'Tablet'?20:0
+          paddingHorizontal: 16,
+          marginTop: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 0
         }}>
         <TouchableOpacity
           onPress={() => { _pickImage() }}
           activeOpacity={0.5}
           style={{
-            height:40,
+            height: 40,
             width: 40,
             justifyContent: 'center',
             alignItems: 'center',
@@ -232,9 +233,9 @@ const Settings = props => {
           }}>
           <View
             style={{
-              height:DeviceInfo.getDeviceType() === 'Tablet'?60:35,
-              width: DeviceInfo.getDeviceType() === 'Tablet'?60:35,
-              borderRadius: DeviceInfo.getDeviceType() === 'Tablet'?100:20,
+              height: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 35,
+              width: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 35,
+              borderRadius: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 20,
               backgroundColor: Colors.primaryBlue,
               justifyContent: 'center',
               alignItems: 'center',
@@ -242,7 +243,7 @@ const Settings = props => {
             }}>
             {image != null ? (
               <Image
-                style={{ height: DeviceInfo.getDeviceType() === 'Tablet'?65:40, width: DeviceInfo.getDeviceType() === 'Tablet'?65:40}}
+                style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 65 : 40, width: DeviceInfo.getDeviceType() === 'Tablet' ? 65 : 40 }}
                 source={{ uri: image }}
               />
             ) : (
@@ -253,15 +254,17 @@ const Settings = props => {
 
         </TouchableOpacity>
 
-        <Text style={{   fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
-              color: Colors.black,
-              fontFamily: 'Poppins-Light',
-              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22, }}>Settings</Text>
+        <Text style={{
+          fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 20,
+          color: Colors.black,
+          fontFamily: 'Poppins-Light',
+          lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 42 : 22,
+        }}>Settings</Text>
 
 
         <TouchableOpacity
           style={{
-           
+
           }}
 
           onPress={() => navigation.goBack()}>
@@ -285,29 +288,29 @@ const Settings = props => {
             alignSelf: 'center',
             justifyContent: 'space-between',
             marginTop: 22,
-            marginBottom: 20,paddingHorizontal:16
+            marginBottom: 20, paddingHorizontal: 16
           }}>
           <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?27:18,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 27 : 18,
               color: Colors.black,
               fontFamily: 'Poppins-SemiBold',
               color: Colors.darbluec
             }}>
             Allow Notfication ?
           </Text>
-         
-            <Switch
-              trackColor={{ false: '#767577', true: '#11b03e' }}
-              thumbColor={isEnabled ? '#fff' : '#f4f3f4'}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-              style={{position:"absolute", right:10}}
-            />
 
-          </View>
-       
+          <Switch
+            trackColor={{ false: '#767577', true: '#11b03e' }}
+            thumbColor={isEnabled ? '#fff' : '#f4f3f4'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+            style={{ position: "absolute", right: 10 }}
+          />
+
+        </View>
+
         {/* <View
           style={{
             flexDirection: 'row',
@@ -330,12 +333,12 @@ const Settings = props => {
             width: '100%',
             marginTop: 6,
             alignSelf: 'center',
-            paddingHorizontal:16
+            paddingHorizontal: 16
 
           }}>
           <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -353,7 +356,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -372,11 +375,11 @@ const Settings = props => {
             width: '100%',
             marginTop: 6,
             alignSelf: 'center',
-            paddingHorizontal:16
+            paddingHorizontal: 16
           }}>
           <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -394,14 +397,14 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
             marginBottom: 17
           }}
           placeholderTextColor={Colors.black}
-         
+
           value={lastName}
           keyboardType="default"
           returnKeyType="done"
@@ -415,11 +418,11 @@ const Settings = props => {
             width: '100%',
             marginTop: 6,
             alignSelf: 'center',
-            paddingHorizontal:16
+            paddingHorizontal: 16
           }}>
           <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -438,7 +441,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -460,11 +463,11 @@ const Settings = props => {
             width: '100%',
             marginTop: 6,
             alignSelf: 'center',
-            paddingHorizontal:16
+            paddingHorizontal: 16
           }}>
           <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6,
@@ -483,7 +486,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -503,11 +506,11 @@ const Settings = props => {
             width: '100%',
             marginTop: 6,
             alignSelf: 'center',
-            paddingHorizontal:16
+            paddingHorizontal: 16
           }}>
           <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -525,7 +528,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -545,11 +548,11 @@ const Settings = props => {
             width: '100%',
             marginTop: 6,
             alignSelf: 'center',
-            paddingHorizontal:16
+            paddingHorizontal: 16
           }}>
           <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -567,7 +570,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -587,11 +590,11 @@ const Settings = props => {
             width: '100%',
             marginTop: 6,
             alignSelf: 'center',
-            paddingHorizontal:16
+            paddingHorizontal: 16
           }}>
           <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -609,7 +612,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -629,11 +632,11 @@ const Settings = props => {
             width: '100%',
             marginTop: 6,
             alignSelf: 'center',
-            paddingHorizontal:16
+            paddingHorizontal: 16
           }}>
           <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -651,7 +654,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -671,11 +674,11 @@ const Settings = props => {
             width: '100%',
             marginTop: 6,
             alignSelf: 'center',
-            paddingHorizontal:16
+            paddingHorizontal: 16
           }}>
           <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6
@@ -693,7 +696,7 @@ const Settings = props => {
             marginRight: 16,
             borderRadius: 8,
             fontFamily: 'Poppins-Regular',
-            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:14,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
             padding: 10,
             borderColor: Colors.BorderColor,
             borderWidth: 1,
@@ -709,33 +712,39 @@ const Settings = props => {
 
         <View style={{ paddingHorizontal: 22, marginTop: 20, justifyContent: 'space-between', marginHorizontal: 0, width: "100%", flexDirection: "row", alignItems: "center" }}>
           <TouchableOpacity onPress={async () => {
-          await dispatch(logOut()).then(response => {
-            if (
-              response.payload?.status
-            ) {
-              const clearToken = async () => {
-                try {
-                  await AsyncStorage.removeItem('access_token');
-                  console.log('access_token remove successfully.');
-                   navigation.navigate("Login")
-                   navigation.popToTop();
-                } catch (error) {
-                  console.error('Error clearing token:', error);
-                }
-              };
-              clearToken();
-            }
-           })
+            await dispatch(logOut()).then(response => {
+              if (
+                response.payload?.status
+              ) {
+                dispatch(loginUser())
+                const resetAction = CommonActions.reset({
+                  index: 1,
+                  routes: [{ name: 'Login', }]
+                });
+                navigation.dispatch(resetAction);
+                // const clearToken = async () => {
+                //   try {
+                //     await AsyncStorage.removeItem('access_token');
+                //     console.log('access_token remove successfully.');
+                //     navigation.navigate("Login")
+                //     navigation.popToTop();
+                //   } catch (error) {
+                //     console.error('Error clearing token:', error);
+                //   }
+                // };
+                // clearToken();
+              }
+            })
           }}
             style={{ flexDirection: 'row', alignItems: "center" }}>
             <Image source={Images.signOut} style={{ height: 20, width: 20 }} />
-            <Text style={{ marginLeft: 6,fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:16, color: "black", fontFamily: 'Poppins-Regular' }}>Signout</Text>
+            <Text style={{ marginLeft: 6, fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 16, color: "black", fontFamily: 'Poppins-Regular' }}>Signout</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => saveFile()}
             style={{
-              height:  DeviceInfo.getDeviceType() === 'Tablet'?50:45,
+              height: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 45,
               width: 130,
               borderRadius: 100,
               backgroundColor: Colors.surfblur,
@@ -761,7 +770,7 @@ const Settings = props => {
 
                 <Text
                   style={{
-                fontSize: DeviceInfo.getDeviceType() === 'Tablet'?20:14,
+                    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 14,
 
                     color: Colors.white,
                     fontFamily: 'Poppins-Regular',
@@ -846,8 +855,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray,
   },
   imagedata: {
-    height:DeviceInfo.getDeviceType() === 'Tablet'?38:19,
-    width: DeviceInfo.getDeviceType() === 'Tablet'?50:29,
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 38 : 19,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 29,
     resizeMode: 'contain',
     // transform: [{ rotate: '90deg' }],
   },

@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Splash from './src/components/Splash';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { store } from './src/redux/store';
 import { Provider } from 'react-redux';
+import { store, persistor } from './src/redux/store';
 // Add Firebase
 import firebase from '@react-native-firebase/app';
 import messaging from '@react-native-firebase/messaging';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import StackNavigator from './src/navigation/StackNavigator'
 import axios from 'axios';
-import AuthNavigation from './src/navigation/AuthNavigation';
-// Register background handler
+import { QueryClientProvider, QueryClient } from 'react-query';
+import { PersistGate } from 'redux-persist/integration/react';
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Message handled in the background!', remoteMessage);
 });
 
+const queryClient = new QueryClient();
 
 const App = () => {
   const [splash, setSplash] = useState(true);
@@ -22,10 +24,10 @@ const App = () => {
     const fcmtoken = await messaging().getToken()
     axios.interceptors.request.use(function (config) {
       config.headers['security_key'] = 'SurfLokal52';
-      config.headers['access_token'] = store?.getState().loginUser.loginData.metadata?.[fcmtoken].toString();
+      config.headers['access_token'] = store?.getState()?.loginUserReducer?.loginData?.metadata?.[fcmtoken].toString();
       return config;
     });
-     console.log("setToken ", store?.getState().loginUser.loginData.metadata?.[fcmtoken].toString())
+    console.log("setToken ", store?.getState()?.loginUserReducer?.loginData?.metadata?.[fcmtoken].toString())
   }
   setToken()
 
@@ -36,7 +38,7 @@ const App = () => {
       let productId = link.url.split('=').pop()
       navigation.navigate('ViewPropertiy', { ID: productId });
     }
-   
+
     useEffect(() => {
       const unsubscribe = dynamicLinks().onLink(handleDynamicLinks)
       return () => unsubscribe()
@@ -76,17 +78,22 @@ const App = () => {
       setSplash(false);
     }, 3000);
   });
-if (splash) {
-  return <Splash />;
-} else {
-  return (
-    <SafeAreaView style={{ flex: 1}}>
-      <Provider store={store}>
-         <AuthNavigation/>
-      </Provider>
-    </SafeAreaView>
-  );
-}
+  if (splash) {
+    return <Splash />;
+  } else {
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <QueryClientProvider client={queryClient}>
+              <StackNavigator />
+            </QueryClientProvider>
+
+          </PersistGate>
+        </Provider>
+      </SafeAreaView>
+    );
+  }
 };
 
 export default App;
