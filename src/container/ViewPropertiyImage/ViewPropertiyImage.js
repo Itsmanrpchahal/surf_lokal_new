@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -18,21 +18,18 @@ import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import DeviceInfo from 'react-native-device-info';
 
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
-import {WebView} from 'react-native-webview';
-import {getPopertiesDetails} from '../../modules/getPopertiesDetails';
-import {useDispatch} from 'react-redux';
-import {getAgent} from '../../modules/getAgent';
-import {getRating} from '../../modules/getRating';
-import {postUpdateRating} from '../../modules/postUpdateRating';
-import {postRating} from '../../modules/postRating';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import { getPopertiesDetails } from '../../modules/getPopertiesDetails';
+import { useDispatch } from 'react-redux';
+import { getAgent } from '../../modules/getAgent';
+import { getRating } from '../../modules/getRating';
+import { postUpdateRating } from '../../modules/postUpdateRating';
+import { postRating } from '../../modules/postRating';
 import AsyncStorage from '@react-native-community/async-storage';
-import {Rating} from 'react-native-ratings';
-import * as Animatable from 'react-native-animatable';
+import { Rating } from 'react-native-ratings';
 import LottieView from 'lottie-react-native';
 import Loader from '../../components/Loader';
-import { ScreenHeight } from 'react-native-elements/dist/helpers';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
@@ -64,7 +61,7 @@ const ViewPropertiyImage = props => {
   const scrollViewRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const scrollToTop = () => {
-    scrollViewRef.current.scrollTo({y: 0, animated: true});
+    scrollViewRef.current.scrollTo({ y: 0, animated: true });
   };
   const handleScroll = event => {
     const offsetY = event.nativeEvent.contentOffset.y;
@@ -162,7 +159,7 @@ const ViewPropertiyImage = props => {
   const navigation = useNavigation();
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       {loading ? (
         <View style={styles.loaderstyle}>
           <Loader />
@@ -178,7 +175,7 @@ const ViewPropertiyImage = props => {
                 })
               }>
               <Image
-                source={{uri: property?.featured_image_src}}
+                source={{ uri: property?.featured_image_src }}
                 style={styles.slide}
               />
             </TouchableOpacity>
@@ -189,7 +186,7 @@ const ViewPropertiyImage = props => {
                 })
               }>
               <Image
-                source={{uri: property?.featured_image_src}}
+                source={{ uri: property?.featured_image_src }}
                 style={styles.slide}
               />
               <View style={styles.videoplayer}>
@@ -200,13 +197,13 @@ const ViewPropertiyImage = props => {
               </View>
             </TouchableOpacity>
             {property?.property_gallery.Gallery &&
-            property?.property_gallery.Gallery.length > 0 ? (
+              property?.property_gallery.Gallery.length > 0 ? (
               property?.property_gallery.Gallery.map((image, index) => (
                 <TouchableOpacity
                   key={index}
-                  onPress={() => navigation.navigate('ViewImage', {image})}
+                  onPress={() => navigation.navigate('ViewImage', { image })}
                   style={styles.slideOuter}>
-                  <Image source={{uri: image.guid}} style={styles.slide} />
+                  <Image source={{ uri: image.guid }} style={styles.slide} />
                 </TouchableOpacity>
               ))
             ) : (
@@ -397,7 +394,7 @@ const ViewPropertiyImage = props => {
                   alignItems: 'center',
                   marginLeft: 10,
                 }}>
-                <Text style={{fontSize: 12, color: Colors.gray}}></Text>
+                <Text style={{ fontSize: 12, color: Colors.gray }}></Text>
               </TouchableOpacity>
               <View
                 style={{
@@ -433,12 +430,12 @@ const ViewPropertiyImage = props => {
               {!isEditing && (
                 <TouchableOpacity
                   onPress={() => setIsEditing(true)}
-                  style={{marginTop: 10}}>
+                  style={{ marginTop: 10 }}>
                   <Text style={styles.edittext}>Edit</Text>
                 </TouchableOpacity>
               )}
             </View>
-            <View style={{width: '95%', height: '70%'}}>
+            <View style={{ width: '95%', height: '70%' }}>
               <View style={styles.coverrat}>
                 <View
                   style={{
@@ -478,7 +475,7 @@ const ViewPropertiyImage = props => {
                     onFinishRating={setRating}
                     style={styles.rating}
                     ratingColor="#ffbe0b"
-                    //tintColor="#f1f3f4"
+                  //tintColor="#f1f3f4"
                   />
                 </View>
               </View>
@@ -522,9 +519,9 @@ const ViewPropertiyImage = props => {
                 </View>
               </View>
 
-              <View style={{height: 20}}></View>
+              <View style={{ height: 20 }}></View>
               <View
-                style={{width: '95%', alignSelf: 'center', marginBottom: 12}}>
+                style={{ width: '95%', alignSelf: 'center', marginBottom: 12 }}>
                 <Text style={styles.labeltext}>Review</Text>
                 <View
                   style={styles.textinputcover}>
@@ -586,7 +583,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 5,
   },
-  mr10: {marginRight: 10},
+  mr10: { marginRight: 10 },
   slide: {
     width: screenWidth,
     height: screenHeight / 2.5,
@@ -601,7 +598,7 @@ const styles = StyleSheet.create({
     width: 12,
     resizeMode: 'contain',
     tintColor: Colors.black,
-    transform: [{rotate: '90deg'}],
+    transform: [{ rotate: '90deg' }],
   },
   submitcover: {
     height: 35,
@@ -618,7 +615,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '40%',
     left: '40%',
-    transform: [{translateX: -12}, {translateY: -12}],
+    transform: [{ translateX: -12 }, { translateY: -12 }],
   },
   submittxt: {
     fontSize: 14,
@@ -705,9 +702,9 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
-  videoplaterstyle: {width: 80, height: 80, tintColor: 'white'},
+  videoplaterstyle: { width: 80, height: 80, tintColor: 'white' },
   toptoup: {
-    transform: [{rotate: '180deg'}],
+    transform: [{ rotate: '180deg' }],
     width: 12,
     height: 12,
     tintColor: Colors.black,
@@ -788,7 +785,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: Colors.gray,
   },
-  labeltext: {fontSize: 12, color: Colors.black},
+  labeltext: { fontSize: 12, color: Colors.black },
   updatetext: {
     fontSize: 14,
     fontWeight: '700',
@@ -813,83 +810,84 @@ const styles = StyleSheet.create({
     width: 20,
     resizeMode: 'contain',
     tintColor: Colors.black,
-    transform: [{rotate: '45deg'}],
+    transform: [{ rotate: '45deg' }],
   },
-  reviewinnertext: {margin: 10, fontSize: 12, color: 'black'},
-  edittext: {fontSize: 12, color: 'blue'},
-  coverrat: {width: '95%', alignSelf: 'center'},
-  nofound:{textAlign:"center",fontFamily:"Poppins-Medium",fontSize:16,
-  position:"absolute",top:"50%",left:0,right:0,color:"black"
-},
-callicon:{
-  height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 29,
-  width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 29,
-  resizeMode: 'contain',
-},
-chaticon:{
-  height: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 28,
-  width: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 28,
-  resizeMode: 'contain',
-},
-chatcover:{
-  justifyContent: 'center',
-  alignItems: 'center',
-  alignContent: 'center',
-},
-upperchatcover:{
-  justifyContent: 'center',
-  alignItems: 'center',
-},callcover:{
-  justifyContent: 'center',
-  alignItems: 'center',
-  alignContent: 'center',
-  marginRight: 10,
-},
-calluppercover:{
-  justifyContent: 'center',
-  alignItems: 'center',
-  alignContent: 'center',
-},bothicons:{
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '30%',
-  flexDirection: 'row',
-  left: 10,
-},
-bottomcover:{
-  flexDirection: 'row',
-  width: '100%',
-  justifyContent: 'space-between',
-  backgroundColor: '#f8f8f8',
-  paddingVertical: 8,
-  alignItems: 'center',
-  alignContent: 'center',
-},
-textinputstyle:{
-  margin: 10,
-  fontSize: 12,
-  color: 'black',
-  borderWidth: 1,
-  borderColor: 'gray',
-  borderRadius: 5,
-  padding: 5,
-},
-textinputcover:{
-  width: '100%',
-  height: 100,
-  marginTop: 10,
-},
-inputcont:{margin: 10, fontSize: 12, color: 'black'},
-innercoverrat:{
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-},
-calliconnew:{
-  height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 29,
-  width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 29,
-  resizeMode: 'contain',
-}
+  reviewinnertext: { margin: 10, fontSize: 12, color: 'black' },
+  edittext: { fontSize: 12, color: 'blue' },
+  coverrat: { width: '95%', alignSelf: 'center' },
+  nofound: {
+    textAlign: "center", fontFamily: "Poppins-Medium", fontSize: 16,
+    position: "absolute", top: "50%", left: 0, right: 0, color: "black"
+  },
+  callicon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 29,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 29,
+    resizeMode: 'contain',
+  },
+  chaticon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 28,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 28,
+    resizeMode: 'contain',
+  },
+  chatcover: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+  },
+  upperchatcover: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  }, callcover: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    marginRight: 10,
+  },
+  calluppercover: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+  }, bothicons: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '30%',
+    flexDirection: 'row',
+    left: 10,
+  },
+  bottomcover: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    backgroundColor: '#f8f8f8',
+    paddingVertical: 8,
+    alignItems: 'center',
+    alignContent: 'center',
+  },
+  textinputstyle: {
+    margin: 10,
+    fontSize: 12,
+    color: 'black',
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 5,
+    padding: 5,
+  },
+  textinputcover: {
+    width: '100%',
+    height: 100,
+    marginTop: 10,
+  },
+  inputcont: { margin: 10, fontSize: 12, color: 'black' },
+  innercoverrat: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  calliconnew: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 29,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 29,
+    resizeMode: 'contain',
+  }
 });
 
 export default ViewPropertiyImage;

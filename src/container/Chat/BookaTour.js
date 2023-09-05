@@ -38,7 +38,7 @@ const BookaTour = (props) => {
 
 
     useEffect(() => {
-          
+
         getUserID()
         if (props?.route?.params?.ID) {
             Promise.all([dispatch(isRead({ ID: props?.route?.params?.ID })),
@@ -63,7 +63,7 @@ const BookaTour = (props) => {
         formData.append("propid", postid.post_id)
         formData.append('schedule_hour', selectedTime)
         formData.append('schedule_day', selectedDate)
-        formData.append('user_mobile', store.getState().loginUser.loginData.metadata.mobile[0])
+        formData.append('user_mobile', store?.getState()?.loginUser?.loginData?.metadata.mobile[0])
         // console.log('forndata',JSON.stringify(store.getState().loginUser.loginData.metadata.mobile[0]))
         // const formData = {
         //     user_id: id,
@@ -192,7 +192,7 @@ const BookaTour = (props) => {
                     data={getMesg}
                     threshold={20}
                     renderItem={({ item, index }) => {
-                 
+
                         return (
                             <View style={{ marginBottom: 5 }}>
 
@@ -216,9 +216,9 @@ const BookaTour = (props) => {
                                             color: Colors.black,
                                         }}
                                     >
-                                      
+
                                         {item.message}
-                                        
+
                                     </Text> :
                                         <Text
                                             style={{
@@ -230,7 +230,7 @@ const BookaTour = (props) => {
                                                 textAlignVertical: 'center',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
-                                                alignContent: item.user_id === userID? 'center' : 'center',
+                                                alignContent: item.user_id === userID ? 'center' : 'center',
                                                 maxWidth: "70%",
                                                 marginLeft: 8,
                                                 marginRight: 8,
@@ -239,7 +239,7 @@ const BookaTour = (props) => {
                                                 color: item.user_id === userID ? Colors.white : Colors.black,
                                             }}
                                         >
-                                     
+
                                             {item.message}
                                         </Text>
                                 }
@@ -343,7 +343,7 @@ const BookaTour = (props) => {
                                 onPress={() => {
                                     setOpen(true)
                                     setDate(new Date())
-                                     
+
                                 }} style={{
                                     flexDirection: "row",
                                     justifyContent: "center",
@@ -426,22 +426,22 @@ const BookaTour = (props) => {
                             const time = date.getHours() + ":" + date.getMinutes()
 
                             setLoading(true);
-                            { 
+                            {
                                 const formData = new FormData();
 
                                 formData.append('propid', props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.PropID);
                                 formData.append('user2_id', props?.route?.params?.user2_id ? props?.route?.params?.user2_id : 18);
-                                formData.append('message',  now + "," + time);
+                                formData.append('message', now + "," + time);
                                 // formData.append("user_mobile",store.getState().getProfile?.getProfileData?.data[0]?.mobile)
                                 console.log(formData)
                                 dispatch(sendMessage(formData)).then((res) => {
                                     setLoading(false)
                                     setMessage('')
                                     if (res.payload?.data.success) {
-                                        dispatch(getChatDetail({ propid:props?.route?.params?.PropID})).then((res) => {
+                                        dispatch(getChatDetail({ propid: props?.route?.params?.PropID })).then((res) => {
                                             setGetMessg(res?.payload?.data)
-                                            dispatch(getBookTour(formData)).then ((res)=>{
-                                                console.log("push notification",res)
+                                            dispatch(getBookTour(formData)).then((res) => {
+                                                console.log("push notification", res)
                                             })
                                         }).catch((e) => {
 
@@ -459,7 +459,7 @@ const BookaTour = (props) => {
                 </View>
 
 
-         
+
             </View>
         </SafeAreaView>
     );
