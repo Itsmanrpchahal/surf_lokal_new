@@ -5,20 +5,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 
 export const getPoperties = createAsyncThunk('getPoperties', async type => {
-  const access_token = await AsyncStorage.getItem('access_token');
-  const header = Platform.OS === 'android' ?
-  {
-    security_key: "SurfLokal52",
-    access_token: access_token,
-    'Content-Type': 'multipart/form-data'
-  } :
-  {
-    security_key: "SurfLokal52",
-    access_token: access_token,
-  };
-
   return type.type === 0
-    ? await getAPI(BASEURl + "webapi/v1/property/?limit="  +type?.data?.limit)
+    ? await getAPI(BASEURl + "webapi/v1/property/?limit=" + type?.data?.limit)
       .then(async response => {
         const { data } = response;
         return data;
@@ -30,7 +18,6 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
       await uploadImageAPI(
         BASEURl + 'webapi/v1/nearby/',
         type.latLng,
-        header
       )
         .then(async response => {
           console.log("payload latLng", type.latLng)
@@ -45,7 +32,6 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
         await uploadImageAPI(
           BASEURl + 'wp-json/search/websearch',
           type.data,
-          header
         )
           .then(async response => {
             const { data } = response;
@@ -62,9 +48,9 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
           .then(async response => {
 
             const { data } = response;
-             console.log("type.data.data_custom_taxonomy",type.data.data_custom_taxonomy)
-             console.log("type.data.data_customvalue",type.data.data_customvalue)
-             console.log("type.data.response",response)
+            console.log("type.data.data_custom_taxonomy", type.data.data_custom_taxonomy)
+            console.log("type.data.data_customvalue", type.data.data_customvalue)
+            console.log("type.data.response", response)
             return data;
           })
           .catch(e => {

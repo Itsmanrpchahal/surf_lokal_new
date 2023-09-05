@@ -245,7 +245,7 @@ export default function Login({ navigation }) {
         dispatch(loginUser(data)).then(response => {
           if (response.payload.status) {
             setLoading(false);
-            let access_token= response.payload?.metadata?.[fcmtoken].toString()
+            let access_token = response.payload?.metadata?.[fcmtoken].toString()
             const setToken = async () => {
               console.log('fcmtoken stored successfully.', fcmtoken);
               console.log('access_token stored successfully.', access_token);

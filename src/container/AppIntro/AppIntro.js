@@ -23,6 +23,7 @@ import LottieView from 'lottie-react-native';
 import { color } from 'react-native-reanimated';
 import DeviceInfo from 'react-native-device-info';
 import { CommonActions, StackActions } from '@react-navigation/native';
+import { ScreenHeight } from 'react-native-elements/dist/helpers';
 const slides = [
   {
     key: 1,
@@ -31,10 +32,10 @@ const slides = [
     image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab1 : Images.firstscreen,
     backgroundColor: '#59b2ab',
     renderContent: () => (
-      <View style={{ flex: 1 }}>
+      <View style={{height:"100%"}}>
         <Image
-          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
-          source={Images.firstscreen}// Replace with your image path
+          style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
+          source={Images.firstscreen}
         />
         <LottieView
           style={{
@@ -57,9 +58,9 @@ const slides = [
     image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab2 : Images.secondscreen,
     backgroundColor: '#febe29',
     renderContent: () => (
-      <View style={{ flex: 1 }}>
+      <View style={{ height:"100%" }}>
         <Image
-          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
+          style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
           source={Images.secondscreen}// Replace with your image path
         />
         <LottieView
@@ -82,9 +83,9 @@ const slides = [
     image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab3 : Images.tutorial3,
     backgroundColor: '#22bcb5',
     renderContent: () => (
-      <View style={{ flex: 1 }}>
+      <View style={{ height:"100%" }}>
         <Image
-          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
+          style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
           source={Images.tutorial3}// Replace with your image path
         />
         <LottieView
@@ -102,13 +103,13 @@ const slides = [
     text: 'Description.\nSay something cool',
     image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab4 : Images.tutorial4,
     renderContent: () => (
-      <View style={{ flex: 1 }}>
+      <View style={{ height:"100%" }}>
         <Image
-          style={{ height: screenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
+          style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
           source={Images.tutorial4}// Replace with your image path
         />
         <LottieView
-          style={{ height: screenHeight, width: DeviceInfo.getDeviceType() === 'Tablet' ? screenWidth - 80 : screenWidth, }}
+          style={{ height: "100%", width: DeviceInfo.getDeviceType() === 'Tablet' ? screenWidth - 80 : screenWidth, }}
           source={require('../../assets/animations/Swipeleft.json')}
           autoPlay
           loop
@@ -124,9 +125,9 @@ const slides = [
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
-const fontSizeRatio = screenHeight / 1000;
-const viewSizeRatio = screenHeight / 1000;
-const imageSizeRation = screenHeight / 1000;
+// const fontSizeRatio = screenHeight / 1000;
+// const viewSizeRatio = screenHeight / 1000;
+// const imageSizeRation = screenHeight / 1000;
 
 export default function AppIntro({ navigation }) {
   const [email, setEmail] = useState('');
@@ -145,13 +146,13 @@ export default function AppIntro({ navigation }) {
   //   };
   const renderItem = ({ item }) => {
     return (
-      <View style={{ flex: 1, position: "relative" }}>
+      <View style={{ height:"100%", position: "relative" }}>
         {item.renderContent ? (
           item.renderContent()
         ) : (
           <Image
             style={{
-              height: screenHeight,
+              height:ScreenHeight,
               width: screenWidth,
               resizeMode: "contain"
             }}
@@ -190,7 +191,7 @@ export default function AppIntro({ navigation }) {
   return (
     <SafeAreaView
       style={{
-        height: screenHeight,
+        height: ScreenHeight,
         width: screenWidth,
       }}>
       <ScrollView >

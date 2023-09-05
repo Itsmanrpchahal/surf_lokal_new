@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, {useEffect, useState} from 'react';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
 import {
   Text,
   TouchableOpacity,
   View,
-  Image,StyleSheet,
+  Image,
+  StyleSheet,
   KeyboardAvoidingView,
   Dimensions,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import Images from '../utils/Images';
 import Fonts from '../utils/Fonts';
 import Colors from '../utils/Colors';
@@ -26,15 +27,13 @@ import MakeAnOffer from '../container/MakeAnOffer/MakeAnOffer';
 import MyRewards from '../container/MyRewards/MyRewards';
 import RecycleBin from '../container/RecycleBin/RecycleBin';
 import Settings from '../container/Settings/Settings';
-import { ifIphoneX } from 'react-native-iphone-x-helper';
+import {ifIphoneX} from 'react-native-iphone-x-helper';
 import ChatSearch from '../container/Chat/ChatSearch';
 import Notification from '../container/Notification/Notification';
 import Styles from '../container/Rewards/Styles';
-import { store } from '../redux/store';
-import { useIsFocused } from '@react-navigation/native';
+import {store} from '../redux/store';
+import {useIsFocused} from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
-
-
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -47,139 +46,113 @@ const imageSizeRatio = screenHeight / 1000;
 
 const BottomTabNavigator = () => {
   const isFocused = useIsFocused();
-  const [data, setdata] = useState()
+  const [data, setdata] = useState();
 
   useEffect(() => {
-    setdata(store.getState()?.getUserScore?.getUserScoreData?.data?.points)
-  }, [store.getState()?.getUserScore?.getUserScoreData?.data])
+    setdata(store.getState()?.getUserScore?.getUserScoreData?.data?.points);
+  }, [store.getState()?.getUserScore?.getUserScoreData?.data]);
   return (
     <View style={styles.container}>
-    <Tab.Navigator
-      tabBarHideOnKeyboard={true}
-
-      initialRouteName="Home"
-      screenOptions={{ headerShown: false, keyboardHidesTabBar: true }}
-      tabBar={props => <CustomTabBar {...props} />}>
-      <Tab.Screen
-        name="MyProfile"
-        component={MyProfileTab}
-        options={{
-          tabBarLabel: (
-
-            <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12, 
-            fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
-              Profile
-
-              <View style={{ position: "relative" }}>
-                <View
-                  style={{
-                    position: 'absolute',
-                    backgroundColor: 'red',
-                    borderRadius: 100,
-                    width: 15,
-                    height: 15,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    top: 50, // Adjust this value to move the badge higher
-                    marginLeft: 0,
-                  }}
-                >
-                  {/* <View style={{
-                  position: "relative", marginTop: 22, backgroundColor: "pink", height: 30, width: 30, justifyContent: 'center',
-                  alignItems: 'center',
-                }}> */}
-                  <Text style={{ fontSize: 10, fontFamily: 'Poppins-Regular', color: 'white' }}>
-                    2
-                  </Text>
+      <Tab.Navigator
+        tabBarHideOnKeyboard={true}
+        initialRouteName="Home"
+        screenOptions={{headerShown: false, keyboardHidesTabBar: true}}
+        tabBar={props => <CustomTabBar {...props} />}>
+        <Tab.Screen
+          name="MyProfile"
+          component={MyProfileTab}
+          options={{
+            tabBarLabel: (
+              <Text style={styles.labelmenu} allowFontScaling={false}>
+                Profile
+                <View style={{position: 'relative'}}>
+                  <View
+                    style={styles.bedgecover}>
+                    <Text
+                      style={styles.bedgetext}>
+                      2
+                    </Text>
+                  </View>
                 </View>
+                {/* </View> */}
+              </Text>
+            ),
+            tabBarIcon: Images.newprofile,
+            keyboardHidesTabBar: true,
+            tabBarHideOnKeyboard: true,
+          }}
+        />
+        <Tab.Screen
+          name="Rewards"
+          component={MyRewards}
+          options={{
+            tabBarLabel: (
+              <View>
+                <Text style={styles.rebatemenu} allowFontScaling={true}>
+                  {data ? '$' + data : '$' + 0}
+                </Text>
+                <Text
+                  style={[
+                    styles.labelmenu,
+                    {
+                      color: isFocused ? Colors.textColorDark : null,
+                    },
+                  ]}
+                  allowFontScaling={false}>
+                  Rebate
+                </Text>
               </View>
-              {/* </View> */}
+            ),
+            keyboardHidesTabBar: true,
+            tabBarHideOnKeyboard: true,
+          }}
+        />
+        <Tab.Screen
+          name="Home"
+          component={Home}
+          options={{
+            tabBarLabel: null,
 
-            </Text>
+            tabBarIcon: Images.homebig,
 
-          ),
-          tabBarIcon: Images.newprofile,
-          keyboardHidesTabBar: true,
-          tabBarHideOnKeyboard: true,
-        }}
-      />
-      <Tab.Screen
-        name="Rewards"
-        component={MyRewards}
-        options={{
+            keyboardHidesTabBar: true,
+            tabBarHideOnKeyboard: true,
+          }}
+        />
+        <Tab.Screen
+          name="Favorites"
+          component={MyFavorites}
+          options={{
+            tabBarLabel: (
+              <Text
+                style={styles.labelmenu}
+                allowFontScaling={false}>
+                Favorites
+              </Text>
+            ),
+            tabBarIcon: Images.upthumb,
+            keyboardHidesTabBar: true,
+            tabBarHideOnKeyboard: true,
+          }}
+        />
 
-
-          tabBarLabel: (
-
-            <View >
-
-              <Text style={{
-                fontFamily:'Poppins-Bold',
-                position: "absolute",
-                fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12,
-                top: -30,
-                color: Colors.black,
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                left: 0,
-                right: 0
-
-              }}
-
-                allowFontScaling={true}>{data ? '$' + data : '$' + 0}</Text>
-              <Text style={{ fontSize:DeviceInfo.getDeviceType() === 'Tablet'?18:12, fontFamily: 'Poppins-Regular', color: isFocused ? Colors.textColorDark : null }}
-               allowFontScaling={false}>Rebate</Text>
-
-            </View>
-          ),
-          keyboardHidesTabBar: true,
-          tabBarHideOnKeyboard: true,
-        }}
-
-      />
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarLabel: null,
-
-        tabBarIcon: Images.homebig,
-         
-          keyboardHidesTabBar: true,
-          tabBarHideOnKeyboard: true,
-        }}
-      />
-      <Tab.Screen
-        name="Favorites"
-        component={MyFavorites}
-        options={{
-          tabBarLabel: (
-            <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
-              Favorites
-            </Text>
-          ),
-          tabBarIcon: Images.upthumb,
-          keyboardHidesTabBar: true,
-          tabBarHideOnKeyboard: true,
-        }}
-      />
-
-      <Tab.Screen
-        name="ChatSearch"
-        component={ChatSearch}
-        options={{
-          tabBarLabel: (
-            <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12, fontFamily: 'Poppins-Regular' }} allowFontScaling={false}>
-              Chat
-            </Text>
-          ),
-          tabBarIcon: Images.chatnew,
-          keyboardHidesTabBar: true,
-          tabBarHideOnKeyboard: true,
-        }}
-      />
-    </Tab.Navigator>
+        <Tab.Screen
+          name="ChatSearch"
+          component={ChatSearch}
+          options={{
+            tabBarLabel: (
+              <Text
+                style={styles.labelmenu}
+                allowFontScaling={false}>
+                Chat
+              </Text>
+            ),
+            tabBarIcon: Images.chatnew,
+            keyboardHidesTabBar: true,
+            tabBarHideOnKeyboard: true,
+          }}
+        />
+      </Tab.Navigator>
     </View>
   );
 };
@@ -204,23 +177,15 @@ const MyProfileTab = () => {
   );
 };
 
-function CustomTabBar({ state, descriptors, navigation }) {
+function CustomTabBar({state, descriptors, navigation}) {
   return (
     <View
       style={{
-        
         width: '100%',
-        // height:50,
-        height: "8%",
-        backgroundColor: Colors.white,
-        shadowColor:'black',
-        shadowOpacity:1,
+        height: '8%',
         justifyContent: 'center',
-        borderTopColor: Colors.gray,
-        // borderTopWidth: 1,
         alignItems: 'center',
         marginBottom: 8,
-        //paddingTop: 10
       }}>
       <View
         style={{
@@ -228,6 +193,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
           justifyContent: 'space-evenly',
           alignItems: 'center',
           alignContent: 'center',
+          backgroundColor: '#F2F2F2',
           ...ifIphoneX(
             {
               marginBottom: 15,
@@ -238,13 +204,13 @@ function CustomTabBar({ state, descriptors, navigation }) {
           ),
         }}>
         {state.routes.map((route, index) => {
-          const { options } = descriptors[route.key];
+          const {options} = descriptors[route.key];
           const label =
             options.tabBarLabel !== undefined
               ? options.tabBarLabel
               : options.title !== undefined
-                ? options.title
-                : route.name;
+              ? options.title
+              : route.name;
           const image =
             options.tabBarIcon !== undefined ? options.tabBarIcon : route.name;
           const isFocused = state.index === index;
@@ -255,8 +221,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
               canPreventDefault: true,
             });
             if (!isFocused && !event.defaultPrevented) {
-              // The `merge: true` option makes sure that the params inside the tab screen are preserved
-              navigation.navigate({ name: route.name, merge: true });
+              navigation.navigate({name: route.name, merge: true});
             }
           };
           const onLongPress = () => {
@@ -271,9 +236,6 @@ function CustomTabBar({ state, descriptors, navigation }) {
                 height: 65,
                 width: 65,
                 marginTop: 22,
-
-                // tintColor: isFocused ? Colors.primaryBlue : Colors.textColorDark,
-
               };
             }
             return {
@@ -285,32 +247,19 @@ function CustomTabBar({ state, descriptors, navigation }) {
           };
           return (
             <TouchableOpacity
-            
               accessibilityRole="button"
-              accessibilityState={isFocused ? { selected: true } : {}}
+              accessibilityState={isFocused ? {selected: true} : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
               testID={options.tabBarTestID}
               onPress={onPress}
               onLongPress={onLongPress}
-              style={{
-                 
-                backgroundColor:'#F2F2F2',
-                width: "20%",
-                maxHeight: 100,
-              
-                alignItems: 'center',
-                justifyContent: 'center',
-                alignContent: 'center',
-                marginVertical: -15,
-                marginTop: 1
-              }}>
+              style={styles.bgbottom}>
               <View
                 style={{
                   height: 50,
                   width: 100,
                   justifyContent: 'center',
                   alignItems: 'center',
-
                 }}>
                 <Image
                   source={image}
@@ -321,8 +270,9 @@ function CustomTabBar({ state, descriptors, navigation }) {
               <Text
                 style={{
                   color: isFocused ? Colors.primaryBlue : Colors.textColorDark,
-                  fontSize: 12, fontFamily: 'Poppins-Regular',
-                  marginBottom: 8
+                  fontSize: 12,
+                  fontFamily: 'Poppins-Regular',
+                  marginBottom: 8,
                 }}>
                 {label}
               </Text>
@@ -334,21 +284,64 @@ function CustomTabBar({ state, descriptors, navigation }) {
   );
 }
 const styles = StyleSheet.create({
+  labelmenu: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
+    fontFamily: 'Poppins-Regular',
+  },
+  rebatemenu: {
+    fontFamily: 'Poppins-Bold',
+    position: 'absolute',
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
+    top: -30,
+    color: Colors.black,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    left: 0,
+    right: 0,
+  },
+  bgbottom:{
+    backgroundColor: '#F2F2F2',
+    width: '20%',
+    maxHeight: 100,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
+    marginVertical: -15,
+    marginTop: 1,
+  },
+  bedgetext:{
+    fontSize: 10,
+    fontFamily: 'Poppins-Regular',
+    color: 'white',
+    borderRadius: 100,
+  },
+  bedgecover:{
+    position: 'absolute',
+    backgroundColor: 'red',
+    borderRadius: 100,
+    width: 15,
+    height: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: 50, // Adjust this value to move the badge higher
+    marginLeft: 0,
+  },
   container: {
     flex: 1,
+    // backgroundColor:"red",
     ...Platform.select({
-      ios: {
-        
-        shadowColor: 'red',
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-      },
-      android: {
-        
-        shadowColor: 'black',
-        shadowOpacity: 0.25,
-        elevation: 4,
-      },
+      // ios: {
+      //   shadowColor: 'red',
+      //   shadowOpacity: 0.25,
+      //   shadowRadius: 4,
+      // },
+      // android: {
+      //   shadowColor: 'black',
+      //   shadowOpacity: 0.25,
+      //   elevation: 4,
+      // },
     }),
   },
 });
