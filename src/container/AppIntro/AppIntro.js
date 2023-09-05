@@ -32,7 +32,7 @@ const slides = [
     image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab1 : Images.firstscreen,
     backgroundColor: '#59b2ab',
     renderContent: () => (
-      <View style={{height:"100%"}}>
+      <View style={{ height: "100%" }}>
         <Image
           style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
           source={Images.firstscreen}
@@ -58,7 +58,7 @@ const slides = [
     image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab2 : Images.secondscreen,
     backgroundColor: '#febe29',
     renderContent: () => (
-      <View style={{ height:"100%" }}>
+      <View style={{ height: "100%" }}>
         <Image
           style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
           source={Images.secondscreen}// Replace with your image path
@@ -83,7 +83,7 @@ const slides = [
     image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab3 : Images.tutorial3,
     backgroundColor: '#22bcb5',
     renderContent: () => (
-      <View style={{ height:"100%" }}>
+      <View style={{ height: "100%" }}>
         <Image
           style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
           source={Images.tutorial3}// Replace with your image path
@@ -103,7 +103,7 @@ const slides = [
     text: 'Description.\nSay something cool',
     image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab4 : Images.tutorial4,
     renderContent: () => (
-      <View style={{ height:"100%" }}>
+      <View style={{ height: "100%" }}>
         <Image
           style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
           source={Images.tutorial4}// Replace with your image path
@@ -146,13 +146,13 @@ export default function AppIntro({ navigation }) {
   //   };
   const renderItem = ({ item }) => {
     return (
-      <View style={{ height:"100%", position: "relative" }}>
+      <View style={{ height: "100%", position: "relative" }}>
         {item.renderContent ? (
           item.renderContent()
         ) : (
           <Image
             style={{
-              height:ScreenHeight,
+              height: ScreenHeight,
               width: screenWidth,
               resizeMode: "contain"
             }}
@@ -181,7 +181,7 @@ export default function AppIntro({ navigation }) {
 
   const renderDone = () => {
     return (
-      <TouchableOpacity onPress={() => { onDone() }} style={{ position: "absolute", right: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : -50, height: screenHeight, top: 0, marginTop: Platform.OS === 'android' ? -30 : -100 }}>
+      <TouchableOpacity onPress={() => { onDone() }} style={{ position: "absolute", right: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : -50, height: screenHeight, top: 0, marginTop: -30 }}>
         <View style={{ height: 150, width: 150 }}>
           <LottieView style={{ height: 100, width: DeviceInfo.getDeviceType() === 'Tablet' ? 350 : 100 }} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
         </View>
@@ -194,15 +194,13 @@ export default function AppIntro({ navigation }) {
         height: ScreenHeight,
         width: screenWidth,
       }}>
-      <ScrollView >
-        <AppIntroSlider renderItem={renderItem}
-          data={slides}
-          activeDotStyle={{ backgroundColor: "#707070" }}
-          dotClickEnabled={true}
-          renderDoneButton={renderDone}
-        />
+      <AppIntroSlider renderItem={renderItem}
+        data={slides}
+        activeDotStyle={{ backgroundColor: "#707070" }}
+        dotClickEnabled={true}
+        renderDoneButton={renderDone}
+      />
 
-      </ScrollView>
     </SafeAreaView>
   );
 }
