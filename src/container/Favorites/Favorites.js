@@ -207,7 +207,7 @@ const Home = () => {
           <View
             style={{
               // marginTop: 40,
-              height: '80%',
+              height: '60%',
               width: '100%',
               alignItems: 'center',
               alignContent: 'center',

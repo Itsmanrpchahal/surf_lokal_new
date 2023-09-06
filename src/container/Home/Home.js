@@ -732,7 +732,7 @@ const Home = () => {
                       <Animated.View
                         {...panResponders.panHandlers}
                         style={[
-                          styles.modalContent,
+                          styles.modalContentch,
                           {
                             transform: [
                               {
@@ -1535,7 +1535,9 @@ const Home = () => {
                                         style={[
                                           {
                                             width: '100%',
-
+height:"100%",
+alignItems:"flex-end",
+justifyContent:"flex-end"
                                           },
                                           styles.modalaligned,
                                         ]}>
@@ -1609,7 +1611,7 @@ const Home = () => {
                                   <Modal
                                     transparent={true}
                                     animationType="slide"
-                                    visible={tashModalVisiable}
+                                   visible={tashModalVisiable}
                                     //visible={true}
                                     onRequestClose={() => {
                                       setTrashModalVisiable(false);
@@ -1626,8 +1628,10 @@ const Home = () => {
                                         style={[
                                           {
                                             width: '100%',
-                                          },
-                                          styles.modalaligned,
+                                            height:"100%",
+                                            alignItems:"flex-end",
+                                            justifyContent:"flex-end"
+                                          }
                                         ]}>
                                         <Animated.View
                                           {...panResponder.panHandlers}
@@ -1699,7 +1703,7 @@ const Home = () => {
                                   <Modal
                                     transparent={true}
                                     animationType="slide"
-                                    visible={saveModalVisible}
+                                   visible={saveModalVisible}
                                     //visible={true}
                                     onRequestClose={() => {
                                       setSaveModalVisible(false);
@@ -1712,11 +1716,19 @@ const Home = () => {
                                           setSaveModalVisible(false);
                                         }}
                                       />
-                                      <View style={styles.modalcovermain}>
+                                          <View
+                                        style={[
+                                          {
+                                            width: '100%',
+                                            height:"100%",
+                                            alignItems:"flex-end",
+                                            justifyContent:"flex-end"
+                                          }
+                                        ]}>
                                         <Animated.View
                                           {...panResponder.panHandlers}
                                           style={[
-                                            styles.modalContent1,
+                                            styles.modalContent2,
                                             {
                                               width: "100%", backgroundColor: "#f1f1f1",
                                               transform: [
@@ -1807,11 +1819,19 @@ const Home = () => {
                                           setGpsModalVisiavle(false);
                                         }}
                                       />
-                                      <View style={styles.modalcovermain}>
+                                     <View
+                                        style={[
+                                          {
+                                            width: '100%',
+                                            height:"100%",
+                                            alignItems:"flex-end",
+                                            justifyContent:"flex-end"
+                                          }
+                                        ]}>
                                         <Animated.View
                                           {...panResponder.panHandlers}
                                           style={[
-                                            styles.modalContent1,
+                                            styles.modalContent3,
                                             {
                                               width: "100%", backgroundColor: "#f1f1f1",
                                               transform: [
@@ -1864,18 +1884,18 @@ const Home = () => {
                                   <Modal
                                     transparent={true}
                                     animationType="slide"
-                                    visible={modalVisible}
+                                   visible={modalVisible}
                                     onRequestClose={toggleModal}>
                                     <View style={styles.modalContainer}>
                                       <TouchableOpacity
                                         activeOpacity={1}
-                                        style={styles.modalOverlay}
+                                        style={styles.modalOverlaynew}
                                         onPress={closeModal}
                                       />
                                       <Animated.View
                                         {...panResponder.panHandlers}
                                         style={[
-                                          styles.modalContent,
+                                          styles.modalContentnew,
                                           {
                                             transform: [
                                               {
@@ -1889,7 +1909,7 @@ const Home = () => {
                                           },
                                         ]}>
                                         <ScrollView style={styles.bgcover}>
-                                          <View style={styles.modalaligned}>
+                                          <View style={{alignItems:"center"}}>
                                             <View
                                               style={styles.indicator}></View>
                                           </View>
@@ -2362,8 +2382,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   modalaligned: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
   calloutfeatureimg: {
     height: 80,
@@ -2830,11 +2850,12 @@ const styles = StyleSheet.create({
   },
 
   modalOverlay1: {
-    flex: 1,
+    //flex: 1,
     // alignItems: 'center',
     // justifyContent: 'center',
     width: DeviceInfo.getDeviceType() === 'Tablet' ? '100%' : '98%',
-    boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
+    // boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
+  height:"100%"
   },
   welcometxt: {
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 15,
@@ -2843,6 +2864,9 @@ const styles = StyleSheet.create({
     width: '100%',
     textAlign: 'center',
     marginTop: 30,
+  },
+  modalOverlaynew: {
+    flex: 1,
   },
   modalOverlay: {
     flex: 1,
@@ -2867,7 +2891,29 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
-    maxHeight: '100%',
+   maxHeight: '60%',
+    width: '96%',
+    //alignItems: 'center',
+    //justifyContent: 'center',
+    boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
+  },
+  modalContent2: {
+    backgroundColor: 'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 16,
+   maxHeight: '80%',
+    width: '96%',
+    //alignItems: 'center',
+    //justifyContent: 'center',
+    boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
+  },
+  modalContent3: {
+    backgroundColor: 'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 16,
+   maxHeight: '90%',
     width: '96%',
     //alignItems: 'center',
     //justifyContent: 'center',
@@ -2967,7 +3013,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
+  modalContentnew: {
+    backgroundColor: 'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 16,
+    maxHeight: '60%',
+  },
+  modalContentch:{
+    backgroundColor: 'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 16,
+    maxHeight: '85%',
+  },
   filter: {
     height: 60,
   },
