@@ -19,7 +19,7 @@ export const postRating = createAsyncThunk('postRating', async (formData) => {
     const response = await uploadImageAPI(
       `https://www.surflokal.com/webapi/v1/rating/`,
       formData,
-      header,
+      
     ).then((res) => {
       console.log('Post Ratinmg ====> ', res)
       return res;

@@ -19,7 +19,7 @@ export const logOut = createAsyncThunk('logOut', async () => {
        console.log(" logOut accessToken ======>",accessToken)
     const response = await uploadImageAPI(
       `https://www.surflokal.com/wp-json/custom-plugin/logout/`,
-       header,
+    
     ).then((res) => {
       console.log('logOut ====> ', res)
       return res;

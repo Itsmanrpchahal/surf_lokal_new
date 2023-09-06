@@ -12,7 +12,7 @@ export const getAgent = createAsyncThunk('getAgent', async () => {
   }
 
   return await getAPI(
-    BASEURl + 'webapi/v1/agent/' ,Header
+    BASEURl + 'webapi/v1/agent/' 
   )
     .then(async response => {
       const { data } = response;

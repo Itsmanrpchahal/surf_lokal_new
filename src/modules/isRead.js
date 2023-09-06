@@ -24,7 +24,7 @@ export const isRead = createAsyncThunk('isRead', async dispatch => {
         const response = await uploadImageAPI(
           `https://www.surflokal.com/webapi/v1/chat/Isread.php`,
           formData,
-          header,
+         
         ).then((res) => {
           console.log('isRead ====> ', res)
           return res;

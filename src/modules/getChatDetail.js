@@ -23,7 +23,7 @@ export const getChatDetail = createAsyncThunk('getChatDetail', async (dispatch) 
     const response = await uploadImageAPI(
       `https://www.surflokal.com/webapi/v1/chat/chatByproperty.php`,
       formData,
-      header,
+ 
     ).then((res) => {
       console.log('getChatDetail res ====> ', res)
       return res;

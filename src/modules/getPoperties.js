@@ -9,6 +9,7 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
     ? await getAPI(BASEURl + "webapi/v1/property/?limit=" + type?.data?.limit)
       .then(async response => {
         const { data } = response;
+        console.log("typee=>",data)
         return data;
       })
       .catch(e => {

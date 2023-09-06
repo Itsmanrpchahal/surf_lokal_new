@@ -6,17 +6,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 export const getPopertiesDetails = createAsyncThunk(
   "getPropertiesDetails",
   async (postid) => {
-    const access_token = await AsyncStorage.getItem('access_token')
-
-    const Header={
-      security_key:"SurfLokal52",
-      access_token:access_token
-    }
-    console.log("Header check",Header)
+   
 
     const urlDynamic =
       BASEURl+"webapi/v1/singleproperty/?post_id=" + postid;
-    return await getAPI(urlDynamic,Header)
+    return await getAPI(urlDynamic)
       .then(async (response) => {
         const { data } = response;
         return data;

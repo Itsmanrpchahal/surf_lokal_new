@@ -20,7 +20,7 @@ export const editSearch = createAsyncThunk('editSearch',  async (formData) => {
     const response = await uploadImageAPI(
       `https://www.surflokal.com/webapi/v1/search/edit_search.php `,
       formData,
-      header,
+     
     ).then((res) => {
       console.log('edit search ====> ', res)
       return res;

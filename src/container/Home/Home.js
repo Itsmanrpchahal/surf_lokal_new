@@ -195,8 +195,8 @@ const Home = () => {
     filtertoggleModal();
   };
   const getID = async () => {
-    const token = await AsyncStorage.getItem('access_token');
-    console.log('token========>', token);
+    const access_token = await AsyncStorage.getItem('access_token');
+    console.log('token========>',access_token);
     // setUser_ID(id);
   };
 
@@ -387,7 +387,7 @@ const Home = () => {
 
     await dispatch(addToFavorite(formData)).then(response => {
       if (
-        store.getState().getFavoriteProperties.getFavoritePropertiesData
+        store.getState().getFavoritePropertiesReducer.getFavoritePropertiesData
           .count == 0
       ) {
         favToggleModal();
@@ -404,7 +404,7 @@ const Home = () => {
     formData.append('post_id', post_id);
 
     await dispatch(addRemoveTrash(formData)).then(response => {
-      if (store.getState().getTrash.getTrashData.count == 0) {
+      if (store.getState().getTrashReducer.getTrashData.count == 0) {
         trashToggleModal();
       } else {
       }
@@ -422,19 +422,20 @@ const Home = () => {
         formData.append('latitude', location.latitude);
         formData.append('longitude', location.longitude);
         console.log('getPopertiesApiCall formData ', formData);
-        await getPopertiesApiCall({ type: 1, data: '', latLng: formData });
+        await getPopertiesApiCall({ type: 0, data:'', latLng: formData });
       })
       .catch(error => {
         const { code, message } = error;
       });
   };
+  
 
   const getPopertiesApiCall = async type => {
     setLoading(true);
     await dispatch(getPoperties(type));
-    typeof store.getState().getPoperties.getPopertiesData?.data === 'object'
-      ? store.getState().getPoperties.getPopertiesData?.data &&
-      setHomeData(store.getState().getPoperties.getPopertiesData?.data)
+    typeof store.getState().getPopertiesReducer.getPopertiesData?.data === 'object'
+      ? store.getState().getPopertiesReducer.getPopertiesData?.data &&
+      setHomeData(store.getState().getPopertiesReducer.getPopertiesData?.data)
       : setHomeData([]);
     setLoading(false);
   };
@@ -626,7 +627,7 @@ const Home = () => {
                       };
                       dispatch(filterSearch(payload)).then(response => {
                         if (
-                          store.getState().getSavedSearch.getSavedSearchData
+                          store.getState().getSavedSearchReducer.getSavedSearchData
                             .count == 0
                         ) {
                           saveToogleModal();
@@ -2216,13 +2217,12 @@ const Home = () => {
                         latitudeDelta: 0.015,
                         longitudeDelta: 0.0121,
                       }}>
-                      {homeData.map(item => {
+                      {homeData?.map(item => {
                         return (
                           <Marker
                             showCallout={true}
                             coordinate={{
-                              latitude: parseFloat(item?.property_latitude),
-                              longitude: parseFloat(item?.property_longitude),
+                              latitude: parseFloat(item?.property_latitude), longitude: parseFloat(item?.property_longitude)
                             }}>
                             <Image
                               source={Images.locationss}
@@ -2231,7 +2231,7 @@ const Home = () => {
                             <Callout
                               onPress={() => {
                                 navigation.navigate('ViewPropertiy', {
-                                  ID: item.ID,
+                                  ID: item?.ID,
                                 });
                               }}
                               style={styles.calloutcover}>
@@ -2240,26 +2240,26 @@ const Home = () => {
                                   <Image
                                     style={styles.calloutfeatureimg}
                                     source={{
-                                      uri: item.featured_image_src[0]?.guid,
+                                      uri: item?.featured_image_src[0]?.guid,
                                     }}
                                   />
                                 </Text>
                                 <View style={styles.detailcover}>
                                   <Text style={styles.itemtitle}>
-                                    {item.title}
+                                    {item?.title}
                                   </Text>
-                                  <Text style={style.propertyprice}>
-                                    {item.property_price}
+                                  <Text style={styles.propertyprice}>
+                                    {item?.property_price}
                                   </Text>
                                   <View style={styles.labelinnercover}>
                                     <Text style={styles.labelinner}>
-                                      {item.property_bedrooms} Beds{' '}
+                                      {item?.property_bedrooms} Beds{' '}
                                     </Text>
                                     <Text style={styles.labelinner}>
-                                      {item.bathroomsfull} Baths{' '}
+                                      {item?.bathroomsfull} Baths{' '}
                                     </Text>
                                     <Text style={styles.labelinner}>
-                                      {item.property_size} sq ft{' '}
+                                      {item?.property_size} sq ft{' '}
                                     </Text>
                                   </View>
                                 </View>
@@ -2289,7 +2289,7 @@ const Home = () => {
                             ?.data?.ID,
                         }),
                       ).then(res => {
-                        setHomeData(res.payload.data);
+                        setHomeData(res?.payload?.data);
                       });
                     }}
                     style={styles.extencover}>

@@ -12,7 +12,7 @@ export const getLeaderboard = createAsyncThunk('getLeaderboard', async () => {
   }
 
   return await getAPI(
-    BASEURl + 'webapi/v1/rewards/leaderboard.php ',Header
+    BASEURl + 'webapi/v1/rewards/leaderboard.php '
   )
     .then(async response => {
       const { data } = response;

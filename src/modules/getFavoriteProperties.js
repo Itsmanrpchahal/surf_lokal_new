@@ -15,7 +15,7 @@ export const getFavoriteProperties = createAsyncThunk('getFavoriteProperties', a
   }
 
   return await getAPI(
-    BASEURl+'webapi/v1/favorites/ ',Header
+    BASEURl+'webapi/v1/favorites/ '
   )
     .then(async response => {
       const {data} = response;

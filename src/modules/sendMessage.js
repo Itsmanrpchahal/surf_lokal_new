@@ -19,7 +19,7 @@ export const sendMessage = createAsyncThunk('sendMessage', async dispatch=> {
     const response = await uploadImageAPI(
       `https://www.surflokal.com/webapi/v1/chat/send_message.php`,
       dispatch,
-      header,
+   
     ).then((res) => {
       return res;
     }).catch((e) => {

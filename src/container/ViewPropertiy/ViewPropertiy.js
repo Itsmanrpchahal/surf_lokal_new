@@ -783,29 +783,29 @@ const ViewPropertiy = (props, imageUrl) => {
                       </Text>
                       <View style={{flexDirection: 'row', marginLeft: 10}}>
                         <Text style={{color: Colors.black}}>
-                          {store.getState().getPopertiesDetails
-                            .getPopertiesDetails.data[0].bedrooms.length > 0
-                            ? store.getState().getPopertiesDetails
-                                .getPopertiesDetails.data[0].bedrooms
+                          {store?.getState()?.getPopertiesDetailsReducer
+                            ?.getPopertiesDetails?.data[0]?.bedrooms?.length > 0
+                            ? store.getState()?.getPopertiesDetailsReducer
+                                ?.getPopertiesDetails?.data[0]?.bedrooms
                             : 0}
                           {' Beds'}{' '}
                         </Text>
                         <Text style={{color: Colors.black}}>
-                          {store.getState().getPopertiesDetails
-                            .getPopertiesDetails.data[0].bathroomsfull.length >
+                          {store?.getState()?.getPopertiesDetailsReducer
+                            .getPopertiesDetails?.data[0]?.bathroomsfull?.length >
                           0
-                            ? store.getState().getPopertiesDetails
-                                .getPopertiesDetails.data[0].bathroomsfull
+                            ? store?.getState()?.getPopertiesDetailsReducer
+                                ?.getPopertiesDetails?.data[0]?.bathroomsfull
                             : 0}
                           {' Baths'}{' '}
                         </Text>
                         <Text style={{color: Colors.black}}>
-                          {store.getState().getPopertiesDetails
-                            .getPopertiesDetails.data[0].details
+                          {store?.getState()?.getPopertiesDetailsReducer
+                            ?.getPopertiesDetails?.data[0]?.details
                             .property_details.property_size.length > 0
-                            ? store.getState().getPopertiesDetails
-                                .getPopertiesDetails.data[0].details
-                                .property_details.property_size
+                            ? store?.getState()?.getPopertiesDetailsReducer
+                                ?.getPopertiesDetails?.data[0]?.details
+                                ?.property_details?.property_size
                             : 0}
                           {' sq ft'}{' '}
                         </Text>

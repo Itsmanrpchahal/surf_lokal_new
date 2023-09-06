@@ -15,7 +15,7 @@ export const getTrash = createAsyncThunk('getTrash', async () => {
   }
 // console.log("getTrash access_token")
   return await getAPI(
-    BASEURl+'webapi/v1/trashlist',Header
+    BASEURl+'webapi/v1/trashlist',
   )
     .then(async response => {
       const {data} = response;

@@ -13,7 +13,7 @@ export const filterSearch = createAsyncThunk('filterSearch', async dispatch => {
   }
   console.log('hhhhh',Header)
   return await postAPI(
-    BASEURl+'wp-json/search/FilterSearch',dispatch , Header
+    BASEURl+'wp-json/search/FilterSearch',dispatch 
   )
     .then(async response => {
       const { data } = response;

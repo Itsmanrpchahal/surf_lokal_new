@@ -13,7 +13,7 @@ export const getProfile = createAsyncThunk('getProfile', async () => {
     access_token:access_token
   }
   return await getAPI(
-    BASEURl+'webapi/v1/userprofile/',Header
+    BASEURl+'webapi/v1/userprofile/'
   )
     .then(async response => {
       const {data} = response;
