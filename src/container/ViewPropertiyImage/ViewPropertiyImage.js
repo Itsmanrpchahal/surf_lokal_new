@@ -52,7 +52,7 @@ const ViewPropertiyImage = props => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [adress, setAddres] = useState('');
   const [index, setIndex] = useState(0);
-  const [agentData, setAgentData] = useState([]);
+  const [agentData, setAgentData] = useState([0]);
   const [ratingData, setRatingData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);

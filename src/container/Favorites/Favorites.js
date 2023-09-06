@@ -65,7 +65,7 @@ const Home = () => {
   //   };
   // }, []);
   const makePhoneCall = () => {
-    let phoneNumber = '512458790';
+    let phoneNumber = '18885083174';
     Linking.openURL(`tel:${phoneNumber}`);
   };
   const sendEmail = () => {

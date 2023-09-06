@@ -51,7 +51,7 @@ const MyFavorites = props => {
   const flatListRef = useRef(null);
   const navigation = useNavigation();
   const [data, setHomeData] = useState([]);
-  const [agentData, setAgentData] = useState([]);
+  const [agentData, setAgentData] = useState([0]);
   const [text, setText] = useState('');
   const [showNoDataMessage, setShowNoDataMessage] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -156,6 +156,7 @@ const MyFavorites = props => {
   };
 
   useEffect(() => {
+    
     if (isFocused) {
       Promise.all[(getFavoritePropertiesApiCall(), getAgentApicall())];
     }
@@ -174,6 +175,7 @@ const MyFavorites = props => {
   const getAgentApicall = () => {
     dispatch(getAgent()).then(response => {
       setAgentData(response.payload.data);
+      alert(JSON.stringify(response.payload.data))
     });
   };
 
