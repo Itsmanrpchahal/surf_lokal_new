@@ -87,12 +87,12 @@ const App = props => {
             <View style={styles.covermain}>
               <Text style={styles.purchasetext}>Purchase Price</Text>
               <View style={styles.purchasevalue}>
-                <Text style={styles.metervaluetext}>${meterValue}</Text>
+                <Text style={styles.metervaluetext}>${"500000"}</Text>
               </View>
               <View style={styles.slidercover}>
                 <Text style={styles.zerotext}>$0</Text>
 
-                <Text style={styles.endtext}>$10MM</Text>
+                <Text style={styles.endtext}>$100MM</Text>
               </View>
               <Slider
                 style={styles.mainslider}

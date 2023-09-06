@@ -115,7 +115,7 @@ const MyFavorites = props => {
   const updateReview = async post_id => {
     const formData = new FormData();
     formData.append('postid', productId);
-    formData.append('comment_content', commentContent);
+    formData.append('comment_content', commentContent?commentContent:'');
     formData.append('review_title', reviewTitle);
     formData.append('review_stars', rating);
     formData.append('description_review_stars', rating1);
@@ -141,7 +141,8 @@ const MyFavorites = props => {
     formData.append('desc_stars', rating1);
     formData.append('price_stars', rating2);
     formData.append('interest_stars', rating3);
-    formData.append('content', commentContent);
+    formData.append('content', commentContent?commentContent:"");
+
 
     dispatch(postRating(formData)).then(response => {
       if (response.payload.data.success) {

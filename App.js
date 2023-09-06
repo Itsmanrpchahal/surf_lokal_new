@@ -12,6 +12,8 @@ import StackNavigator from './src/navigation/StackNavigator'
 import axios from 'axios';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { PersistGate } from 'redux-persist/integration/react';
+import { StatusBar } from 'react-native';
+import Colors from './src/utils/Colors';
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Message handled in the background!', remoteMessage);
 });
@@ -84,6 +86,7 @@ const App = () => {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <Provider store={store}>
+        <StatusBar style="light" backgroundColor={Colors.PrimaryColor} />
           <PersistGate loading={null} persistor={persistor}>
             <QueryClientProvider client={queryClient}>
               <StackNavigator />

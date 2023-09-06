@@ -1395,17 +1395,21 @@ alignItems:"center"
                                     response?.payload?.data[0]
                                       ?.interest_review_stars,
                                   );
-                                  // console.log(" getRating response data", response?.payload?.data)
                                 });
                               }}>
                               <Image
-                                source={Images.startfill}
+                                 source={
+                                  item?.Total_average_rating > 0
+                                    ? Images.startfill
+                                    : Images.star2
+                                }
                                 style={{
                                   height: 23,
                                   width: 23,
                                   resizeMode: 'contain',
                                 }}></Image>
                             </TouchableOpacity>
+                            {item?.Total_average_rating > 0 ? (
                             <Text
                               style={{
                                 fontSize: 18,
@@ -1414,8 +1418,12 @@ alignItems:"center"
                                 marginLeft: 4,
                                 marginTop: 8,
                               }}>
-                              {item?.Total_average_rating}
+                                   {Math.round(
+                                              item?.Total_average_rating,
+                                            )}
+                              {/* {item?.Total_average_rating} */}
                             </Text>
+                                 ) : null}
                           </View>
 
                           <TouchableOpacity onPress={() => handleShare()}>
@@ -1816,21 +1824,11 @@ alignItems:"center"
           </View>
 
           <View style={{flexWrap:"wrap",
-          //backgroundColor:"red",
           marginHorizontal:16,flexDirection:"column",}} >
-            <View
-              style={{
-            // width: '100%',
-                paddingHorizontal: 8,
-                paddingVertical:16,
-                flexWrap:"wrap",
-              
-              }}>
+            <View>
               <>
-                
                 <View style={{flexDirection:"row",
               flexWrap:"wrap",}}>
-           
             <Text
                   numberOfLines={property?.ID == readmore ? 0 :100}
                   style={{
@@ -1856,7 +1854,6 @@ alignItems:"center"
                   style={{
                     justifyContent: 'center',
                     alignItems: 'center',
-                   // width: '100%',
                   }}
                   onPress={() => setShowFullContent(!showFullContent)}>
                   <Text
