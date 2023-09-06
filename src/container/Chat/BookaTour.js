@@ -185,7 +185,6 @@ const BookaTour = (props) => {
                 >
                     Hi! What can I help you with?
                 </Text>
-
                 <AutoScrollFlatList
                     nestedScrollEnabled={true}
                     inverted
@@ -414,7 +413,6 @@ const BookaTour = (props) => {
                         open={open}
                         date={date}
                         accessibilityLiveRegion="en"
-                        // androidVariant='iosClone'
                         minimumDate={new Date()}
                         locale="en-GB"
                         theme="auto"
@@ -425,18 +423,17 @@ const BookaTour = (props) => {
                             const time = date.getHours() + ":" + date.getMinutes()
                             setLoading(true);
                             {
-                                dispatch(sendMessage({
-                                    user_id: userID,
-                                    propid: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.PropID,
-                                    user2_id: props?.route?.params?.user2_id ? props?.route?.params?.user2_id : '',
-                                    message: now + "," + time
-                                })).then((res) => {
+                                const formData = new FormData();
+                                formData.append('propid', props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.PropID);
+                                formData.append('user2_id', props?.route?.params?.user2_id ? props?.route?.params?.user2_id : 18);
+                                formData.append('message',  now + "," + time);
+                                dispatch(sendMessage(formData)).then((res) => {
                                     setLoading(false)
                                     setMessage('')
-                                    if (res.payload.success) {
+                                    if (res.payload.data.success) {
                                         dispatch(getChatDetail({ ID: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.post_id })).then((res) => {
-                                            setGetMessg(res?.payload?.data)
-                                            
+                                             console.log(res?.payload.data?.data)
+                                            setGetMessg(res?.payload?.data?.data)
                                         }).catch((e) => {
 
                                         })

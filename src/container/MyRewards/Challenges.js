@@ -130,11 +130,12 @@ const Challenges = () => {
                           }
 
                           const formData = new FormData();
-                          formData.append('user_id', user_ID);
                           formData.append('title', item.post_title);
                           formData.append('post_id', item.ID);
                           formData.append('points', item.points);
                           formData.append('status', 2);
+                          console.log("formData ======>",formData)
+
                           console.log(
                             ' likeDisLike selectedTabsMore',
                             selectedTabsMore,
@@ -183,11 +184,11 @@ const Challenges = () => {
                             );
                           }
                           const formData = new FormData();
-                          formData.append('user_id', user_ID);
                           formData.append('title', item.post_title);
                           formData.append('post_id', item.ID);
                           formData.append('points', item.points);
                           formData.append('status', 1);
+                           console.log("formData ======>",formData)
                           console.log(
                             ' likeDisLike selectedTabsMore',
                             selectedTabsMore,

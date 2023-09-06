@@ -447,7 +447,7 @@ const Home = () => {
     formData.append('desc_stars', rating1);
     formData.append('price_stars', rating2);
     formData.append('interest_stars', rating3);
-    formData.append('content', commentContent);
+    formData.append('content', commentContent?commentContent:"");
 
     dispatch(postRating(formData)).then(response => {
       if (response.payload.data.success) {
@@ -463,7 +463,7 @@ const Home = () => {
   const updateReview = async post_id => {
     const formData = new FormData();
     formData.append('postid', productId);
-    formData.append('comment_content', commentContent);
+    formData.append('comment_content', commentContent?commentContent:'');
     formData.append('review_title', reviewTitle);
     formData.append('review_stars', rating);
     formData.append('description_review_stars', rating1);
@@ -1898,7 +1898,6 @@ const Home = () => {
                                               Your Review
                                             </Text>
                                           </View>
-                                          <View style={styles.w100}>
                                             <View style={styles.maincov}>
                                               <View
                                                 style={[
@@ -1922,7 +1921,6 @@ const Home = () => {
                                                   }}
                                                 />
                                               </View>
-                                            </View>
 
                                             <View style={styles.maincov}>
                                               <View style={styles.labelcover}>
