@@ -77,7 +77,7 @@ const ContactMyAgent = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [address, setAddress] = useState('');
   const [index, setIndex] = useState(true);
-  const [agentData, setAgentData] = useState(null);
+  const [agentData, setAgentData] = useState([0]);
   const [responseMessage, setResponseMessage] = useState('');
   const [message, setMessage] = useState('');
   const [note, setNote] = useState('');

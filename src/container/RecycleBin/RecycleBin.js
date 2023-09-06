@@ -45,7 +45,7 @@ const RecycleBin = () => {
   const isFocused = useIsFocused();
 
   const [data, setHomeData] = useState([]);
-  const [agentData, setAgentData] = useState([])
+  const [agentData, setAgentData] = useState([0])
   const [ratingData, setRatingData] = useState([])
 
   const [modalVisible, setModalVisible] = useState(false);

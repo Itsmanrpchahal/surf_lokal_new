@@ -100,7 +100,7 @@ const ViewPropertiy = (props, imageUrl) => {
   const [modalVisible, setModalVisible] = useState(false);
   // const [filterData, setFilterData] = useState([]);
   const [imageIndex, setImageIndex] = useState(0);
-  const [agentData, setAgentData] = useState([]);
+  const [agentData, setAgentData] = useState([0]);
   const [showFullContent, setShowFullContent] = useState(false);
   const [map, setMap] = useState([]);
   const [lat, setLat] = useState([]);
