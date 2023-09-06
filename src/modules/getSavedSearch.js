@@ -14,7 +14,7 @@ export const getSavedSearch = createAsyncThunk(
       access_token:access_token
     }
     return await getAPI(
-      BASEURl+'webapi/v1/search/',Header
+      BASEURl+'webapi/v1/search/'
     )
       .then(async response => {
         const {data} = response;

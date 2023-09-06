@@ -38,13 +38,13 @@ const BookaTour = (props) => {
 
 
     useEffect(() => {
-
+  
         getUserID()
         if (props?.route?.params?.ID) {
             Promise.all([dispatch(isRead({ ID: props?.route?.params?.ID })),
             dispatch(getChatDetail({ ID: props?.route?.params?.PropID })).then((res) => {
-                setGetMessg(res?.payload?.data)
-                // alert(JSON.stringify(res?.payload?.data))
+                setGetMessg(res?.payload?.data.data)
+               
             }).catch((e) => {
 
             })])
@@ -63,7 +63,7 @@ const BookaTour = (props) => {
         formData.append("propid", postid.post_id)
         formData.append('schedule_hour', selectedTime)
         formData.append('schedule_day', selectedDate)
-        formData.append('user_mobile', store?.getState()?.loginUser?.loginData?.metadata.mobile[0])
+        formData.append('user_mobile', store.getState().loginUser.loginData.metadata.mobile[0])
         // console.log('forndata',JSON.stringify(store.getState().loginUser.loginData.metadata.mobile[0]))
         // const formData = {
         //     user_id: id,
@@ -72,7 +72,7 @@ const BookaTour = (props) => {
         //     schedule_day: selectedDate,
         //     user_mobile: store.getState()?.loginUser?.loginData?.metadata?.mobile[0]
         // }
-        console.log('logodata', formData)
+        // console.log('logodata', formData)
         dispatch(sendMessage({
             // user_id: props?.route?.params?.user_id ? props?.route?.params?.user_id : userID,
             propid: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.post_id,
@@ -85,7 +85,7 @@ const BookaTour = (props) => {
                 dispatch(getChatDetail({ ID: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.post_id })).then((res) => {
                     setGetMessg(res?.payload?.data)
                     dispatch(getBookTour(formData)).then((response) => {
-                        console.log("getBookTour response ", response)
+                        // console.log("getBookTour response ", response)
                     });
                 }).catch((e) => {
                 })
@@ -148,7 +148,7 @@ const BookaTour = (props) => {
                     >
                         Schedule a Showing
                     </Text>
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         onPress={() => {
                             setRes([]);
                         }}
@@ -158,7 +158,7 @@ const BookaTour = (props) => {
                             alignItems: "center",
                             marginRight: 10,
                         }}
-                    >
+                    > */}
                         {/* <Image
                             style={{
                                 height: 25,
@@ -168,7 +168,7 @@ const BookaTour = (props) => {
                             }}
                             source={Images.reload}
                         /> */}
-                    </TouchableOpacity>
+                    {/* </TouchableOpacity> */}
                 </View>
                 <Text
                     style={{
@@ -202,7 +202,7 @@ const BookaTour = (props) => {
                                             // padding: 8,
                                             fontSize: 16,
                                             borderRadius: 16,
-                                            backgroundColor: 'red',
+                                            backgroundColor: Colors.surfblur,
                                             alignSelf: "flex-start",
                                             textAlignVertical: 'center',
                                             alignItems: 'center',
@@ -213,7 +213,7 @@ const BookaTour = (props) => {
                                             marginRight: 8,
                                             paddingHorizontal: 8,
                                             minHeight: 50,
-                                            color: Colors.black,
+                                            color: Colors.white,
                                         }}
                                     >
 
@@ -225,8 +225,8 @@ const BookaTour = (props) => {
                                                 // padding: 8,
                                                 fontSize: 16,
                                                 borderRadius: 16,
-                                                backgroundColor: item.user_id === userID ? Colors.white : Colors.surfblur,
-                                                alignSelf: item.user_id === userID ? "flex-end" : "flex-start",
+                                                backgroundColor: item.user_id === userID ? Colors.surfblur : Colors.white,
+                                                alignSelf: item.user_id === userID ? "flex-start" : "flex-end",
                                                 textAlignVertical: 'center',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
@@ -236,7 +236,7 @@ const BookaTour = (props) => {
                                                 marginRight: 8,
                                                 paddingHorizontal: 8,
                                                 minHeight: 50,
-                                                color: item.user_id === userID ? Colors.white : Colors.black,
+                                                color: item.user_id === userID ? Colors.white : Colors.black, color: item.user_id === userID ? Colors.white : Colors.black,
                                             }}
                                         >
 
@@ -339,11 +339,11 @@ const BookaTour = (props) => {
                         />
                         {
                             props?.route?.params?.ID === '' && <TouchableOpacity
-                                disabled={getMesg?.length < 2 ? false : true}
+                                disabled={getMesg.length < 2 ? false : true}
                                 onPress={() => {
                                     setOpen(true)
                                     setDate(new Date())
-
+                                    // sendMessage()
                                 }} style={{
                                     flexDirection: "row",
                                     justifyContent: "center",
@@ -366,7 +366,6 @@ const BookaTour = (props) => {
                             <TouchableOpacity
                                 disabled={getMesg?.length > 2 ? false : true}
                                 onPress={() => {
-
                                     setLoading(true);
                                     {
                                         dispatch(sendMessage({
@@ -418,31 +417,26 @@ const BookaTour = (props) => {
                         // androidVariant='iosClone'
                         minimumDate={new Date()}
                         locale="en-GB"
-                        theme="light"
+                        theme="auto"
                         mode="datetime"
                         onConfirm={(date) => {
                             setOpen(false)
                             const now = date.toDateString()
                             const time = date.getHours() + ":" + date.getMinutes()
-
                             setLoading(true);
                             {
-                                const formData = new FormData();
-
-                                formData.append('propid', props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.PropID);
-                                formData.append('user2_id', props?.route?.params?.user2_id ? props?.route?.params?.user2_id : 18);
-                                formData.append('message', now + "," + time);
-                                // formData.append("user_mobile",store.getState().getProfile?.getProfileData?.data[0]?.mobile)
-                                console.log(formData)
-                                dispatch(sendMessage(formData)).then((res) => {
+                                dispatch(sendMessage({
+                                    user_id: userID,
+                                    propid: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.PropID,
+                                    user2_id: props?.route?.params?.user2_id ? props?.route?.params?.user2_id : '',
+                                    message: now + "," + time
+                                })).then((res) => {
                                     setLoading(false)
                                     setMessage('')
-                                    if (res.payload?.data.success) {
-                                        dispatch(getChatDetail({ propid: props?.route?.params?.PropID })).then((res) => {
+                                    if (res.payload.success) {
+                                        dispatch(getChatDetail({ ID: props?.route?.params?.PropID ? props?.route?.params?.PropID : postid.post_id })).then((res) => {
                                             setGetMessg(res?.payload?.data)
-                                            dispatch(getBookTour(formData)).then((res) => {
-                                                console.log("push notification", res)
-                                            })
+                                            
                                         }).catch((e) => {
 
                                         })

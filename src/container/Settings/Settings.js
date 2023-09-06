@@ -149,21 +149,7 @@ const Settings = props => {
   const saveFile = async () => {
     setLoading(true);
     try {
-      const accessToken = await AsyncStorage.getItem('access_token');
-      const securityKey = 'SurfLokal52';
-
-      // Define headers based on the platform
-      const headers = Platform.OS === 'android'
-        ? {
-          security_key: "SurfLokal52",
-          access_token: accessToken,
-          'Content-Type': 'multipart/form-data',
-        }
-        : {
-          security_key: securityKey,
-          access_token: accessToken,
-        };
-
+    
       // Create a FormData object and append the data
       const data = new FormData();
       // data.append('UserID', userID);
@@ -182,8 +168,7 @@ const Settings = props => {
       try {
         const res = await uploadImageAPI(
           'https://www.surflokal.com/webapi/v1/userprofile/profileupdate.php',
-          data, headers
-
+          data,
         );
 
         if (res.status === 200) {
@@ -478,25 +463,25 @@ const Settings = props => {
         </View>
 
         <TextInput
-          allowFontScaling={false}
-          style={{
-            color: Colors.black,
-            flex: 1,
-            marginLeft: 16,
-            marginRight: 16,
-            borderRadius: 8,
-            fontFamily: 'Poppins-Regular',
-            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
-            padding: 10,
-            borderColor: Colors.BorderColor,
-            borderWidth: 1,
-            marginBottom: 17
-          }}
-          placeholderTextColor={Colors.textColorLight}
-          value={mob}
-          keyboardType="numeric"
-          returnKeyType="done"
-          onChangeText={mob => setMob(mob)}
+  allowFontScaling={false}
+  style={{
+    color: Colors.black,
+    flex: 1,
+    marginLeft: 16,
+    marginRight: 16,
+    borderRadius: 8,
+    fontFamily: 'Poppins-Regular',
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 14,
+    padding: 10,
+    borderColor: Colors.BorderColor,
+    borderWidth: 1,
+    marginBottom: 17
+  }}
+  placeholderTextColor={Colors.textColorLight}
+  value={mob}
+  keyboardType="numeric"
+  returnKeyType="done"
+  onChangeText={text => setMob(text || '')}
         />
 
 

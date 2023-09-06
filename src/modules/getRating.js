@@ -9,7 +9,7 @@ export const getRating = createAsyncThunk('getRating', async (post_id) => {
     security_key:"SurfLokal52",
     access_token:access_token
   }
-  return await getAPI(BASEURl+`webapi/v1/rating/user_rating.php?post_id=${post_id}` ,Header)
+  return await getAPI(BASEURl+`webapi/v1/rating/user_rating.php?post_id=${post_id}`)
     .then(async response => {
       const {data} = response;
       // console.log(" getRating response data", response)

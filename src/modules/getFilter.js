@@ -10,7 +10,7 @@ export const getFilter = createAsyncThunk('getFilter', async () => {
     security_key:"SurfLokal52",
     access_token:access_token
   }
-  return await getAPI(BASEURl+'webapi/v1/GetFilter',Header)
+  return await getAPI(BASEURl+'webapi/v1/GetFilter')
     .then(async response => {
       const {data} = response;
 

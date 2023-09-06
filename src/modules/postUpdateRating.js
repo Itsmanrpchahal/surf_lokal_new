@@ -18,7 +18,7 @@ export const postUpdateRating = createAsyncThunk('postUpdateRating', async dispa
   return await uploadImageAPI(
     BASEURl + 'webapi/v1/rating/update_rating.php',
     dispatch,
-    header,
+
   )
     .then(async response => {
       console.log("dispatch ==> ", response)

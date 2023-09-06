@@ -10,7 +10,7 @@ export const clearFilter = createAsyncThunk('clearFilter', async () => {
     access_token:access_token
   }
   
-  return await getAPI( BASEURl + 'webapi/v1/AppFilter/clearfilter.php',Header)
+  return await getAPI( BASEURl + 'webapi/v1/AppFilter/clearfilter.php')
     .then(async response => {
       const { data } = response;
       return data;

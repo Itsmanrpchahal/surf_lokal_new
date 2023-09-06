@@ -14,7 +14,7 @@ export const getUserScore = createAsyncThunk('getUserScore', async () => {
     access_token:access_token
   }
   return await getAPI(
-    BASEURl + 'webapi/v1/rewards/user_leaderboard.php',Header
+    BASEURl + 'webapi/v1/rewards/user_leaderboard.php',
   )
     .then(async response => {
       const { data } = response;
