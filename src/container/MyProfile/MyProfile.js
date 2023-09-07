@@ -554,7 +554,7 @@ const MyFavorites = () => {
                 <Image
                   source={Images.surfShop}
                   style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20, width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20, resizeMode: 'contain' }} />
-                <Text style={styles.text}>Surf Shop</Text>
+                <Text style={styles.text}>Document Portal</Text>
               </View>
               <View style={styles.line}></View>
             </TouchableOpacity>

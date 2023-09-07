@@ -105,7 +105,7 @@ export default function Login({ navigation }) {
           navigation.replace('AppIntro');
         } else {
           setLoading(false);
-          Alert.alert('Alert', response.payload.message);
+          Alert.alert( response.payload.message);
         }
       });
     } catch (error) {
@@ -163,7 +163,7 @@ export default function Login({ navigation }) {
           navigation.navigate('AppIntro');
         } else {
           setLoading(false);
-          Alert.alert('Alert', response.payload.message);
+          Alert.alert( response.payload.message);
         }
       });
 
@@ -193,7 +193,7 @@ export default function Login({ navigation }) {
             navigation.navigate('AppIntro');
           } else {
             setLoading(false);
-            Alert.alert('Alert', response.payload.message);
+            Alert.alert( response.payload.message);
           }
         });
       }
@@ -208,7 +208,7 @@ export default function Login({ navigation }) {
         'email',
       ]);
 
-      Alert.alert('Alert-', JSON.stringify(result));
+      Alert.alert(JSON.stringify(result));
       if (result.isCancelled) {
         throw new Error('User cancelled the login process');
       }
@@ -257,7 +257,7 @@ export default function Login({ navigation }) {
             setToken()
           } else {
             setLoading(false);
-            Alert.alert('Alert', response.payload.message);
+            Alert.alert( response.payload.message);
           }
 
         });
@@ -277,7 +277,7 @@ export default function Login({ navigation }) {
               navigation.navigate('OtpScreen', { cc: cc, phone: phone });
             } else {
               setLoading(false);
-              Alert.alert('Alert', response.payload.message);
+              Alert.alert( response.payload.message);
             }
           });
 
@@ -285,7 +285,7 @@ export default function Login({ navigation }) {
           alert('Enter Phone number')
         }
       }
-    } else Alert.alert('Alert', 'Enter email and password');
+    } else Alert.alert( 'Enter email and password');
   };
 
   return (

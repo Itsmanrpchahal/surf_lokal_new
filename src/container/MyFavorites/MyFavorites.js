@@ -125,11 +125,11 @@ const MyFavorites = props => {
 
     dispatch(postUpdateRating(formData)).then(response => {
       if (response.payload.success) {
-        Alert.alert('Alert', response.payload.data.message);
+        Alert.alert(response.payload.data.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert', response.payload.data.message);
+        Alert.alert(response.payload.data.message);
       }
     });
   };
@@ -146,11 +146,11 @@ const MyFavorites = props => {
 
     dispatch(postRating(formData)).then(response => {
       if (response.payload.data.success) {
-        Alert.alert('Alert', response.payload.data.message);
+        Alert.alert( response.payload.data.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert error', response.payload.data.message);
+        Alert.alert( response.payload.data.message);
       }
     });
   };
@@ -175,7 +175,7 @@ const MyFavorites = props => {
   const getAgentApicall = () => {
     dispatch(getAgent()).then(response => {
       setAgentData(response.payload.data);
-      alert(JSON.stringify(response.payload.data))
+      // alert(JSON.stringify(response.payload.data))
     });
   };
 

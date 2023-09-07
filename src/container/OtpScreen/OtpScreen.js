@@ -98,7 +98,7 @@ const OtpInput = (props) => {
       if (response.payload.success) {
         navigation.navigate('AppIntro');
       } else {
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert( response.payload.message);
       }
 
     });
@@ -252,7 +252,7 @@ const OtpInput = (props) => {
                 alert('Otp sent')
               } else {
                 setLoading(false);
-                Alert.alert('Alert', response.payload.message);
+                Alert.alert( response.payload.message);
               }
             });
           }}>

@@ -465,11 +465,11 @@ const Home = () => {
 
     dispatch(postRating(formData)).then(response => {
       if (response.payload.data.success) {
-        Alert.alert('Alert', response.payload.data.message);
+        Alert.alert( response.payload.data.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert error', response.payload.data.message);
+        Alert.alert( response.payload.data.message);
       }
     });
   };
@@ -487,11 +487,11 @@ const Home = () => {
 
     dispatch(postUpdateRating(formData)).then(response => {
       if (response.payload.success) {
-        Alert.alert('Alert', response.payload.data.message);
+        Alert.alert( response.payload.data.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert', response.payload.data.message);
+        Alert.alert( response.payload.data.message);
       }
     });
   };
@@ -1519,6 +1519,7 @@ const Home = () => {
                                     </TouchableOpacity>
                                   </View>
                                   <TouchableOpacity
+
                                     onPress={() => handleShare(item.ID)}
 
                                     style={styles.sendcover}>
@@ -2354,10 +2355,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   coverrat: {
-    height: 40,
-    width: 40,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    height: 70,
+    width: 70,
+    // justifyContent: 'flex-start',
+    // alignItems: 'flex-start',
   },
   ratingstyle: {
     fontSize: 18,
@@ -2383,9 +2384,9 @@ const styles = StyleSheet.create({
 
   },
   sendcover: {
-    height: 40,
-    width: 40,
-    justifyContent: 'flex-start',
+    height: 70,
+    width: 70,
+    // justifyContent: 'flex-start',
     alignItems: 'center',
     position: "relative",
     //top:8
