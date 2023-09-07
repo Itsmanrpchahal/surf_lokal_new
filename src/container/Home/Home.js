@@ -414,19 +414,17 @@ const Home = () => {
   };
 
   const getCurretLocation = () => {
-     console.log(" getCurretLocation api calll")
     setLoading(true)
     GetLocation.getCurrentPosition({
       enableHighAccuracy: true,
       timeout: 60000,
     })
       .then(async location => {
-        console.log('location', location);
         const formData = new FormData();
         formData.append('latitude', location.latitude);
         formData.append('longitude', location.longitude);
         console.log('getPopertiesApiCall formData ', formData);
-         dispatch(getPoperties( {type: 0, data:'', latLng: formData })).then(response => {
+         dispatch(getPoperties( {type: 1, data:'', latLng: formData })).then(response => {
           if(response.payload?.data.length<1){
             setLoading(false)
           alert((response.payload.message))
