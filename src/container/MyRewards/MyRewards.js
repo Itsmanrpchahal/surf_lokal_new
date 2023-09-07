@@ -90,9 +90,9 @@ const App = props => {
                 <Text style={styles.metervaluetext}>${"500000"}</Text>
               </View>
               <View style={styles.slidercover}>
-                <Text style={styles.zerotext}>$0</Text>
+                <Text style={styles.zerotext}>$50,000</Text>
 
-                <Text style={styles.endtext}>$100MM</Text>
+                <Text style={styles.endtext}> $10,000,000</Text>
               </View>
               <Slider
                 style={styles.mainslider}
@@ -112,14 +112,15 @@ const App = props => {
           <Text style={styles.rebatetext}>Your Rebate </Text>
           <View
             style={{
-              position: 'relative',
+              position: 'relative', justifyContent:"center",alignItems:"center"
             }}>
-            <View style={styles.rebatevaluecover}>
-              <Text style={styles.dollarstyle}>$</Text>
-              <Text style={styles.valuereabtemain}>
-                {Math.round(meterValue * 0.003)}
-              </Text>
-            </View>
+             <View style={[styles.rebatevaluecover, {width:"50%",alignItems:"center", flexDirection:"row",justifyContent:"center"}]}>
+              <Text style={[styles.valuereabtemain,]}>$<Text numberOfLines={1} style={[styles.valuereabtemain,]}>
+              {(meterValue * 0.0032)}
+                {/* {Math.round(meterValue * .0032)} */}
+              </Text></Text>
+              
+            </View> 
           </View>
           <View style={{alignItems: 'center'}}>
             <View style={styles.buttonscover}>
@@ -361,6 +362,9 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     paddingTop: 0,
+     alignItems:"center",
+     position:"relative",
+     marginHorizontal:8
   },
   dollarstyle: {
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 123 : 60,
@@ -371,6 +375,11 @@ const styles = StyleSheet.create({
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 123 : 60,
     fontFamily: Fonts.extrabold,
     color: 'black',
+    textAlign:"center",
+      alignItems:"center",justifyContent:"center"
+      ,
+       width:"100%",
+      height:100
   },
   buttonscover: {
     flexDirection: 'row',

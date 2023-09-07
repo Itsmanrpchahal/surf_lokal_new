@@ -134,14 +134,11 @@ const Home = () => {
   const [bedroomitem, setBedroomItem] = useState(-1);
   const [bathRoom, setBathRoomItem] = useState(-1);
   const [imageIndex, setImageIndex] = useState(0);
-  const [user_ID, setUser_ID] = useState();
   const [lntLng, setLatLng] = useState({ latitude: 0.0, longitude: 0.0 });
   const [showMap, setShowMap] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [mapType, setMapType] = useState('standard');
-  const [isEditing, setIsEditing] = useState(false);
   const [moreFilter, setMoreFilter] = useState(false);
-  const [collapsibleStatus, setSetCollapsibleStatus] = useState(true);
   const [maxPriceRange, setMaxPriceRange] = useState();
   const [minPricerange, setMinPricerange] = useState();
   const [minSquareFeet, setMinSquareFeet] = useState();
@@ -165,9 +162,6 @@ const Home = () => {
 
   useEffect(() => { }, [topViewHeight]);
 
-  useEffect(() => {
-    getID();
-  }, []);
 
   useEffect(() => {
     if (selectedTabsMore) {
@@ -194,29 +188,37 @@ const Home = () => {
     setIsPressed2(!isPressed2);
     filtertoggleModal();
   };
-  const getID = async () => {
-    const access_token = await AsyncStorage.getItem('access_token');
-    console.log('token========>',access_token);
-    // setUser_ID(id);
-  };
+
 
   const getUserScoreApiCall = () => {
     dispatch(getUserScore()).then(response => { });
   };
-  useEffect(() => {
-    if (isFocused) {
-      Promise.all[
-        (getFilterApicall(),
-          getTrashApiCall(),
-          favlistApi(),
-          getSavedApiCall(),
-          getMoreFilterApiCall(),
-          getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
-          setAddres(''),
-          getUserScoreApiCall())
-      ];
-    }
-  }, [isFocused]);
+   useEffect(() => {
+    getFilterApicall(),
+    getTrashApiCall(),
+    favlistApi(),
+    getSavedApiCall(),
+    getMoreFilterApiCall(),
+    getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
+    setAddres(''),
+    getUserScoreApiCall()
+   }, [])
+   
+  // useEffect(() => {
+  //   if (isFocused) {
+  //     Promise.all[
+  //       (
+  //         getFilterApicall(),
+  //         getTrashApiCall(),
+  //         favlistApi(),
+  //         getSavedApiCall(),
+  //         getMoreFilterApiCall(),
+  //         getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
+  //         setAddres(''),
+  //         getUserScoreApiCall())
+  //     ];
+  //   }
+  // }, [isFocused]);
   const getFilterApicall = () => {
     dispatch(getFilter()).then(response => {
       setFilterData(response.payload.data);
@@ -412,6 +414,8 @@ const Home = () => {
   };
 
   const getCurretLocation = () => {
+     console.log(" getCurretLocation api calll")
+    setLoading(true)
     GetLocation.getCurrentPosition({
       enableHighAccuracy: true,
       timeout: 60000,
@@ -422,7 +426,17 @@ const Home = () => {
         formData.append('latitude', location.latitude);
         formData.append('longitude', location.longitude);
         console.log('getPopertiesApiCall formData ', formData);
-        await getPopertiesApiCall({ type: 0, data:'', latLng: formData });
+         dispatch(getPoperties( {type: 0, data:'', latLng: formData })).then(response => {
+          if(response.payload?.data.length<1){
+            setLoading(false)
+          alert((response.payload.message))
+
+          }else{
+            setHomeData(response.payload?.data)
+    setLoading(false)
+
+          }
+         })
       })
       .catch(error => {
         const { code, message } = error;
