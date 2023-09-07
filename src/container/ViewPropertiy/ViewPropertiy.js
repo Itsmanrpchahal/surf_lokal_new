@@ -15,17 +15,11 @@ import {
   FlatList,
   KeyboardAvoidingView,
   Alert,
-  Button,
   Linking,
   Share,
-  TouchableHighlight,
-  ActivityIndicator,
-  useWindowDimensions,
   Platform,
 } from 'react-native';
-import clamp from 'clamp';
 import CardsSwipe from 'react-native-cards-swipe';
-import {SwiperFlatList} from 'react-native-swiper-flatlist';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
@@ -34,14 +28,10 @@ import {WebView} from 'react-native-webview';
 import AsyncStorage from '@react-native-community/async-storage';
 import {postRating} from '../../modules/postRating';
 import {useNavigation} from '@react-navigation/native';
-import {Rating} from 'react-native-ratings';
 import {getPopertiesDetails} from '../../modules/getPopertiesDetails';
 import DeviceInfo from 'react-native-device-info';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import MapView, {
-  PROVIDER_GOOGLE,
   Callout,
-  Circle,
   Marker,
   PROVIDER_DEFAULT,
 } from 'react-native-maps';
@@ -50,33 +40,18 @@ import {postUpdateRating} from '../../modules/postUpdateRating';
 import {store} from '../../redux/store';
 import {addToFavorite} from '../../modules/addToFavorite';
 import {addRemoveTrash} from '../../modules/addRemoveTrash';
-import {colors} from 'react-native-swiper-flatlist/src/themes';
 import {getAgent} from '../../modules/getAgent';
-import {AutoScrollFlatList} from 'react-native-autoscroll-flatlist';
-import * as Animatable from 'react-native-animatable';
-import {TypingAnimation} from 'react-native-typing-animation';
-import {schoolChat} from '../../modules/schoolChat';
-import dynamicLinks from '@react-native-firebase/dynamic-links';
 import StarRating from 'react-native-star-rating-widget';
 import LottieView from 'lottie-react-native';
 import Loader from '../../components/Loader';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
-const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-const fontSizeRatio = screenHeight / 1000;
-const viewSizeRatio = screenHeight / 1000;
-const imageSizeRation = screenHeight / 1000;
 
 const {width} = Dimensions.get('screen');
-const cardAspectRatio = 1.2;
-const cardWidth = screenWidth;
-const cardHeight = cardWidth * cardAspectRatio;
-const SWIPE_THRESHOLD = 0.25 * width;
 
 const ViewPropertiy = (props, imageUrl) => {
   const postid = props.route.params;
 
-  const [showCallout, setShowCallOut] = useState(false);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -89,45 +64,26 @@ const ViewPropertiy = (props, imageUrl) => {
   const [review, setReview] = useState('');
   const [productId, setProductId] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
-  const [viewHeight, setViewHeight] = useState(80);
   const property = data[0];
 
   const [calData, setCalData] = useState([]);
   const [schoolRating, setSchoolRating] = useState([]);
-  const [index, setIndex] = useState(0);
   const navigation = useNavigation();
   const [readmore, setreadmore] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  // const [filterData, setFilterData] = useState([]);
-  const [imageIndex, setImageIndex] = useState(0);
   const [agentData, setAgentData] = useState([0]);
   const [showFullContent, setShowFullContent] = useState(false);
   const [map, setMap] = useState([]);
-  const [lat, setLat] = useState([]);
-  const [location, setLocation] = useState(null);
   const [selectedTab, setSelectedTab] = useState(0);
   const [weather, setweather] = useState([]);
   const [tax, settax] = useState([]);
   const [walk, setWalk] = useState([]);
-  const [showIcon, setShowIcon] = useState(false);
-  const [Icon, setIcon] = useState(false);
   const [ratingData, setRatingData] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
 
   const [pin, setPin] = useState(null);
-  const [region, setRegion] = useState(null);
-  const scrollViewRef = useRef(null);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const scrollToTop = () => {
-    scrollViewRef.current.scrollTo({y: 0, animated: true});
-  };
-  const handleScroll = event => {
-    const offsetY = event.nativeEvent.contentOffset.y;
-    setIsScrolled(offsetY > 0);
-  };
+
   const slideAnimation = useRef(new Animated.Value(0)).current;
 
-  useEffect(() => {}, []);
   const generateLink = async () => {
     try {
       const link = await dynamicLinks().buildShortLink(
@@ -158,7 +114,6 @@ const ViewPropertiy = (props, imageUrl) => {
   };
   const screenHeight = Dimensions.get('window').height;
   const firstViewHeight = (screenHeight * 60) / 100;
-  const secondViewHeight = screenHeight - firstViewHeight;
   const handleShare = async () => {
     const link = await generateLink();
     try {
@@ -226,43 +181,6 @@ const ViewPropertiy = (props, imageUrl) => {
   const opacity = useRef(new Animated.Value(1)).current;
   const scale = useRef(new Animated.Value(0.9)).current;
 
-  const _panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderMove: (event, gesture) => {
-        animation.setValue({x: gesture.dx, y: gesture.dy});
-      },
-      onPanResponderRelease: (e, {dx, dy, vx, vy}) => {
-        let velocity;
-        if (vx >= 0) {
-          velocity = clamp(vx, 4, 5);
-        } else if (vx < 0) {
-          velocity = clamp(Math.abs(vx), 4, 5) * -1;
-        }
-        if (Math.abs(dx) > SWIPE_THRESHOLD) {
-          Animated.parallel([
-            Animated.spring(animation, {
-              toValue: {x: 0, y: 0},
-              friction: 4,
-              useNativeDriver: false,
-            }),
-            Animated.spring(scale, {
-              toValue: 0.9,
-              friction: 4,
-              useNativeDriver: false,
-            }),
-          ]).start();
-         
-        } else {
-          Animated.spring(animation, {
-            toValue: {x: 0, y: 0},
-            friction: 4,
-            useNativeDriver: false,
-          }).start();
-        }
-      },
-    }),
-  ).current;
   const getPopertiesDetailsApiCall = () => {
     setLoading(true);
     dispatch(getPopertiesDetails(postid.ID)).then(response => {
@@ -285,7 +203,6 @@ const ViewPropertiy = (props, imageUrl) => {
           ID: productId,
           property_longitude: map.property_longitude.toString(),
           property_latitude: map.property_latitude.toString(),
-          // other properties
         },
       ];
       const property = res[0];

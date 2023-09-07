@@ -4,14 +4,10 @@ import {
   Text,
   View,
   Image,
-  TextInput,
   TouchableOpacity,
   ScrollView,
-  Alert,
   Dimensions,
   Linking,
-  ActivityIndicator,
-  Modal,
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
@@ -20,43 +16,18 @@ import DeviceInfo from 'react-native-device-info';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { getPopertiesDetails } from '../../modules/getPopertiesDetails';
-import { useDispatch } from 'react-redux';
-import { getAgent } from '../../modules/getAgent';
-import { getRating } from '../../modules/getRating';
-import { postUpdateRating } from '../../modules/postUpdateRating';
-import { postRating } from '../../modules/postRating';
-import AsyncStorage from '@react-native-community/async-storage';
-import { Rating } from 'react-native-ratings';
 import LottieView from 'lottie-react-native';
-import Loader from '../../components/Loader';
+import { store } from '../../redux/store';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
-const fontSizeRatio = screenHeight / 1000;
-const viewSizeRatio = screenHeight / 1000;
-const imageSizeRation = screenHeight / 1000;
-
 const ViewPropertiyImage = props => {
-  const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-  const [rating, setRating] = useState(0);
-  const [review, setReview] = useState('');
-  const [productId, setProductId] = useState('');
-  const [reviewTitle, setReviewTitle] = useState('');
 
-  const [video, setvideo] = useState([]);
   const [orientation, setOrientation] = useState('portrait');
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [adress, setAddres] = useState('');
-  const [index, setIndex] = useState(0);
   const [agentData, setAgentData] = useState([0]);
-  const [ratingData, setRatingData] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const flatListRef = useRef(null);
 
   const scrollViewRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -70,8 +41,8 @@ const ViewPropertiyImage = props => {
   const postID = props.route.params;
   const property = data[0];
   useEffect(() => {
-    getPopertiesDetailsApiCall();
-    getAgentApicall();
+    setData(store.getState().getPopertiesDetailsReducer.getPopertiesDetails?.data)
+    setAgentData(store.getState().getAgentReducer.getAgentData.data)
 
     const isPortrait = () => {
       const dim = Dimensions.get('screen');
@@ -89,82 +60,20 @@ const ViewPropertiyImage = props => {
 
     // Dimensions.removeEventListener('change', handleChangeOrientation);
   }, []);
-  const getPopertiesDetailsApiCall = () => {
-    setLoading(true);
-    dispatch(getPopertiesDetails(postID.postid)).then(response => {
-      setLoading(false);
-      setData(response.payload.data);
-    });
-  };
-  const getAgentApicall = () => {
-    dispatch(getAgent()).then(response => {
-      setAgentData(response.payload.data);
-    });
-  };
+
   const makePhoneCall = () => {
     let phoneNumber = agentData[0]?.agent_phone;
     Linking.openURL(`tel:${phoneNumber}`);
   };
 
-  const toggleModal = () => {
-    setModalVisible(!modalVisible);
-  };
-  const updateReview = async post_id => {
-    const id = await AsyncStorage.getItem('userId');
-    const formData = new FormData();
-    formData.append('userID', id);
-    formData.append('postid', productId);
-    formData.append('comment_content', review);
-    formData.append('review_title', reviewTitle);
-    formData.append('review_stars', rating);
-    formData.append('description_review_stars', rating);
-    formData.append('price_review_stars', rating);
-    formData.append('interest_review_stars', rating);
-    formData.append('reviewtitle', reviewTitle);
-    dispatch(postUpdateRating(formData)).then(response => {
-      if (response.payload.success) {
-        Alert.alert( response.payload.message);
-        toggleModal();
-      } else {
-        toggleModal();
-        Alert.alert( response.payload.message);
-      }
-    });
-  };
 
-  const addReview = async post_id => {
-    const id = await AsyncStorage.getItem('userId');
-    const formData = new FormData();
-    formData.append('userID', id);
-    formData.append('postid', productId);
-    formData.append('comment_content', review);
-    formData.append('review_title', reviewTitle);
-    formData.append('review_stars', rating);
-    formData.append('description_review_stars', rating);
-    formData.append('price_review_stars', rating);
-    formData.append('interest_review_stars', rating);
-    formData.append('reviewtitle', reviewTitle);
-    dispatch(postRating(formData)).then(response => {
-      if (response.payload.success) {
-        Alert.alert( response.payload.message);
-        toggleModal();
-      } else {
-        toggleModal();
-        Alert.alert( response.payload.message);
-      }
-      // setFilterData(response.payload.data);
-    });
-  };
+
+
 
   const navigation = useNavigation();
 
   return (
     <View style={{ flex: 1 }}>
-      {loading ? (
-        <View style={styles.loaderstyle}>
-          <Loader />
-        </View>
-      ) : null}
       <SafeAreaView style={styles.container}>
         <View style={styles.innercontainer}>
           <ScrollView ref={scrollViewRef} onScroll={handleScroll}>
@@ -254,11 +163,10 @@ const ViewPropertiyImage = props => {
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('BookaTour', {
-                  ID: '',
-                  PropID: postID?.ID,
-                  user_id: '',
-                  user2_id: '',
+                navigation.navigate('ChatSearch', {
+                  initialMessage: 'When would you like to schedule a showing?',
+                  agentReply:
+                    'A Lokal agent will confirm with you within the next 2 hours',
                 });
               }}
               style={{
@@ -379,185 +287,7 @@ const ViewPropertiyImage = props => {
             />
           </TouchableOpacity>
         </View>
-
-        <Modal
-          transparent={true}
-          animationType="slide"
-          visible={modalVisible}
-          onRequestClose={toggleModal}>
-          <View style={styles.mainmodalcover}>
-            <View style={styles.maininnermodal}>
-              <TouchableOpacity
-                onPress={() => navigation.goBack()}
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginLeft: 10,
-                }}>
-                <Text style={{ fontSize: 12, color: Colors.gray }}></Text>
-              </TouchableOpacity>
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginTop: 10,
-                }}>
-                <TouchableOpacity
-                  onPress={() => setModalVisible(false)}
-                  style={styles.activityIndicatornew}></TouchableOpacity>
-                <Text style={styles.modalheading}>Rate and Review</Text>
-              </View>
-
-              <TouchableOpacity
-                onPress={() => setModalVisible(false)}
-                style={styles.pluscover}>
-                <Image style={styles.plusimage} source={Images.plus}></Image>
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                width: '100%',
-                height: 1,
-                backgroundColor: Colors.gray,
-                marginTop: 10,
-                justifyContent: 'center',
-              }}></View>
-            <View style={{}}>
-              <Text style={styles.labelheadingtxt}>Your Review</Text>
-              <Text style={styles.reviewinnertext}>
-                {ratingData[0]?.comment_content}
-              </Text>
-              {!isEditing && (
-                <TouchableOpacity
-                  onPress={() => setIsEditing(true)}
-                  style={{ marginTop: 10 }}>
-                  <Text style={styles.edittext}>Edit</Text>
-                </TouchableOpacity>
-              )}
-            </View>
-            <View style={{ width: '95%', height: '70%' }}>
-              <View style={styles.coverrat}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginTop: 10,
-                  }}>
-                  <Text style={styles.labeltext}>Photos Quality Rating :</Text>
-                  <Rating
-                    type="custom"
-                    ratingCount={5}
-                    imageSize={25}
-                    startingValue={ratingData[0]?.photo_wuality_rating}
-                    ratingBackgroundColor="#c8c7c8"
-                    onFinishRating={setRating}
-                    style={styles.rating}
-                    ratingColor="#ffbe0b"
-                  />
-                </View>
-              </View>
-
-              <View style={styles.coverrat}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}>
-                  <Text style={styles.labeltext}>Description & Details :</Text>
-                  <Rating
-                    type="custom"
-                    ratingCount={5}
-                    imageSize={25}
-                    startingValue={ratingData[0]?.description_review_stars}
-                    ratingBackgroundColor="#c8c7c8"
-                    onFinishRating={setRating}
-                    style={styles.rating}
-                    ratingColor="#ffbe0b"
-                  //tintColor="#f1f3f4"
-                  />
-                </View>
-              </View>
-              <View style={styles.coverrat}>
-                <View
-                  style={styles.innercoverrat}>
-                  <Text style={styles.labeltext}>Price Of Property :</Text>
-                  <Rating
-                    type="custom"
-                    ratingCount={5}
-                    imageSize={25}
-                    startingValue={ratingData[0]?.price_review_stars}
-                    ratingBackgroundColor="#c8c7c8"
-                    onFinishRating={setRating}
-                    style={styles.rating}
-                    ratingColor="#ffbe0b"
-                  />
-                </View>
-              </View>
-
-              <View style={styles.coverrat}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}>
-                  <Text style={styles.labeltext}>
-                    General Interest in the property :
-                  </Text>
-                  <Rating
-                    type="custom"
-                    ratingCount={5}
-                    imageSize={25}
-                    startingValue={ratingData[0]?.interest_review_stars}
-                    ratingBackgroundColor="#c8c7c8"
-                    onFinishRating={setRating}
-                    style={styles.rating}
-                    ratingColor="#ffbe0b"
-                  />
-                </View>
-              </View>
-
-              <View style={{ height: 20 }}></View>
-              <View
-                style={{ width: '95%', alignSelf: 'center', marginBottom: 12 }}>
-                <Text style={styles.labeltext}>Review</Text>
-                <View
-                  style={styles.textinputcover}>
-                  {isEditing ? (
-                    <TextInput
-                      style={styles.textinputstyle}
-                      value={review}
-                      onChangeText={text => setReview(text)}
-                      autoFocus
-                    />
-                  ) : (
-                    <Text style={styles.inputcont}>
-                      {ratingData[0]?.comment_content}
-                    </Text>
-                  )}
-                </View>
-              </View>
-              <View style={styles.updatebuttoncover}>
-                {isEditing ? (
-                  <TouchableOpacity
-                    onPress={() => updateReview()}
-                    style={styles.mr10}>
-                    <Text style={styles.updatetext}>Update</Text>
-                  </TouchableOpacity>
-                ) : (
-                  <TouchableOpacity
-                    onPress={() => addReview()}
-                    style={styles.submitcover}>
-                    <Text style={styles.submittxt}>Submit</Text>
-                  </TouchableOpacity>
-                )}
-              </View>
-            </View>
-          </View>
-        </Modal>
+     
       </SafeAreaView>
     </View>
   );
