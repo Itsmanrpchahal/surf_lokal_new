@@ -136,30 +136,7 @@ const Schoolinfo = () => {
             paddingHorizontal: 12, 
           }}>
 
-          {/* <TouchableOpacity
-            style={{
-              alignItems: 'center',
 
-              backgroundColor: Colors.surfblur,
-              height: 25,
-              width: 25,
-              borderRadius: 100,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            onPress={() => navigation.goBack()}
-          >
-            <Animatable.Image
-              source={Images.whiteclose}
-              style={{
-                height: 10,
-                width: 10,
-                resizeMode: 'contain',
-                tintColor: Colors.white,
-              }}
-              animation="flipInY"
-            />
-          </TouchableOpacity> */}
         </View>
         <View style={{
           //  paddingHorizontal: 20,
