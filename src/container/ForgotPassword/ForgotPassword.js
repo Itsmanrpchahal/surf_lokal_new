@@ -58,10 +58,10 @@ export default function ForgotPassword({ navigation }) {
           setresetPasswordScreen(false);
           setUserId(response.payload.data.UserID);
         } else {
-          Alert.alert('Alert', 'Yor are not register with us please register ');
+          Alert.alert( 'Yor are not register with us please register ');
         }
       });
-    } else Alert.alert('Alert', 'Enter email');
+    } else Alert.alert( 'Enter email');
   };
   const go = () => {
     if (password == '') {
@@ -80,7 +80,7 @@ export default function ForgotPassword({ navigation }) {
         if (response.payload.success) {
           navigation.goBack();
         } else {
-          Alert.alert('Alert', 'Yor are not register with us please register ');
+          Alert.alert( 'Yor are not register with us please register ');
         }
       });
     }

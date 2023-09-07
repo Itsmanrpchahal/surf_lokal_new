@@ -290,9 +290,9 @@ const ViewProperty2 = (props, imageUrl) => {
 
     await dispatch(addToFavorite(payload)).then(response => {
       if (response.payload.success) {
-        // Alert.alert('Alert', response.payload.message);
+     
       } else {
-        // Alert.alert('Alert', response.payload.message);
+
       }
     });
   };
@@ -315,9 +315,9 @@ const ViewProperty2 = (props, imageUrl) => {
 
     await dispatch(addRemoveTrash(payload)).then(response => {
       if (response.payload.success) {
-        // Alert.alert('Alert', response.payload.message);
+    
       } else {
-        // Alert.alert('Alert', response.payload.message);
+   
       }
     });
   };
@@ -340,11 +340,11 @@ const ViewProperty2 = (props, imageUrl) => {
     dispatch(postUpdateRating(formData)).then((response) => {
 
       if (response.payload.success) {
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert( response.payload.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert(response.payload.message);
       }
     });
   };
@@ -366,13 +366,13 @@ const ViewProperty2 = (props, imageUrl) => {
     dispatch(postRating(formData)).then(response => {
       ;
       if (response.payload.success) {
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert( response.payload.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert( response.payload.message);
       }
-      // setFilterData(response.payload.data);
+
     });
   };
 

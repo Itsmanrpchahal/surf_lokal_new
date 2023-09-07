@@ -307,9 +307,9 @@ const ViewPropertiy = (props, imageUrl) => {
 
     await dispatch(addToFavorite(formData)).then(response => {
       if (response.payload.success) {
-        // Alert.alert('Alert', response.payload.message);
+
       } else {
-        // Alert.alert('Alert', response.payload.message);
+  
       }
     });
     navigation.goBack();
@@ -328,9 +328,9 @@ const ViewPropertiy = (props, imageUrl) => {
 
     await dispatch(addRemoveTrash(formData)).then(response => {
       if (response.payload.success) {
-        // Alert.alert('Alert', response.payload.message);
+      
       } else {
-        // Alert.alert('Alert', response.payload.message);
+
       }
     });
 
@@ -350,11 +350,11 @@ const ViewPropertiy = (props, imageUrl) => {
 
     dispatch(postUpdateRating(formData)).then(response => {
       if (response.payload.success) {
-        Alert.alert('Alert', response.payload.data.message);
+        Alert.alert( response.payload.data.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert', response.payload.data.message);
+        Alert.alert( response.payload.data.message);
       }
     });
   };
@@ -370,11 +370,11 @@ const ViewPropertiy = (props, imageUrl) => {
 
     dispatch(postRating(formData)).then(response => {
       if (response.payload.data.success) {
-        Alert.alert('Alert', response.payload.data.message);
+        Alert.alert( response.payload.data.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert error', response.payload.data.message);
+        Alert.alert( response.payload.data.message);
       }
     });
   };
@@ -386,76 +386,61 @@ const ViewPropertiy = (props, imageUrl) => {
             <View style={{width: '50%'}}>
               <Text style={styles.property}>Property Details</Text>
               <Text style={styles.props}>
-                Price:
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Price: <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(item => item.details.property_details.price)}
                 </Text>
               </Text>
               <Text style={styles.props}>
-                Est. Taxes:{' '}
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Est. Taxes: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(item => item.details.property_details.taxes)}
                 </Text>
               </Text>
               <Text style={styles.props}>
-                Bedrooms:{' '}
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Bedrooms: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(item => item.details.property_details.bedrooms)}
                 </Text>{' '}
               </Text>
               <Text style={styles.props}>
-                Bathrooms:{' '}
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Bathrooms: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(item => item.details.property_details.bedrooms)}
                 </Text>
               </Text>
               <Text style={styles.props}>
-                Size:
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Size:  <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(
                     item => item.details.property_details.property_size,
-                  )}{' '}
+                  )} {' '}
                   sq ft{' '}
                 </Text>{' '}
               </Text>
               <Text style={styles.props}>
-                Garage Spaces:
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Garage Spaces: <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(item => item.details.property_details.garagespaces)}
                 </Text>
               </Text>
               <Text style={styles.props}>
-                Lot Size:
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Lot Size:  <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(item => item.hoa_fee)}
                 </Text>
               </Text>
               <Text style={styles.props}>
-                Year Built :
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Year Built :  <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(item => item.details.property_details.yearbuilt)}{' '}
-                </Text>{' '}
+                </Text> {' '}
               </Text>
               <Text style={styles.props}>
-                Total Stories:{' '}
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Total Stories: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(item => item.details.property_details.storiestotal)}
                 </Text>
               </Text>
               <Text style={styles.props}>
-                Days on Market :{' '}
-                <Text style={{fontFamily: 'Poppins-Light'}}>1</Text>
+                Days on Market : {' '} <Text style={{fontFamily: 'Poppins-Light'}}>1</Text>
               </Text>
             </View>
             <View style={{width: '50%'}}>
               <Text style={styles.property}>Community Details</Text>
               <Text style={styles.props}>
-                Community Name:{' '}
-                <Text
-                  style={{
-                    fontFamily: 'Poppins-Light',
-                    lineHeight:
-                      DeviceInfo.getDeviceType() === 'Tablet' ? 28 : 22,
+                Community Name: {' '}  <Text style={{fontFamily: 'Poppins-Light',lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 28 : 22,
                   }}>
                   {data.map(
                     item => item.details.community_details.community_name,
@@ -463,23 +448,14 @@ const ViewPropertiy = (props, imageUrl) => {
                 </Text>
               </Text>
               <Text style={styles.props}>
-                HOA Fee Includes:{' '}
-                <Text
-                  style={{
-                    fontFamily: 'Poppins-Light',
-                    lineHeight:
-                      DeviceInfo.getDeviceType() === 'Tablet' ? 28 : 22,
+                HOA Fee Includes: {' '} <Text style={{fontFamily: 'Poppins-Light',lineHeight:DeviceInfo.getDeviceType() === 'Tablet' ? 28 : 22,
                   }}>
                   {data.map(item => item.hoa_fee)}
                 </Text>
               </Text>
               <Text style={styles.props}>
-                Community Features:{' '}
-                <Text
-                  style={{
-                    fontFamily: 'Poppins-Light',
-                    lineHeight:
-                      DeviceInfo.getDeviceType() === 'Tablet' ? 28 : 22,
+                Community Features: {' '}
+                <Text style={{ fontFamily: 'Poppins-Light', lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 28 : 22,
                   }}>
                   Bike Storage, Community Kitchen, Fitness Center, Library,
                   Barbecue, Picnic Area, Pool, Shuffleboard Court, Spa Hot Tub,
@@ -495,26 +471,22 @@ const ViewPropertiy = (props, imageUrl) => {
             <View style={{width: '50%'}}>
               <Text style={styles.property}>Interior Features</Text>
               <Text style={styles.props}>
-                A/C:{' '}
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                A/C: {' '}  <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(item => item.details.interior_features.A_C)}
                 </Text>
               </Text>
               <Text style={styles.props}>
-                Heating:{' '}
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Heating: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(item => item.details.interior_features.heating)}
                 </Text>
               </Text>
               <Text style={styles.props}>
-                Flooring:{' '}
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Flooring: {' '}  <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(item => item.details.interior_features.flooring)}{' '}
                 </Text>
               </Text>
               <Text style={styles.props}>
-                Property Rooms:{' '}
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Property Rooms: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(
                     item => item.details.interior_features.property_rooms,
                   )}
@@ -524,30 +496,26 @@ const ViewPropertiy = (props, imageUrl) => {
             <View style={{width: '50%'}}>
               <Text style={styles.property}>Exterior Features</Text>
               <Text style={styles.props}>
-                Architectural Style:{' '}
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Architectural Style: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(
                     item => item.details.exterior_features.architecturalstyle,
                   )}
                 </Text>
               </Text>
               <Text style={styles.props}>
-                Construction:{' '}
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Construction: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(
                     item => item.details.exterior_features.construction,
                   )}
                 </Text>
               </Text>
               <Text style={styles.props}>
-                Roofing:{' '}
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Roofing: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(item => item.details.exterior_features.roofing)}{' '}
                 </Text>
               </Text>
               <Text style={styles.props}>
-                Water Source:{' '}
-                <Text style={{fontFamily: 'Poppins-Light'}}>
+                Water Source: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
                   {data.map(item => item.details.exterior_features.watersource)}
                 </Text>
               </Text>
@@ -557,46 +525,41 @@ const ViewPropertiy = (props, imageUrl) => {
             <View style={{width: '100%', marginTop: 30}}>
               <Text style={styles.property}>Miscellaneous Details</Text>
               <Text style={styles.props}>
-                Driving Directions:{' '}
-                <Text style={{fontFamily: 'Poppins-Light', lineHeight: 25}}>
+                Driving Directions: {' '} <Text style={{fontFamily: 'Poppins-Light', lineHeight: 25}}>
                   {data.map(
                     item =>
                       item.details.miscellaneous_details.driving_directions,
                   )}
-                </Text>{' '}
+                </Text> {' '}
               </Text>
               <Text style={styles.props}>
-                Listing Office:{' '}
-                <Text style={{fontFamily: 'Poppins-Light', lineHeight: 25}}>
+                Listing Office: {' '} <Text style={{fontFamily: 'Poppins-Light', lineHeight: 25}}>
                   {data.map(
                     item => item.details.miscellaneous_details.listing_office,
                   )}
-                </Text>{' '}
+                </Text> {' '}
               </Text>
               <Text style={styles.props}>
-                Listing Agent:{' '}
-                <Text style={{fontFamily: 'Poppins-Light', lineHeight: 25}}>
+                Listing Agent: {' '}  <Text style={{fontFamily: 'Poppins-Light', lineHeight: 25}}>
                   {data.map(
                     item => item.details.miscellaneous_details.listing_agent,
                   )}
                 </Text>{' '}
               </Text>
               <Text style={styles.props}>
-                Listing Office Phone:{' '}
-                <Text style={{fontFamily: 'Poppins-Light', lineHeight: 25}}>
+                Listing Office Phone: {' '} <Text style={{fontFamily: 'Poppins-Light', lineHeight: 25}}>
                   {data.map(
                     item =>
                       item.details.miscellaneous_details.listing_office_phone,
                   )}
-                </Text>{' '}
+                </Text> {' '}
               </Text>
               <Text style={styles.props}>
-                Data Disclaimer:{' '}
-                <Text style={{fontFamily: 'Poppins-Light', lineHeight: 25}}>
+                Data Disclaimer: {' '} <Text style={{fontFamily: 'Poppins-Light', lineHeight: 25}}>
                   {data.map(
                     item => item.details.miscellaneous_details.data_disclaimer,
                   )}
-                </Text>{' '}
+                </Text> {' '}
               </Text>
             </View>
           </View>

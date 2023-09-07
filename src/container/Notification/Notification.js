@@ -51,11 +51,12 @@ const Notification = () => {
     const id = await AsyncStorage.getItem('userId');
     try {
       const response = await axios.get(
-        'https://www.surflokal.com/webapi/v1/notifications/?userID=' + id,
+        'https://www.surflokal.com/webapi/v1/notifications',
       );
       const responseData = response.data;
       const nestedData = responseData.data[0];
       setData(nestedData);
+      console.log("Notifications",nestedData)
     } catch (error) {}
   };
 
@@ -65,11 +66,14 @@ const Notification = () => {
     }
     return (
       <View style={styles.slideOuter}>
+     
         <Image
           source={{uri: item.featured_image_url}}
           style={styles.featuresimage}
         />
         <View style={styles.titlecover}>
+          <TouchableOpacity 
+          onPress={()=> navigation.navigate('ViewPropertiy',{ID:item.post_id})}>
           <Text numberOfLines={1} style={styles.posttitle}>
             {item.post_title}
           </Text>
@@ -78,7 +82,9 @@ const Notification = () => {
           </Text>
 
           <Text style={styles.postdate}>{item.post_date}</Text>
+          </TouchableOpacity>
         </View>
+        
       </View>
     );
   };

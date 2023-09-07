@@ -85,7 +85,7 @@ console.log('video',videoView)
             style={{
               alignItems: 'center',
               position: "absolute",
-              left: 10,
+              left:10,
               top: 10,
 
               flexDirection: 'row',
@@ -110,7 +110,7 @@ console.log('video',videoView)
               flexDirection: 'row',
               alignItems: 'center',
               resizeMode:"contain",
-              tintColor:"white"
+              tintColor:"#D3D3D3"
             }}
             source={Images.leftnewarrow}></Image>
           </TouchableOpacity>

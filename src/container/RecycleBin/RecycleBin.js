@@ -152,11 +152,11 @@ const RecycleBin = () => {
 
     dispatch(postUpdateRating(formData)).then(response => {
       if (response.payload.success) {
-        Alert.alert('Alert', response.payload.data.message);
+        Alert.alert( response.payload.data.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert', response.payload.data.message);
+        Alert.alert( response.payload.data.message);
       }
     });
   };
@@ -173,11 +173,11 @@ const RecycleBin = () => {
 
     dispatch(postRating(formData)).then(response => {
       if (response.payload.data.success) {
-        Alert.alert('Alert', response.payload.data.message);
+        Alert.alert( response.payload.data.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert error', response.payload.data.message);
+        Alert.alert( response.payload.data.message);
       }
     });
   };

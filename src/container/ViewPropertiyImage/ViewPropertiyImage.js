@@ -123,11 +123,11 @@ const ViewPropertiyImage = props => {
     formData.append('reviewtitle', reviewTitle);
     dispatch(postUpdateRating(formData)).then(response => {
       if (response.payload.success) {
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert( response.payload.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert( response.payload.message);
       }
     });
   };
@@ -146,11 +146,11 @@ const ViewPropertiyImage = props => {
     formData.append('reviewtitle', reviewTitle);
     dispatch(postRating(formData)).then(response => {
       if (response.payload.success) {
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert( response.payload.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert('Alert', response.payload.message);
+        Alert.alert( response.payload.message);
       }
       // setFilterData(response.payload.data);
     });
@@ -254,10 +254,11 @@ const ViewPropertiyImage = props => {
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('ChatSearch', {
-                  initialMessage: 'When would you like to schedule a showing?',
-                  agentReply:
-                    'A Lokal agent will confirm with you within the next 2 hours',
+                navigation.navigate('BookaTour', {
+                  ID: '',
+                  PropID: postID?.ID,
+                  user_id: '',
+                  user2_id: '',
                 });
               }}
               style={{
