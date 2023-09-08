@@ -1897,7 +1897,7 @@ justifyContent:"flex-end"
                                   <Modal
                                     transparent={true}
                                     animationType="slide"
-                                   visible={modalVisible}
+                                   //visible={modalVisible}
                                     onRequestClose={toggleModal}>
                                     <View style={styles.modalContainer}>
                                       <TouchableOpacity
@@ -1928,7 +1928,7 @@ justifyContent:"flex-end"
                                           </View>
                                           <View style={{}}>
                                             <Text style={styles.reviewtxt}>
-                                              Your Review
+                                            Rate This Property
                                             </Text>
                                           </View>
                                             <View style={styles.maincov}>
@@ -1939,7 +1939,7 @@ justifyContent:"flex-end"
                                                 ]}>
                                                 <Text
                                                   style={styles.propertlabel}>
-                                                  Photos :
+                                                Photo Quality:
                                                 </Text>
 
                                                 <StarRating
@@ -1959,7 +1959,7 @@ justifyContent:"flex-end"
                                               <View style={styles.labelcover}>
                                                 <Text
                                                   style={styles.propertlabel}>
-                                                  Description Accuracy :
+                                                 Description Accuracy:
                                                 </Text>
 
                                                 <StarRating
@@ -2000,7 +2000,7 @@ justifyContent:"flex-end"
                                               <View style={styles.labelcover}>
                                                 <Text
                                                   style={styles.propertlabel}>
-                                                  Interest in Property :
+                                                 Interest in the property:
                                                 </Text>
 
                                                 <StarRating
@@ -2018,8 +2018,8 @@ justifyContent:"flex-end"
                                             </View>
 
                                             <View style={styles.reviewcover}>
-                                              <Text style={styles.reviewtxt}>
-                                                Review
+                                              <Text style={styles.propertlabel}>
+                                              My Notes
                                               </Text>
                                               <View
                                                 style={styles.textinputcover}>
@@ -2620,9 +2620,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   propertlabel: {
-    fontSize: 12,
+    fontSize: 17,
     color: Colors.black,
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins-Light',
   },
   reviewcover: {
     width: '100%',
@@ -2630,10 +2630,12 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   reviewtxt: {
-    fontSize: 18,
+    fontSize: 21,
     fontFamily: 'Poppins-SemiBold',
     color: Colors.black,
-    marginTop: 10,
+    marginTop: 20,
+    textAlign:"center",
+    marginBottom:20
   },
   textinputcover: {
     width: '100%',
@@ -3712,8 +3714,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   labelcover: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
   },
 });

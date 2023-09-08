@@ -25,57 +25,57 @@ import DeviceInfo from 'react-native-device-info';
 import { CommonActions, StackActions } from '@react-navigation/native';
 import { ScreenHeight } from 'react-native-elements/dist/helpers';
 const slides = [
-  {
-    key: 1,
-    title: 'Title 1',
-    text: 'Description.\nSay something cool',
-    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab1 : Images.firstscreen,
-    backgroundColor: '#59b2ab',
-    renderContent: () => (
-      <View style={{ height: "100%" }}>
-        <Image
-          style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
-          source={Images.firstscreen}
-        />
-        <LottieView
-          style={{
-            height: 200, width: screenWidth,
-            transform: [{ rotate: '-100deg' }],
-            marginTop: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 80,
-            marginLeft: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 60,
-          }}
-          source={require('../../assets/animations/Arrow.json')}
-          autoPlay
-          loop
-        />
-      </View>
-    ),
-  },
-  {
-    key: 2,
-    title: 'Title 2',
-    text: 'Other cool stuff',
-    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab2 : Images.secondscreen,
-    backgroundColor: '#febe29',
-    renderContent: () => (
-      <View style={{ height: "100%" }}>
-        <Image
-          style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
-          source={Images.secondscreen}// Replace with your image path
-        />
-        <LottieView
-          style={{
-            height: 200, width: screenWidth,
-            transform: [{ rotate: '-100deg' }],
-            marginTop: DeviceInfo.getDeviceType() === 'Tablet' ? 130 : 90,
-          }}
-          source={require('../../assets/animations/Arrow.json')}
-          autoPlay
-          loop
-        />
-      </View>
-    ),
-  },
+  // {
+  //   key: 1,
+  //   title: 'Title 1',
+  //   text: 'Description.\nSay something cool',
+  //   image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab1 : Images.firstscreen,
+  //   backgroundColor: '#59b2ab',
+  //   renderContent: () => (
+  //     <View style={{ height: "100%" }}>
+  //       <Image
+  //         style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
+  //         source={Images.firstscreen}
+  //       />
+  //       <LottieView
+  //         style={{
+  //           height: 200, width: screenWidth,
+  //           transform: [{ rotate: '-100deg' }],
+  //           marginTop: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 80,
+  //           marginLeft: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 60,
+  //         }}
+  //         source={require('../../assets/animations/Arrow.json')}
+  //         autoPlay
+  //         loop
+  //       />
+  //     </View>
+  //   ),
+  // },
+  // {
+  //   key: 2,
+  //   title: 'Title 2',
+  //   text: 'Other cool stuff',
+  //   image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab2 : Images.secondscreen,
+  //   backgroundColor: '#febe29',
+  //   renderContent: () => (
+  //     <View style={{ height: "100%" }}>
+  //       <Image
+  //         style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
+  //         source={Images.secondscreen}// Replace with your image path
+  //       />
+  //       <LottieView
+  //         style={{
+  //           height: 200, width: screenWidth,
+  //           transform: [{ rotate: '-100deg' }],
+  //           marginTop: DeviceInfo.getDeviceType() === 'Tablet' ? 130 : 90,
+  //         }}
+  //         source={require('../../assets/animations/Arrow.json')}
+  //         autoPlay
+  //         loop
+  //       />
+  //     </View>
+  //   ),
+  // },
   {
     key: 3,
     title: 'Rocket guy',

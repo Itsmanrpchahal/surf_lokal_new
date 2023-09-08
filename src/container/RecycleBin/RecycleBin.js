@@ -284,15 +284,15 @@ const RecycleBin = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <TouchableOpacity onPress={() => navigation.navigate('ChatSearch')}> 
+          <TouchableOpacity> 
             <Image
-              source={Images.chatnew}
+              source={Images.favdownthumb}
               style={{
-                height: DeviceInfo.getDeviceType() === 'Tablet'?40:28,
-                width: DeviceInfo.getDeviceType() === 'Tablet'?40:28,
-                resizeMode: 'cover',
+                height: DeviceInfo.getDeviceType() === 'Tablet' ? 37 : 27,
+                width: DeviceInfo.getDeviceType() === 'Tablet' ? 42 : 32,
+                resizeMode: 'contain',
                 marginRight: 15,
-               
+                transform: [{ rotate: '180deg'}]
               }}></Image>
           </TouchableOpacity>
 

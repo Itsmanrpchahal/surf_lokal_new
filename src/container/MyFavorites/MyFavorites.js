@@ -267,8 +267,8 @@ const MyFavorites = props => {
 
       <View style={styles.iconscover}>
         <View style={styles.iconsiner}>
-          <TouchableOpacity onPress={() => navigation.navigate('ChatSearch')}>
-            <Image source={Images.chatnew} style={styles.chaticon}></Image>
+          <TouchableOpacity>
+            <Image source={Images.favdownthumb} style={styles.chaticon}></Image>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => makePhoneCall()}>
@@ -861,6 +861,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 16,
     paddingHorizontal: 16,
+    alignItems:"center"
   },
   iconsiner: {
     flexDirection: 'row',
@@ -868,10 +869,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   chaticon: {
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 28,
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 28,
-    resizeMode: 'cover',
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 37 : 27,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 42 : 32,
+    resizeMode: 'contain',
     marginRight: 15,
+    position:"relative",
+    top:4,
   },
   caldericon: {
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 37 : 27,
