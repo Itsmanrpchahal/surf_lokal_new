@@ -572,8 +572,16 @@ const Home = () => {
             }}>
 
             <View style={styles.searchuppercover}>
+           
               <View style={styles.searchinnercover}>
                 <View style={styles.w85}>
+                <View style={styles.gpscover1}>
+             
+             <TouchableOpacity>
+               <Image source={Images.newfil} style={styles.filterstyle1}></Image>
+             </TouchableOpacity>
+
+         </View>
                   <TextInput
                     allowFontScaling={false}
                     placeholderTextColor={'#858383'}
@@ -594,7 +602,7 @@ const Home = () => {
                     }}
                     style={styles.searchborderinner}>
                     <Image
-                      source={Images.address}
+                      source={Images.mapnew1}
                       tintColor={
                         showMap ? Colors.PrimaryColor : Colors.PrimaryColor
                       }
@@ -650,11 +658,17 @@ const Home = () => {
                     style={[
                       styles.rew,
                       {
+                        flexDirection: 'row',
+                        backgroundColor: 'white',
                         borderColor: Colors.gray,
                         borderRadius: 10,
                         backgroundColor: isPressed1 ? 'black' : 'white',
                       },
                     ]}>
+                       <Image
+                      source={Images.SaveAlt}
+                      style={styles.filtericonstyles}
+                    />
                     <Text
                       style={[
                         styles.savesearchstyle,
@@ -664,7 +678,7 @@ const Home = () => {
                     </Text>
                   </TouchableOpacity>
 
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     onPress={handlePress}
                     style={[
                       styles.rew,
@@ -680,7 +694,7 @@ const Home = () => {
                       style={styles.filtericonstyles}
                     />
                     <Text style={styles.filtericontext}>Filters</Text>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                   <TouchableOpacity
                     onPress={async () => {
                       setSelectedTabs([]);
@@ -713,10 +727,16 @@ const Home = () => {
                       styles.rew,
                       {
                         backgroundColor: isPressed2 ? 'black' : 'white',
+                        flexDirection: 'row',
+                        backgroundColor: 'white',
                         borderColor: Colors.gray,
                         borderRadius: 10,
                       },
                     ]}>
+                       <Image
+                      source={Images.Broom}
+                      style={styles.filtericonstyles}
+                    />
                     <Text
                       style={[
                         {
@@ -2746,6 +2766,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontWeight: '500',
   },
+  filterstyle1:{position:"absolute",left:12,top:12},
+gpscover1:{position:"relative"},
   labelinnercover: {
     flexDirection: 'row',
     marginLeft: 10,
@@ -3047,7 +3069,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
-    maxHeight: '60%',
+    maxHeight: '72%',
   },
   modalContentch:{
     backgroundColor: 'white',
@@ -3375,7 +3397,7 @@ const styles = StyleSheet.create({
     color: '#000',
     marginLeft: 1,
     position: 'relative',
-    marginLeft: 15,
+    marginLeft: 30,
   },
   searchboarder: {
     alignItems: 'center',
@@ -3395,15 +3417,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   addressstyle: {
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
+    // height: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
+    // width: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
     alignItems: 'center',
     justifyContent: 'center',
     resizeMode: 'contain',
   },
   gpsstyle: {
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
+    // height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
+    // width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
     resizeMode: 'contain',
   },
   gpscover: {
@@ -3415,12 +3437,14 @@ const styles = StyleSheet.create({
     width: '92%',
     alignSelf: 'center',
     justifyContent: 'center',
+
   },
   filterinner: {
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
+    marginBottom:10
   },
   filterinnermain: {
     width: '100%',
@@ -3435,8 +3459,8 @@ const styles = StyleSheet.create({
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
   },
   filtericonstyles: {
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
+    // height: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
+    // width: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
     marginRight: 6,
     tintColor: 'black',
   },
