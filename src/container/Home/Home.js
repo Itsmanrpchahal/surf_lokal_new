@@ -1897,7 +1897,7 @@ justifyContent:"flex-end"
                                   <Modal
                                     transparent={true}
                                     animationType="slide"
-                                   //visible={modalVisible}
+                                   visible={modalVisible}
                                     onRequestClose={toggleModal}>
                                     <View style={styles.modalContainer}>
                                       <TouchableOpacity
