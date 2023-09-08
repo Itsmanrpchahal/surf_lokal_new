@@ -182,8 +182,15 @@ export default function AppIntro({ navigation }) {
   const renderDone = () => {
     return (
       <TouchableOpacity onPress={() => { onDone() }} style={{ position: "absolute", right: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : -50, height: screenHeight, top: 0, marginTop: -30 }}>
-        <View style={{ height: 150, width: 150 }}>
-          <LottieView style={{ height: 100, width: DeviceInfo.getDeviceType() === 'Tablet' ? 350 : 100 }} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+        <View style={{ height: 100, width:200, flexDirection:"row" ,alignItems:"center",justifyContent:"flex-end",}}>
+          <LottieView style={{ height: 100, width: DeviceInfo.getDeviceType() === 'Tablet' ? 350 : 120, position:"relative",left:30 }}
+           source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+          <LottieView
+                                              style={styles.leftarrow2}
+                                              source={require('../../assets/animations/leftarrow.json')}
+                                              autoPlay
+                                              loop
+                                            />
         </View>
       </TouchableOpacity>
     )
@@ -210,6 +217,14 @@ const styles = StyleSheet.create({
     width: screenWidth,
     // resizeMode:"stretch"
   },
-
+  leftarrow2: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 99 : 99,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 89 :89,
+    marginRight: 30,
+    transform: [{ rotate: '-180deg' }],
+    marginTop: 0,
+    position: 'relative',
+    //top: DeviceInfo.getDeviceType() === 'Tablet' ? -15 : -10,
+  },
 
 });
