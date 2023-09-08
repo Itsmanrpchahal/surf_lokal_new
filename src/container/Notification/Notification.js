@@ -9,33 +9,19 @@ import {
   FlatList,
   SafeAreaView,
 } from 'react-native';
-import axios from 'axios';
 import Colors from '../../utils/Colors';
 import Images from '../../utils/Images';
 import {useNavigation} from '@react-navigation/native';
-import AsyncStorage from '@react-native-community/async-storage';
 import * as Animatable from 'react-native-animatable';
 import DeviceInfo from 'react-native-device-info';
+import { store } from '../../redux/store';
 const Notification = () => {
   const navigation = useNavigation();
 
   const [data, setData] = useState([]);
   const [isEnabled, setIsEnabled] = useState(true);
   const [toggle, setToggle] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const flatListRef = useRef(null);
-  const datan = [
-    {
-      name: 'Jessica Kent',
-      description: 'Called about 221 Main St.',
-      date: '07/21/2023',
-    },
-    {
-      name: 'Jessica Kent',
-      description: 'Called about 221 Main St.',
-      date: '07/21/2023',
-    },
-  ];
+
 
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
@@ -43,21 +29,10 @@ const Notification = () => {
   };
 
   useEffect(() => {
-    fetchNotifications();
+    const nestedData =store.getState().getNotifications.getNotificationsData.data
+    setData(nestedData[0])
   }, []);
 
-  const fetchNotifications = async () => {
-    const id = await AsyncStorage.getItem('userId');
-    try {
-      const response = await axios.get(
-        'https://www.surflokal.com/webapi/v1/notifications',
-      );
-      const responseData = response.data;
-      const nestedData = responseData.data[0];
-      setData(nestedData);
-      console.log("Notifications",nestedData)
-    } catch (error) {}
-  };
 
   const renderItem = ({item, index}) => {
     if (!isEnabled) {
