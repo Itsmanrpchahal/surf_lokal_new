@@ -30,6 +30,8 @@ import {postRating} from '../../modules/postRating';
 import {useNavigation} from '@react-navigation/native';
 import {getPopertiesDetails} from '../../modules/getPopertiesDetails';
 import DeviceInfo from 'react-native-device-info';
+import dynamicLinks from '@react-native-firebase/dynamic-links';
+
 import MapView, {
   Callout,
   Marker,

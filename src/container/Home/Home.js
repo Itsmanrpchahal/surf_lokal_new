@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -25,45 +25,45 @@ import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
-import { getPoperties } from '../../modules/getPoperties';
-import { postRating } from '../../modules/postRating';
-import { getFilter } from '../../modules/getFilter';
-import { SvgUri } from 'react-native-svg';
-import { postUpdateRating } from '../../modules/postUpdateRating';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {getPoperties} from '../../modules/getPoperties';
+import {postRating} from '../../modules/postRating';
+import {getFilter} from '../../modules/getFilter';
+import {SvgUri} from 'react-native-svg';
+import {postUpdateRating} from '../../modules/postUpdateRating';
 
-import { Dropdown, MultiSelect } from 'react-native-element-dropdown';
+import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
 
 import CardsSwipe from 'react-native-cards-swipe';
-import { SwiperFlatList } from 'react-native-swiper-flatlist';
+import {SwiperFlatList} from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 import LottieView from 'lottie-react-native';
-import { store } from '../../redux/store';
-import { addToFavorite } from '../../modules/addToFavorite';
-import { addRemoveTrash } from '../../modules/addRemoveTrash';
-import { getRating } from '../../modules/getRating';
-import { ScrollView } from 'react-native-gesture-handler';
+import {store} from '../../redux/store';
+import {addToFavorite} from '../../modules/addToFavorite';
+import {addRemoveTrash} from '../../modules/addRemoveTrash';
+import {getRating} from '../../modules/getRating';
+import {ScrollView} from 'react-native-gesture-handler';
 import DeviceInfo from 'react-native-device-info';
-import MapView, { Marker, Callout, PROVIDER_DEFAULT } from 'react-native-maps';
+import MapView, {Marker, Callout, PROVIDER_DEFAULT} from 'react-native-maps';
 import Collapsible from 'react-native-collapsible';
-import { useIsFocused } from '@react-navigation/native';
-import { getMoreFilter } from '../../modules/getMoreFilter';
-import { useRef } from 'react';
-import { getTrash } from '../../modules/getTrash';
-import { getFavoriteProperties } from '../../modules/getFavoriteProperties';
-import { filterSearch } from '../../modules/filterSearch';
-import { getSavedSearch } from '../../modules/getSavedSearch';
-import { clearFilter } from '../../modules/clearFilter';
-import { getUserScore } from '../../modules/getUserScore';
+import {useIsFocused} from '@react-navigation/native';
+import {getMoreFilter} from '../../modules/getMoreFilter';
+import {useRef} from 'react';
+import {getTrash} from '../../modules/getTrash';
+import {getFavoriteProperties} from '../../modules/getFavoriteProperties';
+import {filterSearch} from '../../modules/filterSearch';
+import {getSavedSearch} from '../../modules/getSavedSearch';
+import {clearFilter} from '../../modules/clearFilter';
+import {getUserScore} from '../../modules/getUserScore';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import GetLocation from 'react-native-get-location';
 import Loader from '../../components/Loader';
 
-const { width } = Dimensions.get('screen');
+const {width} = Dimensions.get('screen');
 const Home = () => {
   const isFocused = useIsFocused();
 
@@ -92,7 +92,7 @@ const Home = () => {
         const formData = new FormData();
         formData.append('SearchParameters', adress);
         console.log('SearchParameters payload', formData);
-        dispatch(getPoperties({ type: 2, data: formData, lntLng })).then(res => {
+        dispatch(getPoperties({type: 2, data: formData, lntLng})).then(res => {
           setHomeData(res.payload.data);
         });
         setKeyboardStatus('first');
@@ -134,7 +134,7 @@ const Home = () => {
   const [bedroomitem, setBedroomItem] = useState(-1);
   const [bathRoom, setBathRoomItem] = useState(-1);
   const [imageIndex, setImageIndex] = useState(0);
-  const [lntLng, setLatLng] = useState({ latitude: 0.0, longitude: 0.0 });
+  const [lntLng, setLatLng] = useState({latitude: 0.0, longitude: 0.0});
   const [showMap, setShowMap] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [mapType, setMapType] = useState('standard');
@@ -145,7 +145,7 @@ const Home = () => {
   const [maxSquareFeet, setMaxSquareFeet] = useState();
   const [bathRoomCount, setBathRoomCount] = useState();
   const [limitCount, setLimitCount] = useState(1);
-
+  const [isAnimating, setIsAnimating] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const [isPressed1, setIsPressed1] = useState(false);
   const [isPressed2, setIsPressed2] = useState(false);
@@ -160,8 +160,7 @@ const Home = () => {
     setCenterHeight(mainViewHeight - topViewHeight);
   }, [topViewHeight]);
 
-  useEffect(() => { }, [topViewHeight]);
-
+  useEffect(() => {}, [topViewHeight]);
 
   useEffect(() => {
     if (selectedTabsMore) {
@@ -173,7 +172,7 @@ const Home = () => {
             data_customvalue: selectedTabsMore.toString(),
           },
         }),
-      ).then(res => { });
+      ).then(res => {});
     }
   }, [selectedTabsMore]);
 
@@ -189,21 +188,20 @@ const Home = () => {
     filtertoggleModal();
   };
 
-
   const getUserScoreApiCall = () => {
-    dispatch(getUserScore()).then(response => { });
+    dispatch(getUserScore()).then(response => {});
   };
-   useEffect(() => {
+  useEffect(() => {
     getFilterApicall(),
-    getTrashApiCall(),
-    favlistApi(),
-    getSavedApiCall(),
-    getMoreFilterApiCall(),
-    getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
-    setAddres(''),
-    getUserScoreApiCall()
-   }, [])
-   
+      getTrashApiCall(),
+      favlistApi(),
+      getSavedApiCall(),
+      getMoreFilterApiCall(),
+      getPopertiesApiCall({type: 0, data: {limit: limitCount}, lntLng}),
+      setAddres(''),
+      getUserScoreApiCall();
+  }, []);
+
   // useEffect(() => {
   //   if (isFocused) {
   //     Promise.all[
@@ -376,10 +374,10 @@ const Home = () => {
   };
 
   const getSavedApiCall = () => {
-    dispatch(getSavedSearch()).then(response => { });
+    dispatch(getSavedSearch()).then(response => {});
   };
   const favlistApi = () => {
-    dispatch(getFavoriteProperties()).then(res => { });
+    dispatch(getFavoriteProperties()).then(res => {});
   };
 
   const savefile = async item => {
@@ -398,7 +396,7 @@ const Home = () => {
     });
   };
   const getTrashApiCall = async () => {
-    await dispatch(getTrash()).then(res => { });
+    await dispatch(getTrash()).then(res => {});
   };
   const trashfile = async post_id => {
     getTrashApiCall();
@@ -414,7 +412,7 @@ const Home = () => {
   };
 
   const getCurretLocation = () => {
-    setLoading(true)
+    setLoading(true);
     GetLocation.getCurrentPosition({
       enableHighAccuracy: true,
       timeout: 60000,
@@ -424,77 +422,94 @@ const Home = () => {
         formData.append('latitude', location.latitude);
         formData.append('longitude', location.longitude);
         console.log('getPopertiesApiCall formData ', formData);
-         dispatch(getPoperties( {type: 1, data:'', latLng: formData })).then(response => {
-          if(response.payload?.data.length<1){
-            setLoading(false)
-          alert((response.payload.message))
-
-          }else{
-            setHomeData(response.payload?.data)
-    setLoading(false)
-
-          }
-         })
+        dispatch(getPoperties({type: 1, data: '', latLng: formData})).then(
+          response => {
+            if (response.payload?.data.length < 1) {
+              setLoading(false);
+              alert(response.payload.message);
+            } else {
+              setHomeData(response.payload?.data);
+              setLoading(false);
+            }
+          },
+        );
       })
       .catch(error => {
-        const { code, message } = error;
+        const {code, message} = error;
       });
   };
-  
 
   const getPopertiesApiCall = async type => {
     setLoading(true);
     await dispatch(getPoperties(type));
-    typeof store.getState().getPopertiesReducer.getPopertiesData?.data === 'object'
+    typeof store.getState().getPopertiesReducer.getPopertiesData?.data ===
+    'object'
       ? store.getState().getPopertiesReducer.getPopertiesData?.data &&
-      setHomeData(store.getState().getPopertiesReducer.getPopertiesData?.data)
+        setHomeData(store.getState().getPopertiesReducer.getPopertiesData?.data)
       : setHomeData([]);
     setLoading(false);
   };
-  const addReview = async post_id => {
-    const formData = new FormData();
-    formData.append('postid', productId.toString());
-    formData.append('reviewtitle', reviewTitle);
-    formData.append('photo_quality_rating', rating);
-    formData.append('desc_stars', rating1);
-    formData.append('price_stars', rating2);
-    formData.append('interest_stars', rating3);
-    formData.append('content', commentContent?commentContent:"");
-
-    dispatch(postRating(formData)).then(response => {
+  const addReview = async () => {
+    try {
+      setIsAnimating(true); // Start the animation
+  
+      const formData = new FormData();
+      formData.append('postid', productId.toString());
+      formData.append('reviewtitle', reviewTitle);
+      formData.append('photo_quality_rating', rating);
+      formData.append('desc_stars', rating1);
+      formData.append('price_stars', rating2);
+      formData.append('interest_stars', rating3);
+      formData.append('content', commentContent ? commentContent : '');
+  
+      const response = await dispatch(postRating(formData));
+  
       if (response.payload.data.success) {
-        Alert.alert( response.payload.data.message);
-        toggleModal();
+        setIsAnimating(false); 
+        toggleModal(); 
       } else {
-        toggleModal();
-        Alert.alert( response.payload.data.message);
+        setIsAnimating(false); 
+        toggleModal(); 
+        // Alert.alert(response.payload.data.message);
       }
-    });
+    } catch (error) {
+      setIsAnimating(false); // Stop the animation in case of an error
+      console.error('Error submitting review:', error);
+    }
   };
 
   const updateReview = async post_id => {
-    const formData = new FormData();
-    formData.append('postid', productId);
-    formData.append('comment_content', commentContent?commentContent:'');
-    formData.append('review_title', reviewTitle);
-    formData.append('review_stars', rating);
-    formData.append('description_review_stars', rating1);
-    formData.append('price_review_stars', rating2);
-    formData.append('interest_review_stars', rating3);
-    console.log('postUpdateRating', formData);
-
-    dispatch(postUpdateRating(formData)).then(response => {
-      if (response.payload.success) {
-        Alert.alert( response.payload.data.message);
-        toggleModal();
-      } else {
-        toggleModal();
-        Alert.alert( response.payload.data.message);
-      }
-    });
+    try {
+      setIsAnimating(true); // Start the animation
+  
+      const formData = new FormData();
+      formData.append('postid', productId);
+      formData.append('comment_content', commentContent ? commentContent : '');
+      formData.append('review_title', reviewTitle);
+      formData.append('review_stars', rating);
+      formData.append('description_review_stars', rating1);
+      formData.append('price_review_stars', rating2);
+      formData.append('interest_review_stars', rating3);
+      console.log('postUpdateRating', formData);
+  
+      dispatch(postUpdateRating(formData)).then(response => {
+        if (response.payload.success) {
+          setIsAnimating(false);
+          toggleModal();
+        } else {
+          setIsAnimating(false);
+          toggleModal();
+          // Alert.alert(response.payload.data.message);
+        }
+      });
+  
+    } catch (error) {
+      setIsAnimating(false); 
+      console.error('Error submitting review:', error);
+    }
   };
-  const renderFillterItem = ({ item, index }) => {
-    const { data_custom_taxonomy, data_customvalue } = item;
+  const renderFillterItem = ({item, index}) => {
+    const {data_custom_taxonomy, data_customvalue} = item;
     const isSelected =
       selectedTabs.filter(i => i === data_customvalue).length > 0;
     return (
@@ -549,7 +564,7 @@ const Home = () => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       {loading ? (
         <View style={styles.loaderstyle}>
           <Loader />
@@ -560,17 +575,16 @@ const Home = () => {
           Platform.OS == 'android' ? styles.container : styles.containerIos
         }>
         <View
-          onLayout={({ nativeEvent }) => {
-            const { x, y, width, height } = nativeEvent.layout;
+          onLayout={({nativeEvent}) => {
+            const {x, y, width, height} = nativeEvent.layout;
             setMainViewHeight(height);
           }}
           style={styles.bgcover}>
           <View
-            onLayout={({ nativeEvent }) => {
-              const { x, y, width, height } = nativeEvent.layout;
+            onLayout={({nativeEvent}) => {
+              const {x, y, width, height} = nativeEvent.layout;
               setTopViewHeight(height);
             }}>
-
             <View style={styles.searchuppercover}>
               <View style={styles.searchinnercover}>
                 <View style={styles.w85}>
@@ -634,13 +648,14 @@ const Home = () => {
                       getSavedApiCall();
                       setIsPressed1(!isPressed1);
                       setIsPressed(false);
+
                       const payload = {
                         search_name: termName,
                       };
                       dispatch(filterSearch(payload)).then(response => {
                         if (
-                          store.getState().getSavedSearchReducer.getSavedSearchData
-                            .count == 0
+                          store.getState().getSavedSearchReducer
+                            .getSavedSearchData.count == 0
                         ) {
                           saveToogleModal();
                         } else {
@@ -658,7 +673,7 @@ const Home = () => {
                     <Text
                       style={[
                         styles.savesearchstyle,
-                        { color: isPressed1 ? 'white' : 'black' },
+                        {color: isPressed1 ? 'white' : 'black'},
                       ]}>
                       Save Search
                     </Text>
@@ -702,7 +717,7 @@ const Home = () => {
                       await dispatch(
                         getPoperties({
                           type: 0,
-                          data: { limit: limitCount + 1 },
+                          data: {limit: limitCount + 1},
                           lntLng,
                         }),
                       ).then(response => {
@@ -760,7 +775,7 @@ const Home = () => {
                           <ScrollView
                             style={{
                               width: '100%',
-                              marginTop: 16
+                              marginTop: 16,
                             }}>
                             <View style={styles.modalcover}>
                               <View style={styles.indicator}></View>
@@ -773,7 +788,7 @@ const Home = () => {
                                 </Text>
                                 <MultiSelect
                                   ref={ref}
-                                  style={[styles.dropdown, { width: '100%' }]}
+                                  style={[styles.dropdown, {width: '100%'}]}
                                   placeholderStyle={styles.placeholderStyle}
                                   selectedTextStyle={styles.selectedTextStyle}
                                   inputSearchStyle={styles.inputSearchStyle}
@@ -788,7 +803,7 @@ const Home = () => {
                                   placeholder="All Cities"
                                   searchPlaceholder="Search..."
                                   value={cities}
-                                  valuestyle={{ color: 'red' }}
+                                  valuestyle={{color: 'red'}}
                                   onChange={async item => {
                                     setCities(item);
                                     ref.current.close();
@@ -808,16 +823,17 @@ const Home = () => {
                                   selectedStyle={styles.selectedStyle}
                                 />
 
-
-                                <View style={{ marginBottom: 12, marginTop: 12 }}>
-                                  <Text style={styles.modallabel}>Bedrooms</Text>
+                                <View style={{marginBottom: 12, marginTop: 12}}>
+                                  <Text style={styles.modallabel}>
+                                    Bedrooms
+                                  </Text>
                                   <View style={styles.dataupeercover}>
                                     <FlatList
                                       style={styles.slidervalue}
                                       data={moreFilterData?.bedroom}
                                       horizontal={true}
                                       showsHorizontalScrollIndicator={false}
-                                      renderItem={({ item, index }) => {
+                                      renderItem={({item, index}) => {
                                         return (
                                           <TouchableOpacity
                                             onPress={async () => {
@@ -865,13 +881,15 @@ const Home = () => {
                                   </View>
                                 </View>
                                 <View>
-                                  <Text style={styles.modallabel}>Bathrooms</Text>
+                                  <Text style={styles.modallabel}>
+                                    Bathrooms
+                                  </Text>
                                   <View style={styles.dataupeercover}>
                                     <FlatList
                                       data={moreFilterData.bathroom}
                                       horizontal={true}
                                       showsHorizontalScrollIndicator={false}
-                                      renderItem={({ item, index }) => {
+                                      renderItem={({item, index}) => {
                                         return (
                                           <TouchableOpacity
                                             onPress={async () => {
@@ -921,7 +939,11 @@ const Home = () => {
                                 </View>
 
                                 <View>
-                                  <Text style={[styles.modallabel, { marginTop: 12 }]}>
+                                  <Text
+                                    style={[
+                                      styles.modallabel,
+                                      {marginTop: 12},
+                                    ]}>
                                     Square Feet
                                   </Text>
                                   <View
@@ -931,7 +953,7 @@ const Home = () => {
                                       marginTop: 8,
                                     }}>
                                     <View
-                                      style={[styles.dropdown, { width: '48%' }]}>
+                                      style={[styles.dropdown, {width: '48%'}]}>
                                       <SelectDropdown
                                         data={moreFilterData.min_square}
                                         buttonStyle={styles.dropdown1BtnStyle}
@@ -943,9 +965,11 @@ const Home = () => {
                                           styles.dropdown1DropdownStyle
                                         }
                                         rowStyle={styles.dropdown1RowStyle}
-                                        rowTextStyle={styles.dropdown1RowTxtStyle}
+                                        rowTextStyle={
+                                          styles.dropdown1RowTxtStyle
+                                        }
                                         search={true}
-                                        searchInputStyle={{ color: 'black' }}
+                                        searchInputStyle={{color: 'black'}}
                                         searchPlaceholder="Search"
                                         searchPlaceHolderColor="black"
                                         searchInputTxtColor="black"
@@ -961,7 +985,10 @@ const Home = () => {
                                               }></Image>
                                           );
                                         }}
-                                        onSelect={async (selectedItem, index) => {
+                                        onSelect={async (
+                                          selectedItem,
+                                          index,
+                                        ) => {
                                           setMinSquareFeet(item.data_name);
                                           await dispatch(
                                             getPoperties({
@@ -982,14 +1009,16 @@ const Home = () => {
                                           index,
                                         ) => {
                                           return (
-                                            <Text style={styles.datacustomvalue}>
+                                            <Text
+                                              style={styles.datacustomvalue}>
                                               {selectedItem?.data_customvalue}
                                             </Text>
                                           );
                                         }}
                                         rowTextForSelection={(item, index) => {
                                           return (
-                                            <Text style={styles.datacustomvalue}>
+                                            <Text
+                                              style={styles.datacustomvalue}>
                                               {item?.data_customvalue}
                                             </Text>
                                           );
@@ -998,7 +1027,7 @@ const Home = () => {
                                     </View>
 
                                     <View
-                                      style={[styles.dropdown, { width: '48%' }]}>
+                                      style={[styles.dropdown, {width: '48%'}]}>
                                       <SelectDropdown
                                         data={moreFilterData.max_square}
                                         buttonStyle={styles.dropdown1BtnStyle}
@@ -1010,9 +1039,11 @@ const Home = () => {
                                           styles.dropdown1DropdownStyle
                                         }
                                         rowStyle={styles.dropdown1RowStyle}
-                                        rowTextStyle={styles.dropdown1RowTxtStyle}
+                                        rowTextStyle={
+                                          styles.dropdown1RowTxtStyle
+                                        }
                                         search={true}
-                                        searchInputStyle={{ color: 'black' }}
+                                        searchInputStyle={{color: 'black'}}
                                         searchPlaceholder="Search"
                                         searchPlaceHolderColor="black"
                                         searchInputTxtColor="black"
@@ -1028,7 +1059,10 @@ const Home = () => {
                                               }></Image>
                                           );
                                         }}
-                                        onSelect={async (selectedItem, index) => {
+                                        onSelect={async (
+                                          selectedItem,
+                                          index,
+                                        ) => {
                                           setMaxSquareFeet(item.data_name);
                                           await dispatch(
                                             getPoperties({
@@ -1049,14 +1083,16 @@ const Home = () => {
                                           index,
                                         ) => {
                                           return (
-                                            <Text style={styles.datacustomvalue}>
+                                            <Text
+                                              style={styles.datacustomvalue}>
                                               {selectedItem?.data_customvalue}
                                             </Text>
                                           );
                                         }}
                                         rowTextForSelection={(item, index) => {
                                           return (
-                                            <Text style={styles.datacustomvalue}>
+                                            <Text
+                                              style={styles.datacustomvalue}>
                                               {item?.data_customvalue}
                                             </Text>
                                           );
@@ -1065,7 +1101,7 @@ const Home = () => {
                                     </View>
                                   </View>
                                 </View>
-                                <View style={{ marginTop: 12 }}>
+                                <View style={{marginTop: 12}}>
                                   <Text style={styles.modallabel}>
                                     Price Range
                                   </Text>
@@ -1078,7 +1114,7 @@ const Home = () => {
                                       width: '100%',
                                     }}>
                                     <View
-                                      style={[styles.dropdown, { width: '48%' }]}>
+                                      style={[styles.dropdown, {width: '48%'}]}>
                                       <SelectDropdown
                                         data={moreFilterData.min_price}
                                         buttonStyle={styles.dropdown1BtnStyle}
@@ -1090,9 +1126,11 @@ const Home = () => {
                                           styles.dropdown1DropdownStyle
                                         }
                                         rowStyle={styles.dropdown1RowStyle}
-                                        rowTextStyle={styles.dropdown1RowTxtStyle}
+                                        rowTextStyle={
+                                          styles.dropdown1RowTxtStyle
+                                        }
                                         search={true}
-                                        searchInputStyle={{ color: 'black' }}
+                                        searchInputStyle={{color: 'black'}}
                                         searchPlaceholder="Search"
                                         searchPlaceHolderColor="black"
                                         searchInputTxtColor="black"
@@ -1108,13 +1146,17 @@ const Home = () => {
                                               }></Image>
                                           );
                                         }}
-                                        onSelect={async (selectedItem, index) => {
+                                        onSelect={async (
+                                          selectedItem,
+                                          index,
+                                        ) => {
                                           setMinPricerange(item.data_name);
                                           await dispatch(
                                             getPoperties({
                                               type: 3,
                                               data: {
-                                                data_custom_taxonomy: 'min_price',
+                                                data_custom_taxonomy:
+                                                  'min_price',
                                                 data_customvalue:
                                                   item.data_customvalue,
                                               },
@@ -1128,14 +1170,16 @@ const Home = () => {
                                           index,
                                         ) => {
                                           return (
-                                            <Text style={styles.datacustomvalue}>
+                                            <Text
+                                              style={styles.datacustomvalue}>
                                               {selectedItem?.data_customvalue}
                                             </Text>
                                           );
                                         }}
                                         rowTextForSelection={(item, index) => {
                                           return (
-                                            <Text style={styles.datacustomvalue}>
+                                            <Text
+                                              style={styles.datacustomvalue}>
                                               {item?.data_customvalue}
                                             </Text>
                                           );
@@ -1144,7 +1188,7 @@ const Home = () => {
                                     </View>
 
                                     <View
-                                      style={[styles.dropdown, { width: '48%' }]}>
+                                      style={[styles.dropdown, {width: '48%'}]}>
                                       <SelectDropdown
                                         data={moreFilterData.max_price}
                                         buttonStyle={styles.dropdown1BtnStyle}
@@ -1156,10 +1200,12 @@ const Home = () => {
                                           styles.dropdown1DropdownStyle
                                         }
                                         rowStyle={styles.dropdown1RowStyle}
-                                        rowTextStyle={styles.dropdown1RowTxtStyle}
+                                        rowTextStyle={
+                                          styles.dropdown1RowTxtStyle
+                                        }
                                         search={true}
-                                        searchInputTxtStyle={{ color: '#000000' }}
-                                        searchInputStyle={{ color: '#000000' }}
+                                        searchInputTxtStyle={{color: '#000000'}}
+                                        searchInputStyle={{color: '#000000'}}
                                         searchPlaceholder="Search"
                                         searchPlaceHolderColor="#000000"
                                         searchInputTxtColor="#000000"
@@ -1175,13 +1221,17 @@ const Home = () => {
                                               }></Image>
                                           );
                                         }}
-                                        onSelect={async (selectedItem, index) => {
+                                        onSelect={async (
+                                          selectedItem,
+                                          index,
+                                        ) => {
                                           setMaxPriceRange(item.data_name);
                                           await dispatch(
                                             getPoperties({
                                               type: 3,
                                               data: {
-                                                data_custom_taxonomy: 'max_price',
+                                                data_custom_taxonomy:
+                                                  'max_price',
                                                 data_customvalue:
                                                   item.data_customvalue,
                                               },
@@ -1195,14 +1245,16 @@ const Home = () => {
                                           index,
                                         ) => {
                                           return (
-                                            <Text style={styles.datacustomvalue}>
+                                            <Text
+                                              style={styles.datacustomvalue}>
                                               {selectedItem?.data_customvalue}
                                             </Text>
                                           );
                                         }}
                                         rowTextForSelection={(item, index) => {
                                           return (
-                                            <Text style={styles.datacustomvalue}>
+                                            <Text
+                                              style={styles.datacustomvalue}>
                                               {item?.data_customvalue}
                                             </Text>
                                           );
@@ -1220,7 +1272,7 @@ const Home = () => {
                                       }}
                                       nestedScrollEnabled
                                       numColumns={3}
-                                      renderItem={({ item, index }) => {
+                                      renderItem={({item, index}) => {
                                         const {
                                           data_custom_taxonomy,
                                           data_customvalue,
@@ -1265,7 +1317,7 @@ const Home = () => {
                                                 marginBottom: 8,
                                                 fontSize:
                                                   DeviceInfo.getDeviceType() ===
-                                                    'Tablet'
+                                                  'Tablet'
                                                     ? 18
                                                     : 14,
                                               }}
@@ -1301,13 +1353,13 @@ const Home = () => {
           <View style={{}}>
             {homeData?.length > 0 ? (
               <View
-                onLayout={({ nativeEvent }) => {
-                  const { x, y, width, height } = nativeEvent.layout;
+                onLayout={({nativeEvent}) => {
+                  const {x, y, width, height} = nativeEvent.layout;
                   setCenterHeight(height);
                 }}
-                style={{ height: centerHeight, width: '100%' }}>
+                style={{height: centerHeight, width: '100%'}}>
                 {!showMap && homeData?.length > 0 ? (
-                  <View style={{ height: centerHeight, width: '100%' }}>
+                  <View style={{height: centerHeight, width: '100%'}}>
                     <CardsSwipe
                       style={styles.cardswipercover}
                       cards={homeData}
@@ -1316,10 +1368,9 @@ const Home = () => {
                       }}
                       renderYep={() => (
                         <View
-
                           style={[
                             styles.cardinnercover,
-                            { height: imageHeight, width: imageWidth },
+                            {height: imageHeight, width: imageWidth},
                           ]}>
                           <View style={styles.cardinner}>
                             <View style={styles.thumpupcover}>
@@ -1333,7 +1384,6 @@ const Home = () => {
                       )}
                       renderNope={() => (
                         <View
-
                           style={[
                             styles.redoverlay,
                             {
@@ -1359,19 +1409,19 @@ const Home = () => {
                         savefile(homeData[item].ID);
                       }}
                       renderCard={(item, index) => (
-                        <View style={[styles.shadowProp, { height: '100%' }]}>
+                        <View style={[styles.shadowProp, {height: '100%'}]}>
                           <SwiperFlatList
-                            style={{ height: '60%' }}
+                            style={{height: '60%'}}
                             index={imageIndex}
                             autoPlay={true}
                             autoplayDelay={3000}
                             data={item?.featured_image_src}
                             refer={index}
-                            renderItem={({ item1, index }) => (
+                            renderItem={({item1, index}) => (
                               <>
                                 <View
-                                  onLayout={({ nativeEvent }) => {
-                                    const { x, y, width, height } =
+                                  onLayout={({nativeEvent}) => {
+                                    const {x, y, width, height} =
                                       nativeEvent.layout;
                                     setImageHeight(height);
                                     setImageWidth(width);
@@ -1416,7 +1466,7 @@ const Home = () => {
                                     <TouchableOpacity
                                       disabled={
                                         item?.featured_image_src?.length - 1 ===
-                                          imageIndex
+                                        imageIndex
                                           ? true
                                           : false
                                       }
@@ -1434,7 +1484,7 @@ const Home = () => {
                                     </TouchableOpacity>
                                   </View>
                                   <TouchableOpacity
-                                    style={{ height: '100%' }}
+                                    style={{height: '100%'}}
                                     onPress={() => {
                                       navigation.navigate('ViewPropertiy', {
                                         ID: item.ID,
@@ -1517,9 +1567,7 @@ const Home = () => {
                                     </TouchableOpacity>
                                   </View>
                                   <TouchableOpacity
-
                                     onPress={() => handleShare(item.ID)}
-
                                     style={styles.sendcover}>
                                     <Image
                                       source={Images.send}
@@ -1548,9 +1596,9 @@ const Home = () => {
                                         style={[
                                           {
                                             width: '100%',
-height:"100%",
-alignItems:"flex-end",
-justifyContent:"flex-end"
+                                            height: '100%',
+                                            alignItems: 'flex-end',
+                                            justifyContent: 'flex-end',
                                           },
                                           styles.modalaligned,
                                         ]}>
@@ -1559,7 +1607,8 @@ justifyContent:"flex-end"
                                           style={[
                                             styles.modalContent1,
                                             {
-                                              width: "100%", backgroundColor: "#f1f1f1",
+                                              width: '100%',
+                                              backgroundColor: '#f1f1f1',
                                               transform: [
                                                 {
                                                   translateY:
@@ -1571,7 +1620,7 @@ justifyContent:"flex-end"
                                               ],
                                             },
                                           ]}>
-                                          <View style={[styles.modalstart,]}>
+                                          <View style={[styles.modalstart]}>
                                             <View
                                               style={styles.indicator}></View>
                                           </View>
@@ -1596,9 +1645,9 @@ justifyContent:"flex-end"
                                               loop
                                             />
                                             <View
-                                              style={{ flexDirection: 'column' }}>
+                                              style={{flexDirection: 'column'}}>
                                               <TouchableOpacity
-                                                style={{ alignItems: 'center' }}
+                                                style={{alignItems: 'center'}}
                                                 onPress={() => {
                                                   navigation.navigate(
                                                     'MyFavorites',
@@ -1624,7 +1673,7 @@ justifyContent:"flex-end"
                                   <Modal
                                     transparent={true}
                                     animationType="slide"
-                                   visible={tashModalVisiable}
+                                    visible={tashModalVisiable}
                                     //visible={true}
                                     onRequestClose={() => {
                                       setTrashModalVisiable(false);
@@ -1641,17 +1690,18 @@ justifyContent:"flex-end"
                                         style={[
                                           {
                                             width: '100%',
-                                            height:"100%",
-                                            alignItems:"flex-end",
-                                            justifyContent:"flex-end"
-                                          }
+                                            height: '100%',
+                                            alignItems: 'flex-end',
+                                            justifyContent: 'flex-end',
+                                          },
                                         ]}>
                                         <Animated.View
                                           {...panResponder.panHandlers}
                                           style={[
                                             styles.modalContent1,
                                             {
-                                              width: "100%", backgroundColor: "#f1f1f1",
+                                              width: '100%',
+                                              backgroundColor: '#f1f1f1',
                                               transform: [
                                                 {
                                                   translateY:
@@ -1681,7 +1731,7 @@ justifyContent:"flex-end"
 
                                           <View style={styles.inermodaltop}>
                                             <View
-                                              style={{ flexDirection: 'column' }}>
+                                              style={{flexDirection: 'column'}}>
                                               <TouchableOpacity
                                                 style={styles.modalaligned}
                                                 onPress={() => {
@@ -1716,7 +1766,7 @@ justifyContent:"flex-end"
                                   <Modal
                                     transparent={true}
                                     animationType="slide"
-                                   visible={saveModalVisible}
+                                    visible={saveModalVisible}
                                     //visible={true}
                                     onRequestClose={() => {
                                       setSaveModalVisible(false);
@@ -1729,21 +1779,22 @@ justifyContent:"flex-end"
                                           setSaveModalVisible(false);
                                         }}
                                       />
-                                          <View
+                                      <View
                                         style={[
                                           {
                                             width: '100%',
-                                            height:"100%",
-                                            alignItems:"flex-end",
-                                            justifyContent:"flex-end"
-                                          }
+                                            height: '100%',
+                                            alignItems: 'flex-end',
+                                            justifyContent: 'flex-end',
+                                          },
                                         ]}>
                                         <Animated.View
                                           {...panResponder.panHandlers}
                                           style={[
                                             styles.modalContent2,
                                             {
-                                              width: "100%", backgroundColor: "#f1f1f1",
+                                              width: '100%',
+                                              backgroundColor: '#f1f1f1',
                                               transform: [
                                                 {
                                                   translateY:
@@ -1762,14 +1813,14 @@ justifyContent:"flex-end"
                                           <Text
                                             style={[
                                               styles.savedsearchheadin,
-                                              { marginTop: 40 },
+                                              {marginTop: 40},
                                             ]}>
                                             Righteous!
                                           </Text>
                                           <Text
                                             style={[
                                               styles.savedsearchheadin,
-                                              { marginBottom: 50 },
+                                              {marginBottom: 50},
                                             ]}>
                                             You saved your first search!
                                           </Text>
@@ -1783,7 +1834,7 @@ justifyContent:"flex-end"
 
                                           <View style={styles.inermodaltop}>
                                             <View
-                                              style={{ flexDirection: 'column' }}>
+                                              style={{flexDirection: 'column'}}>
                                               <TouchableOpacity
                                                 style={styles.modalaligned}
                                                 onPress={() => {
@@ -1832,21 +1883,22 @@ justifyContent:"flex-end"
                                           setGpsModalVisiavle(false);
                                         }}
                                       />
-                                     <View
+                                      <View
                                         style={[
                                           {
                                             width: '100%',
-                                            height:"100%",
-                                            alignItems:"flex-end",
-                                            justifyContent:"flex-end"
-                                          }
+                                            height: '100%',
+                                            alignItems: 'flex-end',
+                                            justifyContent: 'flex-end',
+                                          },
                                         ]}>
                                         <Animated.View
                                           {...panResponder.panHandlers}
                                           style={[
                                             styles.modalContent3,
                                             {
-                                              width: "100%", backgroundColor: "#f1f1f1",
+                                              width: '100%',
+                                              backgroundColor: '#f1f1f1',
                                               transform: [
                                                 {
                                                   translateY:
@@ -1897,7 +1949,7 @@ justifyContent:"flex-end"
                                   <Modal
                                     transparent={true}
                                     animationType="slide"
-                                   visible={modalVisible}
+                                    visible={modalVisible}
                                     onRequestClose={toggleModal}>
                                     <View style={styles.modalContainer}>
                                       <TouchableOpacity
@@ -1922,7 +1974,7 @@ justifyContent:"flex-end"
                                           },
                                         ]}>
                                         <ScrollView style={styles.bgcover}>
-                                          <View style={{alignItems:"center"}}>
+                                          <View style={{alignItems: 'center'}}>
                                             <View
                                               style={styles.indicator}></View>
                                           </View>
@@ -1931,29 +1983,28 @@ justifyContent:"flex-end"
                                               Your Review
                                             </Text>
                                           </View>
-                                            <View style={styles.maincov}>
-                                              <View
-                                                style={[
-                                                  styles.labelcover,
-                                                  { marginTop: 10 },
-                                                ]}>
-                                                <Text
-                                                  style={styles.propertlabel}>
-                                                  Photos :
-                                                </Text>
+                                          <View style={styles.maincov}>
+                                            <View
+                                              style={[
+                                                styles.labelcover,
+                                                {marginTop: 10},
+                                              ]}>
+                                              <Text style={styles.propertlabel}>
+                                                Photos :
+                                              </Text>
 
-                                                <StarRating
-                                                  maxStars={5}
-                                                  starSize={22}
-                                                  enableSwiping
-                                                  enableHalfStar
-                                                  color={Colors.surfblur}
-                                                  rating={rating}
-                                                  onChange={value => {
-                                                    setRating(value);
-                                                  }}
-                                                />
-                                              </View>
+                                              <StarRating
+                                                maxStars={5}
+                                                starSize={22}
+                                                enableSwiping
+                                                enableHalfStar
+                                                color={Colors.surfblur}
+                                                rating={rating}
+                                                onChange={value => {
+                                                  setRating(value);
+                                                }}
+                                              />
+                                            </View>
 
                                             <View style={styles.maincov}>
                                               <View style={styles.labelcover}>
@@ -2051,9 +2102,7 @@ justifyContent:"flex-end"
                                                 <View
                                                   style={styles.submitbtnmain}>
                                                   <TouchableOpacity
-                                                    onPress={() =>
-                                                      updateReview()
-                                                    }
+                                                    onPress={() => updateReview()}
                                                     style={
                                                       styles.submitbtncover
                                                     }>
@@ -2064,6 +2113,15 @@ justifyContent:"flex-end"
                                                       Update
                                                     </Text>
                                                   </TouchableOpacity>
+                                                  {isAnimating && (
+                                                    <LottieView
+                                                      style={styles.loaderstyle1}
+                                                      source={require('../../assets/animations/star.json')}
+                                                      autoPlay
+                                                      loop
+                                                    />
+                                                    
+                                                  )}
                                                 </View>
                                               ) : (
                                                 <View
@@ -2080,6 +2138,15 @@ justifyContent:"flex-end"
                                                       Submit
                                                     </Text>
                                                   </TouchableOpacity>
+                                                  {isAnimating && (
+                                                    <LottieView
+                                                      style={styles.loaderstyle1}
+                                                      source={require('../../assets/animations/star.json')}
+                                                      autoPlay
+                                                      loop
+                                                    />
+                                                    
+                                                  )}
                                                 </View>
                                               )}
                                             </View>
@@ -2253,7 +2320,8 @@ justifyContent:"flex-end"
                           <Marker
                             showCallout={true}
                             coordinate={{
-                              latitude: parseFloat(item?.property_latitude), longitude: parseFloat(item?.property_longitude)
+                              latitude: parseFloat(item?.property_latitude),
+                              longitude: parseFloat(item?.property_longitude),
                             }}>
                             <Image
                               source={Images.locationss}
@@ -2364,8 +2432,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Light',
     marginTop: 0,
     //marginLeft:8
-    position: "relative",
-    left: 8
+    position: 'relative',
+    left: 8,
   },
   ratingimage: {
     height: 22,
@@ -2378,15 +2446,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     flexDirection: 'row',
-    marginLeft: 5
-
+    marginLeft: 5,
   },
   sendcover: {
     height: 70,
     width: 70,
     // justifyContent: 'flex-start',
     alignItems: 'center',
-    position: "relative",
+    position: 'relative',
     //top:8
   },
   sendbtn: {
@@ -2569,7 +2636,7 @@ const styles = StyleSheet.create({
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 49,
     width: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 59,
     marginRight: 30,
-    transform: [{ rotate: '-180deg' }],
+    transform: [{rotate: '-180deg'}],
     marginTop: 0,
     position: 'relative',
     top: DeviceInfo.getDeviceType() === 'Tablet' ? -15 : -10,
@@ -2699,7 +2766,7 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontFamily: 'Poppins-Regular',
   },
-  mapstarthere: { height: '100%', width: width },
+  mapstarthere: {height: '100%', width: width},
   mapuppercover: {
     position: 'absolute',
     zIndex: 99,
@@ -2718,7 +2785,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     paddingVertical: 12,
   },
-  detailcover: { flexWrap: 'wrap', top: -5 },
+  detailcover: {flexWrap: 'wrap', top: -5},
   itemtitle: {
     color: 'black',
     marginLeft: 10,
@@ -2754,7 +2821,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '30%',
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 16,
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
   },
   extencovermain: {
     width: '40%',
@@ -2785,9 +2852,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Poppins-Regular',
   },
-  dropdown1DropdownStyle: { backgroundColor: '#EFEFEF' },
-  dropdown1RowStyle: { backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5' },
-  dropdown1RowTxtStyle: { color: '#444', textAlign: 'left' },
+  dropdown1DropdownStyle: {backgroundColor: '#EFEFEF'},
+  dropdown1RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
+  dropdown1RowTxtStyle: {color: '#444', textAlign: 'left'},
 
   dropdown1BtnStyle: {
     width: '100%',
@@ -2825,7 +2892,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 3,
     right: 12,
-    shadowOffset: { width: -2, height: 4 },
+    shadowOffset: {width: -2, height: 4},
     shadowColor: '#171717',
     shadowOpacity: 0.2,
     shadowRadius: 3,
@@ -2839,7 +2906,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 3,
     // right: 12,
-    shadowOffset: { width: -2, height: 4 },
+    shadowOffset: {width: -2, height: 4},
     shadowColor: '#171717',
     shadowOpacity: 0.2,
     shadowRadius: 3,
@@ -2868,7 +2935,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     width: DeviceInfo.getDeviceType() === 'Tablet' ? '100%' : '98%',
     // boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
-  height:"100%"
+    height: '100%',
   },
   welcometxt: {
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 15,
@@ -2904,7 +2971,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
-   maxHeight: '60%',
+    maxHeight: '60%',
     width: '96%',
     //alignItems: 'center',
     //justifyContent: 'center',
@@ -2915,7 +2982,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
-   maxHeight: '80%',
+    maxHeight: '80%',
     width: '96%',
     //alignItems: 'center',
     //justifyContent: 'center',
@@ -2926,7 +2993,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
-   maxHeight: '90%',
+    maxHeight: '90%',
     width: '96%',
     //alignItems: 'center',
     //justifyContent: 'center',
@@ -3033,7 +3100,7 @@ const styles = StyleSheet.create({
     padding: 16,
     maxHeight: '60%',
   },
-  modalContentch:{
+  modalContentch: {
     backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -3188,7 +3255,7 @@ const styles = StyleSheet.create({
   placeholderStyle: {
     fontSize: 16,
     color: 'gray',
-    paddingLeft: 10
+    paddingLeft: 10,
   },
   selectedStyle: {
     borderRadius: 12,
@@ -3319,6 +3386,16 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     backgroundColor: 'rgba(0,0,0,.7)',
+    position: 'absolute',
+    zIndex: 99,
+    left: 0,
+    top: 0,
+  },
+  loaderstyle1: {
+    height: '100%',
+    width: '100%',
+    flex:1,
+    backgroundColor: "white",
     position: 'absolute',
     zIndex: 99,
     left: 0,
@@ -3515,7 +3592,7 @@ const styles = StyleSheet.create({
     height: 25,
     width: 25,
     tintColor: Colors.white,
-    transform: [{ rotate: '-180deg' }],
+    transform: [{rotate: '-180deg'}],
     position: 'relative',
     left: 12,
     alignItems: 'center',
@@ -3541,7 +3618,7 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: Colors.white,
   },
-  w85: { width: '85%' },
+  w85: {width: '85%'},
   modalcover: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -3706,7 +3783,7 @@ const styles = StyleSheet.create({
     height: 12,
     width: 12,
   },
-  w100: { width: '100%' },
+  w100: {width: '100%'},
   maincov: {
     width: '100%',
     alignSelf: 'center',
