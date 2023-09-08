@@ -25,7 +25,6 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import { useDispatch} from 'react-redux';
 import {getFavoriteProperties} from '../../modules/getFavoriteProperties';
-const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import {postRating} from '../../modules/postRating';
 import {getAgent} from '../../modules/getAgent';
@@ -1179,6 +1178,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 18,
   },
+  collapsecover:{
+    
+  }
 });
 
 export default MyFavorites;

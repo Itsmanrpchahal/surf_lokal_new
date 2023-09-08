@@ -34,8 +34,6 @@ import { postUpdateRating } from '../../modules/postUpdateRating';
 import * as Animatable from 'react-native-animatable';
 import { useIsFocused } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
-
-const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import StarRating from 'react-native-star-rating-widget';
 
@@ -60,6 +58,7 @@ const RecycleBin = () => {
   const [rating3, setRating3] = useState(0);
   const [productId, setProductId] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const slideAnimation = useRef(new Animated.Value(0)).current;
 
