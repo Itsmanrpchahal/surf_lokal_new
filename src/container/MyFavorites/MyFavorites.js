@@ -661,33 +661,56 @@ const MyFavorites = props => {
         </TouchableOpacity>
       </View>
       <Collapsible collapsed={!isCollapsed} style={styles.collapsecover}>
-         <Text>Sort by</Text>
+         <Text style={styles.sortby}>Sort by</Text>
         <View style={styles.collapsebg}>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}}>
-             <Text>Hbgajdf</Text>
-             <Image
-              source={Images.standard}
-              style={{height:20,width:20}}></Image>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}}>
-          <Text>Hbgajdf</Text>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
           <Image
-              source={Images.standard}
-              style={{height:20,width:20}}></Image>
-       
+              source={Images.calenderwedding}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Date Favorited</Text>
+             
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}}>
-          <Text>Hbgajdf</Text>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
           <Image
-              source={Images.standard}
-              style={{height:20,width:20}}></Image>
-       
+              source={Images.calenderwedding}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Days on Market</Text>
+             
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}}>
-          <Text>Hbgajdf</Text>
-            <Image
-              source={Images.standard}
-              style={{height:20,width:20}}></Image>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.low}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Price (Low to High) </Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.lowhigh}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Price (High to Low)</Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.newbed}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Beds (High to Low)</Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.bathtub}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Baths (High to Low)</Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.measuringtape}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Sq Ft (High to Low)</Text>
+             
           </TouchableOpacity>
         </View>
       </Collapsible>
@@ -1098,6 +1121,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
+  collapupper:{flexDirection:"row",
+  alignItems:"center",justifyContent:"center",borderBottomWidth:1,
+  borderBottomColor:Colors.BorderColor,paddingBottom:15,paddingTop:15,
+//height:100
+},
   buttonuppercover: {
     justifyContent: 'flex-end',
     width: '100%',
@@ -1178,9 +1206,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 18,
   },
+
   collapsecover:{
     
   }
+
+  colimg:{height:36,width:36, resizeMode:"contain",marginRight:8},
+  coltxt:{fontSize:18, fontFamily:"Poppins-Light" , color:Colors.black},
+ collapsecover:{position:"absolute", top:50 ,left:0,right:0,backgroundColor:"red",width:"90%",zIndex:999},
+
+  sortby:{fontSize:21, fontFamily:"Poppins-SemiBold", color:Colors.black, textAlign:"center",
+  marginBottom:15,paddingTop:15}
+
 });
 
 export default MyFavorites;

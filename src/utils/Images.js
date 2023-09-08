@@ -39,9 +39,12 @@ const Images = {
   favfilter: require(BaseUrl + 'newfilter.png'),
   bus: require(BaseUrl + 'bus.png'),
   cals: require(BaseUrl + 'calender-alt-2.png'),
- 
+  low: require(BaseUrl + 'lowtohigh.png'),
+  lowhigh: require(BaseUrl + 'highttolow.png'),
   measuringtape: require(BaseUrl + 'measuring-tape.png'),
   calenderwedding: require(BaseUrl + 'calendar-wedding.png'),
+  // lowtohigh: require(BaseUrl + 'lowtohigh.png'),
+  // hightolow: require(BaseUrl + 'hightolow.png'),
   apple: require(BaseUrl + 'apple.png'),
   searcfrank: require(BaseUrl + "surfranking.png"),
   telephonecall: require(BaseUrl + "telephone-call.png"),
@@ -84,7 +87,9 @@ const Images = {
   Whatsapp: require(BaseUrl + 'Whatsapp.png'),
 
 
-  gps: require(BaseUrl + 'gps.png'),
+  gps: require(BaseUrl + 'gpsnew.png'),
+  newfil: require(BaseUrl + 'newfil.png'),
+  mapnew1: require(BaseUrl + 'mapnew.png'),
   search: require(BaseUrl + 'search.png'),
   searchnew: require(BaseUrl + 'searchnew.png'),
   filtericon: require(BaseUrl + 'filtericon.png'),
@@ -162,7 +167,8 @@ const Images = {
   whiteclose: require(BaseUrl + 'close-white.png'),
   RedDown: require(BaseUrl + 'reddown.png'),
   GreenUp: require(BaseUrl + 'greenup.png'),
-
+  SaveAlt: require(BaseUrl + 'save-alt.png'),
+  Broom: require(BaseUrl + 'broom.png'),
   //22 may
   user: require(BaseUrl + 'user.png'),
   whiteclose: require(BaseUrl + 'close-white.png'),
