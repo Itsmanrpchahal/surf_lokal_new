@@ -25,7 +25,6 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import { useDispatch} from 'react-redux';
 import {getFavoriteProperties} from '../../modules/getFavoriteProperties';
-const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import {postRating} from '../../modules/postRating';
 import {getAgent} from '../../modules/getAgent';
@@ -1207,12 +1206,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 18,
   },
+
+  collapsecover:{
+    
+  }
+
   colimg:{height:36,width:36, resizeMode:"contain",marginRight:8},
   coltxt:{fontSize:18, fontFamily:"Poppins-Light" , color:Colors.black},
  collapsecover:{position:"absolute", top:50 ,left:0,right:0,backgroundColor:"red",width:"90%",zIndex:999},
 
   sortby:{fontSize:21, fontFamily:"Poppins-SemiBold", color:Colors.black, textAlign:"center",
   marginBottom:15,paddingTop:15}
+
 });
 
 export default MyFavorites;

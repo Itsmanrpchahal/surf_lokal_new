@@ -16,7 +16,6 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import * as Animatable from 'react-native-animatable';
 import DeviceInfo from 'react-native-device-info';
-import Loader from '../../components/Loader';
 const Notification = () => {
   const navigation = useNavigation();
 

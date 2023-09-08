@@ -39,6 +39,7 @@ import propertyChatList from '../modules/propertyChats';
 import sendMessage from '../modules/sendMessage';
 import isRead from '../modules/isRead';
 import logOut from '../modules/logOut';
+import getNotifications from '../modules/getNotifications'
 
 export default combineReducers({
     loginUserReducer,
@@ -78,5 +79,7 @@ export default combineReducers({
     sendMessage,
     propertyChatList,
     isRead,
-    logOut
+    logOut,
+    getNotifications
+
 });
