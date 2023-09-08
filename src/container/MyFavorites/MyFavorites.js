@@ -1209,7 +1209,7 @@ const styles = StyleSheet.create({
 
   collapsecover:{
     
-  }
+  },
 
   colimg:{height:36,width:36, resizeMode:"contain",marginRight:8},
   coltxt:{fontSize:18, fontFamily:"Poppins-Light" , color:Colors.black},

@@ -1995,6 +1995,8 @@ const Home = () => {
                                         ]}>
 
                                         <ScrollView style={styles.bgcover}>
+
+                                      
                                         
 
                                            <View style={{alignItems:"center", paddingBottom:20}}>
@@ -2190,6 +2192,7 @@ const Home = () => {
                                               )}
                                             </View>
                                           </View>
+                                        </ScrollView>
                                         </ScrollView>
                                       </Animated.View>
                                     </View>
