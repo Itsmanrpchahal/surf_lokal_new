@@ -23,9 +23,8 @@ import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector, useDispatch} from 'react-redux';
+import { useDispatch} from 'react-redux';
 import {getFavoriteProperties} from '../../modules/getFavoriteProperties';
-const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import {postRating} from '../../modules/postRating';
 import {getAgent} from '../../modules/getAgent';
@@ -37,37 +36,29 @@ import dynamicLinks from '@react-native-firebase/dynamic-links';
 import DeviceInfo from 'react-native-device-info';
 
 import StarRating from 'react-native-star-rating-widget';
+import Collapsible from 'react-native-collapsible';
 
-const fontSizeRatio = screenHeight / 1000;
-const viewSizeRatio = screenHeight / 1000;
-const imageSizeRation = screenHeight / 1000;
 
 const MyFavorites = props => {
   const isFocused = useIsFocused();
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [adress, setAddres] = useState('');
-  const [index, setIndex] = useState(0);
-  const flatListRef = useRef(null);
   const navigation = useNavigation();
   const [data, setHomeData] = useState([]);
   const [agentData, setAgentData] = useState([0]);
-  const [text, setText] = useState('');
   const [showNoDataMessage, setShowNoDataMessage] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [ratingData, setRatingData] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
 
   const dispatch = useDispatch();
 
   const [rating, setRating] = useState(0);
-  const [review, setReview] = useState('');
   const [productId, setProductId] = useState('');
   const [rating1, setRating1] = useState(0);
   const [rating2, setRating2] = useState(0);
   const [rating3, setRating3] = useState(0);
   const [reviewTitle, setReviewTitle] = useState('');
   const [commentContent, setComentContent] = useState('');
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const slideAnimation = useRef(new Animated.Value(0)).current;
 
@@ -115,7 +106,7 @@ const MyFavorites = props => {
   const updateReview = async post_id => {
     const formData = new FormData();
     formData.append('postid', productId);
-    formData.append('comment_content', commentContent?commentContent:'');
+    formData.append('comment_content', commentContent ? commentContent : '');
     formData.append('review_title', reviewTitle);
     formData.append('review_stars', rating);
     formData.append('description_review_stars', rating1);
@@ -141,22 +132,20 @@ const MyFavorites = props => {
     formData.append('desc_stars', rating1);
     formData.append('price_stars', rating2);
     formData.append('interest_stars', rating3);
-    formData.append('content', commentContent?commentContent:"");
-
+    formData.append('content', commentContent ? commentContent : '');
 
     dispatch(postRating(formData)).then(response => {
       if (response.payload.data.success) {
-        Alert.alert( response.payload.data.message);
+        Alert.alert(response.payload.data.message);
         toggleModal();
       } else {
         toggleModal();
-        Alert.alert( response.payload.data.message);
+        Alert.alert(response.payload.data.message);
       }
     });
   };
 
   useEffect(() => {
-    
     if (isFocused) {
       Promise.all[(getFavoritePropertiesApiCall(), getAgentApicall())];
     }
@@ -183,18 +172,9 @@ const MyFavorites = props => {
     let phoneNumber = agentData[0]?.agent_phone;
     Linking.openURL(`tel:${phoneNumber}`);
   };
-  const sendEmail = () => {
-    let recipient = 'example@example.com';
-    let subject = 'Subject of email';
-    let body = 'Body of email';
-    Linking.openURL(`mailto:${recipient}?subject=${subject}&body=${body}`);
-  };
 
-  const sendSMS = () => {
-    let phoneNumber = '512458790';
-    let message = 'Hello from my app!';
-    Linking.openURL(`sms:${phoneNumber}`);
-  };
+
+
   const generateLink = async ID => {
     try {
       const link = await dynamicLinks().buildShortLink(
@@ -267,8 +247,8 @@ const MyFavorites = props => {
 
       <View style={styles.iconscover}>
         <View style={styles.iconsiner}>
-          <TouchableOpacity onPress={() => navigation.navigate('ChatSearch')}>
-            <Image source={Images.chatnew} style={styles.chaticon}></Image>
+          <TouchableOpacity>
+            <Image source={Images.favdownthumb} style={styles.chaticon}></Image>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => makePhoneCall()}>
@@ -673,8 +653,67 @@ const MyFavorites = props => {
         </TouchableOpacity>
       </View>
       <View style={styles.filtercover}>
-        <Image style={styles.filterimage} source={Images.favfilter} />
+        <TouchableOpacity
+          onPress={() => {
+            setIsCollapsed(!isCollapsed);
+          }}>
+          <Image style={[styles.filterimage,{ transform: isCollapsed ? [{ rotate: '90deg' }] : [{ rotate: '0deg' }]}]} source={Images.favfilter} />
+        </TouchableOpacity>
       </View>
+      <Collapsible collapsed={!isCollapsed} style={styles.collapsecover}>
+         <Text style={styles.sortby}>Sort by</Text>
+        <View style={styles.collapsebg}>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.calenderwedding}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Date Favorited</Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.calenderwedding}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Days on Market</Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.low}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Price (Low to High) </Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.lowhigh}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Price (High to Low)</Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.newbed}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Beds (High to Low)</Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.bathtub}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Baths (High to Low)</Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.measuringtape}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Sq Ft (High to Low)</Text>
+             
+          </TouchableOpacity>
+        </View>
+      </Collapsible>
       <View style={{height: '100%', width: '100%'}}>
         {showNoDataMessage ? (
           <View style={styles.nofav}>
@@ -744,6 +783,7 @@ const styles = StyleSheet.create({
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 15,
     width: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 13,
     resizeMode: 'contain',
+
   },
   title: {
     fontSize: 23,
@@ -861,6 +901,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 16,
     paddingHorizontal: 16,
+    alignItems: 'center',
   },
   iconsiner: {
     flexDirection: 'row',
@@ -868,10 +909,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   chaticon: {
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 28,
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 28,
-    resizeMode: 'cover',
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 37 : 27,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 42 : 32,
+    resizeMode: 'contain',
     marginRight: 15,
+    position: 'relative',
+    top: 4,
   },
   caldericon: {
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 37 : 27,
@@ -1078,6 +1121,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
+  collapupper:{flexDirection:"row",
+  alignItems:"center",justifyContent:"center",borderBottomWidth:1,
+  borderBottomColor:Colors.BorderColor,paddingBottom:15,paddingTop:15,
+//height:100
+},
   buttonuppercover: {
     justifyContent: 'flex-end',
     width: '100%',
@@ -1158,6 +1206,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 18,
   },
+
+  collapsecover:{
+    
+  }
+
+  colimg:{height:36,width:36, resizeMode:"contain",marginRight:8},
+  coltxt:{fontSize:18, fontFamily:"Poppins-Light" , color:Colors.black},
+ collapsecover:{position:"absolute", top:50 ,left:0,right:0,backgroundColor:"red",width:"90%",zIndex:999},
+
+  sortby:{fontSize:21, fontFamily:"Poppins-SemiBold", color:Colors.black, textAlign:"center",
+  marginBottom:15,paddingTop:15}
+
 });
 
 export default MyFavorites;

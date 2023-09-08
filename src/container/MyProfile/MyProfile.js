@@ -28,6 +28,7 @@ import Loader from '../../components/Loader';
 import { ScrollView } from 'react-native-gesture-handler';
 import { propertyChatList } from '../../modules/propertyChats'
 import DeviceInfo from 'react-native-device-info';
+ import {getNotifications} from '../../modules/getNotifications'
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -109,6 +110,7 @@ const images = [
 const MyFavorites = () => {
   const [propertyChat, setPropertyChat] = useState([])
   const [selectedIcon, setSelectedIcon] = useState(null);
+  const [notification, setNotification] = useState(0)
   const [currentSlide, setCurrentSlide] = useState(0);
   const [details, setDetails] = useState([]);
   const [index, setIndex] = useState(true);
@@ -144,6 +146,15 @@ const MyFavorites = () => {
       alert('Error ' + e)
     })
   }, [])
+
+useEffect(() => {
+dispatch(getNotifications()).then((response)=>{
+  setNotification(response.payload?.data)
+   console.log(notification[0]?.length)
+})
+}, [])
+
+
 
   const handleImagePress1 = () => {
     navigation.navigate('ChatHistory');
@@ -503,7 +514,7 @@ const MyFavorites = () => {
                     borderRadius: 100, color: Colors.white,
                     textAlign: "center", fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 15 : 9, alignItems: "center",
                     justifyContent: "center"
-                  }}>2</Text></View>
+                  }}>{notification[0]?.length}</Text></View>
                 <Text style={styles.text}>Notifications</Text>
               </View>
               <View style={styles.line}></View>

@@ -586,8 +586,16 @@ const Home = () => {
               setTopViewHeight(height);
             }}>
             <View style={styles.searchuppercover}>
+           
               <View style={styles.searchinnercover}>
                 <View style={styles.w85}>
+                <View style={styles.gpscover1}>
+             
+             <TouchableOpacity>
+               <Image source={Images.newfil} style={styles.filterstyle1}></Image>
+             </TouchableOpacity>
+
+         </View>
                   <TextInput
                     allowFontScaling={false}
                     placeholderTextColor={'#858383'}
@@ -608,7 +616,7 @@ const Home = () => {
                     }}
                     style={styles.searchborderinner}>
                     <Image
-                      source={Images.address}
+                      source={Images.mapnew1}
                       tintColor={
                         showMap ? Colors.PrimaryColor : Colors.PrimaryColor
                       }
@@ -665,11 +673,17 @@ const Home = () => {
                     style={[
                       styles.rew,
                       {
+                        flexDirection: 'row',
+                        backgroundColor: 'white',
                         borderColor: Colors.gray,
                         borderRadius: 10,
                         backgroundColor: isPressed1 ? 'black' : 'white',
                       },
                     ]}>
+                       <Image
+                      source={Images.SaveAlt}
+                      style={styles.filtericonstyles}
+                    />
                     <Text
                       style={[
                         styles.savesearchstyle,
@@ -679,7 +693,7 @@ const Home = () => {
                     </Text>
                   </TouchableOpacity>
 
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     onPress={handlePress}
                     style={[
                       styles.rew,
@@ -695,7 +709,7 @@ const Home = () => {
                       style={styles.filtericonstyles}
                     />
                     <Text style={styles.filtericontext}>Filters</Text>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                   <TouchableOpacity
                     onPress={async () => {
                       setSelectedTabs([]);
@@ -728,10 +742,16 @@ const Home = () => {
                       styles.rew,
                       {
                         backgroundColor: isPressed2 ? 'black' : 'white',
+                        flexDirection: 'row',
+                        backgroundColor: 'white',
                         borderColor: Colors.gray,
                         borderRadius: 10,
                       },
                     ]}>
+                       <Image
+                      source={Images.Broom}
+                      style={styles.filtericonstyles}
+                    />
                     <Text
                       style={[
                         {
@@ -1973,49 +1993,61 @@ const Home = () => {
                                             ],
                                           },
                                         ]}>
+
                                         <ScrollView style={styles.bgcover}>
-                                          <View style={{alignItems: 'center'}}>
+                                        
+
+                                           <View style={{alignItems:"center", paddingBottom:20}}>
+
                                             <View
                                               style={styles.indicator}></View>
                                           </View>
+                                        <ScrollView style={styles.bgcover}>
+                                         
                                           <View style={{}}>
                                             <Text style={styles.reviewtxt}>
-                                              Your Review
+                                            Rate This Property
                                             </Text>
                                           </View>
-                                          <View style={styles.maincov}>
-                                            <View
-                                              style={[
-                                                styles.labelcover,
-                                                {marginTop: 10},
-                                              ]}>
-                                              <Text style={styles.propertlabel}>
-                                                Photos :
-                                              </Text>
-
-                                              <StarRating
-                                                maxStars={5}
-                                                starSize={22}
-                                                enableSwiping
-                                                enableHalfStar
-                                                color={Colors.surfblur}
-                                                rating={rating}
-                                                onChange={value => {
-                                                  setRating(value);
-                                                }}
-                                              />
-                                            </View>
 
                                             <View style={styles.maincov}>
-                                              <View style={styles.labelcover}>
+                                              <View
+                                                style={[
+                                                  styles.labelcover,
+                                                  { marginTop: 10 },
+                                                ]}>
                                                 <Text
                                                   style={styles.propertlabel}>
-                                                  Description Accuracy :
+                                                Photo Quality:
                                                 </Text>
 
                                                 <StarRating
                                                   maxStars={5}
-                                                  starSize={22}
+                                                  starSize={27}
+                                                  enableSwiping
+                                                  enableHalfStar
+                                                  color={Colors.surfblur}
+                                                  rating={rating}
+                                                  onChange={value => {
+                                                    setRating(value);
+                                                  }}
+                                                />
+
+                                                <View style={{width:"70%", borderBottomWidth:1, 
+                                                borderBottomColor:Colors.BorderColor,marginVertical:15}}></View>
+                                              </View>
+
+
+                                          
+                                              <View style={styles.labelcover}>
+                                                <Text
+                                                  style={styles.propertlabel}>
+                                                 Description Accuracy:
+                                                </Text>
+
+                                                <StarRating
+                                                  maxStars={5}
+                                                  starSize={27}
                                                   enableSwiping
                                                   enableHalfStar
                                                   color={Colors.surfblur}
@@ -2024,9 +2056,12 @@ const Home = () => {
                                                     setRating1(value);
                                                   }}
                                                 />
+                                                <View style={{width:"70%", borderBottomWidth:1, 
+                                                borderBottomColor:Colors.BorderColor,marginVertical:15}}></View>
                                               </View>
-                                            </View>
-                                            <View style={styles.reviewcover}>
+                                             
+                                       
+                                         
                                               <View style={styles.labelcover}>
                                                 <Text
                                                   style={styles.propertlabel}>
@@ -2035,7 +2070,7 @@ const Home = () => {
 
                                                 <StarRating
                                                   maxStars={5}
-                                                  starSize={22}
+                                                  starSize={27}
                                                   enableSwiping
                                                   enableHalfStar
                                                   color={Colors.surfblur}
@@ -2044,19 +2079,21 @@ const Home = () => {
                                                     setRating2(value);
                                                   }}
                                                 />
+                                                <View style={{width:"70%", borderBottomWidth:1, 
+                                                borderBottomColor:Colors.BorderColor,marginVertical:15}}></View>
                                               </View>
-                                            </View>
+                                            
 
-                                            <View style={styles.reviewcover}>
+                                     
                                               <View style={styles.labelcover}>
                                                 <Text
                                                   style={styles.propertlabel}>
-                                                  Interest in Property :
+                                                 Interest in the property:
                                                 </Text>
 
                                                 <StarRating
                                                   maxStars={5}
-                                                  starSize={22}
+                                                  starSize={27}
                                                   enableSwiping
                                                   enableHalfStar
                                                   color={Colors.surfblur}
@@ -2065,12 +2102,14 @@ const Home = () => {
                                                     setRating3(value);
                                                   }}
                                                 />
+                                                <View style={{width:"70%", borderBottomWidth:1, 
+                                                borderBottomColor:Colors.BorderColor,marginVertical:15}}></View>
                                               </View>
-                                            </View>
+                                              
 
                                             <View style={styles.reviewcover}>
-                                              <Text style={styles.reviewtxt}>
-                                                Review
+                                              <Text style={styles.propertlabel}>
+                                              My Notes
                                               </Text>
                                               <View
                                                 style={styles.textinputcover}>
@@ -2110,7 +2149,7 @@ const Home = () => {
                                                       style={
                                                         styles.submitbtntxt
                                                       }>
-                                                      Update
+                                                      UPDATE
                                                     </Text>
                                                   </TouchableOpacity>
                                                   {isAnimating && (
@@ -2135,7 +2174,7 @@ const Home = () => {
                                                       style={
                                                         styles.submitbtntxt
                                                       }>
-                                                      Submit
+                                                     SAVE
                                                     </Text>
                                                   </TouchableOpacity>
                                                   {isAnimating && (
@@ -2687,20 +2726,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   propertlabel: {
-    fontSize: 12,
+    fontSize: 17,
     color: Colors.black,
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins-Light',
+    marginBottom:15,
+    textAlign:"center"
   },
   reviewcover: {
     width: '100%',
     alignSelf: 'center',
     overflow: 'hidden',
+    marginTop:15
   },
   reviewtxt: {
-    fontSize: 18,
+    fontSize: 21,
     fontFamily: 'Poppins-SemiBold',
     color: Colors.black,
-    marginTop: 10,
+    marginTop: 20,
+    textAlign:"center",
+    marginBottom:20
   },
   textinputcover: {
     width: '100%',
@@ -2708,7 +2752,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     whiteSpace: 'pre-wrap',
     wordWrap: 'break-word',
-    height: 100,
+    height: 60,
     width: '100%',
     flexWrap: 'wrap',
     overflow: 'hidden',
@@ -2723,48 +2767,48 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     color: Colors.newgray,
     fontFamily: 'Poppins-Regular',
-    height: 100,
+    height: 50,
     width: '100%',
   },
   textinputstyle: {
     verticalAlign: 'top',
     borderWidth: 1,
     borderColor: Colors.BorderColor,
-    borderRadius: 8,
+    borderRadius: 50,
     paddingHorizontal: 12,
     fontSize: 12,
     flexWrap: 'wrap',
     color: Colors.newgray,
     fontFamily: 'Poppins-Regular',
-    height: 100,
+    height: 50,
     width: '100%',
   },
   btnmaincover: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   submitbtnmain: {
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     width: '100%',
-    alignItems: 'flex-end',
+    alignItems: 'center',
   },
   submitbtncover: {
-    height: 50,
-    width: '45%',
+    //height: 50,
+    width: '100%',
     borderRadius: 100,
-    backgroundColor: Colors.surfblur,
-    marginTop: 10,
+   //backgroundColor: Colors.surfblur,
+    //marginTop: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
+    //marginBottom: 20,
   },
   submitbtntxt: {
-    fontSize: 16,
-    color: Colors.white,
-    fontFamily: 'Poppins-Regular',
+    fontSize: 17,
+    color:  Colors.surfblur,
+    fontFamily: 'Poppins-SemiBold',
   },
   mapstarthere: {height: '100%', width: width},
   mapuppercover: {
@@ -2797,6 +2841,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontWeight: '500',
   },
+  filterstyle1:{position:"absolute",left:12,top:12},
+gpscover1:{position:"relative"},
   labelinnercover: {
     flexDirection: 'row',
     marginLeft: 10,
@@ -3098,7 +3144,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
-    maxHeight: '60%',
+    maxHeight: '72%',
   },
   modalContentch: {
     backgroundColor: 'white',
@@ -3385,7 +3431,7 @@ const styles = StyleSheet.create({
   loaderstyle: {
     height: '100%',
     width: '100%',
-    backgroundColor: 'rgba(0,0,0,.7)',
+    backgroundColor: '#5BB3FF',
     position: 'absolute',
     zIndex: 99,
     left: 0,
@@ -3436,7 +3482,7 @@ const styles = StyleSheet.create({
     color: '#000',
     marginLeft: 1,
     position: 'relative',
-    marginLeft: 15,
+    marginLeft: 30,
   },
   searchboarder: {
     alignItems: 'center',
@@ -3456,15 +3502,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   addressstyle: {
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
+    // height: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
+    // width: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
     alignItems: 'center',
     justifyContent: 'center',
     resizeMode: 'contain',
   },
   gpsstyle: {
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
+    // height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
+    // width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
     resizeMode: 'contain',
   },
   gpscover: {
@@ -3476,12 +3522,14 @@ const styles = StyleSheet.create({
     width: '92%',
     alignSelf: 'center',
     justifyContent: 'center',
+
   },
   filterinner: {
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
+    marginBottom:10
   },
   filterinnermain: {
     width: '100%',
@@ -3496,8 +3544,8 @@ const styles = StyleSheet.create({
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
   },
   filtericonstyles: {
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
+    // height: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
+    // width: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
     marginRight: 6,
     tintColor: 'black',
   },
@@ -3789,8 +3837,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   labelcover: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
   },
 });

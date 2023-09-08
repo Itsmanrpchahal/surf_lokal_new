@@ -1050,7 +1050,7 @@ const ViewPropertiy = (props, imageUrl) => {
           style={{
             height: '100%',
             width: '100%',
-            backgroundColor: 'rgba(0,0,0,.7)',
+            backgroundColor: '#5BB3FF',
             position: 'absolute',
             zIndex: 99,
             left: 0,

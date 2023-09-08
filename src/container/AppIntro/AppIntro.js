@@ -25,57 +25,57 @@ import DeviceInfo from 'react-native-device-info';
 import { CommonActions, StackActions } from '@react-navigation/native';
 import { ScreenHeight } from 'react-native-elements/dist/helpers';
 const slides = [
-  {
-    key: 1,
-    title: 'Title 1',
-    text: 'Description.\nSay something cool',
-    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab1 : Images.firstscreen,
-    backgroundColor: '#59b2ab',
-    renderContent: () => (
-      <View style={{ height: "100%" }}>
-        <Image
-          style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
-          source={Images.firstscreen}
-        />
-        <LottieView
-          style={{
-            height: 200, width: screenWidth,
-            transform: [{ rotate: '-100deg' }],
-            marginTop: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 80,
-            marginLeft: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 60,
-          }}
-          source={require('../../assets/animations/Arrow.json')}
-          autoPlay
-          loop
-        />
-      </View>
-    ),
-  },
-  {
-    key: 2,
-    title: 'Title 2',
-    text: 'Other cool stuff',
-    image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab2 : Images.secondscreen,
-    backgroundColor: '#febe29',
-    renderContent: () => (
-      <View style={{ height: "100%" }}>
-        <Image
-          style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
-          source={Images.secondscreen}// Replace with your image path
-        />
-        <LottieView
-          style={{
-            height: 200, width: screenWidth,
-            transform: [{ rotate: '-100deg' }],
-            marginTop: DeviceInfo.getDeviceType() === 'Tablet' ? 130 : 90,
-          }}
-          source={require('../../assets/animations/Arrow.json')}
-          autoPlay
-          loop
-        />
-      </View>
-    ),
-  },
+  // {
+  //   key: 1,
+  //   title: 'Title 1',
+  //   text: 'Description.\nSay something cool',
+  //   image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab1 : Images.firstscreen,
+  //   backgroundColor: '#59b2ab',
+  //   renderContent: () => (
+  //     <View style={{ height: "100%" }}>
+  //       <Image
+  //         style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
+  //         source={Images.firstscreen}
+  //       />
+  //       <LottieView
+  //         style={{
+  //           height: 200, width: screenWidth,
+  //           transform: [{ rotate: '-100deg' }],
+  //           marginTop: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 80,
+  //           marginLeft: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 60,
+  //         }}
+  //         source={require('../../assets/animations/Arrow.json')}
+  //         autoPlay
+  //         loop
+  //       />
+  //     </View>
+  //   ),
+  // },
+  // {
+  //   key: 2,
+  //   title: 'Title 2',
+  //   text: 'Other cool stuff',
+  //   image: DeviceInfo.getDeviceType() === 'Tablet' ? Images.tab2 : Images.secondscreen,
+  //   backgroundColor: '#febe29',
+  //   renderContent: () => (
+  //     <View style={{ height: "100%" }}>
+  //       <Image
+  //         style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
+  //         source={Images.secondscreen}// Replace with your image path
+  //       />
+  //       <LottieView
+  //         style={{
+  //           height: 200, width: screenWidth,
+  //           transform: [{ rotate: '-100deg' }],
+  //           marginTop: DeviceInfo.getDeviceType() === 'Tablet' ? 130 : 90,
+  //         }}
+  //         source={require('../../assets/animations/Arrow.json')}
+  //         autoPlay
+  //         loop
+  //       />
+  //     </View>
+  //   ),
+  // },
   {
     key: 3,
     title: 'Rocket guy',
@@ -182,8 +182,15 @@ export default function AppIntro({ navigation }) {
   const renderDone = () => {
     return (
       <TouchableOpacity onPress={() => { onDone() }} style={{ position: "absolute", right: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : -50, height: screenHeight, top: 0, marginTop: -30 }}>
-        <View style={{ height: 150, width: 150 }}>
-          <LottieView style={{ height: 100, width: DeviceInfo.getDeviceType() === 'Tablet' ? 350 : 100 }} source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+        <View style={{ height: 100, width:200, flexDirection:"row" ,alignItems:"center",justifyContent:"flex-end",}}>
+          <LottieView style={{ height: 100, width: DeviceInfo.getDeviceType() === 'Tablet' ? 350 : 120, position:"relative",left:30 }}
+           source={require('../../assets/animations/SurfVan.json')} autoPlay loop />
+          <LottieView
+                                              style={styles.leftarrow2}
+                                              source={require('../../assets/animations/leftarrow.json')}
+                                              autoPlay
+                                              loop
+                                            />
         </View>
       </TouchableOpacity>
     )
@@ -210,6 +217,14 @@ const styles = StyleSheet.create({
     width: screenWidth,
     // resizeMode:"stretch"
   },
-
+  leftarrow2: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 99 : 99,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 89 :89,
+    marginRight: 30,
+    transform: [{ rotate: '-180deg' }],
+    marginTop: 0,
+    position: 'relative',
+    //top: DeviceInfo.getDeviceType() === 'Tablet' ? -15 : -10,
+  },
 
 });
