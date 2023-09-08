@@ -496,7 +496,7 @@ const MyFavorites = () => {
                     borderRadius: 100, color: Colors.white,
                     textAlign: "center", fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 15 : 9, alignItems: "center",
                     justifyContent: "center"
-                  }}>2</Text></View>
+                  }}>200</Text></View>
                 <Text style={styles.text}>Notifications</Text>
               </View>
               <View style={styles.line}></View>

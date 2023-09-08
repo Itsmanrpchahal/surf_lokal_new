@@ -10,6 +10,7 @@ const Images = {
   chatnew: require(BaseUrl + 'chat-alt-10.png'),
   lastscreen: require(BaseUrl + 'toutorial4.png'),
   details: require(BaseUrl + 'home-documents.png'),
+  favdownthumb: require(BaseUrl + 'thumpdownfav.png'),
   featuresnew: require(BaseUrl + 'clipboard-heart.png'),
   mapnew: require(BaseUrl + 'map.png'),
   payment: require(BaseUrl + 'calculator.png'),
