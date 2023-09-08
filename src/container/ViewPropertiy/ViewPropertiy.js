@@ -32,6 +32,7 @@ import {getPopertiesDetails} from '../../modules/getPopertiesDetails';
 import DeviceInfo from 'react-native-device-info';
 import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
 import { TypingAnimation } from 'react-native-typing-animation';
+import dynamicLinks from '@react-native-firebase/dynamic-links';
 
 
 import MapView, {
@@ -85,7 +86,7 @@ const ViewPropertiy = (props, imageUrl) => {
   const [tax, settax] = useState([]);
   const [walk, setWalk] = useState([]);
   const [ratingData, setRatingData] = useState([]);
-
+  const [schoolModalVisible, setSchoolModalVisible] = useState(false);
   const [pin, setPin] = useState(null);
 
   const slideAnimation = useRef(new Animated.Value(0)).current;
@@ -142,6 +143,7 @@ const ViewPropertiy = (props, imageUrl) => {
         if (gestureState.dy > 50) {
           // If the swipe distance is greater than 50, close the modal
           closeModal();
+        closeSchoolModal()
         } else {
           // Otherwise, reset the animation back to 0
           Animated.spring(slideAnimation, {
@@ -152,6 +154,12 @@ const ViewPropertiy = (props, imageUrl) => {
       },
     }),
   ).current;
+  const schoolModal = ()=>{
+    setSchoolModalVisible(!schoolModalVisible)
+  }
+  const closeSchoolModal = () => {
+    setSchoolModalVisible(false);
+  };
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -482,7 +490,9 @@ const ViewPropertiy = (props, imageUrl) => {
                   {data.map(
                     item => item.details.miscellaneous_details.data_disclaimer,
                   )}
-                </Text> {' '}
+              
+              {/* The data relating to real estate on this website comes in part from the Internet Data Exchange Program from Beaches MLS of Palm Beach, Broward, and St. Lucie Realtors® and MyState MLS. All data is deemed reliable but is not guaranteed accurate by Multiple Listing Services. */}
+               </Text> {' '}
               </Text>
             </View>
           </View>
@@ -917,7 +927,7 @@ const ViewPropertiy = (props, imageUrl) => {
     );
   };
   const School = () => {
-  const [schoolModalVisible, setSchoolModalVisible] = useState(false);
+
   const [res, setRes] = useState([])
   const [message, setMessage] = useState()
   const [loading, setLoading] = useState(false)
@@ -926,12 +936,7 @@ const ViewPropertiy = (props, imageUrl) => {
     //     console.error('An error occurred: ', error),
     //   );
     // };
-const schoolModal = ()=>{
-  setSchoolModalVisible(!schoolModalVisible)
-}
-const closeSchoolModal = () => {
-  setSchoolModalVisible(false);
-};
+
 
 
 useEffect(() => {
@@ -1058,7 +1063,7 @@ const getCurrentDateTime = () => {
                                     // animationType="slide"
                                    visible={schoolModalVisible}
                                    onRequestClose={() => {
-                                    schoolModal(false);
+                                    closeSchoolModal(false)
                                      
                                   }}
                                     >
@@ -1067,7 +1072,7 @@ const getCurrentDateTime = () => {
                                         activeOpacity={1}
                                         style={styles.modalOverlaynew}
                                         onPress={() => {
-                                          schoolModal(false);
+                                          schoolModal(true);
                                         }}
                                       />
                                       <Animated.View
@@ -1632,7 +1637,7 @@ alignItems:"center"
                                  ) : null}
                           </View>
 
-                          <TouchableOpacity onPress={() => handleShare()}>
+                          <TouchableOpacity onPress={()=>{handleShare()}}>
                             <Image
                               source={Images.sendnew}
                               style={{

@@ -174,15 +174,22 @@ const MyFavorites = () => {
 
 
   const rotateValue = useRef(new Animated.Value(0)).current;
+
   const startRotationAnimation = () => {
-    Animated.loop(
+    Animated.sequence([
       Animated.timing(rotateValue, {
         toValue: 1,
-        duration: 1000,
+        duration: 4000,
         useNativeDriver: true,
-      })
-    ).start();
+      }),
+      Animated.timing(rotateValue, {
+        toValue: 0,
+        duration: 0, 
+        useNativeDriver: true,
+      }),
+    ]).start();
   };
+  
   useEffect(() => {
     startRotationAnimation();
   }, []);
