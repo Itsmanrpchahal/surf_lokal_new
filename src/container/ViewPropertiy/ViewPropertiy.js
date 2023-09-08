@@ -1374,7 +1374,7 @@ const getCurrentDateTime = () => {
           style={{
             height: '100%',
             width: '100%',
-            backgroundColor: 'rgba(0,0,0,.7)',
+            backgroundColor: '#5BB3FF',
             position: 'absolute',
             zIndex: 99,
             left: 0,
@@ -2726,30 +2726,25 @@ alignItems:"center"
           width: '100%',
           justifyContent: 'space-between',
           backgroundColor: '#f8f8f8',
-          paddingVertical: 4,
+          paddingVertical: 12,
           alignItems: 'center',
-          alignContent: 'center',
+          position:"relative",
+          paddingHorizontal:8,
+          height:55
         }}>
         <View
           style={{
-            justifyContent: 'space-between',
             alignItems: 'center',
-            width: '30%',
             flexDirection: 'row',
-            left: 10,
+           // marginTop:12
+           width:"33.33%",
+           justifyContent:"space-between",
+           paddingRight:15
           }}>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignContent: 'center',
-            }}>
+      
             <TouchableOpacity
               style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                alignContent: 'center',
-                marginRight: 10,
+             marginRight:16
               }}
               onPress={() => {
                 makePhoneCall();
@@ -2757,34 +2752,65 @@ alignItems:"center"
               <Image
                 source={Images.newcall}
                 style={{
-                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 29,
-                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 29,
+                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 26,
+                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 26,
                   resizeMode: 'contain',
                 }}></Image>
             </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+          
+        
             <TouchableOpacity
               style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                alignContent: 'center',
+       
               }}
               onPress={() => navigation.navigate('ChatSearch')}>
               <Image
                 source={Images.chatnew}
                 style={{
-                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 28,
-                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 28,
+                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 26,
+                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 26,
+                  resizeMode: 'contain',
+                }}></Image>
+            </TouchableOpacity>
+        
+        </View>
+
+        <View style={{flexDirection:"row", alignItems:"center", justifyContent:"center",position:"relative",top:-18, 
+         width:"33.33%",
+       
+         }}>
+        <TouchableOpacity
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignContent: 'center',
+               marginHorizontal:8
+              }}>
+              <Image
+                source={Images.RedDown}
+                style={{
+                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
+                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
+                  resizeMode: 'contain',
+                }}></Image>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignContent: 'center',
+                marginHorizontal:8
+              }}>
+              <Image
+                source={Images.GreenUp}
+                style={{
+                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
+                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
                   resizeMode: 'contain',
                 }}></Image>
             </TouchableOpacity>
           </View>
-        </View>
+       
 
         <TouchableOpacity
           onPress={() => {
@@ -2794,6 +2820,7 @@ alignItems:"center"
               user_id: '',
               user2_id: '',
             });
+            
           }}
           style={{
             justifyContent: 'center',
@@ -2801,29 +2828,30 @@ alignItems:"center"
             flexDirection: 'row',
             alignSelf: 'center',
             borderRadius: 50,
-            paddingHorizontal: 16,
+            paddingHorizontal:8,
             lineHeight: 12,
             marginRight: 10,
             borderWidth: 2,
             borderColor: Colors.surfblur,
+            height:30,  width:"33.33%",
           }}>
           <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 21 : 13,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 16 : 10,
               color: Colors.surfblur,
               textAlign: 'center',
-              marginLeft: 5,
+           
               fontFamily: 'Poppins-Medium',
               position: 'relative',
-              top: 2,
+             
               letterSpacing: 0,
             }}>
             Schedule a Tour
           </Text>
           <LottieView
             style={{
-              height: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
-              width: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
+              height: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 30,
+              width: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 30,
             }}
             source={require('../../assets/animations/SurfVan.json')}
             autoPlay

@@ -1897,7 +1897,7 @@ justifyContent:"flex-end"
                                   <Modal
                                     transparent={true}
                                     animationType="slide"
-                                   //visible={modalVisible}
+                                   visible={modalVisible}
                                     onRequestClose={toggleModal}>
                                     <View style={styles.modalContainer}>
                                       <TouchableOpacity
@@ -1921,11 +1921,12 @@ justifyContent:"flex-end"
                                             ],
                                           },
                                         ]}>
-                                        <ScrollView style={styles.bgcover}>
-                                          <View style={{alignItems:"center"}}>
+                                           <View style={{alignItems:"center", paddingBottom:20}}>
                                             <View
                                               style={styles.indicator}></View>
                                           </View>
+                                        <ScrollView style={styles.bgcover}>
+                                         
                                           <View style={{}}>
                                             <Text style={styles.reviewtxt}>
                                             Rate This Property
@@ -1944,7 +1945,7 @@ justifyContent:"flex-end"
 
                                                 <StarRating
                                                   maxStars={5}
-                                                  starSize={22}
+                                                  starSize={27}
                                                   enableSwiping
                                                   enableHalfStar
                                                   color={Colors.surfblur}
@@ -1953,9 +1954,12 @@ justifyContent:"flex-end"
                                                     setRating(value);
                                                   }}
                                                 />
+
+                                                <View style={{width:"70%", borderBottomWidth:1, 
+                                                borderBottomColor:Colors.BorderColor,marginVertical:15}}></View>
                                               </View>
 
-                                            <View style={styles.maincov}>
+                                          
                                               <View style={styles.labelcover}>
                                                 <Text
                                                   style={styles.propertlabel}>
@@ -1964,7 +1968,7 @@ justifyContent:"flex-end"
 
                                                 <StarRating
                                                   maxStars={5}
-                                                  starSize={22}
+                                                  starSize={27}
                                                   enableSwiping
                                                   enableHalfStar
                                                   color={Colors.surfblur}
@@ -1973,9 +1977,12 @@ justifyContent:"flex-end"
                                                     setRating1(value);
                                                   }}
                                                 />
+                                                <View style={{width:"70%", borderBottomWidth:1, 
+                                                borderBottomColor:Colors.BorderColor,marginVertical:15}}></View>
                                               </View>
-                                            </View>
-                                            <View style={styles.reviewcover}>
+                                             
+                                       
+                                         
                                               <View style={styles.labelcover}>
                                                 <Text
                                                   style={styles.propertlabel}>
@@ -1984,7 +1991,7 @@ justifyContent:"flex-end"
 
                                                 <StarRating
                                                   maxStars={5}
-                                                  starSize={22}
+                                                  starSize={27}
                                                   enableSwiping
                                                   enableHalfStar
                                                   color={Colors.surfblur}
@@ -1993,10 +2000,12 @@ justifyContent:"flex-end"
                                                     setRating2(value);
                                                   }}
                                                 />
+                                                <View style={{width:"70%", borderBottomWidth:1, 
+                                                borderBottomColor:Colors.BorderColor,marginVertical:15}}></View>
                                               </View>
-                                            </View>
+                                            
 
-                                            <View style={styles.reviewcover}>
+                                     
                                               <View style={styles.labelcover}>
                                                 <Text
                                                   style={styles.propertlabel}>
@@ -2005,7 +2014,7 @@ justifyContent:"flex-end"
 
                                                 <StarRating
                                                   maxStars={5}
-                                                  starSize={22}
+                                                  starSize={27}
                                                   enableSwiping
                                                   enableHalfStar
                                                   color={Colors.surfblur}
@@ -2014,8 +2023,10 @@ justifyContent:"flex-end"
                                                     setRating3(value);
                                                   }}
                                                 />
+                                                <View style={{width:"70%", borderBottomWidth:1, 
+                                                borderBottomColor:Colors.BorderColor,marginVertical:15}}></View>
                                               </View>
-                                            </View>
+                                              
 
                                             <View style={styles.reviewcover}>
                                               <Text style={styles.propertlabel}>
@@ -2061,7 +2072,7 @@ justifyContent:"flex-end"
                                                       style={
                                                         styles.submitbtntxt
                                                       }>
-                                                      Update
+                                                      UPDATE
                                                     </Text>
                                                   </TouchableOpacity>
                                                 </View>
@@ -2077,7 +2088,7 @@ justifyContent:"flex-end"
                                                       style={
                                                         styles.submitbtntxt
                                                       }>
-                                                      Submit
+                                                     SAVE
                                                     </Text>
                                                   </TouchableOpacity>
                                                 </View>
@@ -2623,11 +2634,14 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: Colors.black,
     fontFamily: 'Poppins-Light',
+    marginBottom:15,
+    textAlign:"center"
   },
   reviewcover: {
     width: '100%',
     alignSelf: 'center',
     overflow: 'hidden',
+    marginTop:15
   },
   reviewtxt: {
     fontSize: 21,
@@ -2643,7 +2657,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     whiteSpace: 'pre-wrap',
     wordWrap: 'break-word',
-    height: 100,
+    height: 60,
     width: '100%',
     flexWrap: 'wrap',
     overflow: 'hidden',
@@ -2658,48 +2672,48 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     color: Colors.newgray,
     fontFamily: 'Poppins-Regular',
-    height: 100,
+    height: 50,
     width: '100%',
   },
   textinputstyle: {
     verticalAlign: 'top',
     borderWidth: 1,
     borderColor: Colors.BorderColor,
-    borderRadius: 8,
+    borderRadius: 50,
     paddingHorizontal: 12,
     fontSize: 12,
     flexWrap: 'wrap',
     color: Colors.newgray,
     fontFamily: 'Poppins-Regular',
-    height: 100,
+    height: 50,
     width: '100%',
   },
   btnmaincover: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   submitbtnmain: {
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     width: '100%',
-    alignItems: 'flex-end',
+    alignItems: 'center',
   },
   submitbtncover: {
-    height: 50,
-    width: '45%',
+    //height: 50,
+    width: '100%',
     borderRadius: 100,
-    backgroundColor: Colors.surfblur,
-    marginTop: 10,
+   //backgroundColor: Colors.surfblur,
+    //marginTop: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
+    //marginBottom: 20,
   },
   submitbtntxt: {
-    fontSize: 16,
-    color: Colors.white,
-    fontFamily: 'Poppins-Regular',
+    fontSize: 17,
+    color:  Colors.surfblur,
+    fontFamily: 'Poppins-SemiBold',
   },
   mapstarthere: { height: '100%', width: width },
   mapuppercover: {
@@ -3320,7 +3334,7 @@ const styles = StyleSheet.create({
   loaderstyle: {
     height: '100%',
     width: '100%',
-    backgroundColor: 'rgba(0,0,0,.7)',
+    backgroundColor: '#5BB3FF',
     position: 'absolute',
     zIndex: 99,
     left: 0,
