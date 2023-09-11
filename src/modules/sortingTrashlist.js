@@ -2,9 +2,9 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {getAPI} from '../config/apiMethod';
 import BASEURl from '../services/Api'
 
-export const sortingTrashlist = createAsyncThunk('sortingTrashlist', async (post_id) => {
-
-  return await getAPI(BASEURl+`webapi/v1/rating/user_rating.php?post_id=${post_id}`)
+export const sortingTrashlist = createAsyncThunk('sortingTrashlist', async (payload) => {
+console.log(payload)
+  return await getAPI(BASEURl+`webapi/v1/rating/user_rating.php?post_id=${payload}`)
     .then(async response => {
       const {data} = response;
       // console.log(" sortingTrashlist response data", response)

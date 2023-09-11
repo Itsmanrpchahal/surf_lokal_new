@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -25,45 +25,45 @@ import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
-import {getPoperties} from '../../modules/getPoperties';
-import {postRating} from '../../modules/postRating';
-import {getFilter} from '../../modules/getFilter';
-import {SvgUri} from 'react-native-svg';
-import {postUpdateRating} from '../../modules/postUpdateRating';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { getPoperties } from '../../modules/getPoperties';
+import { postRating } from '../../modules/postRating';
+import { getFilter } from '../../modules/getFilter';
+import { SvgUri } from 'react-native-svg';
+import { postUpdateRating } from '../../modules/postUpdateRating';
 
-import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
+import { Dropdown, MultiSelect } from 'react-native-element-dropdown';
 
 import CardsSwipe from 'react-native-cards-swipe';
-import {SwiperFlatList} from 'react-native-swiper-flatlist';
+import { SwiperFlatList } from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 import LottieView from 'lottie-react-native';
-import {store} from '../../redux/store';
-import {addToFavorite} from '../../modules/addToFavorite';
-import {addRemoveTrash} from '../../modules/addRemoveTrash';
-import {getRating} from '../../modules/getRating';
-import {ScrollView} from 'react-native-gesture-handler';
+import { store } from '../../redux/store';
+import { addToFavorite } from '../../modules/addToFavorite';
+import { addRemoveTrash } from '../../modules/addRemoveTrash';
+import { getRating } from '../../modules/getRating';
+import { ScrollView } from 'react-native-gesture-handler';
 import DeviceInfo from 'react-native-device-info';
-import MapView, {Marker, Callout, PROVIDER_DEFAULT} from 'react-native-maps';
+import MapView, { Marker, Callout, PROVIDER_DEFAULT } from 'react-native-maps';
 import Collapsible from 'react-native-collapsible';
-import {useIsFocused} from '@react-navigation/native';
-import {getMoreFilter} from '../../modules/getMoreFilter';
-import {useRef} from 'react';
-import {getTrash} from '../../modules/getTrash';
-import {getFavoriteProperties} from '../../modules/getFavoriteProperties';
-import {filterSearch} from '../../modules/filterSearch';
-import {getSavedSearch} from '../../modules/getSavedSearch';
-import {clearFilter} from '../../modules/clearFilter';
-import {getUserScore} from '../../modules/getUserScore';
+import { useIsFocused } from '@react-navigation/native';
+import { getMoreFilter } from '../../modules/getMoreFilter';
+import { useRef } from 'react';
+import { getTrash } from '../../modules/getTrash';
+import { getFavoriteProperties } from '../../modules/getFavoriteProperties';
+import { filterSearch } from '../../modules/filterSearch';
+import { getSavedSearch } from '../../modules/getSavedSearch';
+import { clearFilter } from '../../modules/clearFilter';
+import { getUserScore } from '../../modules/getUserScore';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import GetLocation from 'react-native-get-location';
 import Loader from '../../components/Loader';
 
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 const Home = () => {
   const isFocused = useIsFocused();
 
@@ -92,7 +92,7 @@ const Home = () => {
         const formData = new FormData();
         formData.append('SearchParameters', adress);
         console.log('SearchParameters payload', formData);
-        dispatch(getPoperties({type: 2, data: formData, lntLng})).then(res => {
+        dispatch(getPoperties({ type: 2, data: formData, lntLng })).then(res => {
           setHomeData(res.payload.data);
         });
         setKeyboardStatus('first');
@@ -134,7 +134,7 @@ const Home = () => {
   const [bedroomitem, setBedroomItem] = useState(-1);
   const [bathRoom, setBathRoomItem] = useState(-1);
   const [imageIndex, setImageIndex] = useState(0);
-  const [lntLng, setLatLng] = useState({latitude: 0.0, longitude: 0.0});
+  const [lntLng, setLatLng] = useState({ latitude: 0.0, longitude: 0.0 });
   const [showMap, setShowMap] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [mapType, setMapType] = useState('standard');
@@ -160,7 +160,7 @@ const Home = () => {
     setCenterHeight(mainViewHeight - topViewHeight);
   }, [topViewHeight]);
 
-  useEffect(() => {}, [topViewHeight]);
+  useEffect(() => { }, [topViewHeight]);
 
   useEffect(() => {
     if (selectedTabsMore) {
@@ -172,15 +172,12 @@ const Home = () => {
             data_customvalue: selectedTabsMore.toString(),
           },
         }),
-      ).then(res => {});
+      ).then(res => { });
     }
   }, [selectedTabsMore]);
 
   const handlePress = () => {
-    setIsPressed(!isPressed);
-    setIsPressed1(false);
-    setIsPressed2(false);
-    filtertoggleModal();
+
   };
 
   const handlePress2 = () => {
@@ -189,7 +186,7 @@ const Home = () => {
   };
 
   const getUserScoreApiCall = () => {
-    dispatch(getUserScore()).then(response => {});
+    dispatch(getUserScore()).then(response => { });
   };
   useEffect(() => {
     getFilterApicall(),
@@ -197,7 +194,7 @@ const Home = () => {
       favlistApi(),
       getSavedApiCall(),
       getMoreFilterApiCall(),
-      getPopertiesApiCall({type: 0, data: {limit: limitCount}, lntLng}),
+      getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
       setAddres(''),
       getUserScoreApiCall();
   }, []);
@@ -374,10 +371,10 @@ const Home = () => {
   };
 
   const getSavedApiCall = () => {
-    dispatch(getSavedSearch()).then(response => {});
+    dispatch(getSavedSearch()).then(response => { });
   };
   const favlistApi = () => {
-    dispatch(getFavoriteProperties()).then(res => {});
+    dispatch(getFavoriteProperties()).then(res => { });
   };
 
   const savefile = async item => {
@@ -396,7 +393,7 @@ const Home = () => {
     });
   };
   const getTrashApiCall = async () => {
-    await dispatch(getTrash()).then(res => {});
+    await dispatch(getTrash()).then(res => { });
   };
   const trashfile = async post_id => {
     getTrashApiCall();
@@ -422,7 +419,7 @@ const Home = () => {
         formData.append('latitude', location.latitude);
         formData.append('longitude', location.longitude);
         console.log('getPopertiesApiCall formData ', formData);
-        dispatch(getPoperties({type: 1, data: '', latLng: formData})).then(
+        dispatch(getPoperties({ type: 1, data: '', latLng: formData })).then(
           response => {
             if (response.payload?.data.length < 1) {
               setLoading(false);
@@ -435,7 +432,7 @@ const Home = () => {
         );
       })
       .catch(error => {
-        const {code, message} = error;
+        const { code, message } = error;
       });
   };
 
@@ -443,16 +440,16 @@ const Home = () => {
     setLoading(true);
     await dispatch(getPoperties(type));
     typeof store.getState().getPopertiesReducer.getPopertiesData?.data ===
-    'object'
+      'object'
       ? store.getState().getPopertiesReducer.getPopertiesData?.data &&
-        setHomeData(store.getState().getPopertiesReducer.getPopertiesData?.data)
+      setHomeData(store.getState().getPopertiesReducer.getPopertiesData?.data)
       : setHomeData([]);
     setLoading(false);
   };
   const addReview = async () => {
     try {
       setIsAnimating(true); // Start the animation
-  
+
       const formData = new FormData();
       formData.append('postid', productId.toString());
       formData.append('reviewtitle', reviewTitle);
@@ -461,15 +458,15 @@ const Home = () => {
       formData.append('price_stars', rating2);
       formData.append('interest_stars', rating3);
       formData.append('content', commentContent ? commentContent : '');
-  
+
       const response = await dispatch(postRating(formData));
-  
+
       if (response.payload.data.success) {
-        setIsAnimating(false); 
-        toggleModal(); 
+        setIsAnimating(false);
+        toggleModal();
       } else {
-        setIsAnimating(false); 
-        toggleModal(); 
+        setIsAnimating(false);
+        toggleModal();
         // Alert.alert(response.payload.data.message);
       }
     } catch (error) {
@@ -481,7 +478,7 @@ const Home = () => {
   const updateReview = async post_id => {
     try {
       setIsAnimating(true); // Start the animation
-  
+
       const formData = new FormData();
       formData.append('postid', productId);
       formData.append('comment_content', commentContent ? commentContent : '');
@@ -491,7 +488,7 @@ const Home = () => {
       formData.append('price_review_stars', rating2);
       formData.append('interest_review_stars', rating3);
       console.log('postUpdateRating', formData);
-  
+
       dispatch(postUpdateRating(formData)).then(response => {
         if (response.payload.success) {
           setIsAnimating(false);
@@ -502,14 +499,14 @@ const Home = () => {
           // Alert.alert(response.payload.data.message);
         }
       });
-  
+
     } catch (error) {
-      setIsAnimating(false); 
+      setIsAnimating(false);
       console.error('Error submitting review:', error);
     }
   };
-  const renderFillterItem = ({item, index}) => {
-    const {data_custom_taxonomy, data_customvalue} = item;
+  const renderFillterItem = ({ item, index }) => {
+    const { data_custom_taxonomy, data_customvalue } = item;
     const isSelected =
       selectedTabs.filter(i => i === data_customvalue).length > 0;
     return (
@@ -564,7 +561,7 @@ const Home = () => {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       {loading ? (
         <View style={styles.loaderstyle}>
           <Loader />
@@ -575,27 +572,32 @@ const Home = () => {
           Platform.OS == 'android' ? styles.container : styles.containerIos
         }>
         <View
-          onLayout={({nativeEvent}) => {
-            const {x, y, width, height} = nativeEvent.layout;
+          onLayout={({ nativeEvent }) => {
+            const { x, y, width, height } = nativeEvent.layout;
             setMainViewHeight(height);
           }}
           style={styles.bgcover}>
           <View
-            onLayout={({nativeEvent}) => {
-              const {x, y, width, height} = nativeEvent.layout;
+            onLayout={({ nativeEvent }) => {
+              const { x, y, width, height } = nativeEvent.layout;
               setTopViewHeight(height);
             }}>
             <View style={styles.searchuppercover}>
-           
+
               <View style={styles.searchinnercover}>
                 <View style={styles.w85}>
-                <View style={styles.gpscover1}>
-             
-             <TouchableOpacity>
-               <Image source={Images.newfil} style={styles.filterstyle1}></Image>
-             </TouchableOpacity>
+                  <View style={styles.gpscover1}>
 
-         </View>
+                    <TouchableOpacity onPress={() => {
+                      setIsPressed(!isPressed);
+                      setIsPressed1(false);
+                      setIsPressed2(false);
+                      filtertoggleModal();
+                    }}>
+                      <Image source={Images.newfil} style={styles.filterstyle1}></Image>
+                    </TouchableOpacity>
+
+                  </View>
                   <TextInput
                     allowFontScaling={false}
                     placeholderTextColor={'#858383'}
@@ -656,7 +658,6 @@ const Home = () => {
                       getSavedApiCall();
                       setIsPressed1(!isPressed1);
                       setIsPressed(false);
-
                       const payload = {
                         search_name: termName,
                       };
@@ -680,35 +681,17 @@ const Home = () => {
                         backgroundColor: isPressed1 ? 'black' : 'white',
                       },
                     ]}>
-                       <Image
+                    <Image
                       source={Images.SaveAlt}
-                      style={styles.filtericonstyles}
+                      style={[styles.filtericonstyles,{ tintColor:isPressed1?"white":"black"}]}
                     />
                     <Text
                       style={[
                         styles.savesearchstyle,
-                        {color: isPressed1 ? 'white' : 'black'},
+                        { color: isPressed1 ? 'white' : 'black' },
                       ]}>
                       Save Search
                     </Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    onPress={handlePress}
-                    style={[
-                      styles.rew,
-                      {
-                        flexDirection: 'row',
-                        backgroundColor: 'white',
-                        borderColor: Colors.gray,
-                        borderRadius: 10,
-                      },
-                    ]}>
-                    <Image
-                      source={Images.filtericon}
-                      style={styles.filtericonstyles}
-                    />
-                    <Text style={styles.filtericontext}>Filters</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={async () => {
@@ -731,7 +714,7 @@ const Home = () => {
                       await dispatch(
                         getPoperties({
                           type: 0,
-                          data: {limit: limitCount + 1},
+                          data: { limit: limitCount + 1 },
                           lntLng,
                         }),
                       ).then(response => {
@@ -748,7 +731,7 @@ const Home = () => {
                         borderRadius: 10,
                       },
                     ]}>
-                       <Image
+                    <Image
                       source={Images.Broom}
                       style={styles.filtericonstyles}
                     />
@@ -763,609 +746,6 @@ const Home = () => {
                     </Text>
                   </TouchableOpacity>
                 </View>
-
-                <KeyboardAvoidingView behavior="padding">
-                  <Modal
-                    transparent={true}
-                    animationType="slide"
-                    visible={filterModalVisible}
-                    onRequestClose={filtertoggleModal}>
-                    <View style={styles.modalContainer}>
-                      <TouchableOpacity
-                        activeOpacity={1}
-                        style={styles.modalOverlay}
-                        onPress={closeModals}
-                      />
-                      <Animated.View
-                        {...panResponders.panHandlers}
-                        style={[
-                          styles.modalContentch,
-                          {
-                            transform: [
-                              {
-                                translateY: slideAnimations.interpolate({
-                                  inputRange: [-300, 0],
-                                  outputRange: [-300, 0],
-                                }),
-                              },
-                            ],
-                          },
-                        ]}>
-                        <SafeAreaView>
-                          <ScrollView
-                            style={{
-                              width: '100%',
-                              marginTop: 16,
-                            }}>
-                            <View style={styles.modalcover}>
-                              <View style={styles.indicator}></View>
-                            </View>
-
-                            <View style={styles.w99}>
-                              <View>
-                                <Text style={styles.modallabel}>
-                                  Choose your city{' '}
-                                </Text>
-                                <MultiSelect
-                                  ref={ref}
-                                  style={[styles.dropdown, {width: '100%'}]}
-                                  placeholderStyle={styles.placeholderStyle}
-                                  selectedTextStyle={styles.selectedTextStyle}
-                                  inputSearchStyle={styles.inputSearchStyle}
-                                  iconStyle={styles.iconStyle}
-                                  visibleSelectedItem={true}
-                                  itemTextStyle={styles.itemTextStyle}
-                                  placeholderTextColor="red"
-                                  search
-                                  data={moreFilterData.City}
-                                  labelField="data_name"
-                                  valueField="data_customvalue"
-                                  placeholder="All Cities"
-                                  searchPlaceholder="Search..."
-                                  value={cities}
-                                  valuestyle={{color: 'red'}}
-                                  onChange={async item => {
-                                    setCities(item);
-                                    ref.current.close();
-                                    await dispatch(
-                                      getPoperties({
-                                        type: 3,
-                                        data: {
-                                          data_custom_taxonomy: 'property_city',
-                                          data_customvalue: item.toString(),
-                                        },
-                                      }),
-                                    ).then(res => {
-                                      setHomeData(res.payload.data);
-                                      refRBSheet.current.close();
-                                    });
-                                  }}
-                                  selectedStyle={styles.selectedStyle}
-                                />
-
-                                <View style={{marginBottom: 12, marginTop: 12}}>
-                                  <Text style={styles.modallabel}>
-                                    Bedrooms
-                                  </Text>
-                                  <View style={styles.dataupeercover}>
-                                    <FlatList
-                                      style={styles.slidervalue}
-                                      data={moreFilterData?.bedroom}
-                                      horizontal={true}
-                                      showsHorizontalScrollIndicator={false}
-                                      renderItem={({item, index}) => {
-                                        return (
-                                          <TouchableOpacity
-                                            onPress={async () => {
-                                              setBedroomItem(index),
-                                                await dispatch(
-                                                  getPoperties({
-                                                    type: 3,
-                                                    data: {
-                                                      data_custom_taxonomy:
-                                                        'bedroom',
-                                                      data_customvalue:
-                                                        item.data_customvalue,
-                                                    },
-                                                  }),
-                                                ).then(res => {
-                                                  setHomeData(res.payload.data);
-                                                });
-                                            }}>
-                                            <View
-                                              style={[
-                                                {
-                                                  backgroundColor:
-                                                    bedroomitem === index
-                                                      ? Colors.black
-                                                      : Colors.white,
-                                                },
-                                                styles.itemdtacover,
-                                              ]}>
-                                              <Text
-                                                style={[
-                                                  styles.itemdata,
-                                                  {
-                                                    color:
-                                                      bedroomitem === index
-                                                        ? Colors.white
-                                                        : Colors.black,
-                                                  },
-                                                ]}>
-                                                {item?.data_name}
-                                              </Text>
-                                            </View>
-                                          </TouchableOpacity>
-                                        );
-                                      }}></FlatList>
-                                  </View>
-                                </View>
-                                <View>
-                                  <Text style={styles.modallabel}>
-                                    Bathrooms
-                                  </Text>
-                                  <View style={styles.dataupeercover}>
-                                    <FlatList
-                                      data={moreFilterData.bathroom}
-                                      horizontal={true}
-                                      showsHorizontalScrollIndicator={false}
-                                      renderItem={({item, index}) => {
-                                        return (
-                                          <TouchableOpacity
-                                            onPress={async () => {
-                                              setBathRoomItem(index);
-                                              setBathRoomCount(item.data_name);
-                                              await dispatch(
-                                                getPoperties({
-                                                  type: 3,
-                                                  data: {
-                                                    data_custom_taxonomy:
-                                                      'bathroom',
-                                                    data_customvalue:
-                                                      item.data_customvalue,
-                                                  },
-                                                }),
-                                              ).then(res => {
-                                                setHomeData(res.payload.data);
-                                              });
-                                            }}>
-                                            <View
-                                              style={[
-                                                {
-                                                  backgroundColor:
-                                                    bathRoom === index
-                                                      ? Colors.black
-                                                      : Colors.white,
-                                                },
-                                                styles.itemdtacover,
-                                              ]}>
-                                              <Text
-                                                style={[
-                                                  {
-                                                    color:
-                                                      bathRoom === index
-                                                        ? Colors.white
-                                                        : Colors.black,
-                                                  },
-                                                  styles.itemdata,
-                                                ]}>
-                                                {item?.data_name}
-                                              </Text>
-                                            </View>
-                                          </TouchableOpacity>
-                                        );
-                                      }}></FlatList>
-                                  </View>
-                                </View>
-
-                                <View>
-                                  <Text
-                                    style={[
-                                      styles.modallabel,
-                                      {marginTop: 12},
-                                    ]}>
-                                    Square Feet
-                                  </Text>
-                                  <View
-                                    style={{
-                                      flexDirection: 'row',
-                                      justifyContent: 'space-between',
-                                      marginTop: 8,
-                                    }}>
-                                    <View
-                                      style={[styles.dropdown, {width: '48%'}]}>
-                                      <SelectDropdown
-                                        data={moreFilterData.min_square}
-                                        buttonStyle={styles.dropdown1BtnStyle}
-                                        buttonTextStyle={
-                                          styles.dropdown1BtnTxtStyle
-                                        }
-                                        dropdownIconPosition={'right'}
-                                        dropdownStyle={
-                                          styles.dropdown1DropdownStyle
-                                        }
-                                        rowStyle={styles.dropdown1RowStyle}
-                                        rowTextStyle={
-                                          styles.dropdown1RowTxtStyle
-                                        }
-                                        search={true}
-                                        searchInputStyle={{color: 'black'}}
-                                        searchPlaceholder="Search"
-                                        searchPlaceHolderColor="black"
-                                        searchInputTxtColor="black"
-                                        placeholder="Min square"
-                                        defaultButtonText="Min square"
-                                        renderDropdownIcon={isOpened => {
-                                          return (
-                                            <Image
-                                              source={Images.downArrow}
-                                              tintColor={Colors.gray}
-                                              style={
-                                                styles.downarrowmain
-                                              }></Image>
-                                          );
-                                        }}
-                                        onSelect={async (
-                                          selectedItem,
-                                          index,
-                                        ) => {
-                                          setMinSquareFeet(item.data_name);
-                                          await dispatch(
-                                            getPoperties({
-                                              type: 3,
-                                              data: {
-                                                data_custom_taxonomy:
-                                                  'min_square',
-                                                data_customvalue:
-                                                  item.data_customvalue,
-                                              },
-                                            }),
-                                          ).then(res => {
-                                            setHomeData(res.payload.data);
-                                          });
-                                        }}
-                                        buttonTextAfterSelection={(
-                                          selectedItem,
-                                          index,
-                                        ) => {
-                                          return (
-                                            <Text
-                                              style={styles.datacustomvalue}>
-                                              {selectedItem?.data_customvalue}
-                                            </Text>
-                                          );
-                                        }}
-                                        rowTextForSelection={(item, index) => {
-                                          return (
-                                            <Text
-                                              style={styles.datacustomvalue}>
-                                              {item?.data_customvalue}
-                                            </Text>
-                                          );
-                                        }}
-                                      />
-                                    </View>
-
-                                    <View
-                                      style={[styles.dropdown, {width: '48%'}]}>
-                                      <SelectDropdown
-                                        data={moreFilterData.max_square}
-                                        buttonStyle={styles.dropdown1BtnStyle}
-                                        buttonTextStyle={
-                                          styles.dropdown1BtnTxtStyle
-                                        }
-                                        dropdownIconPosition={'right'}
-                                        dropdownStyle={
-                                          styles.dropdown1DropdownStyle
-                                        }
-                                        rowStyle={styles.dropdown1RowStyle}
-                                        rowTextStyle={
-                                          styles.dropdown1RowTxtStyle
-                                        }
-                                        search={true}
-                                        searchInputStyle={{color: 'black'}}
-                                        searchPlaceholder="Search"
-                                        searchPlaceHolderColor="black"
-                                        searchInputTxtColor="black"
-                                        placeholder="Max Square"
-                                        defaultButtonText="Max Square"
-                                        renderDropdownIcon={isOpened => {
-                                          return (
-                                            <Image
-                                              source={Images.downArrow}
-                                              tintColor={Colors.gray}
-                                              style={
-                                                styles.downarrowmain
-                                              }></Image>
-                                          );
-                                        }}
-                                        onSelect={async (
-                                          selectedItem,
-                                          index,
-                                        ) => {
-                                          setMaxSquareFeet(item.data_name);
-                                          await dispatch(
-                                            getPoperties({
-                                              type: 3,
-                                              data: {
-                                                data_custom_taxonomy:
-                                                  'max_square',
-                                                data_customvalue:
-                                                  selectedItem.data_customvalue,
-                                              },
-                                            }),
-                                          ).then(res => {
-                                            setHomeData(res.payload.data);
-                                          });
-                                        }}
-                                        buttonTextAfterSelection={(
-                                          selectedItem,
-                                          index,
-                                        ) => {
-                                          return (
-                                            <Text
-                                              style={styles.datacustomvalue}>
-                                              {selectedItem?.data_customvalue}
-                                            </Text>
-                                          );
-                                        }}
-                                        rowTextForSelection={(item, index) => {
-                                          return (
-                                            <Text
-                                              style={styles.datacustomvalue}>
-                                              {item?.data_customvalue}
-                                            </Text>
-                                          );
-                                        }}
-                                      />
-                                    </View>
-                                  </View>
-                                </View>
-                                <View style={{marginTop: 12}}>
-                                  <Text style={styles.modallabel}>
-                                    Price Range
-                                  </Text>
-
-                                  <View
-                                    style={{
-                                      flexDirection: 'row',
-                                      justifyContent: 'space-between',
-                                      marginBottom: 16,
-                                      width: '100%',
-                                    }}>
-                                    <View
-                                      style={[styles.dropdown, {width: '48%'}]}>
-                                      <SelectDropdown
-                                        data={moreFilterData.min_price}
-                                        buttonStyle={styles.dropdown1BtnStyle}
-                                        buttonTextStyle={
-                                          styles.dropdown1BtnTxtStyle
-                                        }
-                                        dropdownIconPosition={'right'}
-                                        dropdownStyle={
-                                          styles.dropdown1DropdownStyle
-                                        }
-                                        rowStyle={styles.dropdown1RowStyle}
-                                        rowTextStyle={
-                                          styles.dropdown1RowTxtStyle
-                                        }
-                                        search={true}
-                                        searchInputStyle={{color: 'black'}}
-                                        searchPlaceholder="Search"
-                                        searchPlaceHolderColor="black"
-                                        searchInputTxtColor="black"
-                                        placeholder="Min Price"
-                                        defaultButtonText="Min Price"
-                                        renderDropdownIcon={isOpened => {
-                                          return (
-                                            <Image
-                                              source={Images.downArrow}
-                                              tintColor={Colors.gray}
-                                              style={
-                                                styles.downarrowmain
-                                              }></Image>
-                                          );
-                                        }}
-                                        onSelect={async (
-                                          selectedItem,
-                                          index,
-                                        ) => {
-                                          setMinPricerange(item.data_name);
-                                          await dispatch(
-                                            getPoperties({
-                                              type: 3,
-                                              data: {
-                                                data_custom_taxonomy:
-                                                  'min_price',
-                                                data_customvalue:
-                                                  item.data_customvalue,
-                                              },
-                                            }),
-                                          ).then(res => {
-                                            setHomeData(res.payload.data);
-                                          });
-                                        }}
-                                        buttonTextAfterSelection={(
-                                          selectedItem,
-                                          index,
-                                        ) => {
-                                          return (
-                                            <Text
-                                              style={styles.datacustomvalue}>
-                                              {selectedItem?.data_customvalue}
-                                            </Text>
-                                          );
-                                        }}
-                                        rowTextForSelection={(item, index) => {
-                                          return (
-                                            <Text
-                                              style={styles.datacustomvalue}>
-                                              {item?.data_customvalue}
-                                            </Text>
-                                          );
-                                        }}
-                                      />
-                                    </View>
-
-                                    <View
-                                      style={[styles.dropdown, {width: '48%'}]}>
-                                      <SelectDropdown
-                                        data={moreFilterData.max_price}
-                                        buttonStyle={styles.dropdown1BtnStyle}
-                                        buttonTextStyle={
-                                          styles.dropdown1BtnTxtStyle
-                                        }
-                                        dropdownIconPosition={'right'}
-                                        dropdownStyle={
-                                          styles.dropdown1DropdownStyle
-                                        }
-                                        rowStyle={styles.dropdown1RowStyle}
-                                        rowTextStyle={
-                                          styles.dropdown1RowTxtStyle
-                                        }
-                                        search={true}
-                                        searchInputTxtStyle={{color: '#000000'}}
-                                        searchInputStyle={{color: '#000000'}}
-                                        searchPlaceholder="Search"
-                                        searchPlaceHolderColor="#000000"
-                                        searchInputTxtColor="#000000"
-                                        placeholder="Max Price"
-                                        defaultButtonText="Max Price"
-                                        renderDropdownIcon={isOpened => {
-                                          return (
-                                            <Image
-                                              source={Images.downArrow}
-                                              tintColor={Colors.gray}
-                                              style={
-                                                styles.downarrowmain
-                                              }></Image>
-                                          );
-                                        }}
-                                        onSelect={async (
-                                          selectedItem,
-                                          index,
-                                        ) => {
-                                          setMaxPriceRange(item.data_name);
-                                          await dispatch(
-                                            getPoperties({
-                                              type: 3,
-                                              data: {
-                                                data_custom_taxonomy:
-                                                  'max_price',
-                                                data_customvalue:
-                                                  item.data_customvalue,
-                                              },
-                                            }),
-                                          ).then(res => {
-                                            setHomeData(res.payload.data);
-                                          });
-                                        }}
-                                        buttonTextAfterSelection={(
-                                          selectedItem,
-                                          index,
-                                        ) => {
-                                          return (
-                                            <Text
-                                              style={styles.datacustomvalue}>
-                                              {selectedItem?.data_customvalue}
-                                            </Text>
-                                          );
-                                        }}
-                                        rowTextForSelection={(item, index) => {
-                                          return (
-                                            <Text
-                                              style={styles.datacustomvalue}>
-                                              {item?.data_customvalue}
-                                            </Text>
-                                          );
-                                        }}
-                                      />
-                                    </View>
-                                  </View>
-                                </View>
-                                <Collapsible collapsed={moreFilter}>
-                                  <View style={styles.moreffiltercover}>
-                                    <FlatList
-                                      data={moreFilterData?.more_filter_data}
-                                      style={{
-                                        alignContent: 'center',
-                                      }}
-                                      nestedScrollEnabled
-                                      numColumns={3}
-                                      renderItem={({item, index}) => {
-                                        const {
-                                          data_custom_taxonomy,
-                                          data_customvalue,
-                                        } = item;
-                                        const isSelectedMore =
-                                          selectedTabsMore.filter(
-                                            i => i === data_customvalue,
-                                          ).length > 0;
-                                        return (
-                                          <TouchableOpacity
-                                            style={{
-                                              width: '33.33%',
-                                              paddingHorizontal: 8,
-                                            }}
-                                            onPress={async () => {
-                                              if (isSelectedMore) {
-                                                setSelectedTabsMore(prev =>
-                                                  prev.filter(
-                                                    i => i !== data_customvalue,
-                                                  ),
-                                                );
-                                              } else {
-                                                setSelectedTabsMore(prev => [
-                                                  ...prev,
-                                                  data_customvalue,
-                                                ]);
-                                              }
-                                            }}>
-                                            <Text
-                                              style={{
-                                                color: isSelectedMore
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                                textAlign: 'center',
-                                                borderRadius: 20,
-                                                borderWidth: 0.8,
-                                                borderColor: Colors.gray,
-                                                backgroundColor: isSelectedMore
-                                                  ? Colors.black
-                                                  : Colors.white,
-                                                padding: 10,
-                                                marginBottom: 8,
-                                                fontSize:
-                                                  DeviceInfo.getDeviceType() ===
-                                                  'Tablet'
-                                                    ? 18
-                                                    : 14,
-                                              }}
-                                              numberOfLines={1}>
-                                              {item?.data_name}
-                                            </Text>
-                                          </TouchableOpacity>
-                                        );
-                                      }}></FlatList>
-                                  </View>
-                                </Collapsible>
-                                <View style={styles.applymaincover}>
-                                  <TouchableOpacity
-                                    onPress={async () => {
-                                      setFilterModalVisible(false);
-                                    }}
-                                    style={styles.apllycover}>
-                                    <Text style={styles.applytext}>Apply</Text>
-                                  </TouchableOpacity>
-                                </View>
-                              </View>
-                            </View>
-                          </ScrollView>
-                        </SafeAreaView>
-                      </Animated.View>
-                    </View>
-                  </Modal>
-                </KeyboardAvoidingView>
               </View>
             )}
           </View>
@@ -1373,13 +753,13 @@ const Home = () => {
           <View style={{}}>
             {homeData?.length > 0 ? (
               <View
-                onLayout={({nativeEvent}) => {
-                  const {x, y, width, height} = nativeEvent.layout;
+                onLayout={({ nativeEvent }) => {
+                  const { x, y, width, height } = nativeEvent.layout;
                   setCenterHeight(height);
                 }}
-                style={{height: centerHeight, width: '100%'}}>
+                style={{ height: centerHeight, width: '100%' }}>
                 {!showMap && homeData?.length > 0 ? (
-                  <View style={{height: centerHeight, width: '100%'}}>
+                  <View style={{ height: centerHeight, width: '100%' }}>
                     <CardsSwipe
                       style={styles.cardswipercover}
                       cards={homeData}
@@ -1390,7 +770,7 @@ const Home = () => {
                         <View
                           style={[
                             styles.cardinnercover,
-                            {height: imageHeight, width: imageWidth},
+                            { height: imageHeight, width: imageWidth },
                           ]}>
                           <View style={styles.cardinner}>
                             <View style={styles.thumpupcover}>
@@ -1429,19 +809,19 @@ const Home = () => {
                         savefile(homeData[item].ID);
                       }}
                       renderCard={(item, index) => (
-                        <View style={[styles.shadowProp, {height: '100%'}]}>
+                        <View style={[styles.shadowProp, { height: '100%' }]}>
                           <SwiperFlatList
-                            style={{height: '60%'}}
+                            style={{ height: '60%' }}
                             index={imageIndex}
                             autoPlay={true}
                             autoplayDelay={3000}
                             data={item?.featured_image_src}
                             refer={index}
-                            renderItem={({item1, index}) => (
+                            renderItem={({ item1, index }) => (
                               <>
                                 <View
-                                  onLayout={({nativeEvent}) => {
-                                    const {x, y, width, height} =
+                                  onLayout={({ nativeEvent }) => {
+                                    const { x, y, width, height } =
                                       nativeEvent.layout;
                                     setImageHeight(height);
                                     setImageWidth(width);
@@ -1486,7 +866,7 @@ const Home = () => {
                                     <TouchableOpacity
                                       disabled={
                                         item?.featured_image_src?.length - 1 ===
-                                        imageIndex
+                                          imageIndex
                                           ? true
                                           : false
                                       }
@@ -1504,7 +884,7 @@ const Home = () => {
                                     </TouchableOpacity>
                                   </View>
                                   <TouchableOpacity
-                                    style={{height: '100%'}}
+                                    style={{ height: '100%' }}
                                     onPress={() => {
                                       navigation.navigate('ViewPropertiy', {
                                         ID: item.ID,
@@ -1598,9 +978,8 @@ const Home = () => {
                                 <KeyboardAvoidingView behavior="padding">
                                   <Modal
                                     transparent={true}
-                                    animationType="slide"
                                     visible={favModalVisiable}
-                                    //visible={true}
+                                    // visible={true}
                                     onRequestClose={() => {
                                       setfavModalVisiable(false);
                                     }}>
@@ -1665,9 +1044,9 @@ const Home = () => {
                                               loop
                                             />
                                             <View
-                                              style={{flexDirection: 'column'}}>
+                                              style={{ flexDirection: 'column' }}>
                                               <TouchableOpacity
-                                                style={{alignItems: 'center'}}
+                                                style={{ alignItems: 'center' }}
                                                 onPress={() => {
                                                   navigation.navigate(
                                                     'MyFavorites',
@@ -1692,9 +1071,7 @@ const Home = () => {
                                 <KeyboardAvoidingView behavior="padding">
                                   <Modal
                                     transparent={true}
-                                    animationType="slide"
                                     visible={tashModalVisiable}
-                                    //visible={true}
                                     onRequestClose={() => {
                                       setTrashModalVisiable(false);
                                     }}>
@@ -1751,7 +1128,7 @@ const Home = () => {
 
                                           <View style={styles.inermodaltop}>
                                             <View
-                                              style={{flexDirection: 'column'}}>
+                                              style={{ flexDirection: 'column' }}>
                                               <TouchableOpacity
                                                 style={styles.modalaligned}
                                                 onPress={() => {
@@ -1785,9 +1162,7 @@ const Home = () => {
                                 <KeyboardAvoidingView behavior="padding">
                                   <Modal
                                     transparent={true}
-                                    animationType="slide"
                                     visible={saveModalVisible}
-                                    //visible={true}
                                     onRequestClose={() => {
                                       setSaveModalVisible(false);
                                     }}>
@@ -1833,14 +1208,14 @@ const Home = () => {
                                           <Text
                                             style={[
                                               styles.savedsearchheadin,
-                                              {marginTop: 40},
+                                              { marginTop: 40 },
                                             ]}>
                                             Righteous!
                                           </Text>
                                           <Text
                                             style={[
                                               styles.savedsearchheadin,
-                                              {marginBottom: 50},
+                                              { marginBottom: 50 },
                                             ]}>
                                             You saved your first search!
                                           </Text>
@@ -1854,7 +1229,7 @@ const Home = () => {
 
                                           <View style={styles.inermodaltop}>
                                             <View
-                                              style={{flexDirection: 'column'}}>
+                                              style={{ flexDirection: 'column' }}>
                                               <TouchableOpacity
                                                 style={styles.modalaligned}
                                                 onPress={() => {
@@ -1885,13 +1260,611 @@ const Home = () => {
                                     </View>
                                   </Modal>
                                 </KeyboardAvoidingView>
-
                                 <KeyboardAvoidingView behavior="padding">
                                   <Modal
                                     transparent={true}
-                                    animationType="slide"
+                                    visible={filterModalVisible}
+                                    onRequestClose={filtertoggleModal}>
+                                    <View style={styles.modalContainer}>
+                                      <TouchableOpacity
+                                        activeOpacity={1}
+                                        style={styles.modalOverlay}
+                                        onPress={closeModals}
+                                      />
+                                      <Animated.View
+                                        {...panResponders.panHandlers}
+                                        style={[
+                                          styles.modalContentch,
+                                          {
+                                            transform: [
+                                              {
+                                                translateY: slideAnimations.interpolate({
+                                                  inputRange: [-300, 0],
+                                                  outputRange: [-300, 0],
+                                                }),
+                                              },
+                                            ],
+                                          },
+                                        ]}>
+                                        <SafeAreaView>
+                                          <ScrollView
+                                            style={{
+                                              width: '100%',
+                                              marginTop: 16,
+                                            }}>
+                                            <View style={styles.modalcover}>
+                                              <View style={styles.indicator}></View>
+                                            </View>
+
+                                            <View style={styles.w99}>
+                                              <View>
+                                                <Text style={styles.modallabel}>
+                                                  Choose your city{' '}
+                                                </Text>
+                                                <MultiSelect
+                                                  ref={ref}
+                                                  style={[styles.dropdown, { width: '100%' }]}
+                                                  placeholderStyle={styles.placeholderStyle}
+                                                  selectedTextStyle={styles.selectedTextStyle}
+                                                  inputSearchStyle={styles.inputSearchStyle}
+                                                  iconStyle={styles.iconStyle}
+                                                  visibleSelectedItem={true}
+                                                  itemTextStyle={styles.itemTextStyle}
+                                                  placeholderTextColor="red"
+                                                  search
+                                                  data={moreFilterData.City}
+                                                  labelField="data_name"
+                                                  valueField="data_customvalue"
+                                                  placeholder="All Cities"
+                                                  searchPlaceholder="Search..."
+                                                  value={cities}
+                                                  valuestyle={{ color: 'red' }}
+                                                  onChange={async item => {
+                                                    setCities(item);
+                                                    ref.current.close();
+                                                    await dispatch(
+                                                      getPoperties({
+                                                        type: 3,
+                                                        data: {
+                                                          data_custom_taxonomy: 'property_city',
+                                                          data_customvalue: item.toString(),
+                                                        },
+                                                      }),
+                                                    ).then(res => {
+                                                      setHomeData(res.payload.data);
+                                                      refRBSheet.current.close();
+                                                    });
+                                                  }}
+                                                  selectedStyle={styles.selectedStyle}
+                                                />
+
+                                                <View style={{ marginBottom: 12, marginTop: 12 }}>
+                                                  <Text style={styles.modallabel}>
+                                                    Bedrooms
+                                                  </Text>
+                                                  <View style={styles.dataupeercover}>
+                                                    <FlatList
+                                                      style={styles.slidervalue}
+                                                      data={moreFilterData?.bedroom}
+                                                      horizontal={true}
+                                                      showsHorizontalScrollIndicator={false}
+                                                      renderItem={({ item, index }) => {
+                                                        return (
+                                                          <TouchableOpacity
+                                                            onPress={async () => {
+                                                              setBedroomItem(index),
+                                                                await dispatch(
+                                                                  getPoperties({
+                                                                    type: 3,
+                                                                    data: {
+                                                                      data_custom_taxonomy:
+                                                                        'bedroom',
+                                                                      data_customvalue:
+                                                                        item.data_customvalue,
+                                                                    },
+                                                                  }),
+                                                                ).then(res => {
+                                                                  setHomeData(res.payload.data);
+                                                                });
+                                                            }}>
+                                                            <View
+                                                              style={[
+                                                                {
+                                                                  backgroundColor:
+                                                                    bedroomitem === index
+                                                                      ? Colors.black
+                                                                      : Colors.white,
+                                                                },
+                                                                styles.itemdtacover,
+                                                              ]}>
+                                                              <Text
+                                                                style={[
+                                                                  styles.itemdata,
+                                                                  {
+                                                                    color:
+                                                                      bedroomitem === index
+                                                                        ? Colors.white
+                                                                        : Colors.black,
+                                                                  },
+                                                                ]}>
+                                                                {item?.data_name}
+                                                              </Text>
+                                                            </View>
+                                                          </TouchableOpacity>
+                                                        );
+                                                      }}></FlatList>
+                                                  </View>
+                                                </View>
+                                                <View>
+                                                  <Text style={styles.modallabel}>
+                                                    Bathrooms
+                                                  </Text>
+                                                  <View style={styles.dataupeercover}>
+                                                    <FlatList
+                                                      data={moreFilterData.bathroom}
+                                                      horizontal={true}
+                                                      showsHorizontalScrollIndicator={false}
+                                                      renderItem={({ item, index }) => {
+                                                        return (
+                                                          <TouchableOpacity
+                                                            onPress={async () => {
+                                                              setBathRoomItem(index);
+                                                              setBathRoomCount(item.data_name);
+                                                              await dispatch(
+                                                                getPoperties({
+                                                                  type: 3,
+                                                                  data: {
+                                                                    data_custom_taxonomy:
+                                                                      'bathroom',
+                                                                    data_customvalue:
+                                                                      item.data_customvalue,
+                                                                  },
+                                                                }),
+                                                              ).then(res => {
+                                                                setHomeData(res.payload.data);
+                                                              });
+                                                            }}>
+                                                            <View
+                                                              style={[
+                                                                {
+                                                                  backgroundColor:
+                                                                    bathRoom === index
+                                                                      ? Colors.black
+                                                                      : Colors.white,
+                                                                },
+                                                                styles.itemdtacover,
+                                                              ]}>
+                                                              <Text
+                                                                style={[
+                                                                  {
+                                                                    color:
+                                                                      bathRoom === index
+                                                                        ? Colors.white
+                                                                        : Colors.black,
+                                                                  },
+                                                                  styles.itemdata,
+                                                                ]}>
+                                                                {item?.data_name}
+                                                              </Text>
+                                                            </View>
+                                                          </TouchableOpacity>
+                                                        );
+                                                      }}></FlatList>
+                                                  </View>
+                                                </View>
+
+                                                <View>
+                                                  <Text
+                                                    style={[
+                                                      styles.modallabel,
+                                                      { marginTop: 12 },
+                                                    ]}>
+                                                    Square Feet
+                                                  </Text>
+                                                  <View
+                                                    style={{
+                                                      flexDirection: 'row',
+                                                      justifyContent: 'space-between',
+                                                      marginTop: 8,
+                                                    }}>
+                                                    <View
+                                                      style={[styles.dropdown, { width: '48%' }]}>
+                                                      <SelectDropdown
+                                                        data={moreFilterData.min_square}
+                                                        buttonStyle={styles.dropdown1BtnStyle}
+                                                        buttonTextStyle={
+                                                          styles.dropdown1BtnTxtStyle
+                                                        }
+                                                        dropdownIconPosition={'right'}
+                                                        dropdownStyle={
+                                                          styles.dropdown1DropdownStyle
+                                                        }
+                                                        rowStyle={styles.dropdown1RowStyle}
+                                                        rowTextStyle={
+                                                          styles.dropdown1RowTxtStyle
+                                                        }
+                                                        search={true}
+                                                        searchInputStyle={{ color: 'black' }}
+                                                        searchPlaceholder="Search"
+                                                        searchPlaceHolderColor="black"
+                                                        searchInputTxtColor="black"
+                                                        placeholder="Min square"
+                                                        defaultButtonText="Min square"
+                                                        renderDropdownIcon={isOpened => {
+                                                          return (
+                                                            <Image
+                                                              source={Images.downArrow}
+                                                              tintColor={Colors.gray}
+                                                              style={
+                                                                styles.downarrowmain
+                                                              }></Image>
+                                                          );
+                                                        }}
+                                                        onSelect={async (
+                                                          selectedItem,
+                                                          index,
+                                                        ) => {
+                                                          setMinSquareFeet(item.data_name);
+                                                          await dispatch(
+                                                            getPoperties({
+                                                              type: 3,
+                                                              data: {
+                                                                data_custom_taxonomy:
+                                                                  'min_square',
+                                                                data_customvalue:
+                                                                  item.data_customvalue,
+                                                              },
+                                                            }),
+                                                          ).then(res => {
+                                                            setHomeData(res.payload.data);
+                                                          });
+                                                        }}
+                                                        buttonTextAfterSelection={(
+                                                          selectedItem,
+                                                          index,
+                                                        ) => {
+                                                          return (
+                                                            <Text
+                                                              style={styles.datacustomvalue}>
+                                                              {selectedItem?.data_customvalue}
+                                                            </Text>
+                                                          );
+                                                        }}
+                                                        rowTextForSelection={(item, index) => {
+                                                          return (
+                                                            <Text
+                                                              style={styles.datacustomvalue}>
+                                                              {item?.data_customvalue}
+                                                            </Text>
+                                                          );
+                                                        }}
+                                                      />
+                                                    </View>
+
+                                                    <View
+                                                      style={[styles.dropdown, { width: '48%' }]}>
+                                                      <SelectDropdown
+                                                        data={moreFilterData.max_square}
+                                                        buttonStyle={styles.dropdown1BtnStyle}
+                                                        buttonTextStyle={
+                                                          styles.dropdown1BtnTxtStyle
+                                                        }
+                                                        dropdownIconPosition={'right'}
+                                                        dropdownStyle={
+                                                          styles.dropdown1DropdownStyle
+                                                        }
+                                                        rowStyle={styles.dropdown1RowStyle}
+                                                        rowTextStyle={
+                                                          styles.dropdown1RowTxtStyle
+                                                        }
+                                                        search={true}
+                                                        searchInputStyle={{ color: 'black' }}
+                                                        searchPlaceholder="Search"
+                                                        searchPlaceHolderColor="black"
+                                                        searchInputTxtColor="black"
+                                                        placeholder="Max Square"
+                                                        defaultButtonText="Max Square"
+                                                        renderDropdownIcon={isOpened => {
+                                                          return (
+                                                            <Image
+                                                              source={Images.downArrow}
+                                                              tintColor={Colors.gray}
+                                                              style={
+                                                                styles.downarrowmain
+                                                              }></Image>
+                                                          );
+                                                        }}
+                                                        onSelect={async (
+                                                          selectedItem,
+                                                          index,
+                                                        ) => {
+                                                          setMaxSquareFeet(item.data_name);
+                                                          await dispatch(
+                                                            getPoperties({
+                                                              type: 3,
+                                                              data: {
+                                                                data_custom_taxonomy:
+                                                                  'max_square',
+                                                                data_customvalue:
+                                                                  selectedItem.data_customvalue,
+                                                              },
+                                                            }),
+                                                          ).then(res => {
+                                                            setHomeData(res.payload.data);
+                                                          });
+                                                        }}
+                                                        buttonTextAfterSelection={(
+                                                          selectedItem,
+                                                          index,
+                                                        ) => {
+                                                          return (
+                                                            <Text
+                                                              style={styles.datacustomvalue}>
+                                                              {selectedItem?.data_customvalue}
+                                                            </Text>
+                                                          );
+                                                        }}
+                                                        rowTextForSelection={(item, index) => {
+                                                          return (
+                                                            <Text
+                                                              style={styles.datacustomvalue}>
+                                                              {item?.data_customvalue}
+                                                            </Text>
+                                                          );
+                                                        }}
+                                                      />
+                                                    </View>
+                                                  </View>
+                                                </View>
+                                                <View style={{ marginTop: 12 }}>
+                                                  <Text style={styles.modallabel}>
+                                                    Price Range
+                                                  </Text>
+
+                                                  <View
+                                                    style={{
+                                                      flexDirection: 'row',
+                                                      justifyContent: 'space-between',
+                                                      marginBottom: 16,
+                                                      width: '100%',
+                                                    }}>
+                                                    <View
+                                                      style={[styles.dropdown, { width: '48%' }]}>
+                                                      <SelectDropdown
+                                                        data={moreFilterData.min_price}
+                                                        buttonStyle={styles.dropdown1BtnStyle}
+                                                        buttonTextStyle={
+                                                          styles.dropdown1BtnTxtStyle
+                                                        }
+                                                        dropdownIconPosition={'right'}
+                                                        dropdownStyle={
+                                                          styles.dropdown1DropdownStyle
+                                                        }
+                                                        rowStyle={styles.dropdown1RowStyle}
+                                                        rowTextStyle={
+                                                          styles.dropdown1RowTxtStyle
+                                                        }
+                                                        search={true}
+                                                        searchInputStyle={{ color: 'black' }}
+                                                        searchPlaceholder="Search"
+                                                        searchPlaceHolderColor="black"
+                                                        searchInputTxtColor="black"
+                                                        placeholder="Min Price"
+                                                        defaultButtonText="Min Price"
+                                                        renderDropdownIcon={isOpened => {
+                                                          return (
+                                                            <Image
+                                                              source={Images.downArrow}
+                                                              tintColor={Colors.gray}
+                                                              style={
+                                                                styles.downarrowmain
+                                                              }></Image>
+                                                          );
+                                                        }}
+                                                        onSelect={async (
+                                                          selectedItem,
+                                                          index,
+                                                        ) => {
+                                                          setMinPricerange(item.data_name);
+                                                          await dispatch(
+                                                            getPoperties({
+                                                              type: 3,
+                                                              data: {
+                                                                data_custom_taxonomy:
+                                                                  'min_price',
+                                                                data_customvalue:
+                                                                  item.data_customvalue,
+                                                              },
+                                                            }),
+                                                          ).then(res => {
+                                                            setHomeData(res.payload.data);
+                                                          });
+                                                        }}
+                                                        buttonTextAfterSelection={(
+                                                          selectedItem,
+                                                          index,
+                                                        ) => {
+                                                          return (
+                                                            <Text
+                                                              style={styles.datacustomvalue}>
+                                                              {selectedItem?.data_customvalue}
+                                                            </Text>
+                                                          );
+                                                        }}
+                                                        rowTextForSelection={(item, index) => {
+                                                          return (
+                                                            <Text
+                                                              style={styles.datacustomvalue}>
+                                                              {item?.data_customvalue}
+                                                            </Text>
+                                                          );
+                                                        }}
+                                                      />
+                                                    </View>
+
+                                                    <View
+                                                      style={[styles.dropdown, { width: '48%' }]}>
+                                                      <SelectDropdown
+                                                        data={moreFilterData.max_price}
+                                                        buttonStyle={styles.dropdown1BtnStyle}
+                                                        buttonTextStyle={
+                                                          styles.dropdown1BtnTxtStyle
+                                                        }
+                                                        dropdownIconPosition={'right'}
+                                                        dropdownStyle={
+                                                          styles.dropdown1DropdownStyle
+                                                        }
+                                                        rowStyle={styles.dropdown1RowStyle}
+                                                        rowTextStyle={
+                                                          styles.dropdown1RowTxtStyle
+                                                        }
+                                                        search={true}
+                                                        searchInputTxtStyle={{ color: '#000000' }}
+                                                        searchInputStyle={{ color: '#000000' }}
+                                                        searchPlaceholder="Search"
+                                                        searchPlaceHolderColor="#000000"
+                                                        searchInputTxtColor="#000000"
+                                                        placeholder="Max Price"
+                                                        defaultButtonText="Max Price"
+                                                        renderDropdownIcon={isOpened => {
+                                                          return (
+                                                            <Image
+                                                              source={Images.downArrow}
+                                                              tintColor={Colors.gray}
+                                                              style={
+                                                                styles.downarrowmain
+                                                              }></Image>
+                                                          );
+                                                        }}
+                                                        onSelect={async (
+                                                          selectedItem,
+                                                          index,
+                                                        ) => {
+                                                          setMaxPriceRange(item.data_name);
+                                                          await dispatch(
+                                                            getPoperties({
+                                                              type: 3,
+                                                              data: {
+                                                                data_custom_taxonomy:
+                                                                  'max_price',
+                                                                data_customvalue:
+                                                                  item.data_customvalue,
+                                                              },
+                                                            }),
+                                                          ).then(res => {
+                                                            setHomeData(res.payload.data);
+                                                          });
+                                                        }}
+                                                        buttonTextAfterSelection={(
+                                                          selectedItem,
+                                                          index,
+                                                        ) => {
+                                                          return (
+                                                            <Text
+                                                              style={styles.datacustomvalue}>
+                                                              {selectedItem?.data_customvalue}
+                                                            </Text>
+                                                          );
+                                                        }}
+                                                        rowTextForSelection={(item, index) => {
+                                                          return (
+                                                            <Text
+                                                              style={styles.datacustomvalue}>
+                                                              {item?.data_customvalue}
+                                                            </Text>
+                                                          );
+                                                        }}
+                                                      />
+                                                    </View>
+                                                  </View>
+                                                </View>
+                                                <Collapsible collapsed={moreFilter}>
+                                                  <View style={styles.moreffiltercover}>
+                                                    <FlatList
+                                                      data={moreFilterData?.more_filter_data}
+                                                      style={{
+                                                        alignContent: 'center',
+                                                      }}
+                                                      nestedScrollEnabled
+                                                      numColumns={3}
+                                                      renderItem={({ item, index }) => {
+                                                        const {
+                                                          data_custom_taxonomy,
+                                                          data_customvalue,
+                                                        } = item;
+                                                        const isSelectedMore =
+                                                          selectedTabsMore.filter(
+                                                            i => i === data_customvalue,
+                                                          ).length > 0;
+                                                        return (
+                                                          <TouchableOpacity
+                                                            style={{
+                                                              width: '33.33%',
+                                                              paddingHorizontal: 8,
+                                                            }}
+                                                            onPress={async () => {
+                                                              if (isSelectedMore) {
+                                                                setSelectedTabsMore(prev =>
+                                                                  prev.filter(
+                                                                    i => i !== data_customvalue,
+                                                                  ),
+                                                                );
+                                                              } else {
+                                                                setSelectedTabsMore(prev => [
+                                                                  ...prev,
+                                                                  data_customvalue,
+                                                                ]);
+                                                              }
+                                                            }}>
+                                                            <Text
+                                                              style={{
+                                                                color: isSelectedMore
+                                                                  ? Colors.white
+                                                                  : Colors.black,
+                                                                textAlign: 'center',
+                                                                borderRadius: 20,
+                                                                borderWidth: 0.8,
+                                                                borderColor: Colors.gray,
+                                                                backgroundColor: isSelectedMore
+                                                                  ? Colors.black
+                                                                  : Colors.white,
+                                                                padding: 10,
+                                                                marginBottom: 8,
+                                                                fontSize:
+                                                                  DeviceInfo.getDeviceType() ===
+                                                                    'Tablet'
+                                                                    ? 18
+                                                                    : 14,
+                                                              }}
+                                                              numberOfLines={1}>
+                                                              {item?.data_name}
+                                                            </Text>
+                                                          </TouchableOpacity>
+                                                        );
+                                                      }}></FlatList>
+                                                  </View>
+                                                </Collapsible>
+                                                <View style={styles.applymaincover}>
+                                                  <TouchableOpacity
+                                                    onPress={async () => {
+                                                      setFilterModalVisible(false);
+                                                    }}
+                                                    style={styles.apllycover}>
+                                                    <Text style={styles.applytext}>Apply</Text>
+                                                  </TouchableOpacity>
+                                                </View>
+                                              </View>
+                                            </View>
+                                          </ScrollView>
+                                        </SafeAreaView>
+                                      </Animated.View>
+                                    </View>
+                                  </Modal>
+                                </KeyboardAvoidingView>
+                                <KeyboardAvoidingView behavior="padding">
+                                  <Modal
+                                    transparent={true}
                                     visible={gpsModalVisiavle}
-                                    //visible={true}
                                     onRequestClose={() => {
                                       setGpsModalVisiavle(false);
                                     }}>
@@ -1995,21 +1968,21 @@ const Home = () => {
 
                                         <ScrollView style={styles.bgcover}>
 
-                                      
-                                        
 
-                                           <View style={{alignItems:"center", paddingBottom:20}}>
+
+
+                                          <View style={{ alignItems: "center", paddingBottom: 20 }}>
 
                                             <View
                                               style={styles.indicator}></View>
                                           </View>
-                                        <ScrollView style={styles.bgcover}>
-                                         
-                                          <View style={{}}>
-                                            <Text style={styles.reviewtxt}>
-                                            Rate This Property
-                                            </Text>
-                                          </View>
+                                          <ScrollView style={styles.bgcover}>
+
+                                            <View style={{}}>
+                                              <Text style={styles.reviewtxt}>
+                                                Rate This Property
+                                              </Text>
+                                            </View>
 
                                             <View style={styles.maincov}>
                                               <View
@@ -2019,7 +1992,7 @@ const Home = () => {
                                                 ]}>
                                                 <Text
                                                   style={styles.propertlabel}>
-                                                Photo Quality:
+                                                  Photo Quality:
                                                 </Text>
 
                                                 <StarRating
@@ -2034,16 +2007,18 @@ const Home = () => {
                                                   }}
                                                 />
 
-                                                <View style={{width:"70%", borderBottomWidth:1, 
-                                                borderBottomColor:Colors.BorderColor,marginVertical:15}}></View>
+                                                <View style={{
+                                                  width: "70%", borderBottomWidth: 1,
+                                                  borderBottomColor: Colors.BorderColor, marginVertical: 15
+                                                }}></View>
                                               </View>
 
 
-                                          
+
                                               <View style={styles.labelcover}>
                                                 <Text
                                                   style={styles.propertlabel}>
-                                                 Description Accuracy:
+                                                  Description Accuracy:
                                                 </Text>
 
                                                 <StarRating
@@ -2057,12 +2032,14 @@ const Home = () => {
                                                     setRating1(value);
                                                   }}
                                                 />
-                                                <View style={{width:"70%", borderBottomWidth:1, 
-                                                borderBottomColor:Colors.BorderColor,marginVertical:15}}></View>
+                                                <View style={{
+                                                  width: "70%", borderBottomWidth: 1,
+                                                  borderBottomColor: Colors.BorderColor, marginVertical: 15
+                                                }}></View>
                                               </View>
-                                             
-                                       
-                                         
+
+
+
                                               <View style={styles.labelcover}>
                                                 <Text
                                                   style={styles.propertlabel}>
@@ -2080,16 +2057,18 @@ const Home = () => {
                                                     setRating2(value);
                                                   }}
                                                 />
-                                                <View style={{width:"70%", borderBottomWidth:1, 
-                                                borderBottomColor:Colors.BorderColor,marginVertical:15}}></View>
+                                                <View style={{
+                                                  width: "70%", borderBottomWidth: 1,
+                                                  borderBottomColor: Colors.BorderColor, marginVertical: 15
+                                                }}></View>
                                               </View>
-                                            
 
-                                     
+
+
                                               <View style={styles.labelcover}>
                                                 <Text
                                                   style={styles.propertlabel}>
-                                                 Interest in the property:
+                                                  Interest in the property:
                                                 </Text>
 
                                                 <StarRating
@@ -2103,95 +2082,97 @@ const Home = () => {
                                                     setRating3(value);
                                                   }}
                                                 />
-                                                <View style={{width:"70%", borderBottomWidth:1, 
-                                                borderBottomColor:Colors.BorderColor,marginVertical:15}}></View>
+                                                <View style={{
+                                                  width: "70%", borderBottomWidth: 1,
+                                                  borderBottomColor: Colors.BorderColor, marginVertical: 15
+                                                }}></View>
                                               </View>
-                                              
 
-                                            <View style={styles.reviewcover}>
-                                              <Text style={styles.propertlabel}>
-                                              My Notes
-                                              </Text>
-                                              <View
-                                                style={styles.textinputcover}>
+
+                                              <View style={styles.reviewcover}>
+                                                <Text style={styles.propertlabel}>
+                                                  My Notes
+                                                </Text>
+                                                <View
+                                                  style={styles.textinputcover}>
+                                                  {ratingData?.length > 0 ? (
+                                                    <TextInput
+                                                      multiline={true}
+                                                      style={
+                                                        styles.textinputstyle1
+                                                      }
+                                                      onChangeText={text =>
+                                                        setComentContent(text)
+                                                      }
+                                                      autoFocus
+                                                    />
+                                                  ) : (
+                                                    <TextInput
+                                                      onChangeText={text =>
+                                                        setComentContent(text)
+                                                      }
+                                                      multiline={true}
+                                                      style={
+                                                        styles.textinputstyle
+                                                      }></TextInput>
+                                                  )}
+                                                </View>
+                                              </View>
+                                              <View style={styles.btnmaincover}>
                                                 {ratingData?.length > 0 ? (
-                                                  <TextInput
-                                                    multiline={true}
-                                                    style={
-                                                      styles.textinputstyle1
-                                                    }
-                                                    onChangeText={text =>
-                                                      setComentContent(text)
-                                                    }
-                                                    autoFocus
-                                                  />
+                                                  <View
+                                                    style={styles.submitbtnmain}>
+                                                    <TouchableOpacity
+                                                      onPress={() => updateReview()}
+                                                      style={
+                                                        styles.submitbtncover
+                                                      }>
+                                                      <Text
+                                                        style={
+                                                          styles.submitbtntxt
+                                                        }>
+                                                        UPDATE
+                                                      </Text>
+                                                    </TouchableOpacity>
+                                                    {isAnimating && (
+                                                      <LottieView
+                                                        style={styles.loaderstyle1}
+                                                        source={require('../../assets/animations/star.json')}
+                                                        autoPlay
+                                                        loop
+                                                      />
+
+                                                    )}
+                                                  </View>
                                                 ) : (
-                                                  <TextInput
-                                                    onChangeText={text =>
-                                                      setComentContent(text)
-                                                    }
-                                                    multiline={true}
-                                                    style={
-                                                      styles.textinputstyle
-                                                    }></TextInput>
+                                                  <View
+                                                    style={styles.submitbtnmain}>
+                                                    <TouchableOpacity
+                                                      onPress={() => addReview()}
+                                                      style={
+                                                        styles.submitbtncover
+                                                      }>
+                                                      <Text
+                                                        style={
+                                                          styles.submitbtntxt
+                                                        }>
+                                                        SAVE
+                                                      </Text>
+                                                    </TouchableOpacity>
+                                                    {isAnimating && (
+                                                      <LottieView
+                                                        style={styles.loaderstyle1}
+                                                        source={require('../../assets/animations/star.json')}
+                                                        autoPlay
+                                                        loop
+                                                      />
+
+                                                    )}
+                                                  </View>
                                                 )}
                                               </View>
                                             </View>
-                                            <View style={styles.btnmaincover}>
-                                              {ratingData?.length > 0 ? (
-                                                <View
-                                                  style={styles.submitbtnmain}>
-                                                  <TouchableOpacity
-                                                    onPress={() => updateReview()}
-                                                    style={
-                                                      styles.submitbtncover
-                                                    }>
-                                                    <Text
-                                                      style={
-                                                        styles.submitbtntxt
-                                                      }>
-                                                      UPDATE
-                                                    </Text>
-                                                  </TouchableOpacity>
-                                                  {isAnimating && (
-                                                    <LottieView
-                                                      style={styles.loaderstyle1}
-                                                      source={require('../../assets/animations/star.json')}
-                                                      autoPlay
-                                                      loop
-                                                    />
-                                                    
-                                                  )}
-                                                </View>
-                                              ) : (
-                                                <View
-                                                  style={styles.submitbtnmain}>
-                                                  <TouchableOpacity
-                                                    onPress={() => addReview()}
-                                                    style={
-                                                      styles.submitbtncover
-                                                    }>
-                                                    <Text
-                                                      style={
-                                                        styles.submitbtntxt
-                                                      }>
-                                                     SAVE
-                                                    </Text>
-                                                  </TouchableOpacity>
-                                                  {isAnimating && (
-                                                    <LottieView
-                                                      style={styles.loaderstyle1}
-                                                      source={require('../../assets/animations/star.json')}
-                                                      autoPlay
-                                                      loop
-                                                    />
-                                                    
-                                                  )}
-                                                </View>
-                                              )}
-                                            </View>
-                                          </View>
-                                        </ScrollView>
+                                          </ScrollView>
                                         </ScrollView>
                                       </Animated.View>
                                     </View>
@@ -2420,11 +2401,11 @@ const Home = () => {
                 <View style={styles.extencovermain}>
                   <TouchableOpacity
                     onPress={async () => {
-                      setLimit(limit + 1);
+                      setLimitCount(limitCount + 1);
                       await dispatch(
                         getPopertiess({
                           type: 0,
-                          limit: limit + 1,
+                          limit: limitCount + 1,
                           ID: store?.getState()?.loginUserReducer?.loginData
                             ?.data?.ID,
                         }),
@@ -2677,7 +2658,7 @@ const styles = StyleSheet.create({
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 49,
     width: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 59,
     marginRight: 30,
-    transform: [{rotate: '-180deg'}],
+    transform: [{ rotate: '-180deg' }],
     marginTop: 0,
     position: 'relative',
     top: DeviceInfo.getDeviceType() === 'Tablet' ? -15 : -10,
@@ -2731,22 +2712,22 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: Colors.black,
     fontFamily: 'Poppins-Light',
-    marginBottom:15,
-    textAlign:"center"
+    marginBottom: 15,
+    textAlign: "center"
   },
   reviewcover: {
     width: '100%',
     alignSelf: 'center',
     overflow: 'hidden',
-    marginTop:15
+    marginTop: 15
   },
   reviewtxt: {
     fontSize: 21,
     fontFamily: 'Poppins-SemiBold',
     color: Colors.black,
     marginTop: 20,
-    textAlign:"center",
-    marginBottom:20
+    textAlign: "center",
+    marginBottom: 20
   },
   textinputcover: {
     width: '100%',
@@ -2800,7 +2781,7 @@ const styles = StyleSheet.create({
     //height: 50,
     width: '100%',
     borderRadius: 100,
-   //backgroundColor: Colors.surfblur,
+    //backgroundColor: Colors.surfblur,
     //marginTop: 10,
     flexDirection: 'row',
     alignItems: 'center',
@@ -2809,10 +2790,10 @@ const styles = StyleSheet.create({
   },
   submitbtntxt: {
     fontSize: 17,
-    color:  Colors.surfblur,
+    color: Colors.surfblur,
     fontFamily: 'Poppins-SemiBold',
   },
-  mapstarthere: {height: '100%', width: width},
+  mapstarthere: { height: '100%', width: width },
   mapuppercover: {
     position: 'absolute',
     zIndex: 99,
@@ -2831,7 +2812,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     paddingVertical: 12,
   },
-  detailcover: {flexWrap: 'wrap', top: -5},
+  detailcover: { flexWrap: 'wrap', top: -5 },
   itemtitle: {
     color: 'black',
     marginLeft: 10,
@@ -2843,8 +2824,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontWeight: '500',
   },
-  filterstyle1:{position:"absolute",left:12,top:12},
-gpscover1:{position:"relative"},
+  filterstyle1: { position: "absolute", left: 12, top: 12 },
+  gpscover1: { position: "relative" },
   labelinnercover: {
     flexDirection: 'row',
     marginLeft: 10,
@@ -2900,9 +2881,9 @@ gpscover1:{position:"relative"},
     fontSize: 14,
     fontFamily: 'Poppins-Regular',
   },
-  dropdown1DropdownStyle: {backgroundColor: '#EFEFEF'},
-  dropdown1RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
-  dropdown1RowTxtStyle: {color: '#444', textAlign: 'left'},
+  dropdown1DropdownStyle: { backgroundColor: '#EFEFEF' },
+  dropdown1RowStyle: { backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5' },
+  dropdown1RowTxtStyle: { color: '#444', textAlign: 'left' },
 
   dropdown1BtnStyle: {
     width: '100%',
@@ -2940,7 +2921,7 @@ gpscover1:{position:"relative"},
     justifyContent: 'center',
     borderRadius: 3,
     right: 12,
-    shadowOffset: {width: -2, height: 4},
+    shadowOffset: { width: -2, height: 4 },
     shadowColor: '#171717',
     shadowOpacity: 0.2,
     shadowRadius: 3,
@@ -2954,7 +2935,7 @@ gpscover1:{position:"relative"},
     justifyContent: 'center',
     borderRadius: 3,
     // right: 12,
-    shadowOffset: {width: -2, height: 4},
+    shadowOffset: { width: -2, height: 4 },
     shadowColor: '#171717',
     shadowOpacity: 0.2,
     shadowRadius: 3,
@@ -3442,7 +3423,7 @@ gpscover1:{position:"relative"},
   loaderstyle1: {
     height: '100%',
     width: '100%',
-    flex:1,
+    flex: 1,
     backgroundColor: "white",
     position: 'absolute',
     zIndex: 99,
@@ -3531,7 +3512,7 @@ gpscover1:{position:"relative"},
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    marginBottom:10
+    marginBottom: 10
   },
   filterinnermain: {
     width: '100%',
@@ -3549,7 +3530,6 @@ gpscover1:{position:"relative"},
     // height: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
     // width: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
     marginRight: 6,
-    tintColor: 'black',
   },
   filtericontext: {
     color: 'black',
@@ -3642,7 +3622,7 @@ gpscover1:{position:"relative"},
     height: 25,
     width: 25,
     tintColor: Colors.white,
-    transform: [{rotate: '-180deg'}],
+    transform: [{ rotate: '-180deg' }],
     position: 'relative',
     left: 12,
     alignItems: 'center',
@@ -3668,7 +3648,7 @@ gpscover1:{position:"relative"},
     height: '100%',
     backgroundColor: Colors.white,
   },
-  w85: {width: '85%'},
+  w85: { width: '85%' },
   modalcover: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -3833,7 +3813,7 @@ gpscover1:{position:"relative"},
     height: 12,
     width: 12,
   },
-  w100: {width: '100%'},
+  w100: { width: '100%' },
   maincov: {
     width: '100%',
     alignSelf: 'center',
