@@ -236,7 +236,7 @@ const BookaTour = props => {
                       // padding: 8,
                       fontSize: 16,
                       borderRadius: 16,
-                      backgroundColor: Colors.surfblur,
+                      backgroundColor: "#D3D3D3",
                       alignSelf: 'flex-start',
                       textAlignVertical: 'center',
                       alignItems: 'center',
@@ -247,7 +247,7 @@ const BookaTour = props => {
                       marginRight: 8,
                       paddingHorizontal: 8,
                       minHeight: 50,
-                      color: Colors.white,
+                      color: Colors.black,
                     }}>
                     {item.message}
                   </Text>
@@ -259,8 +259,8 @@ const BookaTour = props => {
                       borderRadius: 16,
                       backgroundColor:
                         item.user_id === userID
-                          ? Colors.surfblur
-                          : Colors.white,
+                          ? Colors.white
+                          : Colors.surfblur,
                       alignSelf:
                         item.user_id === userID ? 'flex-start' : 'flex-end',
                       textAlignVertical: 'center',
@@ -276,7 +276,7 @@ const BookaTour = props => {
                       color:
                         item.user_id === userID ? Colors.white : Colors.black,
                       color:
-                        item.user_id === userID ? Colors.white : Colors.black,
+                        item.user_id === userID ? Colors.white : Colors.white,
                     }}>
                     {item.message}
                   </Text>

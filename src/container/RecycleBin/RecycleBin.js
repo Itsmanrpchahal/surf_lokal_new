@@ -36,6 +36,9 @@ import { useIsFocused } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
 const screenWidth = Dimensions.get('window').width;
 import StarRating from 'react-native-star-rating-widget';
+import Collapsible from 'react-native-collapsible';
+import LottieView from 'lottie-react-native';
+import MapView from 'react-native-maps';
 
 
 
@@ -45,7 +48,7 @@ const RecycleBin = () => {
   const [data, setHomeData] = useState([]);
   const [agentData, setAgentData] = useState([0])
   const [ratingData, setRatingData] = useState([])
-
+  const [isAnimating, setIsAnimating] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [showNoDataMessage, setShowNoDataMessage] = useState(false);
   const dispatch = useDispatch();
@@ -59,6 +62,7 @@ const RecycleBin = () => {
   const [productId, setProductId] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
   const [isCollapsed, setIsCollapsed] = useState(false);
+ 
 
   const slideAnimation = useRef(new Animated.Value(0)).current;
 
@@ -138,47 +142,64 @@ const RecycleBin = () => {
   }, [modalVisible]);
 
 
-  const updateReview = async post_id => {
-    const formData = new FormData();
-    formData.append('postid', productId);
-    formData.append('comment_content', commentContent);
-    formData.append('review_title', reviewTitle);
-    formData.append('review_stars', rating);
-    formData.append('description_review_stars', rating1);
-    formData.append('price_review_stars', rating2);
-    formData.append('interest_review_stars', rating3);
-    console.log('postUpdateRating', formData);
-
-    dispatch(postUpdateRating(formData)).then(response => {
-      if (response.payload.success) {
-        Alert.alert( response.payload.data.message);
-        toggleModal();
-      } else {
-        toggleModal();
-        Alert.alert( response.payload.data.message);
-      }
-    });
+const updateReview = async post_id => {
+    try {
+      setIsAnimating(true); 
+  
+      const formData = new FormData();
+      formData.append('postid', productId);
+      formData.append('comment_content', commentContent ? commentContent : '');
+      formData.append('review_title', reviewTitle);
+      formData.append('review_stars', rating);
+      formData.append('description_review_stars', rating1);
+      formData.append('price_review_stars', rating2);
+      formData.append('interest_review_stars', rating3);
+      console.log('postUpdateRating', formData);
+  
+      dispatch(postUpdateRating(formData)).then(response => {
+        if (response.payload.success) {
+          setIsAnimating(false);
+          toggleModal();
+        } else {
+          setIsAnimating(false);
+          toggleModal();
+         
+        }
+      });
+  
+    } catch (error) {
+      setIsAnimating(false); 
+      console.error('Error submitting review:', error);
+    }
   };
 
-  const addReview = async post_id => {
-    const formData = new FormData();
-    formData.append('postid', productId.toString());
-    formData.append('reviewtitle', reviewTitle);
-    formData.append('photo_quality_rating', rating);
-    formData.append('desc_stars', rating1);
-    formData.append('price_stars', rating2);
-    formData.append('interest_stars', rating3);
-    formData.append('content', commentContent);
-
-    dispatch(postRating(formData)).then(response => {
+  const addReview = async () => {
+    try {
+      setIsAnimating(true); 
+  
+      const formData = new FormData();
+      formData.append('postid', productId.toString());
+      formData.append('reviewtitle', reviewTitle);
+      formData.append('photo_quality_rating', rating);
+      formData.append('desc_stars', rating1);
+      formData.append('price_stars', rating2);
+      formData.append('interest_stars', rating3);
+      formData.append('content', commentContent ? commentContent : '');
+  
+      const response = await dispatch(postRating(formData));
+  
       if (response.payload.data.success) {
-        Alert.alert( response.payload.data.message);
-        toggleModal();
+        setIsAnimating(false); 
+        toggleModal(); 
       } else {
-        toggleModal();
-        Alert.alert( response.payload.data.message);
+        setIsAnimating(false); 
+        toggleModal(); 
+     
       }
-    });
+    } catch (error) {
+      setIsAnimating(false); 
+      console.error('Error submitting review:', error);
+    }
   };
   const navigation = useNavigation();
 
@@ -410,8 +431,7 @@ const RecycleBin = () => {
           {item?.title}
         </Text>
       </View>
-      <KeyboardAvoidingView behavior="padding">
-
+      <KeyboardAvoidingView>
         <Modal
           transparent={true}
           animationType="slide"
@@ -420,13 +440,13 @@ const RecycleBin = () => {
           <View style={styles.modalContainer}>
             <TouchableOpacity
               activeOpacity={1}
-              style={styles.modalOverlay}
+              style={styles.modalOverlaynew}
               onPress={closeModal}
             />
             <Animated.View
               {...panResponder.panHandlers}
               style={[
-                styles.modalContent,
+                styles.modalContentnew,
                 {
                   transform: [
                     {
@@ -437,247 +457,173 @@ const RecycleBin = () => {
                     },
                   ],
                 },
-              ]}
-            >
-              <ScrollView style={{ width: "100%" }}>
-                <View style={{ alignItems: "center", justifyContent: "center" }}>
-
-                  <View
-                    style={{
-                      width: 50,
-                      height: 5,
-                      backgroundColor: "#bac1c3",
-                      marginTop: 0,
-                      justifyContent: 'center',
-                      borderRadius: 100,
-                    }}></View>
-
-
+              ]}>
+              <ScrollView style={styles.bgcover}>
+                <View style={{alignItems: 'center', paddingBottom: 20}}>
+                  <View style={styles.indicator}></View>
                 </View>
-                <View style={{}}>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontFamily: "Poppins-SemiBold",
-                      color: Colors.black,
-                      marginTop: 10,
-                    }}>
-                    Your Review
-                  </Text>
-                </View>
-                <View style={{ width: '100%', }}>
-                  <View style={{ width: '100%', alignSelf: 'center' }}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        marginTop: 10,
-                      }}>
-                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Photos :
-                      </Text>
+                <ScrollView style={styles.bgcover}>
+                  <View style={{}}>
+                    <Text style={styles.reviewtxt}>Rate This Property</Text>
+                  </View>
+
+                  <View style={styles.maincov}>
+                    <View style={[styles.labelcover, {marginTop: 10}]}>
+                      <Text style={styles.propertlabel}>Photo Quality:</Text>
+
                       <StarRating
                         maxStars={5}
-                        starSize={22}
+                        starSize={27}
                         enableSwiping
                         enableHalfStar
                         color={Colors.surfblur}
                         rating={rating}
-                        onChange={(value) => { setRating(value) }}
+                        onChange={value => {
+                          setRating(value);
+                        }}
                       />
-                    </View>
-                  </View>
 
-                  <View style={{ width: '100%', alignSelf: 'center' }}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}>
-                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Description Accuracy :
+                      <View
+                        style={{
+                          width: '70%',
+                          borderBottomWidth: 1,
+                          borderBottomColor: Colors.BorderColor,
+                          marginVertical: 15,
+                        }}></View>
+                    </View>
+
+                    <View style={styles.labelcover}>
+                      <Text style={styles.propertlabel}>
+                        Description Accuracy:
                       </Text>
 
                       <StarRating
                         maxStars={5}
-                        starSize={22}
+                        starSize={27}
                         enableSwiping
                         enableHalfStar
                         color={Colors.surfblur}
                         rating={rating1}
-                        onChange={(value) => { setRating1(value) }}
+                        onChange={value => {
+                          setRating1(value);
+                        }}
                       />
-
+                      <View
+                        style={{
+                          width: '70%',
+                          borderBottomWidth: 1,
+                          borderBottomColor: Colors.BorderColor,
+                          marginVertical: 15,
+                        }}></View>
                     </View>
-                  </View>
-                  <View style={{ width: '100%', alignSelf: 'center' }}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}>
-                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Price :
-                      </Text>
+
+                    <View style={styles.labelcover}>
+                      <Text style={styles.propertlabel}>Price :</Text>
+
                       <StarRating
                         maxStars={5}
-                        starSize={22}
+                        starSize={27}
                         enableSwiping
                         enableHalfStar
                         color={Colors.surfblur}
                         rating={rating2}
-                        onChange={(value) => { setRating2(value) }}
+                        onChange={value => {
+                          setRating2(value);
+                        }}
                       />
+                      <View
+                        style={{
+                          width: '70%',
+                          borderBottomWidth: 1,
+                          borderBottomColor: Colors.BorderColor,
+                          marginVertical: 15,
+                        }}></View>
                     </View>
-                  </View>
 
-                  <View style={{ width: '100%', alignSelf: 'center' }}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}>
-                      <Text style={{ fontSize: 12, color: Colors.black, fontFamily: "Poppins-Regular" }}>
-                        Interest in Property :
+                    <View style={styles.labelcover}>
+                      <Text style={styles.propertlabel}>
+                        Interest in the property:
                       </Text>
 
                       <StarRating
                         maxStars={5}
-                        starSize={22}
+                        starSize={27}
                         enableSwiping
                         enableHalfStar
                         color={Colors.surfblur}
                         rating={rating3}
-                        onChange={(value) => { setRating3(value) }}
+                        onChange={value => {
+                          setRating3(value);
+                        }}
                       />
+                      <View
+                        style={{
+                          width: '70%',
+                          borderBottomWidth: 1,
+                          borderBottomColor: Colors.BorderColor,
+                          marginVertical: 15,
+                        }}></View>
                     </View>
-                  </View>
 
-
-
-                  <View style={{ width: '100%', alignSelf: 'center', overflow: "hidden" }}>
-                    <Text
-                      style={{
-                        fontSize: 18,
-                        fontFamily: "Poppins-SemiBold",
-                        color: Colors.black,
-                        marginTop: 10,
-                      }}>
-                      Review
-                    </Text>
-                    <View
-                      style={{
-                        width: '100%',
-                        marginTop: 0,
-                        flexWrap: "wrap",
-                        whiteSpace: "pre-wrap",
-                        wordWrap: "break-word", height: 100, width: "100%", flexWrap: "wrap", overflow: "hidden"
-                      }}>
-
-
-                      {ratingData.length > 0? (
-                        <TextInput
-                          multiline={true}
-                          style={{
-                            verticalAlign: "top",
-                            borderWidth: 1, borderColor: Colors.BorderColor, borderRadius: 8, paddingHorizontal: 12,
-                            fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", height: 100,
-                            width: "100%"
-                          }}
-                          onChangeText={text => setComentContent(text)}
-                          autoFocus
-                        />
+                    <View style={styles.reviewcover}>
+                      <Text style={styles.propertlabel}>My Notes</Text>
+                      <View style={styles.textinputcover}>
+                        {ratingData?.length > 0 ? (
+                          <TextInput
+                            multiline={true}
+                            style={styles.textinputstyle1}
+                            onChangeText={text => setComentContent(text)}
+                            autoFocus
+                          />
+                        ) : (
+                          <TextInput
+                            onChangeText={text => setComentContent(text)}
+                            multiline={true}
+                            style={styles.textinputstyle}></TextInput>
+                        )}
+                      </View>
+                    </View>
+                    <View style={styles.btnmaincover}>
+                      {ratingData?.length > 0 ? (
+                        <View style={styles.submitbtnmain}>
+                          <TouchableOpacity
+                            onPress={() => updateReview()}
+                            style={styles.submitbtncover}>
+                            <Text style={styles.submitbtntxt}>UPDATE</Text>
+                          </TouchableOpacity>
+                          {isAnimating && (
+                            <LottieView
+                              style={styles.loaderstyle1}
+                              source={require('../../assets/animations/star.json')}
+                              autoPlay
+                              loop
+                            />
+                          )}
+                        </View>
                       ) : (
-                        <TextInput
-                        onChangeText={text => setComentContent(text)}
-
-                          multiline={true}
-                          style={{
-                            verticalAlign: "top",
-                            borderWidth: 1, borderColor: Colors.BorderColor, borderRadius: 8, paddingHorizontal: 12,
-                            fontSize: 12, flexWrap: "wrap", color: Colors.newgray, fontFamily: "Poppins-Regular", height: 100,
-                            width: "100%"
-
-                          }}>
-                        </TextInput>
+                        <View style={styles.submitbtnmain}>
+                          <TouchableOpacity
+                            onPress={() => addReview()}
+                            style={styles.submitbtncover}>
+                            <Text style={styles.submitbtntxt}>SAVE</Text>
+                          </TouchableOpacity>
+                          {isAnimating && (
+                            <LottieView
+                              style={styles.loaderstyle1}
+                              source={require('../../assets/animations/star.json')}
+                              autoPlay
+                              loop
+                            />
+                          )}
+                        </View>
                       )}
                     </View>
                   </View>
-                  <View style={{
-
-                    width: '100%',
-
-                    flexDirection: 'row',
-                    alignItems: "center",
-                    justifyContent: "flex-end",
-                    //s paddingHorizontal: 10
-                  }}>
-                    {ratingData.length > 0? (
-                      <View style={{
-                        justifyContent: "flex-end", width: '100%',
-                        alignItems: "flex-end",
-                      }}>
-                        <TouchableOpacity onPress={() => updateReview()} style={{
-                          height: 50,
-                          width: '40%',
-                          borderRadius: 100,
-                          backgroundColor: Colors.surfblur,
-                          marginTop: 10,
-                          flexDirection: 'row',
-                          alignItems: "center",
-                          justifyContent: "center",
-                          marginBottom: 40
-                        }}>
-                          <Text style={{
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontFamily: "Poppins-Regular",
-                          }}>Update</Text>
-                        </TouchableOpacity>
-                      </View>
-                    ) : (
-
-                      <View style={{
-                        justifyContent: "flex-end", width: '100%',
-                        alignItems: "flex-end",
-                      }}>
-                        <TouchableOpacity
-                          onPress={() => addReview()}
-                          style={{
-                            height: 50,
-                            width: '45%',
-                            borderRadius: 100,
-                            backgroundColor: Colors.surfblur,
-                            marginTop: 10,
-                            flexDirection: 'row',
-                            alignItems: "center",
-                            justifyContent: "center",
-                            marginBottom: 20
-
-                          }}>
-                          <Text
-                            style={{
-                              fontSize: 16,
-                              color: Colors.white,
-                              fontFamily: "Poppins-Regular",
-                            }}>
-                            Submit
-                          </Text>
-                        </TouchableOpacity>
-                      </View>
-                    )}
-                  </View>
-
-                </View>
+                </ScrollView>
               </ScrollView>
             </Animated.View>
           </View>
         </Modal>
-
       </KeyboardAvoidingView>
       <View
         style={{
@@ -1163,7 +1109,70 @@ const RecycleBin = () => {
           />
         </TouchableOpacity>
       </View>
-      <View
+      <View style={styles.filtercover}>
+        <TouchableOpacity
+          onPress={() => {
+            setIsCollapsed(!isCollapsed);
+          }}>
+          <Image style={[styles.filterimage,{ transform: isCollapsed ? [{ rotate: '90deg' }] : [{ rotate: '0deg' }]}]} source={Images.favfilter} />
+        </TouchableOpacity>
+      </View>
+      
+      <Collapsible collapsed={!isCollapsed} style={styles.collapsecover}>
+         <Text style={styles.sortby}>Sort by</Text>
+        <View style={styles.collapsebg}>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.calenderwedding}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Date Favorited</Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.calenderwedding}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Days on Market</Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.low}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Price (Low to High) </Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.lowhigh}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Price (High to Low)</Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.newbed}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Beds (High to Low)</Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.bathtub}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Baths (High to Low)</Text>
+             
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <Image
+              source={Images.measuringtape}
+              style={styles.colimg}></Image>
+             <Text style={styles.coltxt}>Sq Ft (High to Low)</Text>
+             
+          </TouchableOpacity>
+        </View>
+      </Collapsible>
+      {/* <View
         style={{
           alignItems: 'center',
           justifyContent: 'center',
@@ -1175,7 +1184,7 @@ const RecycleBin = () => {
             resizeMode: 'contain'}}
           source={Images.favfilter}
         />
-      </View>
+      </View> */}
       <View style={{ height: '100%', width: '100%' }}>
         {showNoDataMessage ? (
           <View
@@ -1226,6 +1235,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
   },
+  collapupper:{flexDirection:"row",
+  alignItems:"center",justifyContent:"center",borderBottomWidth:1,
+  borderBottomColor:Colors.BorderColor,paddingBottom:15,paddingTop:15,
+
+},
+  collapsebg:{
+    // justifyContent:'center',
+    // alignItems:'center',
+    // alignContent:'center'
+  },
+  collapsecover:{
+    
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.white,
@@ -1251,6 +1273,127 @@ marginBottom:16
     marginTop: 0,
     marginBottom: 0,
     resizeMode:"cover"
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    justifyContent: 'flex-end',
+  },
+  modalOverlaynew: {
+    flex: 1,
+  },
+  modalContentnew: {
+    backgroundColor: 'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 16,
+    maxHeight: '72%',
+  },
+  bgcover: {
+    height: '100%',
+    backgroundColor: Colors.white,
+  },
+  maincov: {
+    width: '100%',
+    alignSelf: 'center',
+  },
+  propertlabel: {
+    fontSize: 17,
+    color: Colors.black,
+    fontFamily: 'Poppins-Light',
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  labelcover: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textinputstyle: {
+    verticalAlign: 'top',
+    borderWidth: 1,
+    borderColor: Colors.BorderColor,
+    borderRadius: 50,
+    paddingHorizontal: 12,
+    fontSize: 12,
+    flexWrap: 'wrap',
+    color: Colors.newgray,
+    fontFamily: 'Poppins-Regular',
+    height: 50,
+    width: '100%',
+  },
+  loaderstyle1: {
+    height: '100%',
+    width: '100%',
+    flex: 1,
+    backgroundColor: 'white',
+    position: 'absolute',
+    zIndex: 99,
+    left: 0,
+    top: 0,
+  },
+  submitbtntxt: {
+    fontSize: 17,
+    color: Colors.surfblur,
+    fontFamily: 'Poppins-SemiBold',
+  },
+  submitbtnmain: {
+    justifyContent: 'center',
+    width: '100%',
+    alignItems: 'center',
+  },
+  submitbtncover: {
+    width: '100%',
+    borderRadius: 100,
+
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btnmaincover: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textinputcover: {
+    width: '100%',
+    marginTop: 0,
+    flexWrap: 'wrap',
+    whiteSpace: 'pre-wrap',
+    wordWrap: 'break-word',
+    height: 60,
+    width: '100%',
+    flexWrap: 'wrap',
+    overflow: 'hidden',
+  },
+  reviewtxt: {
+    fontSize: 21,
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
+    marginTop: 20,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  reviewcover: {
+    width: '100%',
+    alignSelf: 'center',
+    overflow: 'hidden',
+    marginTop: 15,
+  },
+  indicator: {
+    width: 50,
+    height: 5,
+    backgroundColor: '#bac1c3',
+    marginTop: 0,
+    justifyContent: 'center',
+    borderRadius: 100,
+  },
+  filterimage: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 15,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 13,
+    resizeMode: 'contain',
+
   },
   title: {
     fontSize: DeviceInfo.getDeviceType() === 'Tablet'?39:23,
@@ -1278,6 +1421,19 @@ marginBottom:16
     backgroundColor: 'gray',
     marginHorizontal: 5,
   },
+  textinputstyle1: {
+    verticalAlign: 'top',
+    borderWidth: 1,
+    borderColor: Colors.BorderColor,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    fontSize: 12,
+    flexWrap: 'wrap',
+    color: Colors.newgray,
+    fontFamily: 'Poppins-Regular',
+    height: 50,
+    width: '100%',
+  },
   modalContainer: {
     flex: 1,
     backgroundColor: 'transparent',
@@ -1293,8 +1449,15 @@ marginBottom:16
     padding: 16,
     maxHeight: '80%',
   },
+  colimg:{height:36,width:36, resizeMode:"contain",marginRight:8},
+  coltxt:{fontSize:18, fontFamily:"Poppins-Light" , color:Colors.black},
   paginationDotActive: {
     backgroundColor: 'blue',
+  },
+  filtercover: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 16,
   },
   filter: {
     height: 60,
@@ -1305,6 +1468,8 @@ marginBottom:16
   ratingText: {
     fontSize: 18,
   },
+  sortby:{fontSize:21, fontFamily:"Poppins-SemiBold", color:Colors.black, textAlign:"center",
+  marginBottom:15,paddingTop:15},
   screen1: {
     flexDirection: 'row',
     justifyContent: 'center',
