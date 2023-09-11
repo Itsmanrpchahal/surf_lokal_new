@@ -1,31 +1,27 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { postAPI, uploadImageAPI } from '../config/apiMethod';
-import BASEURl from '../services/Api'
-// import AsyncStorage from '@react-native-community/async-storage';
-import AsyncStorage from '@react-native-community/async-storage';
+import {  uploadImageAPI } from '../config/apiMethod';
 
-export const filterSearch = createAsyncThunk('filterSearch', async dispatch => {
-  const access_token = await AsyncStorage.getItem('access_token')
-
-  const Header={
-    security_key:"SurfLokal52",
-    access_token:access_token
-  }
-  console.log('hhhhh',Header)
-  return await postAPI(
-    BASEURl+'wp-json/search/FilterSearch',dispatch 
-  )
-    .then(async response => {
-      const { data } = response;
-      console.log("filrterr",data)
-      return data;
+export const filterSearch = createAsyncThunk('filterSearch', async (formData) => {
+  try {
+    const response = await uploadImageAPI(
+      `http://www.surflokal.com/wp-json/search/FilterSearch`,
+      formData,
+      
+    ).then((res) => {
+      console.log('filterSearch====> ', res)
+      return res;
+    }).catch((e) => {
+      console.log('filterSearch catch ===> ', e)
+      return e
     })
-    .catch(e => {
-      if (e.response) {
-      } else if (e.request) {
-      } else {
-      }
-    });
+
+    console.log('filterSearch response', response);
+
+    return response;
+  } catch (error) {
+    console.error('filterSearch error', error);
+    throw error; 
+  }
 });
 
 const filterSearchSlice = createSlice({
@@ -37,6 +33,7 @@ const filterSearchSlice = createSlice({
   extraReducers: {
     [filterSearch.pending]: (state, action) => {
       state.status = 'loading';
+      state.filterSearchData = action.payload;
     },
     [filterSearch.fulfilled]: (state, action) => {
       state.status = 'success';
@@ -44,6 +41,7 @@ const filterSearchSlice = createSlice({
     },
     [filterSearch.rejected]: (state, action) => {
       state.status = 'failed';
+      state.filterSearchData = action.payload;
     },
   },
 });

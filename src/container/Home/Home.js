@@ -6,7 +6,6 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  Alert,
   Dimensions,
   Platform,
   Animated,
@@ -21,7 +20,6 @@ import {
 
 import StarRating from 'react-native-star-rating-widget';
 import SelectDropdown from 'react-native-select-dropdown';
-import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
@@ -34,7 +32,7 @@ import { getFilter } from '../../modules/getFilter';
 import { SvgUri } from 'react-native-svg';
 import { postUpdateRating } from '../../modules/postUpdateRating';
 
-import { Dropdown, MultiSelect } from 'react-native-element-dropdown';
+import {  MultiSelect } from 'react-native-element-dropdown';
 
 import CardsSwipe from 'react-native-cards-swipe';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
@@ -50,7 +48,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 import DeviceInfo from 'react-native-device-info';
 import MapView, { Marker, Callout, PROVIDER_DEFAULT } from 'react-native-maps';
 import Collapsible from 'react-native-collapsible';
-import { useIsFocused } from '@react-navigation/native';
 import { getMoreFilter } from '../../modules/getMoreFilter';
 import { useRef } from 'react';
 import { getTrash } from '../../modules/getTrash';
@@ -65,8 +62,6 @@ import Loader from '../../components/Loader';
 
 const { width } = Dimensions.get('screen');
 const Home = () => {
-  const isFocused = useIsFocused();
-
   const [keyboardStatus, setKeyboardStatus] = useState('first');
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -97,9 +92,11 @@ const Home = () => {
         });
         setKeyboardStatus('first');
         setIsSelected(false);
+        setIsSelecteddata_name(false)
         setIsPressed1(false);
         setIsPressed(false);
         setSelectedTabs([]);
+        setTermName([])
       }
     }
   };
@@ -113,7 +110,7 @@ const Home = () => {
   const [adress, setAddres] = useState('');
   const [filterData, setFilterData] = useState([]);
   const [moreFilterData, setMoreFilterData] = useState([]);
-  const [termName, setTermName] = useState(null);
+  const [termName, setTermName] = useState([]);
   const [cities, setCities] = useState([]);
   const navigation = useNavigation();
   const [productId, setProductId] = useState();
@@ -131,6 +128,7 @@ const Home = () => {
   const [rating3, setRating3] = useState(0);
   const [ratingData, setRatingData] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
+  const [isSelecteddata_name, setIsSelecteddata_name,] = useState(false);
   const [bedroomitem, setBedroomItem] = useState(-1);
   const [bathRoom, setBathRoomItem] = useState(-1);
   const [imageIndex, setImageIndex] = useState(0);
@@ -149,7 +147,6 @@ const Home = () => {
   const [isPressed, setIsPressed] = useState(false);
   const [isPressed1, setIsPressed1] = useState(false);
   const [isPressed2, setIsPressed2] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
   const [mainViewHeight, setMainViewHeight] = useState(0);
   const [topViewHeight, setTopViewHeight] = useState(0);
   const [centerHeight, setCenterHeight] = useState(0);
@@ -175,19 +172,18 @@ const Home = () => {
       ).then(res => { });
     }
   }, [selectedTabsMore]);
+  useEffect(() => {
+    if (termName) {
 
-  const handlePress = () => {
+    }
+  }, [termName]);
 
-  };
 
   const handlePress2 = () => {
     setIsPressed2(!isPressed2);
     filtertoggleModal();
   };
 
-  const getUserScoreApiCall = () => {
-    dispatch(getUserScore()).then(response => { });
-  };
   useEffect(() => {
     getFilterApicall(),
       getTrashApiCall(),
@@ -195,25 +191,8 @@ const Home = () => {
       getSavedApiCall(),
       getMoreFilterApiCall(),
       getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
-      setAddres(''),
-      getUserScoreApiCall();
+      setAddres('')
   }, []);
-
-  // useEffect(() => {
-  //   if (isFocused) {
-  //     Promise.all[
-  //       (
-  //         getFilterApicall(),
-  //         getTrashApiCall(),
-  //         favlistApi(),
-  //         getSavedApiCall(),
-  //         getMoreFilterApiCall(),
-  //         getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
-  //         setAddres(''),
-  //         getUserScoreApiCall())
-  //     ];
-  //   }
-  // }, [isFocused]);
   const getFilterApicall = () => {
     dispatch(getFilter()).then(response => {
       setFilterData(response.payload.data);
@@ -233,7 +212,6 @@ const Home = () => {
       },
       onPanResponderRelease: (_, gestureState) => {
         if (gestureState.dy > 50) {
-          // If the swipe distance is greater than 50, close the modal
           closeModal();
           closeFavModal();
           closeTrashModal();
@@ -248,9 +226,7 @@ const Home = () => {
       },
     }),
   ).current;
-  const toggleCheckbox = () => {
-    setIsChecked(!isChecked);
-  };
+
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
@@ -264,14 +240,11 @@ const Home = () => {
   const trashToggleModal = () => {
     setTrashModalVisiable(!tashModalVisiable);
   };
-  const saveToogleModal = () => {
-    setSaveModalVisible(!saveModalVisible);
-  };
-  const gpsModal = () => {
-    setSaveModalVisible(!saveModalVisible);
-  };
   const favToggleModal = () => {
     setfavModalVisiable(!favModalVisiable);
+  };
+  const saveToogleModal = () => {
+    setSaveModalVisible(!saveModalVisible);
   };
   const closeModals = () => {
     setFilterModalVisible(false);
@@ -293,6 +266,8 @@ const Home = () => {
     }).start();
   };
   useEffect(() => {
+    console.log("limitCount",limitCount)
+
     handleModalAnimation();
   }, [modalVisible]);
   const slideAnimations = useRef(new Animated.Value(0)).current;
@@ -506,9 +481,10 @@ const Home = () => {
     }
   };
   const renderFillterItem = ({ item, index }) => {
-    const { data_custom_taxonomy, data_customvalue } = item;
-    const isSelected =
-      selectedTabs.filter(i => i === data_customvalue).length > 0;
+    const {  data_customvalue, term_name } = item;
+    const isSelected =selectedTabs.filter(i => i === data_customvalue).length > 0;
+    const isSelecteddata_name =termName.filter(i => i === term_name).length > 0;
+
     return (
       <TouchableOpacity
         onPress={() => {
@@ -517,20 +493,18 @@ const Home = () => {
           } else {
             setSelectedTabs(prev => [...prev, data_customvalue]);
           }
+          if (isSelecteddata_name) {
+            setTermName(prev => prev.filter(i => i !== term_name));
+          } else {
+            setTermName(prev => [...prev, term_name]);
+          }
           setIsSelected(true);
-          setTermName(item.term_name);
+          setIsSelecteddata_name(true)
           setSelected(index);
           setActivity(false);
           setLoading(true);
           setAddres('');
-          dispatch(
-            getPoperties({
-              type: 3,
-              data: {
-                data_custom_taxonomy: item.data_custom_taxonomy,
-                data_customvalue: item.data_customvalue,
-              },
-            }),
+          dispatch(getPoperties({type: 3,data: {data_custom_taxonomy: item.data_custom_taxonomy,data_customvalue: item.data_customvalue,}}),
           ).then(res => {
             setHomeData(res.payload.data);
           });
@@ -658,16 +632,11 @@ const Home = () => {
                       getSavedApiCall();
                       setIsPressed1(!isPressed1);
                       setIsPressed(false);
-                      const payload = {
-                        search_name: termName,
-                      };
-                      dispatch(filterSearch(payload)).then(response => {
-                        if (
-                          store.getState().getSavedSearchReducer
-                            .getSavedSearchData.count == 0
-                        ) {
+                      const formData = new FormData();
+                      formData.append('search_name', termName.toString());
+                      dispatch(filterSearch(formData)).then(response => {
+                        if (store.getState().getSavedSearchReducer.getSavedSearchData.count == 0) {
                           saveToogleModal();
-                        } else {
                         }
                       });
                     }}
@@ -678,17 +647,17 @@ const Home = () => {
                         backgroundColor: 'white',
                         borderColor: Colors.gray,
                         borderRadius: 10,
-                        backgroundColor: isPressed1 ? 'black' : 'white',
+                        backgroundColor:  'white',
                       },
                     ]}>
                     <Image
                       source={Images.SaveAlt}
-                      style={[styles.filtericonstyles,{ tintColor:isPressed1?"white":"black"}]}
+                      style={[styles.filtericonstyles,]}
                     />
                     <Text
                       style={[
                         styles.savesearchstyle,
-                        { color: isPressed1 ? 'white' : 'black' },
+                        { color:'black' },
                       ]}>
                       Save Search
                     </Text>
@@ -697,6 +666,7 @@ const Home = () => {
                     onPress={async () => {
                       setSelectedTabs([]);
                       setIsSelected(false);
+                      setIsSelecteddata_name(false)
                       setIsPressed1(false);
                       setIsPressed(false);
                       setBedroomItem(null);
@@ -706,11 +676,13 @@ const Home = () => {
                       setMinPricerange('');
                       setMaxPriceRange('');
                       setMoreFilter(false);
+                      setTermName([])
                       setCities('');
                       {
                         handlePress2;
                       }
                       dispatch(clearFilter());
+                      console.log("limitCount",limitCount)
                       await dispatch(
                         getPoperties({
                           type: 0,
