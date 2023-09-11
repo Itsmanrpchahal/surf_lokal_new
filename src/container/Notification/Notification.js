@@ -92,7 +92,7 @@ const Notification = () => {
         <View style={styles.headerinner}>
           <Text
             style={styles.headercover}>
-            You Have <Text style={styles.Notificationcount}>2</Text> New
+            You Have <Text style={styles.Notificationcount}>{data.length}</Text> New
             Notifications
           </Text>
           <View
