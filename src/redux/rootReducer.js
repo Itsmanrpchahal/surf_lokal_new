@@ -39,7 +39,9 @@ import propertyChatList from '../modules/propertyChats';
 import sendMessage from '../modules/sendMessage';
 import isRead from '../modules/isRead';
 import logOut from '../modules/logOut';
-import getNotifications from '../modules/getNotifications'
+import getNotifications from '../modules/getNotifications';
+ import sortingFavoritelist from '../modules/sortingFavoritelist';
+import sortingTrashlist from '../modules/sortingTrashlist';
 
 export default combineReducers({
     loginUserReducer,
@@ -80,6 +82,9 @@ export default combineReducers({
     propertyChatList,
     isRead,
     logOut,
-    getNotifications
+    getNotifications,
+    sortingFavoritelist,
+    sortingTrashlist
+
 
 });

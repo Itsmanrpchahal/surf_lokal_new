@@ -693,7 +693,7 @@ const Home = () => {
                     </Text>
                   </TouchableOpacity>
 
-                  {/* <TouchableOpacity
+                  <TouchableOpacity
                     onPress={handlePress}
                     style={[
                       styles.rew,
@@ -709,7 +709,7 @@ const Home = () => {
                       style={styles.filtericonstyles}
                     />
                     <Text style={styles.filtericontext}>Filters</Text>
-                  </TouchableOpacity> */}
+                  </TouchableOpacity>
                   <TouchableOpacity
                     onPress={async () => {
                       setSelectedTabs([]);
@@ -1968,7 +1968,6 @@ const Home = () => {
                                 <KeyboardAvoidingView>
                                   <Modal
                                     transparent={true}
-                                    animationType="slide"
                                     visible={modalVisible}
                                     onRequestClose={toggleModal}>
                                     <View style={styles.modalContainer}>
