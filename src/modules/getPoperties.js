@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAPI, uploadImageAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
-import AsyncStorage from '@react-native-community/async-storage';
 
 
 export const getPoperties = createAsyncThunk('getPoperties', async type => {
@@ -23,7 +22,6 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
         .then(async response => {
           console.log("payload latLng", type.latLng)
           const { data } = response;
-          console.log('latlng ===+> ', data)
           return data;
         })
         .catch(e => {
@@ -49,9 +47,6 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
           .then(async response => {
 
             const { data } = response;
-            console.log("type.data.data_custom_taxonomy", type.data.data_custom_taxonomy)
-            console.log("type.data.data_customvalue", type.data.data_customvalue)
-            console.log("type.data.response", response)
             return data;
           })
           .catch(e => {

@@ -30,6 +30,7 @@ import {postRating} from '../../modules/postRating';
 import {getAgent} from '../../modules/getAgent';
 import {getRating} from '../../modules/getRating';
 import {postUpdateRating} from '../../modules/postUpdateRating';
+import {sortingFavoritelist} from '../../modules/sortingFavoritelist';
 import * as Animatable from 'react-native-animatable';
 import {useIsFocused} from '@react-navigation/native';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
@@ -743,7 +744,11 @@ const MyFavorites = props => {
         <View style={styles.collapsebg}>
           <TouchableOpacity
             onPress={() => {
-              setIsCollapsed(false);
+              const payload={
+                date_favorited:"date_favorited"
+              }
+            dispatch(sortingFavoritelist(payload))
+              // setIsCollapsed(false);
             }}
             style={styles.collapupper}>
             <Image

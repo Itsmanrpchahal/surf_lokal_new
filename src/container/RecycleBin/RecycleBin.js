@@ -40,7 +40,7 @@ import Collapsible from 'react-native-collapsible';
 import LottieView from 'lottie-react-native';
 import MapView from 'react-native-maps';
 import { addToFavorite } from '../../modules/addToFavorite';
-
+import {sortingTrashlist} from '../../modules/sortingTrashlist';
 
 const RecycleBin = () => {
   const isFocused = useIsFocused();
@@ -1127,7 +1127,13 @@ const updateReview = async post_id => {
       <Collapsible collapsed={!isCollapsed} style={styles.collapsecover}>
          <Text style={styles.sortby}>Sort by</Text>
         <View style={styles.collapsebg}>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <TouchableOpacity onPress={() => {
+                       const payload={
+                        date_favorited:"date_favorited"
+                      }
+                    dispatch(sortingTrashlist(payload))
+            setIsCollapsed(false)
+            }} style={styles.collapupper}>
           <Image
               source={Images.calenderwedding}
               style={styles.colimg}></Image>
