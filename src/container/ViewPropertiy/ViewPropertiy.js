@@ -2398,7 +2398,7 @@ alignItems:"center"
                 <KeyboardAvoidingView>
         <Modal
           transparent={true}
-          animationType="slide"
+          // animationType="slide"
           visible={modalVisible}
           onRequestClose={toggleModal}>
           <View style={styles.modalContainer}>

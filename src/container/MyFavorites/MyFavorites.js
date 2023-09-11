@@ -35,6 +35,7 @@ import {useIsFocused} from '@react-navigation/native';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import DeviceInfo from 'react-native-device-info';
 import LottieView from 'lottie-react-native';
+import {addRemoveTrash} from '../../modules/addRemoveTrash';
 
 import StarRating from 'react-native-star-rating-widget';
 import Collapsible from 'react-native-collapsible';
@@ -59,6 +60,9 @@ const MyFavorites = props => {
   const [reviewTitle, setReviewTitle] = useState('');
   const [commentContent, setComentContent] = useState('');
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+
 
   const slideAnimation = useRef(new Animated.Value(0)).current;
 
@@ -120,7 +124,8 @@ const MyFavorites = props => {
       dispatch(postUpdateRating(formData)).then(response => {
         if (response.payload.success) {
           setIsAnimating(false);
-          toggleModal();
+          setShowSuccessMessage(true)
+          // toggleModal();
         } else {
           setIsAnimating(false);
           toggleModal();
@@ -131,6 +136,12 @@ const MyFavorites = props => {
       console.error('Error submitting review:', error);
     }
   };
+
+
+  const successMessage = (
+    <Text style={{ color: 'black',fontSize:34 }}>Thanks for your Feedback!</Text>
+  );
+
   const addReview = async () => {
     try {
       setIsAnimating(true);
@@ -167,6 +178,7 @@ const MyFavorites = props => {
   const getFavoritePropertiesApiCall = () => {
     dispatch(getFavoriteProperties()).then(response => {
       if (response.payload.data.length < 1) {
+        // console.log("favvvvvv",response.payload.data)
         setShowNoDataMessage(true);
       } else {
         setShowNoDataMessage(false);
@@ -259,7 +271,13 @@ const MyFavorites = props => {
 
       <View style={styles.iconscover}>
         <View style={styles.iconsiner}>
-          <TouchableOpacity>
+          <TouchableOpacity  onPress={async () => 
+            {
+              const formData = new FormData();
+           formData.append('post_id',item.ID);
+           console.log('data',formData)
+              await dispatch(addRemoveTrash(formData))}
+            }>
             <Image source={Images.favdownthumb} style={styles.chaticon}></Image>
           </TouchableOpacity>
 
@@ -329,7 +347,7 @@ const MyFavorites = props => {
       <KeyboardAvoidingView>
         <Modal
           transparent={true}
-          animationType="slide"
+          // animationType="slide"
           visible={modalVisible}
           onRequestClose={toggleModal}>
           <View style={styles.modalContainer}>
@@ -478,41 +496,43 @@ const MyFavorites = props => {
                         )}
                       </View>
                     </View>
-                    <View style={styles.btnmaincover}>
-                      {ratingData?.length > 0 ? (
-                        <View style={styles.submitbtnmain}>
-                          <TouchableOpacity
-                            onPress={() => updateReview()}
-                            style={styles.submitbtncover}>
-                            <Text style={styles.submitbtntxt}>UPDATE</Text>
-                          </TouchableOpacity>
-                          {isAnimating && (
-                            <LottieView
-                              style={styles.loaderstyle1}
-                              source={require('../../assets/animations/star.json')}
-                              autoPlay
-                              loop
-                            />
-                          )}
-                        </View>
-                      ) : (
-                        <View style={styles.submitbtnmain}>
-                          <TouchableOpacity
-                            onPress={() => addReview()}
-                            style={styles.submitbtncover}>
-                            <Text style={styles.submitbtntxt}>SAVE</Text>
-                          </TouchableOpacity>
-                          {isAnimating && (
-                            <LottieView
-                              style={styles.loaderstyle1}
-                              source={require('../../assets/animations/star.json')}
-                              autoPlay
-                              loop
-                            />
-                          )}
-                        </View>
-                      )}
-                    </View>
+                    {showSuccessMessage && successMessage}
+
+<View style={styles.btnmaincover}>
+  {ratingData?.length > 0 ? (
+    <View style={styles.submitbtnmain}>
+      <TouchableOpacity
+        onPress={() => updateReview()}
+        style={styles.submitbtncover}>
+        <Text style={styles.submitbtntxt}>UPDATE</Text>
+      </TouchableOpacity>
+      {isAnimating && (
+        <LottieView
+          style={styles.loaderstyle1}
+          source={require('../../assets/animations/star.json')}
+          autoPlay
+          loop
+        />
+      )}
+    </View>
+  ) : (
+    <View style={styles.submitbtnmain}>
+      <TouchableOpacity
+        onPress={() => addReview()}
+        style={styles.submitbtncover}>
+        <Text style={styles.submitbtntxt}>SAVE</Text>
+      </TouchableOpacity>
+      {isAnimating && (
+        <LottieView
+          style={styles.loaderstyle1}
+          source={require('../../assets/animations/star.json')}
+          autoPlay
+          loop
+        />
+      )}
+    </View>
+  )}
+</View>
                   </View>
                 </ScrollView>
               </ScrollView>
