@@ -23,7 +23,7 @@ import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
-import { useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {getFavoriteProperties} from '../../modules/getFavoriteProperties';
 const screenWidth = Dimensions.get('window').width;
 import {postRating} from '../../modules/postRating';
@@ -34,10 +34,10 @@ import * as Animatable from 'react-native-animatable';
 import {useIsFocused} from '@react-navigation/native';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import DeviceInfo from 'react-native-device-info';
+import LottieView from 'lottie-react-native';
 
 import StarRating from 'react-native-star-rating-widget';
 import Collapsible from 'react-native-collapsible';
-
 
 const MyFavorites = props => {
   const isFocused = useIsFocused();
@@ -50,7 +50,7 @@ const MyFavorites = props => {
   const [ratingData, setRatingData] = useState([]);
 
   const dispatch = useDispatch();
-
+  const [isAnimating, setIsAnimating] = useState(false);
   const [rating, setRating] = useState(0);
   const [productId, setProductId] = useState('');
   const [rating1, setRating1] = useState(0);
@@ -104,45 +104,59 @@ const MyFavorites = props => {
   }, [modalVisible]);
 
   const updateReview = async post_id => {
-    const formData = new FormData();
-    formData.append('postid', productId);
-    formData.append('comment_content', commentContent ? commentContent : '');
-    formData.append('review_title', reviewTitle);
-    formData.append('review_stars', rating);
-    formData.append('description_review_stars', rating1);
-    formData.append('price_review_stars', rating2);
-    formData.append('interest_review_stars', rating3);
-    console.log('postUpdateRating', formData);
+    try {
+      setIsAnimating(true);
 
-    dispatch(postUpdateRating(formData)).then(response => {
-      if (response.payload.success) {
-        Alert.alert(response.payload.data.message);
-        toggleModal();
-      } else {
-        toggleModal();
-        Alert.alert(response.payload.data.message);
-      }
-    });
+      const formData = new FormData();
+      formData.append('postid', productId);
+      formData.append('comment_content', commentContent ? commentContent : '');
+      formData.append('review_title', reviewTitle);
+      formData.append('review_stars', rating);
+      formData.append('description_review_stars', rating1);
+      formData.append('price_review_stars', rating2);
+      formData.append('interest_review_stars', rating3);
+      console.log('postUpdateRating', formData);
+
+      dispatch(postUpdateRating(formData)).then(response => {
+        if (response.payload.success) {
+          setIsAnimating(false);
+          toggleModal();
+        } else {
+          setIsAnimating(false);
+          toggleModal();
+        }
+      });
+    } catch (error) {
+      setIsAnimating(false);
+      console.error('Error submitting review:', error);
+    }
   };
-  const addReview = async post_id => {
-    const formData = new FormData();
-    formData.append('postid', productId.toString());
-    formData.append('reviewtitle', reviewTitle);
-    formData.append('photo_quality_rating', rating);
-    formData.append('desc_stars', rating1);
-    formData.append('price_stars', rating2);
-    formData.append('interest_stars', rating3);
-    formData.append('content', commentContent ? commentContent : '');
+  const addReview = async () => {
+    try {
+      setIsAnimating(true);
 
-    dispatch(postRating(formData)).then(response => {
+      const formData = new FormData();
+      formData.append('postid', productId.toString());
+      formData.append('reviewtitle', reviewTitle);
+      formData.append('photo_quality_rating', rating);
+      formData.append('desc_stars', rating1);
+      formData.append('price_stars', rating2);
+      formData.append('interest_stars', rating3);
+      formData.append('content', commentContent ? commentContent : '');
+
+      const response = await dispatch(postRating(formData));
+
       if (response.payload.data.success) {
-        Alert.alert(response.payload.data.message);
+        setIsAnimating(false);
         toggleModal();
       } else {
+        setIsAnimating(false);
         toggleModal();
-        Alert.alert(response.payload.data.message);
       }
-    });
+    } catch (error) {
+      setIsAnimating(false);
+      console.error('Error submitting review:', error);
+    }
   };
 
   useEffect(() => {
@@ -172,8 +186,6 @@ const MyFavorites = props => {
     let phoneNumber = agentData[0]?.agent_phone;
     Linking.openURL(`tel:${phoneNumber}`);
   };
-
-
 
   const generateLink = async ID => {
     try {
@@ -314,7 +326,7 @@ const MyFavorites = props => {
           {item?.title}
         </Text>
       </View>
-      <KeyboardAvoidingView behavior="padding">
+      <KeyboardAvoidingView>
         <Modal
           transparent={true}
           animationType="slide"
@@ -323,13 +335,13 @@ const MyFavorites = props => {
           <View style={styles.modalContainer}>
             <TouchableOpacity
               activeOpacity={1}
-              style={styles.modalOverlay}
+              style={styles.modalOverlaynew}
               onPress={closeModal}
             />
             <Animated.View
               {...panResponder.panHandlers}
               style={[
-                styles.modalContent,
+                styles.modalContentnew,
                 {
                   transform: [
                     {
@@ -341,26 +353,22 @@ const MyFavorites = props => {
                   ],
                 },
               ]}>
-              <ScrollView style={styles.w100}>
-                <View style={styles.covermodal}>
-                  <View style={styles.indicatormodal}></View>
+              <ScrollView style={styles.bgcover}>
+                <View style={{alignItems: 'center', paddingBottom: 20}}>
+                  <View style={styles.indicator}></View>
                 </View>
-                <View style={{}}>
-                  <Text style={styles.yourreview}>Your Review</Text>
-                </View>
-                <View style={styles.w100}>
-                  <View
-                    style={{
-                      width: '100%',
-                      alignSelf: 'center',
-                      marginBottom: 10,
-                    }}>
-                    <View style={styles.labelcover}>
-                      <Text style={styles.labeltext}>Photos :</Text>
+                <ScrollView style={styles.bgcover}>
+                  <View style={{}}>
+                    <Text style={styles.reviewtxt}>Rate This Property</Text>
+                  </View>
+
+                  <View style={styles.maincov}>
+                    <View style={[styles.labelcover, {marginTop: 10}]}>
+                      <Text style={styles.propertlabel}>Photo Quality:</Text>
 
                       <StarRating
                         maxStars={5}
-                        starSize={22}
+                        starSize={27}
                         enableSwiping
                         enableHalfStar
                         color={Colors.surfblur}
@@ -369,18 +377,24 @@ const MyFavorites = props => {
                           setRating(value);
                         }}
                       />
-                    </View>
-                  </View>
 
-                  <View style={{width: '100%', alignSelf: 'center'}}>
+                      <View
+                        style={{
+                          width: '70%',
+                          borderBottomWidth: 1,
+                          borderBottomColor: Colors.BorderColor,
+                          marginVertical: 15,
+                        }}></View>
+                    </View>
+
                     <View style={styles.labelcover}>
-                      <Text style={styles.labeltext}>
-                        Description Accuracy :
+                      <Text style={styles.propertlabel}>
+                        Description Accuracy:
                       </Text>
 
                       <StarRating
                         maxStars={5}
-                        starSize={22}
+                        starSize={27}
                         enableSwiping
                         enableHalfStar
                         color={Colors.surfblur}
@@ -389,15 +403,21 @@ const MyFavorites = props => {
                           setRating1(value);
                         }}
                       />
+                      <View
+                        style={{
+                          width: '70%',
+                          borderBottomWidth: 1,
+                          borderBottomColor: Colors.BorderColor,
+                          marginVertical: 15,
+                        }}></View>
                     </View>
-                  </View>
-                  <View style={{width: '100%', alignSelf: 'center'}}>
+
                     <View style={styles.labelcover}>
-                      <Text style={styles.labeltext}>Price :</Text>
+                      <Text style={styles.propertlabel}>Price :</Text>
 
                       <StarRating
                         maxStars={5}
-                        starSize={22}
+                        starSize={27}
                         enableSwiping
                         enableHalfStar
                         color={Colors.surfblur}
@@ -406,18 +426,23 @@ const MyFavorites = props => {
                           setRating2(value);
                         }}
                       />
+                      <View
+                        style={{
+                          width: '70%',
+                          borderBottomWidth: 1,
+                          borderBottomColor: Colors.BorderColor,
+                          marginVertical: 15,
+                        }}></View>
                     </View>
-                  </View>
 
-                  <View style={{width: '100%', alignSelf: 'center'}}>
                     <View style={styles.labelcover}>
-                      <Text style={styles.labeltext}>
-                        Interest in Property :
+                      <Text style={styles.propertlabel}>
+                        Interest in the property:
                       </Text>
 
                       <StarRating
                         maxStars={5}
-                        starSize={22}
+                        starSize={27}
                         enableSwiping
                         enableHalfStar
                         color={Colors.surfblur}
@@ -426,47 +451,70 @@ const MyFavorites = props => {
                           setRating3(value);
                         }}
                       />
+                      <View
+                        style={{
+                          width: '70%',
+                          borderBottomWidth: 1,
+                          borderBottomColor: Colors.BorderColor,
+                          marginVertical: 15,
+                        }}></View>
                     </View>
-                  </View>
 
-                  <View style={styles.reviewtextcover}>
-                    <Text style={styles.reviewtext}>Review</Text>
                     <View style={styles.reviewcover}>
-                      {ratingData.length > 0 ? (
-                        <TextInput
-                          multiline={true}
-                          style={styles.textinputstyle}
-                          onChangeText={text => setComentContent(text)}
-                          autoFocus
-                        />
+                      <Text style={styles.propertlabel}>My Notes</Text>
+                      <View style={styles.textinputcover}>
+                        {ratingData?.length > 0 ? (
+                          <TextInput
+                            multiline={true}
+                            style={styles.textinputstyle1}
+                            onChangeText={text => setComentContent(text)}
+                            autoFocus
+                          />
+                        ) : (
+                          <TextInput
+                            onChangeText={text => setComentContent(text)}
+                            multiline={true}
+                            style={styles.textinputstyle}></TextInput>
+                        )}
+                      </View>
+                    </View>
+                    <View style={styles.btnmaincover}>
+                      {ratingData?.length > 0 ? (
+                        <View style={styles.submitbtnmain}>
+                          <TouchableOpacity
+                            onPress={() => updateReview()}
+                            style={styles.submitbtncover}>
+                            <Text style={styles.submitbtntxt}>UPDATE</Text>
+                          </TouchableOpacity>
+                          {isAnimating && (
+                            <LottieView
+                              style={styles.loaderstyle1}
+                              source={require('../../assets/animations/star.json')}
+                              autoPlay
+                              loop
+                            />
+                          )}
+                        </View>
                       ) : (
-                        <TextInput
-                          onChangeText={text => setComentContent(text)}
-                          multiline={true}
-                          style={styles.textinputstyle}></TextInput>
+                        <View style={styles.submitbtnmain}>
+                          <TouchableOpacity
+                            onPress={() => addReview()}
+                            style={styles.submitbtncover}>
+                            <Text style={styles.submitbtntxt}>SAVE</Text>
+                          </TouchableOpacity>
+                          {isAnimating && (
+                            <LottieView
+                              style={styles.loaderstyle1}
+                              source={require('../../assets/animations/star.json')}
+                              autoPlay
+                              loop
+                            />
+                          )}
+                        </View>
                       )}
                     </View>
                   </View>
-                  <View style={styles.buttoncover}>
-                    {ratingData.length > 0 ? (
-                      <View style={styles.buttonuppercover}>
-                        <TouchableOpacity
-                          onPress={() => updateReview()}
-                          style={styles.mainbuttoncover}>
-                          <Text style={styles.buttontextupdate}>Update</Text>
-                        </TouchableOpacity>
-                      </View>
-                    ) : (
-                      <View style={styles.submitbuttonuppercover}>
-                        <TouchableOpacity
-                          onPress={() => addReview()}
-                          style={styles.submitbuttoncover}>
-                          <Text style={styles.submittxt}>Submit</Text>
-                        </TouchableOpacity>
-                      </View>
-                    )}
-                  </View>
-                </View>
+                </ScrollView>
               </ScrollView>
             </Animated.View>
           </View>
@@ -657,60 +705,81 @@ const MyFavorites = props => {
           onPress={() => {
             setIsCollapsed(!isCollapsed);
           }}>
-          <Image style={[styles.filterimage,{ transform: isCollapsed ? [{ rotate: '90deg' }] : [{ rotate: '0deg' }]}]} source={Images.favfilter} />
+          <Image
+            style={[
+              styles.filterimage,
+              {
+                transform: isCollapsed
+                  ? [{rotate: '90deg'}]
+                  : [{rotate: '0deg'}],
+              },
+            ]}
+            source={Images.favfilter}
+          />
         </TouchableOpacity>
       </View>
       <Collapsible collapsed={!isCollapsed} style={styles.collapsecover}>
-         <Text style={styles.sortby}>Sort by</Text>
+        <Text style={styles.sortby}>Sort by</Text>
         <View style={styles.collapsebg}>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
-          <Image
+          <TouchableOpacity
+            onPress={() => {
+              setIsCollapsed(false);
+            }}
+            style={styles.collapupper}>
+            <Image
               source={Images.calenderwedding}
               style={styles.colimg}></Image>
-             <Text style={styles.coltxt}>Date Favorited</Text>
-             
+            <Text style={styles.coltxt}>Date Favorited</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
-          <Image
+          <TouchableOpacity
+            onPress={() => {
+              setIsCollapsed(false);
+            }}
+            style={styles.collapupper}>
+            <Image
               source={Images.calenderwedding}
               style={styles.colimg}></Image>
-             <Text style={styles.coltxt}>Days on Market</Text>
-             
+            <Text style={styles.coltxt}>Days on Market</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
-          <Image
-              source={Images.low}
-              style={styles.colimg}></Image>
-             <Text style={styles.coltxt}>Price (Low to High) </Text>
-             
+          <TouchableOpacity
+            onPress={() => {
+              setIsCollapsed(false);
+            }}
+            style={styles.collapupper}>
+            <Image source={Images.low} style={styles.colimg}></Image>
+            <Text style={styles.coltxt}>Price (Low to High) </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
-          <Image
-              source={Images.lowhigh}
-              style={styles.colimg}></Image>
-             <Text style={styles.coltxt}>Price (High to Low)</Text>
-             
+          <TouchableOpacity
+            onPress={() => {
+              setIsCollapsed(false);
+            }}
+            style={styles.collapupper}>
+            <Image source={Images.lowhigh} style={styles.colimg}></Image>
+            <Text style={styles.coltxt}>Price (High to Low)</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
-          <Image
-              source={Images.newbed}
-              style={styles.colimg}></Image>
-             <Text style={styles.coltxt}>Beds (High to Low)</Text>
-             
+          <TouchableOpacity
+            onPress={() => {
+              setIsCollapsed(false);
+            }}
+            style={styles.collapupper}>
+            <Image source={Images.newbed} style={styles.colimg}></Image>
+            <Text style={styles.coltxt}>Beds (High to Low)</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
-          <Image
-              source={Images.bathtub}
-              style={styles.colimg}></Image>
-             <Text style={styles.coltxt}>Baths (High to Low)</Text>
-             
+          <TouchableOpacity
+            onPress={() => {
+              setIsCollapsed(false);
+            }}
+            style={styles.collapupper}>
+            <Image source={Images.bathtub} style={styles.colimg}></Image>
+            <Text style={styles.coltxt}>Baths (High to Low)</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
-          <Image
-              source={Images.measuringtape}
-              style={styles.colimg}></Image>
-             <Text style={styles.coltxt}>Sq Ft (High to Low)</Text>
-             
+          <TouchableOpacity
+            onPress={() => {
+              setIsCollapsed(false);
+            }}
+            style={styles.collapupper}>
+            <Image source={Images.measuringtape} style={styles.colimg}></Image>
+            <Text style={styles.coltxt}>Sq Ft (High to Low)</Text>
           </TouchableOpacity>
         </View>
       </Collapsible>
@@ -779,11 +848,75 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 0,
   },
+  loaderstyle1: {
+    height: '100%',
+    width: '100%',
+    flex: 1,
+    backgroundColor: 'white',
+    position: 'absolute',
+    zIndex: 99,
+    left: 0,
+    top: 0,
+  },
   filterimage: {
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 15,
     width: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 13,
     resizeMode: 'contain',
+  },
+  submitbtntxt: {
+    fontSize: 17,
+    color: Colors.surfblur,
+    fontFamily: 'Poppins-SemiBold',
+  },
+  submitbtncover: {
+    width: '100%',
+    borderRadius: 100,
 
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  submitbtnmain: {
+    justifyContent: 'center',
+    width: '100%',
+    alignItems: 'center',
+  },
+  btnmaincover: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textinputstyle1: {
+    verticalAlign: 'top',
+    borderWidth: 1,
+    borderColor: Colors.BorderColor,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    fontSize: 12,
+    flexWrap: 'wrap',
+    color: Colors.newgray,
+    fontFamily: 'Poppins-Regular',
+    height: 50,
+    width: '100%',
+  },
+  textinputcover: {
+    width: '100%',
+    marginTop: 0,
+    flexWrap: 'wrap',
+    whiteSpace: 'pre-wrap',
+    wordWrap: 'break-word',
+    height: 60,
+    width: '100%',
+    flexWrap: 'wrap',
+    overflow: 'hidden',
+  },
+  propertlabel: {
+    fontSize: 17,
+    color: Colors.black,
+    fontFamily: 'Poppins-Light',
+    marginBottom: 15,
+    textAlign: 'center',
   },
   title: {
     fontSize: 23,
@@ -799,11 +932,30 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
+  maincov: {
+    width: '100%',
+    alignSelf: 'center',
+  },
   pagination: {
     position: 'absolute',
     bottom: 20,
     alignSelf: 'center',
     flexDirection: 'row',
+  },
+  reviewtxt: {
+    fontSize: 21,
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
+    marginTop: 20,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  modalContentnew: {
+    backgroundColor: 'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 16,
+    maxHeight: '72%',
   },
   paginationDot: {
     width: 10,
@@ -829,6 +981,9 @@ const styles = StyleSheet.create({
   },
   paginationDotActive: {
     backgroundColor: 'blue',
+  },
+  modalOverlaynew: {
+    flex: 1,
   },
   //fliter
   filter: {
@@ -867,6 +1022,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 8,
     paddingVertical: 4,
+  },
+  indicator: {
+    width: 50,
+    height: 5,
+    backgroundColor: '#bac1c3',
+    marginTop: 0,
+    justifyContent: 'center',
+    borderRadius: 100,
   },
   listingkeytext: {
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 24 : 12,
@@ -933,6 +1096,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
+  },
+  bgcover: {
+    height: '100%',
+    backgroundColor: Colors.white,
   },
   lightrating: {
     fontSize: 18,
@@ -1121,11 +1288,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  collapupper:{flexDirection:"row",
-  alignItems:"center",justifyContent:"center",borderBottomWidth:1,
-  borderBottomColor:Colors.BorderColor,paddingBottom:15,paddingTop:15,
-//height:100
-},
+  collapupper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.BorderColor,
+    paddingBottom: 15,
+    paddingTop: 15,
+    //height:100
+  },
   buttonuppercover: {
     justifyContent: 'flex-end',
     width: '100%',
@@ -1135,32 +1307,28 @@ const styles = StyleSheet.create({
     verticalAlign: 'top',
     borderWidth: 1,
     borderColor: Colors.BorderColor,
-    borderRadius: 8,
+    borderRadius: 50,
     paddingHorizontal: 12,
     fontSize: 12,
     flexWrap: 'wrap',
     color: Colors.newgray,
     fontFamily: 'Poppins-Regular',
-    height: 100,
+    height: 50,
     width: '100%',
   },
   reviewcover: {
     width: '100%',
-    marginTop: 0,
-    flexWrap: 'wrap',
-    whiteSpace: 'pre-wrap',
-    wordWrap: 'break-word',
-    height: 100,
-    width: '100%',
-    flexWrap: 'wrap',
+    alignSelf: 'center',
     overflow: 'hidden',
+    marginTop: 15,
   },
-  reviewtext: {
-    fontSize: 18,
+  reviewtxt: {
+    fontSize: 21,
     fontFamily: 'Poppins-SemiBold',
     color: Colors.black,
-    marginTop: 10,
-    // marginRight: 180
+    marginTop: 20,
+    textAlign: 'center',
+    marginBottom: 20,
   },
   centertext: {
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 20,
@@ -1195,8 +1363,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   labelcover: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   iconcovertop: {
@@ -1207,17 +1375,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
   },
 
-  collapsecover:{
-    
+  collapsecover: {},
+
+  colimg: {height: 36, width: 36, resizeMode: 'contain', marginRight: 8},
+  coltxt: {fontSize: 18, fontFamily: 'Poppins-Light', color: Colors.black},
+  //  collapsecover:{position:"absolute", top:50 ,left:0,right:0,backgroundColor:"red",width:"90%",zIndex:999},
+
+  sortby: {
+    fontSize: 21,
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
+    textAlign: 'center',
+    marginBottom: 15,
+    paddingTop: 15,
   },
-
-  colimg:{height:36,width:36, resizeMode:"contain",marginRight:8},
-  coltxt:{fontSize:18, fontFamily:"Poppins-Light" , color:Colors.black},
-//  collapsecover:{position:"absolute", top:50 ,left:0,right:0,backgroundColor:"red",width:"90%",zIndex:999},
-
-  sortby:{fontSize:21, fontFamily:"Poppins-SemiBold", color:Colors.black, textAlign:"center",
-  marginBottom:15,paddingTop:15}
-
 });
 
 export default MyFavorites;
