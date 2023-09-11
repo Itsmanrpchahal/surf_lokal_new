@@ -633,7 +633,7 @@ const Home = () => {
                       setIsPressed1(!isPressed1);
                       setIsPressed(false);
                       const formData = new FormData();
-                      formData.append('search_name', termName.toString());
+                      formData.append('search_name', termName);
                       dispatch(filterSearch(formData)).then(response => {
                         if (store.getState().getSavedSearchReducer.getSavedSearchData.count == 0) {
                           saveToogleModal();

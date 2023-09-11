@@ -45,7 +45,9 @@ const MyFavorites = ({navigation}) => {
 
   const getSavedApiCall = () => {
     dispatch(getSavedSearch()).then(response => {
+
       if (response.payload.data.length<1) {
+
         setShowNoDataMessage(true);
       } else {
         setImages(response.payload.data);
@@ -125,8 +127,9 @@ const MyFavorites = ({navigation}) => {
               )}
             </View>
             <Text style={styles.parametertext}>Parameters:</Text>
+            <Text style={styles.textinputtext}>{item?.search_parameters}</Text>
 
-            {parameters.map((parameter, parameterIndex) => (
+            {/* {parameters.map((parameter, parameterIndex) => (
               <TextInput
                 key={parameterIndex.toString()}
                 value={
@@ -151,7 +154,7 @@ const MyFavorites = ({navigation}) => {
                 }}
                 editable={isEditing}
               />
-            ))}
+            ))} */}
 
             <View style={styles.buttoncover}>
               {isEditing ? (
