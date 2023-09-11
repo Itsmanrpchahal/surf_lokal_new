@@ -38,9 +38,9 @@ const screenWidth = Dimensions.get('window').width;
 import StarRating from 'react-native-star-rating-widget';
 import Collapsible from 'react-native-collapsible';
 import LottieView from 'lottie-react-native';
+import MapView from 'react-native-maps';
+import { addToFavorite } from '../../modules/addToFavorite';
 import {sortingTrashlist} from '../../modules/sortingTrashlist';
-
-
 
 const RecycleBin = () => {
   const isFocused = useIsFocused();
@@ -304,7 +304,13 @@ const updateReview = async post_id => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <TouchableOpacity> 
+          <TouchableOpacity  onPress={async () => 
+            {
+              const formData = new FormData();
+           formData.append('post_id',item.ID);
+           console.log('data',formData)
+              await dispatch(addToFavorite(formData))}
+            }> 
             <Image
               source={Images.favdownthumb}
               style={{
@@ -434,7 +440,7 @@ const updateReview = async post_id => {
       <KeyboardAvoidingView>
         <Modal
           transparent={true}
-          animationType="slide"
+          // animationType="slide"
           visible={modalVisible}
           onRequestClose={toggleModal}>
           <View style={styles.modalContainer}>
