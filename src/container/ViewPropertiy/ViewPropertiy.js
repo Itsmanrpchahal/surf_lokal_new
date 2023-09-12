@@ -39,10 +39,10 @@ import MapView, {
   Callout,
   Marker,
   PROVIDER_DEFAULT,
+  PROVIDER_GOOGLE
 } from 'react-native-maps';
 import {getRating} from '../../modules/getRating';
 import {postUpdateRating} from '../../modules/postUpdateRating';
-import {store} from '../../redux/store';
 import {addToFavorite} from '../../modules/addToFavorite';
 import {addRemoveTrash} from '../../modules/addRemoveTrash';
 import {getAgent} from '../../modules/getAgent';
@@ -627,7 +627,7 @@ const ViewPropertiy = (props, imageUrl) => {
           </View>
           <View style={styles.maincovermap}>
             <MapView
-              provider={PROVIDER_DEFAULT}
+              provider={PROVIDER_GOOGLE}
               style={styles.map}
               region={{
                 latitude: parseFloat(pin.latitude),

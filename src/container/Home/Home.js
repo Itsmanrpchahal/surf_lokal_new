@@ -17,7 +17,6 @@ import {
   Share,
   Keyboard,
 } from 'react-native';
-
 import StarRating from 'react-native-star-rating-widget';
 import SelectDropdown from 'react-native-select-dropdown';
 import 'react-native-gesture-handler';
@@ -46,7 +45,7 @@ import { addRemoveTrash } from '../../modules/addRemoveTrash';
 import { getRating } from '../../modules/getRating';
 import { ScrollView } from 'react-native-gesture-handler';
 import DeviceInfo from 'react-native-device-info';
-import MapView, { Marker, Callout, PROVIDER_DEFAULT } from 'react-native-maps';
+import MapView, { Marker, Callout, PROVIDER_DEFAULT,PROVIDER_GOOGLE } from 'react-native-maps';
 import Collapsible from 'react-native-collapsible';
 import { getMoreFilter } from '../../modules/getMoreFilter';
 import { useRef } from 'react';
@@ -2293,19 +2292,17 @@ const Home = () => {
                         </View>
                       </Collapsible>
                     </View>
-                    <View></View>
                     <MapView
-                      provider={PROVIDER_DEFAULT}
+                      provider={PROVIDER_GOOGLE}
                       style={styles.map}
                       zoomControlEnabled={true}
                       showsCompass={true}
                       moveOnMarkerPress={true}
                       mapType={mapType}
-                      showsUserLocation={true}
                       showsMyLocationButton={true}
                       region={{
-                        latitude: parseFloat(homeData[0].property_latitude),
-                        longitude: parseFloat(homeData[0].property_longitude),
+                        latitude: parseFloat(homeData[0]?.property_latitude),
+                        longitude: parseFloat(homeData[0]?.property_longitude),
                         latitudeDelta: 0.015,
                         longitudeDelta: 0.0121,
                       }}>
