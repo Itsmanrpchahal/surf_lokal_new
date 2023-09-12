@@ -2415,8 +2415,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   coverrat: {
-    height: 70,
-    width: 70,
+    height:45,
+    width: 45,
     
   },
   ratingstyle: {
@@ -2442,8 +2442,8 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   sendcover: {
-    height: 70,
-    width: 70,
+    height: 50,
+    width: 50,
    
     alignItems: 'center',
     position: 'relative',
