@@ -6,8 +6,6 @@ import { store, persistor } from './src/redux/store';
 
 import firebase from '@react-native-firebase/app';
 import messaging from '@react-native-firebase/messaging';
-import dynamicLinks from '@react-native-firebase/dynamic-links';
-import { useNavigation } from '@react-navigation/native';
 import StackNavigator from './src/navigation/StackNavigator'
 import axios from 'axios';
 import { QueryClientProvider, QueryClient } from 'react-query';
@@ -33,21 +31,6 @@ const App = () => {
   }
   setToken()
 
-  const HandleDeepLinking = () => {
-    const navigation = useNavigation()
-
-    const handleDynamicLinks = async (link) => {
-      let productId = link.url.split('=').pop()
-      navigation.navigate('ViewPropertiy', { ID: productId });
-    }
-
-    useEffect(() => {
-      const unsubscribe = dynamicLinks().onLink(handleDynamicLinks)
-      return () => unsubscribe()
-    }, [])
-
-    return null
-  }
   useEffect(() => {
     messaging().onNotificationOpenedApp(remoteMessage => {
       if (remoteMessage.notification.title) {
@@ -91,7 +74,6 @@ const App = () => {
             <QueryClientProvider client={queryClient}>
               <StackNavigator />
             </QueryClientProvider>
-
           </PersistGate>
         </Provider>
       </SafeAreaView>
