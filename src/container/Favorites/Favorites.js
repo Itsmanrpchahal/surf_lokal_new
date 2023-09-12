@@ -172,7 +172,7 @@ const Home = () => {
           <View style={{}}>
             <TouchableOpacity onPress={toggleModal}>
               <Image
-                source={Images.star}
+                // source={Images.star}
                 style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
             </TouchableOpacity>
             <Text
