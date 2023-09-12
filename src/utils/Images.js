@@ -6,7 +6,7 @@ const Images = {
   google: require(BaseUrl + 'google.png'),
   downArrow: require(BaseUrl + 'arrowDown.png'),
   newArrow: require(BaseUrl + 'arrow-left-circle.png'),
-  checkok: require(BaseUrl + 'check-mark.png'),
+  
   chatnew: require(BaseUrl + 'chat-alt-10.png'),
   lastscreen: require(BaseUrl + 'toutorial4.png'),
   details: require(BaseUrl + 'home-documents.png'),
@@ -17,7 +17,7 @@ const Images = {
   nearBy1: require(BaseUrl + 'placeholder-map.png'),
   schoolbus: require(BaseUrl + 'school-bus.png'),
   cloudysun: require(BaseUrl + 'cloudy-sun.png'),
-  firstscreen: require(BaseUrl + 'firstscreen.png'),
+
   secondscreen: require(BaseUrl + 'toutorial2.png'),
   tutorial3: require(BaseUrl + 't3.png'),
   tutorial4: require(BaseUrl + 't4.png'),
@@ -28,43 +28,42 @@ const Images = {
   taxnew: require(BaseUrl + 'taxnew.png'),
   hoa2: require(BaseUrl + 'hoas.jpg'),
   menu: require(BaseUrl + 'menu-alt.png'),
-  facebook1: require(BaseUrl + 'fb1.png'),
+  
   tw1: require(BaseUrl + 'tw.png'),
- instag: require(BaseUrl + 'insta.png'),
+
  useimage: require(BaseUrl + 'userimage.png'),
  challeng: require(BaseUrl + 'challenges.png'),
  doll: require(BaseUrl + 'doll.png'),
   newcall: require(BaseUrl + 'phone-ring.png'),
   leftnewarrow: require(BaseUrl + 'arrow-left-circle.png'),
-  favfilter: require(BaseUrl + 'newfilter.png'),
-  bus: require(BaseUrl + 'bus.png'),
+
   cals: require(BaseUrl + 'calender-alt-2.png'),
   low: require(BaseUrl + 'lowtohigh.png'),
   lowhigh: require(BaseUrl + 'highttolow.png'),
   measuringtape: require(BaseUrl + 'measuring-tape.png'),
   calenderwedding: require(BaseUrl + 'calendar-wedding.png'),
 
-  apple: require(BaseUrl + 'apple.png'),
+
   searcfrank: require(BaseUrl + "surfranking.png"),
   telephonecall: require(BaseUrl + "telephone-call.png"),
   messenger: require(BaseUrl + "messenger.png"),
   videochat: require(BaseUrl + "video-chat.png"),
   email: require(BaseUrl + 'email.png'),
   editing: require(BaseUrl + 'edit-ic.png'),
-  chatprofile: require(BaseUrl + 'chat-profile.png'),
+
   contactsurf: require(BaseUrl + 'contactsurf.png'),
   newprofile: require(BaseUrl + 'newprofile.png'),
-  favthumb: require(BaseUrl + 'fav-thumb.png'),
+
   recthumb: require(BaseUrl + 'rec-thumb.png'),
- leefft: require(BaseUrl + 'leefft.png'),
+
   facebook: require(BaseUrl + 'facebook.png'),
-  chat: require(BaseUrl + 'chat.png'),
-  inbox: require(BaseUrl + 'inbox.png'),
-  fav: require(BaseUrl + 'heart.png'),
-  lokal: require(BaseUrl + 'lokal.png'),
+
+ 
+
+ 
   reward: require(BaseUrl + 'rewards.png'),
   telephonecall: require(BaseUrl + "telephone-call.png"),
-  messenger: require(BaseUrl + "messenger.png"),
+ 
   videochat: require(BaseUrl + "video-chat.png"),
  
 
@@ -80,7 +79,7 @@ const Images = {
   tab4: require(BaseUrl + 'tab4.png'),
 
 
-  address: require(BaseUrl + 'address.png'),
+  
   locationss: require(BaseUrl + 'location.png'),
   Whatsapp: require(BaseUrl + 'Whatsapp.png'),
 
@@ -90,12 +89,11 @@ const Images = {
   mapnew1: require(BaseUrl + 'mapnew.png'),
   search: require(BaseUrl + 'search.png'),
   searchnew: require(BaseUrl + 'searchnew.png'),
-  filtericon: require(BaseUrl + 'filtericon.png'),
-  bed: require(BaseUrl + 'bed.png'),
-  measuring: require(BaseUrl + 'measuring.png'),
-  bath: require(BaseUrl + 'bath.png'),
+
+  
+ 
   send: require(BaseUrl + 'send.png'),
-  hoa: require(BaseUrl + 'hoa.png'),
+ 
   star: require(BaseUrl + 'star.png'),
   star2: require(BaseUrl + 'star2.png'),
   train: require(BaseUrl + 'train.png'),
@@ -105,8 +103,8 @@ const Images = {
   homebig:require(BaseUrl + 'homebig.png'),
 
 
-  like: require(BaseUrl + 'like.png'),
-  dislike: require(BaseUrl + 'dislike.png'),
+
+  
   
   phone: require(BaseUrl + 'phone.png'),
   setting: require(BaseUrl + 'setting.png'),
@@ -116,45 +114,42 @@ const Images = {
   surfReward: require(BaseUrl + 'surfReward.png'),
  
   surfShop: require(BaseUrl + 'surfShop.png'),
-  favroites: require(BaseUrl + 'favroites.png'),
-  downThumb: require(BaseUrl + 'downThumb.png'),
+  
+
   ThumbUp: require(BaseUrl + 'ThumbUp.png'),
   recycleBin: require(BaseUrl + 'recycleBin.png'),
   call: require(BaseUrl + 'call.png'),
-  chatProp: require(BaseUrl + 'chatProp.png'),
-  area: require(BaseUrl + 'area.png'),
+
+ 
   profile: require(BaseUrl + 'profile.png'),
   upsideArrow: require(BaseUrl + 'upsideArrow.png'),
 
-  bigCahouna: require(BaseUrl + 'bigCahouna.png'),
+ 
   deletethumb: require(BaseUrl + 'deletethumb.png'),
   upthumb: require(BaseUrl + 'upthumb.png'),
   upgreen: require(BaseUrl + 'upgreen.png'),
   redlike: require(BaseUrl + 'redlike.png'),
-  fastGun: require(BaseUrl + 'fastGun.png'),
-  grommet: require(BaseUrl + 'grommet.png'),
-  base: require(BaseUrl + 'base.png'),
-  longBoarder: require(BaseUrl + 'longBoarder.png'),
+ 
+
+ 
+ 
   agentInsta: require(BaseUrl + 'agentInsta.png'),
   agentPhone: require(BaseUrl + 'agentPhone.png'),
   agentTel: require(BaseUrl + 'agentTel.png'),
   agentVideo: require(BaseUrl + 'agentVideo.png'),
-  meter: require(BaseUrl + 'meter.png'),
+
   sendm: require(BaseUrl + 'sendm.png'),
   reload: require(BaseUrl + 'reload.png'),
  
-  imageView: require(BaseUrl + 'imageView.png'),
-  locate: require(BaseUrl + 'location.png'),
-  lot: require(BaseUrl + 'lot.png'),
 
-  detail: require(BaseUrl + 'detail.png'),
-  features: require(BaseUrl + 'features.png'),
-  nearBy: require(BaseUrl + 'nearBy.png'),
+  locate: require(BaseUrl + 'location.png'),
+
+ 
+
   walkScrore: require(BaseUrl + 'walkScroe.png'),
-  contactUs: require(BaseUrl + 'contactUs.png'),
+  
   reviews: require(BaseUrl + 'reviews.png'),
-  bookTour: require(BaseUrl + 'bookTour.png'),
-  close: require(BaseUrl + 'close.png'),
+  
   signOut: require(BaseUrl + 'signOut.png'),
   plus: require(BaseUrl + 'plus.png'),
   whiteclose: require(BaseUrl + 'close-white.png'),
@@ -166,26 +161,24 @@ const Images = {
   user: require(BaseUrl + 'user.png'),
   whiteclose: require(BaseUrl + 'close-white.png'),
   sch: require(BaseUrl + 'sch.png'),
-  cal: require(BaseUrl + 'cal.png'),
+
   cloud: require(BaseUrl + 'cloud.png'),
-  favlike: require(BaseUrl + 'favlike.png'),
-  leftarrow: require(BaseUrl + 'leftarrow.png'),
+
+  
   rightarrow: require(BaseUrl + 'rightarrow.png'),
-  deletelike: require(BaseUrl + 'deletelike.png'),
  
-  fill: require(BaseUrl + 'fill.png'),
-  fillgreen: require(BaseUrl + 'fillgreen.png'),
+ 
+  
+
   check: require(BaseUrl + 'check-box-alt.png'),
-  calendar: require(BaseUrl + "calendar.png"),
-  calendarnew: require(BaseUrl + "calendarnew.png"),
   loading: require(BaseUrl + "loading.gif"),
   searchm: require(BaseUrl + "searchn.png"),
-  graylocation: require(BaseUrl + "graylocation.png"),
-  next: require(BaseUrl + 'next.png'),
+
+ 
   terrain: require(BaseUrl + 'terrain.png'),
   standard: require(BaseUrl + 'standard.png'),
   satellite: require(BaseUrl + 'satellite.png'),
   hybrid: require(BaseUrl + 'hybrid.png'),
-  arrowleft: require(BaseUrl + 'arrow-left.png'),
+ 
 };
 export default Images;

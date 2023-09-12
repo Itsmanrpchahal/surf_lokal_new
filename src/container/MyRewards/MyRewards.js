@@ -31,28 +31,7 @@ const App = props => {
     setIsRewardsSelected(!isRewardsSelected);
   };
 
-  const getImageCall = () => {
-    if (meterValue <= 500) {
-      return Images.grommet;
-    } else if (meterValue <= 1500) {
-      return Images.longBoarder;
-    } else if (meterValue <= 3000) {
-      return Images.fastGun;
-    } else if (meterValue >= 3001) {
-      return Images.bigCahouna;
-    }
-  };
-  const getLevelCall = () => {
-    if (meterValue <= 500) {
-      return 'Grommet';
-    } else if (meterValue <= 1500) {
-      return 'Long Boarder';
-    } else if (meterValue <= 3000) {
-      return 'Fast Gun';
-    } else if (meterValue >= 3001) {
-      return 'The Big Cahouna';
-    }
-  };
+
 
   useEffect(() => {}, []);
 
