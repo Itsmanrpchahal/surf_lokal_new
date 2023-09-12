@@ -14,7 +14,7 @@ import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
-// import Orientation from 'react-native-orientation-locker';
+
 import Styles from './Styles';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
   paginationDotActive: {
     backgroundColor: 'blue',
   },
-  //fliter
+
   filter: {
     height: 60,
   },

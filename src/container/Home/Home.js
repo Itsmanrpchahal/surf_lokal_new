@@ -217,7 +217,7 @@ const Home = () => {
           closeTrashModal();
           closeSaveModal();
         } else {
-          // Otherwise, reset the animation back to 0
+         
           Animated.spring(slideAnimation, {
             toValue: 0,
             useNativeDriver: false,
@@ -279,10 +279,10 @@ const Home = () => {
       },
       onPanResponderRelease: (_, gestureState) => {
         if (gestureState.dy > 50) {
-          // If the swipe distance is greater than 50, close the modal
+    
           closeModals();
         } else {
-          // Otherwise, reset the animation back to 0
+
           Animated.spring(slideAnimations, {
             toValue: 0,
             useNativeDriver: false,
@@ -423,7 +423,7 @@ const Home = () => {
   };
   const addReview = async () => {
     try {
-      setIsAnimating(true); // Start the animation
+      setIsAnimating(true);
 
       const formData = new FormData();
       formData.append('postid', productId.toString());
@@ -442,17 +442,17 @@ const Home = () => {
       } else {
         setIsAnimating(false);
         toggleModal();
-        // Alert.alert(response.payload.data.message);
+     
       }
     } catch (error) {
-      setIsAnimating(false); // Stop the animation in case of an error
+      setIsAnimating(false);
       console.error('Error submitting review:', error);
     }
   };
 
   const updateReview = async post_id => {
     try {
-      setIsAnimating(true); // Start the animation
+      setIsAnimating(true);
 
       const formData = new FormData();
       formData.append('postid', productId);
@@ -471,7 +471,7 @@ const Home = () => {
         } else {
           setIsAnimating(false);
           toggleModal();
-          // Alert.alert(response.payload.data.message);
+
         }
       });
 
@@ -951,7 +951,7 @@ const Home = () => {
                                   <Modal
                                     transparent={true}
                                     visible={favModalVisiable}
-                                    // visible={true}
+                               
                                     onRequestClose={() => {
                                       setfavModalVisiable(false);
                                     }}>
@@ -2417,15 +2417,14 @@ const styles = StyleSheet.create({
   coverrat: {
     height: 70,
     width: 70,
-    // justifyContent: 'flex-start',
-    // alignItems: 'flex-start',
+    
   },
   ratingstyle: {
     fontSize: 18,
     color: Colors.black,
     fontFamily: 'Poppins-Light',
     marginTop: 0,
-    //marginLeft:8
+
     position: 'relative',
     left: 8,
   },
@@ -2445,10 +2444,10 @@ const styles = StyleSheet.create({
   sendcover: {
     height: 70,
     width: 70,
-    // justifyContent: 'flex-start',
+   
     alignItems: 'center',
     position: 'relative',
-    //top:8
+
   },
   sendbtn: {
     height: 20,
@@ -2456,8 +2455,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   modalaligned: {
-    // alignItems: 'center',
-    // justifyContent: 'center',
+
   },
   calloutfeatureimg: {
     height: 80,
@@ -2750,15 +2748,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   submitbtncover: {
-    //height: 50,
+
     width: '100%',
     borderRadius: 100,
-    //backgroundColor: Colors.surfblur,
-    //marginTop: 10,
+
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    //marginBottom: 20,
+
   },
   submitbtntxt: {
     fontSize: 17,
@@ -2876,9 +2873,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    borderRadius: 20, // Set the border radius for the container View
+    borderRadius: 20, 
     overflow: 'hidden',
-    //backgroundColor: "red",
+
     marginHorizontal: 16,
     position: 'relative',
   },
@@ -2902,11 +2899,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,.8)',
     height: 38,
     width: 35,
-    //position: "absolute", top: 55, zIndex: 99,
+  
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 3,
-    // right: 12,
+   
     shadowOffset: { width: -2, height: 4 },
     shadowColor: '#171717',
     shadowOpacity: 0.2,
@@ -2931,11 +2928,9 @@ const styles = StyleSheet.create({
   },
 
   modalOverlay1: {
-    //flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
+ 
     width: DeviceInfo.getDeviceType() === 'Tablet' ? '100%' : '98%',
-    // boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
+   
     height: '100%',
   },
   welcometxt: {
@@ -2974,8 +2969,7 @@ const styles = StyleSheet.create({
     padding: 16,
     maxHeight: '60%',
     width: '96%',
-    //alignItems: 'center',
-    //justifyContent: 'center',
+  
     boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
   },
   modalContent2: {
@@ -2985,8 +2979,7 @@ const styles = StyleSheet.create({
     padding: 16,
     maxHeight: '80%',
     width: '96%',
-    //alignItems: 'center',
-    //justifyContent: 'center',
+   
     boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
   },
   modalContent3: {
@@ -2996,8 +2989,7 @@ const styles = StyleSheet.create({
     padding: 16,
     maxHeight: '90%',
     width: '96%',
-    //alignItems: 'center',
-    //justifyContent: 'center',
+ 
     boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
   },
   shadowProp: {
@@ -3048,7 +3040,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
-  // inputStyle: { fontSize: 55, },
+
   button: {
     padding: 10,
     backgroundColor: 'blue',
@@ -3186,7 +3178,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   rew: {
-    //  width: 110,
+   
     borderRadius: 8,
     paddingHorizontal: 13,
     justifyContent: 'center',
@@ -3197,8 +3189,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 6,
   },
   dropdown: {
-    // margin: 16,
-    // marginLeft: 10,
+
     borderWidth: 1,
     fontSize: 14,
     fontFamily: 'Poppins-Regular',
@@ -3457,15 +3448,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   addressstyle: {
-    // height: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
-    // width: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 20,
+
     alignItems: 'center',
     justifyContent: 'center',
     resizeMode: 'contain',
   },
   gpsstyle: {
-    // height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
-    // width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
+  
     resizeMode: 'contain',
   },
   gpscover: {
@@ -3499,8 +3488,7 @@ const styles = StyleSheet.create({
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
   },
   filtericonstyles: {
-    // height: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
-    // width: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 10,
+  
     marginRight: 6,
   },
   filtericontext: {

@@ -54,10 +54,10 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   phoneInputView: {
-    // height: 80 * viewSizeRatio,
+  
     width: '75%',
     justifyContent: 'center',
-    //backgroundColor: Colors.primaryBlue,
+ 
   },
   inputStyle: {
     height: 100,

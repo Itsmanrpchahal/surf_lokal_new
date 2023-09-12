@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,59 +6,55 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
-  Platform,
   TextInput,
   FlatList,
-  Alert,
-  Keyboard,
   RefreshControl,
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useSelector, useDispatch} from 'react-redux';
-import {getSavedSearch} from '../../modules/getSavedSearch';
-import {deleteSearch} from '../../modules/deleteSearch';
-import {editSearch} from '../../modules/editSearch';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useDispatch } from 'react-redux';
+import { getSavedSearch } from '../../modules/getSavedSearch';
+import { deleteSearch } from '../../modules/deleteSearch';
+import { editSearch } from '../../modules/editSearch';
 import * as Animatable from 'react-native-animatable';
-import {useIsFocused} from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
+
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-const MyFavorites = ({navigation}) => {
+
+const MyFavorites = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   const dispatch = useDispatch();
   const [images, setImages] = useState([]);
   const [editingItemId, setEditingItemId] = useState(null);
-  const [updatedParameters, setUpdatedParameters] = useState({});
-  const flatListRef = useRef(null);
-  const [showNoDataMessage, setShowNoDataMessage] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-
+  const [updatedParameter, setUpdatedParameter] = useState('');
+  const [showNoDataMessage, setShowNoDataMessage] = useState(false);
   useEffect(() => {
     if (isFocused) {
-      Promise.all[getSavedApiCall()];
+      getSavedApiCall();
     }
   }, [isFocused]);
 
   const getSavedApiCall = () => {
-    dispatch(getSavedSearch()).then(response => {
-
-      if (response.payload.data.length<1) {
-
-        setShowNoDataMessage(true);
+    dispatch(getSavedSearch()).then((response) => {
+      if (response.payload.data.length < 1) {
+        setShowNoDataMessage(true); 
       } else {
         setImages(response.payload.data);
+        setShowNoDataMessage(false); 
       }
     });
-  };
+  }
 
   const deleteSearchApiCall = async (userId, postId) => {
     const formData = new FormData();
     formData.append('postID', postId);
-    dispatch(deleteSearch(formData)).then(response => {
+    dispatch(deleteSearch(formData)).then(() => {
       getSavedApiCall();
     });
   };
@@ -68,42 +64,13 @@ const MyFavorites = ({navigation}) => {
     formData.append('searchid', postId);
     formData.append('searchparameters', updatedParameter);
 
-    console.log(formData);
-    dispatch(editSearch(formData)).then(response => {
+    dispatch(editSearch(formData)).then(() => {
       getSavedApiCall();
+      setEditingItemId(null); 
     });
   };
 
-  const handleChangeText = (itemId, parameterIndex, text) => {
-    setUpdatedParameters(prevState => ({
-      ...prevState,
-      [itemId]: {
-        ...prevState[itemId],
-        [parameterIndex]: text,
-      },
-    }));
-  };
-
-  const handleEditPress = item => {
-    const parameters = item.search_parameters.split(',');
-    const updatedParametersObj = {};
-    parameters.forEach((parameter, index) => {
-      updatedParametersObj[index] = parameter;
-    });
-
-    setEditingItemId(item.ID);
-    setUpdatedParameters({
-      ...updatedParameters,
-      [item.ID]: updatedParametersObj,
-    });
-    Keyboard.dismiss();
-  };
-
-  const handleSavePress = item => {
-    const updatedParameterArr = Object.values(updatedParameters[item.ID]);
-    const updatedParameter = updatedParameterArr.join(',');
-
-    setEditingItemId(null);
+  const handleSavePress = (item, updatedParameter) => {
     editSearchApiCall(item.UserID, item.ID, updatedParameter);
   };
 
@@ -113,7 +80,8 @@ const MyFavorites = ({navigation}) => {
     setRefreshing(false);
   };
 
-  const renderItem = ({item, index}) => {
+ 
+  const renderItem = ({ item, index }) => {
     const isEditing = item.ID === editingItemId;
     const parameters = item.search_parameters.split(',');
 
@@ -127,45 +95,40 @@ const MyFavorites = ({navigation}) => {
               )}
             </View>
             <Text style={styles.parametertext}>Parameters:</Text>
-            <Text style={styles.textinputtext}>{item?.search_parameters}</Text>
-
-            {/* {parameters.map((parameter, parameterIndex) => (
+            {isEditing ? (
               <TextInput
-                key={parameterIndex.toString()}
-                value={
-                  updatedParameters[item.ID]?.[parameterIndex] ?? parameter
-                }
                 style={[
                   styles.textinputtext,
                   {
-                    height: isEditing
-                      ? DeviceInfo.getDeviceType() === 'Tablet'
-                        ? 60
-                        : 40
-                      : DeviceInfo.getDeviceType() === 'Tablet'
-                      ? 60
-                      : 40,
-                    borderColor: isEditing ? Colors.white : Colors.BorderColor,
-                    backgroundColor: isEditing ? Colors.gray : Colors.white,
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 40,
+                    borderColor: Colors.BorderColor,
+                    backgroundColor: Colors.white,
                   },
                 ]}
-                onChangeText={text => {
-                  handleChangeText(item.ID, parameterIndex, text);
+                value={isEditing ? updatedParameter : item.search_parameters}
+                onChangeText={(text) => {
+                  if (isEditing) {
+                    setUpdatedParameter(text);
+                  }
                 }}
-                editable={isEditing}
               />
-            ))} */}
+            ) : (
+              <Text style={styles.textinputtext}>{item?.search_parameters}</Text>
+            )}
 
             <View style={styles.buttoncover}>
               {isEditing ? (
                 <TouchableOpacity
-                  onPress={() => handleSavePress(item)}
+                  onPress={() => handleSavePress(item, updatedParameter)}
                   style={styles.savebuttoncover}>
                   <Text style={styles.savebutton}>Save</Text>
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
-                  onPress={() => handleEditPress(item)}
+                  onPress={() => {
+                    setUpdatedParameter(item.search_parameters);
+                    setEditingItemId(item.ID);
+                  }}
                   style={styles.editcover}>
                   <Image
                     style={styles.editicon}
@@ -216,9 +179,8 @@ const MyFavorites = ({navigation}) => {
         </View>
       ) : (
         <FlatList
-          ref={flatListRef}
-          style={{flex: 1}}
-          contentContainerStyle={{paddingBottom: 20}}
+          style={{ flex: 1 }}
+          contentContainerStyle={{ paddingBottom: 20 }}
           data={images}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
@@ -289,7 +251,7 @@ const styles = StyleSheet.create({
   paginationDotActive: {
     backgroundColor: 'blue',
   },
-  //fliter
+
   filter: {
     height: 60,
   },

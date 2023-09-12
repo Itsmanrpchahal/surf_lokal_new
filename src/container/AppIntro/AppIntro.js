@@ -125,25 +125,10 @@ const slides = [
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
-// const fontSizeRatio = screenHeight / 1000;
-// const viewSizeRatio = screenHeight / 1000;
-// const imageSizeRation = screenHeight / 1000;
+
 
 export default function AppIntro({ navigation }) {
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  //   const renderItem = ({ item }) => {
-  //     return <Image style={{ 
-  //  height: screenHeight, 
-  // width: screenWidth,
-  //     resizeMode:"contain",
-  //    // width:"100%",
-  //      }} source={item.image} />;
 
-
-
-
-  //   };
   const renderItem = ({ item }) => {
     return (
       <View style={{ height: "100%", position: "relative" }}>
@@ -215,7 +200,7 @@ const styles = StyleSheet.create({
   image: {
     height: screenHeight,
     width: screenWidth,
-    // resizeMode:"stretch"
+  
   },
   leftarrow2: {
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 99 : 99,
@@ -224,7 +209,7 @@ const styles = StyleSheet.create({
     transform: [{ rotate: '-180deg' }],
     marginTop: 0,
     position: 'relative',
-    //top: DeviceInfo.getDeviceType() === 'Tablet' ? -15 : -10,
+
   },
 
 });

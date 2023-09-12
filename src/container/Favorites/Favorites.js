@@ -43,7 +43,7 @@ const Home = () => {
   const [data, setHomeData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
-    // setModalVisible(!modalVisible);
+   
   };
   const [rating, setRating] = useState(0);
   const handleRating = rating => {
@@ -58,12 +58,7 @@ const Home = () => {
       setHomeData(response.payload.data);
     });
   };
-  // useEffect(() => {
-  //   Orientation.lockToPortrait();
-  //   return () => {
-  //     Orientation.unlockAllOrientations();
-  //   };
-  // }, []);
+
   const makePhoneCall = () => {
     let phoneNumber = '18885083174';
     Linking.openURL(`tel:${phoneNumber}`);
@@ -206,7 +201,7 @@ const Home = () => {
           onRequestClose={toggleModal}>
           <View
             style={{
-              // marginTop: 40,
+       
               height: '60%',
               width: '100%',
               alignItems: 'center',
@@ -309,17 +304,7 @@ const Home = () => {
                   <Text style={{ fontSize: 12, color: Colors.black, fontFamily: 'Poppins-Regular' }}>
                     Photos Quality Rating :
                   </Text>
-                  {/* <Rating
-                    type="custom"
-                    ratingCount={5}
-                    imageSize={25}
-                    startingValue={rating}
-                    ratingBackgroundColor="#c8c7c8"
-                    onFinishRating={setRating}
-                    style={styles.rating}
-                    ratingColor="#ffbe0b"
-                  //tintColor="#f1f3f4"
-                  /> */}
+            
                   <Rating
                     type="custom"
                     ratingCount={5}
@@ -329,7 +314,7 @@ const Home = () => {
                     onFinishRating={setRating}
                     style={styles.rating}
                     ratingColor="#ffbe0b"
-                    borderColor="blue" // Set the border color to blue
+                    borderColor="blue" 
                   />
                 </View>
               </View>
@@ -353,7 +338,7 @@ const Home = () => {
                     onFinishRating={setRating}
                     style={styles.rating}
                     ratingColor="#ffbe0b"
-                  //tintColor="#f1f3f4"
+                
                   />
                 </View>
               </View>
@@ -376,7 +361,7 @@ const Home = () => {
                     onFinishRating={setRating}
                     style={styles.rating}
                     ratingColor="#ffbe0b"
-                  //tintColor="#f1f3f4"
+           
                   />
                 </View>
               </View>
@@ -400,7 +385,7 @@ const Home = () => {
                     onFinishRating={setRating}
                     style={styles.rating}
                     ratingColor="#ffbe0b"
-                  //tintColor="#f1f3f4"
+                
                   />
                 </View>
               </View>
@@ -422,10 +407,10 @@ const Home = () => {
                     width: '100%',
                     height: 100,
                     marginTop: 10,
-                    //justifyContent: 'center',
+                 
                   }}>
                   <TextInput
-                    // allowFontScaling={false}
+                   
                     style={{
                       width: '100%',
                       borderRadius: 8,
@@ -435,12 +420,12 @@ const Home = () => {
                       borderWidth: 1,
                       borderColor: Colors.gray,
                       fontSize: 14,
-                      // padding: 2,
+                
                       alignItems: "flex-start",
                       alignSelf: "flex-start",
                       verticalAlign: "top"
                     }}
-                    //keyboardType="default"
+              
                     autoCorrect={false}
                     returnKeyType="done"
                     placeholderTextColor={Colors.gray}
@@ -667,15 +652,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   rating: {
-    borderColor: 'blue', // Set the border color to blue
-    borderWidth: 2, // Set the border width as needed
-    borderRadius: 5, // Set the border radius as needed
-    // Add other styles if needed
+    borderColor: 'blue', 
+    borderWidth: 2, 
+    borderRadius: 5, 
   },
   paginationDotActive: {
     backgroundColor: 'blue',
   },
-  //fliter
+
   filter: {
     height: 60,
   },
@@ -693,7 +677,7 @@ const styles = StyleSheet.create({
     width: 12,
     resizeMode: 'contain',
     tintColor: Colors.black,
-    // transform: [{ rotate: '90deg' }],
+   
   },
 });
 

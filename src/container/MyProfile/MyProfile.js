@@ -29,8 +29,6 @@ import { store } from '../../redux/store';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
-
-
 const MyFavorites = () => {
   const [propertyChat, setPropertyChat] = useState([])
   const [selectedIcon, setSelectedIcon] = useState(null);

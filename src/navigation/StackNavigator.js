@@ -8,6 +8,7 @@ import ViewPropertiyImage from '../container/ViewPropertiyImage/ViewPropertiyIma
 import ViewImage from '../container/ViewImage/ViewImage';
 import Register from '../container/Register/Register';
 import ForgotPassword from '../container/ForgotPassword/ForgotPassword';
+
 import ChatSearch from '../container/Chat/ChatSearch';
 import SingleImage from '../container/ViewImage/SingleImage';
 import Videoplay from '../container/ViewPropertiy/Videoplay';
@@ -17,7 +18,7 @@ import Challenges from '../container/MyRewards/Challenges';
 import Schoolinfo from '../container/ViewPropertiy/Schoolinfo';
 
 import RecycleBin from '../container/RecycleBin/RecycleBin';
-import ViewProperty2 from '../container/ViewPropertiy/ViewProperty2';
+
 import BookaTour from '../container/Chat/BookaTour';
 import ChatHistory from '../container/ChatHistory/ChatHistory';
 import ContactSurf from '../container/ContactMyAgent/ContactSurf';
@@ -58,7 +59,7 @@ const StackNavigator = () => {
 
           <Stack.Screen name="Tabs" component={BottomTabNavigator} />
           <Stack.Screen name="ViewPropertiy" component={ViewPropertiy} />
-          <Stack.Screen name="ViewProperty2" component={ViewProperty2} />
+         
           <Stack.Screen name="ViewPropertiyImage" component={ViewPropertiyImage} />
           <Stack.Screen name="ViewImage" component={ViewImage} />
           <Stack.Screen name="ChatSearch" component={ChatSearch} />

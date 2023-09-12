@@ -75,10 +75,10 @@ const MyFavorites = props => {
       },
       onPanResponderRelease: (_, gestureState) => {
         if (gestureState.dy > 50) {
-          // If the swipe distance is greater than 50, close the modal
+ 
           closeModal();
         } else {
-          // Otherwise, reset the animation back to 0
+         
           Animated.spring(slideAnimation, {
             toValue: 0,
             useNativeDriver: false,
@@ -126,7 +126,7 @@ const MyFavorites = props => {
         if (response.payload.success) {
           setIsAnimating(false);
           setShowSuccessMessage(true)
-          // toggleModal();
+
         } else {
           setIsAnimating(false);
           toggleModal();
@@ -179,7 +179,7 @@ const MyFavorites = props => {
   const getFavoritePropertiesApiCall = () => {
     dispatch(getFavoriteProperties()).then(response => {
       if (response.payload.data.length < 1) {
-        // console.log("favvvvvv",response.payload.data)
+     
         setShowNoDataMessage(true);
       } else {
         setShowNoDataMessage(false);
@@ -191,7 +191,7 @@ const MyFavorites = props => {
   const getAgentApicall = () => {
     dispatch(getAgent()).then(response => {
       setAgentData(response.payload.data);
-      // alert(JSON.stringify(response.payload.data))
+
     });
   };
 
@@ -348,7 +348,7 @@ const MyFavorites = props => {
       <KeyboardAvoidingView>
         <Modal
           transparent={true}
-          // animationType="slide"
+         
           visible={modalVisible}
           onRequestClose={toggleModal}>
           <View style={styles.modalContainer}>
@@ -748,7 +748,7 @@ const MyFavorites = props => {
                 date_favorited:"date_favorited"
               }
             dispatch(sortingFavoritelist(payload))
-              // setIsCollapsed(false);
+       
             }}
             style={styles.collapupper}>
             <Image
@@ -866,7 +866,7 @@ const styles = StyleSheet.create({
   },
   slide: {
     width: screenWidth - 16,
-    // height: screenHeight / 3,
+
     height: screenWidth - 100,
     borderRadius: 12,
     margin: 20,
@@ -945,7 +945,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 23,
-    //fontWeight: 'bold',
+
     marginBottom: 20,
   },
   button: {
@@ -1010,17 +1010,17 @@ const styles = StyleSheet.create({
   modalOverlaynew: {
     flex: 1,
   },
-  //fliter
+ 
   filter: {
     height: 60,
   },
   rating: {
     marginVertical: 5,
-    // color: "red"
+   
   },
   ratingText: {
     fontSize: 18,
-    //fontWeight: 'bold',
+   
   },
   screen1: {
     flexDirection: 'row',
@@ -1270,9 +1270,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 12,
     justifyContent: 'flex-start',
-    // top: 12,
+
     top: 13,
-    // backgroundColor:"green",
+   
     width: 50,
     height: 50,
   },
@@ -1321,7 +1321,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.BorderColor,
     paddingBottom: 15,
     paddingTop: 15,
-    //height:100
+   
   },
   buttonuppercover: {
     justifyContent: 'flex-end',
@@ -1404,7 +1404,6 @@ const styles = StyleSheet.create({
 
   colimg: {height: 36, width: 36, resizeMode: 'contain', marginRight: 8},
   coltxt: {fontSize: 18, fontFamily: 'Poppins-Light', color: Colors.black},
-  //  collapsecover:{position:"absolute", top:50 ,left:0,right:0,backgroundColor:"red",width:"90%",zIndex:999},
 
   sortby: {
     fontSize: 21,
