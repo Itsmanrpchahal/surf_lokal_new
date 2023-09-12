@@ -1,23 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Dimensions,
-} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { Text, TouchableOpacity, View, Image, StyleSheet} from 'react-native';
 import Images from '../utils/Images';
-import Fonts from '../utils/Fonts';
 import Colors from '../utils/Colors';
-import Rewards from '../container/Rewards/Rewards';
-import Favorites from '../container/Favorites/Favorites';
 import Home from '../container/Home/Home';
-//import HomeNew from '../container/Home/HomeNew';
 import MyProfile from '../container/MyProfile/MyProfile';
 import MyFavorites from '../container/MyFavorites/MyFavorites';
 import SavedSearches from '../container/SavedSearches/SavedSearches';
@@ -30,7 +17,6 @@ import Settings from '../container/Settings/Settings';
 import {ifIphoneX} from 'react-native-iphone-x-helper';
 import ChatSearch from '../container/Chat/ChatSearch';
 import Notification from '../container/Notification/Notification';
-import Styles from '../container/Rewards/Styles';
 import {store} from '../redux/store';
 import {useIsFocused} from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
@@ -38,15 +24,17 @@ import DeviceInfo from 'react-native-device-info';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height;
-const fontSizeRatio = screenHeight / 1000;
-const viewSizeRatio = screenHeight / 1000;
-const imageSizeRatio = screenHeight / 1000;
 
 const BottomTabNavigator = () => {
   const isFocused = useIsFocused();
   const [data, setdata] = useState();
+  const [tabshow, setTabshow] = useState(true)
+  
+  useEffect(() => {
+    if(store?.getState()?.loginUserReducer?.loginData?.data?.user_role==="administrator"){
+      setTabshow(false)
+     }
+}, [])
 
   useEffect(() => {
     setdata(store.getState()?.getUserScore?.getUserScoreData?.data?.points);
@@ -74,7 +62,6 @@ const BottomTabNavigator = () => {
                     </Text>
                   </View>
                 </View>
-                {/* </View> */}
               </Text>
             ),
             tabBarIcon: Images.newprofile,
@@ -82,31 +69,33 @@ const BottomTabNavigator = () => {
             tabBarHideOnKeyboard: true,
           }}
         />
-        <Tab.Screen
-          name="Rewards"
-          component={MyRewards}
-          options={{
-            tabBarLabel: (
-              <View>
-                <Text style={styles.rebatemenu} allowFontScaling={true}>
-                  {data ? '$' + data : '$' + 0}
-                </Text>
-                <Text
-                  style={[
-                    styles.labelmenu,
-                    {
-                      color: isFocused ? Colors.textColorDark : null,
-                    },
-                  ]}
-                  allowFontScaling={false}>
-                  Rebate
-                </Text>
-              </View>
-            ),
-            keyboardHidesTabBar: true,
-            tabBarHideOnKeyboard: true,
-          }}
-        />
+      {
+      tabshow? <Tab.Screen
+      name="Rewards"
+      component={MyRewards}
+      options={{
+        tabBarLabel: (
+          <View>
+            <Text style={styles.rebatemenu} allowFontScaling={true}>
+              {data ? '$' + data : '$' + 0}
+            </Text>
+            <Text
+              style={[
+                styles.labelmenu,
+                {
+                  color: isFocused ? Colors.textColorDark : null,
+                },
+              ]}
+              allowFontScaling={false}>
+              Rebate
+            </Text>
+          </View>
+        ),
+        keyboardHidesTabBar: true,
+        tabBarHideOnKeyboard: true,
+      }}
+    />:null
+    }
         <Tab.Screen
           name="Home"
           component={Home}
@@ -119,7 +108,9 @@ const BottomTabNavigator = () => {
             tabBarHideOnKeyboard: true,
           }}
         />
-        <Tab.Screen
+        {
+          tabshow?
+          <Tab.Screen
           name="Favorites"
           component={MyFavorites}
           options={{
@@ -134,7 +125,9 @@ const BottomTabNavigator = () => {
             keyboardHidesTabBar: true,
             tabBarHideOnKeyboard: true,
           }}
-        />
+        />:null
+        }
+    
 
         <Tab.Screen
           name="ChatSearch"
@@ -171,7 +164,6 @@ const MyProfileTab = () => {
       <Stack.Screen name="MakeAnOffer" component={MakeAnOffer} />
       <Stack.Screen name="MyRewards" component={MyRewards} />
       <Stack.Screen name="Notification" component={Notification} />
-
       <Stack.Screen name="RecycleBinTab" component={RecycleBin} />
     </Stack.Navigator>
   );
