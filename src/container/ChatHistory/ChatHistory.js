@@ -10,39 +10,14 @@ import {
 } from 'react-native';
 import Colors from '../../utils/Colors';
 import Images from '../../utils/Images';
-import {propertyChatList} from '../../modules/propertyChats';
-import {useDispatch} from 'react-redux';
-import {useIsFocused} from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
 import { store } from '../../redux/store';
 const ChatHistory = ({navigation}) => {
-  const dispatch = useDispatch();
   const [propertyChat, setPropertyChat] = useState([]);
-  const isFocused = useIsFocused();
-
-  useEffect(() => {
-    if (isFocused) {
-      dispatch(propertyChatList())
-        .then(res => {
-         
-          if (res?.payload?.success) {
-            setPropertyChat(res?.payload?.data);
-            console.log('fata',res?.payload?.data)
-          } else {
-            setPropertyChat([]);
-          }
-        })
-        .catch(e => {
-          setPropertyChat([]);
-          alert('Error ' + e);
-        });
-    }
-  }, [isFocused]);
   
-  // useEffect(() => {
-  //   const ccccccc=store.getState().propertyChatList.propertyChatListData
-  // console.log(JSON.stringify(ccccccc))
-  // }, [])
+  useEffect(() => {
+    setPropertyChat(store.getState().propertyChatList?.likeDisLikeData?.data)
+  }, [])
   
 
   return (
