@@ -3,8 +3,6 @@ import {uploadImageAPI} from '../config/apiMethod';
 import BASEURl from '../services/Api'
 
 export const getNearBy = createAsyncThunk('getNearBy', async (payload) => {
-
-
   return await uploadImageAPI(
     BASEURl+'webapi/v1/nearby/',
     payload,

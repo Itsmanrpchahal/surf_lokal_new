@@ -2,13 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAPI, uploadImageAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
 
-
 export const getPoperties = createAsyncThunk('getPoperties', async type => {
   return type.type === 0
     ? await getAPI(BASEURl + "webapi/v1/property/?limit=" + type?.data?.limit)
       .then(async response => {
         const { data } = response;
-        console.log("typee=>",data)
         return data;
       })
       .catch(e => {
@@ -20,7 +18,6 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
         type.latLng,
       )
         .then(async response => {
-          console.log("payload latLng", type.latLng)
           const { data } = response;
           return data;
         })
@@ -34,8 +31,6 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
         )
           .then(async response => {
             const { data } = response;
-            console.log("websearch response", data)
-
             return data;
           })
           .catch(e => {
@@ -50,7 +45,6 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
             return data;
           })
           .catch(e => {
-            console.log("Filter Api error", e)
           });
 });
 

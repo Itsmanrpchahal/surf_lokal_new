@@ -3,9 +3,6 @@ import {getAPI} from '../config/apiMethod';
 import BASEURl from '../services/Api'
 
 export const clearFilter = createAsyncThunk('clearFilter', async () => {
- 
-
-  
   return await getAPI( BASEURl + 'webapi/v1/AppFilter/clearfilter.php')
     .then(async response => {
       const { data } = response;

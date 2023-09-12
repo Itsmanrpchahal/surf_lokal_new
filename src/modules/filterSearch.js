@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {  uploadImageAPI } from '../config/apiMethod';
-
 export const filterSearch = createAsyncThunk('filterSearch', async (formData) => {
   try {
     const response = await uploadImageAPI(
@@ -8,18 +7,13 @@ export const filterSearch = createAsyncThunk('filterSearch', async (formData) =>
       formData,
       
     ).then((res) => {
-      console.log('filterSearch====> ', res)
       return res;
     }).catch((e) => {
-      console.log('filterSearch catch ===> ', e)
       return e
     })
 
-    console.log('filterSearch response', response);
-
     return response;
   } catch (error) {
-    console.error('filterSearch error', error);
     throw error; 
   }
 });

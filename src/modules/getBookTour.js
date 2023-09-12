@@ -1,12 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {getAPI} from '../config/apiMethod';
-
 import BASEURl from '../services/Api'
-
 export const getBookTour = createAsyncThunk('getBookTour', async (data) => {
- 
-
- 
   return await getAPI (
    BASEURl+`webapi/v1/push_notification/push.php?propid=${data.propid}&schedule_hour= ${data.schedule_hour} &schedule_day=${data.schedule_day}&user_mobile= '${data.user_mobile}'`
   )

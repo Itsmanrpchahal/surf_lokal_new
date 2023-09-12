@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { uploadImageAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
 
-
 export const likeDisLike = createAsyncThunk('likeDisLike', async dispatch => {
   return await uploadImageAPI(
     BASEURl+'webapi/v1/rewards/like_dislike_challenge.php',

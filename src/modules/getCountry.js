@@ -1,14 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAPI } from '../config/apiMethod';
-
-
 export const getCountry = createAsyncThunk('getCountry', async () => {
   return await getAPI(
     'https://countriesnow.space/api/v0.1/countries/info?returns=currency,flag,unicodeFlag,dialCode',
   )
     .then(async response => {
       const { data } = response;
-
       return data;
     })
     .catch(e => {
@@ -18,7 +15,6 @@ export const getCountry = createAsyncThunk('getCountry', async () => {
       }
     });
 });
-
 const getCountrySlice = createSlice({
   name: 'getCountry',
   initialState: {
@@ -38,5 +34,4 @@ const getCountrySlice = createSlice({
     },
   },
 });
-
 export default getCountrySlice.reducer;

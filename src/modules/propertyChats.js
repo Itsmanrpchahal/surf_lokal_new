@@ -2,14 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { uploadImageAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
 
-
-
 export const propertyChatList = createAsyncThunk('propertyChatList', async dispatch => {
-   
-    return await uploadImageAPI(
-        BASEURl + 'webapi/v1/chat/chatpropertylisting.php',
-  
-    )
+    return await uploadImageAPI( BASEURl + 'webapi/v1/chat/chatpropertylisting.php',)
         .then(async response => {
             const { data } = response;
             return data;

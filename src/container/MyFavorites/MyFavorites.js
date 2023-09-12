@@ -120,7 +120,6 @@ const MyFavorites = props => {
       formData.append('description_review_stars', rating1);
       formData.append('price_review_stars', rating2);
       formData.append('interest_review_stars', rating3);
-      console.log('postUpdateRating', formData);
 
       dispatch(postUpdateRating(formData)).then(response => {
         if (response.payload.success) {
@@ -222,10 +221,8 @@ const MyFavorites = props => {
         },
         dynamicLinks.ShortLinkType.SHORT,
       );
-      console.log('link:', link);
       return link;
     } catch (error) {
-      console.log('Generating Link Error:', error);
     }
   };
   const handleShare = async ID => {
@@ -237,7 +234,6 @@ const MyFavorites = props => {
         url: link,
       });
     } catch (error) {
-      console.log('Sharing Error:', error);
     }
   };
 
@@ -276,7 +272,6 @@ const MyFavorites = props => {
             {
               const formData = new FormData();
            formData.append('post_id',item.ID);
-           console.log('data',formData)
               await dispatch(addRemoveTrash(formData))}
             }>
             <Image source={Images.favdownthumb} style={styles.chaticon}></Image>

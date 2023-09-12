@@ -5,7 +5,6 @@ export const getSavedSearch = createAsyncThunk( 'getSavedSearch',async dispatch 
     return await getAPI(BASEURl + 'webapi/v1/search/' )
       .then(async response => {
         const { data } = response;
-         console.log("getSavedSearch response",response)
         return data;
       })
       .catch(e => {

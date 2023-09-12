@@ -31,7 +31,6 @@ const Video = () => {
     await dispatch(getVedioCallToken({ userID: 3, friend: 18 })).then((res) => {
       twilioRef.current.connect({ accessToken: res.payload.data.token });
       setStatus("connecting" + token);
-      console.log('connecting')
     }).catch((e) => {
       alert(JSON.stringify(e))
     })
@@ -40,7 +39,6 @@ const Video = () => {
     await dispatch(getVedioCallToken({ userID: 18, friend: 3 })).then((res) => {
       twilioRef.current.connect({ accessToken: res.payload.data.token });
       setStatus("connecting" + token);
-      console.log('connecting')
     }).catch((e) => {
       alert(JSON.stringify(e))
     })
@@ -54,7 +52,6 @@ const Video = () => {
   };
   const _onEndButtonPress = () => {
     twilioRef.current.disconnect();
-    console.log('End Press')
 
   };
 
@@ -62,18 +59,14 @@ const Video = () => {
     twilioRef.current
       .setLocalAudioEnabled(!isAudioEnabled)
       .then((isEnabled) => setIsAudioEnabled(isEnabled));
-    console.log('Mute Press')
   };
 
   const _onFlipButtonPress = () => {
     twilioRef.current.flipCamera();
-    console.log('Flip Button')
-
   };
 
   const _onRoomDidConnect = ({ roomName, error }) => {
     console.log("onRoomDidConnect: ", roomName);
-
     setStatus("connected");
   };
 

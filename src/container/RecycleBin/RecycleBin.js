@@ -103,10 +103,8 @@ const RecycleBin = () => {
           forcedRedirectEnabled: true,
         }
       }, dynamicLinks.ShortLinkType.SHORT)
-      console.log('link:', link)
       return link
     } catch (error) {
-      console.log('Generating Link Error:', error)
     }
   }
   const handleShare = async (ID) => {
@@ -118,7 +116,6 @@ const RecycleBin = () => {
         url: link
       });
     } catch (error) {
-      console.log('Sharing Error:', error)
     }
   };
   const toggleModal = () => {
@@ -154,7 +151,6 @@ const updateReview = async post_id => {
       formData.append('description_review_stars', rating1);
       formData.append('price_review_stars', rating2);
       formData.append('interest_review_stars', rating3);
-      console.log('postUpdateRating', formData);
   
       dispatch(postUpdateRating(formData)).then(response => {
         if (response.payload.success) {
@@ -308,7 +304,6 @@ const updateReview = async post_id => {
             {
               const formData = new FormData();
            formData.append('post_id',item.ID);
-           console.log('data',formData)
               await dispatch(addToFavorite(formData))}
             }> 
             <Image

@@ -92,7 +92,6 @@ export default function Register({ navigation }) {
     formData.append('user_address', address)
     formData.append('password', password)
     dispatch(register(formData)).then(response => {
-      console.log('register ==>', response)
       if (response.payload.success == true) {
         Alert.alert(response.payload.message);
         navigation.goBack();

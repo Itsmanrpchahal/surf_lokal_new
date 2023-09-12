@@ -1,12 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getAPI, postAPI } from '../config/apiMethod';
-import AsyncStorage from '@react-native-community/async-storage';
+import { getAPI} from '../config/apiMethod';
 import BASEURl from '../services/Api'
 
-
 export const getAgent = createAsyncThunk('getAgent', async () => {
-
-
   return await getAPI(
     BASEURl + 'webapi/v1/agent/' 
   )

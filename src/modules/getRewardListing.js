@@ -2,8 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAPI } from "../config/apiMethod";
 import BASEURl from '../services/Api'
 
-
-
 export const getRewardListing = createAsyncThunk(
   "getRewardListings",
   async () => {
@@ -12,7 +10,6 @@ export const getRewardListing = createAsyncThunk(
     return await getAPI(urlDynamic)
       .then(async (response) => {
         const { data } = response;
-  console.log('hkkkk',data)
         return data;
       })
       .catch((e) => {

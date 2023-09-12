@@ -1,28 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
   View,
   Image,
-  TextInput,
-  Button,
   TouchableOpacity,
-  ScrollView,
-  Alert,
   Dimensions,
-  Platform,
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AppButton from '../../components/AppButton';
-import Styles from './Styles';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import LottieView from 'lottie-react-native';
-import { color } from 'react-native-reanimated';
 import DeviceInfo from 'react-native-device-info';
-import { CommonActions, StackActions } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 import { ScreenHeight } from 'react-native-elements/dist/helpers';
 const slides = [
  
@@ -36,7 +28,7 @@ const slides = [
       <View style={{ height: "100%" }}>
         <Image
           style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
-          source={Images.tutorial3}// Replace with your image path
+          source={Images.tutorial3}
         />
         <LottieView
           style={{ height: screenHeight, width: DeviceInfo.getDeviceType() === 'Tablet' ? screenWidth - 80 : screenWidth, }}
@@ -56,7 +48,7 @@ const slides = [
       <View style={{ height: "100%" }}>
         <Image
           style={{ height: ScreenHeight, width: screenWidth, position: 'absolute', top: 0, left: 0, resizeMode: "stretch" }}
-          source={Images.tutorial4}// Replace with your image path
+          source={Images.tutorial4}
         />
         <LottieView
           style={{ height: "100%", width: DeviceInfo.getDeviceType() === 'Tablet' ? screenWidth - 80 : screenWidth, }}
@@ -70,13 +62,8 @@ const slides = [
   },
 
 ];
-
-
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-
-
-
 export default function AppIntro({ navigation }) {
 
   const renderItem = ({ item }) => {

@@ -1,30 +1,22 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {postAPI, uploadImageAPI} from '../config/apiMethod';
+import { uploadImageAPI} from '../config/apiMethod';
 
 export const editSearch = createAsyncThunk('editSearch',  async (formData) => {
   try {
-  
     const response = await uploadImageAPI(
       `https://www.surflokal.com/webapi/v1/search/edit_search.php `,
       formData,
      
     ).then((res) => {
-      console.log('edit search ====> ', res)
       return res;
     }).catch((e) => {
-      console.log('edit search catch ===> ', e)
       return e
     })
-
-    console.log('edit search response', response);
-
     return response;
   } catch (error) {
-    console.error('edit search error', error);
     throw error; 
   }
 });
-
 const editSearchSlice = createSlice({
   name: 'editSearch',
   initialState: {
@@ -44,5 +36,4 @@ const editSearchSlice = createSlice({
     },
   },
 });
-
 export default editSearchSlice.reducer;

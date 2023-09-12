@@ -1,14 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getAPI, postAPI } from '../config/apiMethod';
-
+import { getAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
-
-
 export const getLeaderboard = createAsyncThunk('getLeaderboard', async () => {
-
-  return await getAPI(
-    BASEURl + 'webapi/v1/rewards/leaderboard.php '
-  )
+  return await getAPI( BASEURl + 'webapi/v1/rewards/leaderboard.php')
     .then(async response => {
       const { data } = response;
       console.log('leaderbopard',data)

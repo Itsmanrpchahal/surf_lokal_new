@@ -34,7 +34,6 @@ import getRewardListing from '../modules/getRewardListing';
 import likeDisLike from '../modules/likeDislike';
 import getLeaderboard from '../modules/getLeaderboard';
 import getUserScore from '../modules/getUserScore';
-import bookChat from '../modules/bookChat';
 import propertyChatList from '../modules/propertyChats';
 import sendMessage from '../modules/sendMessage';
 import isRead from '../modules/isRead';
@@ -77,7 +76,6 @@ export default combineReducers({
     likeDisLike,
     getLeaderboard,
     getUserScore,
-    bookChat,
     sendMessage,
     propertyChatList,
     isRead,

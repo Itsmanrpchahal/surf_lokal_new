@@ -1,33 +1,20 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import AsyncStorage from '@react-native-community/async-storage';
-import { postAPI, uploadImageAPI } from '../config/apiMethod';
-
-
+import {  uploadImageAPI } from '../config/apiMethod';
 export const addToFavorite = createAsyncThunk('addToFavorite', async (formData) => {
   try {
-   
-  
     const response = await uploadImageAPI(
       `https://www.surflokal.com/webapi/v1/favorites/addremovefavorite.php`,
       formData,
-    
     ).then((res) => {
-      console.log('Post Ratinmg ====> ', res)
       return res;
     }).catch((e) => {
-      console.log('Post rating catch ===> ', e)
       return e
     })
-
-    console.log('addToFavorite response', response);
-
     return response;
   } catch (error) {
-    console.error('addToFavorite error', error);
     throw error; 
   }
 });
-
 const addToFavoriteSlice = createSlice({
   name: 'addToFavorite',
   initialState: {
@@ -51,5 +38,4 @@ const addToFavoriteSlice = createSlice({
     },
   },
 });
-
 export default addToFavoriteSlice.reducer;

@@ -2,12 +2,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
 export const getNotifications = createAsyncThunk('getNotifications', async () => {
-  return await getAPI(
-    BASEURl + 'webapi/v1/notifications' 
-  )
+  return await getAPI( BASEURl + 'webapi/v1/notifications')
     .then(async response => {
       const { data } = response;
-      console.log('getNotifications response',data)
       return data;
     })
     .catch(e => {

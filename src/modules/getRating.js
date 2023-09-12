@@ -1,14 +1,10 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {getAPI} from '../config/apiMethod';
 import BASEURl from '../services/Api'
-
-
 export const getRating = createAsyncThunk('getRating', async (post_id) => {
-
   return await getAPI(BASEURl+`webapi/v1/rating/user_rating.php?post_id=${post_id}`)
     .then(async response => {
       const {data} = response;
-
       return data;
     })
     .catch(e => {

@@ -8,18 +8,12 @@ export const postRating = createAsyncThunk('postRating', async (formData) => {
       formData,
       
     ).then((res) => {
-      console.log('Post Ratinmg ====> ', res)
       return res;
     }).catch((e) => {
-      console.log('Post rating catch ===> ', e)
       return e
     })
-
-    console.log('postRating response', response);
-
     return response;
   } catch (error) {
-    console.error('postRating error', error);
     throw error;
   }
 });

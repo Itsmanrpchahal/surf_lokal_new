@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { uploadImageAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
 
-
 export const bookTour = createAsyncThunk('bookTour', async dispatch => {
   return await uploadImageAPI(
     BASEURl+'webapi/v1/rating/',
@@ -19,7 +18,6 @@ export const bookTour = createAsyncThunk('bookTour', async dispatch => {
       }
     });
 });
-
 const bookTourSlice = createSlice({
   name: 'bookTour',
   initialState: {

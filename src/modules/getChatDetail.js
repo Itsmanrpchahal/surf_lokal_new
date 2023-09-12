@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import AsyncStorage from '@react-native-community/async-storage';
 import {  uploadImageAPI } from '../config/apiMethod';
-import { Platform } from 'react-native';
 
 export const getChatDetail = createAsyncThunk('getChatDetail', async (dispatch) => {
   const formData = new FormData()
@@ -12,19 +10,13 @@ export const getChatDetail = createAsyncThunk('getChatDetail', async (dispatch) 
       formData,
  
     ).then((res) => {
-      console.log('getChatDetail res ====> ', res)
       return res;
     }).catch((e) => {
-      console.log('getChatDetail catch ===> ', e)
       return e
     })
-
-    console.log('getChatDetaildata', response);
-
     return response;
   } catch (error) {
-    console.error('getChatDetail error', error);
-    throw error; // Re-throw the error so that it's captured by the rejected action
+    throw error; 
   }
 });
 

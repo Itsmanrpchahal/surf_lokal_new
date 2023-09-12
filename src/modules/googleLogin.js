@@ -4,11 +4,7 @@ import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const googleUser = createAsyncThunk('googleUser', async dispatch => {
-  return await uploadImageAPI(
-    BASEURl + 'webapi/v1/login/emaillogin.php',
-   
-    dispatch,
-  )
+  return await uploadImageAPI( BASEURl + 'webapi/v1/login/emaillogin.php', dispatch)
     .then(async response => {
       const { data } = response;
       console.log('google ', response)

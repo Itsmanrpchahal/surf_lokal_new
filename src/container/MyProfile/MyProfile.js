@@ -68,7 +68,6 @@ const MyFavorites = () => {
   useEffect(() => {
     dispatch(getNotifications()).then((response) => {
       setNotification(response.payload?.data)
-      console.log(notification[0]?.length)
     })
   }, [])
   const handleImagePress = () => {

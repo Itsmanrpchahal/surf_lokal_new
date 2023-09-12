@@ -4,6 +4,7 @@ import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const getSearch = createAsyncThunk('getSearch', async dispatch => {
+  console.log(dispatch)
   const id = await AsyncStorage.getItem('userId');
   let data = {
     userID: id,
