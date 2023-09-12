@@ -8,7 +8,7 @@ const Images = {
   newArrow: require(BaseUrl + 'arrow-left-circle.png'),
   
   chatnew: require(BaseUrl + 'chat-alt-10.png'),
-  lastscreen: require(BaseUrl + 'toutorial4.png'),
+  
   details: require(BaseUrl + 'home-documents.png'),
   favdownthumb: require(BaseUrl + 'thumpdownfav.png'),
   featuresnew: require(BaseUrl + 'clipboard-heart.png'),
@@ -18,7 +18,7 @@ const Images = {
   schoolbus: require(BaseUrl + 'school-bus.png'),
   cloudysun: require(BaseUrl + 'cloudy-sun.png'),
 
-  secondscreen: require(BaseUrl + 'toutorial2.png'),
+  
   tutorial3: require(BaseUrl + 't3.png'),
   tutorial4: require(BaseUrl + 't4.png'),
   startfill: require(BaseUrl + 'star-fill.png'),
@@ -54,14 +54,14 @@ const Images = {
   contactsurf: require(BaseUrl + 'contactsurf.png'),
   newprofile: require(BaseUrl + 'newprofile.png'),
 
-  recthumb: require(BaseUrl + 'rec-thumb.png'),
+
 
   facebook: require(BaseUrl + 'facebook.png'),
 
  
 
  
-  reward: require(BaseUrl + 'rewards.png'),
+ 
   telephonecall: require(BaseUrl + "telephone-call.png"),
  
   videochat: require(BaseUrl + "video-chat.png"),
@@ -69,12 +69,9 @@ const Images = {
 
   cola: require(BaseUrl + 'cola.png'),
   logo: require(BaseUrl + 'logo.png'),
-  slideImage0: require(BaseUrl + 'slideImage0.png'),
-  slideImage1: require(BaseUrl + 'slideImage1.png'),
-  slideImage2: require(BaseUrl + 'slideImage2.png'),
-  slideImage3: require(BaseUrl + 'slideImage3.png'),
-  tab1: require(BaseUrl + 'tab1.png'),
-  tab2: require(BaseUrl + 'tab2.png'),
+
+ 
+ 
   tab3: require(BaseUrl + 'tab3.png'),
   tab4: require(BaseUrl + 'tab4.png'),
 
@@ -88,25 +85,25 @@ const Images = {
   newfil: require(BaseUrl + 'newfil.png'),
   mapnew1: require(BaseUrl + 'mapnew.png'),
   search: require(BaseUrl + 'search.png'),
-  searchnew: require(BaseUrl + 'searchnew.png'),
+ 
 
   
  
   send: require(BaseUrl + 'send.png'),
  
-  star: require(BaseUrl + 'star.png'),
+
   star2: require(BaseUrl + 'star2.png'),
   train: require(BaseUrl + 'train.png'),
   VideoPlay: require(BaseUrl + 'VideoPlay.png'),
-  Edit: require(BaseUrl + 'pencil.png'),
-  Trash: require(BaseUrl + 'trash.png'),
+ 
+
   homebig:require(BaseUrl + 'homebig.png'),
 
 
 
   
   
-  phone: require(BaseUrl + 'phone.png'),
+  
   setting: require(BaseUrl + 'setting.png'),
   savedSearch: require(BaseUrl + 'savedSearch.png'),
   notification: require(BaseUrl + 'notification.png'),
@@ -117,11 +114,11 @@ const Images = {
   
 
   ThumbUp: require(BaseUrl + 'ThumbUp.png'),
-  recycleBin: require(BaseUrl + 'recycleBin.png'),
+ 
   call: require(BaseUrl + 'call.png'),
 
  
-  profile: require(BaseUrl + 'profile.png'),
+
   upsideArrow: require(BaseUrl + 'upsideArrow.png'),
 
  
@@ -148,10 +145,10 @@ const Images = {
 
   walkScrore: require(BaseUrl + 'walkScroe.png'),
   
-  reviews: require(BaseUrl + 'reviews.png'),
+
   
   signOut: require(BaseUrl + 'signOut.png'),
-  plus: require(BaseUrl + 'plus.png'),
+  
   whiteclose: require(BaseUrl + 'close-white.png'),
   RedDown: require(BaseUrl + 'reddown.png'),
   GreenUp: require(BaseUrl + 'greenup.png'),
@@ -165,14 +162,14 @@ const Images = {
   cloud: require(BaseUrl + 'cloud.png'),
 
   
-  rightarrow: require(BaseUrl + 'rightarrow.png'),
+
  
  
   
 
   check: require(BaseUrl + 'check-box-alt.png'),
   loading: require(BaseUrl + "loading.gif"),
-  searchm: require(BaseUrl + "searchn.png"),
+  
 
  
   terrain: require(BaseUrl + 'terrain.png'),
