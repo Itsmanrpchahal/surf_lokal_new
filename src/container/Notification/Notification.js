@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -19,7 +19,7 @@ const Notification = () => {
   const navigation = useNavigation();
 
   const [data, setData] = useState([]);
-  const [isEnabled, setIsEnabled] = useState(true);
+  const [isEnabled, setIsEnabled] = useState(false);
   const [toggle, setToggle] = useState(false);
 
 
@@ -92,9 +92,7 @@ const Notification = () => {
         <View style={styles.headerinner}>
           <Text
             style={styles.headercover}>
-
             You Have <Text style={styles.Notificationcount}>{data?.length>0?data.length:"0"}</Text> New
-
             Notifications
           </Text>
           <View

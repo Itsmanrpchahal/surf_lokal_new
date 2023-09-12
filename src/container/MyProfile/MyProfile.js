@@ -56,13 +56,13 @@ const MyFavorites = () => {
   useEffect(() => {
     dispatch(propertyChatList()).then((res) => {
       if (res?.payload?.success) {
+         console.log("propertyChatList res",res)
         setPropertyChat(res?.payload?.data)
       } else {
         setPropertyChat([])
       }
     }).catch((e) => {
       setPropertyChat([])
-      alert('Error ' + e)
     })
   }, [])
 
@@ -75,7 +75,6 @@ dispatch(getNotifications()).then((response)=>{
 const handleImagePress = () => {
   navigation.navigate('RecycleBin');
   setIsImageChanged(true);
-
 
   setTimeout(() => {
     setIsImageChanged(false);
