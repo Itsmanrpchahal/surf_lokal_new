@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAPI } from "../config/apiMethod";
 import BASEURl from '../services/Api'
-import AsyncStorage from '@react-native-community/async-storage';
+
 
 export const getPopertiesDetails = createAsyncThunk(
   "getPropertiesDetails",

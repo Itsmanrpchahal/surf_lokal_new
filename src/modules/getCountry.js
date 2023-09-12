@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAPI } from '../config/apiMethod';
-import { url } from '../config/url';
+
 
 export const getCountry = createAsyncThunk('getCountry', async () => {
   return await getAPI(

@@ -56,7 +56,7 @@ export default StyleSheet.create({
   paginationDotActive: {
     backgroundColor: 'blue',
   },
-  //fliter
+
   filter: {
     height: 60,
   },

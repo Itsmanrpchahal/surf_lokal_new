@@ -94,7 +94,7 @@ const OtpInput = (props) => {
     formdata.append('otp', otp);
     dispatch(verifyOTP(formdata)).then(response => {
       setLoading(false)
-      // console.log('fkjdui',response)
+  
       if (response.payload.success) {
         navigation.navigate('AppIntro');
       } else {
@@ -103,8 +103,6 @@ const OtpInput = (props) => {
 
     });
 
-    // alert(JSON.stringify(otp))
-    // navigation.navigate('AppIntro');
   };
 
   useEffect(() => {
@@ -286,7 +284,7 @@ const OtpInput = (props) => {
         </TouchableOpacity>
         <AppButton
           onPress={() => verify_OTP()}
-          // onPress={() => go()}
+  
           loading={loading}
           btnText={'Verify'}
           textStyle={{

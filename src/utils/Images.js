@@ -43,8 +43,7 @@ const Images = {
   lowhigh: require(BaseUrl + 'highttolow.png'),
   measuringtape: require(BaseUrl + 'measuring-tape.png'),
   calenderwedding: require(BaseUrl + 'calendar-wedding.png'),
-  // lowtohigh: require(BaseUrl + 'lowtohigh.png'),
-  // hightolow: require(BaseUrl + 'hightolow.png'),
+
   apple: require(BaseUrl + 'apple.png'),
   searcfrank: require(BaseUrl + "surfranking.png"),
   telephonecall: require(BaseUrl + "telephone-call.png"),
@@ -81,7 +80,7 @@ const Images = {
   tab3: require(BaseUrl + 'tab3.png'),
   tab4: require(BaseUrl + 'tab4.png'),
 
-  // new icons
+
   address: require(BaseUrl + 'address.png'),
   locationss: require(BaseUrl + 'location.png'),
   Whatsapp: require(BaseUrl + 'Whatsapp.png'),
@@ -105,7 +104,7 @@ const Images = {
   Edit: require(BaseUrl + 'pencil.png'),
   Trash: require(BaseUrl + 'trash.png'),
   homebig:require(BaseUrl + 'homebig.png'),
-  // Slides
+
   slide1: require(BaseUrl + 'slide1.png'),
   slide2: require(BaseUrl + 'slide2.jpg'),
   slide3: require(BaseUrl + 'slide3.jpg'),
@@ -113,14 +112,14 @@ const Images = {
   slide5: require(BaseUrl + 'slide5.jpg'),
   like: require(BaseUrl + 'like.png'),
   dislike: require(BaseUrl + 'dislike.png'),
-  // 19 Apr
+
   phone: require(BaseUrl + 'phone.png'),
   setting: require(BaseUrl + 'setting.png'),
   savedSearch: require(BaseUrl + 'savedSearch.png'),
   notification: require(BaseUrl + 'notification.png'),
   contactAgent: require(BaseUrl + 'contactAgent.png'),
   surfReward: require(BaseUrl + 'surfReward.png'),
-  // surfShop: require(BaseUrl + 'surfShop.png'),
+
   surfShop: require(BaseUrl + 'surfShop.png'),
   favroites: require(BaseUrl + 'favroites.png'),
   downThumb: require(BaseUrl + 'downThumb.png'),
@@ -131,8 +130,7 @@ const Images = {
   area: require(BaseUrl + 'area.png'),
   profile: require(BaseUrl + 'profile.png'),
   upsideArrow: require(BaseUrl + 'upsideArrow.png'),
-  // correctThumb: require(BaseUrl + 'correctthumb.png'),
-  // 20 Apr
+  
   bigCahouna: require(BaseUrl + 'bigCahouna.png'),
   deletethumb: require(BaseUrl + 'deletethumb.png'),
   upthumb: require(BaseUrl + 'upthumb.png'),
@@ -149,7 +147,7 @@ const Images = {
   meter: require(BaseUrl + 'meter.png'),
   sendm: require(BaseUrl + 'sendm.png'),
   reload: require(BaseUrl + 'reload.png'),
-  // 24 Apr
+
   imageView: require(BaseUrl + 'imageView.png'),
   locate: require(BaseUrl + 'location.png'),
   lot: require(BaseUrl + 'lot.png'),
@@ -169,7 +167,7 @@ const Images = {
   GreenUp: require(BaseUrl + 'greenup.png'),
   SaveAlt: require(BaseUrl + 'save-alt.png'),
   Broom: require(BaseUrl + 'broom.png'),
-  //22 may
+  
   user: require(BaseUrl + 'user.png'),
   whiteclose: require(BaseUrl + 'close-white.png'),
   sch: require(BaseUrl + 'sch.png'),

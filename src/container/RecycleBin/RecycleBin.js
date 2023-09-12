@@ -74,10 +74,10 @@ const RecycleBin = () => {
       },
       onPanResponderRelease: (_, gestureState) => {
         if (gestureState.dy > 50) {
-          // If the swipe distance is greater than 50, close the modal
+      
           closeModal();
         } else {
-          // Otherwise, reset the animation back to 0
+
           Animated.spring(slideAnimation, {
             toValue: 0,
             useNativeDriver: false,
@@ -440,7 +440,7 @@ const updateReview = async post_id => {
       <KeyboardAvoidingView>
         <Modal
           transparent={true}
-          // animationType="slide"
+     
           visible={modalVisible}
           onRequestClose={toggleModal}>
           <View style={styles.modalContainer}>
@@ -672,7 +672,7 @@ const updateReview = async post_id => {
                       height: DeviceInfo.getDeviceType() === 'Tablet'?49:26,
                       width: DeviceInfo.getDeviceType() === 'Tablet'?39:21,
                       resizeMode: 'contain',
-                    //backgroundColor: "green"
+                   
                     }}></Image>
                   <Text
                     style={{
@@ -848,7 +848,7 @@ const updateReview = async post_id => {
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  //paddingHorizontal: 12,
+                
                   justifyContent: 'space-between',
                   marginBottom: 12,
                   width: '100%',
@@ -858,7 +858,7 @@ const updateReview = async post_id => {
                   style={{
                     justifyContent: 'flex-start',
                     alignItems: 'flex-start',
-                    // backgroundColor: "red",
+         
                     width: 70,
                   }}>
                   <View
@@ -869,7 +869,7 @@ const updateReview = async post_id => {
                         height: 21,
                         width: 28,
                         resizeMode: 'contain',
-                       //backgroundColor: "green",
+                   
                         marginBottom:5
                       }}></Image>
                     <Text
@@ -1253,9 +1253,7 @@ const styles = StyleSheet.create({
 
 },
   collapsebg:{
-    // justifyContent:'center',
-    // alignItems:'center',
-    // alignContent:'center'
+ 
   },
   collapsecover:{
     

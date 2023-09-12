@@ -142,11 +142,11 @@ const ViewPropertiy = (props, imageUrl) => {
       },
       onPanResponderRelease: (_, gestureState) => {
         if (gestureState.dy > 50) {
-          // If the swipe distance is greater than 50, close the modal
+
           closeModal();
         closeSchoolModal()
         } else {
-          // Otherwise, reset the animation back to 0
+       
           Animated.spring(slideAnimation, {
             toValue: 0,
             useNativeDriver: false,
@@ -927,13 +927,12 @@ const ViewPropertiy = (props, imageUrl) => {
             Mortgage Calculator
           </Text>
 
-          {/* <View style={[styles.addresss, { height: "100%" }]}> */}
+      
           <ScrollView
             style={[styles.addresss1, {flex: 1, flexGrow: 1, height: '100%'}]}>
             <WebView
               style={{flex: 1, height: 2300}}
-              // scrollEnabled={true}
-              //nestedScrollEnabled
+     
               source={{uri: calData?.moartage_details}}
               onLoad={() => console.log('loaded')}
             />
@@ -949,11 +948,7 @@ const ViewPropertiy = (props, imageUrl) => {
   const [res, setRes] = useState([])
   const [message, setMessage] = useState()
   const [loading, setLoading] = useState(false)
-    // const handleLinkPress = url => {
-    //   Linking.openURL(url).catch(error =>
-    //     console.error('An error occurred: ', error),
-    //   );
-    // };
+
 
 
 
@@ -1002,12 +997,12 @@ const getCurrentDateTime = () => {
                       alignContent: 'center',
                       marginVertical: 5,
                       justifyContent: 'space-between',
-                      // borderBottomColor: Colors.BorderColor, borderBottomWidth: 1,
+                  
                       paddingBottom: 20,
                       marginBottom: 10,
                     }}>
                     <View style={{width: '100%'}}>
-                      {/* <Text style={{ color: "black" }}>{item.schools_id}</Text> */}
+         
                       <Text
                         style={{
                           color: Colors.black,
@@ -1053,7 +1048,7 @@ const getCurrentDateTime = () => {
             <TouchableOpacity
               onPress={() => {
                 schoolModal()
-                // navigation.navigate('Schoolinfo');
+             
               }}
               style={{
                 backgroundColor: Colors.surfblur,
@@ -1078,7 +1073,7 @@ const getCurrentDateTime = () => {
       
                                   <Modal
                                     transparent={false}
-                                    // animationType="slide"
+                                  
                                    visible={schoolModalVisible}
                                    onRequestClose={() => {
                                     closeSchoolModal(false)
@@ -1112,7 +1107,7 @@ const getCurrentDateTime = () => {
                                       <View style={{
         height: '100%', width: '100%',
        
-        // justifyContent: 'center',
+      
 
       }} >
         <View style={{ paddingVertical: 10, paddingHorizontal: 12, backgroundColor: Colors.white, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderColor: '#c9c9c5' ,}}>
@@ -1195,7 +1190,7 @@ const getCurrentDateTime = () => {
 
         </View>
         <View style={{
-          //  paddingHorizontal: 20,
+     
           position: "relative",
           height: '100%', width: '100%',
          
@@ -1235,7 +1230,7 @@ const getCurrentDateTime = () => {
                       alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
                       maxWidth: '70%',
                       marginLeft: 8,
-                      //marginRight: 8,
+              
                       marginTop: 8,
                       marginBottom: 4,
                       fontFamily: "Poppins-Regular",
@@ -1303,7 +1298,7 @@ const getCurrentDateTime = () => {
             backgroundColor: Colors.white,
             borderColor: Colors.BorderColor,
             borderWidth: 1, borderRadius: 5,
-           // height: 45
+         
              margin: 16,
             paddingLeft: 8, paddingRight: 8,
             flexDirection: 'row',
@@ -1522,9 +1517,9 @@ alignItems:"center"
 
                           height:  screenHeight - firstViewHeight - 27, width: screenWidth, backgroundColor: "green",
                           borderRadius: 15,
-                          // marginTop: 10,
+    
                           overflow: "hidden", position: "absolute",
-                          // left: 5,
+                 
                         }}>
                         <View style={{
                           position: "absolute",
@@ -1588,10 +1583,10 @@ alignItems:"center"
                             flexDirection: 'row',
                             width: '100%',
                             marginTop: 10,
-                            // height:'40%',
+                    
                             justifyContent: 'space-between',
                             alignItems: 'center',
-                            // backgroundColor: Colors.white,
+                            
                             paddingHorizontal: 12,
                           }}>
                           <View
@@ -1599,7 +1594,7 @@ alignItems:"center"
                               flexDirection: 'row',
                               justifyContent: 'center',
                               alignItems: 'center',
-                              //  backgroundColor: Colors.white,
+                        
                             }}>
                             <TouchableOpacity
                               onPress={() => {
@@ -1683,7 +1678,7 @@ alignItems:"center"
                             width: '100%',
                             alignSelf: 'center',
                             justifyContent: 'center',
-                            // backgroundColor: Colors.white,
+                   
                             paddingHorizontal: 12,
                             paddingBottom: 8,
                           }}>
@@ -1711,7 +1706,7 @@ alignItems:"center"
 
                             justifyContent: 'center',
 
-                            // backgroundColor: Colors.white,
+                   
                           }}>
                           <View>
                             <View
@@ -2398,7 +2393,7 @@ alignItems:"center"
                 <KeyboardAvoidingView>
         <Modal
           transparent={true}
-          // animationType="slide"
+       
           visible={modalVisible}
           onRequestClose={toggleModal}>
           <View style={styles.modalContainer}>
@@ -2629,7 +2624,7 @@ alignItems:"center"
           style={{
             alignItems: 'center',
             flexDirection: 'row',
-           // marginTop:12
+      
            width:"33.33%",
            justifyContent:"space-between",
            paddingRight:15
@@ -2849,10 +2844,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingRight: 28,
 
-    // width: 100
-    // width: 105,
-    // paddingHorizontal: 4,
-    // backgroundColor: "green",
+   
   },
   map: {
     width: '100%',
@@ -2864,10 +2856,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    borderRadius: 20, // Set the border radius for the container View
+    borderRadius: 20,
     overflow: 'hidden',
-    //backgroundColor: "red",
-    //marginHorizontal: 16,
+
     position: 'relative',
     marginTop: 15,
   },
@@ -2876,7 +2867,7 @@ const styles = StyleSheet.create({
     width: 20,
     resizeMode: 'contain',
 
-    // backgroundColor:"green"
+   
   },
   modalContainer: {
     flex: 1,
@@ -3023,7 +3014,7 @@ const styles = StyleSheet.create({
     width: 30,
     resizeMode: 'contain',
     tintColor: Colors.black,
-    // transform: [{ rotate: '45deg' }],
+  
   },
   addresimage: {
     height: 30,
@@ -3055,7 +3046,7 @@ const styles = StyleSheet.create({
   property: {
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 15,
     color: Colors.black,
-    //fontWeight: 'bold',
+
     fontFamily: 'Poppins-Medium',
   },
   detailText: {
@@ -3064,9 +3055,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Poppins-Regular',
 
-    // marginLeft: 5,
-    // width
-    // width:55
+
   },
   cloudText: {
     fontSize: 10,
@@ -3153,17 +3142,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
-    // borderTopWidth: 1,
-    // borderBottomWidth: 1,
+
     paddingVertical: 0,
     justifyContent: 'center',
-    // borderColor: Colors.BorderColor,
+
 
   },
 
   featuersComtainer: {
-    // width: 100,
-    // backgroundColor: "red"
+
     justifyContent: 'center',
   },
 
@@ -3184,15 +3171,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingStart: 20,
     fontFamily: 'Poppins-SemiBold',
-    // fontWeight: 'bold'
+  
   },
-  //addresss: { height: 1400 },
+
   propertyts: {
     fontSize: 14,
     color: Colors.black,
     marginTop: 20,
     fontFamily: 'Poppins-Medium',
-    // fontWeight: 'bold'
+
   },
   propsmain: {
     fontFamily: 'Poppins-Medium',
@@ -3207,7 +3194,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0065C4',
   },
   card: {
-    // backgroundColor: '#fdfdfd',
+ 
     backgroundColor: Colors.white,
   },
   container: {

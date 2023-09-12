@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 export const googleUser = createAsyncThunk('googleUser', async dispatch => {
   return await uploadImageAPI(
     BASEURl + 'webapi/v1/login/emaillogin.php',
-    // 'https://surf.topsearchrealty.com/' + 'wp-json/custom-plugin/login/',
+   
     dispatch,
   )
     .then(async response => {

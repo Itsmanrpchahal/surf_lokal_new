@@ -1,17 +1,12 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {getAPI, postAPI} from '../config/apiMethod';
-// import AsyncStorage from '@react-native-community/async-storage';
+
 import BASEURl from '../services/Api'
-import AsyncStorage from '@react-native-community/async-storage';
+
 
 export const getProfile = createAsyncThunk('getProfile', async () => {
   
-  const access_token = await AsyncStorage.getItem('access_token')
 
-  const Header={
-    security_key:"SurfLokal52",
-    access_token:access_token
-  }
   return await getAPI(
     BASEURl+'webapi/v1/userprofile/'
   )

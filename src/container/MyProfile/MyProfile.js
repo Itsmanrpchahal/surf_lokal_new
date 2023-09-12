@@ -76,7 +76,7 @@ const handleImagePress = () => {
   navigation.navigate('RecycleBin');
   setIsImageChanged(true);
 
-  // Reset the image after 2 seconds
+
   setTimeout(() => {
     setIsImageChanged(false);
   }, 1500);
@@ -118,7 +118,7 @@ const handleImagePress = () => {
   }, []);
 
   useEffect(() => {
-    // setisFocused(false)
+
     const unsubscribe = navigation.addListener('focus', () => {
       getProfileApiCall();
     });
@@ -592,7 +592,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     paddingHorizontal: 18,
-    // height: 60,
+
     alignItems: 'center',
     paddingVertical: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 18
   },
@@ -600,7 +600,7 @@ const styles = StyleSheet.create({
     height: 1,
     width: '90%',
     backgroundColor: Colors.BorderColor,
-    // marginHorizontal: 50
+
   },
   text: {
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 14,
@@ -657,7 +657,7 @@ const styles = StyleSheet.create({
   paginationDotActive: {
     backgroundColor: 'blue',
   },
-  //fliter
+
   filter: {
     height: 60,
   },

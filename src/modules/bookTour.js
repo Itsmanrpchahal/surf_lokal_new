@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { uploadImageAPI } from '../config/apiMethod';
 import BASEURl from '../services/Api'
-import AsyncStorage from '@react-native-community/async-storage';
+
 
 export const bookTour = createAsyncThunk('bookTour', async dispatch => {
   return await uploadImageAPI(

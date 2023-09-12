@@ -1,22 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import AsyncStorage from '@react-native-community/async-storage';
 import {  uploadImageAPI } from '../config/apiMethod';
-import { Platform } from 'react-native';
+
 
 export const logOut = createAsyncThunk('logOut', async () => {
   try {
-    const accessToken = await AsyncStorage.getItem('access_token');
-    const header = Platform.OS === 'android' ?
-      {
-        security_key: "SurfLokal52",
-        access_token: accessToken,
-        'Content-Type': 'multipart/form-data'
-      } :
-      {
-        security_key: "SurfLokal52",
-        access_token: accessToken,
-      };
-       console.log(" logOut accessToken ======>",accessToken)
+ 
     const response = await uploadImageAPI(
       `https://www.surflokal.com/wp-json/custom-plugin/logout/`,
     
@@ -33,7 +21,7 @@ export const logOut = createAsyncThunk('logOut', async () => {
     return response;
   } catch (error) {
     console.error('logOut error', error);
-    throw error; // Re-throw the error so that it's captured by the rejected action
+    throw error; 
   }
 });
 

@@ -20,7 +20,7 @@ export const postRating = createAsyncThunk('postRating', async (formData) => {
     return response;
   } catch (error) {
     console.error('postRating error', error);
-    throw error; // Re-throw the error so that it's captured by the rejected action
+    throw error;
   }
 });
 

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { postAPI } from "../config/apiMethod";
 import AsyncStorage from '@react-native-community/async-storage';
 
-import BASEURl from '../services/Api'
+
 
 
 export const bookChat = createAsyncThunk("bookChat", async (payload) => {

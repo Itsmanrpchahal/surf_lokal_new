@@ -23,7 +23,7 @@ export const addRemoveTrash = createAsyncThunk('addRemoveTrash', async (formData
     return response;
   } catch (error) {
     console.error('addRemoveTrash error', error);
-    throw error; // Re-throw the error so that it's captured by the rejected action
+    throw error; 
   }
 });
 

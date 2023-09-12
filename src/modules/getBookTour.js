@@ -1,16 +1,11 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {getAPI} from '../config/apiMethod';
-import AsyncStorage from '@react-native-community/async-storage';
+
 import BASEURl from '../services/Api'
 
 export const getBookTour = createAsyncThunk('getBookTour', async (data) => {
-  console.log("userdata",data)
-  const access_token = await AsyncStorage.getItem('access_token')
+ 
 
-  const Header={
-    security_key:"SurfLokal52",
-    access_token:access_token
-  }
  
   return await getAPI (
    BASEURl+`webapi/v1/push_notification/push.php?propid=${data.propid}&schedule_hour= ${data.schedule_hour} &schedule_day=${data.schedule_day}&user_mobile= '${data.user_mobile}'`

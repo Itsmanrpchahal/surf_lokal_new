@@ -3,7 +3,7 @@ import Splash from './src/components/Splash';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { store, persistor } from './src/redux/store';
-// Add Firebase
+
 import firebase from '@react-native-firebase/app';
 import messaging from '@react-native-firebase/messaging';
 import dynamicLinks from '@react-native-firebase/dynamic-links';

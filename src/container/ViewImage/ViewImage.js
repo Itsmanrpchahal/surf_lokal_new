@@ -91,7 +91,7 @@ const ViewImage = props => {
       
               justifyContent: 'flex-start',
        
-             // backgroundColor:"green",
+          
   width:50,
   height:50,
             }}
@@ -105,7 +105,7 @@ const ViewImage = props => {
               flexDirection: 'row',
               alignItems: 'center',
               resizeMode:"contain",
-              //tintColor:"white"
+            
             }}
             source={Images.leftnewarrow}></Image>
           </TouchableOpacity>
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   paginationDotActive: {
     backgroundColor: 'blue',
   },
-  //fliter
+
   filter: {
     height: 60,
   },

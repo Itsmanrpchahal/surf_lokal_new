@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAPI } from "../config/apiMethod";
-import { url } from "../config/url";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
-import { BASE_URL } from "../utils/utils";
+
 
 export const getVedioCallToken = createAsyncThunk(
   "getTodayDipos",
