@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAPI, postAPI } from '../config/apiMethod';
-// import AsyncStorage from '@react-native-community/async-storage';
+
 import BASEURl from '../services/Api'
 import AsyncStorage from '@react-native-community/async-storage';
 
 
 export const getUserScore = createAsyncThunk('getUserScore', async () => {
-  // const id = await AsyncStorage.getItem('userId');
+
   const access_token = await AsyncStorage.getItem('access_token')
 
   const Header={

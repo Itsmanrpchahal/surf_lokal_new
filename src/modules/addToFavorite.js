@@ -1,21 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-community/async-storage';
 import { postAPI, uploadImageAPI } from '../config/apiMethod';
-import { Platform } from 'react-native';
+
 
 export const addToFavorite = createAsyncThunk('addToFavorite', async (formData) => {
   try {
-    const access_token = await AsyncStorage.getItem('access_token');
-    const header = Platform.OS === 'android' ?
-      {
-        security_key: "SurfLokal52",
-        access_token:access_token,
-        'Content-Type': 'multipart/form-data'
-      } :
-      {
-        security_key: "SurfLokal52",
-        access_token: access_token,
-      };
+   
+  
     const response = await uploadImageAPI(
       `https://www.surflokal.com/webapi/v1/favorites/addremovefavorite.php`,
       formData,
@@ -33,7 +24,7 @@ export const addToFavorite = createAsyncThunk('addToFavorite', async (formData) 
     return response;
   } catch (error) {
     console.error('addToFavorite error', error);
-    throw error; // Re-throw the error so that it's captured by the rejected action
+    throw error; 
   }
 });
 

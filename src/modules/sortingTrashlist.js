@@ -7,7 +7,7 @@ console.log(payload)
   return await getAPI(BASEURl+`webapi/v1/rating/user_rating.php?post_id=${payload}`)
     .then(async response => {
       const {data} = response;
-      // console.log(" sortingTrashlist response data", response)
+   
       return data;
     })
     .catch(e => {

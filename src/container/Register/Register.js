@@ -73,7 +73,7 @@ export default function Register({ navigation }) {
           Alert.alert('Email is Invalid');
         }
       }
-      //
+ 
     }
   };
   const userRegisterApiCall = () => {
@@ -132,7 +132,7 @@ export default function Register({ navigation }) {
               height: 40,
               width: 40,
               borderRadius: 100,
-              // backgroundColor: Colors.gray,
+        
             }}>
             <Image source={Images.leftnewarrow} style={{
               height: 30,
@@ -230,7 +230,7 @@ export default function Register({ navigation }) {
         </View>
         <AppButton
           onPress={() => accessRequestAction()}
-          // onPress={() => go()}
+   
           btnText={'Continue'}
           textStyle={{
             fontSize: 20 * fontSizeRatio,

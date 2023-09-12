@@ -5,11 +5,7 @@ import BASEURl from '../services/Api'
 
 
 export const getAgent = createAsyncThunk('getAgent', async () => {
-  const access_token = await AsyncStorage.getItem('access_token')
-  const Header={
-    security_key:"SurfLokal52",
-    access_token:access_token
-  }
+
 
   return await getAPI(
     BASEURl + 'webapi/v1/agent/' 

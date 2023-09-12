@@ -53,12 +53,12 @@ const ViewPropertiyImage = props => {
       setOrientation(isPortrait() ? 'portrait' : 'landscape');
     };
 
-    // Add event listener for orientation changes
+
     Dimensions.addEventListener('change', handleChangeOrientation);
 
-    // Clean up the event listener when the component unmounts
+  
 
-    // Dimensions.removeEventListener('change', handleChangeOrientation);
+  
   }, []);
 
   const makePhoneCall = () => {
@@ -221,7 +221,7 @@ const ViewPropertiyImage = props => {
           style={{
             alignItems: 'center',
             flexDirection: 'row',
-           // marginTop:12
+     
            width:"33.33%",
            justifyContent:"space-between",
            paddingRight:15
@@ -457,7 +457,7 @@ const styles = StyleSheet.create({
   slide: {
     width: screenWidth,
     height: screenHeight / 2.5,
-    // borderRadius: 8,
+
     alignSelf: 'center',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -558,7 +558,7 @@ const styles = StyleSheet.create({
   paginationDotActive: {
     backgroundColor: 'blue',
   },
-  //fliter
+
   filter: {
     height: 60,
   },

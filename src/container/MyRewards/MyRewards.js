@@ -342,12 +342,12 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 100,
-    borderWidth: 2, // Set the desired border width
-    borderColor: Colors.darbluec, // Set the desired border color
+    borderWidth: 2, 
+    borderColor: Colors.darbluec, 
     marginHorizontal: 2,
   },
   trackmain: {
-    height: 10, // Set the desired height of the track
+    height: 10, 
     borderRadius: 100,
   },
   rebatetext: {

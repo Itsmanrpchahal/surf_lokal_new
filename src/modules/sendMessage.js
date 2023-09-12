@@ -21,7 +21,7 @@ export const sendMessage = createAsyncThunk('sendMessage', async dispatch=> {
     return response;
   } catch (error) {
     console.error('sendMessage error', error);
-    throw error; // Re-throw the error so that it's captured by the rejected action
+    throw error; 
   }
 });
 

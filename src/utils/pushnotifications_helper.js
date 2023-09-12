@@ -18,8 +18,7 @@ export async function requestUserPermission() {
 
 async function getFCMToken() {
     let fcmtoken = AsyncStorage.getItem('fcmToken')
-    // if(!fcmtoken)
-    // {
+    
     try {
         const fcmtoken = await messaging().getToken()
         if (fcmtoken) {
@@ -28,9 +27,7 @@ async function getFCMToken() {
     } catch (error) {
         console.log('Errr to get FCM token')
     }
-    // }else {
-    //     console.log('Errr to get FCM token1' ,fcmtoken)
-    // }
+ 
 }
 
 

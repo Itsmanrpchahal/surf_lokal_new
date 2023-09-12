@@ -9,7 +9,7 @@ const persistConfig = {
   whitelist: ['loginUserReducer']
 }
 
-// Middleware: Redux Persist Persisted Reducer
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: persistedReducer,

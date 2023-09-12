@@ -1,26 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { uploadImageAPI } from '../config/apiMethod';
-import BASEURl from '../services/Api'
-import AsyncStorage from '@react-native-community/async-storage';
-import { Platform } from 'react-native';
+
 
 export const isRead = createAsyncThunk('isRead', async dispatch => {
     const formData = new FormData()
     formData.append('chatId', dispatch.ID)
 
  try {
-        const access_token = await AsyncStorage.getItem('access_token');
-        const header = Platform.OS === 'android' ?
-          {
-            security_key: "SurfLokal52",
-            access_token: access_token,
-            'Content-Type': 'multipart/form-data'
-          } :
-          {
-            security_key: "SurfLokal52",
-            access_token: access_token,
-          };
-        console.log("Header cd25ab6d7ee9f9daf09447f25ee48d60", formData)
+       
+
         const response = await uploadImageAPI(
           `https://www.surflokal.com/webapi/v1/chat/Isread.php`,
           formData,

@@ -96,7 +96,7 @@ console.log('video',videoView)
       
               justifyContent: 'flex-start',
        
-             // backgroundColor:"green",
+        
   width:50,
   height:50,
             }}
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
   paginationDotActive: {
     backgroundColor: 'blue',
   },
-  //fliter
+
   filter: {
     height: 60,
   },

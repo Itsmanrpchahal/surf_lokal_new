@@ -5,6 +5,6 @@ PushNotification.configure({
     onNotification: function (notification) {
         const { data } = notification;
         console.log('Notification Setvice', data)
-        // NavigationService.navigate('Screen', { notificationData: data });
+     
     }
 });

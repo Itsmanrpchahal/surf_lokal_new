@@ -1,8 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import BASEURl from '../services/Api'
 import {postAPI, uploadImageAPI} from '../config/apiMethod';
-import AsyncStorage from '@react-native-community/async-storage';
-import { Platform } from 'react-native';
+;
  
 
 export const deleteSearch = createAsyncThunk('deleteSearch',async (formData) => {

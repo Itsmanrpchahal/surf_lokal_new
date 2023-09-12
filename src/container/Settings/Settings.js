@@ -18,8 +18,6 @@ import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
-// import Orientation from 'react-native-orientation-locker';
-import Styles from './Styles';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
@@ -38,7 +36,7 @@ const screenWidth = Dimensions.get('window').width;
 
 
 const Settings = props => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+
   const [address, setAddres] = useState('');
   const [mob, setMob] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -104,7 +102,7 @@ const Settings = props => {
 
 
   const uploadFile = async (uriResponse, name, type,) => {
-    // setLoading(true);
+
     const userID = await AsyncStorage.getItem('userId');
 
     let data = new FormData();
@@ -150,9 +148,9 @@ const Settings = props => {
     setLoading(true);
     try {
     
-      // Create a FormData object and append the data
+   
       const data = new FormData();
-      // data.append('UserID', userID);
+     
       data.append('first_name', firstName);
       data.append('last_name', lastName);
       data.append('user_address', address);
@@ -164,7 +162,7 @@ const Settings = props => {
       data.append('instagram', instagram);
       data.append('threads', threads);
 
-      // Make the API request using the uploadImageAPI function or fetch
+  
       try {
         const res = await uploadImageAPI(
           'https://www.surflokal.com/webapi/v1/userprofile/profileupdate.php',
@@ -193,9 +191,9 @@ const Settings = props => {
       <View
         style={{
           flexDirection: 'row',
-          // marginLeft:80,
+ 
           width: '100%',
-          // height: 60,
+  
           justifyContent: 'space-between',
           alignSelf: 'center',
           alignItems: 'center',
@@ -234,7 +232,7 @@ const Settings = props => {
             ) : (
               <Text style={{ fontSize: 17, color: Colors.white }}>JD</Text>
             )}
-            {/* <Loader loading={loading} /> */}
+        
           </View>
 
         </TouchableOpacity>
@@ -269,7 +267,7 @@ const Settings = props => {
           style={{
             flexDirection: 'row',
             width: '100%',
-            //marginTop: 20,
+          
             alignSelf: 'center',
             justifyContent: 'space-between',
             marginTop: 22,
@@ -296,22 +294,7 @@ const Settings = props => {
 
         </View>
 
-        {/* <View
-          style={{
-            flexDirection: 'row',
-            width: '90%',
-            marginTop: 6,
-            alignSelf: 'center',
-          }}>
-          <Text
-            style={{
-              fontSize: 16,
-              color: Colors.black,
-              fontFamily: 'Poppins-Regular'
-            }}>
-            User Details
-          </Text>
-        </View> */}
+        
         <View
           style={{
             flexDirection: 'row',
@@ -456,7 +439,7 @@ const Settings = props => {
               color: Colors.black,
               fontFamily: 'Poppins-Regular',
               opacity: .6,
-              // keyboardType:"numeric"
+        
             }}>
             Phone
           </Text>
@@ -707,17 +690,7 @@ const Settings = props => {
                   routes: [{ name: 'Login', }]
                 });
                 navigation.dispatch(resetAction);
-                // const clearToken = async () => {
-                //   try {
-                //     await AsyncStorage.removeItem('access_token');
-                //     console.log('access_token remove successfully.');
-                //     navigation.navigate("Login")
-                //     navigation.popToTop();
-                //   } catch (error) {
-                //     console.error('Error clearing token:', error);
-                //   }
-                // };
-                // clearToken();
+       
               }
             })
           }}
@@ -827,7 +800,7 @@ const styles = StyleSheet.create({
   paginationDotActive: {
     backgroundColor: 'blue',
   },
-  //fliter
+
   filter: {
     height: 60,
   }, screen1: {
@@ -843,7 +816,7 @@ const styles = StyleSheet.create({
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 38 : 19,
     width: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 29,
     resizeMode: 'contain',
-    // transform: [{ rotate: '90deg' }],
+
   },
 });
 

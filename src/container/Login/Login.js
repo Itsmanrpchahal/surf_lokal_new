@@ -21,15 +21,15 @@ import jwt_decode from "jwt-decode";
 import { googleUser } from '../../modules/googleLogin';
 import DeviceInfo from 'react-native-device-info';
 import AsyncStorage from '@react-native-community/async-storage';
-import axios from 'axios';
-// For Add Google SignIn
+
+
 import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-// Import FBSDK
+
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
-// Apple
+
 import { appleAuth, appleAuthAndroid } from '@invertase/react-native-apple-authentication';
 import CountryPicker, { DARK_THEME } from 'react-native-country-picker-modal'
 import { loginUser } from '../../modules/loginUser';
@@ -73,7 +73,7 @@ export default function Login({ navigation }) {
   }, []);
 
   useEffect(() => {
-    // onCredentialRevoked returns a function that will remove the event listener. useEffect will call this function when the component unmounts
+
     return Platform.OS === 'ios' && appleAuthAndroid.isSupported && appleAuth.onCredentialRevoked(async () => {
       console.warn('If this function executes, User Credentials have been Revoked');
     });
@@ -114,16 +114,16 @@ export default function Login({ navigation }) {
     } catch (error) {
       setLoading(false);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
+      
         console.warn('Signin Cancel');
       } else if (error.code === statusCodes.IN_PROGRESS) {
         console.warn('Signin in progress');
-        // operation (f.e. sign in) is in progress already
+     
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         console.warn('PLAY_SERVICES_NOT_AVAILABLE');
-        // play services not available or outdated
+    
       } else {
-        // some other error happened
+      
         console.log('Error ==> ', error)
       }
     }
@@ -132,23 +132,22 @@ export default function Login({ navigation }) {
     setWithEmail(true);
   };
   const handleAppleLogin = async () => {
-    // performs login request
+   
     var formdata = new FormData();
     Platform.OS === 'ios'
     const appleAuthRequestResponse = await appleAuth.performRequest({
       requestedOperation: appleAuth.Operation.LOGIN,
-      // Note: it appears putting FULL_NAME first is important, see issue #293
+ 
       requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
     });
 
-    // get current authentication state for user
-    // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
+
     const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
     console.log('credentialState', credentialState)
 
-    // use credentialState response to ensure the user is authenticated
+
     if (credentialState === appleAuth.State.AUTHORIZED) {
-      // user is authenticated
+  
       console.log('user is authenticated', credentialState)
       console.log('appleAuthRequestResponse ===> ', appleAuthRequestResponse.identityToken)
       var decoded = jwt_decode(appleAuthRequestResponse.identityToken);
@@ -171,14 +170,13 @@ export default function Login({ navigation }) {
       });
 
 
-      // get current authentication state for user
-      // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
+   
       const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
       console.log('credentialState', credentialState)
 
-      // use credentialState response to ensure the user is authenticated
+     
       if (credentialState === appleAuth.State.AUTHORIZED) {
-        // user is authenticated
+    
         console.log('user is authenticated', credentialState)
         console.log('appleAuthRequestResponse ===> ', appleAuthRequestResponse.identityToken)
         var decoded = jwt_decode(appleAuthRequestResponse.identityToken);
@@ -220,14 +218,12 @@ export default function Login({ navigation }) {
         throw new Error('Something went wrong obtaining the access token');
       }
       const { accessToken } = data;
-      // Use the access token to make requests to the Facebook API
+  
     } catch (error) {
     }
   };
 
-  // const accessRequestAction = () => {
-  //   navigation.navigate('Tabs', {screen: 'Home'});
-  // };
+ 
   const accessRequestAction = async () => {
     if (emailId && password != '') {
       if (withEmail) {
@@ -237,11 +233,7 @@ export default function Login({ navigation }) {
           device_type: Platform.OS === 'android' ? 1 : 2,
           device_token: fcmtoken
         };
-        // var formdata = new FormData();
-        // formdata.append('username', emailId);
-        // formdata.append('password', password);
-        // formdata.append('device_type', Platform.OS === 'android' ? 1 : 2)
-        // formdata.append('device_token', fcmtoken)
+
         setLoading(true);
         dispatch(loginUser(data)).then(response => {
           if (response.payload.status) {
@@ -339,7 +331,7 @@ export default function Login({ navigation }) {
                 </TouchableOpacity>
                 <View style={Styles.phoneInputView}>
                   <TextInput
-                    // ref={phoneNumber}
+                
                     style={Styles.inputStyle}
                     placeholderTextColor={Colors.textColorLight}
                     placeholder={'Phone Number'}
@@ -398,7 +390,7 @@ export default function Login({ navigation }) {
 
           <AppButton
             onPress={() => accessRequestAction()}
-            // onPress={() => go()}
+          
             loading={loading}
             btnText={'Continue'}
             textStyle={{
