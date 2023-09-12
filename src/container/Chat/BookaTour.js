@@ -73,18 +73,10 @@ const BookaTour = props => {
       'user_mobile',
       store.getState().loginUser.loginData.metadata.mobile[0],
     );
-    // console.log('forndata',JSON.stringify(store.getState().loginUser.loginData.metadata.mobile[0]))
-    // const formData = {
-    //     user_id: id,
-    //     propid: postid.post_id,
-    //     schedule_hour: selectedTime,
-    //     schedule_day: selectedDate,
-    //     user_mobile: store.getState()?.loginUser?.loginData?.metadata?.mobile[0]
-    // }
-    // console.log('logodata', formData)
+
     dispatch(
       sendMessage({
-        // user_id: props?.route?.params?.user_id ? props?.route?.params?.user_id : userID,
+       
         propid: props?.route?.params?.PropID
           ? props?.route?.params?.PropID
           : postid.post_id,
@@ -117,7 +109,7 @@ const BookaTour = props => {
             .then(res => {
               setGetMessg(res?.payload?.data);
               dispatch(getBookTour(formData)).then(response => {
-                // console.log("getBookTour response ", response)
+            
               });
             })
             .catch(e => {});
@@ -127,11 +119,7 @@ const BookaTour = props => {
         alert(JSON.stringify(e));
       });
 
-    //     dispatch(getBookTour(formData)).then(response => {
-    //       setBookData(response);
-    // console.log('booktour',response)
-
-    //     });
+  
   };
 
   return (
@@ -139,7 +127,7 @@ const BookaTour = props => {
       <View style={{height: '100%', position: 'relative', paddingBottom: 100}}>
         <View
           style={{
-            // backgroundColor: Colors.gray,
+           
             height: 50,
             flexDirection: 'row',
             justifyContent: 'center',
@@ -151,7 +139,7 @@ const BookaTour = props => {
             style={{
               position: 'absolute',
               left: 5,
-            //   top: 8,
+     
               flexDirection: 'row',
               alignItems: 'center',
 
@@ -233,7 +221,7 @@ const BookaTour = props => {
                 'A Lokal agent will confirm with you within the next 2 hours' ? (
                   <Text
                     style={{
-                      // padding: 8,
+              
                       fontSize: 16,
                       borderRadius: 16,
                       backgroundColor: "#D3D3D3",
@@ -254,7 +242,7 @@ const BookaTour = props => {
                 ) : (
                   <Text
                     style={{
-                      // padding: 8,
+            
                       fontSize: 16,
                       borderRadius: 16,
                       backgroundColor:
@@ -378,7 +366,7 @@ const BookaTour = props => {
                 onPress={() => {
                   setOpen(true);
                   setDate(new Date());
-                  // sendMessage()
+              
                 }}
                 style={{
                   flexDirection: 'row',
@@ -535,6 +523,6 @@ const styles = StyleSheet.create({
     width: 12,
     resizeMode: 'contain',
     tintColor: Colors.black,
-    // transform: [{ rotate: '90deg' }],
+   
   },
 });

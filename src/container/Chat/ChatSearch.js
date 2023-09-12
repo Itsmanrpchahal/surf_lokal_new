@@ -39,7 +39,7 @@ const ChatSearch = (props) => {
     var minutes = now.getMinutes();
     var ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
+    hours = hours ? hours : 12; 
     minutes = minutes < 10 ? '0' + minutes : minutes;
     var strTime = hours + ':' + minutes + ' ' + ampm;
     const dateTimeString = `${month}/${date}/${year}    ${hours}:${minutes} ${ampm}`;
@@ -61,8 +61,7 @@ const ChatSearch = (props) => {
                 width: DeviceInfo.getDeviceType() === 'Tablet'?50:40,
                 resizeMode: "contain",
                 borderRadius: 50,
-                // marginLeft: 2
-                // tintColor: Colors.surfblur,
+            
                 marginRight: 5,
                 borderColor: Colors.surfblur,
                 borderWidth: 1,
@@ -102,7 +101,7 @@ const ChatSearch = (props) => {
                 height: DeviceInfo.getDeviceType() === 'Tablet'?35:35,
                 width: DeviceInfo.getDeviceType() === 'Tablet'?35:35,
                 borderRadius: 100,
-                // backgroundColor: Colors.surfblur,
+           
                 alignItems: "center",
 
 
@@ -240,7 +239,7 @@ const ChatSearch = (props) => {
             <TouchableOpacity
               disabled={message === '' && true}
               onPress={() => {
-                // setMessage('')
+        
                 setLoading(true)
                 dispatch(chat({ message: message })).then((ress) => {
                   setMessage('')
@@ -297,6 +296,6 @@ const styles = StyleSheet.create({
     width: 12,
     resizeMode: 'contain',
     tintColor: Colors.black,
-    // transform: [{ rotate: '90deg' }],
+
   },
 });

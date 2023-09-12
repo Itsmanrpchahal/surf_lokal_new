@@ -42,20 +42,20 @@ const Notification = () => {
       <View style={styles.slideOuter}>
      
         <Image
-          source={{uri: item.featured_image_url}}
+          source={{uri: item?.featured_image_url}}
           style={styles.featuresimage}
         />
         <View style={styles.titlecover}>
           <TouchableOpacity 
           onPress={()=> navigation.navigate('ViewPropertiy',{ID:item.post_id})}>
           <Text numberOfLines={1} style={styles.posttitle}>
-            {item.post_title}
+            {item?.post_title}
           </Text>
           <Text numberOfLines={2} style={styles.postcontent}>
-            {item.post_content}
+            {item?.post_content}
           </Text>
 
-          <Text style={styles.postdate}>{item.post_date}</Text>
+          <Text style={styles.postdate}>{item?.post_date}</Text>
           </TouchableOpacity>
         </View>
         
@@ -92,7 +92,7 @@ const Notification = () => {
         <View style={styles.headerinner}>
           <Text
             style={styles.headercover}>
-            You Have <Text style={styles.Notificationcount}>{data.length}</Text> New
+            You Have <Text style={styles.Notificationcount}>{data?.length}</Text> New
             Notifications
           </Text>
           <View

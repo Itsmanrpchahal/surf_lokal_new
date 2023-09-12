@@ -37,75 +37,7 @@ const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
 
-const images = [
-  {
-    image: Images.ThumbUp,
-    title: 'Favorites',
-    navigation: 'MyFavorites',
-    image2: Images.fillgreen
 
-  },
-  {
-    image: Images.savedSearch,
-    title: 'Saved Searches',
-    navigation: 'SavedSearches',
-    image2: Images.savedSearch
-
-  },
-  {
-    image: Images.notification,
-    title: 'Notifications',
-    navigation: 'Notification',
-    image2: Images.notification
-
-  },
-
-  {
-    image: Images.contactAgent,
-    title: 'Contact My lokal Agent',
-    navigation: 'ContactMyAgent',
-    image2: Images.contactAgent
-
-  },
-  {
-    image: Images.surfReward,
-    title: 'Rewards',
-    navigation: 'MyRewards',
-    image2: Images.surfReward
-
-  },
-
-  {
-    image: Images.chart,
-    title: 'surf Shop',
-    navigation: 'MakeAnOffer',
-    image2: Images.chart
-
-  },
-
-  {
-    image: Images.downThumb,
-    title: 'Recycle Bin',
-    navigation: 'RecycleBin',
-    image2: Images.fill
-
-  },
-  {
-    image: Images.chatnew,
-    title: 'Chat History',
-    navigation: 'ChatHistory',
-    image2: Images.fill
-
-  },
-
-
-  // {
-  //   image: Images.setting,
-  //   title: 'Settings',
-  //   navigation: 'Settings',
-  // image2:Images.setting
-  // },
-];
 
 const MyFavorites = () => {
   const [propertyChat, setPropertyChat] = useState([])

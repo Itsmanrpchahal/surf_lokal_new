@@ -22,12 +22,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import AppButton from '../../components/AppButton';
 import Styles from './Styles';
 import AsyncStorage from '@react-native-community/async-storage';
-// For Add Google SignIn
+
 import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-// Import FBSDK
+
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
 import { emailCheck } from '../../modules/emailCheck';
 import { forgotPassword } from '../../modules/forgotPassword';
@@ -125,15 +125,7 @@ export default function ForgotPassword({ navigation }) {
           </TouchableOpacity>
 
       </View>
-      {/* <View style={Styles.loginView}>
-        <Text style={Styles.loginText}>
-          Welcome to your local real estate search engine!
-        </Text>
-      </View>
-      <View style={Styles.loginLine}></View>
-      <View style={Styles.loginView}>
-        <Text style={Styles.signUpText}>Reset Password</Text>
-      </View> */}
+   
       <Image source={Images.appLogo} style={Styles.appLogo}></Image>
       <View style={Styles.socialMediaButtons}>
         <TextInput
@@ -149,12 +141,12 @@ export default function ForgotPassword({ navigation }) {
       </View>
 
       <AppButton
-        //onPress={() => setresetPasswordScreen(false)}
+
         onPress={() => accessRequestAction()}
         btnText={'Continue'}
         textStyle={{
           fontSize: 20 * fontSizeRatio,
-          // fontWeight: '500',
+    
 
           color: Colors.white,
           fontFamily: 'Poppins-Regular'
@@ -208,7 +200,7 @@ export default function ForgotPassword({ navigation }) {
       </View>
 
       <AppButton
-        //onPress={() => navigation.navigate('Login')}
+      
         onPress={() => go()}
         btnText={'Continue'}
         textStyle={{

@@ -74,7 +74,7 @@ const BottomTabNavigator = () => {
                     </Text>
                   </View>
                 </View>
-                {/* </View> */}
+            
               </Text>
             ),
             tabBarIcon: Images.newprofile,
