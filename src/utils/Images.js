@@ -66,9 +66,8 @@ const Images = {
   telephonecall: require(BaseUrl + "telephone-call.png"),
   messenger: require(BaseUrl + "messenger.png"),
   videochat: require(BaseUrl + "video-chat.png"),
-  test: require(BaseUrl + 'test.jpg'),
-  test1: require(BaseUrl + 'test1.jpg'),
-  test2: require(BaseUrl + 'test2.jpg'),
+ 
+
   cola: require(BaseUrl + 'cola.png'),
   logo: require(BaseUrl + 'logo.png'),
   slideImage0: require(BaseUrl + 'slideImage0.png'),
@@ -105,21 +104,17 @@ const Images = {
   Trash: require(BaseUrl + 'trash.png'),
   homebig:require(BaseUrl + 'homebig.png'),
 
-  slide1: require(BaseUrl + 'slide1.png'),
-  slide2: require(BaseUrl + 'slide2.jpg'),
-  slide3: require(BaseUrl + 'slide3.jpg'),
-  slide4: require(BaseUrl + 'slide4.jpg'),
-  slide5: require(BaseUrl + 'slide5.jpg'),
+
   like: require(BaseUrl + 'like.png'),
   dislike: require(BaseUrl + 'dislike.png'),
-
+  
   phone: require(BaseUrl + 'phone.png'),
   setting: require(BaseUrl + 'setting.png'),
   savedSearch: require(BaseUrl + 'savedSearch.png'),
   notification: require(BaseUrl + 'notification.png'),
   contactAgent: require(BaseUrl + 'contactAgent.png'),
   surfReward: require(BaseUrl + 'surfReward.png'),
-
+ 
   surfShop: require(BaseUrl + 'surfShop.png'),
   favroites: require(BaseUrl + 'favroites.png'),
   downThumb: require(BaseUrl + 'downThumb.png'),
@@ -130,7 +125,7 @@ const Images = {
   area: require(BaseUrl + 'area.png'),
   profile: require(BaseUrl + 'profile.png'),
   upsideArrow: require(BaseUrl + 'upsideArrow.png'),
-  
+
   bigCahouna: require(BaseUrl + 'bigCahouna.png'),
   deletethumb: require(BaseUrl + 'deletethumb.png'),
   upthumb: require(BaseUrl + 'upthumb.png'),
@@ -147,7 +142,7 @@ const Images = {
   meter: require(BaseUrl + 'meter.png'),
   sendm: require(BaseUrl + 'sendm.png'),
   reload: require(BaseUrl + 'reload.png'),
-
+ 
   imageView: require(BaseUrl + 'imageView.png'),
   locate: require(BaseUrl + 'location.png'),
   lot: require(BaseUrl + 'lot.png'),
@@ -167,7 +162,7 @@ const Images = {
   GreenUp: require(BaseUrl + 'greenup.png'),
   SaveAlt: require(BaseUrl + 'save-alt.png'),
   Broom: require(BaseUrl + 'broom.png'),
-  
+  //22 may
   user: require(BaseUrl + 'user.png'),
   whiteclose: require(BaseUrl + 'close-white.png'),
   sch: require(BaseUrl + 'sch.png'),
@@ -177,7 +172,7 @@ const Images = {
   leftarrow: require(BaseUrl + 'leftarrow.png'),
   rightarrow: require(BaseUrl + 'rightarrow.png'),
   deletelike: require(BaseUrl + 'deletelike.png'),
-  tax: require(BaseUrl + 'tax.png'),
+ 
   fill: require(BaseUrl + 'fill.png'),
   fillgreen: require(BaseUrl + 'fillgreen.png'),
   check: require(BaseUrl + 'check-box-alt.png'),
