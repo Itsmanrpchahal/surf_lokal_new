@@ -56,13 +56,13 @@ const MyFavorites = () => {
   useEffect(() => {
     dispatch(propertyChatList()).then((res) => {
       if (res?.payload?.success) {
+         console.log("propertyChatList res",res)
         setPropertyChat(res?.payload?.data)
       } else {
         setPropertyChat([])
       }
     }).catch((e) => {
       setPropertyChat([])
-      alert('Error ' + e)
     })
   }, [])
 
@@ -76,7 +76,6 @@ const handleImagePress = () => {
   navigation.navigate('RecycleBin');
   setIsImageChanged(true);
 
-  // Reset the image after 2 seconds
   setTimeout(() => {
     setIsImageChanged(false);
   }, 1500);

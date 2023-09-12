@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -12,9 +12,9 @@ import Colors from '../../utils/Colors';
 import Images from '../../utils/Images';
 import {propertyChatList} from '../../modules/propertyChats';
 import {useDispatch} from 'react-redux';
-import {url} from '../../config/url';
 import {useIsFocused} from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
+import { store } from '../../redux/store';
 const ChatHistory = ({navigation}) => {
   const dispatch = useDispatch();
   const [propertyChat, setPropertyChat] = useState([]);
@@ -38,6 +38,12 @@ const ChatHistory = ({navigation}) => {
         });
     }
   }, [isFocused]);
+  
+  // useEffect(() => {
+  //   const ccccccc=store.getState().propertyChatList.propertyChatListData
+  // console.log(JSON.stringify(ccccccc))
+  // }, [])
+  
 
   return (
     <SafeAreaView>

@@ -40,7 +40,6 @@ const BottomTabNavigator = () => {
     setdata(store.getState()?.getUserScore?.getUserScoreData?.data?.points);
   }, [store.getState()?.getUserScore?.getUserScoreData?.data]);
   return (
-    <View style={styles.container}>
       <Tab.Navigator
         tabBarHideOnKeyboard={true}
         initialRouteName="Home"
@@ -146,7 +145,6 @@ const BottomTabNavigator = () => {
           }}
         />
       </Tab.Navigator>
-    </View>
   );
 };
 const MyProfileTab = () => {
@@ -175,8 +173,7 @@ function CustomTabBar({state, descriptors, navigation}) {
       style={{
         width: '100%',
         height: '8%',
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent:"space-between",
         marginBottom: 8,
       }}>
       <View
