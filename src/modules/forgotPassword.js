@@ -2,7 +2,6 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {uploadImageAPI} from '../config/apiMethod';
 import BASEURl from '../services/Api'
 
-
 export const forgotPassword = createAsyncThunk(
   'forgotPassword',
   async dispatch => {

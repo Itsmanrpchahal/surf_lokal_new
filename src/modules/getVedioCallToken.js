@@ -1,27 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAPI } from "../config/apiMethod";
 
-
 export const getVedioCallToken = createAsyncThunk(
   "getTodayDipos",
   async (id) => {
     const urlDynamic =
       `https://www.surflokal.com/webapi/v1/twilio/generate_token.php?userid=${id.userID}&friendid=${id.friend}`
-
     return await getAPI(urlDynamic)
       .then(async (response) => {
         const { data } = response;
-        console.log('videoResp', data)
         return data;
       })
       .catch((e) => {
-        console.log(e);
         if (e.response) {
-          console.log("api issue", e.response);
         } else if (e.request) {
-          console.log("api issue", e.response);
         } else {
-          console.log("api issue", e.response);
         }
       });
   }

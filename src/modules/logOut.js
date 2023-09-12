@@ -1,26 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {  uploadImageAPI } from '../config/apiMethod';
 
-
 export const logOut = createAsyncThunk('logOut', async () => {
   try {
- 
-    const response = await uploadImageAPI(
-      `https://www.surflokal.com/wp-json/custom-plugin/logout/`,
-    
-    ).then((res) => {
-      console.log('logOut ====> ', res)
+    const response = await uploadImageAPI( `https://www.surflokal.com/wp-json/custom-plugin/logout/`)
+    .then((res) => {
       return res;
     }).catch((e) => {
-      console.log('logOut catch ===> ', e)
       return e
     })
-
-    console.log('logOut response', response);
-
     return response;
   } catch (error) {
-    console.error('logOut error', error);
     throw error; 
   }
 });

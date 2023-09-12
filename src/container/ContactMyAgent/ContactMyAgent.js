@@ -63,7 +63,6 @@ const ContactMyAgent = () => {
   const makePhoneCall = () => {
     let phoneNumber = agentData?.agent_phone;
     Linking.openURL(`tel:${phoneNumber}`);
-    console.log('phoneNumber phoneNumber', phoneNumber);
   };
   const handleEmailLink = () => {
     const email = agentData?.agent_email;
@@ -104,7 +103,6 @@ const ContactMyAgent = () => {
     
       })
       .catch(error => {
-        console.error('Error:', error);
       });
   };
   {

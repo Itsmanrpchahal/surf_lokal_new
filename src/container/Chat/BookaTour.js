@@ -20,7 +20,6 @@ import {AutoScrollFlatList} from 'react-native-autoscroll-flatlist';
 import Images from '../../utils/Images';
 import AsyncStorage from '@react-native-community/async-storage';
 import {getBookTour} from '../../modules/getBookTour';
-import {bookChat} from '../../modules/bookChat';
 import {isRead} from '../../modules/isRead';
 import {getChatDetail} from '../../modules/getChatDetail';
 import {sendMessage} from '../../modules/sendMessage';
@@ -485,7 +484,6 @@ const BookaTour = props => {
                         }),
                       )
                         .then(res => {
-                          console.log(res?.payload.data?.data);
                           setGetMessg(res?.payload?.data?.data);
                         })
                         .catch(e => {});

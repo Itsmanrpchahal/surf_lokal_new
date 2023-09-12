@@ -1,13 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAPI } from "../config/apiMethod";
 import BASEURl from '../services/Api'
-
-
-export const getPopertiesDetails = createAsyncThunk(
-  "getPropertiesDetails",
-  async (postid) => {
-   
-
+export const getPopertiesDetails = createAsyncThunk( "getPropertiesDetails",  async (postid) => {
     const urlDynamic =
       BASEURl+"webapi/v1/singleproperty/?post_id=" + postid;
     return await getAPI(urlDynamic)

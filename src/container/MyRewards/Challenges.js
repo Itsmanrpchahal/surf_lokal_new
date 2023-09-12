@@ -134,25 +134,9 @@ const Challenges = () => {
                           formData.append('post_id', item.ID);
                           formData.append('points', item.points);
                           formData.append('status', 2);
-                          console.log("formData ======>",formData)
-
-                          console.log(
-                            ' likeDisLike selectedTabsMore',
-                            selectedTabsMore,
-                          );
-                          console.log(
-                            ' likeDisLike selectedTabsMore2',
-                            selectedTabsMore2,
-                          );
                           dispatch(likeDisLike(formData))
-                            .then(response => {
-                              console.log(
-                                'Questoon response',
-                                response.payload,
-                              );
-                            })
+                            .then(response => { })
                             .catch(e => {
-                              console.log('error ', e);
                             });
                         }}
                         activeOpacity={0.8}
@@ -188,24 +172,9 @@ const Challenges = () => {
                           formData.append('post_id', item.ID);
                           formData.append('points', item.points);
                           formData.append('status', 1);
-                           console.log("formData ======>",formData)
-                          console.log(
-                            ' likeDisLike selectedTabsMore',
-                            selectedTabsMore,
-                          );
-                          console.log(
-                            ' likeDisLike selectedTabsMore2',
-                            selectedTabsMore2,
-                          );
                           dispatch(likeDisLike(formData))
-                            .then(response => {
-                              console.log(
-                                'Questoon response',
-                                response.payload,
-                              );
-                            })
+                            .then(response => { })
                             .catch(e => {
-                              console.log('error ', e);
                             });
                         }}
                         activeOpacity={0.8}>

@@ -91,11 +91,9 @@ const Settings = props => {
       setThreads(response.payload.data[0]?.threads)
       setTwitter(response.payload.data[0]?.twitter)
       setLinkedin(response.payload.data[0]?.linkedin)
-      console.log(JSON.stringify(response))
     }).catch((e) => {
     });
   };
-  console.log("mobbb", mob)
   useEffect(() => {
     getProfileApiCall()
   }, [])

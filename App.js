@@ -13,7 +13,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { StatusBar } from 'react-native';
 import Colors from './src/utils/Colors';
 messaging().setBackgroundMessageHandler(async remoteMessage => {
-  console.log('Message handled in the background!', remoteMessage);
 });
 
 const queryClient = new QueryClient();

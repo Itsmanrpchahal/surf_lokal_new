@@ -1,15 +1,8 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {getAPI, postAPI} from '../config/apiMethod';
-
+import {getAPI} from '../config/apiMethod';
 import BASEURl from '../services/Api'
-
-
 export const getProfile = createAsyncThunk('getProfile', async () => {
-  
-
-  return await getAPI(
-    BASEURl+'webapi/v1/userprofile/'
-  )
+  return await getAPI( BASEURl+'webapi/v1/userprofile/')
     .then(async response => {
       const {data} = response;
       console.log('uploadprofile',data)

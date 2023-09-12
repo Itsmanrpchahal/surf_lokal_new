@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import AsyncStorage from '@react-native-community/async-storage';
 import {  uploadImageAPI } from '../config/apiMethod';
-import { Platform } from 'react-native';
 
 export const sendMessage = createAsyncThunk('sendMessage', async dispatch=> {
   try {
@@ -12,15 +10,12 @@ export const sendMessage = createAsyncThunk('sendMessage', async dispatch=> {
     ).then((res) => {
       return res;
     }).catch((e) => {
-      console.log('sendMessage catch ===> ', e)
       return e
     })
 
-    console.log('sendMessage response', response);
 
     return response;
   } catch (error) {
-    console.error('sendMessage error', error);
     throw error; 
   }
 });

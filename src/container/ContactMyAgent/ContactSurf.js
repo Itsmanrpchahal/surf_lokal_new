@@ -157,16 +157,13 @@ const ContactSurf = () => {
         setStatus('connecting');
       })
       .catch(e => {
-        console.log('Connecting error ', e);
       });
   };
   const getToken1 = async () => {
     await dispatch(getVedioCallToken({userID: 18, friend: 3}))
       .then(res => {
-        console.log('respo .... ', res);
         twilioRef.current.connect({accessToken: res.payload.data.token});
         setStatus('connecting');
-        console.log('connecting', token);
       })
       .catch(e => {
         alert(JSON.stringify('e ==> ' + e));
@@ -189,7 +186,6 @@ const ContactSurf = () => {
     twilioRef.current
       .setLocalAudioEnabled(!isAudioEnabled)
       .then(isEnabled => setIsAudioEnabled(isEnabled));
-    console.log('Mute Press');
   };
 
   const _onFlipButtonPress = () => {

@@ -85,7 +85,6 @@ const Home = () => {
       if (adress.length > 0) {
         const formData = new FormData();
         formData.append('SearchParameters', adress);
-        console.log('SearchParameters payload', formData);
         dispatch(getPoperties({ type: 2, data: formData, lntLng })).then(res => {
           setHomeData(res.payload.data);
         });
@@ -265,8 +264,6 @@ const Home = () => {
     }).start();
   };
   useEffect(() => {
-    console.log("limitCount",limitCount)
-
     handleModalAnimation();
   }, [modalVisible]);
   const slideAnimations = useRef(new Animated.Value(0)).current;
@@ -325,10 +322,8 @@ const Home = () => {
         },
         dynamicLinks.ShortLinkType.SHORT,
       );
-      console.log('link:', link);
       return link;
     } catch (error) {
-      console.log('Generating Link Error:', error);
     }
   };
   const handleShare = async ID => {
@@ -340,7 +335,6 @@ const Home = () => {
         url: link,
       });
     } catch (error) {
-      console.log('Sharing Error:', error);
     }
   };
 
@@ -392,7 +386,6 @@ const Home = () => {
         const formData = new FormData();
         formData.append('latitude', location.latitude);
         formData.append('longitude', location.longitude);
-        console.log('getPopertiesApiCall formData ', formData);
         dispatch(getPoperties({ type: 1, data: '', latLng: formData })).then(
           response => {
             if (response.payload?.data.length < 1) {
@@ -461,7 +454,6 @@ const Home = () => {
       formData.append('description_review_stars', rating1);
       formData.append('price_review_stars', rating2);
       formData.append('interest_review_stars', rating3);
-      console.log('postUpdateRating', formData);
 
       dispatch(postUpdateRating(formData)).then(response => {
         if (response.payload.success) {
@@ -681,7 +673,6 @@ const Home = () => {
                         handlePress2;
                       }
                       dispatch(clearFilter());
-                      console.log("limitCount",limitCount)
                       await dispatch(
                         getPoperties({
                           type: 0,

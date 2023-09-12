@@ -1,9 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {getAPI} from '../config/apiMethod';
 import BASEURl from '../services/Api'
-
 export const getMoreFilter = createAsyncThunk('getMoreFilter', async () => {
-
   return await getAPI(BASEURl+'webapi/v1/SubFilter/')
     .then(async response => {
       const {data} = response;

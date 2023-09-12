@@ -1,20 +1,12 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {getAPI, postAPI} from '../config/apiMethod';
+import {getAPI} from '../config/apiMethod';
 import BASEURl from '../services/Api'
-
-
-
-
 export const getFavoriteProperties = createAsyncThunk('getFavoriteProperties', async () => {
-
-
-
   return await getAPI(
     BASEURl+'webapi/v1/favorites/ '
   )
     .then(async response => {
       const {data} = response;
-      console.log('favprop',data)
       return data;
     })
     .catch(e => {

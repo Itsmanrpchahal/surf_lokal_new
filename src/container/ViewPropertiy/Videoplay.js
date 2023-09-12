@@ -48,7 +48,6 @@ const Videoplay = props => {
   const windowDimensions = useWindowDimensions();
   const route = useRoute();
   const { videoView } = route.params;
-console.log('video',videoView)
 
   useEffect(() => {
     const updateOrientation = () => {
