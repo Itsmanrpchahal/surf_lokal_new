@@ -35,43 +35,7 @@ const fontSizeRatio = screenHeight / 1000;
 const viewSizeRatio = screenHeight / 1000;
 const imageSizeRation = screenHeight / 1000;
 
-const images = [
-  {
-    image: Images.favroites,
-    title: '',
-    navigation: 'ContactMyAgent',
-  },
-  {
-    image: Images.savedSearch,
-    title: 'Saved Searches',
-    navigation: 'SavedSearches',
-  },
-  {
-    image: Images.inbox,
-    title: 'Conversations',
-    navigation: 'Conversations',
-  },
-  {
-    image: Images.contactAgent,
-    title: 'Contact My Agent',
-    navigation: 'ContactMyAgent',
-  },
-  {
-    image: Images.makeOffer,
-    title: 'Make An Offer',
-    navigation: 'MakeAnOffer',
-  },
-  {
-    image: Images.reward,
-    title: 'My Rewards',
-    navigation: 'MyRewards',
-  },
-  {
-    image: Images.recycleBin,
-    title: 'Recycle Bin',
-    navigation: 'RecycleBin',
-  },
-];
+
 
 const ContactMyAgent = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

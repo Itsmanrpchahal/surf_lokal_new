@@ -146,14 +146,9 @@ const Home = () => {
               style={{ height: 20, width: 20, resizeMode: 'contain' }}></Image>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Conversations')}>
-            <Image
-              source={Images.chatProp}
-              style={{ height: 20, width: 20 }}></Image>
-          </TouchableOpacity>
+          
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('ViewPropertiy')}>
+        <TouchableOpacity >
           <Text
             style={{
               fontSize: 20,
