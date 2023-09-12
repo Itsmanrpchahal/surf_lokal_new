@@ -14,7 +14,7 @@ import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import {  useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getProfile } from '../../modules/getProfile';
 import ImagePicker from 'react-native-image-crop-picker';
 import axios from 'axios';
@@ -23,7 +23,7 @@ import Loader from '../../components/Loader';
 import { ScrollView } from 'react-native-gesture-handler';
 import { propertyChatList } from '../../modules/propertyChats'
 import DeviceInfo from 'react-native-device-info';
- import {getNotifications} from '../../modules/getNotifications'
+import { getNotifications } from '../../modules/getNotifications'
 import { store } from '../../redux/store';
 
 const screenHeight = Dimensions.get('window').height;
@@ -44,19 +44,18 @@ const MyFavorites = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [tabshow, setTabshow] = useState(true)
-  
+
   useEffect(() => {
-    if(store?.getState()?.loginUserReducer?.loginData?.data?.user_role==="administrator"){
+    if (store?.getState()?.loginUserReducer?.loginData?.data?.user_role === "administrator") {
       setTabshow(false)
-     }
-}, [])
+    }
+  }, [])
 
 
 
   useEffect(() => {
     dispatch(propertyChatList()).then((res) => {
       if (res?.payload?.success) {
-         console.log("propertyChatList res",res)
         setPropertyChat(res?.payload?.data)
       } else {
         setPropertyChat([])
@@ -66,20 +65,20 @@ const MyFavorites = () => {
     })
   }, [])
 
-useEffect(() => {
-dispatch(getNotifications()).then((response)=>{
-  setNotification(response.payload?.data)
-   console.log(notification[0]?.length)
-})
-}, [])
-const handleImagePress = () => {
-  navigation.navigate('RecycleBin');
-  setIsImageChanged(true);
+  useEffect(() => {
+    dispatch(getNotifications()).then((response) => {
+      setNotification(response.payload?.data)
+      console.log(notification[0]?.length)
+    })
+  }, [])
+  const handleImagePress = () => {
+    navigation.navigate('RecycleBin');
+    setIsImageChanged(true);
 
-  setTimeout(() => {
-    setIsImageChanged(false);
-  }, 1500);
-};
+    setTimeout(() => {
+      setIsImageChanged(false);
+    }, 1500);
+  };
   const handleFavPress = () => {
     navigation.navigate('MyFavorites', { from: 'menu' });
     setIsImage(true)
@@ -106,12 +105,12 @@ const handleImagePress = () => {
       }),
       Animated.timing(rotateValue, {
         toValue: 0,
-        duration: 0, 
+        duration: 0,
         useNativeDriver: true,
       }),
     ]).start();
   };
-  
+
   useEffect(() => {
     startRotationAnimation();
   }, []);
@@ -322,12 +321,12 @@ const handleImagePress = () => {
           </View>
           <Text numberOfLines={1} style={{
             fontSize: 25, color: "#2144a0",
-            fontFamily: 'Poppins-Medium', textTransform: "capitalize", 
+            fontFamily: 'Poppins-Medium', textTransform: "capitalize",
             width: "70%", paddingHorizontal: 12,
-           textAlign:"center",
+            textAlign: "center",
           }}>
             {details[0]?.username}
-           
+
           </Text>
           <TouchableOpacity
             onPress={() => handleIconPressSetting()}
@@ -359,28 +358,28 @@ const handleImagePress = () => {
 
         <View style={{ marginTop: 2, height: '100%' }}>
           {
-            tabshow?    <View style={styles.slideOuter}>
-            <TouchableOpacity onPress={handleFavPress}
-              activeOpacity={0.8}
-              style={{
-                width: '100%',
-                alignItems: 'center',
-              }}>
-              <View style={styles.viewstyle}>
-                <Image
-                  source={isImage ? Images.upgreen : Images.upthumb}
-                  style={{
-                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
-                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
-                    resizeMode: 'contain'
-                  }} />
-                <Text style={styles.text}>My Favorites</Text>
-              </View>
-              <View style={styles.line}></View>
-            </TouchableOpacity>
-          </View>:null
+            tabshow ? <View style={styles.slideOuter}>
+              <TouchableOpacity onPress={handleFavPress}
+                activeOpacity={0.8}
+                style={{
+                  width: '100%',
+                  alignItems: 'center',
+                }}>
+                <View style={styles.viewstyle}>
+                  <Image
+                    source={isImage ? Images.upgreen : Images.upthumb}
+                    style={{
+                      height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                      width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                      resizeMode: 'contain'
+                    }} />
+                  <Text style={styles.text}>My Favorites</Text>
+                </View>
+                <View style={styles.line}></View>
+              </TouchableOpacity>
+            </View> : null
           }
-      
+
           <View style={styles.slideOuter}>
             <TouchableOpacity onPress={() => navigation.navigate('SavedSearches')}
               activeOpacity={0.8}
@@ -424,131 +423,79 @@ const handleImagePress = () => {
                     borderRadius: 100, color: Colors.white,
                     textAlign: "center", fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 15 : 9, alignItems: "center",
                     justifyContent: "center"
-                  }}>{notification[0]?.length>0?notification[0]?.length:"0"}</Text></View>
+                  }}>{notification[0]?.length > 0 ? notification[0]?.length : "0"}</Text></View>
                 <Text style={styles.text}>Notifications</Text>
               </View>
               <View style={styles.line}></View>
             </TouchableOpacity>
           </View>
           {
-            tabshow?    <View style={styles.slideOuter}>
-            <TouchableOpacity onPress={() => navigation.navigate('ContactMyAgent')}
-              activeOpacity={0.8}
-              style={{
-                width: '100%',
-                alignItems: 'center',
-              }}>
-              <View style={styles.viewstyle}>
-                <Image
-                  source={Images.contactAgent}
-                  style={{
-                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
-                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
-                    resizeMode: 'contain'
-                  }} />
-                <Text style={styles.text}>Contact my agent</Text>
-              </View>
-              <View style={styles.line}></View>
-            </TouchableOpacity>
-          </View>:null
-          }
-      {
-        tabshow?  <View style={styles.slideOuter}>
-        <TouchableOpacity onPress={() => navigation.navigate('MyRewards', { from: 'menu' })}
-          activeOpacity={0.8}
-          style={{
-            width: '100%',
-            alignItems: 'center',
-          }}>
-          <View style={styles.viewstyle}>
-            <Image
-              source={Images.surfReward}
-              style={{
-                height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
-                width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
-                resizeMode: 'contain'
-              }} />
-            <Text style={styles.text}>Rewards</Text>
-          </View>
-          <View style={styles.line}></View>
-        </TouchableOpacity>
-      </View>:null
-      }
-        {
-          tabshow?   <View style={styles.slideOuter}>
-          <TouchableOpacity onPress={() => navigation.navigate('MakeAnOffer')}
-
-            activeOpacity={0.8}
-            style={{
-              width: '100%',
-              alignItems: 'center',
-            }}>
-            <View style={styles.viewstyle}>
-              <Image
-                source={Images.surfShop}
-                style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20, width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20, resizeMode: 'contain' }} />
-              <Text style={styles.text}>Document Portal</Text>
-            </View>
-            <View style={styles.line}></View>
-          </TouchableOpacity>
-        </View>:null
-        }
-       
-          {
-            tabshow?   <View style={styles.slideOuter}>
-            <TouchableOpacity onPress={handleImagePress}
-              activeOpacity={0.8}
-              style={{
-                width: '100%',
-                alignItems: 'center',
-              }}>
-              <View
-                style={styles.viewstyle}>
-                <TouchableOpacity>
+            tabshow ? <View style={styles.slideOuter}>
+              <TouchableOpacity onPress={() => navigation.navigate('ContactMyAgent')}
+                activeOpacity={0.8}
+                style={{
+                  width: '100%',
+                  alignItems: 'center',
+                }}>
+                <View style={styles.viewstyle}>
                   <Image
-                    source={isImageChanged ? Images.redlike : Images.deletethumb}
+                    source={Images.contactAgent}
                     style={{
                       height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
                       width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
                       resizeMode: 'contain'
                     }} />
-                </TouchableOpacity>
-                <Text style={styles.text}>Recycle Bin</Text>
-              </View>
-              <View style={styles.line}></View>
-            </TouchableOpacity>
-          </View>:null
+                  <Text style={styles.text}>Contact my agent</Text>
+                </View>
+                <View style={styles.line}></View>
+              </TouchableOpacity>
+            </View> : null
           }
-       
-{
-  tabshow?    <View style={styles.slideOuter}>
-  <TouchableOpacity onPress={() => navigation.navigate('ContactSurf')}
-    activeOpacity={0.8}
-    style={{
-      width: '100%',
-      alignItems: 'center',
-    }}>
-    <View style={styles.viewstyle}>
-      <Image
-        source={Images.contactsurf}
-        style={{
-          height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
-          width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
-          resizeMode: 'contain'
-        }} />
-      <Text style={styles.text}>Contact surf lokal</Text>
-    </View>
-    <View style={styles.line}></View>
-  </TouchableOpacity>
-</View>:null
-}
-      
+          {
+            tabshow ? <View style={styles.slideOuter}>
+              <TouchableOpacity onPress={() => navigation.navigate('MyRewards', { from: 'menu' })}
+                activeOpacity={0.8}
+                style={{
+                  width: '100%',
+                  alignItems: 'center',
+                }}>
+                <View style={styles.viewstyle}>
+                  <Image
+                    source={Images.surfReward}
+                    style={{
+                      height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                      width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                      resizeMode: 'contain'
+                    }} />
+                  <Text style={styles.text}>Rewards</Text>
+                </View>
+                <View style={styles.line}></View>
+              </TouchableOpacity>
+            </View> : null
+          }
+          {
+            tabshow ? <View style={styles.slideOuter}>
+              <TouchableOpacity onPress={() => navigation.navigate('MakeAnOffer')}
+
+                activeOpacity={0.8}
+                style={{
+                  width: '100%',
+                  alignItems: 'center',
+                }}>
+                <View style={styles.viewstyle}>
+                  <Image
+                    source={Images.surfShop}
+                    style={{ height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20, width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20, resizeMode: 'contain' }} />
+                  <Text style={styles.text}>Document Portal</Text>
+                </View>
+                <View style={styles.line}></View>
+              </TouchableOpacity>
+            </View> : null
+          }
 
           {
-            propertyChat.length > 0 &&
-             <View style={styles.slideOuter}>
-              {
-                tabshow?  <TouchableOpacity onPress={() => navigation.navigate('ChatHistory')}
+            tabshow ? <View style={styles.slideOuter}>
+              <TouchableOpacity onPress={handleImagePress}
                 activeOpacity={0.8}
                 style={{
                   width: '100%',
@@ -558,19 +505,69 @@ const handleImagePress = () => {
                   style={styles.viewstyle}>
                   <TouchableOpacity>
                     <Image
-                      source={isImageChanged ? Images.chatnew : Images.chatnew}
+                      source={isImageChanged ? Images.redlike : Images.deletethumb}
                       style={{
                         height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
                         width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
                         resizeMode: 'contain'
                       }} />
                   </TouchableOpacity>
-                  <Text style={styles.text}>Chat History</Text>
+                  <Text style={styles.text}>Recycle Bin</Text>
                 </View>
                 <View style={styles.line}></View>
-              </TouchableOpacity>:null
+              </TouchableOpacity>
+            </View> : null
+          }
+
+          {
+            tabshow ? <View style={styles.slideOuter}>
+              <TouchableOpacity onPress={() => navigation.navigate('ContactSurf')}
+                activeOpacity={0.8}
+                style={{
+                  width: '100%',
+                  alignItems: 'center',
+                }}>
+                <View style={styles.viewstyle}>
+                  <Image
+                    source={Images.contactsurf}
+                    style={{
+                      height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                      width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                      resizeMode: 'contain'
+                    }} />
+                  <Text style={styles.text}>Contact surf lokal</Text>
+                </View>
+                <View style={styles.line}></View>
+              </TouchableOpacity>
+            </View> : null
+          }
+          {
+            propertyChat.length > 0 &&
+            <View style={styles.slideOuter}>
+              {
+                tabshow ? <TouchableOpacity onPress={() => navigation.navigate('ChatHistory')}
+                  activeOpacity={0.8}
+                  style={{
+                    width: '100%',
+                    alignItems: 'center',
+                  }}>
+                  <View
+                    style={styles.viewstyle}>
+                    <TouchableOpacity>
+                      <Image
+                        source={isImageChanged ? Images.chatnew : Images.chatnew}
+                        style={{
+                          height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                          width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
+                          resizeMode: 'contain'
+                        }} />
+                    </TouchableOpacity>
+                    <Text style={styles.text}>Chat History</Text>
+                  </View>
+                  <View style={styles.line}></View>
+                </TouchableOpacity> : null
               }
-            
+
             </View>
           }
 
