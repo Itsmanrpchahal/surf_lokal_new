@@ -6,10 +6,9 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
-  Platform,
-  FlatList,
+ 
   TextInput,
-  ScrollView,
+
   Switch,
   Alert,
   ActivityIndicator,
@@ -28,7 +27,7 @@ import { getProfile } from '../../modules/getProfile';
 import { useSelector, useDispatch } from 'react-redux';
 import DeviceInfo from 'react-native-device-info';
 import { logOut } from '../../modules/logOut';
-import { postAPI, uploadImageAPI } from '../../config/apiMethod';
+import {  uploadImageAPI } from '../../config/apiMethod';
 import { loginUser } from '../../modules/loginUser';
 
 const screenHeight = Dimensions.get('window').height;
@@ -48,7 +47,7 @@ const Settings = props => {
   const [linkedin, setLinkedin] = useState('')
   const [instagram, setInstagram] = useState('')
   const [threads, setThreads] = useState('')
-  const [details, setDetails] = useState([]);
+
   const flatListRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
@@ -56,7 +55,7 @@ const Settings = props => {
   const [image, setImage] = useState('')
   const detials = props.route.params.data;
   const dispatch = useDispatch();
-  const [propertyChat, setPropertyChat] = useState([])
+
 
 
   const _pickImage = () => {

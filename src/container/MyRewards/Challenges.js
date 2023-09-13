@@ -1,7 +1,7 @@
 import {
   SafeAreaView,
   StyleSheet,
-  TextInput,
+
   Text,
   View,
   Image,
@@ -25,15 +25,12 @@ import DeviceInfo from 'react-native-device-info';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const Challenges = () => {
-  const [isImageChanged, setIsImageChanged] = useState(false);
-  const [imageIndex, setImageIndex] = useState(0);
-  const [isImage, setIsImage] = useState(false);
-  const [isNextText, setNextText] = useState(false);
+
   const [question, setQuestion] = useState([]);
   const [index, setindex] = useState(0);
   const navigation = useNavigation();
   const [user_ID, setUser_ID] = useState();
-  const [questionIndex, setQuestionIndex] = useState(0);
+
   const [selectedTabsMore, setSelectedTabsMore] = useState([]);
   const [selectedTabsMore2, setSelectedTabsMore2] = useState([]);
   const [count, setCount] = useState(0);

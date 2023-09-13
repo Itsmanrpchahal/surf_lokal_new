@@ -1,8 +1,6 @@
 
 
 const Fonts = {
-    //  regular: 'Roboto-Regular',
-    //regular:'Poppins-ThinItalic',
     bold: 'Poppins-Bold',
     semibold: 'Poppins-SemiBold',
     normal: 'Poppins-BlackItalic',

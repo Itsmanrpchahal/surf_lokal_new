@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect,  useState } from "react";
 import { View, Text, TouchableOpacity, Image, TextInput, SafeAreaView, StyleSheet } from 'react-native'
 import Colors from "../../utils/Colors";
 import { useNavigation, useIsFocused, useRoute } from "@react-navigation/native";
-import { FlatList } from "react-native-gesture-handler";
+
 import { useDispatch } from "react-redux";
 import { chat } from "../../modules/chat";
 import { TypingAnimation } from 'react-native-typing-animation';
 import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
 import Images from "../../utils/Images";
-import { sendMessage } from '../../modules/send_message'
+
 import DeviceInfo from 'react-native-device-info';
 
 const ChatSearch = (props) => {

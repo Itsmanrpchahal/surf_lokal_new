@@ -1,5 +1,4 @@
-/* eslint radix: ["error", "as-needed"] */
-/* eslint-disable no-restricted-globals */
+
 function limitValue(value, minValue, maxValue, allowedDecimals) {
     let currentValue = 0;
     if (!isNaN(value)) {

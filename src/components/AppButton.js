@@ -1,9 +1,8 @@
 import React from 'react';
 import {
-  SafeAreaView,
+
   Text,
-  View,
-  Image,
+
   TouchableOpacity,
   Dimensions,
   ActivityIndicator,

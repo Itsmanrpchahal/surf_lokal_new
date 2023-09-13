@@ -138,7 +138,7 @@ const MyFavorites = ({ navigation }) => {
               <TouchableOpacity
                 onPress={() => deleteSearchApiCall(item.UserID, item.ID)}
                 style={styles.trashcover}>
-                <Image style={styles.trashicon} source={Images.Trash}></Image>
+                <Image style={styles.trashicon} source={Images.trash}></Image>
               </TouchableOpacity>
             </View>
           </View>
