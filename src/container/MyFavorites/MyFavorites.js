@@ -7,7 +7,6 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-
   Dimensions,
   Platform,
   FlatList,
@@ -62,8 +61,6 @@ const MyFavorites = props => {
   const [commentContent, setComentContent] = useState('');
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
-
 
   const slideAnimation = useRef(new Animated.Value(0)).current;
 
@@ -125,7 +122,6 @@ const MyFavorites = props => {
         if (response.payload.success) {
           setIsAnimating(false);
           setShowSuccessMessage(true)
-
         } else {
           setIsAnimating(false);
           toggleModal();
@@ -136,7 +132,6 @@ const MyFavorites = props => {
       console.error('Error submitting review:', error);
     }
   };
-
 
   const successMessage = (
     <Text style={{ color: 'black',fontSize:34 }}>Thanks for your Feedback!</Text>
@@ -154,9 +149,7 @@ const MyFavorites = props => {
       formData.append('price_stars', rating2);
       formData.append('interest_stars', rating3);
       formData.append('content', commentContent ? commentContent : '');
-
       const response = await dispatch(postRating(formData));
-
       if (response.payload.data.success) {
         setIsAnimating(false);
         toggleModal();
@@ -177,8 +170,9 @@ const MyFavorites = props => {
   }, [isFocused]);
   const getFavoritePropertiesApiCall = () => {
     dispatch(getFavoriteProperties()).then(response => {
+     console.log("getFavoritePropertiesApiCall   ",response.payload.data)
+
       if (response.payload.data.length < 1) {
-     
         setShowNoDataMessage(true);
       } else {
         setShowNoDataMessage(false);
@@ -268,11 +262,14 @@ const MyFavorites = props => {
 
       <View style={styles.iconscover}>
         <View style={styles.iconsiner}>
-          <TouchableOpacity  onPress={async () => 
-            {
+          <TouchableOpacity  
+          onPress={async () => {
               const formData = new FormData();
            formData.append('post_id',item.ID);
-              await dispatch(addRemoveTrash(formData))}
+              await dispatch(addRemoveTrash(formData))
+              getFavoritePropertiesApiCall()
+            }
+              
             }>
             <Image source={Images.favdownthumb} style={styles.chaticon}></Image>
           </TouchableOpacity>
@@ -738,12 +735,13 @@ const MyFavorites = props => {
         <Text style={styles.sortby}>Sort by</Text>
         <View style={styles.collapsebg}>
           <TouchableOpacity
-            onPress={() => {
+            onPress={async () => {
               const payload={
-                date_favorited:"date_favorited"
+                sort_by:1,
+                date_favorited:1
               }
-            dispatch(sortingFavoritelist(payload))
-       
+           await dispatch(sortingFavoritelist(payload))
+           setIsCollapsed(false);
             }}
             style={styles.collapupper}>
             <Image
@@ -752,9 +750,14 @@ const MyFavorites = props => {
             <Text style={styles.coltxt}>Date Favorited</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => {
-              setIsCollapsed(false);
-            }}
+        onPress={async () => {
+          const payload={
+            sort_by:1,
+            date_favorited:1
+          }
+      //  await dispatch(sortingFavoritelist(payload))
+       setIsCollapsed(false);
+        }}
             style={styles.collapupper}>
             <Image
               source={Images.calenderwedding}
@@ -762,40 +765,65 @@ const MyFavorites = props => {
             <Text style={styles.coltxt}>Days on Market</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => {
-              setIsCollapsed(false);
-            }}
+    onPress={async () => {
+      const payload={
+        sort_by:1,
+        date_favorited:1
+      }
+  //  await dispatch(sortingFavoritelist(payload))
+   setIsCollapsed(false);
+    }}
             style={styles.collapupper}>
             <Image source={Images.low} style={styles.colimg}></Image>
             <Text style={styles.coltxt}>Price (Low to High) </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => {
-              setIsCollapsed(false);
+            onPress={async () => {
+              const payload={
+                sort_by:1,
+                price_low_to_high:1
+              }
+           await dispatch(sortingFavoritelist(payload))
+           setIsCollapsed(false);
             }}
             style={styles.collapupper}>
             <Image source={Images.lowhigh} style={styles.colimg}></Image>
             <Text style={styles.coltxt}>Price (High to Low)</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => {
-              setIsCollapsed(false);
-            }}
+          onPress={async () => {
+            const payload={
+              sort_by:1,
+              date_favorited:1
+            }
+         await dispatch(sortingFavoritelist(payload))
+         setIsCollapsed(false);
+          }}
             style={styles.collapupper}>
             <Image source={Images.newbed} style={styles.colimg}></Image>
             <Text style={styles.coltxt}>Beds (High to Low)</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => {
-              setIsCollapsed(false);
+            onPress={async () => {
+              const payload={
+                sort_by:1,
+                date_favorited:1
+              }
+           await dispatch(sortingFavoritelist(payload))
+           setIsCollapsed(false);
             }}
             style={styles.collapupper}>
             <Image source={Images.bathtub} style={styles.colimg}></Image>
             <Text style={styles.coltxt}>Baths (High to Low)</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => {
-              setIsCollapsed(false);
+            onPress={async () => {
+              const payload={
+                sort_by:1,
+                date_favorited:1
+              }
+           await dispatch(sortingFavoritelist(payload))
+           setIsCollapsed(false);
             }}
             style={styles.collapupper}>
             <Image source={Images.measuringtape} style={styles.colimg}></Image>

@@ -3,8 +3,9 @@ import {getAPI} from '../config/apiMethod';
 import BASEURl from '../services/Api'
 
 export const sortingFavoritelist = createAsyncThunk('sortingFavoritelist', async (payload) => {
- 
-  return await getAPI(BASEURl+`webapi/v1/rating/user_rating.php?post_id=${payload}`)
+   console.log(payload)
+  return await getAPI(
+    BASEURl+`webapi/v1/favorites/favoriteSorting.php?sort_by=${payload?.sort_by}&date_favorited=${payload?.date_favorited}&price_low_to_high=${payload?.price_low_to_high}&price_high_to_low=${payload?.price_high_to_low}&beds_high_to_low=${payload?.beds_high_to_low}&baths_high_to_low=${payload?.baths_high_to_low}&squraefeet_high_to_low=${payload?.squraefeet_high_to_low}`)
     .then(async response => {
       const {data} = response;
       return data;

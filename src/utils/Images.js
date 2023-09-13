@@ -99,5 +99,6 @@ const Images = {
   satellite: require(BaseUrl + 'satellite.png'),
   hybrid: require(BaseUrl + 'hybrid.png'),
   trash: require(BaseUrl + 'trash.png'),
+  favfilter: require(BaseUrl + 'filtericon.png'),
 };
 export default Images;
