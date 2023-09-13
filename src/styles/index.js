@@ -1,4 +1,4 @@
-/* eslint import/no-unresolved: [2, { ignore: ['react-native'] }] */
+
 import { StyleSheet, Dimensions } from 'react-native';
 
 export const { width } = Dimensions.get('window');
@@ -8,7 +8,7 @@ export default StyleSheet.create({
     marginVertical: 5,
     alignSelf: 'center',
   },
-  // Circular Container
+ 
   circleWrapper: {
     overflow: 'hidden',
   },

@@ -6,13 +6,11 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
-  Alert,
-  PanResponder,
-  Modal,
+ 
   ScrollView,
   Animated,
   Linking,
-  KeyboardAvoidingView,
+
   PermissionsAndroid,
   Platform,
 } from 'react-native';
@@ -41,8 +39,7 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 const ContactSurf = () => {
-  const [address, setAddress] = useState('');
-  const [index, setIndex] = useState(true);
+ 
   const [agentData, setAgentData] = useState(null);
   const [responseMessage, setResponseMessage] = useState('');
   const [message, setMessage] = useState('');

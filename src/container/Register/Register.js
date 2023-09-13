@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import {
-  StyleSheet,
+
   Text,
   View,
   Image,
   TextInput,
-  Button,
+
   TouchableOpacity,
   ScrollView,
   Alert,
   Dimensions,
   SafeAreaView,
-  Platform,
-  Modal,
-  FlatList,
+
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
@@ -22,7 +20,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import AppButton from '../../components/AppButton';
 import Styles from './Styles';
 import AsyncStorage from '@react-native-community/async-storage';
-import { LoginManager, AccessToken } from 'react-native-fbsdk';
+
 import { register } from '../../modules/register';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -105,15 +103,7 @@ export default function Register({ navigation }) {
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
 
       <ScrollView style={Styles.container}>
-        {/* <View style={Styles.loginView}>
-          <Text style={Styles.loginText}>
-            Welcome to your local real estate search engine!
-          </Text>
-        </View> */}
-        {/* <View style={Styles.loginLine}></View>
-        <View style={Styles.loginView}>
-          <Text style={Styles.signUpText}>Create an account</Text>
-        </View> */}
+      
         <View style={{
 
           width: '100%',

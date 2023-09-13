@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
     height: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    top: 50, // Adjust this value to move the badge higher
+    top: 50, 
     marginLeft: 0,
   },
 

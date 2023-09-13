@@ -133,78 +133,7 @@ const ViewPropertiyImage = props => {
               source={Images.leftnewarrow}></Image>
           </TouchableOpacity>
 
-          {/* <View
-            style={styles.bottomcover}>
-            <View
-              style={styles.bothicons}>
-              <View
-                style={styles.calluppercover}>
-                <TouchableOpacity
-                  style={styles.callcover}
-                  onPress={() => {
-                    makePhoneCall();
-                  }}>
-                  <Image
-                    source={Images.newcall}
-                    style={styles.callicon}></Image>
-                </TouchableOpacity>
-              </View>
-              <View
-                style={styles.upperchatcover}>
-                <TouchableOpacity
-                  style={styles.chatcover}
-                  onPress={() => navigation.navigate('ChatSearch')}>
-                  <Image
-                    source={Images.chatnew}
-                    style={styles.chaticon}></Image>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('ChatSearch', {
-                  initialMessage: 'When would you like to schedule a showing?',
-                  agentReply:
-                    'A Lokal agent will confirm with you within the next 2 hours',
-                });
-              }}
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'row',
-                alignSelf: 'center',
-                borderRadius: 50,
-                paddingHorizontal: 16,
-                lineHeight: 12,
-                marginRight: 10,
-                borderWidth: 2,
-                borderColor: Colors.surfblur,
-              }}>
-              <Text
-                style={{
-                  fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 21 : 13,
-                  color: Colors.surfblur,
-                  textAlign: 'center',
-                  marginLeft: 5,
-                  fontFamily: 'Poppins-Medium',
-                  position: 'relative',
-                  top: 2,
-                  letterSpacing: 0,
-                }}>
-                Schedule a Tour
-              </Text>
-              <LottieView
-                style={{
-                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
-                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
-                }}
-                source={require('../../assets/animations/SurfVan.json')}
-                autoPlay
-                loop
-              />
-            </TouchableOpacity>
-          </View> */}
+    
            <View
         style={{
           flexDirection: 'row',
@@ -533,7 +462,7 @@ const styles = StyleSheet.create({
   },
   buttonscroll: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 80,
     right: 20,
     justifyContent: 'center',
     alignItems: 'center',

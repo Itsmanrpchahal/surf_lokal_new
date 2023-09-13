@@ -14,7 +14,7 @@ import {
   Modal,
   FlatList,
   KeyboardAvoidingView,
-  Alert,
+
   Linking,
   Share,
   Platform,
@@ -37,9 +37,9 @@ import dynamicLinks from '@react-native-firebase/dynamic-links';
 
 
 import MapView, {
-  Callout,
+
   Marker,
-  PROVIDER_DEFAULT,
+  
   PROVIDER_GOOGLE
 } from 'react-native-maps';
 import {getRating} from '../../modules/getRating';
@@ -69,7 +69,7 @@ const ViewPropertiy = (props, imageUrl) => {
   const [rating3, setRating3] = useState(0);
   const [commentContent, setComentContent] = useState('dada');
 
-  const [review, setReview] = useState('');
+
   const [productId, setProductId] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
   const property = data[0];
@@ -413,8 +413,7 @@ const ViewPropertiy = (props, imageUrl) => {
                   Non Gated
                 </Text>
               </Text>
-              {/* <Text style={styles.props}>HOA Fee Frequency: {data.map((item) => item.associationfeefrequency)}  </Text>
-               */}
+            
             </View>
           </View>
           <View style={styles.viewstyle}>
@@ -510,7 +509,7 @@ const ViewPropertiy = (props, imageUrl) => {
                     item => item.details.miscellaneous_details.data_disclaimer,
                   )}
               
-              {/* The data relating to real estate on this website comes in part from the Internet Data Exchange Program from Beaches MLS of Palm Beach, Broward, and St. Lucie Realtors® and MyState MLS. All data is deemed reliable but is not guaranteed accurate by Multiple Listing Services. */}
+           
                </Text> {' '}
               </Text>
             </View>
@@ -577,9 +576,7 @@ const ViewPropertiy = (props, imageUrl) => {
   };
   const Address = () => {
     console.log("pppppp",property)
-    const handleCalloutPress = () => {
-    
-    };
+ 
 
     return (
       <ScrollView style={{paddingHorizontal: 16}}>
@@ -624,7 +621,7 @@ const ViewPropertiy = (props, imageUrl) => {
                 {property?.address.property_address.zip}
               </Text>
             </Text>
-            {/* {/ <Text style={styles.propsmain}>Zip: {JSON.stringify(pin)} <Text style={styles.propsinnermain}>{property?.address.property_address.zip}</Text ></Text> /} */}
+          
           </View>
           <View style={styles.maincovermap}>
             <MapView
@@ -647,88 +644,7 @@ const ViewPropertiy = (props, imageUrl) => {
                   style={{height: 50, width: 100, resizeMode: 'contain'}}
                 />
 
-                {/* <Callout
-                  onPress={() => {
-                    navigation.navigate('ViewProperty2', {ID:property.ID});
-                  }}
-                  style={{
-                    height: 70,
-                    alignItems: 'center',
-                    alignSelf: 'center',
-                    marginLeft: 20,
-                    top: -15,
-                  }}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      alignContent: 'center',
-                      marginLeft: 20,
-                      top: -12,
-                    }}>
-                    <Text
-                      style={{
-                        position: 'relative',
-                        height: 100,
-                        top: -20,
-                      }}>
-                      <Image
-                        style={{height: 80, width: 100, resizeMode: 'stretch'}}
-                        source={{uri: property?.featured_image_src}}
-                        resizeMethod="auto"
-                      />
-                    </Text>
-                    <View style={{flexWrap: 'wrap', top: -5}}>
-                      <Text
-                        style={{
-                          color: 'black',
-                          marginLeft: 10,
-                          fontWeight: '500',
-                          flexWrap: 'wrap',
-                        }}>
-                        {property?.address.property_address.address} |{' '}
-                        {property?.address.property_address.state_county}
-                      </Text>
-                      <Text
-                        style={{
-                          color: Colors.primaryBlue,
-                          marginLeft: 10,
-                          fontWeight: '500',
-                        }}>
-                        {data.map(item => item.details.property_details.price)}
-                      </Text>
-                      <View style={{flexDirection: 'row', marginLeft: 10}}>
-                        <Text style={{color: Colors.black}}>
-                          {store?.getState()?.getPopertiesDetailsReducer
-                            ?.getPopertiesDetails?.data[0]?.bedrooms?.length > 0
-                            ? store.getState()?.getPopertiesDetailsReducer
-                                ?.getPopertiesDetails?.data[0]?.bedrooms
-                            : 0}
-                          {' Beds'}{' '}
-                        </Text>
-                        <Text style={{color: Colors.black}}>
-                          {store?.getState()?.getPopertiesDetailsReducer
-                            .getPopertiesDetails?.data[0]?.bathroomsfull?.length >
-                          0
-                            ? store?.getState()?.getPopertiesDetailsReducer
-                                ?.getPopertiesDetails?.data[0]?.bathroomsfull
-                            : 0}
-                          {' Baths'}{' '}
-                        </Text>
-                        <Text style={{color: Colors.black}}>
-                          {store?.getState()?.getPopertiesDetailsReducer
-                            ?.getPopertiesDetails?.data[0]?.details
-                            .property_details.property_size.length > 0
-                            ? store?.getState()?.getPopertiesDetailsReducer
-                                ?.getPopertiesDetails?.data[0]?.details
-                                ?.property_details?.property_size
-                            : 0}
-                          {' sq ft'}{' '}
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                </Callout> */}
+              
               </Marker>
             </MapView>
           </View>
@@ -889,10 +805,7 @@ const ViewPropertiy = (props, imageUrl) => {
                 </Text>
               </View>
             </View>
-            {/* <LottieView 
-            style={{ height:194, width: 200 ,}}      
-            source={require('../../assets/animations/WeatherCode.json')} 
-            autoPlay loop  />  */}
+          
             <LottieView
               style={{
                 height: DeviceInfo.getDeviceType() === 'Tablet' ? 250 : 150,
@@ -1024,14 +937,9 @@ const getCurrentDateTime = () => {
                         }}>
                         {item.school_summary}
                       </Text>
-                      {/* <TouchableOpacity onPress={() => handleLinkPress(item.school_website)}>
-                        <Text style={{ color: Colors.black, fontSize: 13, fontFamily: "Poppins-Medium" }}>School link:-   <Text style={{ color: Colors.surfblur, fontSize: 12, fontFamily: "Poppins-Regular" }}>{item.school_website}</Text></Text>
-
-                      </TouchableOpacity> */}
+                    
                     </View>
-                    {/* <View>
-                    <Image style={{ height: 15, width: 100, resizeMode: "contain" }} source={{ uri: item.image_url }} />
-                  </View> */}
+                
                   </View>
                 </>
               )}
@@ -1649,7 +1557,7 @@ alignItems:"center"
                                    {Math.round(
                                               item?.Total_average_rating,
                                             )}
-                              {/* {item?.Total_average_rating} */}
+                            
                             </Text>
                                  ) : null}
                           </View>
@@ -1776,7 +1684,7 @@ alignItems:"center"
                                         fontFamily: 'Poppins-Light',
                                       }}>
                                       {item?.bedrooms ? item.bedrooms : '0'}
-                                      {/* {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bedrooms.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bedrooms : 0} */}
+                                     
                                       {' Beds'}
                                     </Text>
                                   </View>
@@ -1827,7 +1735,7 @@ alignItems:"center"
                                         ? item.bathroomsfull
                                         : '0'}
 
-                                      {/* {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bathroomsfull.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].bathroomsfull : 0} */}
+                                    
                                       {' Baths'}
                                     </Text>
                                   </View>
@@ -1880,7 +1788,7 @@ alignItems:"center"
                                             .property_size
                                         : '0'}
 
-                                      {/* {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.property_size.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.property_size : 0} */}
+                                     
                                       {' sqft'}
                                     </Text>
                                   </View>
@@ -1932,7 +1840,7 @@ alignItems:"center"
                                         ? item.hoa_fee
                                         : '0'}
 
-                                      {/* {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].hoa_fee.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].hoa_fee : 0} */}
+                                      
                                     </Text>
                                   </View>
                                 </View>
@@ -1983,7 +1891,7 @@ alignItems:"center"
                                         ? item.details.property_details.taxes
                                         : '0'}
 
-                                      {/* {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.taxes.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.taxes : 0} */}
+                                      
                                     </Text>
                                   </View>
                                 </View>
@@ -2035,7 +1943,7 @@ alignItems:"center"
                                             .yearbuilt
                                         : '0'}
 
-                                      {/* {store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.yearbuilt.length > 0 ? store.getState().getPopertiesDetails.getPopertiesDetails.data[0].details.property_details.yearbuilt : 0} */}
+                                     
                                     </Text>
                                   </View>
                                 </View>
@@ -2259,18 +2167,7 @@ alignItems:"center"
                         </Text>
                       </TouchableOpacity>
                     </View>
-                    {/* <View style={styles.featuersComtainer}>
-                    <TouchableOpacity
-                      onPress={() => {
-                        setSelectedTab(8);
-                      }}
-                      style={styles.detailsStyle}>
-                      <Image
-                        source={Images.tax}
-                        style={styles.detail}></Image>
-                      <Text style={styles.detailText}>Taxes</Text>
-                    </TouchableOpacity>
-                  </View> */}
+                  
                     <View style={styles.featuersComtainer}>
                       <TouchableOpacity
                         onPress={() => {
@@ -2337,28 +2234,7 @@ alignItems:"center"
                         </Text>
                       </TouchableOpacity>
                     </View>
-                    {/* <View style={styles.featuersComtainer}>
-                    <TouchableOpacity
-                      onPress={() => {
-                        setSelectedTab(4);
-                      }}
-                      style={styles.detailsStyle}>
-                      <Image
-                        source={Images.walkScrore}
-                        style={{
-                          height: 20,
-                          width: 20,
-                          resizeMode: 'contain',
-                          tintColor: selectedTab == 4 ? Colors.primaryBlue : Colors.black,
-                        }}></Image>
-                      <Text style={{
-                        fontSize: 11,
-                        color: selectedTab == 4 ? Colors.primaryBlue : Colors.black,
-                        textAlign: 'center',
-                        fontFamily: 'Poppins-Regular',
-                      }}> Walk Score</Text>
-                    </TouchableOpacity>
-                  </View> */}
+               
                     <View style={styles.featuersComtainer}>
                       <TouchableOpacity
                         onPress={() => {

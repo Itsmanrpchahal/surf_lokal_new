@@ -7,7 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  Alert,
+
   Dimensions,
   Platform,
   FlatList,
@@ -38,7 +38,7 @@ const screenWidth = Dimensions.get('window').width;
 import StarRating from 'react-native-star-rating-widget';
 import Collapsible from 'react-native-collapsible';
 import LottieView from 'lottie-react-native';
-import MapView from 'react-native-maps';
+
 import { addToFavorite } from '../../modules/addToFavorite';
 import {sortingTrashlist} from '../../modules/sortingTrashlist';
 

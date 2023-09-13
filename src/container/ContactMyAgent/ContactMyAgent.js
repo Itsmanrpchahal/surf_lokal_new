@@ -13,19 +13,16 @@ import {
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import axios from 'axios';
+
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import Styles from './Styles';
 import {useNavigation} from '@react-navigation/native';
-import FormData from 'form-data';
-import {idText} from 'typescript';
-import AsyncStorage from '@react-native-community/async-storage';
+
 import * as Animatable from 'react-native-animatable';
 import DeviceInfo from 'react-native-device-info';
-import BASEURl from '../../services/Api';
+
 import LottieView from 'lottie-react-native';
-import {useSelector, useDispatch} from 'react-redux';
+import { useDispatch} from 'react-redux';
 import {getAgent} from '../../modules/getAgent';
 
 const screenHeight = Dimensions.get('window').height;
@@ -38,13 +35,12 @@ const imageSizeRation = screenHeight / 1000;
 
 
 const ContactMyAgent = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [address, setAddress] = useState('');
-  const [index, setIndex] = useState(true);
+
+ 
+
   const [agentData, setAgentData] = useState([0]);
-  const [responseMessage, setResponseMessage] = useState('');
-  const [message, setMessage] = useState('');
-  const [note, setNote] = useState('');
+
+
   const dispatch = useDispatch();
 
   const flatListRef = useRef(null);
@@ -79,42 +75,8 @@ const ContactMyAgent = () => {
     );
   };
 
-  const SendQuickinquiry = () => {
-    const data = new FormData();
-    data.append('property_address', address);
-    data.append('message', message);
-    data.append('agent_email', agentData?.agent_email);
+ 
 
-    const config = {
-      method: 'post',
-      url: 'https://surf.topsearchrealty.com/webapi/v1/agent/quick_inquiry.php',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Cookie: 'PHPSESSID=4bbd37fb5e2f122c1d7198ec9bd153f1',
-      },
-      data: data,
-    };
-    axios
-      .request(config)
-      .then(response => {
-        Alert.alert('Your data send Successfully');
-        setAddress('');
-        setMessage('');
-    
-      })
-      .catch(error => {
-      });
-  };
-  {
-    responseMessage ? (
-      <Text
-        style={{
-          color: responseMessage.includes('successfully') ? 'green' : 'red',
-        }}>
-        {responseMessage}
-      </Text>
-    ) : null;
-  }
 
   return (
     <SafeAreaView style={styles.container}>

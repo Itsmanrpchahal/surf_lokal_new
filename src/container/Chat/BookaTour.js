@@ -7,13 +7,12 @@ import {
   TextInput,
   SafeAreaView,
   StyleSheet,
-  Animatable,
-  PanResponder,
+
 } from 'react-native';
 import Colors from '../../utils/Colors';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {chat} from '../../modules/chat';
+
 import {store} from '../../redux/store';
 import {TypingAnimation} from 'react-native-typing-animation';
 import {AutoScrollFlatList} from 'react-native-autoscroll-flatlist';
@@ -24,17 +23,17 @@ import {isRead} from '../../modules/isRead';
 import {getChatDetail} from '../../modules/getChatDetail';
 import {sendMessage} from '../../modules/sendMessage';
 import DatePicker from 'react-native-date-picker';
-import {get} from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+
 import DeviceInfo from 'react-native-device-info';
 
 const BookaTour = props => {
   const navigation = useNavigation();
   const route = useRoute();
   const [message, setMessage] = useState();
-  const [bookData, setBookData] = useState([]);
+
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [res, setRes] = useState([]);
+
   const [getMesg, setGetMessg] = useState([]);
   const [userID, setUserID] = useState();
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -172,27 +171,7 @@ const BookaTour = props => {
             }}>
             Schedule a Tour
           </Text>
-          {/* <TouchableOpacity
-                        onPress={() => {
-                            setRes([]);
-                        }}
-                        style={{
-                            flexDirection: "row",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            marginRight: 10,
-                        }}
-                    > */}
-          {/* <Image
-                            style={{
-                                height: 25,
-                                width: 25,
-                                resizeMode: "contain",
-                                tintColor: Colors.black,
-                            }}
-                            source={Images.reload}
-                        /> */}
-          {/* </TouchableOpacity> */}
+    
         </View>
         <Text
           style={{

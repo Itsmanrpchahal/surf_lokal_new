@@ -8,38 +8,7 @@ let clientId =
 let secretKey =
  'EGiK-2MXE13FORld5e4rNu-lQzqFjzm27bdL1wJ2mHpVxOKcTBitXnzljQJeLf7Y9TiTYlxJ9XJpmpFJ';
 
-// let orderDetail = {
-//   intent: 'CAPTURE',
-//   purchase_units: [
-//     {
-//       items: [
-//         {
-//           name: 'T-Shirt',
-//           description: 'Green XL',
-//           quantity: '1',
-//           unit_amount: {
-//             currency_code: 'USD',
-//             value: '200.00',
-//           },
-//         },
-//       ],
-//       amount: {
-//         currency_code: 'USD',
-//         value: '200.00',
-//         breakdown: {
-//           item_total: {
-//             currency_code: 'USD',
-//             value: '200.00',
-//           },
-//         },
-//       },
-//     },
-//   ],
-//   application_context: {
-//     return_url: 'https://example.com/return',
-//     cancel_url: 'https://example.com/cancel',
-//   },
-// };
+
 
 const generateToken = () => {
  var headers = new Headers();

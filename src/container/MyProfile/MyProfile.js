@@ -33,13 +33,13 @@ const MyFavorites = () => {
   const [propertyChat, setPropertyChat] = useState([])
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [notification, setNotification] = useState(0)
-  const [currentSlide, setCurrentSlide] = useState(0);
+
   const [details, setDetails] = useState([]);
   const [index, setIndex] = useState(true);
   const [isImageChanged, setIsImageChanged] = useState(false);
   const [isImage, setIsImage] = useState(false);
   const flatListRef = useRef(null);
-  const [showIcon, setShowIcon] = useState(false);
+
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();

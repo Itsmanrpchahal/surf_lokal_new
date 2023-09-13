@@ -20,9 +20,7 @@ import DeviceInfo from 'react-native-device-info';
 const App = props => {
   const navigation = useNavigation();
   const [meterValue, setMeterValue] = useState(500);
-  const [backgroundColor, setBackgroundColor] = useState('blue');
-  const [textColor, setTextColor] = useState('white');
-  const [borderColor, setBorderColor] = useState('black');
+
   const screenHeight = Dimensions.get('window').height;
   const screenWidth = Dimensions.get('window').width;
   const [isRewardsSelected, setIsRewardsSelected] = useState(false);
@@ -96,7 +94,7 @@ const App = props => {
              <View style={[styles.rebatevaluecover, {width:"50%",alignItems:"center", flexDirection:"row",justifyContent:"center"}]}>
               <Text style={[styles.valuereabtemain,]}>$<Text numberOfLines={1} style={[styles.valuereabtemain,]}>
               {(meterValue * 0.0032)}
-                {/* {Math.round(meterValue * .0032)} */}
+           
               </Text></Text>
               
             </View> 
