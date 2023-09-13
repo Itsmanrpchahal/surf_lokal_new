@@ -3,7 +3,7 @@ import {
   Text,
   Image,
   SafeAreaView,
-  ScrollView,
+  
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
@@ -15,7 +15,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import {getLeaderboard} from '../../modules/getLeaderboard';
-import {store} from '../../redux/store';
+
 import {getProfile} from '../../modules/getProfile';
 import DeviceInfo from 'react-native-device-info';
 const Leaderboard = () => {

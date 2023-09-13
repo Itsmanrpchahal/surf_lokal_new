@@ -1,20 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   Image,
-  TextInput,
   TouchableOpacity,
-  ScrollView,
-  Alert,
   Dimensions,
-  Platform,
-  FlatList,
-  ImageBackground,
-  Animated,
-  Vibration,
-  Orientation,
   useWindowDimensions
 } from 'react-native';
 import 'react-native-gesture-handler';
@@ -22,8 +12,7 @@ import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import AppIntroSlider from 'react-native-app-intro-slider';
-import * as Animatable from 'react-native-animatable';
+
 import DeviceInfo from 'react-native-device-info';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -35,10 +24,8 @@ const imageSizeRation = screenHeight / 1000;
 const ViewImage = props => {
 
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [adress, setAddres] = useState('');
-  const [orientation, setOrientation] = useState('portrait')
-  const [index, setIndex] = useState(0);
+
+
   const flatListRef = useRef(null);
   const [isLandscape, setIsLandscape] = useState(
     Dimensions.get('window').width > Dimensions.get('window').height

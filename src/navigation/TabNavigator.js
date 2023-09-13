@@ -314,23 +314,13 @@ const styles = StyleSheet.create({
     height: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    top: 50, // Adjust this value to move the badge higher
+    top: 50, 
     marginLeft: 0,
   },
   container: {
     flex: 1,
-    // backgroundColor:"red",
     ...Platform.select({
-      // ios: {
-      //   shadowColor: 'red',
-      //   shadowOpacity: 0.25,
-      //   shadowRadius: 4,
-      // },
-      // android: {
-      //   shadowColor: 'black',
-      //   shadowOpacity: 0.25,
-      //   elevation: 4,
-      // },
+
     }),
   },
 });

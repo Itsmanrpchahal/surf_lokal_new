@@ -1,6 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import Colors from '../../utils/Colors';
-import Fonts from '../../utils/Fonts';
+
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -56,7 +56,7 @@ export default StyleSheet.create({
   paginationDotActive: {
     backgroundColor: 'blue',
   },
-  //fliter
+
   filter: {
     height: 60,
   },

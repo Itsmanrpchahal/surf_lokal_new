@@ -1,29 +1,20 @@
 import {
   View,
 
-  StyleSheet,
+
   Text,
 
   Image,
   TextInput,
   TouchableOpacity,
-  ScrollView,
-  Dimensions,
+ 
   SafeAreaView,
-  Animated,
-  PanResponder,
-  Modal,
-  FlatList,
-  KeyboardAvoidingView,
-  Alert,
-  Button,
-  Linking,
-  Share,
+
 } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { schoolChat } from '../../modules/schoolChat';
 import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
-import * as Animatable from 'react-native-animatable';
+
 
 import { TypingAnimation } from 'react-native-typing-animation';
 import Images from '../../utils/Images';
@@ -56,7 +47,7 @@ const Schoolinfo = () => {
       <View style={{
         height: '100%', width: '100%',
        
-        // justifyContent: 'center',
+   
 
       }} >
         <View style={{ paddingVertical: 10, paddingHorizontal: 12, backgroundColor: Colors.white, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderColor: '#c9c9c5' ,}}>
@@ -179,7 +170,7 @@ const Schoolinfo = () => {
                       alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
                       maxWidth: '70%',
                       marginLeft: 8,
-                      //marginRight: 8,
+                
                       marginTop: 8,
                       marginBottom: 4,
                       fontFamily: "Poppins-Regular",
@@ -247,7 +238,7 @@ const Schoolinfo = () => {
             backgroundColor: Colors.white,
             borderColor: Colors.BorderColor,
             borderWidth: 1, borderRadius: 5,
-           // height: 45
+
              margin: 16,
             paddingLeft: 8, paddingRight: 8,
             flexDirection: 'row',
