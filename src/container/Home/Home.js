@@ -16,13 +16,14 @@ import {
   KeyboardAvoidingView,
   Share,
   Keyboard,
+  StatusBar,
+  SafeAreaView
 } from 'react-native';
 import StarRating from 'react-native-star-rating-widget';
 import SelectDropdown from 'react-native-select-dropdown';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { getPoperties } from '../../modules/getPoperties';
@@ -30,9 +31,7 @@ import { postRating } from '../../modules/postRating';
 import { getFilter } from '../../modules/getFilter';
 import { SvgUri } from 'react-native-svg';
 import { postUpdateRating } from '../../modules/postUpdateRating';
-
 import {  MultiSelect } from 'react-native-element-dropdown';
-
 import CardsSwipe from 'react-native-cards-swipe';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
@@ -189,6 +188,7 @@ const Home = () => {
       getSavedApiCall(),
       getMoreFilterApiCall(),
       getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
+      fetchUserScore()
       setAddres('')
   }, []);
   const getFilterApicall = () => {
@@ -200,6 +200,9 @@ const Home = () => {
     dispatch(getMoreFilter()).then(response => {
       setMoreFilterData(response.payload.data);
     });
+  };
+  const fetchUserScore = () => {
+    dispatch(getUserScore());
   };
   const slideAnimation = useRef(new Animated.Value(0)).current;
   const panResponder = useRef(
@@ -527,10 +530,13 @@ const Home = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {loading ? (
+      {loading ? (<>
+        <StatusBar backgroundColor={"#5BB3FF"}/ >
         <View style={styles.loaderstyle}>
           <Loader />
         </View>
+      </>
+
       ) : null}
       <SafeAreaView
         style={

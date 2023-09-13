@@ -32,7 +32,8 @@ const BottomTabNavigator = () => {
   
   useEffect(() => {
     if(store?.getState()?.loginUserReducer?.loginData?.data?.user_role==="administrator"){
-      setTabshow(false)
+      // setTabshow(false)
+      setTabshow(true)
      }
 }, [])
 
@@ -172,7 +173,7 @@ function CustomTabBar({state, descriptors, navigation}) {
     <View
       style={{
         width: '100%',
-        height: '8%',
+        height: '10%',
         justifyContent:"space-between",
         marginBottom: 8,
       }}>
@@ -317,21 +318,6 @@ const styles = StyleSheet.create({
     top: 50, // Adjust this value to move the badge higher
     marginLeft: 0,
   },
-  container: {
-    flex: 1,
-    // backgroundColor:"red",
-    ...Platform.select({
-      // ios: {
-      //   shadowColor: 'red',
-      //   shadowOpacity: 0.25,
-      //   shadowRadius: 4,
-      // },
-      // android: {
-      //   shadowColor: 'black',
-      //   shadowOpacity: 0.25,
-      //   elevation: 4,
-      // },
-    }),
-  },
+
 });
 export default BottomTabNavigator;
