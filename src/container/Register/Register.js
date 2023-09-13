@@ -180,17 +180,7 @@ export default function Register({ navigation }) {
             onChangeText={address => setAddress(address)}
           />
         </View>
-        {/* <View style={Styles.socialMediaButtons}>
-          <TextInput
-            allowFontScaling={false}
-            style={Styles.inputStyle}
-            placeholderTextColor={Colors.textColorLight}
-            placeholder={'Address'}
-            keyboardType="default"
-            returnKeyType="done"
-            onChangeText={address => setAddress(address)}
-          />
-        </View> */}
+
         <View style={Styles.socialMediaButtons}>
           <TextInput
             allowFontScaling={false}
