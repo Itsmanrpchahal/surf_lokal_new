@@ -7,7 +7,6 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-
   Dimensions,
   Platform,
   FlatList,
@@ -210,11 +209,11 @@ const updateReview = async post_id => {
   }, [isFocused]);
   const getTrashApiCall = () => {
     dispatch(getTrash()).then(response => {
-      if (response?.payload?.data?.length===0)  {
+      if (response?.payload?.data?.length>1)  {
         setShowNoDataMessage(true);
       } else {
         setShowNoDataMessage(false)
-        setHomeData(response.payload.data);
+        setHomeData(response?.payload?.data);
       }
     });
 
@@ -229,18 +228,6 @@ const updateReview = async post_id => {
     let phoneNumber = agentData[0]?.agent_phone;
 
     Linking.openURL(`tel:${phoneNumber}`);
-  };
-  const sendEmail = () => {
-    let recipient = 'example@example.com';
-    let subject = 'Subject of email';
-    let body = 'Body of email';
-    Linking.openURL(`mailto:${recipient}?subject=${subject}&body=${body}`);
-  };
-
-  const sendSMS = () => {
-    let phoneNumber = '512458790';
-    let message = 'Hello from my app!';
-    Linking.openURL(`sms:${phoneNumber}`);
   };
 
 
@@ -304,7 +291,10 @@ const updateReview = async post_id => {
             {
               const formData = new FormData();
            formData.append('post_id',item.ID);
-              await dispatch(addToFavorite(formData))}
+              await dispatch(addToFavorite(formData))
+              getTrashApiCall()
+            }
+              
             }> 
             <Image
               source={Images.favdownthumb}
