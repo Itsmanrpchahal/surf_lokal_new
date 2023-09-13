@@ -18,6 +18,7 @@ import {
   Linking,
   Share,
   Platform,
+  StatusBar,
 } from 'react-native';
 import CardsSwipe from 'react-native-cards-swipe';
 import 'react-native-gesture-handler';
@@ -1296,6 +1297,8 @@ const getCurrentDateTime = () => {
   return (
     <View style={{flex: 1}}>
       {loading ? (
+        <>
+        <StatusBar backgroundColor={"#5BB3FF"}/ >
         <View
           style={{
             height: '100%',
@@ -1308,6 +1311,7 @@ const getCurrentDateTime = () => {
           }}>
           <Loader />
         </View>
+        </>
       ) : null}
       <SafeAreaView style={{flex: 1, backgroundColor: Colors.white}}>
         <ScrollView>

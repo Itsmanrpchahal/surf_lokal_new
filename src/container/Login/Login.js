@@ -44,10 +44,10 @@ const viewSizeRatio = screenHeight / 1000;
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
 
-  // const [emailId, setEmailId] = useState('access@wpkraken.io');
-  // const [password, setPassword] = useState('CherryPicker1!');
-  const [emailId, setEmailId] = useState('saurav.webperfection@gmail.com');
-  const [password, setPassword] = useState('Kumar@123');
+  const [emailId, setEmailId] = useState('access@wpkraken.io');
+  const [password, setPassword] = useState('CherryPicker1!');
+  // const [emailId, setEmailId] = useState('saurav.webperfection@gmail.com');
+  // const [password, setPassword] = useState('Kumar@123');
 
  
 

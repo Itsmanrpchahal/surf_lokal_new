@@ -47,7 +47,8 @@ const MyFavorites = () => {
 
   useEffect(() => {
     if (store?.getState()?.loginUserReducer?.loginData?.data?.user_role === "administrator") {
-      setTabshow(false)
+      // setTabshow(false)
+       setTabshow(true)
     }
   }, [])
 
