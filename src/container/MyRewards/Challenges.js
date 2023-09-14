@@ -1,7 +1,6 @@
 import {
   SafeAreaView,
   StyleSheet,
-
   Text,
   View,
   Image,
@@ -14,7 +13,6 @@ import {useNavigation} from '@react-navigation/native';
 import Images from '../../utils/Images';
 import * as Animatable from 'react-native-animatable';
 import {useDispatch} from 'react-redux';
-import AsyncStorage from '@react-native-community/async-storage';
 import {getRewardListing} from '../../modules/getRewardListing';
 import {useIsFocused} from '@react-navigation/native';
 import {likeDisLike} from '../../modules/likeDislike';
@@ -22,14 +20,12 @@ import {TypingAnimation} from 'react-native-typing-animation';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
 import LottieView from 'lottie-react-native';
 import DeviceInfo from 'react-native-device-info';
-const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const Challenges = () => {
 
   const [question, setQuestion] = useState([]);
   const [index, setindex] = useState(0);
   const navigation = useNavigation();
-  const [user_ID, setUser_ID] = useState();
 
   const [selectedTabsMore, setSelectedTabsMore] = useState([]);
   const [selectedTabsMore2, setSelectedTabsMore2] = useState([]);
@@ -40,14 +36,10 @@ const Challenges = () => {
 
   useEffect(() => {
     if (isFocused) {
-      Promise.all[(getRewardsChallengeApicall(), getID())];
+      Promise.all[(getRewardsChallengeApicall())];
     }
   }, [isFocused]);
 
-  const getID = async () => {
-    const id = await AsyncStorage.getItem('userId');
-    setUser_ID(id);
-  };
   const getRewardsChallengeApicall = () => {
     dispatch(getRewardListing()).then(response => {
       setQuestion(response.payload.data);
@@ -85,7 +77,7 @@ const Challenges = () => {
         {question[index] ? (
           <SwiperFlatList
             style={{width: screenWidth}}
-            index={count + 1}
+            index={count }
             data={question}
             refer={index}
             renderItem={({item, index}) => {
