@@ -209,7 +209,7 @@ const updateReview = async post_id => {
   }, [isFocused]);
   const getTrashApiCall = () => {
     dispatch(getTrash()).then(response => {
-      if (response?.payload?.data?.length>1)  {
+      if (response?.payload?.data?.length<1)  {
         setShowNoDataMessage(true);
       } else {
         setShowNoDataMessage(false)
