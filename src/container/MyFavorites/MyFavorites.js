@@ -163,7 +163,10 @@ const MyFavorites = props => {
 
   useEffect(() => {
     if (isFocused) {
-      Promise.all[(getFavoritePropertiesApiCall(), getAgentApicall())];
+      Promise.all[(
+        getFavoritePropertiesApiCall(),
+         getAgentApicall()
+         )];
     }
   }, [isFocused]);
   const getFavoritePropertiesApiCall = () => {
@@ -738,7 +741,9 @@ const MyFavorites = props => {
                 sort_by:1,
                 date_favorited:1
               }
-           await dispatch(sortingFavoritelist(payload))
+           await dispatch(sortingFavoritelist(payload)).then((response)=>{
+            setHomeData(response?.payload?.data)
+           })
            setIsCollapsed(false);
             }}
             style={styles.collapupper}>
@@ -753,8 +758,9 @@ const MyFavorites = props => {
             sort_by:1,
             days_on_market:1
           }
-          console.log(payload)
-      //  await dispatch(sortingFavoritelist(payload))
+      //  await dispatch(sortingFavoritelist(payload)).then((response)=>{
+            setHomeData(response?.payload?.data)
+           })
        setIsCollapsed(false);
         }}
             style={styles.collapupper}>
@@ -769,7 +775,9 @@ const MyFavorites = props => {
         sort_by:1,
         price_low_to_high:1
       }
-   await dispatch(sortingFavoritelist(payload))
+   await dispatch(sortingFavoritelist(payload)).then((response)=>{
+    setHomeData(response?.payload?.data)
+   })
    setIsCollapsed(false);
     }}
             style={styles.collapupper}>
@@ -799,7 +807,7 @@ const MyFavorites = props => {
             }
          await dispatch(sortingFavoritelist(payload)).then((response)=>{
           setHomeData(response?.payload?.data)
-        })
+         })
          setIsCollapsed(false);
           }}
             style={styles.collapupper}>

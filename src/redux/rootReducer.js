@@ -40,7 +40,6 @@ import isRead from '../modules/isRead';
 import logOut from '../modules/logOut';
 import getNotifications from '../modules/getNotifications';
  import sortingFavoritelist from '../modules/sortingFavoritelist';
-import sortingTrashlist from '../modules/sortingTrashlist';
 
 export default combineReducers({
     loginUserReducer,
@@ -82,7 +81,6 @@ export default combineReducers({
     logOut,
     getNotifications,
     sortingFavoritelist,
-    sortingTrashlist
 
 
 });

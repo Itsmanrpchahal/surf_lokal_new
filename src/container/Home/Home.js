@@ -1021,7 +1021,7 @@ const Home = () => {
                                                 style={{ alignItems: 'center' }}
                                                 onPress={() => {
                                                   navigation.navigate(
-                                                    'MyFavorites',
+                                                    'Favorites',
                                                   );
                                                 }}>
                                                 <Image

@@ -16,7 +16,6 @@ import {
   Linking,
   KeyboardAvoidingView,
   Modal
-
 } from 'react-native';
 import { postRating } from '../../modules/postRating';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
@@ -1114,10 +1113,12 @@ const updateReview = async post_id => {
           <TouchableOpacity
             onPress={async () => {
               const payload={
-                sort_by:1,
+                sort_by:2,
                 date_favorited:1
               }
-           await dispatch(sortingFavoritelist(payload))
+           await dispatch(sortingFavoritelist(payload)).then((response)=>{
+            setHomeData(response?.payload?.data)
+           })
            setIsCollapsed(false);
             }} style={styles.collapupper}>
           <Image
@@ -1126,13 +1127,15 @@ const updateReview = async post_id => {
              <Text style={styles.coltxt}>Date Favorited</Text>
              
           </TouchableOpacity>
-          <TouchableOpacity    onPress={async () => {
+          {/* <TouchableOpacity    onPress={async () => {
           const payload={
-            sort_by:1,
+            sort_by:2,
             days_on_market:1
           }
           console.log(payload)
-      //  await dispatch(sortingFavoritelist(payload))
+      //  await dispatch(sortingFavoritelist(payload)).then((response)=>{
+            setHomeData(response?.payload?.data)
+           })
        setIsCollapsed(false);
         }}
          style={styles.collapupper}>
@@ -1141,13 +1144,15 @@ const updateReview = async post_id => {
               style={styles.colimg}></Image>
              <Text style={styles.coltxt}>Days on Market</Text>
              
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity     onPress={async () => {
       const payload={
-        sort_by:1,
+        sort_by:2,
         price_low_to_high:1
       }
-   await dispatch(sortingFavoritelist(payload))
+   await dispatch(sortingFavoritelist(payload)).then((response)=>{
+    setHomeData(response?.payload?.data)
+   })
    setIsCollapsed(false);
     }} style={styles.collapupper}>
           <Image
@@ -1158,10 +1163,12 @@ const updateReview = async post_id => {
           </TouchableOpacity>
           <TouchableOpacity      onPress={async () => {
               const payload={
-                sort_by:1,
+                sort_by:2,
                 price_high_to_low:1
               }
-           await dispatch(sortingFavoritelist(payload))
+           await dispatch(sortingFavoritelist(payload)).then((response)=>{
+            setHomeData(response?.payload?.data)
+           })
            setIsCollapsed(false);
             }} style={styles.collapupper}>
           <Image
@@ -1173,10 +1180,12 @@ const updateReview = async post_id => {
           <TouchableOpacity    
           onPress={async () => {
             const payload={
-              sort_by:1,
+              sort_by:2,
               beds_high_to_low:1
             }
-         await dispatch(sortingFavoritelist(payload))
+         await dispatch(sortingFavoritelist(payload)).then((response)=>{
+          setHomeData(response?.payload?.data)
+         })
          setIsCollapsed(false);
           }} style={styles.collapupper}>
           <Image
@@ -1188,10 +1197,12 @@ const updateReview = async post_id => {
           <TouchableOpacity  
           onPress={async () => {
               const payload={
-                sort_by:1,
+                sort_by:2,
                 baths_high_to_low:1
               }
-           await dispatch(sortingFavoritelist(payload))
+           await dispatch(sortingFavoritelist(payload)).then((response)=>{
+            setHomeData(response?.payload?.data)
+           })
            setIsCollapsed(false);
             }} style={styles.collapupper}>
           <Image
@@ -1203,10 +1214,12 @@ const updateReview = async post_id => {
           <TouchableOpacity 
            onPress={async () => {
             const payload={
-              sort_by:1,
+              sort_by:2,
               squraefeet_high_to_low:1
             }
-         await dispatch(sortingFavoritelist(payload))
+         await dispatch(sortingFavoritelist(payload)).then((response)=>{
+          setHomeData(response?.payload?.data)
+         })
          setIsCollapsed(false);
           }}
           style={styles.collapupper}>
