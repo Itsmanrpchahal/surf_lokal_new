@@ -13,16 +13,20 @@ import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import DeviceInfo from 'react-native-device-info';
-
+import {addToFavorite} from '../../modules/addToFavorite';
+import {addRemoveTrash} from '../../modules/addRemoveTrash';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import {useDispatch} from 'react-redux';
 import { store } from '../../redux/store';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 const ViewPropertiyImage = props => {
 
+  const dispatch = useDispatch();
   const [data, setData] = useState([]);
 
   const [orientation, setOrientation] = useState('portrait');
@@ -60,6 +64,39 @@ const ViewPropertiyImage = props => {
 
   
   }, []);
+  const savefile = async post_id => {
+    const userID = await AsyncStorage.getItem('userId');
+
+    const formData = new FormData();
+    formData.append('userID', userID);
+    formData.append('post_id', post_id);
+
+    await dispatch(addToFavorite(formData)).then(response => {
+      if (response.payload.success) {
+
+      } else {
+  
+      }
+    });
+    navigation.goBack();
+  };
+
+  const trashfile = async post_id => {
+    const userID = await AsyncStorage.getItem('userId');
+    const formData = new FormData();
+    formData.append('userID', userID);
+    formData.append('post_id', post_id);
+
+    await dispatch(addRemoveTrash(formData)).then(response => {
+      if (response.payload.success) {
+      
+      } else {
+
+      }
+    });
+
+    navigation.goBack();
+  };
 
   const makePhoneCall = () => {
     let phoneNumber = agentData[0]?.agent_phone;
@@ -194,6 +231,7 @@ const ViewPropertiyImage = props => {
        
          }}>
         <TouchableOpacity
+        onPress={()=>{trashfile(property?.ID)}}
               style={{
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -209,6 +247,7 @@ const ViewPropertiyImage = props => {
                 }}></Image>
             </TouchableOpacity>
             <TouchableOpacity
+              onPress={()=>{savefile(property?.ID)}}
               style={{
                 justifyContent: 'center',
                 alignItems: 'center',
