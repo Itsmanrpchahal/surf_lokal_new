@@ -34,7 +34,7 @@ import DeviceInfo from 'react-native-device-info';
 import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
 import { TypingAnimation } from 'react-native-typing-animation';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
-
+import * as Animatable from 'react-native-animatable'
 
 import MapView, {
 
@@ -51,7 +51,7 @@ import StarRating from 'react-native-star-rating-widget';
 import LottieView from 'lottie-react-native';
 import Loader from '../../components/Loader';
 import { schoolChat } from '../../modules/schoolChat';
-import * as Animatable from 'react-native-animatable';
+
 
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
 const screenWidth = Dimensions.get('window').width;
@@ -866,7 +866,7 @@ const ViewPropertiy = (props, imageUrl) => {
   const [res, setRes] = useState([])
   const [message, setMessage] = useState()
   const [loading, setLoading] = useState(false)
-
+  const slideAnimation = new Animated.Value(-300);
 
 
 
@@ -983,46 +983,43 @@ const getCurrentDateTime = () => {
             </TouchableOpacity>
           </View>
         </View>
-      
-                                  <Modal
-                                    transparent={false}
-                                  
-                                   visible={schoolModalVisible}
-                                   onRequestClose={() => {
-                                    closeSchoolModal(false)
-                                     
-                                  }}
-                                    >
-                                    <View style={styles.modalContainer}>
-                                      <TouchableOpacity
-                                        activeOpacity={1}
-                                        style={styles.modalOverlaynew}
-                                        onPress={() => {
-                                          schoolModal(true);
-                                        }}
-                                      />
-                                      <Animated.View
-                                        {...panResponder.panHandlers}
-                                        style={[
-                                          styles.modalContentnew,
-                                          {
-                                            transform: [
-                                              {
-                                                translateY:
-                                                  slideAnimation.interpolate({
-                                                    inputRange: [-300, 0],
-                                                    outputRange: [-300, 0],
-                                                  }),
-                                              },
-                                            ],
-                                          },
-                                        ]}>
-                                      <View style={{
-        height: '100%', width: '100%',
+      <KeyboardAvoidingView>
+        <Modal
+        transparent={true}
+        visible={schoolModalVisible}
+        onRequestClose={schoolModal}
+        >
+          {/* <View style={{height:"90%",backgroundColor:'red',width:'100%',marginTop:30}}>
+           <TouchableOpacity
+           activeOpacity={1}
+           style={{height:"90%",width:'90%'}}
+           onPress={closeSchoolModal}/>
+           <Animated.View
+            {...panResponder.panHandlers}
+            style={[styles.modalContentnew,
+            {
+              transform:[
+                {
+                   translateY: slideAnimation.interpolate({
+                        inputRange: [-300, 0],
+                        outputRange: [-300, 0],
+                   })
+                }
+              ]
+            }]}>
+            <ScrollView style={styles.bgcover}>
+              
+            </ScrollView>
+           </Animated.View>
+          </View> */}
+           <View style={{
+        height: '94%', width: '100%',marginTop:50,backgroundColor:'white',
+        marginBottom:50,borderTopLeftRadius:20,borderBottomRightRadius:20
        
-      
+   
 
       }} >
+        
         <View style={{ paddingVertical: 10, paddingHorizontal: 12, backgroundColor: Colors.white, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderColor: '#c9c9c5' ,}}>
           <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center' }}>
             <Image
@@ -1062,7 +1059,7 @@ const getCurrentDateTime = () => {
               ></Image>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => schoolModal(false)}
+              onPress={() => navigation.goBack()}
               style={{
 
                 height: 35,
@@ -1103,7 +1100,7 @@ const getCurrentDateTime = () => {
 
         </View>
         <View style={{
-     
+          //  paddingHorizontal: 20,
           position: "relative",
           height: '100%', width: '100%',
          
@@ -1143,7 +1140,7 @@ const getCurrentDateTime = () => {
                       alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
                       maxWidth: '70%',
                       marginLeft: 8,
-              
+                
                       marginTop: 8,
                       marginBottom: 4,
                       fontFamily: "Poppins-Regular",
@@ -1211,7 +1208,7 @@ const getCurrentDateTime = () => {
             backgroundColor: Colors.white,
             borderColor: Colors.BorderColor,
             borderWidth: 1, borderRadius: 5,
-         
+
              margin: 16,
             paddingLeft: 8, paddingRight: 8,
             flexDirection: 'row',
@@ -1272,9 +1269,9 @@ const getCurrentDateTime = () => {
           </View>
         </View>
       </View>
-                                      </Animated.View>
-                                    </View>
-                                  </Modal>
+        </Modal>
+      </KeyboardAvoidingView>
+                               
                                
       </>
     );
@@ -3057,11 +3054,12 @@ alignItems:"center"
               <Animatable.Image
                 source={Images.RedDown}
                 animation="bounce"
+                duration={5000}
                 style={{
                   height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
                   width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
                   resizeMode: 'contain',
-                }}></Animatable.Image>
+                }}/>
             </TouchableOpacity>
             <TouchableOpacity
             onPress={()=>{savefile(property?.ID)}}
@@ -3072,13 +3070,15 @@ alignItems:"center"
                 marginHorizontal:8
               }}>
               <Animatable.Image
-              animation="bounce"
+            
                 source={Images.GreenUp}
+                animation="bounce"
+                duration={5000}
                 style={{
                   height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
                   width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
                   resizeMode: 'contain',
-                }}></Animatable.Image>
+                }}/>
             </TouchableOpacity>
           </View>
        
@@ -3200,7 +3200,7 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   modalContainer: {
-    flex: 1,
+    
     backgroundColor: 'trasnparent',
     justifyContent: 'flex-end',
   },
@@ -3253,12 +3253,13 @@ const styles = StyleSheet.create({
    
   },
   modalContainer: {
-    flex: 1,
+    // flex: 1,
+    height:'90%',
     backgroundColor: 'transparent',
     justifyContent: 'flex-end',
   },
   modalOverlaynew: {
-    flex: 1,
+    // flex: 1,
   },
   modalContentnew: {
     backgroundColor: 'white',
@@ -3462,6 +3463,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     marginTop: 10,
+  },
+    modalContentnew: {
+    backgroundColor: 'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 16,
+    maxHeight: '72%',
   },
   bottom: {
     flexDirection: 'row',
