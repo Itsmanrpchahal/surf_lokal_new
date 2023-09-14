@@ -51,6 +51,7 @@ import StarRating from 'react-native-star-rating-widget';
 import LottieView from 'lottie-react-native';
 import Loader from '../../components/Loader';
 import { schoolChat } from '../../modules/schoolChat';
+import * as Animatable from 'react-native-animatable';
 
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
 const screenWidth = Dimensions.get('window').width;
@@ -93,6 +94,9 @@ const ViewPropertiy = (props, imageUrl) => {
 
   const slideAnimation = useRef(new Animated.Value(0)).current;
 
+
+
+  
   const generateLink = async () => {
     try {
       const link = await dynamicLinks().buildShortLink(
@@ -1376,7 +1380,501 @@ alignItems:"center"
                     zIndex: 999,
                   },
                 ]}>
-                <CardsSwipe
+                 <View
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor:Colors.white
+                      }}>
+                        <View style={{
+                              height: '60%',}}>
+                        <TouchableOpacity
+                          style={{backgroundColor: Colors.white}}
+                          onPress={() =>
+                            navigation.navigate('ViewPropertiyImage', {
+                              postid: postid.ID,
+                            })
+                          }>
+                          <Image
+                            style={{
+                              height: '100%',
+                              width: '100%',
+                              justifyContent: 'space-between',
+                              flexDirection: 'row',
+                              borderRadius: 15,
+                              overflow: 'hidden',
+                              marginBottom: 0,
+                            }}
+                            source={{uri: property?.featured_image_src}}
+                          />
+                        </TouchableOpacity></View>
+                      <View style={{height: '40%'}}>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            width: '100%',
+                            marginTop: 10,
+                    
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            
+                            paddingHorizontal: 12,
+                          }}>
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                        
+                            }}>
+                            <TouchableOpacity
+                              onPress={() => {
+                                setProductId(property.ID);
+                                setReviewTitle(property.title);
+                                toggleModal();
+                                dispatch(getRating(property.ID)).then(response => {
+                                  setRatingData(response.payload.data);
+                                  setRating(
+                                    response?.payload?.data[0]
+                                      ?.photo_wuality_rating,
+                                  );
+                                  setRating1(
+                                    response?.payload?.data[0]
+                                      ?.description_review_stars,
+                                  );
+                                  setRating2(
+                                    response?.payload?.data[0]
+                                      ?.price_review_stars,
+                                  );
+                                  setRating3(
+                                    response?.payload?.data[0]
+                                      ?.interest_review_stars,
+                                  );
+                                });
+                              }}>
+                              <Image
+                                 source={
+                                  property?.Total_average_rating > 0
+                                    ? Images.startfill
+                                    : Images.star2
+                                }
+                                style={{
+                                  height: 23,
+                                  width: 23,
+                                  resizeMode: 'contain',
+                                }}></Image>
+                            </TouchableOpacity>
+                            {property?.Total_average_rating > 0 ? (
+                            <Text
+                              style={{
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontFamily: 'Poppins-Light',
+                                marginLeft: 4,
+                                marginTop: 8,
+                              }}>
+                                   {Math.round(
+                                              property?.Total_average_rating,
+                                            )}
+                            
+                            </Text>
+                                 ) : null}
+                          </View>
+
+                          <TouchableOpacity onPress={()=>{handleShare()}}>
+                            <Image
+                              source={Images.sendnew}
+                              style={{
+                                height: 18,
+                                width: 23,
+                                resizeMode: 'contain',
+                              }}></Image>
+                          </TouchableOpacity>
+                        </View>
+                        <Text
+                          style={{
+                            fontSize:
+                              DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 25,
+                            color: '#1450B1',
+                            fontWeight: '500',
+                            fontFamily: 'Poppins-Medium',
+                            width: '100%',
+                            textAlign: 'center',
+                            backgroundColor: Colors.white,
+                          }}>
+                          {property?.price}
+                        </Text>
+                        <View
+                          style={{
+                            width: '100%',
+                            alignSelf: 'center',
+                            justifyContent: 'center',
+                   
+                            paddingHorizontal: 12,
+                            paddingBottom: 8,
+                          }}>
+                          <Text
+                            style={{
+                              fontSize:
+                                DeviceInfo.getDeviceType() === 'Tablet'
+                                  ? 22
+                                  : 16,
+                              color: Colors.black,
+                              marginHorizontal: 8,
+                              textAlign: 'center',
+                              fontFamily: 'Poppins-Light',
+                              backgroundColor: Colors.white,
+                            }}
+                            numberOfLines={1}>
+                            {property?.title}
+                          </Text>
+                        </View>
+
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            width: '100%',
+
+                            justifyContent: 'center',
+
+                   
+                          }}>
+                          <View>
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+
+                                width: '100%',
+                                alignSelf: 'center',
+                              }}>
+                              <View
+                                style={{
+                                  flexDirection: 'row',
+                                  alignItems: 'center',
+
+                                  justifyContent: 'center',
+
+                                  width: '100%',
+                                  alignSelf: 'center',
+                                }}>
+                                <View
+                                  style={{
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+
+                                    width:
+                                      DeviceInfo.getDeviceType() === 'Tablet'
+                                        ? 100
+                                        : 60,
+                                  }}>
+                                  <View
+                                    style={{
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                    }}>
+                                    <Image
+                                      source={Images.newbed}
+                                      style={{
+                                        height:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 36
+                                            : 21,
+                                        width:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 49
+                                            : 28,
+                                        resizeMode: 'contain',
+
+                                        marginBottom: 5,
+                                      }}></Image>
+                                    <Text
+                                      style={{
+                                        fontSize:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 17
+                                            : 11,
+                                        color: Colors.black,
+                                        textAlign: 'center',
+                                        fontFamily: 'Poppins-Light',
+                                      }}>
+                                      {property?.bedrooms ? property.bedrooms : '0'}
+                                     
+                                      {' Beds'}
+                                    </Text>
+                                  </View>
+                                </View>
+
+                                <View
+                                  style={{
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width:
+                                      DeviceInfo.getDeviceType() === 'Tablet'
+                                        ? 100
+                                        : 60,
+                                  }}>
+                                  <View
+                                    style={{
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                    }}>
+                                    <Image
+                                      source={Images.bathtub}
+                                      style={{
+                                        height:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 44
+                                            : 26,
+                                        width:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 49
+                                            : 28,
+                                        resizeMode: 'contain',
+                                        marginBottom: 5,
+                                      }}></Image>
+                                    <Text
+                                      style={{
+                                        fontSize:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 17
+                                            : 11,
+                                        color: Colors.black,
+                                        textAlign: 'center',
+                                        fontFamily: 'Poppins-Light',
+                                      }}>
+                                      {property?.bathroomsfull.length > 0
+                                        ? property.bathroomsfull
+                                        : '0'}
+
+                                    
+                                      {' Baths'}
+                                    </Text>
+                                  </View>
+                                </View>
+
+                                <View
+                                  style={{
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width:
+                                      DeviceInfo.getDeviceType() === 'Tablet'
+                                        ? 100
+                                        : 60,
+                                  }}>
+                                  <View
+                                    style={{
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                    }}>
+                                    <Image
+                                      source={Images.measuringtape}
+                                      style={{
+                                        height:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 45
+                                            : 26,
+                                        width:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 47
+                                            : 27,
+                                        resizeMode: 'contain',
+                                        marginBottom: 5,
+                                      }}></Image>
+                                    <Text
+                                      style={{
+                                        fontSize:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 17
+                                            : 11,
+                                        color: Colors.black,
+                                        textAlign: 'center',
+                                        fontFamily: 'Poppins-Light',
+                                      }}>
+                                      {property?.details.property_details
+                                        .property_size.length > 0
+                                        ? property.details.property_details
+                                            .property_size
+                                        : '0'}
+
+                                     
+                                      {' sqft'}
+                                    </Text>
+                                  </View>
+                                </View>
+
+                                <View
+                                  style={{
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width:
+                                      DeviceInfo.getDeviceType() === 'Tablet'
+                                        ? 100
+                                        : 60,
+                                  }}>
+                                  <View
+                                    style={{
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                    }}>
+                                    <Image
+                                      source={Images.hoa2}
+                                      style={{
+                                        height:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 47
+                                            : 26,
+                                        width:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 51
+                                            : 27,
+                                        resizeMode: 'contain',
+                                        marginBottom: 5,
+                                      }}></Image>
+                                    <Text
+                                      style={{
+                                        fontSize:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 17
+                                            : 11,
+                                        color: Colors.black,
+                                        textAlign: 'center',
+                                        fontFamily: 'Poppins-Light',
+                                      }}>
+                                      {'$'}
+                                      {property?.hoa_fee.length > 0
+                                        ? property.hoa_fee
+                                        : '0'}
+
+                                      
+                                    </Text>
+                                  </View>
+                                </View>
+                                <View
+                                  style={{
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width:
+                                      DeviceInfo.getDeviceType() === 'Tablet'
+                                        ? 100
+                                        : 60,
+                                  }}>
+                                  <View
+                                    style={{
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                    }}>
+                                    <Image
+                                      source={Images.taxnew}
+                                      style={{
+                                        height:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 47
+                                            : 27,
+                                        width:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 43
+                                            : 25,
+                                        marginTop: 0,
+                                        resizeMode: 'contain',
+                                        marginBottom: 5,
+                                      }}></Image>
+                                    <Text
+                                      style={{
+                                        fontSize:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 17
+                                            : 11,
+                                        color: Colors.black,
+                                        textAlign: 'center',
+                                        fontFamily: 'Poppins-Light',
+                                      }}>
+                                      {property?.details.property_details.taxes
+                                        .length > 0
+                                        ? property.details.property_details.taxes
+                                        : '0'}
+
+                                      
+                                    </Text>
+                                  </View>
+                                </View>
+                                <View
+                                  style={{
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width:
+                                      DeviceInfo.getDeviceType() === 'Tablet'
+                                        ? 100
+                                        : 60,
+                                  }}>
+                                  <View
+                                    style={{
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                    }}>
+                                    <Image
+                                      source={Images.cals}
+                                      style={{
+                                        height:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 34
+                                            : 30,
+                                        width:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 40
+                                            : 30,
+                                        marginTop: 0,
+                                        resizeMode: 'contain',
+                                        marginBottom: 5,
+                                      }}></Image>
+                                    <Text
+                                      style={{
+                                        fontSize:
+                                          DeviceInfo.getDeviceType() ===
+                                          'Tablet'
+                                            ? 17
+                                            : 11,
+                                        color: Colors.black,
+                                        textAlign: 'center',
+                                        fontFamily: 'Poppins-Light',
+                                      }}>
+                                      {property?.details.property_details.yearbuilt
+                                        .length > 0
+                                        ? property.details.property_details
+                                            .yearbuilt
+                                        : '0'}
+
+                                     
+                                    </Text>
+                                  </View>
+                                </View>
+                              </View>
+                            </View>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+
+
+                {/* <CardsSwipe
                   style={{
                     height:'100%'
                   }}
@@ -1954,7 +2452,7 @@ alignItems:"center"
                       </View>
                     </View>
                   )}
-                />
+                /> */}
               </View>
             </View>
           </View>
@@ -2548,34 +3046,39 @@ alignItems:"center"
        
          }}>
         <TouchableOpacity
+
+        onPress={()=>{trashfile(property?.ID)}}
               style={{
                 justifyContent: 'center',
                 alignItems: 'center',
                 alignContent: 'center',
                marginHorizontal:8
               }}>
-              <Image
+              <Animatable.Image
                 source={Images.RedDown}
+                animation="bounce"
                 style={{
                   height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
                   width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
                   resizeMode: 'contain',
-                }}></Image>
+                }}></Animatable.Image>
             </TouchableOpacity>
             <TouchableOpacity
+            onPress={()=>{savefile(property?.ID)}}
               style={{
                 justifyContent: 'center',
                 alignItems: 'center',
                 alignContent: 'center',
                 marginHorizontal:8
               }}>
-              <Image
+              <Animatable.Image
+              animation="bounce"
                 source={Images.GreenUp}
                 style={{
                   height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
                   width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
                   resizeMode: 'contain',
-                }}></Image>
+                }}></Animatable.Image>
             </TouchableOpacity>
           </View>
        
