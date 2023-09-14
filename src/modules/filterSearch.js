@@ -3,7 +3,7 @@ import {  uploadImageAPI } from '../config/apiMethod';
 export const filterSearch = createAsyncThunk('filterSearch', async (formData) => {
   try {
     const response = await uploadImageAPI(
-      `http://www.surflokal.com/wp-json/search/FilterSearch`,
+      `https://www.surflokal.com/wp-json/search/FilterSearch`,
       formData,
       
     ).then((res) => {

@@ -500,7 +500,11 @@ const Home = () => {
           setAddres('');
           dispatch(getPoperties({type: 3,data: {data_custom_taxonomy: item.data_custom_taxonomy,data_customvalue: item.data_customvalue,}}),
           ).then(res => {
+            if(res.payload.data.length>1){
             setHomeData(res.payload.data);
+            }else{
+              // alert(res.payload.message)
+            }
           });
           setActivity(true);
           setLoading(false);
