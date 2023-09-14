@@ -36,13 +36,11 @@ import dynamicLinks from '@react-native-firebase/dynamic-links';
 import DeviceInfo from 'react-native-device-info';
 import LottieView from 'lottie-react-native';
 import {addRemoveTrash} from '../../modules/addRemoveTrash';
-
 import StarRating from 'react-native-star-rating-widget';
 import Collapsible from 'react-native-collapsible';
 
 const MyFavorites = props => {
   const isFocused = useIsFocused();
-
   const navigation = useNavigation();
   const [data, setHomeData] = useState([]);
   const [agentData, setAgentData] = useState([0]);
@@ -749,12 +747,13 @@ const MyFavorites = props => {
               style={styles.colimg}></Image>
             <Text style={styles.coltxt}>Date Favorited</Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
         onPress={async () => {
           const payload={
             sort_by:1,
-            date_favorited:1
+            days_on_market:1
           }
+          console.log(payload)
       //  await dispatch(sortingFavoritelist(payload))
        setIsCollapsed(false);
         }}
@@ -763,14 +762,14 @@ const MyFavorites = props => {
               source={Images.calenderwedding}
               style={styles.colimg}></Image>
             <Text style={styles.coltxt}>Days on Market</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
     onPress={async () => {
       const payload={
         sort_by:1,
-        date_favorited:1
+        price_low_to_high:1
       }
-  //  await dispatch(sortingFavoritelist(payload))
+   await dispatch(sortingFavoritelist(payload))
    setIsCollapsed(false);
     }}
             style={styles.collapupper}>
@@ -781,9 +780,11 @@ const MyFavorites = props => {
             onPress={async () => {
               const payload={
                 sort_by:1,
-                price_low_to_high:1
+                price_high_to_low:1
               }
-           await dispatch(sortingFavoritelist(payload))
+           await dispatch(sortingFavoritelist(payload)).then((response)=>{
+             setHomeData(response?.payload?.data)
+           })
            setIsCollapsed(false);
             }}
             style={styles.collapupper}>
@@ -794,9 +795,11 @@ const MyFavorites = props => {
           onPress={async () => {
             const payload={
               sort_by:1,
-              date_favorited:1
+              beds_high_to_low:1
             }
-         await dispatch(sortingFavoritelist(payload))
+         await dispatch(sortingFavoritelist(payload)).then((response)=>{
+          setHomeData(response?.payload?.data)
+        })
          setIsCollapsed(false);
           }}
             style={styles.collapupper}>
@@ -807,9 +810,11 @@ const MyFavorites = props => {
             onPress={async () => {
               const payload={
                 sort_by:1,
-                date_favorited:1
+                baths_high_to_low:1
               }
-           await dispatch(sortingFavoritelist(payload))
+           await dispatch(sortingFavoritelist(payload)).then((response)=>{
+            setHomeData(response?.payload?.data)
+          })
            setIsCollapsed(false);
             }}
             style={styles.collapupper}>
@@ -820,9 +825,11 @@ const MyFavorites = props => {
             onPress={async () => {
               const payload={
                 sort_by:1,
-                date_favorited:1
+                squraefeet_high_to_low:1
               }
-           await dispatch(sortingFavoritelist(payload))
+           await dispatch(sortingFavoritelist(payload)).then((response)=>{
+            setHomeData(response?.payload?.data)
+          })
            setIsCollapsed(false);
             }}
             style={styles.collapupper}>
@@ -834,7 +841,7 @@ const MyFavorites = props => {
       <View style={{height: '100%', width: '100%'}}>
         {showNoDataMessage ? (
           <View style={styles.nofav}>
-            <Text style={styles.nofavtext}>No Property in Favorite !!</Text>
+            <Text style={styles.nofavtext}>No properties in Favorite !!</Text>
           </View>
         ) : (
           <FlatList
