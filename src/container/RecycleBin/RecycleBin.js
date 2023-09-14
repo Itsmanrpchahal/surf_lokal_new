@@ -37,9 +37,8 @@ const screenWidth = Dimensions.get('window').width;
 import StarRating from 'react-native-star-rating-widget';
 import Collapsible from 'react-native-collapsible';
 import LottieView from 'lottie-react-native';
-
+import {sortingFavoritelist} from '../../modules/sortingFavoritelist';
 import { addToFavorite } from '../../modules/addToFavorite';
-import {sortingTrashlist} from '../../modules/sortingTrashlist';
 
 const RecycleBin = () => {
   const isFocused = useIsFocused();
@@ -209,11 +208,11 @@ const updateReview = async post_id => {
   }, [isFocused]);
   const getTrashApiCall = () => {
     dispatch(getTrash()).then(response => {
-      if (response?.payload?.data?.length<1)  {
-        setShowNoDataMessage(true);
-      } else {
+      if (response?.payload?.data?.length>1)  {
         setShowNoDataMessage(false)
         setHomeData(response?.payload?.data);
+      } else {
+        setShowNoDataMessage(true);
       }
     });
 
@@ -1112,12 +1111,14 @@ const updateReview = async post_id => {
       <Collapsible collapsed={!isCollapsed} style={styles.collapsecover}>
          <Text style={styles.sortby}>Sort by</Text>
         <View style={styles.collapsebg}>
-          <TouchableOpacity onPress={() => {
-                       const payload={
-                        date_favorited:"date_favorited"
-                      }
-                    dispatch(sortingTrashlist(payload))
-            setIsCollapsed(false)
+          <TouchableOpacity
+            onPress={async () => {
+              const payload={
+                sort_by:1,
+                date_favorited:1
+              }
+           await dispatch(sortingFavoritelist(payload))
+           setIsCollapsed(false);
             }} style={styles.collapupper}>
           <Image
               source={Images.calenderwedding}
@@ -1125,42 +1126,90 @@ const updateReview = async post_id => {
              <Text style={styles.coltxt}>Date Favorited</Text>
              
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <TouchableOpacity    onPress={async () => {
+          const payload={
+            sort_by:1,
+            days_on_market:1
+          }
+          console.log(payload)
+      //  await dispatch(sortingFavoritelist(payload))
+       setIsCollapsed(false);
+        }}
+         style={styles.collapupper}>
           <Image
               source={Images.calenderwedding}
               style={styles.colimg}></Image>
              <Text style={styles.coltxt}>Days on Market</Text>
              
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <TouchableOpacity     onPress={async () => {
+      const payload={
+        sort_by:1,
+        price_low_to_high:1
+      }
+   await dispatch(sortingFavoritelist(payload))
+   setIsCollapsed(false);
+    }} style={styles.collapupper}>
           <Image
               source={Images.low}
               style={styles.colimg}></Image>
              <Text style={styles.coltxt}>Price (Low to High) </Text>
              
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <TouchableOpacity      onPress={async () => {
+              const payload={
+                sort_by:1,
+                price_high_to_low:1
+              }
+           await dispatch(sortingFavoritelist(payload))
+           setIsCollapsed(false);
+            }} style={styles.collapupper}>
           <Image
               source={Images.lowhigh}
               style={styles.colimg}></Image>
              <Text style={styles.coltxt}>Price (High to Low)</Text>
              
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <TouchableOpacity    
+          onPress={async () => {
+            const payload={
+              sort_by:1,
+              beds_high_to_low:1
+            }
+         await dispatch(sortingFavoritelist(payload))
+         setIsCollapsed(false);
+          }} style={styles.collapupper}>
           <Image
               source={Images.newbed}
               style={styles.colimg}></Image>
              <Text style={styles.coltxt}>Beds (High to Low)</Text>
              
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <TouchableOpacity  
+          onPress={async () => {
+              const payload={
+                sort_by:1,
+                baths_high_to_low:1
+              }
+           await dispatch(sortingFavoritelist(payload))
+           setIsCollapsed(false);
+            }} style={styles.collapupper}>
           <Image
               source={Images.bathtub}
               style={styles.colimg}></Image>
              <Text style={styles.coltxt}>Baths (High to Low)</Text>
              
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {setIsCollapsed(false)}} style={styles.collapupper}>
+          <TouchableOpacity 
+           onPress={async () => {
+            const payload={
+              sort_by:1,
+              squraefeet_high_to_low:1
+            }
+         await dispatch(sortingFavoritelist(payload))
+         setIsCollapsed(false);
+          }}
+          style={styles.collapupper}>
           <Image
               source={Images.measuringtape}
               style={styles.colimg}></Image>
@@ -1194,7 +1243,7 @@ const updateReview = async post_id => {
               style={{
                 fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium'
               }}>
-              No Property in Bin !!
+              No properties in Bin !!
             </Text>
           </View>
         ) : (

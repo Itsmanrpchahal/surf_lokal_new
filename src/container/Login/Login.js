@@ -46,10 +46,12 @@ export default function Login({ navigation }) {
 
   // const [emailId, setEmailId] = useState('access@wpkraken.io');
   // const [password, setPassword] = useState('CherryPicker1!');
-  const [emailId, setEmailId] = useState('roman345@gmail.com');
-  const [password, setPassword] = useState('Roman321');
+  // const [emailId, setEmailId] = useState('roman345@gmail.com');
+  // const [password, setPassword] = useState('Roman321');
   // const [emailId, setEmailId] = useState('saurav.webperfection@gmail.com');
   // const [password, setPassword] = useState('Kumar@123');
+  const [emailId, setEmailId] = useState('saurav1.webperfection@gmail.com');
+  const [password, setPassword] = useState('Kumar@123');
 
  
 
