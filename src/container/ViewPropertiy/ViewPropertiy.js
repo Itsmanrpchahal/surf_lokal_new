@@ -364,7 +364,7 @@ const ViewPropertiy = (props, imageUrl) => {
                   {data.map(
                     item => item.details.property_details.property_size,
                   )} {' '}
-                  sq ft{' '}
+                  SF{' '}
                 </Text>{' '}
               </Text>
               <Text style={styles.props}>
@@ -1361,7 +1361,7 @@ alignItems:"center"
               zIndex: 999,
               alignItems:"center",
               marginTop:8,
-             backgroundColor:`rgba(128, 128, 128, 0.1)`
+             backgroundColor:`rgba(255, 255, 255, 0.01)`
             
             }}>
             <View
@@ -2290,7 +2290,7 @@ alignItems:"center"
                                         : '0'}
 
                                      
-                                      {' sqft'}
+                                      {' SF'}
                                     </Text>
                                   </View>
                                 </View>
@@ -3106,6 +3106,7 @@ alignItems:"center"
             alignSelf: 'center',
             borderRadius: 50,
             paddingHorizontal:8,
+            paddingVertical:8,
             lineHeight: 12,
             marginRight: 10,
             borderWidth: 2,
@@ -3114,10 +3115,10 @@ alignItems:"center"
           }}>
           <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 16 : 10,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 16,
               color: Colors.surfblur,
               textAlign: 'center',
-           
+             marginLeft:10,
               fontFamily: 'Poppins-Medium',
               position: 'relative',
              
@@ -3127,8 +3128,8 @@ alignItems:"center"
           </Text>
           <LottieView
             style={{
-              height: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 30,
-              width: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 30,
+              height: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
+              width: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
             }}
             source={require('../../assets/animations/SurfVan.json')}
             autoPlay

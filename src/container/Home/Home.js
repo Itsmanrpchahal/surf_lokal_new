@@ -1168,7 +1168,7 @@ const Home = () => {
                                             styles.modalContent2,
                                             {
                                               width: '100%',
-                                              backgroundColor: '#f1f1f1',
+                                              backgroundColor: 'white',
                                               transform: [
                                                 {
                                                   translateY:
@@ -1342,6 +1342,7 @@ const Home = () => {
                                                                         item.data_customvalue,
                                                                     },
                                                                   }),
+                                                                  
                                                                 ).then(res => {
                                                                   setHomeData(res.payload.data);
                                                                 });
@@ -2196,7 +2197,7 @@ const Home = () => {
                                   {item?.property_size.length > 1
                                     ? item?.property_size
                                     : 0}
-                                  {' sq ft'}
+                                  {' SF'}
                                 </Text>
                               </View>
                               <View style={styles.iconcover}>
@@ -2353,7 +2354,7 @@ const Home = () => {
                                       {item?.bathroomsfull} Baths{' '}
                                     </Text>
                                     <Text style={styles.labelinner}>
-                                      {item?.property_size} sq ft{' '}
+                                      {item?.property_size} SF{' '}
                                     </Text>
                                   </View>
                                 </View>
@@ -2586,7 +2587,7 @@ const styles = StyleSheet.create({
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 26,
     fontFamily: 'Poppins-SemiBold',
     color: Colors.black,
-    marginBottom: 50,
+    // marginBottom: 50,
     textAlign: 'center',
   },
   savedsearchdes: {
@@ -3511,6 +3512,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     overflow: 'hidden',
     position: 'absolute',
+    opacity:0.5
   },
   cardinner: {
     position: 'absolute',
@@ -3537,6 +3539,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     overflow: 'hidden',
     position: 'absolute',
+    opacity:0.5
   },
   redthumbcover: {
     position: 'absolute',
