@@ -57,9 +57,11 @@ import { getUserScore } from '../../modules/getUserScore';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import GetLocation from 'react-native-get-location';
 import Loader from '../../components/Loader';
+import { useIsFocused } from '@react-navigation/native';
 
 const { width } = Dimensions.get('screen');
 const Home = () => {
+  const isFocused = useIsFocused();
   const [keyboardStatus, setKeyboardStatus] = useState('first');
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -187,10 +189,15 @@ const Home = () => {
       favlistApi(),
       getSavedApiCall(),
       getMoreFilterApiCall(),
-      getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
+      // getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
       fetchUserScore()
       setAddres('')
   }, []);
+  useEffect(() => {
+    if (isFocused) {
+      Promise.all[getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng })];
+    }
+  }, [isFocused]);
   const getFilterApicall = () => {
     dispatch(getFilter()).then(response => {
       setFilterData(response.payload.data);
@@ -595,7 +602,7 @@ const Home = () => {
                     <Image
                       source={Images.mapnew1}
                       tintColor={
-                        showMap ? Colors.PrimaryColor : Colors.PrimaryColor
+                        showMap ? Colors.PrimaryColor : Colors.black
                       }
                       style={styles.addressstyle}></Image>
                   </TouchableOpacity>
@@ -1939,11 +1946,7 @@ const Home = () => {
                                         ]}>
 
                                         <ScrollView style={styles.bgcover}>
-
-
-
-
-                                          <View style={{ alignItems: "center", paddingBottom: 20 }}>
+      <View style={{ alignItems: "center", paddingBottom: 20 }}>
 
                                             <View
                                               style={styles.indicator}></View>
@@ -2373,13 +2376,10 @@ const Home = () => {
                     onPress={async () => {
                       setLimitCount(limitCount + 1);
                       await dispatch(
-                        getPopertiess({
+                        getPoperties({
                           type: 0,
-                          limit: limitCount + 1,
-                          ID: store?.getState()?.loginUserReducer?.loginData
-                            ?.data?.ID,
-                        }),
-                      ).then(res => {
+                          data: { limit: limitCount + 1 },
+                        })).then(res => {
                         setHomeData(res?.payload?.data);
                       });
                     }}
