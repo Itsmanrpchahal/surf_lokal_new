@@ -3105,20 +3105,20 @@ alignItems:"center"
             flexDirection: 'row',
             alignSelf: 'center',
             borderRadius: 50,
-            paddingHorizontal:8,
-            paddingVertical:8,
+            // paddingHorizontal:8,
+            // paddingVertical:8,
             lineHeight: 12,
-            marginRight: 10,
+            // marginRight: 10,
             borderWidth: 2,
             borderColor: Colors.surfblur,
-            height:45,  width:"50%",
+            height:45,  width:"45%",
           }}>
           <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 16,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 18,
               color: Colors.surfblur,
               textAlign: 'center',
-             marginLeft:10,
+            //  marginLeft:10,
               fontFamily: 'Poppins-Medium',
               position: 'relative',
              
@@ -3126,15 +3126,7 @@ alignItems:"center"
             }}>
             Schedule a Tour
           </Text>
-          <LottieView
-            style={{
-              height: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
-              width: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
-            }}
-            source={require('../../assets/animations/SurfVan.json')}
-            autoPlay
-            loop
-          />
+       
         </TouchableOpacity>
       </View>
       </SafeAreaView>

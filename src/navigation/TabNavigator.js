@@ -40,6 +40,8 @@ const BottomTabNavigator = () => {
   useEffect(() => {
     setdata(store.getState()?.getUserScore?.getUserScoreData?.data?.points);
   }, [store.getState()?.getUserScore?.getUserScoreData?.data]);
+
+  
   return (
       <Tab.Navigator
         tabBarHideOnKeyboard={true}
@@ -175,7 +177,7 @@ function CustomTabBar({state, descriptors, navigation}) {
         width: '100%',
         height: '10%',
         justifyContent:"space-between",
-        marginBottom: 8,
+        // marginBottom: 8,
       }}>
       <View
         style={{
@@ -223,15 +225,16 @@ function CustomTabBar({state, descriptors, navigation}) {
           const getIconStyle = () => {
             if (route.name === 'Home') {
               return {
-                height: 65,
-                width: 65,
-                marginTop: 22,
+                height: 62,
+                width: 62,
+                marginTop: 20,
               };
             }
             return {
               height: 50,
               marginTop: 15,
               width: 30,
+              marginBottom:10,
               tintColor: isFocused ? Colors.primaryBlue : Colors.textColorDark,
             };
           };
@@ -281,8 +284,8 @@ const styles = StyleSheet.create({
   rebatemenu: {
     fontFamily: 'Poppins-Bold',
     position: 'absolute',
-    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
-    top: -30,
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
+    top: -31,
     color: Colors.black,
     flexDirection: 'row',
     justifyContent: 'center',
