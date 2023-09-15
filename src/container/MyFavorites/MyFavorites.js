@@ -572,7 +572,7 @@ const MyFavorites = props => {
                     style={styles.measureicon}></Image>
                   <Text style={styles.newtexticon}>
                     {item.property_size.length > 0 ? item.property_size : 0}{' '}
-                    {'sq ft'}
+                    {'SF'}
                   </Text>
                 </View>
               </View>
@@ -647,7 +647,7 @@ const MyFavorites = props => {
                       style={styles.measureicon}></Image>
                     <Text style={styles.newtexticon}>
                       {item.property_size.length > 0 ? item.property_size : 0}{' '}
-                      {'sq ft'}
+                      {'SF'}
                     </Text>
                   </View>
                 </View>

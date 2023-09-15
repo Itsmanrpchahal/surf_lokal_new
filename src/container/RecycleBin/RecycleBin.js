@@ -722,7 +722,7 @@ const updateReview = async post_id => {
                       fontFamily: 'Poppins-Light',
                     }}>
                     {item.property_size.length > 0 ? item.property_size : 0}{' '}
-                    {'sq ft'}
+                    {'SF'}
                   </Text>
                 </View>
               </View>
@@ -924,7 +924,7 @@ const updateReview = async post_id => {
                       fontFamily: 'Poppins-Light',
                       }}>
                       {item.property_size.length > 0 ? item.property_size : 0}{' '}
-                      {'sq ft'}
+                      {'SF'}
                     </Text>
                   </View>
                 </View>
@@ -1231,19 +1231,7 @@ const updateReview = async post_id => {
           </TouchableOpacity>
         </View>
       </Collapsible>
-      {/* <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: 16,
-        }}>
-        <Image
-          style={{height: DeviceInfo.getDeviceType() === 'Tablet'?30:15,
-           width: DeviceInfo.getDeviceType() === 'Tablet'?26:13,
-            resizeMode: 'contain'}}
-          source={Images.favfilter}
-        />
-      </View> */}
+  
       <View style={{ height: '100%', width: '100%' }}>
         {showNoDataMessage ? (
           <View
