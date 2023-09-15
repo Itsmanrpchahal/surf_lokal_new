@@ -1360,9 +1360,9 @@ alignItems:"center"
               width: ScreenWidth - 16,
               zIndex: 999,
               alignItems:"center",
-              marginTop:8
-              
-              
+              marginTop:8,
+             backgroundColor:`rgba(128, 128, 128, 0.1)`
+            
             }}>
             <View
               style={{
@@ -1377,7 +1377,7 @@ alignItems:"center"
                     zIndex: 999,
                   },
                 ]}>
-                 <View
+                 {/* <View
                       style={{
                         width: '100%',
                         height: '100%',
@@ -1868,32 +1868,36 @@ alignItems:"center"
                           </View>
                         </View>
                       </View>
-                    </View>
+                    </View> */}
 
 
-                {/* <CardsSwipe
+                <CardsSwipe
                   style={{
-                    height:'100%'
+                    height:'100%',
+                  
                   }}
                   loop={true}
                   cards={data}
+                  // onSwiped={opacity}
                   onSwipedLeft={() => {
                     trashfile(property?.ID);
+               
                   }}
                   onSwipedRight={() => {
                     savefile(property?.ID);
+         
                   }}
                   renderNope={() =>
                     props.route.params.from === 'MyFavorites' || props.route.params.from === 'Home' ?
                       <View
                         style={{
-                          height: screenHeight - firstViewHeight - 27, width:screenWidth - 16 ,  backgroundColor:'red',
+                          height: screenHeight+500, width:screenWidth - 16 ,  backgroundColor:'red',opacity:0.4,
                           borderRadius: 15,
                           overflow: "hidden",
                         }}>
                         <View style={{
                           position: "absolute",
-                          width: "100%", height: '100%', justifyContent: "center", alignItems: 'center'
+                          width: "100%", height: screenHeight - firstViewHeight - 27, justifyContent: "center", alignItems: 'center'
                         }}>
                           <View
                             style={{
@@ -1903,6 +1907,7 @@ alignItems:"center"
                               borderRadius: 100,
                               alignItems: 'center',
                               justifyContent: 'center',
+                              
 
                             }}>
                             <Image
@@ -1922,7 +1927,7 @@ alignItems:"center"
                       <View
                         style={{
 
-                          height:  screenHeight - firstViewHeight - 27, width: screenWidth, backgroundColor: "green",
+                          height:  screenHeight+500, width: screenWidth, backgroundColor: "green",opacity:0.4,
                           borderRadius: 15,
     
                           overflow: "hidden", position: "absolute",
@@ -1930,7 +1935,7 @@ alignItems:"center"
                         }}>
                         <View style={{
                           position: "absolute",
-                          height: '100%', width: '100%', alignItems: 'center', justifyContent: "center"
+                          height: screenHeight - firstViewHeight - 27, width: '100%', alignItems: 'center', justifyContent: "center"
                         }}>
                           <View
                             style={{
@@ -1980,6 +1985,7 @@ alignItems:"center"
                               borderRadius: 15,
                               overflow: 'hidden',
                               marginBottom: 0,
+                              // opacity:0.13
                             }}
                             source={{uri: item?.featured_image_src}}
                           />
@@ -2449,7 +2455,7 @@ alignItems:"center"
                       </View>
                     </View>
                   )}
-                /> */}
+                />
               </View>
             </View>
           </View>
@@ -2987,7 +2993,7 @@ alignItems:"center"
         style={{
           flexDirection: 'row',
           width: '100%',
-          justifyContent: 'space-between',
+          justifyContent: 'space-around',
           backgroundColor: '#f8f8f8',
           paddingVertical: 12,
           alignItems: 'center',
@@ -2995,7 +3001,7 @@ alignItems:"center"
           paddingHorizontal:8,
           height:55
         }}>
-        <View
+        {/* <View
           style={{
             alignItems: 'center',
             flexDirection: 'row',
@@ -3004,8 +3010,8 @@ alignItems:"center"
            justifyContent:"space-between",
            paddingRight:15
           }}>
-      
-            <TouchableOpacity
+       */}
+            {/* <TouchableOpacity
               style={{
              marginRight:16
               }}
@@ -3019,7 +3025,7 @@ alignItems:"center"
                   width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 26,
                   resizeMode: 'contain',
                 }}></Image>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           
         
             <TouchableOpacity
@@ -3036,9 +3042,9 @@ alignItems:"center"
                 }}></Image>
             </TouchableOpacity>
         
-        </View>
+        {/* </View> */}
 
-        <View style={{flexDirection:"row", alignItems:"center", justifyContent:"center",position:"relative",top:-18, 
+        {/* <View style={{flexDirection:"row", alignItems:"center", justifyContent:"center",position:"relative",top:-18, 
          width:"33.33%",
        
          }}>
@@ -3080,7 +3086,7 @@ alignItems:"center"
                   resizeMode: 'contain',
                 }}/>
             </TouchableOpacity>
-          </View>
+          </View> */}
        
 
         <TouchableOpacity
@@ -3104,7 +3110,7 @@ alignItems:"center"
             marginRight: 10,
             borderWidth: 2,
             borderColor: Colors.surfblur,
-            height:30,  width:"33.33%",
+            height:45,  width:"50%",
           }}>
           <Text
             style={{
