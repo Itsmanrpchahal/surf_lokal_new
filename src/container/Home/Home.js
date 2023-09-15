@@ -1342,6 +1342,7 @@ const Home = () => {
                                                                         item.data_customvalue,
                                                                     },
                                                                   }),
+                                                                  
                                                                 ).then(res => {
                                                                   setHomeData(res.payload.data);
                                                                 });
