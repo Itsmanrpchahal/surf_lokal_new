@@ -18,6 +18,7 @@ import {getLeaderboard} from '../../modules/getLeaderboard';
 
 import {getProfile} from '../../modules/getProfile';
 import DeviceInfo from 'react-native-device-info';
+import { ScrollView } from 'react-native-gesture-handler';
 const Leaderboard = () => {
   const [leaderboarddata, setleaderboarddata] = useState([]);
   const [getProfileData, setgetProfileData] = useState([]);
@@ -62,7 +63,8 @@ const Leaderboard = () => {
       : [];
 
   return (
-    <SafeAreaView style={{backgroundColor: Colors.darbluec}}>
+    <SafeAreaView style={{backgroundColor: Colors.darbluec,height:"100%"}}>
+  
       <View style={styles.headermain}>
         <TouchableOpacity
           style={styles.leftcover}
@@ -84,6 +86,7 @@ const Leaderboard = () => {
           />
         </TouchableOpacity>
       </View>
+      <ScrollView styles={{}}>
       <View style={styles.screencover}>
         <View style={styles.surfcover}>
           <Image source={Images.searcfrank} style={styles.surfimage} />
@@ -154,6 +157,7 @@ const Leaderboard = () => {
           <Text style={styles.bottombottext}>Here is where you rank.</Text>
         </View>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

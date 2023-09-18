@@ -2479,7 +2479,7 @@ alignItems:"center"
                   }}>
                   {typeof property?.content.rendered === 'string' ? (
                     <>
-                      {showFullContent ||
+                      {!showFullContent ||
                       property?.content.rendered.length < 100
                         ? property?.content.rendered
                         : property?.content.rendered.slice(0, 100) + ''}
@@ -2502,7 +2502,7 @@ alignItems:"center"
                         DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 11,
                       fontFamily: 'Poppins-Medium',
                     }}>
-                    {showFullContent ? 'Show Less' : 'Read More'}
+                    {!showFullContent ? 'Show Less' : 'Read More'}
                   </Text>
                 </TouchableOpacity>
               </>

@@ -691,9 +691,12 @@ const Settings = props => {
               }
             })
           }}
-            style={{ flexDirection: 'row', alignItems: "center" }}>
-            <Image source={Images.signOut} style={{ height: 20, width: 20 }} />
-            <Text style={{ marginLeft: 6, fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 16, color: "black", fontFamily: 'Poppins-Regular' }}>Signout</Text>
+            style={{ flexDirection: 'row', alignItems: "center", borderWidth:2, borderColor:Colors.surfblur, 
+            padding:7,borderRadius:100,width:135,justifyContent:"center" }}>
+            <Image source={Images.signOut} style={{ height: 20, width: 20,tintColor:Colors.surfblur }} />
+            <Text style={{ marginLeft: 6, 
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 16,
+               color:Colors.surfblur, fontFamily: 'Poppins-Regular' }}>Signout</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
