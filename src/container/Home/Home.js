@@ -570,13 +570,13 @@ const Home = () => {
                 <View style={styles.w85}>
                   <View style={styles.gpscover1}>
 
-                    <TouchableOpacity onPress={() => {
+                    <TouchableOpacity style={styles.filterstyle1} onPress={() => {
                       setIsPressed(!isPressed);
                       setIsPressed1(false);
                       setIsPressed2(false);
                       filtertoggleModal();
                     }}>
-                      <Image source={Images.newfil} style={styles.filterstyle1}></Image>
+                      <Image source={Images.newfil} style={styles.innerfileter}></Image>
                     </TouchableOpacity>
 
                   </View>
@@ -590,7 +590,10 @@ const Home = () => {
                     value={adress}
                     onSubmitEditing={Keyboard.dismiss}
                     onChangeText={text => setAddres(text)}
-                    style={styles.searchinputtextarea}
+                    style={{
+                      ...styles.searchinputtextarea,
+                      textAlign: 'center', 
+                    }}
                   />
                 </View>
                 <View style={styles.searchboarder}>
@@ -2792,7 +2795,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontWeight: '500',
   },
-  filterstyle1: { position: "absolute", left: 12, top: 12 },
+  filterstyle1: { position: "absolute", 
+  height:35,width:40,display:"flex",
+  alignItems:"center",justifyContent:"center" },
   gpscover1: { position: "relative" },
   labelinnercover: {
     flexDirection: 'row',
@@ -3413,7 +3418,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     shadowColor: '#000',
     backgroundColor: Colors.white,
-
+    paddingTop: 10, 
     shadowOffset: {
       width: 0,
       height: 3,
@@ -3422,35 +3427,43 @@ const styles = StyleSheet.create({
     shadowColor: '#52006A',
   },
   searchinputtextarea: {
-    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
     letterSpacing: 1,
     color: '#000',
-    marginLeft: 1,
+   // paddingTop:12,
     position: 'relative',
     marginLeft: 30,
+    display:"flex",
+    alignItems:"center",justifyContent:"center", 
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 42,
+   
   },
   searchboarder: {
     alignItems: 'center',
     width: '15%',
-    height: '100%',
+    height: '110%',
     justifyContent: 'center',
-    height: 42,
+    //height: 42,
     position: 'relative',
     justifyContent: 'center',
     borderLeftWidth: 1,
     borderLeftColor: Colors.BorderColor,
+    position:"relative",
+    top:-5
   },
   searchborderinner: {
     flex: 1,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+   
   },
   addressstyle: {
-
+position:"relative",
     alignItems: 'center',
     justifyContent: 'center',
     resizeMode: 'contain',
+    top:0
   },
   gpsstyle: {
   

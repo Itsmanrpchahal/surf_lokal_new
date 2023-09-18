@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   featuresimage: {
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 100,
     width: DeviceInfo.getDeviceType() === 'Tablet' ? 120 : 90,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     borderRadius: 4,
     marginRight: 8,
   },
