@@ -1,14 +1,12 @@
 import React, { useEffect,  useState } from "react";
 import { View, Text, TouchableOpacity, Image, TextInput, SafeAreaView, StyleSheet } from 'react-native'
 import Colors from "../../utils/Colors";
-import { useNavigation, useIsFocused, useRoute } from "@react-navigation/native";
-
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { chat } from "../../modules/chat";
 import { TypingAnimation } from 'react-native-typing-animation';
 import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
 import Images from "../../utils/Images";
-
 import DeviceInfo from 'react-native-device-info';
 
 const ChatSearch = (props) => {
@@ -18,7 +16,6 @@ const ChatSearch = (props) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [res, setRes] = useState([]);
-  const isFocused = useIsFocused();
 
   useEffect(() => {
     if (route.params?.initialMessage && route.params?.agentReply) {
@@ -134,6 +131,13 @@ const ChatSearch = (props) => {
           data={res}
           threshold={20}
           renderItem={({ item, index }) => {
+          if(item?.type==1){
+            const urlRegex = "https://surflokal.com";
+            const urls = item?.message.match(urlRegex);
+             console.log("renderItem   urls ==>",urls)
+          }
+        
+        
             return (
               <View>
                 <Text
@@ -239,15 +243,13 @@ const ChatSearch = (props) => {
             <TouchableOpacity
               disabled={message === '' && true}
               onPress={() => {
-        
                 setLoading(true)
-                dispatch(chat({ message: message })).then((ress) => {
+                const formData = new FormData();
+                formData.append('message', message);
+                dispatch(chat(formData)).then((ress) => {
                   setMessage('')
                   setLoading(false)
-
-
                   const newTodo1 = {
-
                     type: 0,
                     message: message,
                     date: getCurrentDateTime(),
@@ -258,7 +260,6 @@ const ChatSearch = (props) => {
                     date: getCurrentDateTime(),
                   };
                   setMessage('')
-
                   setRes([...res, newTodo1, newTodo])
 
                 }).catch((e) => {
