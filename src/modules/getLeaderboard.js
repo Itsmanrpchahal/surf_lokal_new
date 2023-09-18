@@ -5,7 +5,6 @@ export const getLeaderboard = createAsyncThunk('getLeaderboard', async () => {
   return await getAPI( BASEURl + 'webapi/v1/rewards/leaderboard.php')
     .then(async response => {
       const { data } = response;
-      console.log('leaderbopard',data)
       return data;
     })
     .catch(e => {

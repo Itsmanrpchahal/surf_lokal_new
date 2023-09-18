@@ -10,7 +10,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import Colors from '../../utils/Colors';
 import Images from '../../utils/Images';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import {useNavigation} from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
@@ -47,14 +47,17 @@ const Leaderboard = () => {
     leaderboarddata && [...leaderboarddata].sort((a, b) => b.points - a.points);
 
   const createAbbreviation = username => {
-    const names = username.split(' ');
-    if (names.length >= 2) {
-      const firstNameInitial = names[0][0];
-      const lastNameInitial = names[names.length - 1][0];
-      return `${firstNameInitial} ${lastNameInitial}`.toUpperCase();
-    } else {
-      return username.toUpperCase();
-    }
+  if(username){
+    const names = username.split("");
+    const firstLetterFirstName = names.find(char => char !== ' ');
+     const lastSpaceIndex = names.lastIndexOf(' ');
+     const firstLetterLastName = lastSpaceIndex !== -1 ? names[lastSpaceIndex + 1] :null;
+    const nameparts = [
+      firstLetterFirstName ? firstLetterFirstName.toUpperCase() : '',
+      firstLetterLastName ? firstLetterLastName.toUpperCase() : ''
+    ];
+     return nameparts
+  }
   };
 
   const top5Leaderboard =
