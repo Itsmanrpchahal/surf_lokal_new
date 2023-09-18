@@ -171,11 +171,11 @@ const ViewPropertiyImage = props => {
           </TouchableOpacity>
 
     
-           <View
+          <View
         style={{
           flexDirection: 'row',
           width: '100%',
-          justifyContent: 'space-between',
+          justifyContent: 'space-around',
           backgroundColor: '#f8f8f8',
           paddingVertical: 12,
           alignItems: 'center',
@@ -183,17 +183,17 @@ const ViewPropertiyImage = props => {
           paddingHorizontal:8,
           height:55
         }}>
-        <View
+        {/* <View
           style={{
             alignItems: 'center',
             flexDirection: 'row',
-     
+      
            width:"33.33%",
            justifyContent:"space-between",
            paddingRight:15
           }}>
-      
-            <TouchableOpacity
+       */}
+            {/* <TouchableOpacity
               style={{
              marginRight:16
               }}
@@ -207,7 +207,7 @@ const ViewPropertiyImage = props => {
                   width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 26,
                   resizeMode: 'contain',
                 }}></Image>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           
         
             <TouchableOpacity
@@ -224,13 +224,14 @@ const ViewPropertiyImage = props => {
                 }}></Image>
             </TouchableOpacity>
         
-        </View>
+        {/* </View> */}
 
-        <View style={{flexDirection:"row", alignItems:"center", justifyContent:"center",position:"relative",top:-18, 
+        {/* <View style={{flexDirection:"row", alignItems:"center", justifyContent:"center",position:"relative",top:-18, 
          width:"33.33%",
        
          }}>
         <TouchableOpacity
+
         onPress={()=>{trashfile(property?.ID)}}
               style={{
                 justifyContent: 'center',
@@ -238,38 +239,43 @@ const ViewPropertiyImage = props => {
                 alignContent: 'center',
                marginHorizontal:8
               }}>
-              <Image
+              <Animatable.Image
                 source={Images.RedDown}
+                animation="bounce"
+                duration={5000}
                 style={{
                   height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
                   width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
                   resizeMode: 'contain',
-                }}></Image>
+                }}/>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={()=>{savefile(property?.ID)}}
+            onPress={()=>{savefile(property?.ID)}}
               style={{
                 justifyContent: 'center',
                 alignItems: 'center',
                 alignContent: 'center',
                 marginHorizontal:8
               }}>
-              <Image
+              <Animatable.Image
+            
                 source={Images.GreenUp}
+                animation="bounce"
+                duration={5000}
                 style={{
                   height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
                   width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
                   resizeMode: 'contain',
-                }}></Image>
+                }}/>
             </TouchableOpacity>
-          </View>
+          </View> */}
        
 
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('BookaTour', {
               ID: '',
-              PropID: postid?.ID,
+              PropID: property?.ID,
               user_id: '',
               user2_id: '',
             });
@@ -281,19 +287,20 @@ const ViewPropertiyImage = props => {
             flexDirection: 'row',
             alignSelf: 'center',
             borderRadius: 50,
-            paddingHorizontal:8,
+            // paddingHorizontal:8,
+            // paddingVertical:8,
             lineHeight: 12,
-            marginRight: 10,
+            // marginRight: 10,
             borderWidth: 2,
             borderColor: Colors.surfblur,
-            height:30,  width:"33.33%",
+            height:45,  width:"45%",
           }}>
           <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 16 : 10,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 18,
               color: Colors.surfblur,
               textAlign: 'center',
-           
+            //  marginLeft:10,
               fontFamily: 'Poppins-Medium',
               position: 'relative',
              
@@ -301,99 +308,12 @@ const ViewPropertiyImage = props => {
             }}>
             Schedule a Tour
           </Text>
-          <LottieView
-            style={{
-              height: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 30,
-              width: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 30,
-            }}
-            source={require('../../assets/animations/SurfVan.json')}
-            autoPlay
-            loop
-          />
+       
         </TouchableOpacity>
       </View>
         </View>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            width: '100%',
-            justifyContent: 'space-between',
-            backgroundColor: '#f8f8f8',
-            paddingVertical: 8,
-            alignItems: 'center',
-            alignContent: 'center',
-          }}>
-          <View
-            style={{
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              width: '30%',
-              flexDirection: 'row',
-              left: 10,
-            }}>
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                alignContent: 'center',
-              }}>
-              <TouchableOpacity
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  alignContent: 'center',
-                  marginRight: 10,
-                }}
-                onPress={() => {
-                  makePhoneCall();
-                }}>
-                <Image
-                  source={Images.newcall}
-                  style={styles.calliconnew}></Image>
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <TouchableOpacity
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  alignContent: 'center',
-                }}
-                onPress={() => navigation.navigate('ChatSearch')}>
-                <Image
-                  source={Images.chatnew}
-                  style={{
-                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 28,
-                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 28,
-                    resizeMode: 'contain',
-                  }}></Image>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('ChatSearch', {
-                initialMessage: 'When would you like to schedule a showing?',
-                agentReply:
-                  'A Lokal agent will confirm with you within the next 2 hours',
-              });
-            }}
-            style={styles.leftbutton}>
-            <Text style={styles.buttontextschedule}>Schedule a Tour</Text>
-            <LottieView
-              style={styles.busicon}
-              source={require('../../assets/animations/SurfVan.json')}
-              autoPlay
-              loop
-            />
-          </TouchableOpacity>
-        </View>
+      
      
       </SafeAreaView>
     </View>

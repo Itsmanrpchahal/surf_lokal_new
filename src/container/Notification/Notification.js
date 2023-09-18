@@ -19,7 +19,7 @@ const Notification = () => {
   const navigation = useNavigation();
 
   const [data, setData] = useState([]);
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(true);
   const [toggle, setToggle] = useState(false);
 
 
