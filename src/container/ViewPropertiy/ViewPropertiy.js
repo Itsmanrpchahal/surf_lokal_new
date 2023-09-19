@@ -83,7 +83,8 @@ const ViewPropertiy = (props, imageUrl) => {
   const [pin, setPin] = useState(null);
   const [lntLng, setLatLng] = useState({ latitude: 0.0, longitude: 0.0 });
 
-  const slideAnimation = useRef(new Animated.Value(0)).current;
+
+
   
   const generateLink = async () => {
     try {
@@ -127,26 +128,31 @@ const ViewPropertiy = (props, imageUrl) => {
       console.log('Sharing Error:', error);
     }
   };
+  const slideAnimation = useRef(new Animated.Value(0)).current;
+
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (_, gestureState) => {
-        slideAnimation.setValue(gestureState.dy);
+        if (gestureState.dy > 0) {
+      
+          slideAnimation.setValue(gestureState.dy);
+        }
       },
       onPanResponderRelease: (_, gestureState) => {
         if (gestureState.dy > 50) {
-
+        
           closeModal();
-        closeSchoolModal()
+          closeSchoolModal()
         } else {
-       
+         
           Animated.spring(slideAnimation, {
             toValue: 0,
             useNativeDriver: false,
           }).start();
         }
       },
-    }),
+    })
   ).current;
   const schoolModal = ()=>{
     setSchoolModalVisible(!schoolModalVisible)
@@ -1044,7 +1050,7 @@ const getCurrentDateTime = () => {
               ></Image>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.goBack()}
+              onPress={() => closeSchoolModal()}
               style={{
 
                 height: 35,
@@ -1066,7 +1072,7 @@ const getCurrentDateTime = () => {
                   tintColor: Colors.black,
 
                 }}
-                source={Images.close}
+                source={Images.whiteclose}
               ></Image>
             </TouchableOpacity>
           </View>
@@ -1203,7 +1209,7 @@ const getCurrentDateTime = () => {
              
             }}>
               <TextInput
-                style={{ width: '90%', backgroundColor: Colors.white, color: Colors.black }}
+                style={{ width: '90%', backgroundColor: Colors.white, color: Colors.black  }}
                 placeholder="Type here"
                 placeholderTextColor={Colors.black}
                 value={message}
@@ -1867,8 +1873,7 @@ alignItems:"center"
                     trashfile(postid.ID);
                   }}
                   onSwipedRight={() => {
-                    savefile(postid.ID);
-         
+                    savefile(postid.ID);      
                   }}
                   renderNope={() =>
                     props.route.params.from === 'MyFavorites' || props.route.params.from === 'Home' ?
@@ -2781,11 +2786,11 @@ alignItems:"center"
                   ],
                 },
               ]}>
-              <ScrollView style={styles.bgcover}>
+              {/* <ScrollView style={styles.bgcover}> */}
                 <View style={{alignItems: 'center', paddingBottom: 20}}>
                   <View style={styles.indicator}></View>
                 </View>
-                <ScrollView style={styles.bgcover}>
+                <ScrollView style={styles.bgcover}showsVerticalScrollIndicator={false}>
                   <View style={{}}>
                     <Text style={styles.reviewtxt}>Rate This Property</Text>
                   </View>
@@ -2943,7 +2948,7 @@ alignItems:"center"
                     </View>
                   </View>
                 </ScrollView>
-              </ScrollView>
+              {/* </ScrollView> */}
             </Animated.View>
           </View>
         </Modal>
@@ -3253,6 +3258,7 @@ const styles = StyleSheet.create({
   bgcover: {
     height: '100%',
     backgroundColor: Colors.white,
+    
   },
   maincov: {
     width: '100%',

@@ -223,6 +223,7 @@ const Home = () => {
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (_, gestureState) => {
+
         slideAnimation.setValue(gestureState.dy);
       },
       onPanResponderRelease: (_, gestureState) => {
@@ -232,8 +233,7 @@ const Home = () => {
           closeTrashModal();
           closeSaveModal();
         } else {
-
-          Animated.spring(slideAnimation, {
+          Animated.spring(slideAnimation,{
             toValue: 0,
             useNativeDriver: false,
           }).start();
@@ -273,6 +273,31 @@ const Home = () => {
   const closeFavModal = () => {
     setfavModalVisiable(false);
   };
+  const slideAnimations = useRef(new Animated.Value(0)).current;
+
+  const panResponders = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (_, gestureState) => {
+        if (gestureState.dy > 0) {
+          
+        slideAnimations.setValue(gestureState.dy);
+        }
+      },
+      onPanResponderRelease: (_, gestureState) => {
+
+        if (gestureState.dy > 50) {
+          closeModals();
+        } else {
+
+          Animated.spring(slideAnimations, {
+            toValue: 0,
+            useNativeDriver: tru,
+          }).start();
+        }
+      },
+    }),
+  ).current;
   const handleModalAnimation = () => {
     Animated.timing(slideAnimation, {
       toValue: modalVisible ? 1 : 0,
@@ -280,36 +305,17 @@ const Home = () => {
       useNativeDriver: false,
     }).start();
   };
+
   useEffect(() => {
     handleModalAnimation();
   }, [modalVisible]);
-  const slideAnimations = useRef(new Animated.Value(0)).current;
-  const panResponders = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderMove: (_, gestureState) => {
-        slideAnimations.setValue(gestureState.dy);
-      },
-      onPanResponderRelease: (_, gestureState) => {
-        if (gestureState.dy > 50) {
 
-          closeModals();
-        } else {
-
-          Animated.spring(slideAnimations, {
-            toValue: 0,
-            useNativeDriver: false,
-          }).start();
-        }
-      },
-    }),
-  ).current;
 
   const handleModalAnimations = () => {
     Animated.timing(slideAnimations, {
       toValue: filterModalVisible ? 1 : 0,
       duration: 300,
-      useNativeDriver: false,
+      useNativeDriver:true,
     }).start();
   };
 
@@ -1948,21 +1954,25 @@ const Home = () => {
                                               {
                                                 translateY:
                                                   slideAnimation.interpolate({
-                                                    inputRange: [-300, 0],
-                                                    outputRange: [-300, 0],
+                                                    inputRange: [0, 300],
+                                                    outputRange: [0,300],
+                                                    extrapolate: 'clamp',
+
                                                   }),
                                               },
                                             ],
                                           },
                                         ]}>
 
-                                        <ScrollView style={styles.bgcover}>
-                                          <View style={{ alignItems: "center", paddingBottom: 20 }}>
+
+                                        <ScrollView style={styles.bgcover}showsVerticalScrollIndicator={false}>
+      <View style={{ alignItems: "center", paddingBottom: 20 }} >
+
 
                                             <View
                                               style={styles.indicator}></View>
                                           </View>
-                                          <ScrollView style={styles.bgcover}>
+                                          <ScrollView style={styles.bgcover}showsVerticalScrollIndicator={false}>
 
                                             <View style={{}}>
                                               <Text style={styles.reviewtxt}>
