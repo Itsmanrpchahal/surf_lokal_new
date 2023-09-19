@@ -134,7 +134,6 @@ const ChatSearch = (props) => {
           if(item?.type==1){
             const urlRegex = "https://surflokal.com";
             const urls = item?.message.match(urlRegex);
-             console.log("renderItem   urls ==>",urls)
           }
         
         

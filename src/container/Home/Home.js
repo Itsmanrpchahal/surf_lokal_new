@@ -31,7 +31,7 @@ import { postRating } from '../../modules/postRating';
 import { getFilter } from '../../modules/getFilter';
 import { SvgUri } from 'react-native-svg';
 import { postUpdateRating } from '../../modules/postUpdateRating';
-import {  MultiSelect } from 'react-native-element-dropdown';
+import { MultiSelect } from 'react-native-element-dropdown';
 import CardsSwipe from 'react-native-cards-swipe';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
@@ -44,7 +44,7 @@ import { addRemoveTrash } from '../../modules/addRemoveTrash';
 import { getRating } from '../../modules/getRating';
 import { ScrollView } from 'react-native-gesture-handler';
 import DeviceInfo from 'react-native-device-info';
-import MapView, { Marker, Callout, PROVIDER_DEFAULT,PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker, Callout, PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
 import Collapsible from 'react-native-collapsible';
 import { getMoreFilter } from '../../modules/getMoreFilter';
 import { useRef } from 'react';
@@ -189,13 +189,20 @@ const Home = () => {
       favlistApi(),
       getSavedApiCall(),
       getMoreFilterApiCall(),
-      // getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
+      getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
       fetchUserScore()
-      setAddres('')
+    setAddres('')
   }, []);
   useEffect(() => {
     if (isFocused) {
-      Promise.all[getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng })];
+      Promise.all
+      [
+        new Promise((resolve, reject) => {
+          const res = store.getState().getPopertiesReducer?.getPopertiesData?.data;
+          setHomeData(res)
+          resolve();
+        })
+      ];
     }
   }, [isFocused]);
   const getFilterApicall = () => {
@@ -225,7 +232,7 @@ const Home = () => {
           closeTrashModal();
           closeSaveModal();
         } else {
-         
+
           Animated.spring(slideAnimation, {
             toValue: 0,
             useNativeDriver: false,
@@ -285,7 +292,7 @@ const Home = () => {
       },
       onPanResponderRelease: (_, gestureState) => {
         if (gestureState.dy > 50) {
-    
+
           closeModals();
         } else {
 
@@ -444,7 +451,7 @@ const Home = () => {
       } else {
         setIsAnimating(false);
         toggleModal();
-     
+
       }
     } catch (error) {
       setIsAnimating(false);
@@ -482,9 +489,9 @@ const Home = () => {
     }
   };
   const renderFillterItem = ({ item, index }) => {
-    const {  data_customvalue, term_name } = item;
-    const isSelected =selectedTabs.filter(i => i === data_customvalue).length > 0;
-    const isSelecteddata_name =termName.filter(i => i === term_name).length > 0;
+    const { data_customvalue, term_name } = item;
+    const isSelected = selectedTabs.filter(i => i === data_customvalue).length > 0;
+    const isSelecteddata_name = termName.filter(i => i === term_name).length > 0;
 
     return (
       <TouchableOpacity
@@ -505,11 +512,11 @@ const Home = () => {
           setActivity(false);
           setLoading(true);
           setAddres('');
-          dispatch(getPoperties({type: 3,data: {data_custom_taxonomy: item.data_custom_taxonomy,data_customvalue: item.data_customvalue,}}),
+          dispatch(getPoperties({ type: 3, data: { data_custom_taxonomy: item.data_custom_taxonomy, data_customvalue: item.data_customvalue, } }),
           ).then(res => {
-            if(res.payload.data.length>1){
-            setHomeData(res.payload.data);
-            }else{
+            if (res.payload.data.length > 1) {
+              setHomeData(res.payload.data);
+            } else {
               // alert(res.payload.message)
             }
           });
@@ -542,7 +549,7 @@ const Home = () => {
   return (
     <View style={{ flex: 1 }}>
       {loading ? (<>
-        <StatusBar backgroundColor={"#5BB3FF"}/ >
+        <StatusBar backgroundColor={"#5BB3FF"} />
         <View style={styles.loaderstyle}>
           <Loader />
         </View>
@@ -592,7 +599,7 @@ const Home = () => {
                     onChangeText={text => setAddres(text)}
                     style={{
                       ...styles.searchinputtextarea,
-                      textAlign: 'center', 
+                      textAlign: 'center',
                     }}
                   />
                 </View>
@@ -658,7 +665,7 @@ const Home = () => {
                         backgroundColor: 'white',
                         borderColor: Colors.gray,
                         borderRadius: 10,
-                        backgroundColor:  'white',
+                        backgroundColor: 'white',
                       },
                     ]}>
                     <Image
@@ -668,7 +675,7 @@ const Home = () => {
                     <Text
                       style={[
                         styles.savesearchstyle,
-                        { color:'black' },
+                        { color: 'black' },
                       ]}>
                       Save Search
                     </Text>
@@ -961,7 +968,7 @@ const Home = () => {
                                   <Modal
                                     transparent={true}
                                     visible={favModalVisiable}
-                               
+
                                     onRequestClose={() => {
                                       setfavModalVisiable(false);
                                     }}>
@@ -1345,7 +1352,7 @@ const Home = () => {
                                                                         item.data_customvalue,
                                                                     },
                                                                   }),
-                                                                  
+
                                                                 ).then(res => {
                                                                   setHomeData(res.payload.data);
                                                                 });
@@ -1950,7 +1957,7 @@ const Home = () => {
                                         ]}>
 
                                         <ScrollView style={styles.bgcover}>
-      <View style={{ alignItems: "center", paddingBottom: 20 }}>
+                                          <View style={{ alignItems: "center", paddingBottom: 20 }}>
 
                                             <View
                                               style={styles.indicator}></View>
@@ -2384,8 +2391,8 @@ const Home = () => {
                           type: 0,
                           data: { limit: limitCount + 1 },
                         })).then(res => {
-                        setHomeData(res?.payload?.data);
-                      });
+                          setHomeData(res?.payload?.data);
+                        });
                     }}
                     style={styles.extencover}>
                     <Text style={styles.extendtext}>Extend</Text>
@@ -2417,9 +2424,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   coverrat: {
-    height:45,
+    height: 45,
     width: 45,
-    
+
   },
   ratingstyle: {
     fontSize: 18,
@@ -2446,7 +2453,7 @@ const styles = StyleSheet.create({
   sendcover: {
     height: 50,
     width: 50,
-   
+
     alignItems: 'center',
     position: 'relative',
 
@@ -2795,9 +2802,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontWeight: '500',
   },
-  filterstyle1: { position: "absolute", 
-  height:35,width:40,display:"flex",
-  alignItems:"center",justifyContent:"center" },
+  filterstyle1: {
+    position: "absolute",
+    height: 35, width: 40, display: "flex",
+    alignItems: "center", justifyContent: "center"
+  },
   gpscover1: { position: "relative" },
   labelinnercover: {
     flexDirection: 'row',
@@ -2877,7 +2886,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    borderRadius: 20, 
+    borderRadius: 20,
     overflow: 'hidden',
 
     marginHorizontal: 16,
@@ -2903,11 +2912,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,.8)',
     height: 38,
     width: 35,
-  
+
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 3,
-   
+
     shadowOffset: { width: -2, height: 4 },
     shadowColor: '#171717',
     shadowOpacity: 0.2,
@@ -2932,9 +2941,9 @@ const styles = StyleSheet.create({
   },
 
   modalOverlay1: {
- 
+
     width: DeviceInfo.getDeviceType() === 'Tablet' ? '100%' : '98%',
-   
+
     height: '100%',
   },
   welcometxt: {
@@ -2973,7 +2982,7 @@ const styles = StyleSheet.create({
     padding: 16,
     maxHeight: '60%',
     width: '96%',
-  
+
     boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
   },
   modalContent2: {
@@ -2983,7 +2992,7 @@ const styles = StyleSheet.create({
     padding: 16,
     maxHeight: '80%',
     width: '96%',
-   
+
     boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
   },
   modalContent3: {
@@ -2993,7 +3002,7 @@ const styles = StyleSheet.create({
     padding: 16,
     maxHeight: '90%',
     width: '96%',
- 
+
     boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
   },
   shadowProp: {
@@ -3182,7 +3191,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   rew: {
-   
+
     borderRadius: 8,
     paddingHorizontal: 13,
     justifyContent: 'center',
@@ -3418,7 +3427,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     shadowColor: '#000',
     backgroundColor: Colors.white,
-    paddingTop: 10, 
+    paddingTop: 10,
     shadowOffset: {
       width: 0,
       height: 3,
@@ -3430,13 +3439,13 @@ const styles = StyleSheet.create({
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
     letterSpacing: 1,
     color: '#000',
-   // paddingTop:12,
+    // paddingTop:12,
     position: 'relative',
     marginLeft: 30,
-    display:"flex",
-    alignItems:"center",justifyContent:"center", 
+    display: "flex",
+    alignItems: "center", justifyContent: "center",
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 42,
-   
+
   },
   searchboarder: {
     alignItems: 'center',
@@ -3448,25 +3457,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderLeftWidth: 1,
     borderLeftColor: Colors.BorderColor,
-    position:"relative",
-    top:-5
+    position: "relative",
+    top: -5
   },
   searchborderinner: {
     flex: 1,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-   
+
   },
   addressstyle: {
-position:"relative",
+    position: "relative",
     alignItems: 'center',
     justifyContent: 'center',
     resizeMode: 'contain',
-    top:0
+    top: 0
   },
   gpsstyle: {
-  
+
     resizeMode: 'contain',
   },
   gpscover: {
@@ -3500,7 +3509,7 @@ position:"relative",
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
   },
   filtericonstyles: {
-  
+
     marginRight: 6,
   },
   filtericontext: {
@@ -3525,7 +3534,7 @@ position:"relative",
     marginLeft: 10,
     overflow: 'hidden',
     position: 'absolute',
-    opacity:0.5
+    opacity: 0.5
   },
   cardinner: {
     position: 'absolute',
@@ -3552,7 +3561,7 @@ position:"relative",
     borderRadius: 15,
     overflow: 'hidden',
     position: 'absolute',
-    opacity:0.5
+    opacity: 0.5
   },
   redthumbcover: {
     position: 'absolute',
