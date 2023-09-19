@@ -62,16 +62,11 @@ const BookaTour = props => {
   };
 
   const getBookTourAPicall = async () => {
-    const id = await AsyncStorage.getItem('userId');
     const formData = new FormData();
     formData.append('propid', postid.post_id);
     formData.append('schedule_hour', selectedTime);
     formData.append('schedule_day', selectedDate);
-    formData.append(
-      'user_mobile',
-      store.getState().loginUser.loginData.metadata.mobile[0],
-    );
-
+    formData.append( 'user_mobile', store.getState().loginUser.loginData.metadata.mobile[0], );
     dispatch(
       sendMessage({
        
@@ -93,11 +88,14 @@ const BookaTour = props => {
           selectedDate.getMinutes(),
       }),
     )
-      .then(res => {
+      .then(async res => {
         setLoading(false);
         setMessage('');
         if (res.payload.success) {
-          dispatch(
+         await dispatch(getBookTour(formData)).then(response => {
+            
+          });
+           await dispatch(
             getChatDetail({
               ID: props?.route?.params?.PropID
                 ? props?.route?.params?.PropID
@@ -106,9 +104,7 @@ const BookaTour = props => {
           )
             .then(res => {
               setGetMessg(res?.payload?.data);
-              dispatch(getBookTour(formData)).then(response => {
-            
-              });
+          
             })
             .catch(e => {});
         }

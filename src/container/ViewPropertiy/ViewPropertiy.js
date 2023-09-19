@@ -26,7 +26,6 @@ import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import {useDispatch} from 'react-redux';
 import {WebView} from 'react-native-webview';
-import AsyncStorage from '@react-native-community/async-storage';
 import {postRating} from '../../modules/postRating';
 import {useNavigation} from '@react-navigation/native';
 import {getPopertiesDetails} from '../../modules/getPopertiesDetails';
@@ -34,14 +33,7 @@ import DeviceInfo from 'react-native-device-info';
 import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
 import { TypingAnimation } from 'react-native-typing-animation';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
-import * as Animatable from 'react-native-animatable'
-
-import MapView, {
-
-  Marker,
-  
-  PROVIDER_GOOGLE
-} from 'react-native-maps';
+import MapView, { Marker,  PROVIDER_GOOGLE} from 'react-native-maps';
 import {getRating} from '../../modules/getRating';
 import {postUpdateRating} from '../../modules/postUpdateRating';
 import {addToFavorite} from '../../modules/addToFavorite';
@@ -54,6 +46,7 @@ import { schoolChat } from '../../modules/schoolChat';
 
 
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
+import { getPoperties} from '../../modules/getPoperties';
 const screenWidth = Dimensions.get('window').width;
 
 const {width} = Dimensions.get('screen');
@@ -69,13 +62,10 @@ const ViewPropertiy = (props, imageUrl) => {
   const [rating2, setRating2] = useState(0);
   const [rating3, setRating3] = useState(0);
   const [commentContent, setComentContent] = useState('dada');
-
-
   const [productId, setProductId] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
   const property = data[0];
   const [isAnimating, setIsAnimating] = useState(false);
-
   const [calData, setCalData] = useState([]);
   const [schoolRating, setSchoolRating] = useState([]);
   const navigation = useNavigation();
@@ -91,11 +81,9 @@ const ViewPropertiy = (props, imageUrl) => {
   const [ratingData, setRatingData] = useState([]);
   const [schoolModalVisible, setSchoolModalVisible] = useState(false);
   const [pin, setPin] = useState(null);
+  const [lntLng, setLatLng] = useState({ latitude: 0.0, longitude: 0.0 });
 
   const slideAnimation = useRef(new Animated.Value(0)).current;
-
-
-
   
   const generateLink = async () => {
     try {
@@ -205,6 +193,7 @@ const ViewPropertiy = (props, imageUrl) => {
     setLoading(true);
     dispatch(getPopertiesDetails(postid.ID)).then(response => {
       setLoading(false);
+      
       setData(response.payload.data);
       setCalData(response.payload.data[0].moartage || []);
       setSchoolRating(response.payload.data[0].school);
@@ -236,20 +225,22 @@ const ViewPropertiy = (props, imageUrl) => {
   };
 
   const savefile = async post_id => {
-    const userID = await AsyncStorage.getItem('userId');
-
     const formData = new FormData();
-    formData.append('userID', userID);
     formData.append('post_id', post_id);
-
-    await dispatch(addToFavorite(formData)).then(response => {
-      if (response.payload.success) {
-
-      } else {
-  
+    await dispatch(addToFavorite(formData)).then(  response => {
+      setLoading(true)
+      if (response?.payload?.data?.success) {
+        getPopertiesApiCall({type:0,data:{limit:1}, lntLng})
       }
     });
-    navigation.goBack();
+  };
+  const getPopertiesApiCall = async(type) => {
+    await dispatch(getPoperties(type)).then((response)=>{
+      if(response?.payload?.success){
+        setLoading(false)
+        navigation.goBack()
+      }
+    });
   };
   const getAgentApicall = () => {
     dispatch(getAgent()).then(response => {
@@ -258,20 +249,14 @@ const ViewPropertiy = (props, imageUrl) => {
   };
 
   const trashfile = async post_id => {
-    const userID = await AsyncStorage.getItem('userId');
     const formData = new FormData();
-    formData.append('userID', userID);
     formData.append('post_id', post_id);
-
     await dispatch(addRemoveTrash(formData)).then(response => {
-      if (response.payload.success) {
-      
-      } else {
-
-      }
+      setLoading(true)
+      if (response.payload?.data?.success) {
+        getPopertiesApiCall({type:0,data:{limit:1}, lntLng})
+      } 
     });
-
-    navigation.goBack();
   };
 
   const updateReview = async post_id => {
@@ -1878,13 +1863,11 @@ alignItems:"center"
                   }}
                   loop={true}
                   cards={data}
-                  // onSwiped={opacity}
                   onSwipedLeft={() => {
-                    trashfile(property?.ID);
-               
+                    trashfile(postid.ID);
                   }}
                   onSwipedRight={() => {
-                    savefile(property?.ID);
+                    savefile(postid.ID);
          
                   }}
                   renderNope={() =>
