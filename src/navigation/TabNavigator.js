@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
   rebatemenu: {
     fontFamily: 'Poppins-Bold',
     position: 'absolute',
-    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
     top: -31,
     color: Colors.black,
     flexDirection: 'row',
