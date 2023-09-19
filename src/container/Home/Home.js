@@ -153,10 +153,10 @@ const Home = () => {
   const [imageWidth, setImageWidth] = useState(0);
   const ref = useRef();
   useEffect(() => {
-    setCenterHeight(mainViewHeight - topViewHeight);
-  }, [topViewHeight]);
+    setCenterHeight (mainViewHeight-topViewHeight);
+  },[topViewHeight]);
 
-  useEffect(() => { }, [topViewHeight]);
+  // useEffect(() => {}, [topViewHeight]);
 
   useEffect(() => {
     if (selectedTabsMore) {
@@ -806,9 +806,10 @@ const Home = () => {
                       renderCard={(item, index) => (
                         <View style={[styles.shadowProp, { height: '100%' }]}>
                           <SwiperFlatList
-                            style={{ height: '60%' }}
+                            style={{ height: '60%',width:'100%' }}
+                            disableGesture={true}
                             index={imageIndex}
-                            autoPlay={true}
+                            autoPlay={false}
                             autoplayDelay={3000}
                             data={item?.featured_image_src}
                             refer={index}
@@ -817,7 +818,7 @@ const Home = () => {
                                 <View
                                   onLayout={({ nativeEvent }) => {
                                     const { x, y, width, height } =
-                                      nativeEvent.layout;
+                                      nativeEvent.layout
                                     setImageHeight(height);
                                     setImageWidth(width);
                                   }}
@@ -825,9 +826,10 @@ const Home = () => {
                                     height: '100%',
                                     width: width,
                                     position: 'relative',
+                                  
                                   }}>
                                   <View style={styles.upperarrowcover}>
-                                    <View style={styles.arroescovr}>
+                                    {/* <View style={styles.arroescovr}>
                                       <Image
                                         source={Images.next}
                                         style={styles.nextcover}
@@ -837,7 +839,7 @@ const Home = () => {
                                         source={Images.next}
                                         style={styles.nextimage}
                                       />
-                                    </View>
+                                    </View> */}
                                     <TouchableOpacity
                                       disabled={imageIndex > 0 ? false : true}
                                       onPress={() => {
@@ -848,20 +850,23 @@ const Home = () => {
                                         width: 30,
                                         position: 'relative',
                                         left: 10,
+                                   
                                       }}>
                                       <View
                                         style={{
-                                          height: '100%',
+                                          height: width,
                                           width: 40,
                                           position: 'absolute',
                                           zIndex: 999,
+                                          right: 10,
+                                        //  backgroundColor:'green'
                                         }}></View>
                                     </TouchableOpacity>
 
                                     <TouchableOpacity
                                       disabled={
                                         item?.featured_image_src?.length - 1 ===
-                                          imageIndex
+                                          imageIndex 
                                           ? true
                                           : false
                                       }
@@ -871,10 +876,11 @@ const Home = () => {
                                       <View
                                         style={{
                                           height: width,
-                                          width: 40,
+                                          width: 50,
                                           position: 'absolute',
                                           zIndex: 999,
                                           right: 10,
+                                          // backgroundColor:'red'
                                         }}></View>
                                     </TouchableOpacity>
                                   </View>
@@ -3596,7 +3602,7 @@ const styles = StyleSheet.create({
   featuredimage: {
     width: '95%',
     height: '100%',
-    borderRadius: 0,
+
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
@@ -3630,12 +3636,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     height: '100%',
+   
   },
   upperarrowcover: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
     zIndex: 99,
+  
   },
   bgcover: {
     height: '100%',

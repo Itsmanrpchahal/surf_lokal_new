@@ -44,12 +44,12 @@ const viewSizeRatio = screenHeight / 1000;
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
 
-  const [emailId, setEmailId] = useState('access@wpkraken.io');
-  const [password, setPassword] = useState('CherryPicker1!');
+  // const [emailId, setEmailId] = useState('access@wpkraken.io');
+  // const [password, setPassword] = useState('CherryPicker1!');
   // const [emailId, setEmailId] = usestate('roman345@gmail.com');
   // const [password, setPassword] = useState('Roman321');
-  // const [emailId, setEmailId] = useState('saurav.webperfection@gmail.com');
-  // const [password, setPassword] = useState('Kumar@123');
+  const [emailId, setEmailId] = useState('saurav.webperfection@gmail.com');
+  const [password, setPassword] = useState('Kumar@123');
   // const [emailId, setEmailId] = usestate('saurav1.webperfection@gmail.com');
   // const [password, setPassword] = useState('Kumar@123');
 
@@ -234,14 +234,16 @@ export default function Login({ navigation }) {
           username: emailId,
           password: password,
           device_type: Platform.OS === 'android' ? 1 : 2,
-          device_token: fcmtoken
+          device_token: fcmtoken,
+          user_type:1
         };
 
         setLoading(true);
         dispatch(loginUser(data)).then(response => {
+       
           if (response.payload.status) {
             setLoading(false);
-            let access_token = response.payload?.metadata?.[fcmtoken].toString()
+            let access_token = response?.payload?.data?.authToken
             const setToken = async () => {
               console.log('fcmtoken stored successfully.', fcmtoken);
               console.log('access_token stored successfully.', access_token);
