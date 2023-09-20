@@ -706,7 +706,7 @@ const MyFavorites = props => {
         <TouchableOpacity
           style={styles.rightheader}
           onPress={() => navigation.goBack()}>
-          <Animatable.Image
+          <Image
             source={Images.menu}
             style={styles.imagedata}
             animation="flipInY"

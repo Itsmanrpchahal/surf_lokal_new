@@ -33,7 +33,7 @@ import DeviceInfo from 'react-native-device-info';
 import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
 import { TypingAnimation } from 'react-native-typing-animation';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
-import MapView, { Marker,  PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, { Marker,  PROVIDER_DEFAULT,  PROVIDER_GOOGLE} from 'react-native-maps';
 import {getRating} from '../../modules/getRating';
 import {postUpdateRating} from '../../modules/postUpdateRating';
 import {addToFavorite} from '../../modules/addToFavorite';
@@ -620,7 +620,7 @@ const ViewPropertiy = (props, imageUrl) => {
           </View>
           <View style={styles.maincovermap}>
             <MapView
-              provider={PROVIDER_GOOGLE}
+              provider={PROVIDER_DEFAULT}
               style={styles.map}
               region={{
                 latitude: parseFloat(pin.latitude),

@@ -291,7 +291,7 @@ const ContactSurf = () => {
         <TouchableOpacity
           style={styles.menutoggle}
           onPress={() => navigation.goBack()}>
-          <Animatable.Image
+          <Image
             source={Images.menu}
             style={styles.imagedata}
             animation="flipInY"

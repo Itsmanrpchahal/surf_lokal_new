@@ -48,7 +48,7 @@ const StackNavigator = () => {
             headerShown: false,
             cardStyle: { backgroundColor: Colors.white },
           }}
-          initialRouteName={store?.getState()?.loginUserReducer?.loginData?.status === true ? 'Tabs' : 'Login'}
+          initialRouteName={store?.getState()?.loginUserReducer?.loginData?.success === true ? 'Tabs' : 'Login'}
         >
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
