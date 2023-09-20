@@ -153,27 +153,23 @@ const Home = () => {
   const [imageWidth, setImageWidth] = useState(0);
   const ref = useRef();
   useEffect(() => {
-
     dispatch(propertyChatList())
   }, [])
   useEffect(() => {
     setCenterHeight(mainViewHeight - topViewHeight);
   }, [topViewHeight]);
 
-
-  // useEffect(() => {}, [topViewHeight]);
-
   useEffect(() => {
     if (selectedTabsMore) {
-      dispatch(
-        getPoperties({
-          type: 3,
-          data: {
-            data_custom_taxonomy: 'more_filter_data',
-            data_customvalue: selectedTabsMore.toString(),
-          },
-        }),
-      ).then(res => { });
+      // dispatch(
+      //   getPoperties({
+      //     type: 3,
+      //     data: {
+      //       data_custom_taxonomy: 'more_filter_data',
+      //       data_customvalue: selectedTabsMore.toString(),
+      //     },
+      //   }),
+      // ).then(res => { });
     }
   }, [selectedTabsMore]);
   useEffect(() => {
@@ -202,8 +198,9 @@ const Home = () => {
     if (isFocused) {
       Promise.all
       [
-        new Promise((resolve, reject) => {
+        new Promise((resolve,) => {
           const res = store.getState().getPopertiesReducer?.getPopertiesData?.data;
+           console.log("getPopertiesReducer===>",res)
           setHomeData(res)
           resolve();
         })
@@ -297,7 +294,7 @@ const Home = () => {
 
           Animated.spring(slideAnimations, {
             toValue: 0,
-            useNativeDriver: tru,
+            useNativeDriver: true,
           }).start();
         }
       },
@@ -1363,10 +1360,8 @@ const Home = () => {
                                                                   getPoperties({
                                                                     type: 3,
                                                                     data: {
-                                                                      data_custom_taxonomy:
-                                                                        'bedroom',
-                                                                      data_customvalue:
-                                                                        item.data_customvalue,
+                                                                      data_custom_taxonomy: 'bedroom',
+                                                                      data_customvalue: item.data_customvalue,
                                                                     },
                                                                   }),
 
@@ -1421,10 +1416,8 @@ const Home = () => {
                                                                 getPoperties({
                                                                   type: 3,
                                                                   data: {
-                                                                    data_custom_taxonomy:
-                                                                      'bathroom',
-                                                                    data_customvalue:
-                                                                      item.data_customvalue,
+                                                                    data_custom_taxonomy: 'bathroom',
+                                                                    data_customvalue: item.data_customvalue,
                                                                   },
                                                                 }),
                                                               ).then(res => {
@@ -1516,10 +1509,8 @@ const Home = () => {
                                                             getPoperties({
                                                               type: 3,
                                                               data: {
-                                                                data_custom_taxonomy:
-                                                                  'min_square',
-                                                                data_customvalue:
-                                                                  item.data_customvalue,
+                                                                data_custom_taxonomy:'min_square',
+                                                                data_customvalue: selectedItem.data_customvalue,
                                                               },
                                                             }),
                                                           ).then(res => {
@@ -1590,10 +1581,8 @@ const Home = () => {
                                                             getPoperties({
                                                               type: 3,
                                                               data: {
-                                                                data_custom_taxonomy:
-                                                                  'max_square',
-                                                                data_customvalue:
-                                                                  selectedItem.data_customvalue,
+                                                                data_custom_taxonomy:'max_square',
+                                                                data_customvalue:selectedItem.data_customvalue,
                                                               },
                                                             }),
                                                           ).then(res => {
@@ -1677,10 +1666,8 @@ const Home = () => {
                                                             getPoperties({
                                                               type: 3,
                                                               data: {
-                                                                data_custom_taxonomy:
-                                                                  'min_price',
-                                                                data_customvalue:
-                                                                  item.data_customvalue,
+                                                                data_custom_taxonomy:'min_price',
+                                                                data_customvalue: selectedItem.data_customvalue,
                                                               },
                                                             }),
                                                           ).then(res => {
@@ -1752,10 +1739,9 @@ const Home = () => {
                                                             getPoperties({
                                                               type: 3,
                                                               data: {
-                                                                data_custom_taxonomy:
-                                                                  'max_price',
+                                                                data_custom_taxonomy: 'max_price',
                                                                 data_customvalue:
-                                                                  item.data_customvalue,
+                                                                selectedItem.data_customvalue,
                                                               },
                                                             }),
                                                           ).then(res => {
