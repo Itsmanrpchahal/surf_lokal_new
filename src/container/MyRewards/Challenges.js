@@ -65,7 +65,7 @@ const Challenges = () => {
         <TouchableOpacity
           style={styles.menucover}
           onPress={() => navigation.goBack()}>
-          <Animatable.Image
+          <Image
             source={Images.menu}
             style={styles.imagedata}
             animation="flipInY"

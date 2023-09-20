@@ -1026,72 +1026,23 @@ const updateReview = async post_id => {
   return (
     <SafeAreaView style={styles.container}>
 
-<View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          width: '100%',
-          position: 'relative',
-          alignItems: 'center',
-          paddingTop: 16,
-          paddingBottom: 2,
-        }}>
+<View style={styles.mainheader}>
         <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            alignItems: 'flex-start',
-            position: 'absolute',
-            left: 12,
-            justifyContent: 'flex-start',
-            top: 13,
-            width:50,
-            height:50
-
-          }}
+          style={styles.leftheader}
           onPress={() => {
             navigation.goBack();
           }}>
           <Image
-            style={{
-              width: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
-              height: DeviceInfo.getDeviceType() === 'Tablet'?40:27,
-              resizeMode: 'contain',
-              justifyContent: 'center',
-              flexDirection: 'row',
-              alignItems: 'center',
-              resizeMode: 'contain',
-            }}
+            style={styles.leftheaderimage}
             source={Images.leftnewarrow}></Image>
-     
         </TouchableOpacity>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?40:20,
-              color: Colors.black,
-              fontFamily: 'Poppins-Light',
-              lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?42:22,
-            }}>
-           Recycle Bin
-          </Text>
-     
+        <View style={styles.centerheader}>
+          <Text style={styles.centertext}>Recycle bin</Text>
         </View>
         <TouchableOpacity
-
-          style={{
-            position:"absolute",
-    right:10,
-    top:15
-          }}
-
+          style={styles.rightheader}
           onPress={() => navigation.goBack()}>
-
-          <Animatable.Image
+          <Image
             source={Images.menu}
             style={styles.imagedata}
             animation="flipInY"
@@ -1244,7 +1195,7 @@ const updateReview = async post_id => {
               style={{
                 fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium'
               }}>
-              No properties in Bin !!
+             No properties in bin
             </Text>
           </View>
         ) : (
@@ -1287,6 +1238,50 @@ const styles = StyleSheet.create({
   borderBottomColor:Colors.BorderColor,paddingBottom:15,paddingTop:15,
 
 },
+leftheaderimage: {
+  width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 27,
+  height: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 27,
+  resizeMode: 'contain',
+  justifyContent: 'center',
+  flexDirection: 'row',
+  alignItems: 'center',
+  resizeMode: 'contain',
+},
+centerheader: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+imagedata: {
+  height: DeviceInfo.getDeviceType() === 'Tablet' ? 29 : 19,
+  width: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 29,
+  resizeMode: 'contain',
+},
+centertext: {
+  fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 20,
+  color: Colors.black,
+  fontFamily: 'Poppins-Light',
+  lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 42 : 22,
+},
+rightheader: {
+  position: 'absolute',
+  right: 10,
+  top: 15,
+  tintColor:'black',
+ 
+},
+leftheader: {
+  flexDirection: 'row',
+  alignItems: 'flex-start',
+  position: 'absolute',
+  left: 12,
+  justifyContent: 'flex-start',
+
+  top: 13,
+ 
+  width: 50,
+  height: 50,
+},
   collapsebg:{
  
   },
@@ -1309,6 +1304,15 @@ marginBottom:16
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  mainheader: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%',
+    position: 'relative',
+    alignItems: 'center',
+    paddingTop: 16,
+    paddingBottom: 2,
   },
   slide: {
     width: screenWidth - 16,
@@ -1527,7 +1531,6 @@ marginBottom:16
   imagedata: {
     height:DeviceInfo.getDeviceType() === 'Tablet'?29:19,
     width: DeviceInfo.getDeviceType() === 'Tablet'?49:29,
-
     resizeMode: 'contain',
    
   },

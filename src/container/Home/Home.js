@@ -2329,7 +2329,8 @@ const Home = () => {
                       </Collapsible>
                     </View>
                     <MapView
-                      provider={PROVIDER_GOOGLE}
+                    //  mapType={Platform.OS == "android" ? "none" : "standard"}
+                      provider={PROVIDER_DEFAULT}
                       style={styles.map}
                       zoomControlEnabled={true}
                       showsCompass={true}
@@ -2491,11 +2492,16 @@ const styles = StyleSheet.create({
     height: 80,
     width: 100,
     resizeMode: 'stretch',
+    
   },
   innercallout: {
     position: 'relative',
     height: 100,
-    top: -20,
+    top:-20,
+    ...Platform.select({
+      ios:{top:10,left:5},
+     
+    })
   },
   uppercallout: {
     flexDirection: 'row',

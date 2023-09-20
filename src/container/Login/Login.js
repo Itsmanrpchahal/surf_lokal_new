@@ -241,7 +241,7 @@ export default function Login({ navigation }) {
         setLoading(true);
         dispatch(loginUser(data)).then(response => {
        
-          if (response.payload.status) {
+          if (response.payload.success) {
             setLoading(false);
             let access_token = response?.payload?.data?.authToken
             const setToken = async () => {
