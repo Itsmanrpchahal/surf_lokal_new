@@ -47,7 +47,6 @@ const MyFavorites = () => {
 
   useEffect(() => {
     if (store?.getState()?.loginUserReducer?.loginData?.data?.user_role === "administrator") {
-      // setTabshow(false)
        setTabshow(true)
     }
   }, [])
@@ -55,15 +54,7 @@ const MyFavorites = () => {
 
 
   useEffect(() => {
-    dispatch(propertyChatList()).then((res) => {
-      if (res?.payload?.success) {
-        setPropertyChat(res?.payload?.data)
-      } else {
-        setPropertyChat([])
-      }
-    }).catch((e) => {
-      setPropertyChat([])
-    })
+    setPropertyChat(store.getState().propertyChatList?.likeDisLikeData?.data)
   }, [])
 
   useEffect(() => {
@@ -416,14 +407,19 @@ const MyFavorites = () => {
                       width: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
                       resizeMode: 'contain'
                     }} />
-                  <Text style={{
-                    position: "absolute", backgroundColor: "red", right: DeviceInfo.getDeviceType() === 'Tablet' ? -12 : -8, bottom: DeviceInfo.getDeviceType() === 'Tablet' ? -10 : -5,
-                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 15,
-                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 15,
-                    borderRadius: 100, color: Colors.white,
-                    textAlign: "center", fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 15 : 9, alignItems: "center",
-                    justifyContent: "center"
-                  }}>{notification[0]?.length > 0 ? notification[0]?.length : "0"}</Text></View>
+                    {
+                      notification[0]?.length > 0 ?
+                      <Text style={{
+                        position: "absolute", backgroundColor: "red", right: DeviceInfo.getDeviceType() === 'Tablet' ? -12 : -8, bottom: DeviceInfo.getDeviceType() === 'Tablet' ? -10 : -5,
+                        height: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 15,
+                        width: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 15,
+                        borderRadius: 100, color: Colors.white,
+                        textAlign: "center", fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 15 : 9, alignItems: "center",
+                        justifyContent: "center"
+                      }}>{notification[0]?.length > 0 ? notification[0]?.length : "0"}</Text>:null
+                    }
+                 
+                  </View>
                 <Text style={styles.text}>Notifications</Text>
               </View>
               <View style={styles.line}></View>
