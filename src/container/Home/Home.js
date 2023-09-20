@@ -36,7 +36,6 @@ import CardsSwipe from 'react-native-cards-swipe';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-
 import LottieView from 'lottie-react-native';
 import { store } from '../../redux/store';
 import { addToFavorite } from '../../modules/addToFavorite';
@@ -58,6 +57,7 @@ import dynamicLinks from '@react-native-firebase/dynamic-links';
 import GetLocation from 'react-native-get-location';
 import Loader from '../../components/Loader';
 import { useIsFocused } from '@react-navigation/native';
+import { propertyChatList } from '../../modules/propertyChats';
 
 const { width } = Dimensions.get('screen');
 const Home = () => {
@@ -152,6 +152,9 @@ const Home = () => {
   const [imageHeight, setImageHeight] = useState(0);
   const [imageWidth, setImageWidth] = useState(0);
   const ref = useRef();
+  useEffect(() => {
+    dispatch(propertyChatList())
+  }, [])
   useEffect(() => {
     setCenterHeight(mainViewHeight - topViewHeight);
   }, [topViewHeight]);

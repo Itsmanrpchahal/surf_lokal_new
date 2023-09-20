@@ -1,14 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {  uploadImageAPI } from '../config/apiMethod';
 
-export const getChatDetail = createAsyncThunk('getChatDetail', async (dispatch) => {
-  const formData = new FormData()
-  formData.append(' propid', dispatch.ID)
+export const getChatDetail = createAsyncThunk('getChatDetail', async (formData) => {
   try {
     const response = await uploadImageAPI(
       `https://www.surflokal.com/webapi/v1/chat/chatByproperty.php`,
       formData,
- 
+      
     ).then((res) => {
       return res;
     }).catch((e) => {
@@ -16,7 +14,7 @@ export const getChatDetail = createAsyncThunk('getChatDetail', async (dispatch) 
     })
     return response;
   } catch (error) {
-    throw error; 
+    throw error;
   }
 });
 

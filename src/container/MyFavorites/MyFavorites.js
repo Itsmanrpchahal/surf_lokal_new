@@ -171,8 +171,6 @@ const MyFavorites = props => {
   }, [isFocused]);
   const getFavoritePropertiesApiCall = () => {
     dispatch(getFavoriteProperties()).then(response => {
-     console.log("getFavoritePropertiesApiCall   ",response.payload.data)
-
       if (response.payload.data.length < 1) {
         setShowNoDataMessage(true);
       } else {

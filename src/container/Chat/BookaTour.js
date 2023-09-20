@@ -1,4 +1,4 @@
-import React, {useEffect, useId, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,33 +7,29 @@ import {
   TextInput,
   SafeAreaView,
   StyleSheet,
-
+  StatusBar,
 } from 'react-native';
 import Colors from '../../utils/Colors';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
-
-import {store} from '../../redux/store';
-import {TypingAnimation} from 'react-native-typing-animation';
-import {AutoScrollFlatList} from 'react-native-autoscroll-flatlist';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { store } from '../../redux/store';
+import { TypingAnimation } from 'react-native-typing-animation';
+import { AutoScrollFlatList } from 'react-native-autoscroll-flatlist';
 import Images from '../../utils/Images';
 import AsyncStorage from '@react-native-community/async-storage';
-import {getBookTour} from '../../modules/getBookTour';
-import {isRead} from '../../modules/isRead';
-import {getChatDetail} from '../../modules/getChatDetail';
-import {sendMessage} from '../../modules/sendMessage';
+import { pushNotificaton } from '../../modules/pushNotificaton';
+import { isRead } from '../../modules/isRead';
+import { getChatDetail } from '../../modules/getChatDetail';
+import { sendMessage } from '../../modules/sendMessage';
 import DatePicker from 'react-native-date-picker';
-
 import DeviceInfo from 'react-native-device-info';
-
+import Loader from '../../components/Loader';
 const BookaTour = props => {
   const navigation = useNavigation();
   const route = useRoute();
   const [message, setMessage] = useState();
-
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-
   const [getMesg, setGetMessg] = useState([]);
   const [userID, setUserID] = useState();
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -43,85 +39,105 @@ const BookaTour = props => {
   const postid = props.route.params;
 
   useEffect(() => {
-    getUserID();
-    if (props?.route?.params?.ID) {
-      Promise.all([
-        dispatch(isRead({ID: props?.route?.params?.ID})),
-        dispatch(getChatDetail({ID: props?.route?.params?.PropID}))
-          .then(res => {
-            setGetMessg(res?.payload?.data.data);
-          })
-          .catch(e => {}),
-      ]);
-    }
-  }, []);
+ console.log(store.getState().loginUserReducer.loginData)
+  }, [])
+  
+
+  // useEffect(() => {
+  //   getUserID();
+  //   if (props?.route?.params?.ID) {
+  //     Promise.all([
+  //       dispatch(isRead({ID: props?.route?.params?.ID})),
+  //       dispatch(getChatDetail({ID: props?.route?.params?.PropID}))
+  //         .then(res => {
+  //           console.log("getChatDetail======>>", res?.payload?.data.data)
+  //           setGetMessg(res?.payload?.data.data);
+  //         })
+  //         .catch(e => {}),
+  //     ]);
+  //   }
+  // }, []);
+  useEffect(() => {
+    getChatDetailApiCall()
+  }, [])
+
+  const getChatDetailApiCall = async () => {
+    setLoading(true)
+    const formData = new FormData();
+    formData.append('propid', postid?.PropID);
+    await dispatch(getChatDetail(formData)).then((response) => {
+      setGetMessg(response?.payload?.data?.data);
+      setLoading(false)
+    })
+  };
 
   const getUserID = async () => {
     const id = await AsyncStorage.getItem('userId');
     setUserID(id);
   };
 
-  const getBookTourAPicall = async () => {
-    const formData = new FormData();
-    formData.append('propid', postid.post_id);
-    formData.append('schedule_hour', selectedTime);
-    formData.append('schedule_day', selectedDate);
-    formData.append( 'user_mobile', store.getState().loginUser.loginData.metadata.mobile[0], );
-    dispatch(
-      sendMessage({
-       
-        propid: props?.route?.params?.PropID
-          ? props?.route?.params?.PropID
-          : postid.post_id,
-        user2_id: props?.route?.params?.user2_id
-          ? props?.route?.params?.user2_id
-          : '',
-        message:
-          selectedDate.getDate() +
-          '/' +
-          selectedDate.getMonth() +
-          '/' +
-          selectedDate.getFullYear() +
-          ',' +
-          selectedTime.getHours() +
-          ':' +
-          selectedDate.getMinutes(),
-      }),
-    )
-      .then(async res => {
-        setLoading(false);
-        setMessage('');
-        if (res.payload.success) {
-         await dispatch(getBookTour(formData)).then(response => {
-            
-          });
-           await dispatch(
-            getChatDetail({
-              ID: props?.route?.params?.PropID
-                ? props?.route?.params?.PropID
-                : postid.post_id,
-            }),
-          )
-            .then(res => {
-              setGetMessg(res?.payload?.data);
-          
-            })
-            .catch(e => {});
-        }
-      })
-      .catch(e => {
-        alert(JSON.stringify(e));
-      });
+  // const getBookTourAPicall = async () => {
+  //   const formData = new FormData();
+  //   formData.append('propid', postid.post_id);
+  //   formData.append('schedule_hour', selectedTime);
+  //   formData.append('schedule_day', selectedDate);
+  //   formData.append( 'user_mobile', store.getState().loginUser.loginData.metadata.mobile[0], );
+  //   dispatch(
+  //     sendMessage({
 
-  
-  };
+  //       propid: props?.route?.params?.PropID
+  //         ? props?.route?.params?.PropID
+  //         : postid.post_id,
+  //       user2_id: props?.route?.params?.user2_id
+  //         ? props?.route?.params?.user2_id
+  //         : '',
+  //       message:
+  //         selectedDate.getDate() +
+  //         '/' +
+  //         selectedDate.getMonth() +
+  //         '/' +
+  //         selectedDate.getFullYear() +
+  //         ',' +
+  //         selectedTime.getHours() +
+  //         ':' +
+  //         selectedDate.getMinutes(),
+  //     }),
+  //   )
+  //     .then(async res => {
+  //       setLoading(false);
+  //       setMessage('');
+  //       if (res.payload.success) {
+  //        await dispatch(getBookTour(formData)).then(response => {
+
+  //         });
+  //          await dispatch(
+  //           getChatDetail({
+  //             ID: props?.route?.params?.PropID
+  //               ? props?.route?.params?.PropID
+  //               : postid.post_id,
+  //           }),
+  //         )
+  //           .then(res => {
+  //             setGetMessg(res?.payload?.data);
+
+  //           })
+  //           .catch(e => {});
+  //       }
+  //     })
+  //     .catch(e => {
+  //       alert(JSON.stringify(e));
+  //     });
+
+
+  // };
+
+
 
   return (
     <SafeAreaView>
-      <View style={{height: '100%', position: 'relative', paddingBottom: 100}}>
+      <View style={{ height: '100%', position: 'relative', paddingBottom: 100 }}>
         <View
           style={{
-           
             height: 50,
             flexDirection: 'row',
             justifyContent: 'center',
@@ -133,7 +149,7 @@ const BookaTour = props => {
             style={{
               position: 'absolute',
               left: 5,
-     
+
               flexDirection: 'row',
               alignItems: 'center',
 
@@ -141,7 +157,7 @@ const BookaTour = props => {
               width: 50,
               height: 50,
               shadowColor: 'black',
-              shadowOffset: {width: 1, height: 2},
+              shadowOffset: { width: 1, height: 2 },
               shadowOpacity: 0.3,
               shadowRadius: 5,
             }}
@@ -167,7 +183,7 @@ const BookaTour = props => {
             }}>
             Schedule a Tour
           </Text>
-    
+
         </View>
         <Text
           style={{
@@ -188,14 +204,14 @@ const BookaTour = props => {
           inverted
           data={getMesg}
           threshold={20}
-          renderItem={({item, index}) => {
+          renderItem={({ item, index }) => {
             return (
-              <View style={{marginBottom: 5}}>
+              <View style={{ marginBottom: 5 }}>
                 {item.message ===
-                'A Lokal agent will confirm with you within the next 2 hours' ? (
+                  'A Lokal agent will confirm with you within the next 2 hours' ? (
                   <Text
                     style={{
-              
+
                       fontSize: 16,
                       borderRadius: 16,
                       backgroundColor: "#D3D3D3",
@@ -216,7 +232,7 @@ const BookaTour = props => {
                 ) : (
                   <Text
                     style={{
-            
+
                       fontSize: 16,
                       borderRadius: 16,
                       backgroundColor:
@@ -276,7 +292,7 @@ const BookaTour = props => {
           )}
 
           {loading && getMesg?.length > 2 && (
-            <View style={{flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <Text
                 style={{
                   fontSize: 12,
@@ -298,7 +314,7 @@ const BookaTour = props => {
                 dotRadius={1}
                 dotX={8}
                 dotY={0}
-                style={{marginTop: 25, marginLeft: -3}}
+                style={{ marginTop: 25, marginLeft: -3 }}
               />
             </View>
           )}
@@ -340,7 +356,7 @@ const BookaTour = props => {
                 onPress={() => {
                   setOpen(true);
                   setDate(new Date());
-              
+
                 }}
                 style={{
                   flexDirection: 'row',
@@ -382,22 +398,9 @@ const BookaTour = props => {
                         setLoading(false);
                         setMessage('');
                         if (res.payload.success) {
-                          dispatch(
-                            getChatDetail({
-                              ID: props?.route?.params?.PropID
-                                ? props?.route?.params?.PropID
-                                : postid.PropID,
-                            }),
-                          )
-                            .then(res => {
-                              setGetMessg(res?.payload?.data);
-                            })
-                            .catch(e => {});
+                          getChatDetailApiCall()
                         }
                       })
-                      .catch(e => {
-                        alert(JSON.stringify(e));
-                      });
                   }
                 }}
                 style={{
@@ -426,49 +429,49 @@ const BookaTour = props => {
             locale="en-GB"
             theme="light"
             mode="datetime"
-            onConfirm={date => {
-              setOpen(false);
-              const now = date.toDateString();
-              const time = date.getHours() + ':' + date.getMinutes();
-              setLoading(true);
-              {
-                const formData = new FormData();
-                formData.append(
-                  'propid',
-                  props?.route?.params?.PropID
-                    ? props?.route?.params?.PropID
-                    : postid.PropID,
-                );
-                formData.append(
-                  'user2_id',
-                  props?.route?.params?.user2_id
-                    ? props?.route?.params?.user2_id
-                    : 18,
-                );
-                formData.append('message', now + ',' + time);
-                dispatch(sendMessage(formData))
-                  .then(res => {
-                    setLoading(false);
-                    setMessage('');
-                    if (res.payload.data.success) {
-                      dispatch(
-                        getChatDetail({
-                          ID: props?.route?.params?.PropID
-                            ? props?.route?.params?.PropID
-                            : postid.post_id,
-                        }),
-                      )
-                        .then(res => {
-                          setGetMessg(res?.payload?.data?.data);
-                        })
-                        .catch(e => {});
-                    }
-                  })
-                  .catch(e => {
-                    alert(JSON.stringify(e));
-                  });
+            onConfirm={
+              date => {
+                setOpen(false);
+                const now = date.toDateString();
+                const time = date.getHours() + ':' + date.getMinutes();
+                {
+                  const formData = new FormData();
+                  formData.append(
+                    'propid',
+                    props?.route?.params?.PropID
+                      ? props?.route?.params?.PropID
+                      : postid.PropID,
+                  );
+                  formData.append(
+                    'user2_id',
+                    props?.route?.params?.user2_id
+                      ? props?.route?.params?.user2_id
+                      : 18,
+                  );
+                  formData.append('message', now + ',' + time);
+                  dispatch(sendMessage(formData))
+                    .then(res => {
+                      setLoading(false);
+                      setMessage('');
+                      if (res.payload.data.success) {
+                        getChatDetailApiCall()
+                        {
+                          const payload={
+                           propid: postid?.PropID,
+                           schedule_hour:time,
+                           schedule_day:now,
+                           user_mobile:6202142148
+                          }
+                         dispatch(pushNotificaton(payload))
+                       }
+                      }
+                    })
+                    .catch(e => {
+                    });
+
+                }
               }
-            }}
+            }
             onCancel={() => {
               setOpen(false);
             }}
@@ -496,6 +499,6 @@ const styles = StyleSheet.create({
     width: 12,
     resizeMode: 'contain',
     tintColor: Colors.black,
-   
+
   },
 });

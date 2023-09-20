@@ -18,8 +18,6 @@ const ChatHistory = ({navigation}) => {
   useEffect(() => {
     setPropertyChat(store.getState().propertyChatList?.likeDisLikeData?.data)
   }, [])
-  
-
   return (
     <SafeAreaView>
       <View style={styles.headerbgmain}>
@@ -55,10 +53,9 @@ const ChatHistory = ({navigation}) => {
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate('BookaTour', {
-                      ID: item?.item?.chat_id,
+                      // ID: item?.item?.chat_id,
                       PropID: item?.item?.ID,
-             
-                      user2_id: item?.item?.user2_id,
+                      // user2_id: item?.item?.user2_id,
                     });
                   }}>
                   <View style={styles.mainlisting}>
