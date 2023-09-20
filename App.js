@@ -23,10 +23,10 @@ const App = () => {
     const fcmtoken = await messaging().getToken()
     axios.interceptors.request.use(function (config) {
       config.headers['security_key'] = 'SurfLokal52';
-      config.headers['access_token'] = store?.getState()?.loginUserReducer?.loginData?.metadata?.[fcmtoken].toString();
+      config.headers['access_token'] = store?.getState()?.loginUserReducer?.loginData?.data?.authToken
       return config;
     });
-    console.log("setToken ", store?.getState()?.loginUserReducer?.loginData?.metadata?.[fcmtoken].toString())
+    console.log("setToken ", store?.getState()?.loginUserReducer?.loginData?.data?.authToken)
   }
   setToken()
 

@@ -61,26 +61,25 @@ const MyFavorites = props => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const slideAnimation = useRef(new Animated.Value(0)).current;
-
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (_, gestureState) => {
-        slideAnimation.setValue(gestureState.dy);
+        if (gestureState.dy > 0) {
+          slideAnimation.setValue(gestureState.dy);
+        }
       },
       onPanResponderRelease: (_, gestureState) => {
         if (gestureState.dy > 50) {
- 
           closeModal();
         } else {
-         
           Animated.spring(slideAnimation, {
             toValue: 0,
             useNativeDriver: false,
           }).start();
         }
       },
-    }),
+    })
   ).current;
 
   const toggleModal = () => {
@@ -363,11 +362,11 @@ const MyFavorites = props => {
                   ],
                 },
               ]}>
-              <ScrollView style={styles.bgcover}>
+              <ScrollView style={styles.bgcover} showsVerticalScrollIndicator={false}>
                 <View style={{alignItems: 'center', paddingBottom: 20}}>
                   <View style={styles.indicator}></View>
                 </View>
-                <ScrollView style={styles.bgcover}>
+                <ScrollView style={styles.bgcover}showsVerticalScrollIndicator={false}>
                   <View style={{}}>
                     <Text style={styles.reviewtxt}>Rate This Property</Text>
                   </View>

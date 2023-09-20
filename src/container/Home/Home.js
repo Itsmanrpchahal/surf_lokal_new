@@ -153,13 +153,15 @@ const Home = () => {
   const [imageWidth, setImageWidth] = useState(0);
   const ref = useRef();
   useEffect(() => {
+
     dispatch(propertyChatList())
   }, [])
   useEffect(() => {
     setCenterHeight(mainViewHeight - topViewHeight);
   }, [topViewHeight]);
 
-  useEffect(() => { }, [topViewHeight]);
+
+  // useEffect(() => {}, [topViewHeight]);
 
   useEffect(() => {
     if (selectedTabsMore) {
@@ -226,6 +228,7 @@ const Home = () => {
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (_, gestureState) => {
+
         slideAnimation.setValue(gestureState.dy);
       },
       onPanResponderRelease: (_, gestureState) => {
@@ -235,8 +238,7 @@ const Home = () => {
           closeTrashModal();
           closeSaveModal();
         } else {
-
-          Animated.spring(slideAnimation, {
+          Animated.spring(slideAnimation,{
             toValue: 0,
             useNativeDriver: false,
           }).start();
@@ -276,6 +278,31 @@ const Home = () => {
   const closeFavModal = () => {
     setfavModalVisiable(false);
   };
+  const slideAnimations = useRef(new Animated.Value(0)).current;
+
+  const panResponders = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (_, gestureState) => {
+        if (gestureState.dy > 0) {
+          
+        slideAnimations.setValue(gestureState.dy);
+        }
+      },
+      onPanResponderRelease: (_, gestureState) => {
+
+        if (gestureState.dy > 50) {
+          closeModals();
+        } else {
+
+          Animated.spring(slideAnimations, {
+            toValue: 0,
+            useNativeDriver: tru,
+          }).start();
+        }
+      },
+    }),
+  ).current;
   const handleModalAnimation = () => {
     Animated.timing(slideAnimation, {
       toValue: modalVisible ? 1 : 0,
@@ -283,36 +310,17 @@ const Home = () => {
       useNativeDriver: false,
     }).start();
   };
+
   useEffect(() => {
     handleModalAnimation();
   }, [modalVisible]);
-  const slideAnimations = useRef(new Animated.Value(0)).current;
-  const panResponders = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderMove: (_, gestureState) => {
-        slideAnimations.setValue(gestureState.dy);
-      },
-      onPanResponderRelease: (_, gestureState) => {
-        if (gestureState.dy > 50) {
 
-          closeModals();
-        } else {
-
-          Animated.spring(slideAnimations, {
-            toValue: 0,
-            useNativeDriver: false,
-          }).start();
-        }
-      },
-    }),
-  ).current;
 
   const handleModalAnimations = () => {
     Animated.timing(slideAnimations, {
       toValue: filterModalVisible ? 1 : 0,
       duration: 300,
-      useNativeDriver: false,
+      useNativeDriver:true,
     }).start();
   };
 
@@ -803,9 +811,10 @@ const Home = () => {
                       renderCard={(item, index) => (
                         <View style={[styles.shadowProp, { height: '100%' }]}>
                           <SwiperFlatList
-                            style={{ height: '60%' }}
+                            style={{ height: '60%',width:'100%' }}
+                            disableGesture={true}
                             index={imageIndex}
-                            autoPlay={true}
+                            autoPlay={false}
                             autoplayDelay={3000}
                             data={item?.featured_image_src}
                             refer={index}
@@ -814,7 +823,7 @@ const Home = () => {
                                 <View
                                   onLayout={({ nativeEvent }) => {
                                     const { x, y, width, height } =
-                                      nativeEvent.layout;
+                                      nativeEvent.layout
                                     setImageHeight(height);
                                     setImageWidth(width);
                                   }}
@@ -822,9 +831,10 @@ const Home = () => {
                                     height: '100%',
                                     width: width,
                                     position: 'relative',
+                                  
                                   }}>
                                   <View style={styles.upperarrowcover}>
-                                    <View style={styles.arroescovr}>
+                                    {/* <View style={styles.arroescovr}>
                                       <Image
                                         source={Images.next}
                                         style={styles.nextcover}
@@ -834,7 +844,7 @@ const Home = () => {
                                         source={Images.next}
                                         style={styles.nextimage}
                                       />
-                                    </View>
+                                    </View> */}
                                     <TouchableOpacity
                                       disabled={imageIndex > 0 ? false : true}
                                       onPress={() => {
@@ -845,20 +855,23 @@ const Home = () => {
                                         width: 30,
                                         position: 'relative',
                                         left: 10,
+                                   
                                       }}>
                                       <View
                                         style={{
-                                          height: '100%',
+                                          height: width,
                                           width: 40,
                                           position: 'absolute',
                                           zIndex: 999,
+                                          right: 10,
+                                        //  backgroundColor:'green'
                                         }}></View>
                                     </TouchableOpacity>
 
                                     <TouchableOpacity
                                       disabled={
                                         item?.featured_image_src?.length - 1 ===
-                                          imageIndex
+                                          imageIndex 
                                           ? true
                                           : false
                                       }
@@ -868,10 +881,11 @@ const Home = () => {
                                       <View
                                         style={{
                                           height: width,
-                                          width: 40,
+                                          width: 50,
                                           position: 'absolute',
                                           zIndex: 999,
                                           right: 10,
+                                          // backgroundColor:'red'
                                         }}></View>
                                     </TouchableOpacity>
                                   </View>
@@ -1951,21 +1965,25 @@ const Home = () => {
                                               {
                                                 translateY:
                                                   slideAnimation.interpolate({
-                                                    inputRange: [-300, 0],
-                                                    outputRange: [-300, 0],
+                                                    inputRange: [0, 300],
+                                                    outputRange: [0,300],
+                                                    extrapolate: 'clamp',
+
                                                   }),
                                               },
                                             ],
                                           },
                                         ]}>
 
-                                        <ScrollView style={styles.bgcover}>
-                                          <View style={{ alignItems: "center", paddingBottom: 20 }}>
+
+                                        <ScrollView style={styles.bgcover}showsVerticalScrollIndicator={false}>
+      <View style={{ alignItems: "center", paddingBottom: 20 }} >
+
 
                                             <View
                                               style={styles.indicator}></View>
                                           </View>
-                                          <ScrollView style={styles.bgcover}>
+                                          <ScrollView style={styles.bgcover}showsVerticalScrollIndicator={false}>
 
                                             <View style={{}}>
                                               <Text style={styles.reviewtxt}>
@@ -3589,7 +3607,7 @@ const styles = StyleSheet.create({
   featuredimage: {
     width: '95%',
     height: '100%',
-    borderRadius: 0,
+
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
@@ -3623,12 +3641,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     height: '100%',
+   
   },
   upperarrowcover: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
     zIndex: 99,
+  
   },
   bgcover: {
     height: '100%',
