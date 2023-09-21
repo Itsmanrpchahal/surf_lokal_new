@@ -1977,7 +1977,36 @@ alignItems:"center"
                             }}
                             source={{uri: item?.featured_image_src}}
                           />
-                        </TouchableOpacity></View>
+                          {/* <View>
+                           <TouchableOpacity  
+          onPress={async () => {
+              const formData = new FormData();
+           formData.append('post_id',item.ID);
+              await dispatch(addRemoveTrash(formData))
+              getFavoritePropertiesApiCall()
+            }
+              
+            }>
+            <Image source={Images.layerfav} style={styles.chaticon}></Image>
+          </TouchableOpacity>
+          <TouchableOpacity  
+          onPress={async () => {
+              const formData = new FormData();
+           formData.append('post_id',item.ID);
+              await dispatch(addToFavorite(formData))
+              getTrashApiCall()
+            }
+              
+            }>
+            <Image
+  source={Images.layerfav}
+  style={[styles.chaticon, { transform: [{ rotate: '180deg' }] }]}
+/>
+          </TouchableOpacity>
+          </View> */}
+                        </TouchableOpacity>
+                        
+                        </View>
                       <View style={{height: '40%'}}>
                         <View
                           style={{
@@ -2933,7 +2962,7 @@ alignItems:"center"
                           <TouchableOpacity
                             onPress={() => addReview()}
                             style={styles.submitbtncover}>
-                            <Text style={styles.submitbtntxt}>SAVE</Text>
+                            <Text style={styles.submitbtntxt}>Save</Text>
                           </TouchableOpacity>
                           {isAnimating && (
                             <LottieView
@@ -2989,17 +3018,17 @@ alignItems:"center"
           paddingHorizontal:8,
           height:55
         }}>
-        {/* <View
+        <View
           style={{
             alignItems: 'center',
             flexDirection: 'row',
       
-           width:"33.33%",
+           width:"30.33%",
            justifyContent:"space-between",
            paddingRight:15
           }}>
-       */}
-            {/* <TouchableOpacity
+      
+            <TouchableOpacity
               style={{
              marginRight:16
               }}
@@ -3013,12 +3042,12 @@ alignItems:"center"
                   width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 26,
                   resizeMode: 'contain',
                 }}></Image>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           
         
             <TouchableOpacity
               style={{
-       
+               right:20
               }}
               onPress={() => navigation.navigate('ChatSearch')}>
               <Image
@@ -3029,52 +3058,8 @@ alignItems:"center"
                   resizeMode: 'contain',
                 }}></Image>
             </TouchableOpacity>
-        
-        {/* </View> */}
-
-        {/* <View style={{flexDirection:"row", alignItems:"center", justifyContent:"center",position:"relative",top:-18, 
-         width:"33.33%",
-       
-         }}>
-        <TouchableOpacity
-
-        onPress={()=>{trashfile(property?.ID)}}
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                alignContent: 'center',
-               marginHorizontal:8
-              }}>
-              <Animatable.Image
-                source={Images.RedDown}
-                animation="bounce"
-                duration={5000}
-                style={{
-                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
-                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
-                  resizeMode: 'contain',
-                }}/>
-            </TouchableOpacity>
-            <TouchableOpacity
-            onPress={()=>{savefile(property?.ID)}}
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                alignContent: 'center',
-                marginHorizontal:8
-              }}>
-              <Animatable.Image
-            
-                source={Images.GreenUp}
-                animation="bounce"
-                duration={5000}
-                style={{
-                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
-                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
-                  resizeMode: 'contain',
-                }}/>
-            </TouchableOpacity>
-          </View> */}
+        </View>
+     
        
 
         <TouchableOpacity
@@ -3088,7 +3073,7 @@ alignItems:"center"
             
           }}
           style={{
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             alignItems: 'center',
             flexDirection: 'row',
             alignSelf: 'center',
@@ -3098,15 +3083,17 @@ alignItems:"center"
             lineHeight: 12,
             // marginRight: 10,
             borderWidth: 2,
-            borderColor: Colors.surfblur,
-            height:45,  width:"45%",
+            backgroundColor:Colors.surfblur,
+            borderColor: Colors.white,
+            height:45,  width:"65%",
           }}>
           <Text
             style={{
               fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 18,
-              color: Colors.surfblur,
+              color: Colors.white,
               textAlign: 'center',
             //  marginLeft:10,
+            left:10,
               fontFamily: 'Poppins-Medium',
               position: 'relative',
              
@@ -3114,6 +3101,12 @@ alignItems:"center"
             }}>
             Schedule a Tour
           </Text>
+          <LottieView
+         style={{ height: 100, width: DeviceInfo.getDeviceType() === 'Tablet' ? 300 : 90, position:"relative", }}
+         source={require('../../assets/animations/SurfVan.json')}
+         autoPlay
+          loop
+                                            />
        
         </TouchableOpacity>
       </View>
@@ -3271,6 +3264,18 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
   },
+  chaticon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 23 : 19,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 23,
+    resizeMode: 'contain',
+    marginRight: 15,
+    position: 'absolute',
+    top:-30,
+    paddingHorizontal:20
+    // right:5,
+
+    
+  },
   labelcover: {
     flexDirection: 'column',
     justifyContent: 'center',
@@ -3301,7 +3306,7 @@ const styles = StyleSheet.create({
   },
   submitbtntxt: {
     fontSize: 17,
-    color: Colors.surfblur,
+    color: Colors.white,
     fontFamily: 'Poppins-SemiBold',
   },
   submitbtnmain: {
@@ -3310,12 +3315,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   submitbtncover: {
-    width: '100%',
-    borderRadius: 100,
+   
+      height: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 45,
+      width: 100,
+      borderRadius: 100,
+      backgroundColor: Colors.surfblur,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
 
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   btnmaincover: {
     width: '100%',
