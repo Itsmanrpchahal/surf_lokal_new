@@ -100,5 +100,6 @@ const Images = {
   hybrid: require(BaseUrl + 'hybrid.png'),
   trash: require(BaseUrl + 'trash.png'),
   favfilter: require(BaseUrl + 'filtericon.png'),
+  next: require(BaseUrl + 'next.png'),
 };
 export default Images;

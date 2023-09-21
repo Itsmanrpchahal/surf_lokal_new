@@ -14,7 +14,6 @@ import emailCheckReducer from '../modules/emailCheck';
 import forgotPasswordReducer from '../modules/forgotPassword';
 import getSavedSearchReducer from '../modules/getSavedSearch';
 import deleteSearchReducer from '../modules/deleteSearch';
-import getSearchReducer from '../modules/getSearch';
 import getAgentReducer from '../modules/getAgent';
 import getFilterReducer from '../modules/getFilter';
 import getNearByReducer from '../modules/getNearBy';

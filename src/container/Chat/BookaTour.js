@@ -39,8 +39,10 @@ const BookaTour = props => {
   const postid = props.route.params;
 
   useEffect(() => {
- console.log(store.getState().loginUserReducer.loginData)
+    console.log(store.getState().getProfileReducer.getProfileData?.data[0]?.mobile)
+
   }, [])
+  
   
 
   // useEffect(() => {
@@ -460,7 +462,7 @@ const BookaTour = props => {
                            propid: postid?.PropID,
                            schedule_hour:time,
                            schedule_day:now,
-                           user_mobile:6202142148
+                           user_mobile:store.getState().loginUserReducer?.loginData?.data?.mobile
                           }
                          dispatch(pushNotificaton(payload))
                        }
