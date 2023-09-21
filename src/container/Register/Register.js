@@ -158,11 +158,12 @@ export default function Register({ navigation }) {
         </View>
         <View style={Styles.socialMediaButtons}>
           <TextInput
+          k
             allowFontScaling={false}
             style={Styles.inputStyle}
             placeholderTextColor={Colors.textColorLight}
             placeholder={'Phone'}
-            keyboardType="name-phone-pad"
+            keyboardType="numeric"
             returnKeyType="done"
             maxLength={12}
             onChangeText={phone => setPhone(phone)}
