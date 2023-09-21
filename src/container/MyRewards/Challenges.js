@@ -11,7 +11,6 @@ import React, {useState, useEffect} from 'react';
 import Colors from '../../utils/Colors';
 import {useNavigation} from '@react-navigation/native';
 import Images from '../../utils/Images';
-import * as Animatable from 'react-native-animatable';
 import {useDispatch} from 'react-redux';
 import {getRewardListing} from '../../modules/getRewardListing';
 import {useIsFocused} from '@react-navigation/native';
@@ -24,26 +23,38 @@ const screenWidth = Dimensions.get('window').width;
 const Challenges = () => {
 
   const [question, setQuestion] = useState([]);
-  const [index, setindex] = useState(0);
+  const [index, setIndex] = useState(0);
+const [currentSlide, setCurrentSlide] = useState(0)
   const navigation = useNavigation();
 
   const [selectedTabsMore, setSelectedTabsMore] = useState([]);
   const [selectedTabsMore2, setSelectedTabsMore2] = useState([]);
   const [count, setCount] = useState(0);
 
+
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
+  // useEffect(() => {
+  //   console.log("countt",count)
+  //     }, [count])
+
+  // useEffect(() => {
+  //       console.log("index",index)
+  // }, [index])
+  // useEffect(() => {
+  //       console.log("currentSlide",currentSlide)
+  // }, [currentSlide])
   useEffect(() => {
     if (isFocused) {
       Promise.all[(getRewardsChallengeApicall())];
     }
   }, [isFocused]);
-
   const getRewardsChallengeApicall = () => {
     dispatch(getRewardListing()).then(response => {
-      setQuestion(response.payload.data);
-      setCount(response.payload.count);
+      setQuestion(response?.payload?.data);
+      setCount(response?.payload?.count);
+      setCurrentSlide(response?.payload?.count)
     });
   };
 
@@ -74,19 +85,16 @@ const Challenges = () => {
       </View>
 
       <View style={styles.questioncover}>
-        {question[index] ? (
+        {question[index]? (
           <SwiperFlatList
             style={{width: screenWidth}}
-            index={count }
+            index={count}
             data={question}
             refer={index}
             renderItem={({item, index}) => {
               const {ID, points} = item;
-              const isSelected =
-                selectedTabsMore.filter(i => i === ID).length > 0;
-              const isSelected2 =
-                selectedTabsMore2.filter(i => i === ID).length > 0;
-
+              const isSelected =selectedTabsMore.filter(i => i === ID).length > 0;
+              const isSelected2 = selectedTabsMore2.filter(i => i === ID).length > 0;
               return (
                 <View style={{}}>
                   <View style={styles.questionmain}>
@@ -174,6 +182,32 @@ const Challenges = () => {
                                 ? Images.upgreen
                                 : Images.upthumb
                             }
+                            style={styles.upthumpdes}
+                          />
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                    <View style={[styles.innertext,{ flexDirection: 'row',
+                     justifyContent: "space-between",paddingLeft:10,position:"relative", bottom:90}] }>
+                      <TouchableOpacity
+                     onPress={() => {
+                      setCurrentSlide(currentSlide-1)
+                    }}
+                        activeOpacity={0.1}>
+                        <Image
+                          source={ Images.next }
+                          style={[styles.dislikedes,{transform:[{rotate: '180deg'}]}]}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                     onPress={() => {
+                      setCurrentSlide(currentSlide+1)
+
+                    }}
+                        activeOpacity={0.1}>
+                        <View style={styles.viewstyle}>
+                          <Image
+                             source={ Images.next }
                             style={styles.upthumpdes}
                           />
                         </View>

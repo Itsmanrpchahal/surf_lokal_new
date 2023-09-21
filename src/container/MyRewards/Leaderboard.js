@@ -11,18 +11,30 @@ import React, {useEffect, useState} from 'react';
 import Colors from '../../utils/Colors';
 import Images from '../../utils/Images';
 import {useDispatch} from 'react-redux';
-
+import {Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import * as Animatable from 'react-native-animatable';
 import {getLeaderboard} from '../../modules/getLeaderboard';
 
 import {getProfile} from '../../modules/getProfile';
 import DeviceInfo from 'react-native-device-info';
 import { ScrollView } from 'react-native-gesture-handler';
+import LottieView from 'lottie-react-native';
+
+const windowDimensions = Dimensions.get('window');
+const screenDimensions = Dimensions.get('screen');
 const Leaderboard = () => {
+   
   const [leaderboarddata, setleaderboarddata] = useState([]);
   const [getProfileData, setgetProfileData] = useState([]);
 
+  useEffect(() => {
+    console.log(screenDimensions)
+  }, [screenDimensions])
+
+  useEffect(() => {
+    console.log(windowDimensions)
+  }, [windowDimensions])
+  
   useEffect(() => {
     getLeaderboardApicall();
     getProfileApiCall();
@@ -43,8 +55,7 @@ const Leaderboard = () => {
     });
   };
 
-  const sortedLeaderboard =
-    leaderboarddata && [...leaderboarddata].sort((a, b) => b.points - a.points);
+  const sortedLeaderboard = leaderboarddata && [...leaderboarddata].sort((a, b) => b.points - a.points);
 
   const createAbbreviation = username => {
   if(username){
@@ -152,6 +163,14 @@ const Leaderboard = () => {
               </Text>
             </View>
           ))}
+        </View>
+        <View style={styles.coffecover}>
+          <LottieView
+            style={styles.imagesize}
+            source={require('../../assets/animations/LeaderBoard.json')}
+            autoPlay
+            loop
+          />
         </View>
         <View style={styles.bottomtext}>
           <Text style={styles.firstbottomtext}>
@@ -287,5 +306,22 @@ const styles = StyleSheet.create({
     marginHorizontal: 14,
     alignItems: 'flex-start',
   },
+  coffecover: {
+    position:"absolute",
+    // backgroundColor:"yellow",
+    width:"100%",
+    // opacity:0.2,
+    height: "100%",
+    top:"20%",
+    // margin:10
+    left:0,
+    right:0,
+    justifyContent:"center",
+    alignItems:"center"
+
+  },
+  imagesize: {height: 600, width:700, marginRight:0,
+  position:"absolute"},
+
 });
 export default Leaderboard;

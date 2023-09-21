@@ -8,17 +8,13 @@ import ViewPropertiyImage from '../container/ViewPropertiyImage/ViewPropertiyIma
 import ViewImage from '../container/ViewImage/ViewImage';
 import Register from '../container/Register/Register';
 import ForgotPassword from '../container/ForgotPassword/ForgotPassword';
-
 import ChatSearch from '../container/Chat/ChatSearch';
 import SingleImage from '../container/ViewImage/SingleImage';
 import Videoplay from '../container/ViewPropertiy/Videoplay';
 import Leaderboard from '../container/MyRewards/Leaderboard';
 import Challenges from '../container/MyRewards/Challenges';
-
 import Schoolinfo from '../container/ViewPropertiy/Schoolinfo';
-
 import RecycleBin from '../container/RecycleBin/RecycleBin';
-
 import BookaTour from '../container/Chat/BookaTour';
 import ChatHistory from '../container/ChatHistory/ChatHistory';
 import ContactSurf from '../container/ContactMyAgent/ContactSurf';
@@ -28,38 +24,25 @@ import { navigationRef } from './RootNavigation';
 import { NavigationContainer } from '@react-navigation/native';
 import BottomTabNavigator from './TabNavigator';
 import { store } from '../redux/store';
-import { useEffect } from 'react';
 const Stack = createStackNavigator();
 
 const StackNavigator = () => {
-  useEffect(() => {
-     const userType=store?.getState()?.loginUserReducer?.loginData?.data?.user_role
-      if(userType==="administrator"){
-        // alert(JSON.stringify(userType))
-       }
-  }, [])
-  
-
   return (
     <NavigationContainer ref={navigationRef}>
       <SafeAreaProvider style={{ backgroundColor: Colors.PrimaryColor }}>
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
-            cardStyle: { backgroundColor: Colors.white },
-          }}
-          initialRouteName={store?.getState()?.loginUserReducer?.loginData?.success === true ? 'Tabs' : 'Login'}
-        >
+            cardStyle: { backgroundColor: Colors.white },}}
+          initialRouteName={store?.getState()?.loginUserReducer?.loginData?.success === true ? 'Tabs' : 'Login'}>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
           <Stack.Screen name="OtpScreen" component={OtpScreen} />
           <Stack.Screen name="AppIntro" component={AppIntro} />
           <Stack.Screen name="BookaTour" component={BookaTour} />
-
           <Stack.Screen name="Tabs" component={BottomTabNavigator} />
           <Stack.Screen name="ViewPropertiy" component={ViewPropertiy} />
-         
           <Stack.Screen name="ViewPropertiyImage" component={ViewPropertiyImage} />
           <Stack.Screen name="ViewImage" component={ViewImage} />
           <Stack.Screen name="ChatSearch" component={ChatSearch} />
