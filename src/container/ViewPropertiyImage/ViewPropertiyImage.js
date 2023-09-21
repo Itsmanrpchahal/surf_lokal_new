@@ -183,17 +183,17 @@ const ViewPropertiyImage = props => {
           paddingHorizontal:8,
           height:55
         }}>
-        {/* <View
+        <View
           style={{
             alignItems: 'center',
             flexDirection: 'row',
       
-           width:"33.33%",
+           width:"30.33%",
            justifyContent:"space-between",
            paddingRight:15
           }}>
-       */}
-            {/* <TouchableOpacity
+      
+            <TouchableOpacity
               style={{
              marginRight:16
               }}
@@ -207,12 +207,12 @@ const ViewPropertiyImage = props => {
                   width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 26,
                   resizeMode: 'contain',
                 }}></Image>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           
         
             <TouchableOpacity
               style={{
-       
+               right:20
               }}
               onPress={() => navigation.navigate('ChatSearch')}>
               <Image
@@ -223,66 +223,22 @@ const ViewPropertiyImage = props => {
                   resizeMode: 'contain',
                 }}></Image>
             </TouchableOpacity>
-        
-        {/* </View> */}
-
-        {/* <View style={{flexDirection:"row", alignItems:"center", justifyContent:"center",position:"relative",top:-18, 
-         width:"33.33%",
-       
-         }}>
-        <TouchableOpacity
-
-        onPress={()=>{trashfile(property?.ID)}}
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                alignContent: 'center',
-               marginHorizontal:8
-              }}>
-              <Animatable.Image
-                source={Images.RedDown}
-                animation="bounce"
-                duration={5000}
-                style={{
-                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
-                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
-                  resizeMode: 'contain',
-                }}/>
-            </TouchableOpacity>
-            <TouchableOpacity
-            onPress={()=>{savefile(property?.ID)}}
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                alignContent: 'center',
-                marginHorizontal:8
-              }}>
-              <Animatable.Image
-            
-                source={Images.GreenUp}
-                animation="bounce"
-                duration={5000}
-                style={{
-                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
-                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 60,
-                  resizeMode: 'contain',
-                }}/>
-            </TouchableOpacity>
-          </View> */}
+        </View>
+     
        
 
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('BookaTour', {
               ID: '',
-              PropID: property?.ID,
+              PropID: postid?.ID,
               user_id: '',
               user2_id: '',
             });
             
           }}
           style={{
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             alignItems: 'center',
             flexDirection: 'row',
             alignSelf: 'center',
@@ -292,15 +248,17 @@ const ViewPropertiyImage = props => {
             lineHeight: 12,
             // marginRight: 10,
             borderWidth: 2,
-            borderColor: Colors.surfblur,
-            height:45,  width:"45%",
+            backgroundColor:Colors.surfblur,
+            borderColor: Colors.white,
+            height:45,  width:"62%",
           }}>
           <Text
             style={{
               fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 18,
-              color: Colors.surfblur,
+              color: Colors.white,
               textAlign: 'center',
             //  marginLeft:10,
+            left:10,
               fontFamily: 'Poppins-Medium',
               position: 'relative',
              
@@ -308,6 +266,12 @@ const ViewPropertiyImage = props => {
             }}>
             Schedule a Tour
           </Text>
+          <LottieView
+         style={{ height: 100, width: DeviceInfo.getDeviceType() === 'Tablet' ? 300 : 90, position:"relative", }}
+         source={require('../../assets/animations/SurfVan.json')}
+         autoPlay
+          loop
+                                            />
        
         </TouchableOpacity>
       </View>

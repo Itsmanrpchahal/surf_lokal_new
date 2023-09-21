@@ -59,7 +59,7 @@ const MyFavorites = props => {
   const [commentContent, setComentContent] = useState('');
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
+  const [selectedSortOption, setSelectedSortOption] = useState(null)
   const slideAnimation = useRef(new Animated.Value(0)).current;
   const panResponder = useRef(
     PanResponder.create({
@@ -231,11 +231,13 @@ const MyFavorites = props => {
 
   const renderItem = ({item}) => (
     <View style={[styles.slideOuter]}>
+      
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('ViewPropertiy', {
             ID: item.ID,
             from: 'MyFavorites',
+         
           })
         }>
         <Image
@@ -243,6 +245,18 @@ const MyFavorites = props => {
           style={styles.slide}
         />
       </TouchableOpacity>
+      
+      <TouchableOpacity  
+          onPress={async () => {
+              const formData = new FormData();
+           formData.append('post_id',item.ID);
+              await dispatch(addRemoveTrash(formData))
+              getFavoritePropertiesApiCall()
+            }
+              
+            }>
+            <Image source={Images.layerfav} style={styles.chaticon}></Image>
+          </TouchableOpacity>
 
       <View style={styles.listingkeystyle}>
         <Text style={styles.listingkeytext}>{item?.ListingKey}</Text>
@@ -259,28 +273,7 @@ const MyFavorites = props => {
       </View>
 
       <View style={styles.iconscover}>
-        <View style={styles.iconsiner}>
-          <TouchableOpacity  
-          onPress={async () => {
-              const formData = new FormData();
-           formData.append('post_id',item.ID);
-              await dispatch(addRemoveTrash(formData))
-              getFavoritePropertiesApiCall()
-            }
-              
-            }>
-            <Image source={Images.favdownthumb} style={styles.chaticon}></Image>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => makePhoneCall()}>
-            <Image
-              source={Images.calenderwedding}
-              style={styles.caldericon}></Image>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.anothericon}>
-          <View style={styles.staricon}>
+      <View style={styles.staricon}>
             <TouchableOpacity
               onPress={() => {
                 setProductId(item.ID);
@@ -319,6 +312,66 @@ const MyFavorites = props => {
               </View>
             </TouchableOpacity>
           </View>
+        {/* <View style={styles.iconsiner}>
+          <TouchableOpacity  
+          onPress={async () => {
+              const formData = new FormData();
+           formData.append('post_id',item.ID);
+              await dispatch(addRemoveTrash(formData))
+              getFavoritePropertiesApiCall()
+            }
+              
+            }>
+            <Image source={Images.favdownthumb} style={styles.chaticon}></Image>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => makePhoneCall()}>
+            <Image
+              source={Images.calenderwedding}
+              style={styles.caldericon}></Image>
+          </TouchableOpacity>
+        </View> */}
+
+        <View style={styles.anothericon}>
+          {/* <View style={styles.staricon}>
+            <TouchableOpacity
+              onPress={() => {
+                setProductId(item.ID);
+                setReviewTitle(item.title);
+                toggleModal();
+                dispatch(getRating(item.ID)).then(response => {
+                  setRatingData(response?.payload?.data);
+                  setRating(response?.payload?.data[0]?.photo_wuality_rating);
+                  setRating1(
+                    response?.payload?.data[0]?.description_review_stars,
+                  );
+                  setRating2(response?.payload?.data[0]?.price_review_stars);
+                  setRating3(response?.payload?.data[0]?.interest_review_stars);
+                });
+              }}>
+              <View style={styles.ratingmain}>
+                <Image
+                  source={
+                    item.total_average_rating > 0
+                      ? Images.startfill
+                      : Images.star2
+                  }
+                  style={{
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 33 : 22,
+                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 33 : 22,
+                    resizeMode: 'contain',
+                    tintColor:
+                      item.total_average_rating > 0 ? undefined : 'black',
+                  }}
+                />
+                {item.total_average_rating > 0 ? (
+                  <Text style={styles.lightrating}>
+                    {Math.round(item.total_average_rating)}
+                  </Text>
+                ) : null}
+              </View>
+            </TouchableOpacity>
+          </View> */}
           <TouchableOpacity
             style={styles.ml15}
             onPress={() => handleShare(item.ID)}>
@@ -511,7 +564,7 @@ const MyFavorites = props => {
       <TouchableOpacity
         onPress={() => addReview()}
         style={styles.submitbtncover}>
-        <Text style={styles.submitbtntxt}>SAVE</Text>
+        <Text style={styles.submitbtntxt}>Save</Text>
       </TouchableOpacity>
       {isAnimating && (
         <LottieView
@@ -715,6 +768,7 @@ const MyFavorites = props => {
         <TouchableOpacity
           onPress={() => {
             setIsCollapsed(!isCollapsed);
+           
           }}>
           <Image
             style={[
@@ -730,7 +784,7 @@ const MyFavorites = props => {
         </TouchableOpacity>
       </View>
       <Collapsible collapsed={!isCollapsed} style={styles.collapsecover}>
-        <Text style={styles.sortby}>Sort by</Text>
+        <Text style={styles.sortby}>Sort By</Text>
         <View style={styles.collapsebg}>
           <TouchableOpacity
             onPress={async () => {
@@ -742,12 +796,22 @@ const MyFavorites = props => {
             setHomeData(response?.payload?.data)
            })
            setIsCollapsed(false);
+           setSelectedSortOption('Date Favorited')
             }}
             style={styles.collapupper}>
             <Image
               source={Images.calenderwedding}
-              style={styles.colimg}></Image>
-            <Text style={styles.coltxt}>Date Favorited</Text>
+              style={[
+                styles.colimg,
+                {
+                  tintColor: selectedSortOption === 'Date Favorited' ? Colors.surfblur : Colors.black,
+                  fontWeight:selectedSortOption === 'Date Favorited'? '800' : 'normal',
+                },
+              ]}></Image>
+            <Text   style={[
+            styles.coltxt,
+            { color: selectedSortOption === 'Date Favorited'? Colors.surfblur : Colors.black},
+          ]}>Date Favorited</Text>
           </TouchableOpacity>
           {/* <TouchableOpacity
         onPress={async () => {
@@ -776,10 +840,20 @@ const MyFavorites = props => {
     setHomeData(response?.payload?.data)
    })
    setIsCollapsed(false);
+   setSelectedSortOption('Price ascending')
     }}
             style={styles.collapupper}>
-            <Image source={Images.low} style={styles.colimg}></Image>
-            <Text style={styles.coltxt}>Price (Low to High) </Text>
+            <Image source={Images.low}  style={[
+                styles.colimg,
+                {
+                  tintColor: selectedSortOption === 'Price ascending'? Colors.surfblur : Colors.black,
+                  fontWeight: selectedSortOption ==='Price ascending' ? '800' : 'normal',
+                },
+              ]}></Image>
+            <Text style={[
+            styles.coltxt,
+            { color: selectedSortOption ==='Price ascending' ? Colors.surfblur : Colors.black },
+          ]}>Price ascending </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={async () => {
@@ -791,10 +865,20 @@ const MyFavorites = props => {
              setHomeData(response?.payload?.data)
            })
            setIsCollapsed(false);
+           setSelectedSortOption('Price descending')
             }}
             style={styles.collapupper}>
-            <Image source={Images.lowhigh} style={styles.colimg}></Image>
-            <Text style={styles.coltxt}>Price (High to Low)</Text>
+            <Image source={Images.lowhigh} style={[
+                styles.colimg,
+                {
+                  tintColor: selectedSortOption ==='Price descending' ? Colors.surfblur : Colors.black,
+                  fontWeight: selectedSortOption ==='Price descending'? '800' : 'normal',
+                },
+              ]}></Image>
+            <Text style={[
+            styles.coltxt,
+            { color: selectedSortOption ==='Price descending'? Colors.surfblur : Colors.black },
+          ]}>Price descending</Text>
           </TouchableOpacity>
           <TouchableOpacity
           onPress={async () => {
@@ -806,10 +890,20 @@ const MyFavorites = props => {
           setHomeData(response?.payload?.data)
          })
          setIsCollapsed(false);
+        setSelectedSortOption('Beds')
           }}
             style={styles.collapupper}>
-            <Image source={Images.newbed} style={styles.colimg}></Image>
-            <Text style={styles.coltxt}>Beds (High to Low)</Text>
+            <Image source={Images.newbed} style={[
+                styles.colimg,
+                {
+                  tintColor: selectedSortOption ==='Beds' ? Colors.surfblur : Colors.black,
+                  fontWeight: selectedSortOption==='Beds' ? '800' : 'normal',
+                },
+              ]}></Image>
+            <Text style={[
+            styles.coltxt,
+            { color: selectedSortOption ==='Beds' ? Colors.surfblur : Colors.black },
+          ]}>Beds</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={async () => {
@@ -821,10 +915,20 @@ const MyFavorites = props => {
             setHomeData(response?.payload?.data)
           })
            setIsCollapsed(false);
+           setSelectedSortOption('Baths')
             }}
             style={styles.collapupper}>
-            <Image source={Images.bathtub} style={styles.colimg}></Image>
-            <Text style={styles.coltxt}>Baths (High to Low)</Text>
+            <Image source={Images.bathtub} style={[
+                styles.colimg,
+                {
+                  tintColor: selectedSortOption ==='Baths' ? Colors.surfblur : Colors.black,
+                  fontWeight: selectedSortOption ==='Baths' ? '800' : 'normal',
+                },
+              ]}></Image>
+            <Text style={[
+            styles.coltxt,
+            { color: selectedSortOption === 'Baths'? Colors.surfblur : Colors.black },
+          ]}>Baths</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={async () => {
@@ -836,10 +940,20 @@ const MyFavorites = props => {
             setHomeData(response?.payload?.data)
           })
            setIsCollapsed(false);
+           setSelectedSortOption('Square Feet')
             }}
             style={styles.collapupper}>
-            <Image source={Images.measuringtape} style={styles.colimg}></Image>
-            <Text style={styles.coltxt}>Sq Ft (High to Low)</Text>
+            <Image source={Images.measuringtape} style={[
+                styles.colimg,
+                {
+                  tintColor: selectedSortOption === 'Square Feet' ? Colors.surfblur : Colors.black,
+                  fontWeight: selectedSortOption === 'Square Feet' ? '800' : 'normal',
+                },
+              ]}></Image>
+            <Text style={[
+            styles.coltxt,
+            { color: selectedSortOption === 'Square Feet'? Colors.surfblur : Colors.black },
+          ]}>Square Feet</Text>
           </TouchableOpacity>
         </View>
       </Collapsible>
@@ -925,13 +1039,14 @@ const styles = StyleSheet.create({
   },
   submitbtntxt: {
     fontSize: 17,
-    color: Colors.surfblur,
+    color: Colors.white,
     fontFamily: 'Poppins-SemiBold',
   },
   submitbtncover: {
-    width: '100%',
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 45,
+    width: 100,
     borderRadius: 100,
-
+    backgroundColor: Colors.surfblur,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -1132,16 +1247,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   chaticon: {
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 37 : 27,
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? 42 : 32,
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 23 : 19,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 23,
     resizeMode: 'contain',
     marginRight: 15,
-    position: 'relative',
-    top: 4,
+    position: 'absolute',
+    top:-30,
+    right:'35%',
+
+    
   },
   caldericon: {
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 37 : 27,
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? 44 : 33,
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 37 : 50,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 44 : 63,
   },
   anothericon: {
     flexDirection: 'row',
@@ -1165,6 +1283,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: Colors.black,
     fontFamily: 'Poppins-Light',
+    paddingHorizontal:5
   },
   sendbutton: {
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 18,
@@ -1351,7 +1470,7 @@ const styles = StyleSheet.create({
   collapupper: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     borderBottomWidth: 1,
     borderBottomColor: Colors.BorderColor,
     paddingBottom: 15,
@@ -1435,14 +1554,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
   },
 
-  collapsecover: {},
+  collapsecover: {justifyContent:'center',width:"60%",alignSelf:'center'},
 
-  colimg: {height: 36, width: 36, resizeMode: 'contain', marginRight: 8},
-  coltxt: {fontSize: 18, fontFamily: 'Poppins-Light', color: Colors.black},
+  colimg: {height: 36, width: 36, resizeMode: 'contain',left:30 },
+  coltxt: {fontSize: 18, fontFamily: 'Poppins-Light',left:50},
 
   sortby: {
     fontSize: 21,
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'Poppins-Light',
     color: Colors.black,
     textAlign: 'center',
     marginBottom: 15,
