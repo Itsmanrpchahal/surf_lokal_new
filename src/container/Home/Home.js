@@ -151,6 +151,7 @@ const Home = () => {
   const [centerHeight, setCenterHeight] = useState(0);
   const [imageHeight, setImageHeight] = useState(0);
   const [imageWidth, setImageWidth] = useState(0);
+  const [zipText,setZipText] = useState()
   const ref = useRef();
   useEffect(() => {
     dispatch(propertyChatList())
@@ -600,7 +601,7 @@ const Home = () => {
                     placeholderTextColor={'#858383'}
                     fontFamily={'Poppins-Regular'}
                     keyboardType="web-search"
-                    placeholder={'surf lokal...'}
+                    placeholder={''}
                     returnKeyType="done"
                     value={adress}
                     onSubmitEditing={Keyboard.dismiss}
@@ -671,14 +672,14 @@ const Home = () => {
                       {
                         flexDirection: 'row',
                         backgroundColor: 'white',
-                        borderColor: Colors.gray,
+                        borderColor: "#707070",
                         borderRadius: 10,
                         backgroundColor: 'white',
                       },
                     ]}>
                     <Image
                       source={Images.SaveAlt}
-                      style={[styles.filtericonstyles,]}
+                      style={[styles.filtericonstyle,]}
                     />
                     <Text
                       style={[
@@ -724,14 +725,11 @@ const Home = () => {
                         backgroundColor: isPressed2 ? 'black' : 'white',
                         flexDirection: 'row',
                         backgroundColor: 'white',
-                        borderColor: Colors.gray,
+                        borderColor: '#707070',
                         borderRadius: 10,
                       },
                     ]}>
-                    <Image
-                      source={Images.Broom}
-                      style={styles.filtericonstyles}
-                    />
+                   
                     <Text
                       style={[
                         {
@@ -741,6 +739,10 @@ const Home = () => {
                       ]}>
                       Clear filters
                     </Text>
+                    <Image
+                      source={Images.Broom}
+                      style={styles.filtericonstyles}
+                    />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -862,7 +864,12 @@ const Home = () => {
                                           zIndex: 999,
                                           right: 10,
                                         //  backgroundColor:'green'
-                                        }}></View>
+                                        }}>
+                                           <Image
+                                        source={Images.nextslide}
+                                        style={styles.nextcover}
+                                      />
+                                        </View>
                                     </TouchableOpacity>
 
                                     <TouchableOpacity
@@ -883,7 +890,12 @@ const Home = () => {
                                           zIndex: 999,
                                           right: 10,
                                           // backgroundColor:'red'
-                                        }}></View>
+                                        }}>
+                                            <Image
+                                        source={Images.nextslide}
+                                        style={styles.nextimage}
+                                      />
+                                        </View>
                                     </TouchableOpacity>
                                   </View>
                                   <TouchableOpacity
@@ -892,6 +904,7 @@ const Home = () => {
                                       navigation.navigate('ViewPropertiy', {
                                         ID: item.ID,
                                         from: 'Home',
+                                    
                                       });
                                     }}>
                                     <Image
@@ -1301,6 +1314,19 @@ const Home = () => {
 
                                             <View style={styles.w99}>
                                               <View>
+                                                <Text style={styles.modallabel}>Surf...</Text>
+                                                <TextInput
+                                                     allowFontScaling={false}
+                                                     placeholderTextColor={'#858383'}
+                                                     fontFamily={'Poppins-Regular'}
+                                                     keyboardType="default"
+                                                     placeholder={'Surf by Neighborhood, Zip Code, Address'}
+                                                     returnKeyType="done"
+                                                     value={zipText}
+                                                    //  onSubmitEditing={Keyboard.dismiss}
+                                                     onChangeText={text => setZipText(text)}
+                                                     style={[styles.searchinputtext,{width:'100%'} ]}/>
+
                                                 <Text style={styles.modallabel}>
                                                   Choose your city{' '}
                                                 </Text>
@@ -2149,7 +2175,7 @@ const Home = () => {
                                                         style={
                                                           styles.submitbtntxt
                                                         }>
-                                                        SAVE
+                                                        Save
                                                       </Text>
                                                     </TouchableOpacity>
                                                     {isAnimating && (
@@ -2771,9 +2797,10 @@ const styles = StyleSheet.create({
   },
   submitbtncover: {
 
-    width: '100%',
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 45,
+    width: 100,
     borderRadius: 100,
-
+    backgroundColor: Colors.surfblur,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -2781,7 +2808,7 @@ const styles = StyleSheet.create({
   },
   submitbtntxt: {
     fontSize: 17,
-    color: Colors.surfblur,
+    color: Colors.white,
     fontFamily: 'Poppins-SemiBold',
   },
   mapstarthere: { height: '100%', width: width },
@@ -3460,6 +3487,24 @@ const styles = StyleSheet.create({
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 42,
 
   },
+  searchinputtext: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
+    letterSpacing: 1,
+    color: '#000',
+    // paddingTop:12,
+    width:'50%',
+    position: 'relative',
+    // marginLeft: 30,
+    marginBottom:8,
+    borderColor: "#EDECED",
+    display: "flex",
+    borderWidth:0.5,
+    textAlign:'center',
+    borderRadius:10,
+    alignItems: "center", justifyContent: "center",
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 42,
+
+  },
   searchboarder: {
     alignItems: 'center',
     width: '15%',
@@ -3522,6 +3567,10 @@ const styles = StyleSheet.create({
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
   },
   filtericonstyles: {
+
+    marginLeft: 6,
+  },
+  filtericonstyle: {
 
     marginRight: 6,
   },
@@ -3613,14 +3662,17 @@ const styles = StyleSheet.create({
     tintColor: Colors.white,
     position: 'absolute',
     right: 12,
+    top:'45%',
+    zIndex:9999
   },
   nextcover: {
     height: 25,
     width: 25,
     tintColor: Colors.white,
     transform: [{ rotate: '-180deg' }],
-    position: 'relative',
+    position: 'absolute',
     left: 12,
+    top:"45%",
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 999,

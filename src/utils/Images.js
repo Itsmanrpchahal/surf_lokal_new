@@ -46,7 +46,8 @@ const Images = {
   facebook: require(BaseUrl + 'facebook.png'),
   telephonecall: require(BaseUrl + "telephone-call.png"),
   videochat: require(BaseUrl + "video-chat.png"),
-  cola: require(BaseUrl + 'cola.png'),
+  layerfav: require(BaseUrl + 'Layer3.png'),
+  logo: require(BaseUrl + 'logo.png'),
   logo: require(BaseUrl + 'logo.png'),
   tab3: require(BaseUrl + 'tab3.png'),
   tab4: require(BaseUrl + 'tab4.png'),
@@ -54,7 +55,7 @@ const Images = {
   Whatsapp: require(BaseUrl + 'Whatsapp.png'),
   gps: require(BaseUrl + 'gpsnew.png'),
   newfil: require(BaseUrl + 'newfil.png'),
-  mapnew1: require(BaseUrl + 'mapnew.png'),
+  mapnew1: require(BaseUrl + 'locationmap.png'),
   search: require(BaseUrl + 'search.png'),
   send: require(BaseUrl + 'send.png'),
   star2: require(BaseUrl + 'star2.png'),
@@ -101,5 +102,7 @@ const Images = {
   trash: require(BaseUrl + 'trash.png'),
   favfilter: require(BaseUrl + 'filtericon.png'),
   Information: require(BaseUrl + 'information-alt.png'),
+  nextslide: require(BaseUrl + 'nextslide.png'),
+  next: require(BaseUrl + 'next.png'),
 };
 export default Images;
