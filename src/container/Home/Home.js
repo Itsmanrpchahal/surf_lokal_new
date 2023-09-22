@@ -58,6 +58,7 @@ import GetLocation from 'react-native-get-location';
 import Loader from '../../components/Loader';
 import { useIsFocused } from '@react-navigation/native';
 import { propertyChatList } from '../../modules/propertyChats';
+import { Picker } from 'react-native-wheel-pick';
 
 const { width } = Dimensions.get('screen');
 const Home = () => {
@@ -1504,8 +1505,22 @@ const Home = () => {
                                                       marginTop: 8,
                                                     }}>
                                                     <View
-                                                      style={[styles.dropdown, { width: '48%' }]}>
-                                                      <SelectDropdown
+                                                      style={[, { width: '48%' ,
+                                                      // borderWidth: 1,
+                                                      fontSize: 14,
+                                                      fontFamily: 'Poppins-Regular',
+                                                      color: Colors.newgray,
+                                                      // width: '50%',
+                                                      borderColor: Colors.BorderColor,
+                                                      borderRadius: 10,
+                                                      marginBottom: 8,}]}>
+                                                              <Picker
+  style={{ backgroundColor: 'white', width: '98%', height: 215 }}
+  selectedValue='item4'
+  pickerData={['item1', 'item2', 'item3', 'item4', 'item5', 'item6', 'item7']}
+  onValueChange={value => { console.log(value) }}
+/>
+                                                      {/* <SelectDropdown
                                                         data={moreFilterData.min_square}
                                                         buttonStyle={styles.dropdown1BtnStyle}
                                                         buttonTextStyle={
@@ -1572,7 +1587,7 @@ const Home = () => {
                                                             </Text>
                                                           );
                                                         }}
-                                                      />
+                                                      /> */}
                                                     </View>
 
                                                     <View
@@ -2467,18 +2482,7 @@ const Home = () => {
                     </Text>
                     <View style={styles.extencovermain}>
                       <TouchableOpacity
-                        onPress={ () => {
-                          clearFilterAPiCall()
-
-                          // setLimitCount(limitCount + 1);
-                          // await dispatch(
-                          //   getPoperties({
-                          //     type: 0,
-                          //     data: { limit: limitCount + 1 },
-                          //   })).then(res => {
-                          //     setHomeData(res?.payload?.data);
-                          //   });
-                        }}
+                        onPress={ () => {clearFilterAPiCall()}}
                         style={styles.extencover}>
                         <Text style={styles.extendtext}>Clear Filters </Text>
                       </TouchableOpacity>
