@@ -410,17 +410,17 @@ const MyFavorites = () => {
                     {
                       notification[0]?.length > 0 ?
                       <Text style={{
-                        position: "absolute", backgroundColor: "red", right: DeviceInfo.getDeviceType() === 'Tablet' ? -12 : -8, bottom: DeviceInfo.getDeviceType() === 'Tablet' ? -10 : -5,
+                        position: "absolute", backgroundColor: "red", right: DeviceInfo.getDeviceType() === 'Tablet' ? 12 : 8, top: DeviceInfo.getDeviceType() === 'Tablet' ? -12 : -7,
                         height: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 15,
                         width: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 15,
-                        borderRadius: 100, color: Colors.white,
+                        borderRadius:100, color: Colors.white,
                         textAlign: "center", fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 15 : 9, alignItems: "center",
                         justifyContent: "center"
                       }}>{notification[0]?.length > 0 ? notification[0]?.length : "0"}</Text>:null
                     }
                  
                   </View>
-                <Text style={styles.text}>Notifications</Text>
+                <Text style={styles.text}> My Feed</Text>
               </View>
               <View style={styles.line}></View>
             </TouchableOpacity>
@@ -563,13 +563,17 @@ const MyFavorites = () => {
                   <View style={styles.line}></View>
                 </TouchableOpacity> : null
               }
-
+          
             </View>
+            
           }
 
-
+         <View  style={{justifyContent:'flex-start',alignContent:'center',alignItems:'center'}}>
+         <Image source={Images.logoocean}style={{height:"40%",width:"40%" ,resizeMode:'contain'}}/>
+         </View>
         </View>
-        <View style={{ height: 50 }}></View>
+        
+      
       </ScrollView>
     </SafeAreaView>
   );
@@ -579,6 +583,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+    // marginBottom:20
   },
   viewstyle: {
     flexDirection: 'row',
