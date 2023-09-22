@@ -601,14 +601,14 @@ const Home = () => {
                     placeholderTextColor={'#858383'}
                     fontFamily={'Poppins-Regular'}
                     keyboardType="web-search"
-                    placeholder={''}
+                   
                     returnKeyType="done"
                     value={adress}
                     onSubmitEditing={Keyboard.dismiss}
                     onChangeText={text => setAddres(text)}
                     style={{
                       ...styles.searchinputtextarea,
-                      textAlign: 'center',
+                    
                     }}
                   />
                 </View>
@@ -851,19 +851,18 @@ const Home = () => {
                                       }}
                                       style={{
                                         height: '100%',
-                                        width: 30,
-                                        position: 'relative',
-                                        left: 10,
+                                        // width: 30,
+                                        // position: 'relative',
+                                        // left: 10,
                                    
                                       }}>
                                       <View
                                         style={{
                                           height: width,
-                                          width: 40,
-                                          position: 'absolute',
-                                          zIndex: 999,
-                                          right: 10,
-                                        //  backgroundColor:'green'
+                                          width: 50,
+                                      justifyContent:"center",
+                                      alignContent:"center",
+                                 
                                         }}>
                                            <Image
                                         source={Images.nextslide}
@@ -886,10 +885,10 @@ const Home = () => {
                                         style={{
                                           height: width,
                                           width: 50,
-                                          position: 'absolute',
-                                          zIndex: 999,
-                                          right: 10,
-                                          // backgroundColor:'red'
+                                      
+                                      justifyContent:"center",
+                                      alignContent:"center",
+                                     
                                         }}>
                                             <Image
                                         source={Images.nextslide}
@@ -1863,18 +1862,57 @@ const Home = () => {
                                                       }}></FlatList>
                                                   </View>
                                                 </Collapsible>
-                                                <View style={styles.applymaincover}>
+                                                
+                                              </View>
+                                             
+                                            </View>
+                                          </ScrollView>
+                                          <View style={{flexDirection:'row',justifyContent:'space-between',alignContent:'center',alignItems:'center',width:'100%',height:'18%'}}>
+                                            <TouchableOpacity        onPress={async () => {
+                      setSelectedTabs([]);
+                      setIsSelected(false);
+                      setIsSelecteddata_name(false)
+                      setIsPressed1(false);
+                      setIsPressed(false);
+                      setBedroomItem(null);
+                      setBathRoomItem(null);
+                      setMinSquareFeet('');
+                      setMaxSquareFeet('');
+                      setMinPricerange('');
+                      setMaxPriceRange('');
+                      setMoreFilter(false);
+                      setTermName([])
+                      setCities('');
+                      setFilterModalVisible(false);
+                      {
+                        handlePress2;
+                      }
+                      dispatch(clearFilter());
+                      await dispatch(
+                        getPoperties({
+                          type: 0,
+                          data: { limit: limitCount + 1 },
+                          lntLng,
+                        }),
+                      ).then(response => {
+                        setHomeData(response.payload.data);
+                      });
+                    }}>
+                                          <Text style={{ marginLeft: 10, 
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 16,top:-35,borderWidth:1,borderColor:Colors.surfblur,paddingHorizontal:20,paddingVertical:6,borderRadius:20,   
+              color:Colors.surfblur, fontFamily: 'Poppins-Regular' }}>Clear Filters</Text>
+                                          </TouchableOpacity>
                                                   <TouchableOpacity
                                                     onPress={async () => {
                                                       setFilterModalVisible(false);
                                                     }}
-                                                    style={styles.apllycover}>
+                                                    style={styles.apllycover}
+                                                 >
                                                     <Text style={styles.applytext}>Apply</Text>
                                                   </TouchableOpacity>
-                                                </View>
-                                              </View>
-                                            </View>
-                                          </ScrollView>
+                                              
+                                          </View>
+                                         
                                         </SafeAreaView>
                                       </Animated.View>
                                     </View>
@@ -2845,7 +2883,8 @@ const styles = StyleSheet.create({
   filterstyle1: {
     position: "absolute",
     height: 35, width: 40, display: "flex",
-    alignItems: "center", justifyContent: "center"
+    alignItems: "center", justifyContent: "center",
+    top:6
   },
   gpscover1: { position: "relative" },
   labelinnercover: {
@@ -3467,7 +3506,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     shadowColor: '#000',
     backgroundColor: Colors.white,
-    paddingTop: 10,
+    //paddingTop: 10,
     shadowOffset: {
       width: 0,
       height: 3,
@@ -3483,8 +3522,9 @@ const styles = StyleSheet.create({
     position: 'relative',
     marginLeft: 30,
     display: "flex",
+    paddingLeft:12,
     alignItems: "center", justifyContent: "center",
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 42,
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 45,
 
   },
   searchinputtext: {
@@ -3508,7 +3548,7 @@ const styles = StyleSheet.create({
   searchboarder: {
     alignItems: 'center',
     width: '15%',
-    height: '110%',
+    height: '100%',
     justifyContent: 'center',
     //height: 42,
     position: 'relative',
@@ -3516,7 +3556,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 1,
     borderLeftColor: Colors.BorderColor,
     position: "relative",
-    top: -5
+    top: 0
   },
   searchborderinner: {
     flex: 1,
@@ -3661,8 +3701,8 @@ const styles = StyleSheet.create({
     width: 25,
     tintColor: Colors.white,
     position: 'absolute',
-    right: 12,
-    top:'45%',
+    // right: 12,
+    // top:'45%',
     zIndex:9999
   },
   nextcover: {
@@ -3671,10 +3711,8 @@ const styles = StyleSheet.create({
     tintColor: Colors.white,
     transform: [{ rotate: '-180deg' }],
     position: 'absolute',
-    left: 12,
-    top:"45%",
-    alignItems: 'center',
-    justifyContent: 'center',
+  //   left: 12,
+  // top:0,
     zIndex: 999,
   },
   arroescovr: {
@@ -3692,6 +3730,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     zIndex: 99,
+    position:"absolute"
   
   },
   bgcover: {
@@ -3834,26 +3873,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   applytext: {
-    fontSize: 16,
-    color: Colors.white,
-    fontFamily: 'Poppins-Regular',
+     marginLeft: 10, 
+      fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 16,  
+      color:Colors.white, fontFamily: 'Poppins-Regular'
   },
   apllycover: {
-    height: 50,
-    width: 130,
+    // height: 30,
+    // width: 110,
+    top:-35,paddingHorizontal:30,paddingVertical:8,borderRadius:30,
     borderRadius: 100,
+    // paddingVertical:8,
     backgroundColor: Colors.surfblur,
-    marginTop: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 40,
+  //   // marginTop: 10,
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  // top:-35
   },
   applymaincover: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+   
   },
   datacustomvalue: {
     color: 'black',
