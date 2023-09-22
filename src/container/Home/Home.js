@@ -64,6 +64,10 @@ const Home = () => {
   const isFocused = useIsFocused();
   const [keyboardStatus, setKeyboardStatus] = useState('first');
   useEffect(() => {
+    console.log("filterType=====>",filterType)
+  }, [filterType])
+  
+  useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardStatus('Keyboard Shown');
     });
@@ -82,6 +86,7 @@ const Home = () => {
   }, [keyboardStatus]);
 
   const updateKeyboard = async () => {
+    setFilterType(2)
     if (keyboardStatus === 'Keyboard Hidden') {
       if (adress.length > 0) {
         const formData = new FormData();
@@ -152,6 +157,7 @@ const Home = () => {
   const [imageHeight, setImageHeight] = useState(0);
   const [imageWidth, setImageWidth] = useState(0);
   const [zipText,setZipText] = useState()
+ const [filterType, setFilterType] = useState(1)
   const ref = useRef();
   useEffect(() => {
     dispatch(propertyChatList())
@@ -220,6 +226,38 @@ const Home = () => {
   };
   const fetchUserScore = () => {
     dispatch(getUserScore());
+  };
+
+  const clearFilterAPiCall = async () => {
+    setFilterType(1)
+     setSelectedTabs([]);
+     setIsSelected(false);
+     setIsSelecteddata_name(false)
+     setIsPressed1(false);
+     setIsPressed(false);
+     setBedroomItem(null);
+     setBathRoomItem(null);
+     setMinSquareFeet('');
+     setMaxSquareFeet('');
+     setMinPricerange('');
+     setMaxPriceRange('');
+     setMoreFilter(false);
+     setTermName([])
+     setCities('');
+     setFilterModalVisible(false);
+     {
+       handlePress2;
+     }
+     dispatch(clearFilter());
+     await dispatch(
+       getPoperties({
+         type: 0,
+         data: { limit: limitCount + 1 },
+         lntLng,
+       }),
+     ).then(response => {
+       setHomeData(response.payload.data);
+     });
   };
   const slideAnimation = useRef(new Animated.Value(0)).current;
   const panResponder = useRef(
@@ -403,6 +441,7 @@ const Home = () => {
   };
 
   const getCurretLocation = () => {
+    setFilterType(3)
     setLoading(true);
     GetLocation.getCurrentPosition({
       enableHighAccuracy: true,
@@ -430,6 +469,7 @@ const Home = () => {
   };
 
   const getPopertiesApiCall = async type => {
+    setFilterType(1)
     setLoading(true);
     await dispatch(getPoperties(type));
     typeof store.getState().getPopertiesReducer.getPopertiesData?.data ===
@@ -521,13 +561,9 @@ const Home = () => {
           setActivity(false);
           setLoading(true);
           setAddres('');
-          dispatch(getPoperties({ type: 3, data: { data_custom_taxonomy: item.data_custom_taxonomy, data_customvalue: item.data_customvalue, } }),
+          dispatch(getPoperties({ type: 3, data: {filter_type:filterType, data_custom_taxonomy: item.data_custom_taxonomy, data_customvalue: item.data_customvalue, } }),
           ).then(res => {
-            if (res.payload.data.length > 1) {
               setHomeData(res.payload.data);
-            } else {
-              // alert(res.payload.message)
-            }
           });
           setActivity(true);
           setLoading(false);
@@ -690,34 +726,8 @@ const Home = () => {
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={async () => {
-                      setSelectedTabs([]);
-                      setIsSelected(false);
-                      setIsSelecteddata_name(false)
-                      setIsPressed1(false);
-                      setIsPressed(false);
-                      setBedroomItem(null);
-                      setBathRoomItem(null);
-                      setMinSquareFeet('');
-                      setMaxSquareFeet('');
-                      setMinPricerange('');
-                      setMaxPriceRange('');
-                      setMoreFilter(false);
-                      setTermName([])
-                      setCities('');
-                      {
-                        handlePress2;
-                      }
-                      dispatch(clearFilter());
-                      await dispatch(
-                        getPoperties({
-                          type: 0,
-                          data: { limit: limitCount + 1 },
-                          lntLng,
-                        }),
-                      ).then(response => {
-                        setHomeData(response.payload.data);
-                      });
+                    onPress={ () => {
+                      clearFilterAPiCall()
                     }}
                     style={[
                       styles.rew,
@@ -1348,6 +1358,7 @@ const Home = () => {
                                                   value={cities}
                                                   valuestyle={{ color: 'red' }}
                                                   onChange={async item => {
+                                                    setFilterType(3)
                                                     setCities(item);
                                                     ref.current.close();
                                                     await dispatch(
@@ -1355,7 +1366,7 @@ const Home = () => {
                                                         type: 3,
                                                         data: {
                                                           data_custom_taxonomy: 'property_city',
-                                                          data_customvalue: item.toString(),
+                                                          // data_customvalue: item.toString(),
                                                         },
                                                       }),
                                                     ).then(res => {
@@ -1868,35 +1879,9 @@ const Home = () => {
                                             </View>
                                           </ScrollView>
                                           <View style={{flexDirection:'row',justifyContent:'space-between',alignContent:'center',alignItems:'center',width:'100%',height:'18%'}}>
-                                            <TouchableOpacity        onPress={async () => {
-                      setSelectedTabs([]);
-                      setIsSelected(false);
-                      setIsSelecteddata_name(false)
-                      setIsPressed1(false);
-                      setIsPressed(false);
-                      setBedroomItem(null);
-                      setBathRoomItem(null);
-                      setMinSquareFeet('');
-                      setMaxSquareFeet('');
-                      setMinPricerange('');
-                      setMaxPriceRange('');
-                      setMoreFilter(false);
-                      setTermName([])
-                      setCities('');
-                      setFilterModalVisible(false);
-                      {
-                        handlePress2;
-                      }
-                      dispatch(clearFilter());
-                      await dispatch(
-                        getPoperties({
-                          type: 0,
-                          data: { limit: limitCount + 1 },
-                          lntLng,
-                        }),
-                      ).then(response => {
-                        setHomeData(response.payload.data);
-                      });
+                                            <TouchableOpacity   
+                                                 onPress={ () => {
+                                                  clearFilterAPiCall()
                     }}>
                                           <Text style={{ marginLeft: 10, 
               fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 16,top:-35,borderWidth:1,borderColor:Colors.surfblur,paddingHorizontal:20,paddingVertical:6,borderRadius:20,   
@@ -2451,25 +2436,57 @@ const Home = () => {
               </View>
             ) : (
               <View style={styles.extendescover}>
-                <Text style={styles.extenddes}>
-                  Would you like to extend your search radius by 10 miles?
-                </Text>
-                <View style={styles.extencovermain}>
-                  <TouchableOpacity
-                    onPress={async () => {
-                      setLimitCount(limitCount + 1);
-                      await dispatch(
-                        getPoperties({
-                          type: 0,
-                          data: { limit: limitCount + 1 },
-                        })).then(res => {
-                          setHomeData(res?.payload?.data);
-                        });
-                    }}
-                    style={styles.extencover}>
-                    <Text style={styles.extendtext}>Extend</Text>
-                  </TouchableOpacity>
-                </View>
+                {
+                  
+                  filterType===1?(
+                    <>
+                    <Text style={styles.extenddes}>
+                      Would you like to extend your search radius by 10 miles?
+                    </Text>
+                    <View style={styles.extencovermain}>
+                      <TouchableOpacity
+                        onPress={async () => {
+                          setLimitCount(limitCount + 1);
+                          await dispatch(
+                            getPoperties({
+                              type: 0,
+                              data: { limit: limitCount + 1 },
+                            })).then(res => {
+                              setHomeData(res?.payload?.data);
+                            });
+                        }}
+                        style={styles.extencover}>
+                        <Text style={styles.extendtext}>Extend</Text>
+                      </TouchableOpacity>
+                    </View>
+                    </>
+                  ):(
+                    <>
+                    <Text style={styles.extenddes}>
+                    Record not found !
+                    </Text>
+                    <View style={styles.extencovermain}>
+                      <TouchableOpacity
+                        onPress={ () => {
+                          clearFilterAPiCall()
+
+                          // setLimitCount(limitCount + 1);
+                          // await dispatch(
+                          //   getPoperties({
+                          //     type: 0,
+                          //     data: { limit: limitCount + 1 },
+                          //   })).then(res => {
+                          //     setHomeData(res?.payload?.data);
+                          //   });
+                        }}
+                        style={styles.extencover}>
+                        <Text style={styles.extendtext}>Clear Filters </Text>
+                      </TouchableOpacity>
+                    </View>
+                    </>
+                  )
+                }
+               
               </View>
             )}
           </View>

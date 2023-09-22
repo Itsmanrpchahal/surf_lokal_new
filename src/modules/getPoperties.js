@@ -37,7 +37,7 @@ export const getPoperties = createAsyncThunk('getPoperties', async type => {
           })
         :
         await getAPI(
-          BASEURl + `webapi/v1/AppFilter?data_custom_taxonomy=${type.data.data_custom_taxonomy}&data_customvalue=${type.data.data_customvalue}`,
+          BASEURl + `webapi/v1/AppFilter?data_custom_taxonomy=${type.data.data_custom_taxonomy}&data_customvalue=${type.data.data_customvalue}&filter_type=${type.data.filter_type}`,
         )
           .then(async response => {
 
