@@ -205,7 +205,7 @@ const Home = () => {
   
   useEffect(() => {
     getFilterApicall(),
-      // getTrashApiCall(),
+      getTrashApiCall(),
       favlistApi(),
       getSavedApiCall(),
       getPopertiesApiCall({type: 0, data: {limit: limitCount}, lntLng}),
@@ -227,23 +227,6 @@ const Home = () => {
   const getFilterApicall = () => {
     dispatch(getFilter()).then(response => {
       setFilterData(response.payload.data);
-    });
-  };
-  const getMoreFilterApiCall = () => {
-    dispatch(getMoreFilter()).then(response => {
-      setMoreFilterData(response?.payload?.data);
-      moreFilterData?.min_square?.map((item, index) => {
-        setMinSquareFeet(old => [...old, item.data_name]);
-      });
-      moreFilterData?.max_square?.map((item, index) => {
-        setMaxSquareFeet(old => [...old, item.data_name]);
-      });
-      moreFilterData?.min_price?.map((item, index) => {
-        setMinPricerange(old => [...old, item.data_name]);
-      });
-      moreFilterData?.max_price?.map((item, index) => {
-        setMaxPriceRange(old => [...old, item.data_name]);
-      });
     });
   };
 
@@ -1358,20 +1341,19 @@ const Home = () => {
                                                   Surf...
                                                 </Text>
                                                 <TextInput
-                                                  allowFontScaling={false}
+                                                  // allowFontScaling={false}
                                                   placeholderTextColor={
                                                     '#858383'
                                                   }
                                                   fontFamily={'Poppins-Regular'}
                                                   keyboardType="default"
-                                                  placeholder={
-                                                    'Surf by Neighborhood, Zip Code, Address'
-                                                  }
+                                                  placeholder='Surf by Neighborhood, Zip Code, Address'                                                   
                                                   returnKeyType="done"
                                                   value={zipText}
-                                                  //  onSubmitEditing={Keyboard.dismiss}
+                                                   onSubmitEditing={Keyboard.dismiss}
                                                   onChangeText={text =>
-                                                    setZipText(text)
+                                                    console.log("textttttt",text)
+                                                    // setZipText(text)
                                                   }
                                                   style={[
                                                     styles.searchinputtext,
@@ -1420,6 +1402,7 @@ const Home = () => {
                                                       getPoperties({
                                                         type: 3,
                                                         data: {
+                                                          filter_type:filterType,
                                                           data_custom_taxonomy:
                                                             'property_city',
                                                           data_customvalue: item.toString(),
@@ -1473,6 +1456,7 @@ const Home = () => {
                                                                   getPoperties({
                                                                     type: 3,
                                                                     data: {
+                                                                      filter_type:filterType,
                                                                       data_custom_taxonomy:
                                                                         'bedroom',
                                                                       data_customvalue:
@@ -1552,6 +1536,7 @@ const Home = () => {
                                                                 getPoperties({
                                                                   type: 3,
                                                                   data: {
+                                                                    filter_type:filterType,
                                                                     data_custom_taxonomy:
                                                                       'bathroom',
                                                                     data_customvalue:
@@ -1641,8 +1626,24 @@ const Home = () => {
                                                             ? minSquareFeet
                                                             : []
                                                         }
-                                                        onValueChange={value => {
-                                                          console.log(value);
+                                                        onValueChange={async value => {
+                                                          await dispatch(
+                                                            getPoperties({
+                                                              type: 3,
+                                                              data: {
+                                                                filter_type:filterType,
+                                                                data_custom_taxonomy:
+                                                                  'min_square',
+                                                                data_customvalue:
+                                                                value,
+                                                              },
+                                                            }),
+                                                          ).then(res => {
+                                                            setHomeData(
+                                                              res.payload
+                                                                .data,
+                                                            );
+                                                          });
                                                         }}
                                                       />
                                                     </View>
@@ -1665,8 +1666,24 @@ const Home = () => {
                                                             ? maxSquareFeet
                                                             : []
                                                         }
-                                                        onValueChange={value => {
-                                                          console.log(value);
+                                                        onValueChange={async value => {
+                                                          await dispatch(
+                                                            getPoperties({
+                                                              type: 3,
+                                                              data: {
+                                                                filter_type:filterType,
+                                                                data_custom_taxonomy:
+                                                                  'max_square',
+                                                                data_customvalue:
+                                                                value,
+                                                              },
+                                                            }),
+                                                          ).then(res => {
+                                                            setHomeData(
+                                                              res.payload
+                                                                .data,
+                                                            );
+                                                          });
                                                         }}
                                                       />
                                                     </View>
@@ -1715,8 +1732,24 @@ const Home = () => {
                                                             ? minPricerange
                                                             : []
                                                         }
-                                                        onValueChange={value => {
-                                                          console.log(value);
+                                                        onValueChange={async value => {
+                                                          await dispatch(
+                                                            getPoperties({
+                                                              type: 3,
+                                                              data: {
+                                                                filter_type:filterType,
+                                                                data_custom_taxonomy:
+                                                                  'min_price',
+                                                                data_customvalue:
+                                                                value,
+                                                              },
+                                                            }),
+                                                          ).then(res => {
+                                                            setHomeData(
+                                                              res.payload
+                                                                .data,
+                                                            );
+                                                          });
                                                         }}
                                                       />
                                                     </View>
@@ -1739,8 +1772,24 @@ const Home = () => {
                                                             ? maxPriceRange
                                                             : []
                                                         }
-                                                        onValueChange={value => {
-                                                          console.log(value);
+                                                        onValueChange={async value => {
+                                                          await dispatch(
+                                                            getPoperties({
+                                                              type: 3,
+                                                              data: {
+                                                                filter_type:filterType,
+                                                                data_custom_taxonomy:
+                                                                  'max_price',
+                                                                data_customvalue:
+                                                                value,
+                                                              },
+                                                            }),
+                                                          ).then(res => {
+                                                            setHomeData(
+                                                              res.payload
+                                                                .data,
+                                                            );
+                                                          });
                                                         }}
                                                       />
                                                     </View>
