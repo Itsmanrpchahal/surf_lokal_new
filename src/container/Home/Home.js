@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -17,57 +17,62 @@ import {
   Share,
   Keyboard,
   StatusBar,
-  SafeAreaView
+  SafeAreaView,
 } from 'react-native';
 import StarRating from 'react-native-star-rating-widget';
 import SelectDropdown from 'react-native-select-dropdown';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
-import { getPoperties } from '../../modules/getPoperties';
-import { postRating } from '../../modules/postRating';
-import { getFilter } from '../../modules/getFilter';
-import { SvgUri } from 'react-native-svg';
-import { postUpdateRating } from '../../modules/postUpdateRating';
-import { MultiSelect } from 'react-native-element-dropdown';
+import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {getPoperties} from '../../modules/getPoperties';
+import {postRating} from '../../modules/postRating';
+import {getFilter} from '../../modules/getFilter';
+import {SvgUri} from 'react-native-svg';
+import {postUpdateRating} from '../../modules/postUpdateRating';
+import {MultiSelect} from 'react-native-element-dropdown';
 import CardsSwipe from 'react-native-cards-swipe';
-import { SwiperFlatList } from 'react-native-swiper-flatlist';
+import {SwiperFlatList} from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import LottieView from 'lottie-react-native';
-import { store } from '../../redux/store';
-import { addToFavorite } from '../../modules/addToFavorite';
-import { addRemoveTrash } from '../../modules/addRemoveTrash';
-import { getRating } from '../../modules/getRating';
-import { ScrollView } from 'react-native-gesture-handler';
+import {store} from '../../redux/store';
+import {addToFavorite} from '../../modules/addToFavorite';
+import {addRemoveTrash} from '../../modules/addRemoveTrash';
+import {getRating} from '../../modules/getRating';
+import {ScrollView} from 'react-native-gesture-handler';
 import DeviceInfo from 'react-native-device-info';
-import MapView, { Marker, Callout, PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, {
+  Marker,
+  Callout,
+  PROVIDER_DEFAULT,
+  PROVIDER_GOOGLE,
+} from 'react-native-maps';
 import Collapsible from 'react-native-collapsible';
-import { getMoreFilter } from '../../modules/getMoreFilter';
-import { useRef } from 'react';
-import { getTrash } from '../../modules/getTrash';
-import { getFavoriteProperties } from '../../modules/getFavoriteProperties';
-import { filterSearch } from '../../modules/filterSearch';
-import { getSavedSearch } from '../../modules/getSavedSearch';
-import { clearFilter } from '../../modules/clearFilter';
-import { getUserScore } from '../../modules/getUserScore';
+import {getMoreFilter} from '../../modules/getMoreFilter';
+import {useRef} from 'react';
+import {getTrash} from '../../modules/getTrash';
+import {getFavoriteProperties} from '../../modules/getFavoriteProperties';
+import {filterSearch} from '../../modules/filterSearch';
+import {getSavedSearch} from '../../modules/getSavedSearch';
+import {clearFilter} from '../../modules/clearFilter';
+import {getUserScore} from '../../modules/getUserScore';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import GetLocation from 'react-native-get-location';
 import Loader from '../../components/Loader';
-import { useIsFocused } from '@react-navigation/native';
-import { propertyChatList } from '../../modules/propertyChats';
-import { Picker } from 'react-native-wheel-pick';
+import {useIsFocused} from '@react-navigation/native';
+import {propertyChatList} from '../../modules/propertyChats';
+import {Picker} from 'react-native-wheel-pick';
 
-const { width } = Dimensions.get('screen');
+const {width} = Dimensions.get('screen');
 const Home = () => {
   const isFocused = useIsFocused();
   const [keyboardStatus, setKeyboardStatus] = useState('first');
   useEffect(() => {
-    console.log("filterType=====>",filterType)
-  }, [filterType])
-  
+    console.log('filterType=====>', filterType);
+  }, [filterType]);
+
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardStatus('Keyboard Shown');
@@ -87,21 +92,21 @@ const Home = () => {
   }, [keyboardStatus]);
 
   const updateKeyboard = async () => {
-    setFilterType(2)
+    setFilterType(2);
     if (keyboardStatus === 'Keyboard Hidden') {
       if (adress.length > 0) {
         const formData = new FormData();
         formData.append('SearchParameters', adress);
-        dispatch(getPoperties({ type: 2, data: formData, lntLng })).then(res => {
+        dispatch(getPoperties({type: 2, data: formData, lntLng})).then(res => {
           setHomeData(res.payload.data);
         });
         setKeyboardStatus('first');
         setIsSelected(false);
-        setIsSelecteddata_name(false)
+        setIsSelecteddata_name(false);
         setIsPressed1(false);
         setIsPressed(false);
         setSelectedTabs([]);
-        setTermName([])
+        setTermName([]);
       }
     }
   };
@@ -133,20 +138,19 @@ const Home = () => {
   const [rating3, setRating3] = useState(0);
   const [ratingData, setRatingData] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
-  const [isSelecteddata_name, setIsSelecteddata_name,] = useState(false);
+  const [isSelecteddata_name, setIsSelecteddata_name] = useState(false);
   const [bedroomitem, setBedroomItem] = useState(-1);
   const [bathRoom, setBathRoomItem] = useState(-1);
   const [imageIndex, setImageIndex] = useState(0);
-  const [lntLng, setLatLng] = useState({ latitude: 0.0, longitude: 0.0 });
+  const [lntLng, setLatLng] = useState({latitude: 0.0, longitude: 0.0});
   const [showMap, setShowMap] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [mapType, setMapType] = useState('standard');
   const [moreFilter, setMoreFilter] = useState(false);
-  const [maxPriceRange, setMaxPriceRange] = useState();
-  const [minPricerange, setMinPricerange] = useState();
-  const [minSquareFeet, setMinSquareFeet] = useState();
-  const [maxSquareFeet, setMaxSquareFeet] = useState();
-  const [bathRoomCount, setBathRoomCount] = useState();
+  const [minSquareFeet, setMinSquareFeet] = useState(['No Min']);
+  const [maxSquareFeet, setMaxSquareFeet] = useState(['No Max']);
+  const [minPricerange, setMinPricerange] = useState(['No Max']);
+  const [maxPriceRange, setMaxPriceRange] = useState(['No Min']);
   const [limitCount, setLimitCount] = useState(1);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
@@ -157,12 +161,12 @@ const Home = () => {
   const [centerHeight, setCenterHeight] = useState(0);
   const [imageHeight, setImageHeight] = useState(0);
   const [imageWidth, setImageWidth] = useState(0);
-  const [zipText,setZipText] = useState()
- const [filterType, setFilterType] = useState(1)
+  const [zipText, setZipText] = useState();
+  const [filterType, setFilterType] = useState(1);
   const ref = useRef();
   useEffect(() => {
-    dispatch(propertyChatList())
-  }, [])
+    dispatch(propertyChatList());
+  }, []);
   useEffect(() => {
     setCenterHeight(mainViewHeight - topViewHeight);
   }, [topViewHeight]);
@@ -182,10 +186,8 @@ const Home = () => {
   }, [selectedTabsMore]);
   useEffect(() => {
     if (termName) {
-
     }
   }, [termName]);
-
 
   const handlePress2 = () => {
     setIsPressed2(!isPressed2);
@@ -198,18 +200,18 @@ const Home = () => {
       favlistApi(),
       getSavedApiCall(),
       getMoreFilterApiCall(),
-      getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
-      fetchUserScore()
-    setAddres('')
+      getPopertiesApiCall({type: 0, data: {limit: limitCount}, lntLng}),
+      fetchUserScore();
+    setAddres('');
   }, []);
   useEffect(() => {
     if (isFocused) {
-      Promise.all
-      [
-        new Promise((resolve,) => {
-          const res = store.getState().getPopertiesReducer?.getPopertiesData?.data;
-           console.log("getPopertiesReducer===>",res)
-          setHomeData(res)
+      Promise.all[
+        new Promise(resolve => {
+          const res =
+            store.getState().getPopertiesReducer?.getPopertiesData?.data;
+          console.log('getPopertiesReducer===>', res);
+          setHomeData(res);
           resolve();
         })
       ];
@@ -223,6 +225,18 @@ const Home = () => {
   const getMoreFilterApiCall = () => {
     dispatch(getMoreFilter()).then(response => {
       setMoreFilterData(response.payload.data);
+      moreFilterData?.min_square?.map((item, index) => {
+        setMinSquareFeet(old => [...old, item.data_name]);
+      });
+      moreFilterData?.max_square?.map((item, index) => {
+        setMaxSquareFeet(old => [...old, item.data_name]);
+      });
+      moreFilterData?.min_price?.map((item, index) => {
+        setMinPricerange(old => [...old, item.data_name]);
+      });
+      moreFilterData?.max_price?.map((item, index) => {
+        setMaxPriceRange(old => [...old, item.data_name]);
+      });
     });
   };
   const fetchUserScore = () => {
@@ -230,42 +244,41 @@ const Home = () => {
   };
 
   const clearFilterAPiCall = async () => {
-    setFilterType(1)
-     setSelectedTabs([]);
-     setIsSelected(false);
-     setIsSelecteddata_name(false)
-     setIsPressed1(false);
-     setIsPressed(false);
-     setBedroomItem(null);
-     setBathRoomItem(null);
-     setMinSquareFeet('');
-     setMaxSquareFeet('');
-     setMinPricerange('');
-     setMaxPriceRange('');
-     setMoreFilter(false);
-     setTermName([])
-     setCities('');
-     setFilterModalVisible(false);
-     {
-       handlePress2;
-     }
-     dispatch(clearFilter());
-     await dispatch(
-       getPoperties({
-         type: 0,
-         data: { limit: limitCount + 1 },
-         lntLng,
-       }),
-     ).then(response => {
-       setHomeData(response.payload.data);
-     });
+    setFilterType(1);
+    setSelectedTabs([]);
+    setIsSelected(false);
+    setIsSelecteddata_name(false);
+    setIsPressed1(false);
+    setIsPressed(false);
+    setBedroomItem(null);
+    setBathRoomItem(null);
+    setMinSquareFeet('');
+    setMaxSquareFeet('');
+    setMinPricerange('');
+    setMaxPriceRange('');
+    setMoreFilter(false);
+    setTermName([]);
+    setCities('');
+    setFilterModalVisible(false);
+    {
+      handlePress2;
+    }
+    dispatch(clearFilter());
+    await dispatch(
+      getPoperties({
+        type: 0,
+        data: {limit: limitCount + 1},
+        lntLng,
+      }),
+    ).then(response => {
+      setHomeData(response.payload.data);
+    });
   };
   const slideAnimation = useRef(new Animated.Value(0)).current;
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (_, gestureState) => {
-
         slideAnimation.setValue(gestureState.dy);
       },
       onPanResponderRelease: (_, gestureState) => {
@@ -275,7 +288,7 @@ const Home = () => {
           closeTrashModal();
           closeSaveModal();
         } else {
-          Animated.spring(slideAnimation,{
+          Animated.spring(slideAnimation, {
             toValue: 0,
             useNativeDriver: false,
           }).start();
@@ -322,16 +335,13 @@ const Home = () => {
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (_, gestureState) => {
         if (gestureState.dy > 0) {
-          
-        slideAnimations.setValue(gestureState.dy);
+          slideAnimations.setValue(gestureState.dy);
         }
       },
       onPanResponderRelease: (_, gestureState) => {
-
         if (gestureState.dy > 50) {
           closeModals();
         } else {
-
           Animated.spring(slideAnimations, {
             toValue: 0,
             useNativeDriver: true,
@@ -352,12 +362,11 @@ const Home = () => {
     handleModalAnimation();
   }, [modalVisible]);
 
-
   const handleModalAnimations = () => {
     Animated.timing(slideAnimations, {
       toValue: filterModalVisible ? 1 : 0,
       duration: 300,
-      useNativeDriver:true,
+      useNativeDriver: true,
     }).start();
   };
 
@@ -388,8 +397,7 @@ const Home = () => {
         dynamicLinks.ShortLinkType.SHORT,
       );
       return link;
-    } catch (error) {
-    }
+    } catch (error) {}
   };
   const handleShare = async ID => {
     const link = await generateLink(ID);
@@ -399,15 +407,14 @@ const Home = () => {
         message: link,
         url: link,
       });
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const getSavedApiCall = () => {
-    dispatch(getSavedSearch()).then(response => { });
+    dispatch(getSavedSearch()).then(response => {});
   };
   const favlistApi = () => {
-    dispatch(getFavoriteProperties()).then(res => { });
+    dispatch(getFavoriteProperties()).then(res => {});
   };
 
   const savefile = async item => {
@@ -426,7 +433,7 @@ const Home = () => {
     });
   };
   const getTrashApiCall = async () => {
-    await dispatch(getTrash()).then(res => { });
+    await dispatch(getTrash()).then(res => {});
   };
   const trashfile = async post_id => {
     getTrashApiCall();
@@ -442,7 +449,7 @@ const Home = () => {
   };
 
   const getCurretLocation = () => {
-    setFilterType(3)
+    setFilterType(3);
     setLoading(true);
     GetLocation.getCurrentPosition({
       enableHighAccuracy: true,
@@ -452,7 +459,7 @@ const Home = () => {
         const formData = new FormData();
         formData.append('latitude', location.latitude);
         formData.append('longitude', location.longitude);
-        dispatch(getPoperties({ type: 1, data: '', latLng: formData })).then(
+        dispatch(getPoperties({type: 1, data: '', latLng: formData})).then(
           response => {
             if (response.payload?.data.length < 1) {
               setLoading(false);
@@ -465,18 +472,18 @@ const Home = () => {
         );
       })
       .catch(error => {
-        const { code, message } = error;
+        const {code, message} = error;
       });
   };
 
   const getPopertiesApiCall = async type => {
-    setFilterType(1)
+    setFilterType(1);
     setLoading(true);
     await dispatch(getPoperties(type));
     typeof store.getState().getPopertiesReducer.getPopertiesData?.data ===
-      'object'
+    'object'
       ? store.getState().getPopertiesReducer.getPopertiesData?.data &&
-      setHomeData(store.getState().getPopertiesReducer.getPopertiesData?.data)
+        setHomeData(store.getState().getPopertiesReducer.getPopertiesData?.data)
       : setHomeData([]);
     setLoading(false);
   };
@@ -501,7 +508,6 @@ const Home = () => {
       } else {
         setIsAnimating(false);
         toggleModal();
-
       }
     } catch (error) {
       setIsAnimating(false);
@@ -529,19 +535,19 @@ const Home = () => {
         } else {
           setIsAnimating(false);
           toggleModal();
-
         }
       });
-
     } catch (error) {
       setIsAnimating(false);
       console.error('Error submitting review:', error);
     }
   };
-  const renderFillterItem = ({ item, index }) => {
-    const { data_customvalue, term_name } = item;
-    const isSelected = selectedTabs.filter(i => i === data_customvalue).length > 0;
-    const isSelecteddata_name = termName.filter(i => i === term_name).length > 0;
+  const renderFillterItem = ({item, index}) => {
+    const {data_customvalue, term_name} = item;
+    const isSelected =
+      selectedTabs.filter(i => i === data_customvalue).length > 0;
+    const isSelecteddata_name =
+      termName.filter(i => i === term_name).length > 0;
 
     return (
       <TouchableOpacity
@@ -557,14 +563,22 @@ const Home = () => {
             setTermName(prev => [...prev, term_name]);
           }
           setIsSelected(true);
-          setIsSelecteddata_name(true)
+          setIsSelecteddata_name(true);
           setSelected(index);
           setActivity(false);
           setLoading(true);
           setAddres('');
-          dispatch(getPoperties({ type: 3, data: {filter_type:filterType, data_custom_taxonomy: item.data_custom_taxonomy, data_customvalue: item.data_customvalue, } }),
+          dispatch(
+            getPoperties({
+              type: 3,
+              data: {
+                filter_type: filterType,
+                data_custom_taxonomy: item.data_custom_taxonomy,
+                data_customvalue: item.data_customvalue,
+              },
+            }),
           ).then(res => {
-              setHomeData(res.payload.data);
+            setHomeData(res.payload.data);
           });
           setActivity(true);
           setLoading(false);
@@ -593,59 +607,58 @@ const Home = () => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      {loading ? (<>
-        <StatusBar backgroundColor={"#5BB3FF"} />
-        <View style={styles.loaderstyle}>
-          <Loader />
-        </View>
-      </>
-
+    <View style={{flex: 1}}>
+      {loading ? (
+        <>
+          <StatusBar backgroundColor={'#5BB3FF'} />
+          <View style={styles.loaderstyle}>
+            <Loader />
+          </View>
+        </>
       ) : null}
       <SafeAreaView
         style={
           Platform.OS == 'android' ? styles.container : styles.containerIos
         }>
         <View
-          onLayout={({ nativeEvent }) => {
-            const { x, y, width, height } = nativeEvent.layout;
+          onLayout={({nativeEvent}) => {
+            const {x, y, width, height} = nativeEvent.layout;
             setMainViewHeight(height);
           }}
           style={styles.bgcover}>
           <View
-            onLayout={({ nativeEvent }) => {
-              const { x, y, width, height } = nativeEvent.layout;
+            onLayout={({nativeEvent}) => {
+              const {x, y, width, height} = nativeEvent.layout;
               setTopViewHeight(height);
             }}>
             <View style={styles.searchuppercover}>
-
               <View style={styles.searchinnercover}>
                 <View style={styles.w85}>
                   <View style={styles.gpscover1}>
-
-                    <TouchableOpacity style={styles.filterstyle1} onPress={() => {
-                      setIsPressed(!isPressed);
-                      setIsPressed1(false);
-                      setIsPressed2(false);
-                      filtertoggleModal();
-                    }}>
-                      <Image source={Images.newfil} style={styles.innerfileter}></Image>
+                    <TouchableOpacity
+                      style={styles.filterstyle1}
+                      onPress={() => {
+                        setIsPressed(!isPressed);
+                        setIsPressed1(false);
+                        setIsPressed2(false);
+                        filtertoggleModal();
+                      }}>
+                      <Image
+                        source={Images.newfil}
+                        style={styles.innerfileter}></Image>
                     </TouchableOpacity>
-
                   </View>
                   <TextInput
                     allowFontScaling={false}
                     placeholderTextColor={'#858383'}
                     fontFamily={'Poppins-Regular'}
                     keyboardType="web-search"
-                   
                     returnKeyType="done"
                     value={adress}
                     onSubmitEditing={Keyboard.dismiss}
                     onChangeText={text => setAddres(text)}
                     style={{
                       ...styles.searchinputtextarea,
-                    
                     }}
                   />
                 </View>
@@ -657,9 +670,7 @@ const Home = () => {
                     style={styles.searchborderinner}>
                     <Image
                       source={Images.mapnew1}
-                      tintColor={
-                        showMap ? Colors.PrimaryColor : Colors.black
-                      }
+                      tintColor={showMap ? Colors.PrimaryColor : Colors.black}
                       style={styles.addressstyle}></Image>
                   </TouchableOpacity>
                 </View>
@@ -699,7 +710,10 @@ const Home = () => {
                       const formData = new FormData();
                       formData.append('search_name', termName);
                       dispatch(filterSearch(formData)).then(response => {
-                        if (store.getState().getSavedSearchReducer.getSavedSearchData.count == 0) {
+                        if (
+                          store.getState().getSavedSearchReducer
+                            .getSavedSearchData.count == 0
+                        ) {
                           saveToogleModal();
                         }
                       });
@@ -709,26 +723,22 @@ const Home = () => {
                       {
                         flexDirection: 'row',
                         backgroundColor: 'white',
-                        borderColor: "#707070",
+                        borderColor: '#707070',
                         borderRadius: 10,
                         backgroundColor: 'white',
                       },
                     ]}>
                     <Image
                       source={Images.SaveAlt}
-                      style={[styles.filtericonstyle,]}
+                      style={[styles.filtericonstyle]}
                     />
-                    <Text
-                      style={[
-                        styles.savesearchstyle,
-                        { color: 'black' },
-                      ]}>
+                    <Text style={[styles.savesearchstyle, {color: 'black'}]}>
                       Save Search
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={ () => {
-                      clearFilterAPiCall()
+                    onPress={() => {
+                      clearFilterAPiCall();
                     }}
                     style={[
                       styles.rew,
@@ -740,7 +750,6 @@ const Home = () => {
                         borderRadius: 10,
                       },
                     ]}>
-                   
                     <Text
                       style={[
                         {
@@ -763,13 +772,13 @@ const Home = () => {
           <View style={{}}>
             {homeData?.length > 0 ? (
               <View
-                onLayout={({ nativeEvent }) => {
-                  const { x, y, width, height } = nativeEvent.layout;
+                onLayout={({nativeEvent}) => {
+                  const {x, y, width, height} = nativeEvent.layout;
                   setCenterHeight(height);
                 }}
-                style={{ height: centerHeight, width: '100%' }}>
+                style={{height: centerHeight, width: '100%'}}>
                 {!showMap && homeData?.length > 0 ? (
-                  <View style={{ height: centerHeight, width: '100%' }}>
+                  <View style={{height: centerHeight, width: '100%'}}>
                     <CardsSwipe
                       style={styles.cardswipercover}
                       cards={homeData}
@@ -780,7 +789,7 @@ const Home = () => {
                         <View
                           style={[
                             styles.cardinnercover,
-                            { height: imageHeight, width: imageWidth },
+                            {height: imageHeight, width: imageWidth},
                           ]}>
                           <View style={styles.cardinner}>
                             <View style={styles.thumpupcover}>
@@ -819,21 +828,21 @@ const Home = () => {
                         savefile(homeData[item].ID);
                       }}
                       renderCard={(item, index) => (
-                        <View style={[styles.shadowProp, { height: '100%' }]}>
+                        <View style={[styles.shadowProp, {height: '100%'}]}>
                           <SwiperFlatList
-                            style={{ height: '60%',width:'100%' }}
+                            style={{height: '60%', width: '100%'}}
                             disableGesture={true}
                             index={imageIndex}
                             autoPlay={false}
                             autoplayDelay={3000}
                             data={item?.featured_image_src}
                             refer={index}
-                            renderItem={({ item1, index }) => (
+                            renderItem={({item1, index}) => (
                               <>
                                 <View
-                                  onLayout={({ nativeEvent }) => {
-                                    const { x, y, width, height } =
-                                      nativeEvent.layout
+                                  onLayout={({nativeEvent}) => {
+                                    const {x, y, width, height} =
+                                      nativeEvent.layout;
                                     setImageHeight(height);
                                     setImageWidth(width);
                                   }}
@@ -841,7 +850,6 @@ const Home = () => {
                                     height: '100%',
                                     width: width,
                                     position: 'relative',
-                                  
                                   }}>
                                   <View style={styles.upperarrowcover}>
                                     {/* <View style={styles.arroescovr}>
@@ -865,27 +873,25 @@ const Home = () => {
                                         // width: 30,
                                         // position: 'relative',
                                         // left: 10,
-                                   
                                       }}>
                                       <View
                                         style={{
                                           height: width,
                                           width: 50,
-                                      justifyContent:"center",
-                                      alignContent:"center",
-                                 
+                                          justifyContent: 'center',
+                                          alignContent: 'center',
                                         }}>
-                                           <Image
-                                        source={Images.nextslide}
-                                        style={styles.nextcover}
-                                      />
-                                        </View>
+                                        <Image
+                                          source={Images.nextslide}
+                                          style={styles.nextcover}
+                                        />
+                                      </View>
                                     </TouchableOpacity>
 
                                     <TouchableOpacity
                                       disabled={
                                         item?.featured_image_src?.length - 1 ===
-                                          imageIndex 
+                                        imageIndex
                                           ? true
                                           : false
                                       }
@@ -896,25 +902,23 @@ const Home = () => {
                                         style={{
                                           height: width,
                                           width: 50,
-                                      
-                                      justifyContent:"center",
-                                      alignContent:"center",
-                                     
+
+                                          justifyContent: 'center',
+                                          alignContent: 'center',
                                         }}>
-                                            <Image
-                                        source={Images.nextslide}
-                                        style={styles.nextimage}
-                                      />
-                                        </View>
+                                        <Image
+                                          source={Images.nextslide}
+                                          style={styles.nextimage}
+                                        />
+                                      </View>
                                     </TouchableOpacity>
                                   </View>
                                   <TouchableOpacity
-                                    style={{ height: '100%' }}
+                                    style={{height: '100%'}}
                                     onPress={() => {
                                       navigation.navigate('ViewPropertiy', {
                                         ID: item.ID,
                                         from: 'Home',
-                                    
                                       });
                                     }}>
                                     <Image
@@ -1005,7 +1009,6 @@ const Home = () => {
                                   <Modal
                                     transparent={true}
                                     visible={favModalVisiable}
-
                                     onRequestClose={() => {
                                       setfavModalVisiable(false);
                                     }}>
@@ -1070,9 +1073,9 @@ const Home = () => {
                                               loop
                                             />
                                             <View
-                                              style={{ flexDirection: 'column' }}>
+                                              style={{flexDirection: 'column'}}>
                                               <TouchableOpacity
-                                                style={{ alignItems: 'center' }}
+                                                style={{alignItems: 'center'}}
                                                 onPress={() => {
                                                   navigation.navigate(
                                                     'Favorites',
@@ -1154,7 +1157,7 @@ const Home = () => {
 
                                           <View style={styles.inermodaltop}>
                                             <View
-                                              style={{ flexDirection: 'column' }}>
+                                              style={{flexDirection: 'column'}}>
                                               <TouchableOpacity
                                                 style={styles.modalaligned}
                                                 onPress={() => {
@@ -1234,14 +1237,14 @@ const Home = () => {
                                           <Text
                                             style={[
                                               styles.savedsearchheadin,
-                                              { marginTop: 40 },
+                                              {marginTop: 40},
                                             ]}>
                                             Righteous!
                                           </Text>
                                           <Text
                                             style={[
                                               styles.savedsearchheadin,
-                                              { marginBottom: 50 },
+                                              {marginBottom: 50},
                                             ]}>
                                             You saved your first search!
                                           </Text>
@@ -1255,7 +1258,7 @@ const Home = () => {
 
                                           <View style={styles.inermodaltop}>
                                             <View
-                                              style={{ flexDirection: 'column' }}>
+                                              style={{flexDirection: 'column'}}>
                                               <TouchableOpacity
                                                 style={styles.modalaligned}
                                                 onPress={() => {
@@ -1304,10 +1307,11 @@ const Home = () => {
                                           {
                                             transform: [
                                               {
-                                                translateY: slideAnimations.interpolate({
-                                                  inputRange: [-300, 0],
-                                                  outputRange: [-300, 0],
-                                                }),
+                                                translateY:
+                                                  slideAnimations.interpolate({
+                                                    inputRange: [-300, 0],
+                                                    outputRange: [-300, 0],
+                                                  }),
                                               },
                                             ],
                                           },
@@ -1319,36 +1323,61 @@ const Home = () => {
                                               marginTop: 16,
                                             }}>
                                             <View style={styles.modalcover}>
-                                              <View style={styles.indicator}></View>
+                                              <View
+                                                style={styles.indicator}></View>
                                             </View>
 
                                             <View style={styles.w99}>
                                               <View>
-                                                <Text style={styles.modallabel}>Surf...</Text>
+                                                <Text style={styles.modallabel}>
+                                                  Surf...
+                                                </Text>
                                                 <TextInput
-                                                     allowFontScaling={false}
-                                                     placeholderTextColor={'#858383'}
-                                                     fontFamily={'Poppins-Regular'}
-                                                     keyboardType="default"
-                                                     placeholder={'Surf by Neighborhood, Zip Code, Address'}
-                                                     returnKeyType="done"
-                                                     value={zipText}
-                                                    //  onSubmitEditing={Keyboard.dismiss}
-                                                     onChangeText={text => setZipText(text)}
-                                                     style={[styles.searchinputtext,{width:'100%'} ]}/>
+                                                  allowFontScaling={false}
+                                                  placeholderTextColor={
+                                                    '#858383'
+                                                  }
+                                                  fontFamily={'Poppins-Regular'}
+                                                  keyboardType="default"
+                                                  placeholder={
+                                                    'Surf by Neighborhood, Zip Code, Address'
+                                                  }
+                                                  returnKeyType="done"
+                                                  value={zipText}
+                                                  //  onSubmitEditing={Keyboard.dismiss}
+                                                  onChangeText={text =>
+                                                    setZipText(text)
+                                                  }
+                                                  style={[
+                                                    styles.searchinputtext,
+                                                    {width: '100%',borderWidth:1},
+                                                  ]}
+                                                />
 
                                                 <Text style={styles.modallabel}>
                                                   Choose your city{' '}
                                                 </Text>
                                                 <MultiSelect
                                                   ref={ref}
-                                                  style={[styles.dropdown, { width: '100%' }]}
-                                                  placeholderStyle={styles.placeholderStyle}
-                                                  selectedTextStyle={styles.selectedTextStyle}
-                                                  inputSearchStyle={styles.inputSearchStyle}
+                                                  style={[
+                                                    
+                                                    styles.dropdown,
+                                                    {width: '100%',borderWidth:1},
+                                                  ]}
+                                                  placeholderStyle={
+                                                    styles.placeholderStyle
+                                                  }
+                                                  selectedTextStyle={
+                                                    styles.selectedTextStyle
+                                                  }
+                                                  inputSearchStyle={
+                                                    styles.inputSearchStyle
+                                                  }
                                                   iconStyle={styles.iconStyle}
                                                   visibleSelectedItem={true}
-                                                  itemTextStyle={styles.itemTextStyle}
+                                                  itemTextStyle={
+                                                    styles.itemTextStyle
+                                                  }
                                                   placeholderTextColor="red"
                                                   search
                                                   data={moreFilterData.City}
@@ -1357,60 +1386,87 @@ const Home = () => {
                                                   placeholder="All Cities"
                                                   searchPlaceholder="Search..."
                                                   value={cities}
-                                                  valuestyle={{ color: 'red' }}
+                                                  valuestyle={{color: 'red'}}
                                                   onChange={async item => {
-                                                    setFilterType(3)
+                                                    setFilterType(3);
                                                     setCities(item);
                                                     ref.current.close();
                                                     await dispatch(
                                                       getPoperties({
                                                         type: 3,
                                                         data: {
-                                                          data_custom_taxonomy: 'property_city',
-                                                          // data_customvalue: item.toString(),
+                                                          data_custom_taxonomy:
+                                                            'property_city',
+                                                          data_customvalue: item.toString(),
                                                         },
                                                       }),
                                                     ).then(res => {
-                                                      setHomeData(res.payload.data);
+                                                      setHomeData(
+                                                        res.payload.data,
+                                                      );
                                                       refRBSheet.current.close();
                                                     });
                                                   }}
-                                                  selectedStyle={styles.selectedStyle}
+                                                  selectedStyle={
+                                                    styles.selectedStyle
+                                                  }
                                                 />
 
-                                                <View style={{ marginBottom: 12, marginTop: 12 }}>
-                                                  <Text style={styles.modallabel}>
+                                                <View
+                                                  style={{
+                                                    marginBottom: 12,
+                                                    marginTop: 12,
+                                                  }}>
+                                                  <Text
+                                                    style={styles.modallabel}>
                                                     Bedrooms
                                                   </Text>
-                                                  <View style={styles.dataupeercover}>
+                                                  <View
+                                                    style={
+                                                      styles.dataupeercover
+                                                    }>
                                                     <FlatList
                                                       style={styles.slidervalue}
-                                                      data={moreFilterData?.bedroom}
+                                                      data={
+                                                        moreFilterData?.bedroom
+                                                      }
                                                       horizontal={true}
-                                                      showsHorizontalScrollIndicator={false}
-                                                      renderItem={({ item, index }) => {
+                                                      showsHorizontalScrollIndicator={
+                                                        false
+                                                      }
+                                                      renderItem={({
+                                                        item,
+                                                        index,
+                                                      }) => {
                                                         return (
                                                           <TouchableOpacity
                                                             onPress={async () => {
-                                                              setBedroomItem(index),
+                                                              setBedroomItem(
+                                                                index,
+                                                              ),
                                                                 await dispatch(
                                                                   getPoperties({
                                                                     type: 3,
                                                                     data: {
-                                                                      data_custom_taxonomy: 'bedroom',
-                                                                      data_customvalue: item.data_customvalue,
+                                                                      data_custom_taxonomy:
+                                                                        'bedroom',
+                                                                      data_customvalue:
+                                                                        item.data_customvalue,
                                                                     },
                                                                   }),
-
                                                                 ).then(res => {
-                                                                  setHomeData(res.payload.data);
+                                                                  setHomeData(
+                                                                    res.payload
+                                                                      .data,
+                                                                  );
                                                                 });
                                                             }}>
                                                             <View
                                                               style={[
                                                                 {
                                                                   backgroundColor:
-                                                                    bedroomitem === index
+                                                                    bedroomitem ===
+                                                                    index
                                                                       ? Colors.black
                                                                       : Colors.white,
                                                                 },
@@ -1421,12 +1477,15 @@ const Home = () => {
                                                                   styles.itemdata,
                                                                   {
                                                                     color:
-                                                                      bedroomitem === index
+                                                                      bedroomitem ===
+                                                                      index
                                                                         ? Colors.white
                                                                         : Colors.black,
                                                                   },
                                                                 ]}>
-                                                                {item?.data_name}
+                                                                {
+                                                                  item?.data_name
+                                                                }
                                                               </Text>
                                                             </View>
                                                           </TouchableOpacity>
@@ -1435,37 +1494,58 @@ const Home = () => {
                                                   </View>
                                                 </View>
                                                 <View>
-                                                  <Text style={styles.modallabel}>
+                                                  <Text
+                                                    style={styles.modallabel}>
                                                     Bathrooms
                                                   </Text>
-                                                  <View style={styles.dataupeercover}>
+                                                  <View
+                                                    style={
+                                                      styles.dataupeercover
+                                                    }>
                                                     <FlatList
-                                                      data={moreFilterData.bathroom}
+                                                      data={
+                                                        moreFilterData.bathroom
+                                                      }
                                                       horizontal={true}
-                                                      showsHorizontalScrollIndicator={false}
-                                                      renderItem={({ item, index }) => {
+                                                      showsHorizontalScrollIndicator={
+                                                        false
+                                                      }
+                                                      renderItem={({
+                                                        item,
+                                                        index,
+                                                      }) => {
                                                         return (
                                                           <TouchableOpacity
                                                             onPress={async () => {
-                                                              setBathRoomItem(index);
-                                                              setBathRoomCount(item.data_name);
+                                                              setBathRoomItem(
+                                                                index,
+                                                              );
+                                                              setBathRoomCount(
+                                                                item.data_name,
+                                                              );
                                                               await dispatch(
                                                                 getPoperties({
                                                                   type: 3,
                                                                   data: {
-                                                                    data_custom_taxonomy: 'bathroom',
-                                                                    data_customvalue: item.data_customvalue,
+                                                                    data_custom_taxonomy:
+                                                                      'bathroom',
+                                                                    data_customvalue:
+                                                                      item.data_customvalue,
                                                                   },
                                                                 }),
                                                               ).then(res => {
-                                                                setHomeData(res.payload.data);
+                                                                setHomeData(
+                                                                  res.payload
+                                                                    .data,
+                                                                );
                                                               });
                                                             }}>
                                                             <View
                                                               style={[
                                                                 {
                                                                   backgroundColor:
-                                                                    bathRoom === index
+                                                                    bathRoom ===
+                                                                    index
                                                                       ? Colors.black
                                                                       : Colors.white,
                                                                 },
@@ -1475,13 +1555,16 @@ const Home = () => {
                                                                 style={[
                                                                   {
                                                                     color:
-                                                                      bathRoom === index
+                                                                      bathRoom ===
+                                                                      index
                                                                         ? Colors.white
                                                                         : Colors.black,
                                                                   },
                                                                   styles.itemdata,
                                                                 ]}>
-                                                                {item?.data_name}
+                                                                {
+                                                                  item?.data_name
+                                                                }
                                                               </Text>
                                                             </View>
                                                           </TouchableOpacity>
@@ -1494,351 +1577,178 @@ const Home = () => {
                                                   <Text
                                                     style={[
                                                       styles.modallabel,
-                                                      { marginTop: 12 },
+                                                      {marginTop: 12},
                                                     ]}>
                                                     Square Feet
                                                   </Text>
                                                   <View
                                                     style={{
                                                       flexDirection: 'row',
-                                                      justifyContent: 'space-between',
+                                                      justifyContent:
+                                                        'space-between',
                                                       marginTop: 8,
                                                     }}>
                                                     <View
-                                                      style={[, { width: '48%' ,
-                                                      // borderWidth: 1,
-                                                      fontSize: 14,
-                                                      fontFamily: 'Poppins-Regular',
-                                                      color: Colors.newgray,
-                                                      // width: '50%',
-                                                      borderColor: Colors.BorderColor,
-                                                      borderRadius: 10,
-                                                      marginBottom: 8,}]}>
-                                                              <Picker
-  style={{ backgroundColor: 'white', width: '98%', height: 215 }}
-  selectedValue='item4'
-  pickerData={['item1', 'item2', 'item3', 'item4', 'item5', 'item6', 'item7']}
-  onValueChange={value => { console.log(value) }}
-/>
-                                                      {/* <SelectDropdown
-                                                        data={moreFilterData.min_square}
-                                                        buttonStyle={styles.dropdown1BtnStyle}
-                                                        buttonTextStyle={
-                                                          styles.dropdown1BtnTxtStyle
+                                                      style={[
+                                                        ,
+                                                        {
+                                                          width: '48%',
+                                                          fontSize: 14,
+                                                          fontFamily:
+                                                            'Poppins-Regular',
+                                                          color: Colors.newgray,
+                                                          borderColor:
+                                                            Colors.BorderColor,
+                                                          borderRadius: 10,
+                                                          marginBottom: 8,
+                                                        },
+                                                      ]}>
+                                                      <Picker
+                                                        style={{
+                                                          backgroundColor:
+                                                            'white',
+                                                          width: '98%',
+                                                          height: 180,
+                                                        }}
+                                                        selectedValue="No Min"
+                                                        pickerData={
+                                                          minSquareFeet
+                                                            ? minSquareFeet
+                                                            : []
                                                         }
-                                                        dropdownIconPosition={'right'}
-                                                        dropdownStyle={
-                                                          styles.dropdown1DropdownStyle
-                                                        }
-                                                        rowStyle={styles.dropdown1RowStyle}
-                                                        rowTextStyle={
-                                                          styles.dropdown1RowTxtStyle
-                                                        }
-                                                        search={true}
-                                                        searchInputStyle={{ color: 'black' }}
-                                                        searchPlaceholder="Search"
-                                                        searchPlaceHolderColor="black"
-                                                        searchInputTxtColor="black"
-                                                        placeholder="Min square"
-                                                        defaultButtonText="Min square"
-                                                        renderDropdownIcon={isOpened => {
-                                                          return (
-                                                            <Image
-                                                              source={Images.downArrow}
-                                                              tintColor={Colors.gray}
-                                                              style={
-                                                                styles.downarrowmain
-                                                              }></Image>
-                                                          );
+                                                        onValueChange={value => {
+                                                          console.log(value);
                                                         }}
-                                                        onSelect={async (
-                                                          selectedItem,
-                                                          index,
-                                                        ) => {
-                                                          setMinSquareFeet(item.data_name);
-                                                          await dispatch(
-                                                            getPoperties({
-                                                              type: 3,
-                                                              data: {
-                                                                data_custom_taxonomy:'min_square',
-                                                                data_customvalue: selectedItem.data_customvalue,
-                                                              },
-                                                            }),
-                                                          ).then(res => {
-                                                            setHomeData(res.payload.data);
-                                                          });
-                                                        }}
-                                                        buttonTextAfterSelection={(
-                                                          selectedItem,
-                                                          index,
-                                                        ) => {
-                                                          return (
-                                                            <Text
-                                                              style={styles.datacustomvalue}>
-                                                              {selectedItem?.data_customvalue}
-                                                            </Text>
-                                                          );
-                                                        }}
-                                                        rowTextForSelection={(item, index) => {
-                                                          return (
-                                                            <Text
-                                                              style={styles.datacustomvalue}>
-                                                              {item?.data_customvalue}
-                                                            </Text>
-                                                          );
-                                                        }}
-                                                      /> */}
+                                                      />
                                                     </View>
 
                                                     <View
-                                                      style={[styles.dropdown, { width: '48%' }]}>
-                                                      <SelectDropdown
-                                                        data={moreFilterData.max_square}
-                                                        buttonStyle={styles.dropdown1BtnStyle}
-                                                        buttonTextStyle={
-                                                          styles.dropdown1BtnTxtStyle
-                                                        }
-                                                        dropdownIconPosition={'right'}
-                                                        dropdownStyle={
-                                                          styles.dropdown1DropdownStyle
-                                                        }
-                                                        rowStyle={styles.dropdown1RowStyle}
-                                                        rowTextStyle={
-                                                          styles.dropdown1RowTxtStyle
-                                                        }
-                                                        search={true}
-                                                        searchInputStyle={{ color: 'black' }}
-                                                        searchPlaceholder="Search"
-                                                        searchPlaceHolderColor="black"
-                                                        searchInputTxtColor="black"
-                                                        placeholder="Max Square"
-                                                        defaultButtonText="Max Square"
-                                                        renderDropdownIcon={isOpened => {
-                                                          return (
-                                                            <Image
-                                                              source={Images.downArrow}
-                                                              tintColor={Colors.gray}
-                                                              style={
-                                                                styles.downarrowmain
-                                                              }></Image>
-                                                          );
+                                                      style={[
+                                                        styles.dropdown,
+                                                        {width: '48%'},
+                                                      ]}>
+                                                      <Picker
+                                                        style={{
+                                                          backgroundColor:
+                                                            'white',
+                                                          width: '98%',
+                                                          height: 180,
                                                         }}
-                                                        onSelect={async (
-                                                          selectedItem,
-                                                          index,
-                                                        ) => {
-                                                          setMaxSquareFeet(item.data_name);
-                                                          await dispatch(
-                                                            getPoperties({
-                                                              type: 3,
-                                                              data: {
-                                                                data_custom_taxonomy:'max_square',
-                                                                data_customvalue:selectedItem.data_customvalue,
-                                                              },
-                                                            }),
-                                                          ).then(res => {
-                                                            setHomeData(res.payload.data);
-                                                          });
-                                                        }}
-                                                        buttonTextAfterSelection={(
-                                                          selectedItem,
-                                                          index,
-                                                        ) => {
-                                                          return (
-                                                            <Text
-                                                              style={styles.datacustomvalue}>
-                                                              {selectedItem?.data_customvalue}
-                                                            </Text>
-                                                          );
-                                                        }}
-                                                        rowTextForSelection={(item, index) => {
-                                                          return (
-                                                            <Text
-                                                              style={styles.datacustomvalue}>
-                                                              {item?.data_customvalue}
-                                                            </Text>
-                                                          );
+                                                        selectedValue="No Max"
+                                                        pickerData={
+                                                          maxSquareFeet
+                                                            ? maxSquareFeet
+                                                            : []
+                                                        }
+                                                        onValueChange={value => {
+                                                          console.log(value);
                                                         }}
                                                       />
                                                     </View>
                                                   </View>
                                                 </View>
-                                                <View style={{ marginTop: 12 }}>
-                                                  <Text style={styles.modallabel}>
-                                                    Price Range
+                                                <View>
+                                                  <Text
+                                                    style={[
+                                                      styles.modallabel,
+                                                      {marginTop: 12},
+                                                    ]}>
+                                                  Price Range
                                                   </Text>
-
                                                   <View
                                                     style={{
                                                       flexDirection: 'row',
-                                                      justifyContent: 'space-between',
-                                                      marginBottom: 16,
-                                                      width: '100%',
+                                                      justifyContent:
+                                                        'space-between',
+                                                      marginTop: 8,
                                                     }}>
                                                     <View
-                                                      style={[styles.dropdown, { width: '48%' }]}>
-                                                      <SelectDropdown
-                                                        data={moreFilterData.min_price}
-                                                        buttonStyle={styles.dropdown1BtnStyle}
-                                                        buttonTextStyle={
-                                                          styles.dropdown1BtnTxtStyle
-                                                        }
-                                                        dropdownIconPosition={'right'}
-                                                        dropdownStyle={
-                                                          styles.dropdown1DropdownStyle
-                                                        }
-                                                        rowStyle={styles.dropdown1RowStyle}
-                                                        rowTextStyle={
-                                                          styles.dropdown1RowTxtStyle
-                                                        }
-                                                        search={true}
-                                                        searchInputStyle={{ color: 'black' }}
-                                                        searchPlaceholder="Search"
-                                                        searchPlaceHolderColor="black"
-                                                        searchInputTxtColor="black"
-                                                        placeholder="Min Price"
-                                                        defaultButtonText="Min Price"
-                                                        renderDropdownIcon={isOpened => {
-                                                          return (
-                                                            <Image
-                                                              source={Images.downArrow}
-                                                              tintColor={Colors.gray}
-                                                              style={
-                                                                styles.downarrowmain
-                                                              }></Image>
-                                                          );
+                                                      style={[
+                                                        ,
+                                                        {
+                                                          width: '48%',
+                                                          fontSize: 14,
+                                                          fontFamily:
+                                                            'Poppins-Regular',
+                                                          color: Colors.newgray,
+                                                          borderColor:
+                                                            Colors.BorderColor,
+                                                          borderRadius: 10,
+                                                          marginBottom: 8,
+                                                        },
+                                                      ]}>
+                                                      <Picker
+                                                        style={{
+                                                          backgroundColor:
+                                                            'white',
+                                                          width: '98%',
+                                                          height: 180,
                                                         }}
-                                                        onSelect={async (
-                                                          selectedItem,
-                                                          index,
-                                                        ) => {
-                                                          setMinPricerange(item.data_name);
-                                                          await dispatch(
-                                                            getPoperties({
-                                                              type: 3,
-                                                              data: {
-                                                                data_custom_taxonomy:'min_price',
-                                                                data_customvalue: selectedItem.data_customvalue,
-                                                              },
-                                                            }),
-                                                          ).then(res => {
-                                                            setHomeData(res.payload.data);
-                                                          });
-                                                        }}
-                                                        buttonTextAfterSelection={(
-                                                          selectedItem,
-                                                          index,
-                                                        ) => {
-                                                          return (
-                                                            <Text
-                                                              style={styles.datacustomvalue}>
-                                                              {selectedItem?.data_customvalue}
-                                                            </Text>
-                                                          );
-                                                        }}
-                                                        rowTextForSelection={(item, index) => {
-                                                          return (
-                                                            <Text
-                                                              style={styles.datacustomvalue}>
-                                                              {item?.data_customvalue}
-                                                            </Text>
-                                                          );
+                                                        selectedValue="No Min"
+                                                        pickerData={
+                                                          minPricerange
+                                                            ? minPricerange
+                                                            : []
+                                                        }
+                                                        onValueChange={value => {
+                                                          console.log(value);
                                                         }}
                                                       />
                                                     </View>
 
                                                     <View
-                                                      style={[styles.dropdown, { width: '48%' }]}>
-                                                      <SelectDropdown
-                                                        data={moreFilterData.max_price}
-                                                        buttonStyle={styles.dropdown1BtnStyle}
-                                                        buttonTextStyle={
-                                                          styles.dropdown1BtnTxtStyle
-                                                        }
-                                                        dropdownIconPosition={'right'}
-                                                        dropdownStyle={
-                                                          styles.dropdown1DropdownStyle
-                                                        }
-                                                        rowStyle={styles.dropdown1RowStyle}
-                                                        rowTextStyle={
-                                                          styles.dropdown1RowTxtStyle
-                                                        }
-                                                        search={true}
-                                                        searchInputTxtStyle={{ color: '#000000' }}
-                                                        searchInputStyle={{ color: '#000000' }}
-                                                        searchPlaceholder="Search"
-                                                        searchPlaceHolderColor="#000000"
-                                                        searchInputTxtColor="#000000"
-                                                        placeholder="Max Price"
-                                                        defaultButtonText="Max Price"
-                                                        renderDropdownIcon={isOpened => {
-                                                          return (
-                                                            <Image
-                                                              source={Images.downArrow}
-                                                              tintColor={Colors.gray}
-                                                              style={
-                                                                styles.downarrowmain
-                                                              }></Image>
-                                                          );
+                                                      style={[
+                                                        styles.dropdown,
+                                                        {width: '48%'},
+                                                      ]}>
+                                                      <Picker
+                                                        style={{
+                                                          backgroundColor:
+                                                            'white',
+                                                          width: '98%',
+                                                          height: 180,
                                                         }}
-                                                        onSelect={async (
-                                                          selectedItem,
-                                                          index,
-                                                        ) => {
-                                                          setMaxPriceRange(item.data_name);
-                                                          await dispatch(
-                                                            getPoperties({
-                                                              type: 3,
-                                                              data: {
-                                                                data_custom_taxonomy: 'max_price',
-                                                                data_customvalue:
-                                                                selectedItem.data_customvalue,
-                                                              },
-                                                            }),
-                                                          ).then(res => {
-                                                            setHomeData(res.payload.data);
-                                                          });
-                                                        }}
-                                                        buttonTextAfterSelection={(
-                                                          selectedItem,
-                                                          index,
-                                                        ) => {
-                                                          return (
-                                                            <Text
-                                                              style={styles.datacustomvalue}>
-                                                              {selectedItem?.data_customvalue}
-                                                            </Text>
-                                                          );
-                                                        }}
-                                                        rowTextForSelection={(item, index) => {
-                                                          return (
-                                                            <Text
-                                                              style={styles.datacustomvalue}>
-                                                              {item?.data_customvalue}
-                                                            </Text>
-                                                          );
+                                                        selectedValue="No Max"
+                                                        pickerData={
+                                                          maxPriceRange
+                                                            ? maxPriceRange
+                                                            : []
+                                                        }
+                                                        onValueChange={value => {
+                                                          console.log(value);
                                                         }}
                                                       />
                                                     </View>
                                                   </View>
                                                 </View>
-                                                <Collapsible collapsed={moreFilter}>
-                                                  <View style={styles.moreffiltercover}>
+                                                <Collapsible
+                                                  collapsed={moreFilter}>
+                                                  <View
+                                                    style={
+                                                      styles.moreffiltercover
+                                                    }>
                                                     <FlatList
-                                                      data={moreFilterData?.more_filter_data}
+                                                      data={
+                                                        moreFilterData?.more_filter_data
+                                                      }
                                                       style={{
                                                         alignContent: 'center',
                                                       }}
                                                       nestedScrollEnabled
                                                       numColumns={3}
-                                                      renderItem={({ item, index }) => {
+                                                      renderItem={({
+                                                        item,
+                                                        index,
+                                                      }) => {
                                                         const {
                                                           data_custom_taxonomy,
                                                           data_customvalue,
                                                         } = item;
                                                         const isSelectedMore =
                                                           selectedTabsMore.filter(
-                                                            i => i === data_customvalue,
+                                                            i =>
+                                                              i ===
+                                                              data_customvalue,
                                                           ).length > 0;
                                                         return (
                                                           <TouchableOpacity
@@ -1847,36 +1757,47 @@ const Home = () => {
                                                               paddingHorizontal: 8,
                                                             }}
                                                             onPress={async () => {
-                                                              if (isSelectedMore) {
-                                                                setSelectedTabsMore(prev =>
-                                                                  prev.filter(
-                                                                    i => i !== data_customvalue,
-                                                                  ),
+                                                              if (
+                                                                isSelectedMore
+                                                              ) {
+                                                                setSelectedTabsMore(
+                                                                  prev =>
+                                                                    prev.filter(
+                                                                      i =>
+                                                                        i !==
+                                                                        data_customvalue,
+                                                                    ),
                                                                 );
                                                               } else {
-                                                                setSelectedTabsMore(prev => [
-                                                                  ...prev,
-                                                                  data_customvalue,
-                                                                ]);
+                                                                setSelectedTabsMore(
+                                                                  prev => [
+                                                                    ...prev,
+                                                                    data_customvalue,
+                                                                  ],
+                                                                );
                                                               }
                                                             }}>
                                                             <Text
                                                               style={{
-                                                                color: isSelectedMore
-                                                                  ? Colors.white
-                                                                  : Colors.black,
-                                                                textAlign: 'center',
+                                                                color:
+                                                                  isSelectedMore
+                                                                    ? Colors.white
+                                                                    : Colors.black,
+                                                                textAlign:
+                                                                  'center',
                                                                 borderRadius: 20,
                                                                 borderWidth: 0.8,
-                                                                borderColor: Colors.gray,
-                                                                backgroundColor: isSelectedMore
-                                                                  ? Colors.black
-                                                                  : Colors.white,
+                                                                borderColor:
+                                                                  Colors.gray,
+                                                                backgroundColor:
+                                                                  isSelectedMore
+                                                                    ? Colors.black
+                                                                    : Colors.white,
                                                                 padding: 10,
                                                                 marginBottom: 8,
                                                                 fontSize:
                                                                   DeviceInfo.getDeviceType() ===
-                                                                    'Tablet'
+                                                                  'Tablet'
                                                                     ? 18
                                                                     : 14,
                                                               }}
@@ -1888,31 +1809,52 @@ const Home = () => {
                                                       }}></FlatList>
                                                   </View>
                                                 </Collapsible>
-                                                
                                               </View>
-                                             
                                             </View>
                                           </ScrollView>
-                                          <View style={{flexDirection:'row',justifyContent:'space-between',alignContent:'center',alignItems:'center',width:'100%',height:'18%'}}>
-                                            <TouchableOpacity   
-                                                 onPress={ () => {
-                                                  clearFilterAPiCall()
-                    }}>
-                                          <Text style={{ marginLeft: 10, 
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 16,top:-35,borderWidth:1,borderColor:Colors.surfblur,paddingHorizontal:20,paddingVertical:6,borderRadius:20,   
-              color:Colors.surfblur, fontFamily: 'Poppins-Regular' }}>Clear Filters</Text>
-                                          </TouchableOpacity>
-                                                  <TouchableOpacity
-                                                    onPress={async () => {
-                                                      setFilterModalVisible(false);
-                                                    }}
-                                                    style={styles.apllycover}
-                                                 >
-                                                    <Text style={styles.applytext}>Apply</Text>
-                                                  </TouchableOpacity>
-                                              
+                                          <View
+                                            style={{
+                                              flexDirection: 'row',
+                                              justifyContent: 'space-between',
+                                              alignContent: 'center',
+                                              alignItems: 'center',
+                                              width: '100%',
+                                              height: '18%',
+                                            }}>
+                                            <TouchableOpacity
+                                              onPress={() => {
+                                                clearFilterAPiCall();
+                                              }}>
+                                              <Text
+                                                style={{
+                                                  marginLeft: 10,
+                                                  fontSize:
+                                                    DeviceInfo.getDeviceType() ===
+                                                    'Tablet'
+                                                      ? 22
+                                                      : 16,
+                                                  top: -35,
+                                                  borderWidth: 1,
+                                                  borderColor: Colors.surfblur,
+                                                  paddingHorizontal: 20,
+                                                  paddingVertical: 6,
+                                                  borderRadius: 20,
+                                                  color: Colors.surfblur,
+                                                  fontFamily: 'Poppins-Regular',
+                                                }}>
+                                                Clear Filters
+                                              </Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity
+                                              onPress={async () => {
+                                                setFilterModalVisible(false);
+                                              }}
+                                              style={styles.apllycover}>
+                                              <Text style={styles.applytext}>
+                                                Apply
+                                              </Text>
+                                            </TouchableOpacity>
                                           </View>
-                                         
                                         </SafeAreaView>
                                       </Animated.View>
                                     </View>
@@ -2016,25 +1958,29 @@ const Home = () => {
                                                 translateY:
                                                   slideAnimation.interpolate({
                                                     inputRange: [0, 300],
-                                                    outputRange: [0,300],
+                                                    outputRange: [0, 300],
                                                     extrapolate: 'clamp',
-
                                                   }),
                                               },
                                             ],
                                           },
                                         ]}>
-
-
-                                        <ScrollView style={styles.bgcover}showsVerticalScrollIndicator={false}>
-      <View style={{ alignItems: "center", paddingBottom: 20 }} >
-
-
+                                        <ScrollView
+                                          style={styles.bgcover}
+                                          showsVerticalScrollIndicator={false}>
+                                          <View
+                                            style={{
+                                              alignItems: 'center',
+                                              paddingBottom: 20,
+                                            }}>
                                             <View
                                               style={styles.indicator}></View>
                                           </View>
-                                          <ScrollView style={styles.bgcover}showsVerticalScrollIndicator={false}>
-
+                                          <ScrollView
+                                            style={styles.bgcover}
+                                            showsVerticalScrollIndicator={
+                                              false
+                                            }>
                                             <View style={{}}>
                                               <Text style={styles.reviewtxt}>
                                                 Rate This Property
@@ -2045,7 +1991,7 @@ const Home = () => {
                                               <View
                                                 style={[
                                                   styles.labelcover,
-                                                  { marginTop: 10 },
+                                                  {marginTop: 10},
                                                 ]}>
                                                 <Text
                                                   style={styles.propertlabel}>
@@ -2064,13 +2010,15 @@ const Home = () => {
                                                   }}
                                                 />
 
-                                                <View style={{
-                                                  width: "70%", borderBottomWidth: 1,
-                                                  borderBottomColor: Colors.BorderColor, marginVertical: 15
-                                                }}></View>
+                                                <View
+                                                  style={{
+                                                    width: '70%',
+                                                    borderBottomWidth: 1,
+                                                    borderBottomColor:
+                                                      Colors.BorderColor,
+                                                    marginVertical: 15,
+                                                  }}></View>
                                               </View>
-
-
 
                                               <View style={styles.labelcover}>
                                                 <Text
@@ -2089,13 +2037,15 @@ const Home = () => {
                                                     setRating1(value);
                                                   }}
                                                 />
-                                                <View style={{
-                                                  width: "70%", borderBottomWidth: 1,
-                                                  borderBottomColor: Colors.BorderColor, marginVertical: 15
-                                                }}></View>
+                                                <View
+                                                  style={{
+                                                    width: '70%',
+                                                    borderBottomWidth: 1,
+                                                    borderBottomColor:
+                                                      Colors.BorderColor,
+                                                    marginVertical: 15,
+                                                  }}></View>
                                               </View>
-
-
 
                                               <View style={styles.labelcover}>
                                                 <Text
@@ -2114,13 +2064,15 @@ const Home = () => {
                                                     setRating2(value);
                                                   }}
                                                 />
-                                                <View style={{
-                                                  width: "70%", borderBottomWidth: 1,
-                                                  borderBottomColor: Colors.BorderColor, marginVertical: 15
-                                                }}></View>
+                                                <View
+                                                  style={{
+                                                    width: '70%',
+                                                    borderBottomWidth: 1,
+                                                    borderBottomColor:
+                                                      Colors.BorderColor,
+                                                    marginVertical: 15,
+                                                  }}></View>
                                               </View>
-
-
 
                                               <View style={styles.labelcover}>
                                                 <Text
@@ -2139,15 +2091,19 @@ const Home = () => {
                                                     setRating3(value);
                                                   }}
                                                 />
-                                                <View style={{
-                                                  width: "70%", borderBottomWidth: 1,
-                                                  borderBottomColor: Colors.BorderColor, marginVertical: 15
-                                                }}></View>
+                                                <View
+                                                  style={{
+                                                    width: '70%',
+                                                    borderBottomWidth: 1,
+                                                    borderBottomColor:
+                                                      Colors.BorderColor,
+                                                    marginVertical: 15,
+                                                  }}></View>
                                               </View>
 
-
                                               <View style={styles.reviewcover}>
-                                                <Text style={styles.propertlabel}>
+                                                <Text
+                                                  style={styles.propertlabel}>
                                                   My Notes
                                                 </Text>
                                                 <View
@@ -2178,9 +2134,13 @@ const Home = () => {
                                               <View style={styles.btnmaincover}>
                                                 {ratingData?.length > 0 ? (
                                                   <View
-                                                    style={styles.submitbtnmain}>
+                                                    style={
+                                                      styles.submitbtnmain
+                                                    }>
                                                     <TouchableOpacity
-                                                      onPress={() => updateReview()}
+                                                      onPress={() =>
+                                                        updateReview()
+                                                      }
                                                       style={
                                                         styles.submitbtncover
                                                       }>
@@ -2193,19 +2153,24 @@ const Home = () => {
                                                     </TouchableOpacity>
                                                     {isAnimating && (
                                                       <LottieView
-                                                        style={styles.loaderstyle1}
+                                                        style={
+                                                          styles.loaderstyle1
+                                                        }
                                                         source={require('../../assets/animations/star.json')}
                                                         autoPlay
                                                         loop
                                                       />
-
                                                     )}
                                                   </View>
                                                 ) : (
                                                   <View
-                                                    style={styles.submitbtnmain}>
+                                                    style={
+                                                      styles.submitbtnmain
+                                                    }>
                                                     <TouchableOpacity
-                                                      onPress={() => addReview()}
+                                                      onPress={() =>
+                                                        addReview()
+                                                      }
                                                       style={
                                                         styles.submitbtncover
                                                       }>
@@ -2218,12 +2183,13 @@ const Home = () => {
                                                     </TouchableOpacity>
                                                     {isAnimating && (
                                                       <LottieView
-                                                        style={styles.loaderstyle1}
+                                                        style={
+                                                          styles.loaderstyle1
+                                                        }
                                                         source={require('../../assets/animations/star.json')}
                                                         autoPlay
                                                         loop
                                                       />
-
                                                     )}
                                                   </View>
                                                 )}
@@ -2379,7 +2345,7 @@ const Home = () => {
                       </Collapsible>
                     </View>
                     <MapView
-                    //  mapType={Platform.OS == "android" ? "none" : "standard"}
+                      //  mapType={Platform.OS == "android" ? "none" : "standard"}
                       provider={PROVIDER_DEFAULT}
                       style={styles.map}
                       zoomControlEnabled={true}
@@ -2451,10 +2417,8 @@ const Home = () => {
               </View>
             ) : (
               <View style={styles.extendescover}>
-                {
-                  
-                  filterType===1?(
-                    <>
+                {filterType === 1 ? (
+                  <>
                     <Text style={styles.extenddes}>
                       Would you like to extend your search radius by 10 miles?
                     </Text>
@@ -2465,32 +2429,31 @@ const Home = () => {
                           await dispatch(
                             getPoperties({
                               type: 0,
-                              data: { limit: limitCount + 1 },
-                            })).then(res => {
-                              setHomeData(res?.payload?.data);
-                            });
+                              data: {limit: limitCount + 1},
+                            }),
+                          ).then(res => {
+                            setHomeData(res?.payload?.data);
+                          });
                         }}
                         style={styles.extencover}>
                         <Text style={styles.extendtext}>Extend</Text>
                       </TouchableOpacity>
                     </View>
-                    </>
-                  ):(
-                    <>
-                    <Text style={styles.extenddes}>
-                    Record not found !
-                    </Text>
+                  </>
+                ) : (
+                  <>
+                    <Text style={styles.extenddes}>Record not found !</Text>
                     <View style={styles.extencovermain}>
                       <TouchableOpacity
-                        onPress={ () => {clearFilterAPiCall()}}
+                        onPress={() => {
+                          clearFilterAPiCall();
+                        }}
                         style={styles.extencover}>
                         <Text style={styles.extendtext}>Clear Filters </Text>
                       </TouchableOpacity>
                     </View>
-                    </>
-                  )
-                }
-               
+                  </>
+                )}
               </View>
             )}
           </View>
@@ -2519,7 +2482,6 @@ const styles = StyleSheet.create({
   coverrat: {
     height: 45,
     width: 45,
-
   },
   ratingstyle: {
     fontSize: 18,
@@ -2549,30 +2511,25 @@ const styles = StyleSheet.create({
 
     alignItems: 'center',
     position: 'relative',
-
   },
   sendbtn: {
     height: 20,
     width: 20,
     resizeMode: 'contain',
   },
-  modalaligned: {
-
-  },
+  modalaligned: {},
   calloutfeatureimg: {
     height: 80,
     width: 100,
     resizeMode: 'stretch',
-    
   },
   innercallout: {
     position: 'relative',
     height: 100,
-    top:-20,
+    top: -20,
     ...Platform.select({
-      ios:{top:10,left:5},
-     
-    })
+      ios: {top: 10, left: 5},
+    }),
   },
   uppercallout: {
     flexDirection: 'row',
@@ -2735,7 +2692,7 @@ const styles = StyleSheet.create({
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 49,
     width: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 59,
     marginRight: 30,
-    transform: [{ rotate: '-180deg' }],
+    transform: [{rotate: '-180deg'}],
     marginTop: 0,
     position: 'relative',
     top: DeviceInfo.getDeviceType() === 'Tablet' ? -15 : -10,
@@ -2790,21 +2747,21 @@ const styles = StyleSheet.create({
     color: Colors.black,
     fontFamily: 'Poppins-Light',
     marginBottom: 15,
-    textAlign: "center"
+    textAlign: 'center',
   },
   reviewcover: {
     width: '100%',
     alignSelf: 'center',
     overflow: 'hidden',
-    marginTop: 15
+    marginTop: 15,
   },
   reviewtxt: {
     fontSize: 21,
     fontFamily: 'Poppins-SemiBold',
     color: Colors.black,
     marginTop: 20,
-    textAlign: "center",
-    marginBottom: 20
+    textAlign: 'center',
+    marginBottom: 20,
   },
   textinputcover: {
     width: '100%',
@@ -2855,7 +2812,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   submitbtncover: {
-
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 50 : 45,
     width: 100,
     borderRadius: 100,
@@ -2863,14 +2819,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-
   },
   submitbtntxt: {
     fontSize: 17,
     color: Colors.white,
     fontFamily: 'Poppins-SemiBold',
   },
-  mapstarthere: { height: '100%', width: width },
+  mapstarthere: {height: '100%', width: width},
   mapuppercover: {
     position: 'absolute',
     zIndex: 99,
@@ -2889,7 +2844,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     paddingVertical: 12,
   },
-  detailcover: { flexWrap: 'wrap', top: -5 },
+  detailcover: {flexWrap: 'wrap', top: -5},
   itemtitle: {
     color: 'black',
     marginLeft: 10,
@@ -2902,12 +2857,15 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   filterstyle1: {
-    position: "absolute",
-    height: 35, width: 40, display: "flex",
-    alignItems: "center", justifyContent: "center",
-    top:6
+    position: 'absolute',
+    height: 35,
+    width: 40,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: 6,
   },
-  gpscover1: { position: "relative" },
+  gpscover1: {position: 'relative'},
   labelinnercover: {
     flexDirection: 'row',
     marginLeft: 10,
@@ -2963,9 +2921,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Poppins-Regular',
   },
-  dropdown1DropdownStyle: { backgroundColor: '#EFEFEF' },
-  dropdown1RowStyle: { backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5' },
-  dropdown1RowTxtStyle: { color: '#444', textAlign: 'left' },
+  dropdown1DropdownStyle: {backgroundColor: '#EFEFEF'},
+  dropdown1RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
+  dropdown1RowTxtStyle: {color: '#444', textAlign: 'left'},
 
   dropdown1BtnStyle: {
     width: '100%',
@@ -3003,7 +2961,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 3,
     right: 12,
-    shadowOffset: { width: -2, height: 4 },
+    shadowOffset: {width: -2, height: 4},
     shadowColor: '#171717',
     shadowOpacity: 0.2,
     shadowRadius: 3,
@@ -3017,7 +2975,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 3,
 
-    shadowOffset: { width: -2, height: 4 },
+    shadowOffset: {width: -2, height: 4},
     shadowColor: '#171717',
     shadowOpacity: 0.2,
     shadowRadius: 3,
@@ -3041,7 +2999,6 @@ const styles = StyleSheet.create({
   },
 
   modalOverlay1: {
-
     width: DeviceInfo.getDeviceType() === 'Tablet' ? '100%' : '98%',
 
     height: '100%',
@@ -3291,7 +3248,6 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   rew: {
-
     borderRadius: 8,
     paddingHorizontal: 13,
     justifyContent: 'center',
@@ -3302,8 +3258,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 6,
   },
   dropdown: {
-
-    borderWidth: 1,
     fontSize: 14,
     fontFamily: 'Poppins-Regular',
     color: Colors.newgray,
@@ -3500,7 +3454,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     position: 'absolute',
     zIndex: 99,
     left: 0,
@@ -3542,29 +3496,29 @@ const styles = StyleSheet.create({
     // paddingTop:12,
     position: 'relative',
     marginLeft: 30,
-    display: "flex",
-    paddingLeft:12,
-    alignItems: "center", justifyContent: "center",
+    display: 'flex',
+    paddingLeft: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 45,
-
   },
   searchinputtext: {
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
     letterSpacing: 1,
     color: '#000',
     // paddingTop:12,
-    width:'50%',
+    width: '50%',
     position: 'relative',
     // marginLeft: 30,
-    marginBottom:8,
-    borderColor: "#EDECED",
-    display: "flex",
-    borderWidth:0.5,
-    textAlign:'center',
-    borderRadius:10,
-    alignItems: "center", justifyContent: "center",
+    marginBottom: 8,
+    borderColor: '#EDECED',
+    display: 'flex',
+    borderWidth: 0.5,
+    textAlign: 'center',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 42,
-
   },
   searchboarder: {
     alignItems: 'center',
@@ -3576,25 +3530,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderLeftWidth: 1,
     borderLeftColor: Colors.BorderColor,
-    position: "relative",
-    top: 0
+    position: 'relative',
+    top: 0,
   },
   searchborderinner: {
     flex: 1,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-
   },
   addressstyle: {
-    position: "relative",
+    position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
     resizeMode: 'contain',
-    top: 0
+    top: 0,
   },
   gpsstyle: {
-
     resizeMode: 'contain',
   },
   gpscover: {
@@ -3606,14 +3558,13 @@ const styles = StyleSheet.create({
     width: '92%',
     alignSelf: 'center',
     justifyContent: 'center',
-
   },
   filterinner: {
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    marginBottom: 10
+    marginBottom: 10,
   },
   filterinnermain: {
     width: '100%',
@@ -3628,11 +3579,9 @@ const styles = StyleSheet.create({
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 12,
   },
   filtericonstyles: {
-
     marginLeft: 6,
   },
   filtericonstyle: {
-
     marginRight: 6,
   },
   filtericontext: {
@@ -3657,7 +3606,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     overflow: 'hidden',
     position: 'absolute',
-    opacity: 0.5
+    opacity: 0.5,
   },
   cardinner: {
     position: 'absolute',
@@ -3684,7 +3633,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     overflow: 'hidden',
     position: 'absolute',
-    opacity: 0.5
+    opacity: 0.5,
   },
   redthumbcover: {
     position: 'absolute',
@@ -3724,16 +3673,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
     // right: 12,
     // top:'45%',
-    zIndex:9999
+    zIndex: 9999,
   },
   nextcover: {
     height: 25,
     width: 25,
     tintColor: Colors.white,
-    transform: [{ rotate: '-180deg' }],
+    transform: [{rotate: '-180deg'}],
     position: 'absolute',
-  //   left: 12,
-  // top:0,
+    //   left: 12,
+    // top:0,
     zIndex: 999,
   },
   arroescovr: {
@@ -3744,21 +3693,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     height: '100%',
-   
   },
   upperarrowcover: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
     zIndex: 99,
-    position:"absolute"
-  
+    position: 'absolute',
   },
   bgcover: {
     height: '100%',
     backgroundColor: Colors.white,
   },
-  w85: { width: '85%' },
+  w85: {width: '85%'},
   modalcover: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -3894,26 +3841,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   applytext: {
-     marginLeft: 10, 
-      fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 16,  
-      color:Colors.white, fontFamily: 'Poppins-Regular'
+    marginLeft: 10,
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 16,
+    color: Colors.white,
+    fontFamily: 'Poppins-Regular',
   },
   apllycover: {
     // height: 30,
     // width: 110,
-    top:-35,paddingHorizontal:30,paddingVertical:8,borderRadius:30,
+    top: -35,
+    paddingHorizontal: 30,
+    paddingVertical: 8,
+    borderRadius: 30,
     borderRadius: 100,
     // paddingVertical:8,
     backgroundColor: Colors.surfblur,
-  //   // marginTop: 10,
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // top:-35
+    //   // marginTop: 10,
+    //   flexDirection: 'row',
+    //   alignItems: 'center',
+    //   justifyContent: 'center',
+    // top:-35
   },
-  applymaincover: {
-   
-  },
+  applymaincover: {},
   datacustomvalue: {
     color: 'black',
     textAlign: 'left',
@@ -3922,7 +3871,7 @@ const styles = StyleSheet.create({
     height: 12,
     width: 12,
   },
-  w100: { width: '100%' },
+  w100: {width: '100%'},
   maincov: {
     width: '100%',
     alignSelf: 'center',
