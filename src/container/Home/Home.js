@@ -186,23 +186,22 @@ const Home = () => {
   };
 
   useEffect(() => {
-    dispatch(getMoreFilter())
-      setMoreFilterData(store.getState().getMoreFilter.getMoreFilterData?.data);
-      moreFilterData?.min_square?.map((item, index) => {
-        setMinSquareFeet(old => [...old, item.data_name]);
-      });
-      moreFilterData?.max_square?.map((item, index) => {
-        setMaxSquareFeet(old => [...old, item.data_name]);
-      });
-      moreFilterData?.min_price?.map((item, index) => {
-        setMinPricerange(old => [...old, item.data_name]);
-      });
-      moreFilterData?.max_price?.map((item, index) => {
-        setMaxPriceRange(old => [...old, item.data_name]);
-      });
+    dispatch(getMoreFilter());
+    setMoreFilterData(store.getState().getMoreFilter.getMoreFilterData?.data);
+    moreFilterData?.min_square?.map((item, index) => {
+      setMinSquareFeet(old => [...old, item.data_name]);
+    });
+    moreFilterData?.max_square?.map((item, index) => {
+      setMaxSquareFeet(old => [...old, item.data_name]);
+    });
+    moreFilterData?.min_price?.map((item, index) => {
+      setMinPricerange(old => [...old, item.data_name]);
+    });
+    moreFilterData?.max_price?.map((item, index) => {
+      setMaxPriceRange(old => [...old, item.data_name]);
+    });
+  }, [store.getState().getMoreFilter.getMoreFilterData]);
 
-  }, [store.getState().getMoreFilter.getMoreFilterData])
-  
   useEffect(() => {
     getFilterApicall(),
       getTrashApiCall(),
@@ -690,6 +689,7 @@ const Home = () => {
                 renderItem={renderFillterItem}
               />
             </View>
+
             {isSelected && (
               <View style={styles.filterinner}>
                 <View style={styles.filterinnermain}>
@@ -854,7 +854,7 @@ const Home = () => {
                                         style={styles.nextimage}
                                       />
                                     </View> */}
-                                    <TouchableOpacity 
+                                    <TouchableOpacity
                                       disabled={imageIndex > 0 ? false : true}
                                       onPress={() => {
                                         setImageIndex(imageIndex - 1);
@@ -869,9 +869,7 @@ const Home = () => {
                                         width: 30,
                                         position: 'relative',
                                         left: 10,
-                                   
-                                      }}
-                                      >
+                                      }}>
                                       <View
                                         style={{
                                           height: width,
@@ -879,8 +877,6 @@ const Home = () => {
                                           position: 'absolute',
                                           zIndex: 999,
                                           right: 10,
-                                 
-
                                         }}>
                                         <Image
                                           source={Images.nextslide}
@@ -890,7 +886,7 @@ const Home = () => {
                                     </TouchableOpacity>
 
                                     <TouchableOpacity
-                                    // style={{backgroundColor:'red',zIndex:999,position:'absolute'}}
+                                      // style={{backgroundColor:'red',zIndex:999,position:'absolute'}}
                                       disabled={
                                         item?.featured_image_src?.length - 1 ===
                                         imageIndex
@@ -905,12 +901,10 @@ const Home = () => {
                                           height: width,
 
                                           width: 40,
-                                      
+
                                           position: 'absolute',
                                           zIndex: 999,
                                           right: 10,
-                                     
-
                                         }}>
                                         <Image
                                           source={Images.nextslide}
@@ -920,9 +914,7 @@ const Home = () => {
                                     </TouchableOpacity>
                                   </View>
                                   <TouchableOpacity
-
-                                    style={{ height: '100%'}}
-
+                                    style={{height: '100%'}}
                                     onPress={() => {
                                       navigation.navigate('ViewPropertiy', {
                                         ID: item.ID,
@@ -1297,643 +1289,7 @@ const Home = () => {
                                     </View>
                                   </Modal>
                                 </KeyboardAvoidingView>
-                                <KeyboardAvoidingView behavior="padding">
-                                  <Modal
-                                    transparent={true}
-                                    visible={filterModalVisible}
-                                    onRequestClose={filtertoggleModal}>
-                                    <View style={styles.modalContainer}>
-                                      <TouchableOpacity
-                                        activeOpacity={1}
-                                        style={styles.modalOverlay}
-                                        onPress={closeModals}
-                                      />
-                                      <Animated.View
-                                        {...panResponders.panHandlers}
-                                        style={[
-                                          styles.modalContentch,
-                                          {
-                                            transform: [
-                                              {
-                                                translateY:
-                                                  slideAnimations.interpolate({
-                                                    inputRange: [-300, 0],
-                                                    outputRange: [-300, 0],
-                                                  }),
-                                              },
-                                            ],
-                                          },
-                                        ]}>
-                                        <SafeAreaView>
-                                          <ScrollView
-                                            style={{
-                                              width: '100%',
-                                              marginTop: 16,
-                                            }}>
-                                            <View style={styles.modalcover}>
-                                              <View
-                                                style={styles.indicator}></View>
-                                            </View>
 
-                                            <View style={styles.w99}>
-                                              <View>
-                                                <Text style={styles.modallabel}>
-                                                  Surf...
-                                                </Text>
-                                                <TextInput
-                                                  // allowFontScaling={false}
-                                                  placeholderTextColor={
-                                                    '#858383'
-                                                  }
-                                                  fontFamily={'Poppins-Regular'}
-                                                  keyboardType="default"
-                                                  placeholder='Surf by Neighborhood, Zip Code, Address'                                                   
-                                                  returnKeyType="done"
-                                                  value={zipText}
-                                                   onSubmitEditing={Keyboard.dismiss}
-                                                  onChangeText={text =>
-                                                    console.log("textttttt",text)
-                                                    // setZipText(text)
-                                                  }
-                                                  style={[
-                                                    styles.searchinputtext,
-                                                    {width: '100%',borderWidth:1},
-                                                  ]}
-                                                />
-
-                                                <Text style={styles.modallabel}>
-                                                  Choose your city{' '}
-                                                </Text>
-                                                <MultiSelect
-                                                  ref={ref}
-                                                  style={[
-                                                    
-                                                    styles.dropdown,
-                                                    {width: '100%',borderWidth:1},
-                                                  ]}
-                                                  placeholderStyle={
-                                                    styles.placeholderStyle
-                                                  }
-                                                  selectedTextStyle={
-                                                    styles.selectedTextStyle
-                                                  }
-                                                  inputSearchStyle={
-                                                    styles.inputSearchStyle
-                                                  }
-                                                  iconStyle={styles.iconStyle}
-                                                  visibleSelectedItem={true}
-                                                  itemTextStyle={
-                                                    styles.itemTextStyle
-                                                  }
-                                                  placeholderTextColor="red"
-                                                  search
-                                                  data={moreFilterData?.City}
-                                                  labelField="data_name"
-                                                  valueField="data_customvalue"
-                                                  placeholder="All Cities"
-                                                  searchPlaceholder="Search..."
-                                                  value={cities}
-                                                  valuestyle={{color: 'red'}}
-                                                  onChange={async item => {
-                                                    setFilterType(3);
-                                                    setCities(item);
-                                                    ref.current.close();
-                                                    await dispatch(
-                                                      getPoperties({
-                                                        type: 3,
-                                                        data: {
-                                                          filter_type:filterType,
-                                                          data_custom_taxonomy:
-                                                            'property_city',
-                                                          data_customvalue: item.toString(),
-                                                        },
-                                                      }),
-                                                    ).then(res => {
-                                                      setHomeData(
-                                                        res.payload.data,
-                                                      );
-                                                      refRBSheet.current.close();
-                                                    });
-                                                  }}
-                                                  selectedStyle={
-                                                    styles.selectedStyle
-                                                  }
-                                                />
-
-                                                <View
-                                                  style={{
-                                                    marginBottom: 12,
-                                                    marginTop: 12,
-                                                  }}>
-                                                  <Text
-                                                    style={styles.modallabel}>
-                                                    Bedrooms
-                                                  </Text>
-                                                  <View
-                                                    style={
-                                                      styles.dataupeercover
-                                                    }>
-                                                    <FlatList
-                                                      style={styles.slidervalue}
-                                                      data={
-                                                        moreFilterData?.bedroom
-                                                      }
-                                                      horizontal={true}
-                                                      showsHorizontalScrollIndicator={
-                                                        false
-                                                      }
-                                                      renderItem={({
-                                                        item,
-                                                        index,
-                                                      }) => {
-                                                        return (
-                                                          <TouchableOpacity
-                                                            onPress={async () => {
-                                                              setBedroomItem(
-                                                                index,
-                                                              ),
-                                                                await dispatch(
-                                                                  getPoperties({
-                                                                    type: 3,
-                                                                    data: {
-                                                                      filter_type:filterType,
-                                                                      data_custom_taxonomy:
-                                                                        'bedroom',
-                                                                      data_customvalue:
-                                                                        item.data_customvalue,
-                                                                    },
-                                                                  }),
-                                                                ).then(res => {
-                                                                  setHomeData(
-                                                                    res.payload
-                                                                      .data,
-                                                                  );
-                                                                });
-                                                            }}>
-                                                            <View
-                                                              style={[
-                                                                {
-                                                                  backgroundColor:
-                                                                    bedroomitem ===
-                                                                    index
-                                                                      ? Colors.black
-                                                                      : Colors.white,
-                                                                },
-                                                                styles.itemdtacover,
-                                                              ]}>
-                                                              <Text
-                                                                style={[
-                                                                  styles.itemdata,
-                                                                  {
-                                                                    color:
-                                                                      bedroomitem ===
-                                                                      index
-                                                                        ? Colors.white
-                                                                        : Colors.black,
-                                                                  },
-                                                                ]}>
-                                                                {
-                                                                  item?.data_name
-                                                                }
-                                                              </Text>
-                                                            </View>
-                                                          </TouchableOpacity>
-                                                        );
-                                                      }}></FlatList>
-                                                  </View>
-                                                </View>
-                                                <View>
-                                                  <Text
-                                                    style={styles.modallabel}>
-                                                    Bathrooms
-                                                  </Text>
-                                                  <View
-                                                    style={
-                                                      styles.dataupeercover
-                                                    }>
-                                                    <FlatList
-                                                      data={
-                                                        moreFilterData?.bathroom
-                                                      }
-                                                      horizontal={true}
-                                                      showsHorizontalScrollIndicator={
-                                                        false
-                                                      }
-                                                      renderItem={({
-                                                        item,
-                                                        index,
-                                                      }) => {
-                                                        return (
-                                                          <TouchableOpacity
-                                                            onPress={async () => {
-                                                              setBathRoomItem(
-                                                                index,
-                                                              );
-                                                              setBathRoomCount(
-                                                                item.data_name,
-                                                              );
-                                                              await dispatch(
-                                                                getPoperties({
-                                                                  type: 3,
-                                                                  data: {
-                                                                    filter_type:filterType,
-                                                                    data_custom_taxonomy:
-                                                                      'bathroom',
-                                                                    data_customvalue:
-                                                                      item.data_customvalue,
-                                                                  },
-                                                                }),
-                                                              ).then(res => {
-                                                                setHomeData(
-                                                                  res.payload
-                                                                    .data,
-                                                                );
-                                                              });
-                                                            }}>
-                                                            <View
-                                                              style={[
-                                                                {
-                                                                  backgroundColor:
-                                                                    bathRoom ===
-                                                                    index
-                                                                      ? Colors.black
-                                                                      : Colors.white,
-                                                                },
-                                                                styles.itemdtacover,
-                                                              ]}>
-                                                              <Text
-                                                                style={[
-                                                                  {
-                                                                    color:
-                                                                      bathRoom ===
-                                                                      index
-                                                                        ? Colors.white
-                                                                        : Colors.black,
-                                                                  },
-                                                                  styles.itemdata,
-                                                                ]}>
-                                                                {
-                                                                  item?.data_name
-                                                                }
-                                                              </Text>
-                                                            </View>
-                                                          </TouchableOpacity>
-                                                        );
-                                                      }}></FlatList>
-                                                  </View>
-                                                </View>
-
-                                                <View>
-                                                  <Text
-                                                    style={[
-                                                      styles.modallabel,
-                                                      {marginTop: 12},
-                                                    ]}>
-                                                    Square Feet
-                                                  </Text>
-                                                  <View
-                                                    style={{
-                                                      flexDirection: 'row',
-                                                      justifyContent:
-                                                        'space-between',
-                                                      marginTop: 8,
-                                                    }}>
-                                                    <View
-                                                      style={[
-                                                        ,
-                                                        {
-                                                          width: '48%',
-                                                          fontSize: 14,
-                                                          fontFamily:
-                                                            'Poppins-Regular',
-                                                          color: Colors.newgray,
-                                                          borderColor:
-                                                            Colors.BorderColor,
-                                                          borderRadius: 10,
-                                                          marginBottom: 8,
-                                                        },
-                                                      ]}>
-                                                      <Picker
-                                                        style={{
-                                                          backgroundColor:
-                                                            'white',
-                                                          width: '90%',
-                                                          height: 180,
-                                                        }}
-                                                        selectedValue="No Min"
-                                                        pickerData={
-                                                          minSquareFeet
-                                                            ? minSquareFeet
-                                                            : []
-                                                        }
-                                                        onValueChange={async value => {
-                                                          await dispatch(
-                                                            getPoperties({
-                                                              type: 3,
-                                                              data: {
-                                                                filter_type:filterType,
-                                                                data_custom_taxonomy:
-                                                                  'min_square',
-                                                                data_customvalue:
-                                                                value,
-                                                              },
-                                                            }),
-                                                          ).then(res => {
-                                                            setHomeData(
-                                                              res.payload
-                                                                .data,
-                                                            );
-                                                          });
-                                                        }}
-                                                      />
-                                                    </View>
-
-                                                    <View
-                                                      style={[
-                                                        styles.dropdown,
-                                                        {width: '48%'},
-                                                      ]}>
-                                                      <Picker
-                                                        style={{
-                                                          backgroundColor:
-                                                            'white',
-                                                          width: '90%',
-                                                          height: 180,
-                                                        }}
-                                                        selectedValue="No Max"
-                                                        pickerData={
-                                                          maxSquareFeet
-                                                            ? maxSquareFeet
-                                                            : []
-                                                        }
-                                                        onValueChange={async value => {
-                                                          await dispatch(
-                                                            getPoperties({
-                                                              type: 3,
-                                                              data: {
-                                                                filter_type:filterType,
-                                                                data_custom_taxonomy:
-                                                                  'max_square',
-                                                                data_customvalue:
-                                                                value,
-                                                              },
-                                                            }),
-                                                          ).then(res => {
-                                                            setHomeData(
-                                                              res.payload
-                                                                .data,
-                                                            );
-                                                          });
-                                                        }}
-                                                      />
-                                                    </View>
-                                                  </View>
-                                                </View>
-                                                <View>
-                                                  <Text
-                                                    style={[
-                                                      styles.modallabel,
-                                                      {marginTop: 12},
-                                                    ]}>
-                                                  Price Range
-                                                  </Text>
-                                                  <View
-                                                    style={{
-                                                      flexDirection: 'row',
-                                                      justifyContent:
-                                                        'space-between',
-                                                      marginTop: 8,
-                                                    }}>
-                                                    <View
-                                                      style={[
-                                                        ,
-                                                        {
-                                                          width: '48%',
-                                                          fontSize: 14,
-                                                          fontFamily:
-                                                            'Poppins-Regular',
-                                                          color: Colors.newgray,
-                                                          borderColor:
-                                                            Colors.BorderColor,
-                                                          borderRadius: 10,
-                                                          marginBottom: 8,
-                                                        },
-                                                      ]}>
-                                                      <Picker
-                                                        style={{
-                                                          backgroundColor:
-                                                            'white',
-                                                          width: '90%',
-                                                          height: 180,
-                                                        }}
-                                                        selectedValue="No Min"
-                                                        pickerData={
-                                                          minPricerange
-                                                            ? minPricerange
-                                                            : []
-                                                        }
-                                                        onValueChange={async value => {
-                                                          await dispatch(
-                                                            getPoperties({
-                                                              type: 3,
-                                                              data: {
-                                                                filter_type:filterType,
-                                                                data_custom_taxonomy:
-                                                                  'min_price',
-                                                                data_customvalue:
-                                                                value,
-                                                              },
-                                                            }),
-                                                          ).then(res => {
-                                                            setHomeData(
-                                                              res.payload
-                                                                .data,
-                                                            );
-                                                          });
-                                                        }}
-                                                      />
-                                                    </View>
-
-                                                    <View
-                                                      style={[
-                                                        styles.dropdown,
-                                                        {width: '48%'},
-                                                      ]}>
-                                                      <Picker
-                                                        style={{
-                                                          backgroundColor:
-                                                            'white',
-                                                          width: '90%',
-                                                          height: 180,
-                                                        }}
-                                                        selectedValue="No Max"
-                                                        pickerData={
-                                                          maxPriceRange
-                                                            ? maxPriceRange
-                                                            : []
-                                                        }
-                                                        onValueChange={async value => {
-                                                          await dispatch(
-                                                            getPoperties({
-                                                              type: 3,
-                                                              data: {
-                                                                filter_type:filterType,
-                                                                data_custom_taxonomy:
-                                                                  'max_price',
-                                                                data_customvalue:
-                                                                value,
-                                                              },
-                                                            }),
-                                                          ).then(res => {
-                                                            setHomeData(
-                                                              res.payload
-                                                                .data,
-                                                            );
-                                                          });
-                                                        }}
-                                                      />
-                                                    </View>
-                                                  </View>
-                                                </View>
-                                                <Collapsible
-                                                  collapsed={moreFilter}>
-                                                  <View
-                                                    style={
-                                                      styles.moreffiltercover
-                                                    }>
-                                                    <FlatList
-                                                      data={
-                                                        moreFilterData?.more_filter_data
-                                                      }
-                                                      style={{
-                                                        alignContent: 'center',
-                                                      }}
-                                                      nestedScrollEnabled
-                                                      numColumns={3}
-                                                      renderItem={({
-                                                        item,
-                                                        index,
-                                                      }) => {
-                                                        const {
-                                                          data_custom_taxonomy,
-                                                          data_customvalue,
-                                                        } = item;
-                                                        const isSelectedMore =
-                                                          selectedTabsMore.filter(
-                                                            i =>
-                                                              i ===
-                                                              data_customvalue,
-                                                          ).length > 0;
-                                                        return (
-                                                          <TouchableOpacity
-                                                            style={{
-                                                              width: '33.33%',
-                                                              paddingHorizontal: 8,
-                                                            }}
-                                                            onPress={async () => {
-                                                              if (
-                                                                isSelectedMore
-                                                              ) {
-                                                                setSelectedTabsMore(
-                                                                  prev =>
-                                                                    prev.filter(
-                                                                      i =>
-                                                                        i !==
-                                                                        data_customvalue,
-                                                                    ),
-                                                                );
-                                                              } else {
-                                                                setSelectedTabsMore(
-                                                                  prev => [
-                                                                    ...prev,
-                                                                    data_customvalue,
-                                                                  ],
-                                                                );
-                                                              }
-                                                            }}>
-                                                            <Text
-                                                              style={{
-                                                                color:
-                                                                  isSelectedMore
-                                                                    ? Colors.white
-                                                                    : Colors.black,
-                                                                textAlign:
-                                                                  'center',
-                                                                borderRadius: 20,
-                                                                borderWidth: 0.8,
-                                                                borderColor:
-                                                                  Colors.gray,
-                                                                backgroundColor:
-                                                                  isSelectedMore
-                                                                    ? Colors.black
-                                                                    : Colors.white,
-                                                                padding: 10,
-                                                                marginBottom: 8,
-                                                                fontSize:
-                                                                  DeviceInfo.getDeviceType() ===
-                                                                  'Tablet'
-                                                                    ? 18
-                                                                    : 14,
-                                                              }}
-                                                              numberOfLines={1}>
-                                                              {item?.data_name}
-                                                            </Text>
-                                                          </TouchableOpacity>
-                                                        );
-                                                      }}></FlatList>
-                                                  </View>
-                                                </Collapsible>
-                                              </View>
-                                            </View>
-                                          </ScrollView>
-                                          <View
-                                            style={{
-                                              flexDirection: 'row',
-                                              justifyContent: 'space-between',
-                                              alignContent: 'center',
-                                              alignItems: 'center',
-                                              width: '100%',
-                                              top:-30
-                                            }}>
-                                            <TouchableOpacity
-                                              onPress={() => {
-                                                clearFilterAPiCall();
-                                              }}>
-                                              <Text
-                                                style={{
-                                                  marginLeft: 10,
-                                                  fontSize:
-                                                    DeviceInfo.getDeviceType() ===
-                                                    'Tablet'
-                                                      ? 22
-                                                      : 16,
-                                                  top: -35,
-                                                  borderWidth: 1,
-                                                  borderColor: Colors.surfblur,
-                                                  paddingHorizontal: 20,
-                                                  paddingVertical: 6,
-                                                  borderRadius: 20,
-                                                  color: Colors.surfblur,
-                                                  fontFamily: 'Poppins-Regular',
-                                                }}>
-                                                Clear Filters
-                                              </Text>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity
-                                              onPress={async () => {
-                                                setFilterModalVisible(false);
-                                              }}
-                                              style={styles.apllycover}>
-                                              <Text style={styles.applytext}>
-                                                Apply
-                                              </Text>
-                                            </TouchableOpacity>
-                                          </View>
-                                        </SafeAreaView>
-                                      </Animated.View>
-                                    </View>
-                                  </Modal>
-                                </KeyboardAvoidingView>
                                 <KeyboardAvoidingView behavior="padding">
                                   <Modal
                                     transparent={true}
@@ -2531,6 +1887,494 @@ const Home = () => {
               </View>
             )}
           </View>
+          <KeyboardAvoidingView behavior="padding">
+            <Modal
+              transparent={true}
+              visible={filterModalVisible}
+              onRequestClose={filtertoggleModal}>
+              <View style={styles.modalContainer}>
+                <TouchableOpacity
+                  activeOpacity={1}
+                  style={styles.modalOverlay}
+                  onPress={closeModals}
+                />
+                <Animated.View
+                  {...panResponders.panHandlers}
+                  style={[
+                    styles.modalContentch,
+                    {
+                      transform: [
+                        {
+                          translateY: slideAnimations.interpolate({
+                            inputRange: [-300, 0],
+                            outputRange: [-300, 0],
+                          }),
+                        },
+                      ],
+                    },
+                  ]}>
+                  <SafeAreaView>
+                    <ScrollView
+                      style={{
+                        width: '100%',
+                        marginTop: 16,
+                      }}>
+                      <View style={styles.modalcover}>
+                        <View style={styles.indicator}></View>
+                      </View>
+
+                      <View style={styles.w99}>
+                        <View>
+                          <Text style={styles.modallabel}>Surf...</Text>
+                          <TextInput
+                            allowFontScaling={false}
+                            placeholderTextColor={'#858383'}
+                            fontFamily={'Poppins-Regular'}
+                            keyboardType="default"
+                            placeholder="Surf by Neighborhood, Zip Code, Address"
+                            returnKeyType="done"
+                            value={zipText}
+                            onSubmitEditing={Keyboard.dismiss}
+                            onChangeText={text => {
+                              setZipText(text);
+                              console.log('textttttt', text);
+                            }}
+                            style={[
+                              styles.searchinputtext,
+                              {width: '100%', borderWidth: 1},
+                            ]}
+                          />
+
+                          <Text style={styles.modallabel}>
+                            Choose your city{' '}
+                          </Text>
+                          <MultiSelect
+                            ref={ref}
+                            style={[
+                              styles.dropdown,
+                              {width: '100%', borderWidth: 1},
+                            ]}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+                            visibleSelectedItem={true}
+                            itemTextStyle={styles.itemTextStyle}
+                            placeholderTextColor="red"
+                            search
+                            data={moreFilterData?.City}
+                            labelField="data_name"
+                            valueField="data_customvalue"
+                            placeholder="All Cities"
+                            searchPlaceholder="Search..."
+                            value={cities}
+                            valuestyle={{color: 'red'}}
+                            onChange={async item => {
+                              setCities(item);
+                              ref.current.close();
+                              await dispatch(
+                                getPoperties({
+                                  type: 3,
+                                  data: {
+                                    filter_type: filterType,
+                                    data_custom_taxonomy: 'property_city',
+                                    data_customvalue: item.toString(),
+                                  },
+                                }),
+                              ).then(res => {
+                                filtertoggleModal()
+                                setHomeData(res.payload.data);
+                                refRBSheet.current.close();
+                              });
+                            }}
+                            selectedStyle={styles.selectedStyle}
+                          />
+
+                          <View
+                            style={{
+                              marginBottom: 12,
+                              marginTop: 12,
+                            }}>
+                            <Text style={styles.modallabel}>Bedrooms</Text>
+                            <View style={styles.dataupeercover}>
+                              <FlatList
+                                style={styles.slidervalue}
+                                data={moreFilterData?.bedroom}
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                                renderItem={({item, index}) => {
+                                  return (
+                                    <TouchableOpacity
+                                      onPress={async () => {
+                                        setBedroomItem(index),
+                                          await dispatch(
+                                            getPoperties({
+                                              type: 3,
+                                              data: {
+                                                filter_type: filterType,
+                                                data_custom_taxonomy: 'bedroom',
+                                                data_customvalue:
+                                                  item.data_customvalue,
+                                              },
+                                            }),
+                                          ).then(res => {
+                                            setHomeData(res.payload.data);
+                                          });
+                                      }}>
+                                      <View
+                                        style={[
+                                          {
+                                            backgroundColor:
+                                              bedroomitem === index
+                                                ? Colors.black
+                                                : Colors.white,
+                                          },
+                                          styles.itemdtacover,
+                                        ]}>
+                                        <Text
+                                          style={[
+                                            styles.itemdata,
+                                            {
+                                              color:
+                                                bedroomitem === index
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            },
+                                          ]}>
+                                          {item?.data_name}
+                                        </Text>
+                                      </View>
+                                    </TouchableOpacity>
+                                  );
+                                }}></FlatList>
+                            </View>
+                          </View>
+                          <View>
+                            <Text style={styles.modallabel}>Bathrooms</Text>
+                            <View style={styles.dataupeercover}>
+                              <FlatList
+                                data={moreFilterData?.bathroom}
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                                renderItem={({item, index}) => {
+                                  return (
+                                    <TouchableOpacity
+                                      onPress={async () => {
+                                        setBathRoomItem(index);
+                                        setBathRoomCount(item.data_name);
+                                        await dispatch(
+                                          getPoperties({
+                                            type: 3,
+                                            data: {
+                                              filter_type: filterType,
+                                              data_custom_taxonomy: 'bathroom',
+                                              data_customvalue:
+                                                item.data_customvalue,
+                                            },
+                                          }),
+                                        ).then(res => {
+                                          setHomeData(res.payload.data);
+                                        });
+                                      }}>
+                                      <View
+                                        style={[
+                                          {
+                                            backgroundColor:
+                                              bathRoom === index
+                                                ? Colors.black
+                                                : Colors.white,
+                                          },
+                                          styles.itemdtacover,
+                                        ]}>
+                                        <Text
+                                          style={[
+                                            {
+                                              color:
+                                                bathRoom === index
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            },
+                                            styles.itemdata,
+                                          ]}>
+                                          {item?.data_name}
+                                        </Text>
+                                      </View>
+                                    </TouchableOpacity>
+                                  );
+                                }}></FlatList>
+                            </View>
+                          </View>
+
+                          <View>
+                            <Text style={[styles.modallabel, {marginTop: 12}]}>
+                              Square Feet
+                            </Text>
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                marginTop: 8,
+                              }}>
+                              <View
+                                style={[
+                                  ,
+                                  {
+                                    width: '48%',
+                                    fontSize: 14,
+                                    fontFamily: 'Poppins-Regular',
+                                    color: Colors.newgray,
+                                    borderColor: Colors.BorderColor,
+                                    borderRadius: 10,
+                                    marginBottom: 8,
+                                  },
+                                ]}>
+                                <Picker
+                                  style={{
+                                    backgroundColor: 'white',
+                                    width: '90%',
+                                    height: 180,
+                                  }}
+                                  selectedValue="No Min"
+                                  pickerData={
+                                    minSquareFeet ? minSquareFeet : []
+                                  }
+                                  onValueChange={async value => {
+                                    await dispatch(
+                                      getPoperties({
+                                        type: 3,
+                                        data: {
+                                          filter_type: filterType,
+                                          data_custom_taxonomy: 'min_square',
+                                          data_customvalue: value,
+                                        },
+                                      }),
+                                    ).then(res => {
+                                      setHomeData(res.payload.data);
+                                    });
+                                  }}
+                                />
+                              </View>
+
+                              <View style={[styles.dropdown, {width: '48%'}]}>
+                                <Picker
+                                  style={{
+                                    backgroundColor: 'white',
+                                    width: '90%',
+                                    height: 180,
+                                  }}
+                                  selectedValue="No Max"
+                                  pickerData={
+                                    maxSquareFeet ? maxSquareFeet : []
+                                  }
+                                  onValueChange={async value => {
+                                    await dispatch(
+                                      getPoperties({
+                                        type: 3,
+                                        data: {
+                                          filter_type: filterType,
+                                          data_custom_taxonomy: 'max_square',
+                                          data_customvalue: value,
+                                        },
+                                      }),
+                                    ).then(res => {
+                                      setHomeData(res.payload.data);
+                                    });
+                                  }}
+                                />
+                              </View>
+                            </View>
+                          </View>
+                          <View>
+                            <Text style={[styles.modallabel, {marginTop: 12}]}>
+                              Price Range
+                            </Text>
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                marginTop: 8,
+                              }}>
+                              <View
+                                style={[
+                                  ,
+                                  {
+                                    width: '48%',
+                                    fontSize: 14,
+                                    fontFamily: 'Poppins-Regular',
+                                    color: Colors.newgray,
+                                    borderColor: Colors.BorderColor,
+                                    borderRadius: 10,
+                                    marginBottom: 8,
+                                  },
+                                ]}>
+                                <Picker
+                                  style={{
+                                    backgroundColor: 'white',
+                                    width: '90%',
+                                    height: 180,
+                                  }}
+                                  selectedValue="No Min"
+                                  pickerData={
+                                    minPricerange ? minPricerange : []
+                                  }
+                                  onValueChange={async value => {
+                                    await dispatch(
+                                      getPoperties({
+                                        type: 3,
+                                        data: {
+                                          filter_type: filterType,
+                                          data_custom_taxonomy: 'min_price',
+                                          data_customvalue: value,
+                                        },
+                                      }),
+                                    ).then(res => {
+                                      setHomeData(res.payload.data);
+                                    });
+                                  }}
+                                />
+                              </View>
+
+                              <View style={[styles.dropdown, {width: '48%'}]}>
+                                <Picker
+                                  style={{
+                                    backgroundColor: 'white',
+                                    width: '90%',
+                                    height: 180,
+                                  }}
+                                  selectedValue="No Max"
+                                  pickerData={
+                                    maxPriceRange ? maxPriceRange : []
+                                  }
+                                  onValueChange={async value => {
+                                    await dispatch(
+                                      getPoperties({
+                                        type: 3,
+                                        data: {
+                                          filter_type: filterType,
+                                          data_custom_taxonomy: 'max_price',
+                                          data_customvalue: value,
+                                        },
+                                      }),
+                                    ).then(res => {
+                                      setHomeData(res.payload.data);
+                                    });
+                                  }}
+                                />
+                              </View>
+                            </View>
+                          </View>
+                          <Collapsible collapsed={moreFilter}>
+                            <View style={styles.moreffiltercover}>
+                              <FlatList
+                                data={moreFilterData?.more_filter_data}
+                                style={{
+                                  alignContent: 'center',
+                                }}
+                                nestedScrollEnabled
+                                numColumns={3}
+                                renderItem={({item, index}) => {
+                                  const {
+                                    data_custom_taxonomy,
+                                    data_customvalue,
+                                  } = item;
+                                  const isSelectedMore =
+                                    selectedTabsMore.filter(
+                                      i => i === data_customvalue,
+                                    ).length > 0;
+                                  return (
+                                    <TouchableOpacity
+                                      style={{
+                                        width: '33.33%',
+                                        paddingHorizontal: 8,
+                                      }}
+                                      onPress={async () => {
+                                        if (isSelectedMore) {
+                                          setSelectedTabsMore(prev =>
+                                            prev.filter(
+                                              i => i !== data_customvalue,
+                                            ),
+                                          );
+                                        } else {
+                                          setSelectedTabsMore(prev => [
+                                            ...prev,
+                                            data_customvalue,
+                                          ]);
+                                        }
+                                      }}>
+                                      <Text
+                                        style={{
+                                          color: isSelectedMore
+                                            ? Colors.white
+                                            : Colors.black,
+                                          textAlign: 'center',
+                                          borderRadius: 20,
+                                          borderWidth: 0.8,
+                                          borderColor: Colors.gray,
+                                          backgroundColor: isSelectedMore
+                                            ? Colors.black
+                                            : Colors.white,
+                                          padding: 10,
+                                          marginBottom: 8,
+                                          fontSize:
+                                            DeviceInfo.getDeviceType() ===
+                                            'Tablet'
+                                              ? 18
+                                              : 14,
+                                        }}
+                                        numberOfLines={1}>
+                                        {item?.data_name}
+                                      </Text>
+                                    </TouchableOpacity>
+                                  );
+                                }}></FlatList>
+                            </View>
+                          </Collapsible>
+                        </View>
+                      </View>
+                    </ScrollView>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        width: '100%',
+                        top: -30,
+                      }}>
+                      <TouchableOpacity
+                        onPress={() => {
+                          clearFilterAPiCall();
+                        }}>
+                        <Text
+                          style={{
+                            marginLeft: 10,
+                            fontSize:
+                              DeviceInfo.getDeviceType() === 'Tablet' ? 22 : 16,
+                            top: -35,
+                            borderWidth: 1,
+                            borderColor: Colors.surfblur,
+                            paddingHorizontal: 20,
+                            paddingVertical: 6,
+                            borderRadius: 20,
+                            color: Colors.surfblur,
+                            fontFamily: 'Poppins-Regular',
+                          }}>
+                          Clear Filters
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={async () => {
+                          setFilterModalVisible(false);
+                        }}
+                        style={styles.apllycover}>
+                        <Text style={styles.applytext}>Apply</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </SafeAreaView>
+                </Animated.View>
+              </View>
+            </Modal>
+          </KeyboardAvoidingView>
         </View>
       </SafeAreaView>
     </View>
@@ -3580,19 +3424,15 @@ const styles = StyleSheet.create({
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 14,
     letterSpacing: 1,
     color: '#000',
-    // paddingTop:12,
-    width: '50%',
     position: 'relative',
-    // marginLeft: 30,
     marginBottom: 8,
     borderColor: '#EDECED',
     display: 'flex',
     borderWidth: 0.5,
-    textAlign: 'center',
     borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 42,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
   },
   searchboarder: {
     alignItems: 'center',
@@ -3747,10 +3587,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
 
     right: 12,
-    top:'45%',
-    zIndex:9999,
-
-
+    top: '45%',
+    zIndex: 9999,
   },
   nextcover: {
     height: 25,
@@ -3760,9 +3598,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
 
     left: 12,
-    top:"45%",
+    top: '45%',
     zIndex: 9999,
-
   },
   arroescovr: {
     opacity: 0,
