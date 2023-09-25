@@ -173,15 +173,6 @@ const Home = () => {
 
   useEffect(() => {
     if (selectedTabsMore) {
-      // dispatch(
-      //   getPoperties({
-      //     type: 3,
-      //     data: {
-      //       data_custom_taxonomy: 'more_filter_data',
-      //       data_customvalue: selectedTabsMore.toString(),
-      //     },
-      //   }),
-      // ).then(res => { });
     }
   }, [selectedTabsMore]);
   useEffect(() => {
@@ -195,11 +186,28 @@ const Home = () => {
   };
 
   useEffect(() => {
+    dispatch(getMoreFilter())
+      setMoreFilterData(store.getState().getMoreFilter.getMoreFilterData?.data);
+      moreFilterData?.min_square?.map((item, index) => {
+        setMinSquareFeet(old => [...old, item.data_name]);
+      });
+      moreFilterData?.max_square?.map((item, index) => {
+        setMaxSquareFeet(old => [...old, item.data_name]);
+      });
+      moreFilterData?.min_price?.map((item, index) => {
+        setMinPricerange(old => [...old, item.data_name]);
+      });
+      moreFilterData?.max_price?.map((item, index) => {
+        setMaxPriceRange(old => [...old, item.data_name]);
+      });
+
+  }, [store.getState().getMoreFilter.getMoreFilterData])
+  
+  useEffect(() => {
     getFilterApicall(),
-      getTrashApiCall(),
+      // getTrashApiCall(),
       favlistApi(),
       getSavedApiCall(),
-      getMoreFilterApiCall(),
       getPopertiesApiCall({type: 0, data: {limit: limitCount}, lntLng}),
       fetchUserScore();
     setAddres('');
@@ -210,7 +218,6 @@ const Home = () => {
         new Promise(resolve => {
           const res =
             store.getState().getPopertiesReducer?.getPopertiesData?.data;
-          console.log('getPopertiesReducer===>', res);
           setHomeData(res);
           resolve();
         })
@@ -224,7 +231,7 @@ const Home = () => {
   };
   const getMoreFilterApiCall = () => {
     dispatch(getMoreFilter()).then(response => {
-      setMoreFilterData(response.payload.data);
+      setMoreFilterData(response?.payload?.data);
       moreFilterData?.min_square?.map((item, index) => {
         setMinSquareFeet(old => [...old, item.data_name]);
       });
@@ -239,6 +246,7 @@ const Home = () => {
       });
     });
   };
+
   const fetchUserScore = () => {
     dispatch(getUserScore());
   };
@@ -1380,7 +1388,7 @@ const Home = () => {
                                                   }
                                                   placeholderTextColor="red"
                                                   search
-                                                  data={moreFilterData.City}
+                                                  data={moreFilterData?.City}
                                                   labelField="data_name"
                                                   valueField="data_customvalue"
                                                   placeholder="All Cities"
@@ -1504,7 +1512,7 @@ const Home = () => {
                                                     }>
                                                     <FlatList
                                                       data={
-                                                        moreFilterData.bathroom
+                                                        moreFilterData?.bathroom
                                                       }
                                                       horizontal={true}
                                                       showsHorizontalScrollIndicator={
@@ -1607,7 +1615,7 @@ const Home = () => {
                                                         style={{
                                                           backgroundColor:
                                                             'white',
-                                                          width: '98%',
+                                                          width: '90%',
                                                           height: 180,
                                                         }}
                                                         selectedValue="No Min"
@@ -1631,7 +1639,7 @@ const Home = () => {
                                                         style={{
                                                           backgroundColor:
                                                             'white',
-                                                          width: '98%',
+                                                          width: '90%',
                                                           height: 180,
                                                         }}
                                                         selectedValue="No Max"
@@ -1681,7 +1689,7 @@ const Home = () => {
                                                         style={{
                                                           backgroundColor:
                                                             'white',
-                                                          width: '98%',
+                                                          width: '90%',
                                                           height: 180,
                                                         }}
                                                         selectedValue="No Min"
@@ -1705,7 +1713,7 @@ const Home = () => {
                                                         style={{
                                                           backgroundColor:
                                                             'white',
-                                                          width: '98%',
+                                                          width: '90%',
                                                           height: 180,
                                                         }}
                                                         selectedValue="No Max"
@@ -1819,7 +1827,7 @@ const Home = () => {
                                               alignContent: 'center',
                                               alignItems: 'center',
                                               width: '100%',
-                                              height: '18%',
+                                              top:-30
                                             }}>
                                             <TouchableOpacity
                                               onPress={() => {
