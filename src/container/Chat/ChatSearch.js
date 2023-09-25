@@ -115,7 +115,7 @@ const ChatSearch = (props) => {
                   tintColor: Colors.black,
 
                 }}
-                source={Images.close}
+                source={Images.whiteclose}
               ></Image>
             </TouchableOpacity>
           </View>
