@@ -39,7 +39,7 @@ const BookaTour = props => {
   const postid = props.route.params;
 
   useEffect(() => {
-    console.log(store.getState().getProfileReducer.getProfileData?.data[0]?.mobile)
+    // console.log(store.getState().getProfileReducer.getProfileData?.data[0]?.mobile)
 
   }, [])
   
@@ -68,6 +68,7 @@ const BookaTour = props => {
     const formData = new FormData();
     formData.append('propid', postid?.PropID);
     await dispatch(getChatDetail(formData)).then((response) => {
+      console.log('book',postid.PropID)
       setGetMessg(response?.payload?.data?.data);
       setLoading(false)
     })

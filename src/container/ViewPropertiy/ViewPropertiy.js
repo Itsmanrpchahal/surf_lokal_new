@@ -43,7 +43,7 @@ import StarRating from 'react-native-star-rating-widget';
 import LottieView from 'lottie-react-native';
 import Loader from '../../components/Loader';
 import { schoolChat } from '../../modules/schoolChat';
-
+import { chat } from "../../modules/chat";
 
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
 import { getPoperties} from '../../modules/getPoperties';
@@ -56,7 +56,7 @@ const ViewPropertiy = (props, imageUrl) => {
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const [rating, setRating] = useState(0);
   const [rating1, setRating1] = useState(0);
   const [rating2, setRating2] = useState(0);
@@ -64,28 +64,45 @@ const ViewPropertiy = (props, imageUrl) => {
   const [commentContent, setComentContent] = useState('dada');
   const [productId, setProductId] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
-  const property = data[0];
+  const property = data
   const [isAnimating, setIsAnimating] = useState(false);
-  const [calData, setCalData] = useState([]);
+  const [calData, setCalData] = useState();
   const [schoolRating, setSchoolRating] = useState([]);
   const navigation = useNavigation();
   const [readmore, setreadmore] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [agentData, setAgentData] = useState([0]);
   const [showFullContent, setShowFullContent] = useState(false);
-  const [map, setMap] = useState([]);
+  const [map, setMap] = useState();
   const [selectedTab, setSelectedTab] = useState(0);
-  const [weather, setweather] = useState([]);
-  const [tax, settax] = useState([]);
-  const [walk, setWalk] = useState([]);
+  const [weather, setweather] = useState();
+  const [tax, settax] = useState();
+  const [walk, setWalk] = useState();
   const [ratingData, setRatingData] = useState([]);
   const [schoolModalVisible, setSchoolModalVisible] = useState(false);
   const [pin, setPin] = useState(null);
   const [lntLng, setLatLng] = useState({ latitude: 0.0, longitude: 0.0 });
+  const [chatModalVisible,setChatModalVisible]=useState (false)
+  const [res, setRes] = useState([]);
+  const [message, setMessage] = useState();
+
+  const getCurrentDateTime = () => {
+    const now = new Date();
+    const year = now.getFullYear().toString();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const date = now.getDate().toString().padStart(2, '0');
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; 
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    const dateTimeString = `${month}/${date}/${year}    ${hours}:${minutes} ${ampm}`;
+    return dateTimeString;
+  };
 
 
-
-  
   const generateLink = async () => {
     try {
       const link = await dynamicLinks().buildShortLink(
@@ -160,7 +177,12 @@ const ViewPropertiy = (props, imageUrl) => {
   const closeSchoolModal = () => {
     setSchoolModalVisible(false);
   };
-
+const chatModal = ()=>{
+  setChatModalVisible(!chatModalVisible)
+}
+const closeChatModal=()=>{
+  setChatModalVisible(false)
+}
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
@@ -201,17 +223,17 @@ const ViewPropertiy = (props, imageUrl) => {
       setLoading(false);
       
       setData(response.payload.data);
-      setCalData(response.payload.data[0].moartage || []);
-      setSchoolRating(response.payload.data[0].school);
-      setweather(response.payload.data[0].current_weather);
-      settax(response.payload.data[0].tax_history);
-      setWalk(response.payload.data[0].walkscore || []);
-      setMap(response.payload.data[0].address.property_address);
+      setCalData(response.payload.data.moartage );
+      setSchoolRating(response.payload.data.school);
+      setweather(response.payload.data.current_weather);
+      settax(response.payload.data.tax_history);
+      setWalk(response.payload.data.walkscore );
+      setMap(response.payload.data.address.property_address);
       setPin({
         latitude:
-          response.payload.data[0].address.property_address.property_latitude,
+          response.payload.data.address.property_address.property_latitude,
         longitude:
-          response.payload.data[0].address.property_address.property_longitude,
+          response.payload.data.address.property_address.property_longitude,
       });
       const res = [
         {
@@ -220,13 +242,14 @@ const ViewPropertiy = (props, imageUrl) => {
           property_latitude: map.property_latitude.toString(),
         },
       ];
-      const property = res[0];
+
+      const property = res;
       latitude = parseFloat(property.property_latitude);
       longitude = parseFloat(property.property_longitude);
     });
   };
   const makePhoneCall = () => {
-    let phoneNumber = agentData[0]?.agent_phone;
+    let phoneNumber = "1-888-508-3174"
     Linking.openURL(`tel:${phoneNumber}`);
   };
 
@@ -332,50 +355,49 @@ const ViewPropertiy = (props, imageUrl) => {
               <Text style={styles.property}>Property Details</Text>
               <Text style={styles.props}>
                 Price: <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(item => item.details.property_details.price)}
+                  {data?.details?.property_details?.price}
                 </Text>
               </Text>
               <Text style={styles.props}>
                 Est. Taxes: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(item => item.details.property_details.taxes)}
+                  {data?.details?.property_details?.taxes}
                 </Text>
               </Text>
               <Text style={styles.props}>
                 Bedrooms: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(item => item.details.property_details.bedrooms)}
+                  {data?.details?.property_details?.bedrooms}
                 </Text>{' '}
               </Text>
               <Text style={styles.props}>
                 Bathrooms: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(item => item.details.property_details.bedrooms)}
+                  {data?.details?.property_details?.bedrooms}
                 </Text>
               </Text>
               <Text style={styles.props}>
                 Size:  <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(
-                    item => item.details.property_details.property_size,
-                  )} {' '}
+                  {data?.details?.property_details?.property_size
+                  } {' '}
                   SF{' '}
                 </Text>{' '}
               </Text>
               <Text style={styles.props}>
                 Garage Spaces: <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(item => item.details.property_details.garagespaces)}
+                  {data?.details?.property_details?.garagespaces}
                 </Text>
               </Text>
               <Text style={styles.props}>
                 Lot Size:  <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(item => item.hoa_fee)}
+                  {data?.hoa_fee}
                 </Text>
               </Text>
               <Text style={styles.props}>
                 Year Built :  <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(item => item.details.property_details.yearbuilt)}{' '}
+                  {data?.details?.property_details?.yearbuilt}{' '}
                 </Text> {' '}
               </Text>
               <Text style={styles.props}>
                 Total Stories: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(item => item.details.property_details.storiestotal)}
+                  {data?.details?.property_details?.storiestotal}
                 </Text>
               </Text>
               <Text style={styles.props}>
@@ -387,15 +409,14 @@ const ViewPropertiy = (props, imageUrl) => {
               <Text style={styles.props}>
                 Community Name: {' '}  <Text style={{fontFamily: 'Poppins-Light',lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 28 : 22,
                   }}>
-                  {data.map(
-                    item => item.details.community_details.community_name,
-                  )}
+                  {data?.details?.community_details?.community_name
+                  }
                 </Text>
               </Text>
               <Text style={styles.props}>
                 HOA Fee Includes: {' '} <Text style={{fontFamily: 'Poppins-Light',lineHeight:DeviceInfo.getDeviceType() === 'Tablet' ? 28 : 22,
                   }}>
-                  {data.map(item => item.hoa_fee)}
+                  {data?.hoa_fee}
                 </Text>
               </Text>
               <Text style={styles.props}>
@@ -416,24 +437,23 @@ const ViewPropertiy = (props, imageUrl) => {
               <Text style={styles.property}>Interior Features</Text>
               <Text style={styles.props}>
                 A/C: {' '}  <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(item => item.details.interior_features.A_C)}
+                  {data?.details?.interior_features?.A_C}
                 </Text>
               </Text>
               <Text style={styles.props}>
                 Heating: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(item => item.details.interior_features.heating)}
+                  {data?.details?.interior_features?.heating}
                 </Text>
               </Text>
               <Text style={styles.props}>
                 Flooring: {' '}  <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(item => item.details.interior_features.flooring)}{' '}
+                  {data?.details?.interior_features?.flooring}{' '}
                 </Text>
               </Text>
               <Text style={styles.props}>
                 Property Rooms: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(
-                    item => item.details.interior_features.property_rooms,
-                  )}
+                  {data?.details?.interior_features?.property_rooms
+                  }
                 </Text>
               </Text>
             </View>
@@ -441,26 +461,24 @@ const ViewPropertiy = (props, imageUrl) => {
               <Text style={styles.property}>Exterior Features</Text>
               <Text style={styles.props}>
                 Architectural Style: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(
-                    item => item.details.exterior_features.architecturalstyle,
-                  )}
+                  {data?.details?.exterior_features?.architecturalstyle
+                  }
                 </Text>
               </Text>
               <Text style={styles.props}>
                 Construction: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(
-                    item => item.details.exterior_features.construction,
-                  )}
+                  {data?.details?.exterior_features?.construction
+                  }
                 </Text>
               </Text>
               <Text style={styles.props}>
                 Roofing: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(item => item.details.exterior_features.roofing)}{' '}
+                  {data?.details?.exterior_features?.roofing}{' '}
                 </Text>
               </Text>
               <Text style={styles.props}>
                 Water Source: {' '} <Text style={{fontFamily: 'Poppins-Light'}}>
-                  {data.map(item => item.details.exterior_features.watersource)}
+                  {data?.details?.exterior_features?.watersource}
                 </Text>
               </Text>
             </View>
@@ -470,39 +488,32 @@ const ViewPropertiy = (props, imageUrl) => {
               <Text style={styles.property}>Miscellaneous Details</Text>
               <Text style={styles.props}>
                 Driving Directions: {' '} <Text style={{fontFamily: 'Poppins-Light', lineHeight: 25}}>
-                  {data.map(
-                    item =>
-                      item.details.miscellaneous_details.driving_directions,
-                  )}
+                  {data?.details?.miscellaneous_details?.driving_directions
+                  }
                 </Text> {' '}
               </Text>
               <Text style={styles.props}>
                 Listing Office: {' '} <Text style={{fontFamily: 'Poppins-Light', lineHeight: 25}}>
-                  {data.map(
-                    item => item.details.miscellaneous_details.listing_office,
-                  )}
+                  {data?.details?.miscellaneous_details?.listing_office
+                  }
                 </Text> {' '}
               </Text>
               <Text style={styles.props}>
                 Listing Agent: {' '}  <Text style={{fontFamily: 'Poppins-Light', lineHeight: 25}}>
-                  {data.map(
-                    item => item.details.miscellaneous_details.listing_agent,
-                  )}
+                  {data?.details?.miscellaneous_details?.listing_agent
+                  }
                 </Text>{' '}
               </Text>
               <Text style={styles.props}>
                 Listing Office Phone: {' '} <Text style={{fontFamily: 'Poppins-Light', lineHeight: 25}}>
-                  {data.map(
-                    item =>
-                      item.details.miscellaneous_details.listing_office_phone,
-                  )}
+                  {data?.details?.miscellaneous_details?.listing_office_phone
+                  }
                 </Text> {' '}
               </Text>
               <Text style={styles.props}>
                 Data Disclaimer: {' '} <Text style={{fontFamily: 'Poppins-Light', lineHeight: 25}}>
-                  {data.map(
-                    item => item.details.miscellaneous_details.data_disclaimer,
-                  )}
+                  {data?.details?.miscellaneous_details?.data_disclaimer
+                  }
               
            
                </Text> {' '}
@@ -1868,7 +1879,7 @@ alignItems:"center"
                   
                   }}
                   loop={true}
-                  cards={data}
+                  cards={[data]}
                   onSwipedLeft={() => {
                     trashfile(postid.ID);
                   }}
@@ -3005,6 +3016,256 @@ alignItems:"center"
           )}
 
           <View style={{height: 70}}></View>
+          <KeyboardAvoidingView>
+            <Modal 
+            transparent={true}
+            visible={chatModalVisible}
+            onRequestClose={chatModal}>
+
+           <SafeAreaView style={{
+        height: "100%", 
+        backgroundColor: 'white',justifyContent:'center'
+      }}>
+        <View style={{ paddingVertical: 10, paddingHorizontal: 12, backgroundColor: Colors.white,
+           flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', 
+           borderBottomWidth: 1, borderColor: '#c9c9c5' }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center' }}>
+            <Image
+              style={{
+                height: DeviceInfo.getDeviceType() === 'Tablet'?50:40,
+                width: DeviceInfo.getDeviceType() === 'Tablet'?50:40,
+                resizeMode: "contain",
+                borderRadius: 50,
+            
+                marginRight: 5,
+                borderColor: Colors.surfblur,
+                borderWidth: 1,
+
+              }}
+              source={Images.user}
+            ></Image>
+
+            <Text style={{ fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:15,
+             fontFamily: 'Poppins-Medium', color: Colors.black }}> Powered by Cynthia</Text>
+          </View>
+
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginRight: 0 }}>
+            <TouchableOpacity
+              onPress={() => { setRes([]) }}
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                marginRight: 5,
+              }}
+            >
+              <Image
+                style={{
+                  height: DeviceInfo.getDeviceType() === 'Tablet'?35:25,
+                  width:  DeviceInfo.getDeviceType() === 'Tablet'?35:25,
+                  resizeMode: "contain",
+                  tintColor: Colors.black,
+                }}
+                source={Images.reload}
+              ></Image>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => { closeChatModal() }}
+              style={{
+
+                height: DeviceInfo.getDeviceType() === 'Tablet'?35:35,
+                width: DeviceInfo.getDeviceType() === 'Tablet'?35:35,
+                borderRadius: 100,
+           
+                alignItems: "center",
+
+
+              }}
+            >
+              <Image
+                style={{
+                  height: DeviceInfo.getDeviceType() === 'Tablet'?25:20,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?25:20,
+                  top: DeviceInfo.getDeviceType() === 'Tablet'?4:7,
+                  resizeMode: "contain",
+                  borderRadius: 50,
+                  marginLeft: 2,
+                  tintColor: Colors.black,
+
+                }}
+                source={Images.whiteclose}
+              ></Image>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <Text style={{
+          marginLeft: 15,
+          marginRight: 13, fontSize: DeviceInfo.getDeviceType() === 'Tablet'?22:16, borderRadius: 16, alignSelf: 'flex-start', maxWidth: '100%', marginTop: 22, color: Colors.black, fontFamily: "Poppins-Medium",
+        }}>Hi I'm Cynthia. What can I help you with today ?</Text>
+
+
+        <AutoScrollFlatList
+          nestedScrollEnabled={true}
+          data={res}
+          threshold={20}
+          renderItem={({ item, index }) => {
+          if(item?.type==1){
+            const urlRegex = "https://surflokal.com";
+            const urls = item?.message.match(urlRegex);
+          }
+        
+        
+            return (
+              <View>
+                <Text
+                  style={{
+                    padding: 8,
+                    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?20:16,
+                    borderRadius: 10,
+                    backgroundColor: item.type === 0 ? Colors.surfblur : '#d3d3d3',
+                    alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
+                    maxWidth: '70%',
+                    marginLeft: 8,
+                    marginRight: 8,
+                    marginTop: 8,
+                    marginBottom: 4,
+
+                    color: item.type === 0 ? Colors.white : Colors.black,
+                  }}>
+                  {item.message}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12,
+                    marginLeft: item.type === 0 ? 8 : 16,
+                    marginRight: item.type === 0 ? 16 : 8,
+                    marginBottom: 8,
+                    alignSelf: item.type === 0 ? 'flex-end' : 'flex-start',
+                    color: Colors.gray,
+                    fontFamily: "Poppins-Medium",
+                  }}>
+                  {item.date}
+                </Text>
+              </View>
+            );
+          }}
+        />
+
+
+
+        <View style={{
+          bottom: 0, position: 'absolute', zIndex: 99, left: 0, right: 0,
+          backgroundColor: Colors.white
+        }}>
+          {
+            loading && <Text style={{
+              padding: 16,
+              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?20:16,
+              borderRadius: 16,
+              backgroundColor: Colors.surfblur,
+              alignSelf: 'flex-end',
+              maxWidth: '70%',
+              marginLeft: 8,
+              marginRight: 8,
+              marginTop: 8,
+              color: Colors.white,
+              fontFamily: "Poppins-Medium",
+            }}>{message}</Text>
+          }
+
+          {
+            loading && <View style={{ flexDirection: 'row' }}>
+              <Text style={{
+                fontSize: DeviceInfo.getDeviceType() === 'Tablet'?18:12,
+                borderRadius: 16,
+                alignSelf: 'flex-start',
+                maxWidth: '70%',
+                marginLeft: 16,
+                marginTop: 6,
+                color: Colors.black,
+                backgroundColor: Colors.white
+              }}>typing</Text>
+              <TypingAnimation
+                dotColor="black"
+                dotMargin={3}
+                dotAmplitude={2}
+                dotSpeed={0.15}
+                dotRadius={1}
+                dotX={8}
+                dotY={0}
+                style={{ marginTop: 25, marginLeft: -3 }}
+              />
+            </View>
+          }
+
+          <View style={{
+            backgroundColor: Colors.white,
+            borderColor: Colors.BorderColor,
+            borderWidth: 1, borderRadius: 5,
+            height:DeviceInfo.getDeviceType() === 'Tablet'?55:45, margin: 16,
+            paddingLeft: 8, paddingRight: 8,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginTop: 8,
+           top:-8
+          }}>
+            <TextInput
+              style={{ width: '90%', backgroundColor: Colors.white, color: Colors.black,
+              fontSize:DeviceInfo.getDeviceType() === 'Tablet'?20:14 }}
+              placeholder="Type here ....."
+              placeholderTextColor={Colors.textColorLight}
+              fontFamily="Poppins-Regular"
+              value={message}
+              onChangeText={setMessage}>
+            </TextInput>
+            <TouchableOpacity
+              disabled={message === '' && true}
+              onPress={() => {
+                setLoading(true)
+                const formData = new FormData();
+                formData.append('message', message);
+                dispatch(chat(formData)).then((ress) => {
+                  setMessage('')
+                  setLoading(false)
+                  const newTodo1 = {
+                    type: 0,
+                    message: message,
+                    date: getCurrentDateTime(),
+                  }
+                  const newTodo = {
+                    type: 1,
+                    message: ress.payload.data.text,
+                    date: getCurrentDateTime(),
+                  };
+                  setMessage('')
+                  setRes([...res, newTodo1, newTodo])
+
+                }).catch((e) => {
+                  alert('Error ==> ' + JSON.stringify(e))
+                })
+              }}
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Image
+                style={{
+                  height: DeviceInfo.getDeviceType() === 'Tablet'?35:25,
+                  width: DeviceInfo.getDeviceType() === 'Tablet'?35:25,
+                  resizeMode: "contain",
+                  tintColor: Colors.primaryBlue,
+                }}
+                source={Images.sendm}
+              ></Image>
+            </TouchableOpacity>
+          </View>
+
+        </View>
+      </SafeAreaView>
+            </Modal>
+          </KeyboardAvoidingView>
         </ScrollView>
         <View
         style={{
@@ -3049,7 +3310,10 @@ alignItems:"center"
               style={{
                right:20
               }}
-              onPress={() => navigation.navigate('ChatSearch')}>
+              onPress={() => {
+                chatModal()
+             
+              }}>
               <Image
                 source={Images.chatnew}
                 style={{
@@ -3065,10 +3329,7 @@ alignItems:"center"
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('BookaTour', {
-              ID: '',
               PropID: postid?.ID,
-              user_id: '',
-              user2_id: '',
             });
             
           }}
@@ -3087,6 +3348,7 @@ alignItems:"center"
             borderColor: Colors.white,
             height:45,  width:"65%",
           }}>
+            
           <Text
             style={{
               fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 18,

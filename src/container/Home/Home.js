@@ -871,7 +871,7 @@ const Home = () => {
                                         style={styles.nextimage}
                                       />
                                     </View> */}
-                                    <TouchableOpacity
+                                    <TouchableOpacity 
                                       disabled={imageIndex > 0 ? false : true}
                                       onPress={() => {
                                         setImageIndex(imageIndex - 1);
@@ -879,15 +879,25 @@ const Home = () => {
                                       style={{
                                         height: '100%',
                                         // width: 30,
-                                        // position: 'relative',
+                                        // position: 'absolute',
+                                        // zIndex:999,
                                         // left: 10,
-                                      }}>
+
+                                        width: 30,
+                                        position: 'relative',
+                                        left: 10,
+                                   
+                                      }}
+                                      >
                                       <View
                                         style={{
                                           height: width,
-                                          width: 50,
-                                          justifyContent: 'center',
-                                          alignContent: 'center',
+                                          width: 40,
+                                          position: 'absolute',
+                                          zIndex: 999,
+                                          right: 10,
+                                 
+
                                         }}>
                                         <Image
                                           source={Images.nextslide}
@@ -897,6 +907,7 @@ const Home = () => {
                                     </TouchableOpacity>
 
                                     <TouchableOpacity
+                                    // style={{backgroundColor:'red',zIndex:999,position:'absolute'}}
                                       disabled={
                                         item?.featured_image_src?.length - 1 ===
                                         imageIndex
@@ -909,10 +920,14 @@ const Home = () => {
                                       <View
                                         style={{
                                           height: width,
-                                          width: 50,
 
-                                          justifyContent: 'center',
-                                          alignContent: 'center',
+                                          width: 40,
+                                      
+                                          position: 'absolute',
+                                          zIndex: 999,
+                                          right: 10,
+                                     
+
                                         }}>
                                         <Image
                                           source={Images.nextslide}
@@ -922,7 +937,9 @@ const Home = () => {
                                     </TouchableOpacity>
                                   </View>
                                   <TouchableOpacity
-                                    style={{height: '100%'}}
+
+                                    style={{ height: '100%'}}
+
                                     onPress={() => {
                                       navigation.navigate('ViewPropertiy', {
                                         ID: item.ID,
@@ -3679,9 +3696,12 @@ const styles = StyleSheet.create({
     width: 25,
     tintColor: Colors.white,
     position: 'absolute',
-    // right: 12,
-    // top:'45%',
-    zIndex: 9999,
+
+    right: 12,
+    top:'45%',
+    zIndex:9999,
+
+
   },
   nextcover: {
     height: 25,
@@ -3689,9 +3709,11 @@ const styles = StyleSheet.create({
     tintColor: Colors.white,
     transform: [{rotate: '-180deg'}],
     position: 'absolute',
-    //   left: 12,
-    // top:0,
-    zIndex: 999,
+
+    left: 12,
+    top:"45%",
+    zIndex: 9999,
+
   },
   arroescovr: {
     opacity: 0,
