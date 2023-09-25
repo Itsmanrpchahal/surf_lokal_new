@@ -47,12 +47,15 @@ import { chat } from "../../modules/chat";
 
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
 import { getPoperties} from '../../modules/getPoperties';
+import getFavoriteProperties from '../../modules/getFavoriteProperties';
+import { getTrash } from '../../modules/getTrash';
 const screenWidth = Dimensions.get('window').width;
 
 const {width} = Dimensions.get('screen');
 
 const ViewPropertiy = (props, imageUrl) => {
   const postid = props.route.params;
+const {route}=props
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -85,6 +88,8 @@ const ViewPropertiy = (props, imageUrl) => {
   const [chatModalVisible,setChatModalVisible]=useState (false)
   const [res, setRes] = useState([]);
   const [message, setMessage] = useState();
+  const [animationDirection, setAnimationDirection] = useState('slideInRight')
+  const [isImageVisible, setIsImageVisible] = useState(true);
 
   const getCurrentDateTime = () => {
     const now = new Date();
@@ -101,8 +106,64 @@ const ViewPropertiy = (props, imageUrl) => {
     const dateTimeString = `${month}/${date}/${year}    ${hours}:${minutes} ${ampm}`;
     return dateTimeString;
   };
+  const renderImages = () => {
+    if (route.params.from === 'Home') {
+ 
+      return null;
+    } else if (route.params.from === 'MyFavorites') {
 
+      return (
+        <TouchableOpacity onPress={handleRecycleBinPress}>
+          <View>
+          {isImageVisible && (
+          <Image source={Images.layerfav} style={styles.chaticon} />
+          )}
+          {!isImageVisible && (
+          <Image
+            source={Images.redlike}
+            style={styles.chaticon}
+          />
+        )}
+          </View>
+        </TouchableOpacity>
+      );
+    } else if (route.params.from === 'RecycleBin') {
+      
+      return (
+        <TouchableOpacity onPress={handleFavoritePress}>
+          <View>
+          {isImageVisible && (
+          <Image
+            source={Images.layerfav}
+            style={[styles.chaticon, { transform: [{ rotate: '180deg' }] }]}
+          />
+        )}
+        {!isImageVisible && (
+          <Image
+            source={Images.upgreen}
+            style={styles.chaticon}
+          />
+        )}</View>
 
+        </TouchableOpacity>
+      );
+    }
+  };
+  const handleFavoritePress = async () =>  {
+    const formData = new FormData();
+ formData.append('post_id',postid.ID);
+    await dispatch(addToFavorite(formData)).then((res)=>{console.log("success",res)})
+   getTrash()
+    navigation.goBack()
+  }
+
+  const handleRecycleBinPress = async () => {
+    const formData = new FormData();
+ formData.append('post_id',postid.ID);
+    await dispatch(addRemoveTrash(formData))
+    getFavoriteProperties()
+    navigation.goBack()
+  }
   const generateLink = async () => {
     try {
       const link = await dynamicLinks().buildShortLink(
@@ -173,16 +234,26 @@ const ViewPropertiy = (props, imageUrl) => {
   ).current;
   const schoolModal = ()=>{
     setSchoolModalVisible(!schoolModalVisible)
+    setAnimationDirection('slideInRight')
   }
   const closeSchoolModal = () => {
+    setAnimationDirection('slideOutDown'); 
+  setTimeout(() => {
     setSchoolModalVisible(false);
+    setMessage(''); 
+  }, 500);
   };
 const chatModal = ()=>{
   setChatModalVisible(!chatModalVisible)
+  setAnimationDirection('slideInRight')
 }
-const closeChatModal=()=>{
-  setChatModalVisible(false)
-}
+const closeChatModal = () => {
+  setAnimationDirection('slideOutDown'); 
+  setTimeout(() => {
+    setChatModalVisible(false);
+    setMessage(''); 
+  }, 500);
+};
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
@@ -987,6 +1058,7 @@ const getCurrentDateTime = () => {
         </View>
       <KeyboardAvoidingView>
         <Modal
+        animationType='slide'
         transparent={true}
         visible={schoolModalVisible}
         onRequestClose={schoolModal}
@@ -1988,33 +2060,9 @@ alignItems:"center"
                             }}
                             source={{uri: item?.featured_image_src}}
                           />
-                          {/* <View>
-                           <TouchableOpacity  
-          onPress={async () => {
-              const formData = new FormData();
-           formData.append('post_id',item.ID);
-              await dispatch(addRemoveTrash(formData))
-              getFavoritePropertiesApiCall()
-            }
-              
-            }>
-            <Image source={Images.layerfav} style={styles.chaticon}></Image>
-          </TouchableOpacity>
-          <TouchableOpacity  
-          onPress={async () => {
-              const formData = new FormData();
-           formData.append('post_id',item.ID);
-              await dispatch(addToFavorite(formData))
-              getTrashApiCall()
-            }
-              
-            }>
-            <Image
-  source={Images.layerfav}
-  style={[styles.chaticon, { transform: [{ rotate: '180deg' }] }]}
-/>
-          </TouchableOpacity>
-          </View> */}
+                          <View>
+            {renderImages()}
+          </View>
                         </TouchableOpacity>
                         
                         </View>
@@ -3019,6 +3067,8 @@ alignItems:"center"
           <KeyboardAvoidingView>
             <Modal 
             transparent={true}
+            animationType='slide'
+
             visible={chatModalVisible}
             onRequestClose={chatModal}>
 
