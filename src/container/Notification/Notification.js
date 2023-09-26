@@ -12,27 +12,39 @@ import {
 import Colors from '../../utils/Colors';
 import Images from '../../utils/Images';
 import {useNavigation} from '@react-navigation/native';
-import * as Animatable from 'react-native-animatable';
+import {useIsFocused} from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
+import {useDispatch} from 'react-redux';
 import { store } from '../../redux/store';
-const Notification = () => {
+import { getNotifications } from '../../modules/getNotifications'
+  const Notification = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
-
+  const isFocused = useIsFocused();
   const [data, setData] = useState([]);
   const [isEnabled, setIsEnabled] = useState(true);
   const [toggle, setToggle] = useState(false);
-
-
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
     setToggle(!isEnabled);
   };
+  useEffect(() => {
+    dispatch(getNotifications())
+  }, [])
+
+
 
   useEffect(() => {
-    const nestedData =store.getState().getNotifications.getNotificationsData.data
-    setData(nestedData[0])
-  }, []);
-
+    if (isFocused) {
+      Promise.all[
+        new Promise(resolve => {
+          const nestedData =store.getState().getNotifications.getNotificationsData.data
+          setData(nestedData[0])
+          resolve();
+        })
+      ];
+    }
+  }, [isFocused]);
 
   const renderItem = ({item, index}) => {
     if (!isEnabled) {

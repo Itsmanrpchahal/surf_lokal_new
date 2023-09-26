@@ -105,5 +105,6 @@ const Images = {
   Information: require(BaseUrl + 'information-alt.png'),
   nextslide: require(BaseUrl + 'nextslide.png'),
   next: require(BaseUrl + 'next.png'),
+  cola:require(BaseUrl+"cola.png")
 };
 export default Images;

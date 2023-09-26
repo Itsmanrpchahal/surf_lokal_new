@@ -13,7 +13,6 @@ import {
   Animated,
   PanResponder,
   Share,
-  Linking,
   KeyboardAvoidingView,
   Modal
 } from 'react-native';
@@ -26,10 +25,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import {  useDispatch } from 'react-redux';
 import { getTrash } from '../../modules/getTrash';
-import { getAgent } from '../../modules/getAgent';
 import { getRating } from '../../modules/getRating';
 import { postUpdateRating } from '../../modules/postUpdateRating';
-import * as Animatable from 'react-native-animatable';
 import { useIsFocused } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
 const screenWidth = Dimensions.get('window').width;
@@ -38,28 +35,47 @@ import Collapsible from 'react-native-collapsible';
 import LottieView from 'lottie-react-native';
 import {sortingFavoritelist} from '../../modules/sortingFavoritelist';
 import { addToFavorite } from '../../modules/addToFavorite';
+import { store } from '../../redux/store';
 
 const RecycleBin = () => {
   const isFocused = useIsFocused();
 
   const [data, setHomeData] = useState([]);
-  const [agentData, setAgentData] = useState([0])
   const [ratingData, setRatingData] = useState([])
   const [isAnimating, setIsAnimating] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [showNoDataMessage, setShowNoDataMessage] = useState(false);
   const dispatch = useDispatch();
 
   const [rating, setRating] = useState(0);
   const [rating1, setRating1] = useState(0);
   const [rating2, setRating2] = useState(0);
   const [commentContent, setComentContent] = useState('');
-
   const [rating3, setRating3] = useState(0);
   const [productId, setProductId] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selectedSortOption, setSelectedSortOption] = useState(null)
+  useEffect(() => {
+    dispatch(getTrash())
+  }, [])
+  useEffect(() => {
+    if (isFocused) {
+      Promise.all[
+        new Promise(resolve => {
+          const res  =store.getState().getTrashReducer.getTrashData?.data
+            setHomeData(res)
+          resolve();
+        })
+      ];
+    }
+  }, [isFocused]);
+
+  const getTrashApiCall = () => {
+    dispatch(getTrash()).then(response => {
+        setHomeData(response?.payload?.data);
+    });
+  };
+
   const slideAnimation = useRef(new Animated.Value(0)).current;
   const panResponder = useRef(
     PanResponder.create({
@@ -196,37 +212,6 @@ const updateReview = async post_id => {
   };
   const navigation = useNavigation();
 
-  useEffect(() => {
-    if (isFocused) {
-      Promise.all[
-        getTrashApiCall(),
-        getAgentApicall()
-      ]
-    }
-
-  }, [isFocused]);
-  const getTrashApiCall = () => {
-    dispatch(getTrash()).then(response => {
-      if (response?.payload?.data?.length>1)  {
-        setShowNoDataMessage(false)
-        setHomeData(response?.payload?.data);
-      } else {
-        setShowNoDataMessage(true);
-      }
-    });
-
-  };
-  const getAgentApicall = () => {
-    dispatch(getAgent()).then(response => {
-      setAgentData(response.payload.data);
-    });
-  }
-
-  const makePhoneCall = () => {
-    let phoneNumber = agentData[0]?.agent_phone;
-
-    Linking.openURL(`tel:${phoneNumber}`);
-  };
 
 
   const renderItem = ({ item }) => (
@@ -1267,7 +1252,7 @@ const updateReview = async post_id => {
       </Collapsible>
   
       <View style={{ height: '100%', width: '100%' }}>
-        {showNoDataMessage ? (
+        {data?.length<0 ? (
           <View
             style={{
               flex: 1,

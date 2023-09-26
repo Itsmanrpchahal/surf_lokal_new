@@ -168,29 +168,26 @@ const getTrashApiCall =async()=>{
 }
 
   const handleFavoritePress = async () =>  {
+    setLoading(true)
     const formData = new FormData();
     formData.append('post_id',postid.ID)
     console.log('ifdfdfdfd',formData)
     await dispatch (addToFavorite(formData)).then (res =>{
-      setLoading(true)
       if (res?.payload?.data?.success){
-        getFavPropertyApiCall()
+        getTrashApiCall()
       }
     })
-
   }
-
   const handleRecycleBinPress = async () => {
+    setLoading(true)
  const formData = new FormData();
     formData.append('post_id', postid.ID);
     console.log('iddddd',formData)
     await dispatch(addRemoveTrash(formData)).then(res=> {
-      setLoading(true)
       if (res?.payload?.data?.success) {
-      getTrashApiCall()
+        getFavPropertyApiCall()
       } 
     });
-   
   }
   const generateLink = async () => {
     try {

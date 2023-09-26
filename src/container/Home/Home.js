@@ -63,6 +63,8 @@ import Loader from '../../components/Loader';
 import {useIsFocused} from '@react-navigation/native';
 import {propertyChatList} from '../../modules/propertyChats';
 import {Picker} from 'react-native-wheel-pick';
+import {getAgent} from '../../modules/getAgent';
+import { getNotifications } from '../../modules/getNotifications'
 
 const {width} = Dimensions.get('screen');
 const Home = () => {
@@ -163,6 +165,50 @@ const Home = () => {
   const [zipText, setZipText] = useState();
   const [filterType, setFilterType] = useState(1);
   const ref = useRef();
+
+useEffect(() => {
+  getFilterApicall()
+}, [])
+
+
+  useEffect(() => {
+    getPopertiesApiCall({type: 0, data: {limit: limitCount}, lntLng}),
+      getTrashApiCall(),
+      favlistApi(),
+      getSavedApiCall(),
+      fetchUserScore();
+    setAddres('');
+  }, []);
+  useEffect(() => {
+    if (isFocused) {
+      Promise.all[
+        new Promise(resolve => {
+          const res =
+            store.getState().getPopertiesReducer?.getPopertiesData?.data;
+          setHomeData(res);
+          resolve();
+        })
+      ];
+    }
+  }, [isFocused]);
+
+  const getFilterApicall = () => {
+    dispatch(getFilter()).then(response => {
+      setFilterData(response.payload.data);
+    });
+  };
+  const getPopertiesApiCall = async type => {
+    setFilterType(1);
+    setLoading(true);
+    await dispatch(getPoperties(type));
+    typeof store.getState().getPopertiesReducer.getPopertiesData?.data ===
+    'object'
+      ? store.getState().getPopertiesReducer.getPopertiesData?.data &&
+        setHomeData(store.getState().getPopertiesReducer.getPopertiesData?.data)
+      : setHomeData([]);
+    setLoading(false);
+  };
+
   useEffect(() => {
     dispatch(propertyChatList());
   }, []);
@@ -183,7 +229,15 @@ const Home = () => {
     setIsPressed2(!isPressed2);
     filtertoggleModal();
   };
-
+  useEffect(() => {
+    getAgentApicall();
+  }, []);
+  const getAgentApicall = () => {
+    dispatch(getAgent());
+  };
+  useEffect(() => {
+    dispatch(getNotifications())
+  }, [])
   useEffect(() => {
     dispatch(getMoreFilter());
     setMoreFilterData(store.getState().getMoreFilter.getMoreFilterData?.data);
@@ -201,32 +255,8 @@ const Home = () => {
     });
   }, [store.getState().getMoreFilter.getMoreFilterData]);
 
-  useEffect(() => {
-    getFilterApicall(),
-      getTrashApiCall(),
-      favlistApi(),
-      getSavedApiCall(),
-      getPopertiesApiCall({type: 0, data: {limit: limitCount}, lntLng}),
-      fetchUserScore();
-    setAddres('');
-  }, []);
-  useEffect(() => {
-    if (isFocused) {
-      Promise.all[
-        new Promise(resolve => {
-          const res =
-            store.getState().getPopertiesReducer?.getPopertiesData?.data;
-          setHomeData(res);
-          resolve();
-        })
-      ];
-    }
-  }, [isFocused]);
-  const getFilterApicall = () => {
-    dispatch(getFilter()).then(response => {
-      setFilterData(response.payload.data);
-    });
-  };
+
+
 
   const fetchUserScore = () => {
     dispatch(getUserScore());
@@ -465,17 +495,7 @@ const Home = () => {
       });
   };
 
-  const getPopertiesApiCall = async type => {
-    setFilterType(1);
-    setLoading(true);
-    await dispatch(getPoperties(type));
-    typeof store.getState().getPopertiesReducer.getPopertiesData?.data ===
-    'object'
-      ? store.getState().getPopertiesReducer.getPopertiesData?.data &&
-        setHomeData(store.getState().getPopertiesReducer.getPopertiesData?.data)
-      : setHomeData([]);
-    setLoading(false);
-  };
+
   const addReview = async () => {
     try {
       setIsAnimating(true);
@@ -1981,7 +2001,7 @@ const Home = () => {
                                   },
                                 }),
                               ).then(res => {
-                                filtertoggleModal()
+                                filtertoggleModal();
                                 setHomeData(res.payload.data);
                                 refRBSheet.current.close();
                               });
