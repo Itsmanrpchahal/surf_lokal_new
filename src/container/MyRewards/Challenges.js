@@ -132,9 +132,6 @@ const [currentSlide, setCurrentSlide] = useState(0)
                           formData.append('points', item.points);
                           formData.append('status', 2);
                           dispatch(likeDisLike(formData))
-                            .then(response => { })
-                            .catch(e => {
-                            });
                         }}
                         activeOpacity={0.8}
                         style={{}}>
@@ -191,7 +188,8 @@ const [currentSlide, setCurrentSlide] = useState(0)
                      justifyContent: "space-between",paddingLeft:10,position:"relative", bottom:90}] }>
                       <TouchableOpacity
                      onPress={() => {
-                      setCurrentSlide(currentSlide-1)
+                      setCount(count-1)
+                      alert(count)
                     }}
                         activeOpacity={0.1}>
                         <Image
@@ -201,7 +199,8 @@ const [currentSlide, setCurrentSlide] = useState(0)
                       </TouchableOpacity>
                       <TouchableOpacity
                      onPress={() => {
-                      setCurrentSlide(currentSlide+1)
+                      setCount(count+1)
+                       alert(count)
 
                     }}
                         activeOpacity={0.1}>

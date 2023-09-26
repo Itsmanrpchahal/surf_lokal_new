@@ -3,7 +3,6 @@ import {
   Text,
   Image,
   SafeAreaView,
-  
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
@@ -11,30 +10,20 @@ import React, {useEffect, useState} from 'react';
 import Colors from '../../utils/Colors';
 import Images from '../../utils/Images';
 import {useDispatch} from 'react-redux';
-import {Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {getLeaderboard} from '../../modules/getLeaderboard';
-
 import {getProfile} from '../../modules/getProfile';
 import DeviceInfo from 'react-native-device-info';
 import { ScrollView } from 'react-native-gesture-handler';
 import LottieView from 'lottie-react-native';
 
-const windowDimensions = Dimensions.get('window');
-const screenDimensions = Dimensions.get('screen');
 const Leaderboard = () => {
    
   const [leaderboarddata, setleaderboarddata] = useState([]);
   const [getProfileData, setgetProfileData] = useState([]);
 
-  useEffect(() => {
-    console.log(screenDimensions)
-  }, [screenDimensions])
 
-  useEffect(() => {
-    console.log(windowDimensions)
-  }, [windowDimensions])
-  
+
   useEffect(() => {
     getLeaderboardApicall();
     getProfileApiCall();
@@ -55,7 +44,7 @@ const Leaderboard = () => {
     });
   };
 
-  const sortedLeaderboard = leaderboarddata && [...leaderboarddata].sort((a, b) => b.points - a.points);
+  // const sortedLeaderboard = leaderboarddata && [...leaderboarddata].sort((a, b) => b.points - a.points);
 
   const createAbbreviation = username => {
   if(username){
@@ -164,14 +153,17 @@ const Leaderboard = () => {
             </View>
           ))}
         </View>
-        <View style={styles.coffecover}>
+        {
+          top5Leaderboard? <View style={styles.coffecover}>
           <LottieView
             style={styles.imagesize}
             source={require('../../assets/animations/LeaderBoard.json')}
             autoPlay
             loop
           />
-        </View>
+        </View>:null
+        }
+       
         <View style={styles.bottomtext}>
           <Text style={styles.firstbottomtext}>
             We think home buying should be fun!

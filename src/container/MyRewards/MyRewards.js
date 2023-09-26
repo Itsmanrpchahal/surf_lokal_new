@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  Dimensions,
   Text,
   View,
   Image,
@@ -10,32 +9,31 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Images from '../../utils/Images';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import Colors from '../../utils/Colors';
-import * as Animatable from 'react-native-animatable';
 import Slider from 'react-native-slider';
 import LottieView from 'lottie-react-native';
 import Fonts from '../../utils/Fonts';
 import DeviceInfo from 'react-native-device-info';
-import { Rotate } from 'hammerjs';
 const App = props => {
   const navigation = useNavigation();
   const [meterValue, setMeterValue] = useState(500);
 
-  const screenHeight = Dimensions.get('window').height;
-  const screenWidth = Dimensions.get('window').width;
   const [isRewardsSelected, setIsRewardsSelected] = useState(false);
+  const [infoShow, setInfoShow] = useState(false)
 
   const handlePress = () => {
     setIsRewardsSelected(!isRewardsSelected);
   };
+  const infoShowFunction = () => {
+    setInfoShow(!infoShow);
+  };
 
 
-
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   return (
-    <SafeAreaView style={{backgroundColor: Colors.white, height: '100%'}}>
+    <SafeAreaView style={{ backgroundColor: Colors.white, height: '100%' }}>
       <View style={styles.headercover}>
         <TouchableOpacity
           style={styles.headerleftside}
@@ -90,17 +88,17 @@ const App = props => {
           <Text style={styles.rebatetext}>Your Rebate </Text>
           <View
             style={{
-              position: 'relative', justifyContent:"center",alignItems:"center"
+              position: 'relative', justifyContent: "center", alignItems: "center"
             }}>
-             <View style={[styles.rebatevaluecover, {width:"50%",alignItems:"center", flexDirection:"row",justifyContent:"center"}]}>
+            <View style={[styles.rebatevaluecover, { width: "50%", alignItems: "center", flexDirection: "row", justifyContent: "center" }]}>
               <Text style={[styles.valuereabtemain,]}>$<Text numberOfLines={1} style={[styles.valuereabtemain,]}>
-              {(meterValue * 0.0032)}
-           
+                {(meterValue * 0.0032)}
+
               </Text></Text>
-              
-            </View> 
+
+            </View>
           </View>
-          <View style={{alignItems: 'center'}}>
+          <View style={{ alignItems: 'center' }}>
             <View style={styles.buttonscover}>
               <TouchableOpacity
                 onPress={() => {
@@ -169,7 +167,7 @@ const App = props => {
       </ScrollView>
       <View style={styles.bottomelement}>
         <View style={styles.w100}>
-          <View style={styles.centerplacement }>
+          <View style={styles.centerplacement}>
             <LottieView
               style={styles.girlbubble}
               source={
@@ -177,27 +175,31 @@ const App = props => {
               autoPlay
               loop
             />
-<Image
-                      source={Images.Information}
-                      style={styles.infoalt}></Image>
-                     
+            <TouchableOpacity style={{position:"relative"}} onPress={() => {
+              infoShowFunction()
+            }}>
+              <Image
+                source={Images.Information}
+                style={styles.infoalt}></Image>
+            </TouchableOpacity>
 
           </View>
         </View>
-        <View style={styles.InfoMainView}>
-                        
-                            <View style={styles.InfoView}>
-                                <Text style={styles.mainhead}>
-                                The rebate is the amount of money
-surf lokal will give you when
-you close on a property!
-                                </Text>
-                           
-                                <TouchableOpacity>
-                            <View style={styles.TriangleView}></View>
-                            </TouchableOpacity>
-                            </View>
-                        </View>
+        {
+          infoShow?    <View style={styles.InfoMainView}>
+          <View style={styles.InfoView}>
+            <Text style={styles.mainhead}>
+              The rebate is the amount of money
+              surf lokal will give you when
+              you close on a property!
+            </Text>
+            {/* <TouchableOpacity style={{position:"relative"}}> */}
+              <View style={styles.TriangleView}></View>
+            {/* </TouchableOpacity> */}
+          </View>
+        </View>:null
+        }
+    
       </View>
     </SafeAreaView>
   );
@@ -207,45 +209,45 @@ export default App;
 
 const styles = StyleSheet.create({
 
-  InfoMainView :{ 
-    justifyContent:"center",
-   alignItems:"center",
-   flexWrap:"wrap",
-   width:"90%",
-   backgroundColor:"#EC7B23" ,
-   borderRadius:10,
-   position:"absolute",
-   padding:12,
-   top:-100,
-   right:10
-   },
-   mainhead:{textAlign:"center", color:"black", fontFamily:"poppins-Medium",fontSize:16},
-  TriangleView:{ 
+  InfoMainView: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexWrap: "wrap",
+    width: "90%",
+    backgroundColor: "#EC7B23",
+    borderRadius: 10,
+    position: "absolute",
+    padding: 12,
+    top: -100,
+    right: 10
+  },
+  mainhead: { textAlign: "center", color: "black", fontFamily: "poppins-Medium", fontSize: 16 },
+  TriangleView: {
     width: 0,
     height: 0,
     borderLeftWidth: 10,
     borderRightWidth: 10,
     borderBottomWidth: 20,
     // borderStyle: solid,
- backgroundColor: "transparent",
-   borderLeftColor: "transparent",
-     borderRightColor: "transparent",
-   borderBottomColor: "#EC7B23",
+    backgroundColor: "transparent",
+    borderLeftColor: "transparent",
+    borderRightColor: "transparent",
+    borderBottomColor: "#EC7B23",
     //borderBottomColor:"#EC7B23",
-    position:"absolute",
- bottom:-40,
-    right:"40%",
-    transform: [{ rotate: '180deg'}]
+    position: "absolute",
+    bottom: -30,
+    right: "50%",
+    transform: [{ rotate: '180deg' }]
 
   },
-  InfoView:{ 
+  InfoView: {
 
-  padding:10,
+    padding: 10,
 
- marginTop:-2,
+    marginTop: -2,
 
 
-},
+  },
 
   container: {
     height: '100%',
@@ -332,7 +334,7 @@ const styles = StyleSheet.create({
     right: 10,
     top: 15,
   },
-  mt15: {marginTop: 15},
+  mt15: { marginTop: 15 },
   covermain: {
     justifyContent: 'center',
     alignContent: 'center',
@@ -378,17 +380,17 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginTop: 22,
   },
-  mainslider: {width: '90%', justifyContent: 'center'},
+  mainslider: { width: '90%', justifyContent: 'center' },
   thummain: {
     width: 32,
     height: 32,
     borderRadius: 100,
-    borderWidth: 2, 
-    borderColor: Colors.darbluec, 
+    borderWidth: 2,
+    borderColor: Colors.darbluec,
     marginHorizontal: 2,
   },
   trackmain: {
-    height: 10, 
+    height: 10,
     borderRadius: 100,
   },
   rebatetext: {
@@ -403,9 +405,9 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     paddingTop: 0,
-     alignItems:"center",
-     position:"relative",
-     marginHorizontal:8
+    alignItems: "center",
+    position: "relative",
+    marginHorizontal: 8
   },
   dollarstyle: {
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 123 : 60,
@@ -416,11 +418,11 @@ const styles = StyleSheet.create({
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 123 : 60,
     fontFamily: Fonts.extrabold,
     color: 'black',
-    textAlign:"center",
-      alignItems:"center",justifyContent:"center"
-      ,
-       width:"100%",
-      height:100
+    textAlign: "center",
+    alignItems: "center", justifyContent: "center"
+    ,
+    width: "100%",
+    height: 100
   },
   buttonscover: {
     flexDirection: 'row',
@@ -428,18 +430,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: DeviceInfo.getDeviceType() === 'Tablet' ? '70%' : '90%',
   },
-  bottomelement: {position: 'relative', alignItems: 'flex-end', width: '100%'},
+  bottomelement: { position: 'relative', alignItems: 'flex-end', width: '100%' },
   centerplacement: {
     justifyContent: 'center',
     flexDirection: 'row',
-    alignItems: 'center',
-    position:"relative",
-    width:"50%"
+    alignItems: 'flex-start',
+    position: "relative",
+    width: "50%"
   },
-  girlbubble: {height: 150, width: 150},
-  w100: {width: '100%', justifyContent: 'center',
-  flexDirection: 'row',
-  alignItems: 'center',
-  position:"relative",},
-  infoalt:{position:"absolute", top:0, right:0}
+  girlbubble: { height: 150, width: 150 },
+  w100: {
+    width: '100%', justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: "relative",
+  },
+   infoalt: { position: "absolute", top: 0, right: 0 }
 });
