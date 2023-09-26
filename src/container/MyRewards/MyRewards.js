@@ -17,6 +17,7 @@ import Slider from 'react-native-slider';
 import LottieView from 'lottie-react-native';
 import Fonts from '../../utils/Fonts';
 import DeviceInfo from 'react-native-device-info';
+import { Rotate } from 'hammerjs';
 const App = props => {
   const navigation = useNavigation();
   const [meterValue, setMeterValue] = useState(500);
@@ -168,7 +169,7 @@ const App = props => {
       </ScrollView>
       <View style={styles.bottomelement}>
         <View style={styles.w100}>
-          <View style={styles.centerplacement}>
+          <View style={styles.centerplacement }>
             <LottieView
               style={styles.girlbubble}
               source={
@@ -176,8 +177,27 @@ const App = props => {
               autoPlay
               loop
             />
+<Image
+                      source={Images.Information}
+                      style={styles.infoalt}></Image>
+                     
+
           </View>
         </View>
+        <View style={styles.InfoMainView}>
+                        
+                            <View style={styles.InfoView}>
+                                <Text style={styles.mainhead}>
+                                The rebate is the amount of money
+surf lokal will give you when
+you close on a property!
+                                </Text>
+                           
+                                <TouchableOpacity>
+                            <View style={styles.TriangleView}></View>
+                            </TouchableOpacity>
+                            </View>
+                        </View>
       </View>
     </SafeAreaView>
   );
@@ -186,10 +206,54 @@ const App = props => {
 export default App;
 
 const styles = StyleSheet.create({
+
+  InfoMainView :{ 
+    justifyContent:"center",
+   alignItems:"center",
+   flexWrap:"wrap",
+   width:"90%",
+   backgroundColor:"#EC7B23" ,
+   borderRadius:10,
+   position:"absolute",
+   padding:12,
+   top:-100,
+   right:10
+   },
+   mainhead:{textAlign:"center", color:"black", fontFamily:"poppins-Medium",fontSize:16},
+  TriangleView:{ 
+    width: 0,
+    height: 0,
+    borderLeftWidth: 10,
+    borderRightWidth: 10,
+    borderBottomWidth: 20,
+    // borderStyle: solid,
+ backgroundColor: "transparent",
+   borderLeftColor: "transparent",
+     borderRightColor: "transparent",
+   borderBottomColor: "#EC7B23",
+    //borderBottomColor:"#EC7B23",
+    position:"absolute",
+ bottom:-40,
+    right:"40%",
+    transform: [{ rotate: '180deg'}]
+
+  },
+  InfoView:{ 
+
+  padding:10,
+
+ marginTop:-2,
+
+
+},
+
   container: {
     height: '100%',
     backgroundColor: Colors.white,
   },
+
+
+
   textInput: {
     height: 25,
     fontSize: 16,
@@ -369,7 +433,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
+    position:"relative",
+    width:"50%"
   },
   girlbubble: {height: 150, width: 150},
-  w100: {width: '100%'},
+  w100: {width: '100%', justifyContent: 'center',
+  flexDirection: 'row',
+  alignItems: 'center',
+  position:"relative",},
+  infoalt:{position:"absolute", top:0, right:0}
 });

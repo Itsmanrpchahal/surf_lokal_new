@@ -102,6 +102,7 @@ const Images = {
   hybrid: require(BaseUrl + 'hybrid.png'),
   trash: require(BaseUrl + 'trash.png'),
   favfilter: require(BaseUrl + 'filtericon.png'),
+  Information: require(BaseUrl + 'information-alt.png'),
   nextslide: require(BaseUrl + 'nextslide.png'),
   next: require(BaseUrl + 'next.png'),
 };
