@@ -20,7 +20,6 @@ import {
   SafeAreaView,
 } from 'react-native';
 import StarRating from 'react-native-star-rating-widget';
-import SelectDropdown from 'react-native-select-dropdown';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
