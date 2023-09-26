@@ -102,6 +102,7 @@ const MyFavorites = props => {
     handleModalAnimation();
   }, [modalVisible]);
 
+
   const updateReview = async post_id => {
     try {
       setIsAnimating(true);

@@ -47,7 +47,7 @@ import { chat } from "../../modules/chat";
 
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
 import { getPoperties} from '../../modules/getPoperties';
-import getFavoriteProperties from '../../modules/getFavoriteProperties';
+import {getFavoriteProperties} from '../../modules/getFavoriteProperties';
 import { getTrash } from '../../modules/getTrash';
 const screenWidth = Dimensions.get('window').width;
 
@@ -113,7 +113,7 @@ const {route}=props
     } else if (route.params.from === 'MyFavorites') {
 
       return (
-        <TouchableOpacity onPress={handleRecycleBinPress}>
+        <TouchableOpacity onPress={()=>{handleRecycleBinPress()}}>
           <View>
           {isImageVisible && (
           <Image source={Images.layerfav} style={styles.chaticon} />
@@ -130,7 +130,7 @@ const {route}=props
     } else if (route.params.from === 'RecycleBin') {
       
       return (
-        <TouchableOpacity onPress={handleFavoritePress}>
+        <TouchableOpacity onPress={()=>{handleFavoritePress()}}>
           <View>
           {isImageVisible && (
           <Image
@@ -149,20 +149,48 @@ const {route}=props
       );
     }
   };
+const getFavPropertyApiCall =async()=>{
+  await dispatch(getFavoriteProperties()).then(res =>{
+    if (res?.payload.success){
+      setLoading(false)
+      navigation.goBack()
+    }
+  })
+}
+
+const getTrashApiCall =async()=>{
+  await dispatch(getTrash()).then(res =>{
+  if(res?.payload.success){
+    setLoading(false )
+    navigation.goBack()
+  }
+  })
+}
+
   const handleFavoritePress = async () =>  {
     const formData = new FormData();
- formData.append('post_id',postid.ID);
-    await dispatch(addToFavorite(formData)).then((res)=>{console.log("success",res)})
-   getTrash()
-    navigation.goBack()
+    formData.append('post_id',postid.ID)
+    console.log('ifdfdfdfd',formData)
+    await dispatch (addToFavorite(formData)).then (res =>{
+      setLoading(true)
+      if (res?.payload?.data?.success){
+        getFavPropertyApiCall()
+      }
+    })
+
   }
 
   const handleRecycleBinPress = async () => {
-    const formData = new FormData();
- formData.append('post_id',postid.ID);
-    await dispatch(addRemoveTrash(formData))
-    getFavoriteProperties()
-    navigation.goBack()
+ const formData = new FormData();
+    formData.append('post_id', postid.ID);
+    console.log('iddddd',formData)
+    await dispatch(addRemoveTrash(formData)).then(res=> {
+      setLoading(true)
+      if (res?.payload?.data?.success) {
+      getTrashApiCall()
+      } 
+    });
+   
   }
   const generateLink = async () => {
     try {
