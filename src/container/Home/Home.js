@@ -2337,8 +2337,11 @@ const Home = () => {
                         justifyContent: 'space-between',
                         alignContent: 'center',
                         alignItems: 'center',
+                        alignSelf:'center',
                         width: '100%',
-                        top: -30,
+                      height:'25%',
+                      top:-35,
+                    //  bottom:20
                       }}>
                       <TouchableOpacity
                         onPress={() => {
