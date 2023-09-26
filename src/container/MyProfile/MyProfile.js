@@ -21,9 +21,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import Loader from '../../components/Loader';
 import { ScrollView } from 'react-native-gesture-handler';
-import { propertyChatList } from '../../modules/propertyChats'
 import DeviceInfo from 'react-native-device-info';
-import { getNotifications } from '../../modules/getNotifications'
 import { store } from '../../redux/store';
 
 const screenHeight = Dimensions.get('window').height;
@@ -38,7 +36,6 @@ const MyFavorites = () => {
   const [index, setIndex] = useState(true);
   const [isImageChanged, setIsImageChanged] = useState(false);
   const [isImage, setIsImage] = useState(false);
-  const flatListRef = useRef(null);
 
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
@@ -58,10 +55,11 @@ const MyFavorites = () => {
   }, [])
 
   useEffect(() => {
-    dispatch(getNotifications()).then((response) => {
-      setNotification(response.payload?.data)
-    })
-  }, [])
+    const nestedData =store.getState().getNotifications.getNotificationsData?.data[0]
+     console.log("nestedDatanestedDatanestedData",nestedData)
+     setNotification(nestedData)
+  }, []);
+
   const handleImagePress = () => {
     navigation.navigate('RecycleBin');
     setIsImageChanged(true);
@@ -408,7 +406,7 @@ const MyFavorites = () => {
                       resizeMode: 'contain'
                     }} />
                     {
-                      notification[0]?.length > 0 ?
+                      notification?.length > 0 ?
                       <Text style={{
                         position: "absolute", backgroundColor: "red", right: DeviceInfo.getDeviceType() === 'Tablet' ? 12 : 8, top: DeviceInfo.getDeviceType() === 'Tablet' ? -12 : -7,
                         height: DeviceInfo.getDeviceType() === 'Tablet' ? 25 : 15,
@@ -416,7 +414,7 @@ const MyFavorites = () => {
                         borderRadius:100, color: Colors.white,
                         textAlign: "center", fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 15 : 9, alignItems: "center",
                         justifyContent: "center"
-                      }}>{notification[0]?.length > 0 ? notification[0]?.length : "0"}</Text>:null
+                      }}>{notification?.length > 0 ? notification?.length : "0"}</Text>:null
                     }
                  
                   </View>
@@ -538,7 +536,7 @@ const MyFavorites = () => {
             </View> : null
           }
           {
-            propertyChat.length > 0 &&
+            propertyChat?.length > 0 &&
             <View style={styles.slideOuter}>
               {
                 tabshow ? <TouchableOpacity onPress={() => navigation.navigate('ChatHistory')}

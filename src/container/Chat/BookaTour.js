@@ -343,7 +343,7 @@ const BookaTour = props => {
                 color: Colors.black,
               }}
               placeholder={
-                props?.route?.params?.ID === ''
+                getMesg?.length<1
                   ? 'Select Date from Calender'
                   : ' Type here ....'
               }
@@ -353,7 +353,7 @@ const BookaTour = props => {
               editable={getMesg?.length <= 2 ? false : true}
               onChangeText={setMessage}
             />
-            {props?.route?.params?.ID === '' && (
+            { getMesg?.length<1?
               <TouchableOpacity
                 disabled={getMesg.length < 2 ? false : true}
                 onPress={() => {
@@ -375,53 +375,50 @@ const BookaTour = props => {
                   source={Images.cola}
                 />
               </TouchableOpacity>
-            )}
-
-            {props?.route?.params?.ID != '' && (
-              <TouchableOpacity
-                disabled={getMesg?.length > 2 ? false : true}
-                onPress={() => {
-                  setLoading(true);
-                  {
-                    dispatch(
-                      sendMessage({
-                        user_id: props?.route?.params?.user_id
-                          ? props?.route?.params?.user_id
-                          : userID,
-                        propid: props?.route?.params?.PropID
-                          ? props?.route?.params?.PropID
-                          : postid.PropID,
-                        user2_id: props?.route?.params?.user2_id
-                          ? props?.route?.params?.user2_id
-                          : '',
-                        message: message,
-                      }),
-                    )
-                      .then(res => {
-                        setLoading(false);
-                        setMessage('');
-                        if (res.payload.success) {
-                          getChatDetailApiCall()
-                        }
-                      })
-                  }
-                }}
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Image
-                  style={{
-                    height: 25,
-                    width: 25,
-                    resizeMode: 'contain',
-                    tintColor: Colors.primaryBlue,
-                  }}
-                  source={Images.sendm}
-                />
-              </TouchableOpacity>
-            )}
+            :<TouchableOpacity
+            disabled={getMesg?.length > 2 ? false : true}
+            onPress={() => {
+              setLoading(true);
+              {
+                dispatch(
+                  sendMessage({
+                    user_id: props?.route?.params?.user_id
+                      ? props?.route?.params?.user_id
+                      : userID,
+                    propid: props?.route?.params?.PropID
+                      ? props?.route?.params?.PropID
+                      : postid.PropID,
+                    user2_id: props?.route?.params?.user2_id
+                      ? props?.route?.params?.user2_id
+                      : '',
+                    message: message,
+                  }),
+                )
+                  .then(res => {
+                    setLoading(false);
+                    setMessage('');
+                    if (res.payload.success) {
+                      getChatDetailApiCall()
+                    }
+                  })
+              }
+            }}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Image
+              style={{
+                height: 25,
+                width: 25,
+                resizeMode: 'contain',
+                tintColor: Colors.primaryBlue,
+              }}
+              source={Images.sendm}
+            />
+          </TouchableOpacity>
+          }
           </View>
           <DatePicker
             modal

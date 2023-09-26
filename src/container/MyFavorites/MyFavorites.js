@@ -12,7 +12,6 @@ import {
   FlatList,
   Animated,
   PanResponder,
-  Linking,
   Share,
   Modal,
   KeyboardAvoidingView,
@@ -23,27 +22,26 @@ import Colors from '../../utils/Colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {getFavoriteProperties} from '../../modules/getFavoriteProperties';
-const screenWidth = Dimensions.get('window').width;
 import {postRating} from '../../modules/postRating';
-import {getAgent} from '../../modules/getAgent';
 import {getRating} from '../../modules/getRating';
 import {postUpdateRating} from '../../modules/postUpdateRating';
 import {sortingFavoritelist} from '../../modules/sortingFavoritelist';
-import * as Animatable from 'react-native-animatable';
 import {useIsFocused} from '@react-navigation/native';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import DeviceInfo from 'react-native-device-info';
 import LottieView from 'lottie-react-native';
 import {addRemoveTrash} from '../../modules/addRemoveTrash';
+import {getFavoriteProperties} from '../../modules/getFavoriteProperties';
 import StarRating from 'react-native-star-rating-widget';
 import Collapsible from 'react-native-collapsible';
+import { store } from '../../redux/store';
+
+const screenWidth = Dimensions.get('window').width;
 
 const MyFavorites = props => {
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const [data, setHomeData] = useState([]);
-  const [agentData, setAgentData] = useState([0]);
   const [showNoDataMessage, setShowNoDataMessage] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [ratingData, setRatingData] = useState([]);
@@ -60,6 +58,25 @@ const MyFavorites = props => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [selectedSortOption, setSelectedSortOption] = useState(null)
+
+useEffect(() => {
+  dispatch(getFavoriteProperties())
+}, [])
+  useEffect(() => {
+    if (isFocused) {
+      Promise.all[
+        new Promise(resolve => {
+          const res =store.getState().getFavoritePropertiesReducer.getFavoritePropertiesData?.data;
+            setHomeData(res)
+          resolve();
+        })
+      ];
+    }
+  }, [isFocused]);
+
+
+
+
   const slideAnimation = useRef(new Animated.Value(0)).current;
   const panResponder = useRef(
     PanResponder.create({
@@ -84,6 +101,11 @@ const MyFavorites = props => {
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
+  };
+  const getFavoritePropertiesApiCall = () => {
+    dispatch(getFavoriteProperties()).then(res => {
+      setHomeData(res?.payload?.data)
+    });
   };
 
   const closeModal = () => {
@@ -161,36 +183,7 @@ const MyFavorites = props => {
     }
   };
 
-  useEffect(() => {
-    if (isFocused) {
-      Promise.all[(
-        getFavoritePropertiesApiCall(),
-         getAgentApicall()
-         )];
-    }
-  }, [isFocused]);
-  const getFavoritePropertiesApiCall = () => {
-    dispatch(getFavoriteProperties()).then(response => {
-      if (response.payload.data.length < 1) {
-        setShowNoDataMessage(true);
-      } else {
-        setShowNoDataMessage(false);
-        setHomeData(response.payload.data);
-      }
-    });
-  };
 
-  const getAgentApicall = () => {
-    dispatch(getAgent()).then(response => {
-      setAgentData(response.payload.data);
-
-    });
-  };
-
-  const makePhoneCall = () => {
-    let phoneNumber = agentData[0]?.agent_phone;
-    Linking.openURL(`tel:${phoneNumber}`);
-  };
 
   const generateLink = async ID => {
     try {
@@ -959,7 +952,7 @@ const MyFavorites = props => {
         </View>
       </Collapsible>
       <View style={{height: '100%', width: '100%'}}>
-        {showNoDataMessage ? (
+        {data?.length<0 ? (
           <View style={styles.nofav}>
             <Text style={styles.nofavtext}>No properties in Favorite !!</Text>
           </View>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,40 +13,34 @@ import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import DeviceInfo from 'react-native-device-info';
-import {addToFavorite} from '../../modules/addToFavorite';
-import {addRemoveTrash} from '../../modules/addRemoveTrash';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import {useDispatch} from 'react-redux';
-import { store } from '../../redux/store';
+import {store} from '../../redux/store';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 const ViewPropertiyImage = props => {
-
-  const dispatch = useDispatch();
   const [data, setData] = useState([]);
 
   const [orientation, setOrientation] = useState('portrait');
   const [agentData, setAgentData] = useState([0]);
-  const [modalVisible, setModalVisible] = useState(false);
 
   const scrollViewRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const scrollToTop = () => {
-    scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    scrollViewRef.current.scrollTo({y: 0, animated: true});
   };
   const handleScroll = event => {
     const offsetY = event.nativeEvent.contentOffset.y;
     setIsScrolled(offsetY > 0);
   };
-  const postID = props.route.params;
-  const property = data[0];
+  const property = data;
   useEffect(() => {
-    setData(store.getState().getPopertiesDetailsReducer.getPopertiesDetails?.data)
-    setAgentData(store.getState().getAgentReducer.getAgentData.data)
+    const ddd =
+      store.getState().getPopertiesDetailsReducer.getPopertiesDetails?.data;
+    setData(ddd);
+    setAgentData(store.getState().getAgentReducer.getAgentData.data);
 
     const isPortrait = () => {
       const dim = Dimensions.get('screen');
@@ -56,61 +50,18 @@ const ViewPropertiyImage = props => {
     const handleChangeOrientation = () => {
       setOrientation(isPortrait() ? 'portrait' : 'landscape');
     };
-
-
     Dimensions.addEventListener('change', handleChangeOrientation);
-
-  
-
-  
   }, []);
-  const savefile = async post_id => {
-    const userID = await AsyncStorage.getItem('userId');
-
-    const formData = new FormData();
-    formData.append('userID', userID);
-    formData.append('post_id', post_id);
-
-    await dispatch(addToFavorite(formData)).then(response => {
-      if (response.payload.success) {
-
-      } else {
-  
-      }
-    });
-    navigation.goBack();
-  };
-
-  const trashfile = async post_id => {
-    const userID = await AsyncStorage.getItem('userId');
-    const formData = new FormData();
-    formData.append('userID', userID);
-    formData.append('post_id', post_id);
-
-    await dispatch(addRemoveTrash(formData)).then(response => {
-      if (response.payload.success) {
-      
-      } else {
-
-      }
-    });
-
-    navigation.goBack();
-  };
 
   const makePhoneCall = () => {
     let phoneNumber = agentData[0]?.agent_phone;
     Linking.openURL(`tel:${phoneNumber}`);
   };
 
-
-
-
-
   const navigation = useNavigation();
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <SafeAreaView style={styles.container}>
         <View style={styles.innercontainer}>
           <ScrollView ref={scrollViewRef} onScroll={handleScroll}>
@@ -121,7 +72,7 @@ const ViewPropertiyImage = props => {
                 })
               }>
               <Image
-                source={{ uri: property?.featured_image_src }}
+                source={{uri: property?.featured_image_src}}
                 style={styles.slide}
               />
             </TouchableOpacity>
@@ -132,7 +83,7 @@ const ViewPropertiyImage = props => {
                 })
               }>
               <Image
-                source={{ uri: property?.featured_image_src }}
+                source={{uri: property?.featured_image_src}}
                 style={styles.slide}
               />
               <View style={styles.videoplayer}>
@@ -142,14 +93,13 @@ const ViewPropertiyImage = props => {
                 />
               </View>
             </TouchableOpacity>
-            {property?.property_gallery.Gallery &&
-              property?.property_gallery.Gallery.length > 0 ? (
+            {property?.property_gallery?.Gallery.length > 0 ? (
               property?.property_gallery.Gallery.map((image, index) => (
                 <TouchableOpacity
                   key={index}
-                  onPress={() => navigation.navigate('ViewImage', { image })}
+                  onPress={() => navigation.navigate('ViewImage', {image})}
                   style={styles.slideOuter}>
-                  <Image source={{ uri: image.guid }} style={styles.slide} />
+                  <Image source={{uri: image.guid}} style={styles.slide} />
                 </TouchableOpacity>
               ))
             ) : (
@@ -170,115 +120,104 @@ const ViewPropertiyImage = props => {
               source={Images.leftnewarrow}></Image>
           </TouchableOpacity>
 
-    
           <View
-        style={{
-          flexDirection: 'row',
-          width: '100%',
-          justifyContent: 'space-around',
-          backgroundColor: '#f8f8f8',
-          paddingVertical: 12,
-          alignItems: 'center',
-          position:"relative",
-          paddingHorizontal:8,
-          height:55
-        }}>
-        <View
-          style={{
-            alignItems: 'center',
-            flexDirection: 'row',
-      
-           width:"30.33%",
-           justifyContent:"space-between",
-           paddingRight:15
-          }}>
-      
-            <TouchableOpacity
-              style={{
-             marginRight:16
-              }}
-              onPress={() => {
-                makePhoneCall();
-              }}>
-              <Image
-                source={Images.newcall}
-                style={{
-                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 26,
-                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 26,
-                  resizeMode: 'contain',
-                }}></Image>
-            </TouchableOpacity>
-          
-        
-            <TouchableOpacity
-              style={{
-               right:20
-              }}
-              onPress={() => navigation.navigate('ChatSearch')}>
-              <Image
-                source={Images.chatnew}
-                style={{
-                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 26,
-                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 26,
-                  resizeMode: 'contain',
-                }}></Image>
-            </TouchableOpacity>
-        </View>
-     
-       
-
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('BookaTour', {
-              ID: '',
-              PropID: postid?.ID,
-              user_id: '',
-              user2_id: '',
-            });
-            
-          }}
-          style={{
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexDirection: 'row',
-            alignSelf: 'center',
-            borderRadius: 50,
-            // paddingHorizontal:8,
-            // paddingVertical:8,
-            lineHeight: 12,
-            // marginRight: 10,
-            borderWidth: 2,
-            backgroundColor:Colors.surfblur,
-            borderColor: Colors.white,
-            height:45,  width:"62%",
-          }}>
-          <Text
             style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 18,
-              color: Colors.white,
-              textAlign: 'center',
-            //  marginLeft:10,
-            left:10,
-              fontFamily: 'Poppins-Medium',
+              flexDirection: 'row',
+              width: '100%',
+              justifyContent: 'space-around',
+              backgroundColor: '#f8f8f8',
+              paddingVertical: 12,
+              alignItems: 'center',
               position: 'relative',
-             
-              letterSpacing: 0,
+              paddingHorizontal: 8,
+              height: 55,
             }}>
-            Schedule a Tour
-          </Text>
-          <LottieView
-         style={{ height: 100, width: DeviceInfo.getDeviceType() === 'Tablet' ? 300 : 90, position:"relative", }}
-         source={require('../../assets/animations/SurfVan.json')}
-         autoPlay
-          loop
-                                            />
-       
-        </TouchableOpacity>
-      </View>
-        </View>
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+                width: '30.33%',
+                justifyContent: 'space-between',
+                paddingRight: 15,
+              }}>
+              <TouchableOpacity
+                style={{
+                  marginRight: 16,
+                }}
+                onPress={() => {
+                  makePhoneCall();
+                }}>
+                <Image
+                  source={Images.newcall}
+                  style={{
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 26,
+                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 26,
+                    resizeMode: 'contain',
+                  }}></Image>
+              </TouchableOpacity>
 
-      
-     
+              <TouchableOpacity
+                style={{
+                  right: 20,
+                }}
+                onPress={() => navigation.navigate('ChatSearch')}>
+                <Image
+                  source={Images.chatnew}
+                  style={{
+                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 26,
+                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 26,
+                    resizeMode: 'contain',
+                  }}></Image>
+              </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('BookaTour', {
+                  ID: '',
+                  PropID: postid?.ID,
+                  user_id: '',
+                  user2_id: '',
+                });
+              }}
+              style={{
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexDirection: 'row',
+                alignSelf: 'center',
+                borderRadius: 50,
+                lineHeight: 12,
+                borderWidth: 2,
+                backgroundColor: Colors.surfblur,
+                borderColor: Colors.white,
+                height: 45,
+                width: '62%',
+              }}>
+              <Text
+                style={{
+                  fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 18,
+                  color: Colors.white,
+                  textAlign: 'center',
+                  left: 10,
+                  fontFamily: 'Poppins-Medium',
+                  position: 'relative',
+                  letterSpacing: 0,
+                }}>
+                Schedule a Tour
+              </Text>
+              <LottieView
+                style={{
+                  height: 100,
+                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 300 : 90,
+                  position: 'relative',
+                }}
+                source={require('../../assets/animations/SurfVan.json')}
+                autoPlay
+                loop
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
       </SafeAreaView>
     </View>
   );
@@ -305,7 +244,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 5,
   },
-  mr10: { marginRight: 10 },
+  mr10: {marginRight: 10},
   slide: {
     width: screenWidth,
     height: screenHeight / 2.5,
@@ -320,7 +259,7 @@ const styles = StyleSheet.create({
     width: 12,
     resizeMode: 'contain',
     tintColor: Colors.black,
-    transform: [{ rotate: '90deg' }],
+    transform: [{rotate: '90deg'}],
   },
   submitcover: {
     height: 35,
@@ -328,7 +267,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: Colors.PrimaryColor,
     marginTop: 10,
-
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -337,7 +275,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '40%',
     left: '40%',
-    transform: [{ translateX: -12 }, { translateY: -12 }],
+    transform: [{translateX: -12}, {translateY: -12}],
   },
   submittxt: {
     fontSize: 14,
@@ -358,31 +296,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  screen: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 40,
-    width: 40,
-    borderRadius: 100,
-    backgroundColor: Colors.gray,
-    position: 'relative',
-    left: 15,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  button: {
-    padding: 10,
-    backgroundColor: 'blue',
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
   buttonscroll: {
     position: 'absolute',
     bottom: 80,
@@ -394,39 +307,13 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
   },
-  pagination: {
-    position: 'absolute',
-    bottom: 20,
-    alignSelf: 'center',
-    flexDirection: 'row',
-  },
-  paginationDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: 'gray',
-    marginHorizontal: 5,
-  },
-  paginationDotActive: {
-    backgroundColor: 'blue',
-  },
-
-  filter: {
-    height: 60,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors.primaryBlue,
-  },
   innercontainer: {
     height: '100%',
     width: '100%',
   },
-  videoplaterstyle: { width: 80, height: 80, tintColor: 'white' },
+  videoplaterstyle: {width: 80, height: 80, tintColor: 'white'},
   toptoup: {
-    transform: [{ rotate: '180deg' }],
+    transform: [{rotate: '180deg'}],
     width: 12,
     height: 12,
     tintColor: Colors.black,
@@ -442,174 +329,17 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     tintColor: 'white',
   },
-  leftbutton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    alignSelf: 'center',
-    borderRadius: 50,
-    paddingHorizontal: 16,
-    lineHeight: 12,
-    marginRight: 10,
-    borderWidth: 2,
-    borderColor: Colors.surfblur,
-  },
-  buttontextschedule: {
-    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 21 : 13,
-    color: Colors.surfblur,
-    textAlign: 'center',
-    marginLeft: 5,
-    fontFamily: 'Poppins-Medium',
-    position: 'relative',
-    top: 2,
-    letterSpacing: 0,
-  },
-  busicon: {
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? 70 : 50,
-  },
-  mainmodalcover: {
-    height: '95%',
-    width: '100%',
-    alignItems: 'center',
-    alignContent: 'center',
-    backgroundColor: Colors.white,
-    position: 'absolute',
-    bottom: 10,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderWidth: 1,
-    borderColor: Colors.gray,
-  },
-  maininnermodal: {
-    height: '10%',
-    width: '90%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  modalheading: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: Colors.black,
-    marginTop: 10,
-  },
-  labelheadingtxt: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: Colors.black,
-    marginTop: 10,
-    marginRight: 180,
-  },
-  activityIndicatornew: {
-    height: 5,
-    width: 50,
-    borderRadius: 8,
-    backgroundColor: Colors.gray,
-  },
-  labeltext: { fontSize: 12, color: Colors.black },
-  updatetext: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: Colors.PrimaryColor,
-  },
-  updatebuttoncover: {
-    width: '100%',
-
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    paddingHorizontal: 10,
-  },
-  pluscover: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 10,
-  },
-  plusimage: {
-    height: 20,
-    width: 20,
-    resizeMode: 'contain',
-    tintColor: Colors.black,
-    transform: [{ rotate: '45deg' }],
-  },
-  reviewinnertext: { margin: 10, fontSize: 12, color: 'black' },
-  edittext: { fontSize: 12, color: 'blue' },
-  coverrat: { width: '95%', alignSelf: 'center' },
   nofound: {
-    textAlign: "center", fontFamily: "Poppins-Medium", fontSize: 16,
-    position: "absolute", top: "50%", left: 0, right: 0, color: "black"
-  },
-  callicon: {
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 29,
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 29,
-    resizeMode: 'contain',
-  },
-  chaticon: {
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 28,
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? 60 : 28,
-    resizeMode: 'contain',
-  },
-  chatcover: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignContent: 'center',
-  },
-  upperchatcover: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  }, callcover: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignContent: 'center',
-    marginRight: 10,
-  },
-  calluppercover: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignContent: 'center',
-  }, bothicons: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '30%',
-    flexDirection: 'row',
-    left: 10,
-  },
-  bottomcover: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    backgroundColor: '#f8f8f8',
-    paddingVertical: 8,
-    alignItems: 'center',
-    alignContent: 'center',
-  },
-  textinputstyle: {
-    margin: 10,
-    fontSize: 12,
+    textAlign: 'center',
+    fontFamily: 'Poppins-Medium',
+    fontSize: 16,
+    position: 'absolute',
+    top: '50%',
+    left: 0,
+    right: 0,
     color: 'black',
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 5,
-    padding: 5,
   },
-  textinputcover: {
-    width: '100%',
-    height: 100,
-    marginTop: 10,
-  },
-  inputcont: { margin: 10, fontSize: 12, color: 'black' },
-  innercoverrat: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  calliconnew: {
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 29,
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? 58 : 29,
-    resizeMode: 'contain',
-  }
+
 });
 
 export default ViewPropertiyImage;
