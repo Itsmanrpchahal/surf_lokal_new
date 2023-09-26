@@ -19,14 +19,15 @@ import {TypingAnimation} from 'react-native-typing-animation';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
 import LottieView from 'lottie-react-native';
 import DeviceInfo from 'react-native-device-info';
+import { current } from '@reduxjs/toolkit';
 const screenWidth = Dimensions.get('window').width;
 const Challenges = () => {
 
   const [question, setQuestion] = useState([]);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState();
 const [currentSlide, setCurrentSlide] = useState(0)
   const navigation = useNavigation();
-
+  const [questionIndex,setQuestionIndex]=useState(0)
   const [selectedTabsMore, setSelectedTabsMore] = useState([]);
   const [selectedTabsMore2, setSelectedTabsMore2] = useState([]);
   const [count, setCount] = useState(0);
@@ -35,9 +36,9 @@ const [currentSlide, setCurrentSlide] = useState(0)
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
-  // useEffect(() => {
-  //   console.log("countt",count)
-  //     }, [count])
+   useEffect(() => {
+   console.log("countt",question)
+    }, [question])
 
   // useEffect(() => {
   //       console.log("index",index)
@@ -55,6 +56,7 @@ const [currentSlide, setCurrentSlide] = useState(0)
       setQuestion(response?.payload?.data);
       setCount(response?.payload?.count);
       setCurrentSlide(response?.payload?.count)
+     
     });
   };
 
@@ -85,7 +87,7 @@ const [currentSlide, setCurrentSlide] = useState(0)
       </View>
 
       <View style={styles.questioncover}>
-        {question[index]? (
+        {question?(
           <SwiperFlatList
             style={{width: screenWidth}}
             index={count}
@@ -100,9 +102,9 @@ const [currentSlide, setCurrentSlide] = useState(0)
                   <View style={styles.questionmain}>
                     <Text style={styles.textques}>
                       {'Q.'}
-                      {index + 1}
+                      {count + 1}
                       {' : '}
-                      {item?.post_title}
+                      {question[count]?.post_title}
                     </Text>
                     <View style={styles.innertext}>
                       <TouchableOpacity
@@ -188,10 +190,11 @@ const [currentSlide, setCurrentSlide] = useState(0)
                      justifyContent: "space-between",paddingLeft:10,position:"relative", bottom:90}] }>
                       <TouchableOpacity
                      onPress={() => {
-                      setCount(count-1)
-                      alert(count)
+                      setCount(count -1)
+                     
+                      
                     }}
-                        activeOpacity={0.1}>
+                        activeOpacity={0.3}>
                         <Image
                           source={ Images.next }
                           style={[styles.dislikedes,{transform:[{rotate: '180deg'}]}]}
@@ -199,8 +202,9 @@ const [currentSlide, setCurrentSlide] = useState(0)
                       </TouchableOpacity>
                       <TouchableOpacity
                      onPress={() => {
-                      setCount(count+1)
-                       alert(count)
+                    setCount(count +1)
+                     
+                    
 
                     }}
                         activeOpacity={0.1}>
