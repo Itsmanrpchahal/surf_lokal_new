@@ -16,6 +16,7 @@ import {useIsFocused} from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
 import {useDispatch} from 'react-redux';
 import { store } from '../../redux/store';
+// import DeviceInfo from 'react-native-device-info';
 import { getNotifications } from '../../modules/getNotifications'
   const Notification = () => {
   const dispatch = useDispatch();
@@ -52,22 +53,70 @@ import { getNotifications } from '../../modules/getNotifications'
     }
     return (
       <View style={styles.slideOuter}>
-     
+     <View style={{width:"40%", position:"relative"}}>
         <Image
           source={{uri: item?.featured_image_url}}
           style={styles.featuresimage}
         />
+        <Text style={{backgroundColor:"#fff",  fontFamily: 'Poppins-Bold', fontSize:8, color:"#0F4BC3", paddingHorizontal:15,paddingVertical:4, borderRadius:8,position:"absolute",top:8,left:4}}>New</Text>
+        <View style={{position:"absolute", zIndex:99, height:"100%",
+         justifyContent:"space-between", alignItems:"center",width:"100%", flexDirection:"row"}}>
+
+          <Image source={Images.feedarrow} style={{ height:15, width:15, marginLeft:4, resizeMode:"contain"}}/>
+          <Image source={Images.feedarrow} style={{ height:15, width:15, marginRight:4, transform: 'rotate(180deg)', resizeMode:"contain" }}/>
+        </View>
+        <View style={{position:"absolute", zIndex:99, bottom:10,width:"100%",
+         justifyContent:"center", alignItems:"center", flexDirection:"row"}}>
+
+          <Image source={Images.layerfav} style={{ height:20, width:20, marginHorizontal:8, resizeMode:"contain"}}/>
+          <Image source={Images.layerfav} style={{ height:20, width:20, marginHorizontal:8, transform: 'rotate(180deg)', resizeMode:"contain" }}/>
+        </View>
+        </View>
         <View style={styles.titlecover}>
           <TouchableOpacity 
           onPress={()=> navigation.navigate('ViewPropertiy',{ID:item.post_id})}>
-          <Text numberOfLines={1} style={styles.posttitle}>
-            {item?.post_title}
+          <Text style={styles.posttitle}>
+          $4,975,000
           </Text>
-          <Text numberOfLines={2} style={styles.postcontent}>
-            {item?.post_content}
+          <Text  style={styles.postcontent}>
+          21217 Los Lagos Blvd | Boynton Beach
           </Text>
 
-          <Text style={styles.postdate}>{item?.post_date}</Text>
+          <View style={styles.iconmaincover}>
+                              <View style={styles.iconcover}>
+                                <Image
+                                  source={Images.newbed}
+                                  style={styles.newbedstyle}></Image>
+                                <Text style={styles.labelicon}>
+                                 4343
+                                </Text>
+                              </View>
+                              <View style={styles.iconcover}>
+                                <Image
+                                  source={Images.bathtub}
+                                  style={styles.bathtubicon}></Image>
+                                <Text style={styles.labelicon}>
+                                 4343
+                                </Text>
+                              </View>
+                              <View style={styles.iconcover}>
+                                <Image
+                                  source={Images.measuringtape}
+                                  style={styles.measureicon}></Image>
+                                <Text style={styles.labelicon}>
+                                 4343
+                                </Text>
+                              </View>
+                              <View style={styles.iconcover}>
+                                <Image
+                                  source={Images.hoa2}
+                                  style={styles.hoaicon}></Image>
+                                <Text style={styles.labelicon}>
+                                  343
+                                </Text>
+                              </View>
+                       </View>
+                
           </TouchableOpacity>
         </View>
         
@@ -78,7 +127,7 @@ import { getNotifications } from '../../modules/getNotifications'
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.headermain}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.leftarrow}
           onPress={() => {
             navigation.goBack();
@@ -86,9 +135,9 @@ import { getNotifications } from '../../modules/getNotifications'
           <Image
             style={styles.leftarrowimage}
             source={Images.leftnewarrow}></Image>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View style={styles.centercover}>
-          <Text style={styles.centertext}>Notifications</Text>
+          <Text style={styles.centertext}>My Feed</Text>
         </View>
         <TouchableOpacity
           style={styles.rightmenu}
@@ -104,8 +153,7 @@ import { getNotifications } from '../../modules/getNotifications'
         <View style={styles.headerinner}>
           <Text
             style={styles.headercover}>
-            You Have <Text style={styles.Notificationcount}>{data?.length>0?data.length:"0"}</Text> New
-            Notifications
+            You have <Text style={styles.Notificationcount}>{data?.length>0?data.length:"0"}</Text> new properties in your feed
           </Text>
           <View
             style={styles.mt10}>
@@ -145,18 +193,19 @@ const styles = StyleSheet.create({
   },
   notificationdetail: {flex: 1, marginTop: 10},
   slideOuter: {
-    paddingVertical: 9,
-    paddingHorizontal: 9,
-    width: '95%',
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 110 : 110,
+  //  marginHorizontal:8,
+  //  padding:8,
+    width: '97%',
+    marginBottom:22,
+   // height: DeviceInfo.getDeviceType() === 'Tablet' ? 110 : 110,
     flex: 1,
     flexDirection: 'row',
     alignSelf: 'center',
     alignItems: 'center',
     borderRadius: 4,
-    paddingLeft: 4,
+paddingRight:25,
     overflow: 'hidden',
-    marginBottom: 10,
+marginTop:12,
     backgroundColor: Colors.white,
     shadowColor: Colors.black,
     shadowOffset: {width: 0, height: 1},
@@ -180,31 +229,38 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   featuresimage: {
-    height: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 100,
-    width: DeviceInfo.getDeviceType() === 'Tablet' ? 120 : 90,
+    // height: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 104,
+    // width: DeviceInfo.getDeviceType() === 'Tablet' ? 120 : 162,
     resizeMode: 'cover',
     borderRadius: 4,
     marginRight: 8,
+    width:"100%",
+    height:"100%"
   },
   titlecover: {
-    flex: 1,
+textAlign:"center",
     flexDirection: 'column',
-    width: '100%',
-    alignItems: 'flex-start',
-    paddingVertical: 8,
+   width: '60%',
+paddingVertical:12,
+    justifyContent:"center",
+    paddingLeft:8
   },
   posttitle: {
-    marginRight: 8,
+ 
     width: '100%',
-    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 20 : 14,
-    color: Colors.black,
-    fontFamily: 'Poppins-Medium',
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 20,
+    color:"#0F4BC3",
+    fontFamily: 'Poppins-SemiBold',
+    textAlign:"center",
+justifyContent:"center",
+alignItems:"center"
   },
   postcontent: {
     width: '100%',
-    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 13,
-    color: Colors.textColorLight,
-    fontFamily: 'Poppins-Regular',
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 18 : 9,
+    color: Colors.black,
+    fontFamily: 'Poppins-Medium',
+    textAlign:"center"
   },
   postdate: {
     width: '100%',
@@ -224,9 +280,9 @@ const styles = StyleSheet.create({
     width: '100%',
     position: 'relative',
     alignItems: 'center',
-    paddingTop: 16,
+    paddingTop: 18,
     paddingBottom: 2,
-    marginBottom: 12,
+    marginBottom: 18,
   },
   leftarrow: {
     flexDirection: 'row',
@@ -272,16 +328,57 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 12,
   },
-  Notificationcount: {color: 'red', fontFamily: 'Poppins-SemiBold'},
+  Notificationcount: {color: '#0F4BC3', fontFamily: 'Poppins-SemiBold'},
   headercover:{
     fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 32 : 16,
     color: Colors.black,
     fontFamily: 'Poppins-Medium',
     marginLeft: 12,
   },
+
+  iconmaincover: {
+    flexDirection: 'row',
+   // width: width - 16,
+
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    justifyContent: 'space-between',
+    marginTop: 8,
+
+    width:"100%"
+  },
   mt10:{
     marginTop: DeviceInfo.getDeviceType() === 'Tablet' ? 10 : -4,
-  }
+  },
+  iconcover: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  hoaicon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 47 : 26,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 51 : 27,
+    marginTop: 0,
+    resizeMode: 'contain',
+    marginBottom: 5,
+  },
+  measureicon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 45 : 26,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 47 : 27,
+    resizeMode: 'contain',
+    marginBottom: 5,
+  },
+  bathtubicon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 44 : 26,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 28,
+    resizeMode: 'contain',
+    marginBottom: 5,
+  },
+  newbedstyle: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 26,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 21,
+    resizeMode: 'contain',
+    marginBottom: 5,
+  },
 });
 
 export default Notification;
