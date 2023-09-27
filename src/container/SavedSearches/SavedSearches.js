@@ -6,7 +6,6 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
-  TextInput,
   FlatList,
   RefreshControl,
 } from 'react-native';
@@ -18,7 +17,6 @@ import { useDispatch } from 'react-redux';
 import { getSavedSearch } from '../../modules/getSavedSearch';
 import { deleteSearch } from '../../modules/deleteSearch';
 import { editSearch } from '../../modules/editSearch';
-import * as Animatable from 'react-native-animatable';
 import { useIsFocused } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
 
@@ -42,11 +40,12 @@ const MyFavorites = ({ navigation }) => {
 
   const getSavedApiCall = () => {
     dispatch(getSavedSearch()).then((response) => {
+      console.log(response?.payload?.data)
       if (response.payload.data.length < 1) {
-        setShowNoDataMessage(true); 
+        setShowNoDataMessage(true);
       } else {
-        setImages(response.payload.data);
-        setShowNoDataMessage(false); 
+        setShowNoDataMessage(false);
+        setImages(response?.payload?.data);
       }
     });
   }
@@ -66,7 +65,7 @@ const MyFavorites = ({ navigation }) => {
 
     dispatch(editSearch(formData)).then(() => {
       getSavedApiCall();
-      setEditingItemId(null); 
+      setEditingItemId(null);
     });
   };
 
@@ -80,19 +79,30 @@ const MyFavorites = ({ navigation }) => {
     setRefreshing(false);
   };
 
- 
+
   const renderItem = ({ item, index }) => {
     const isEditing = item.ID === editingItemId;
     const parameters = item.search_parameters.split(',');
 
     return (
       <View style={styles.slideOuter}>
-       <View style={{flexDirection:"row", alignItems:"center",width:"70%"}}>
-<Image source={Images.savedSearch} styles={{ height:59, width:59, resizeMode: "cover",}}/>
-<Text style={{fontSize:12, color:"#2D49AA",  fontFamily: 'Poppins-Medium',marginLeft:8}}>Palm Beach, Single Family Home 5 Beds, 
-3 Baths, $300K-$600K</Text>
-</View>
-<Image source={Images.SearchNotification} />
+        <View style={{ flexDirection: "row", alignItems: "center", width: "70%" }}>
+          <Image source={Images.savedSearch} styles={{ height: 59, width: 59, resizeMode: "cover", }} />
+          <Text style={{ fontSize: 12, color: "#2D49AA", fontFamily: 'Poppins-Medium', marginLeft: 8 }}>
+          {item?.search_parameters ? item?.search_parameters + "," : null}
+            {item?.cities ? item?.cities + ', ' : null}
+            Home {item?.bedroom ? item?.bedroom + "Beds," : null}
+            {item?.bathroom ? item?.bathroom + "Baths," : null}
+            {item?.min_price ? item?.min_price + "," : null}
+            {item?.max_price ? item?.max_price + "," : null}
+            {item?.min_square ? item?.min_square + "," : null}
+            {item?.max_square ? item?.max_square + "," : null}
+            {item?.more_filter_data ? item?.more_filter_data + ', ' : null}
+          </Text>
+        </View>
+        <TouchableOpacity   onPress={() => deleteSearchApiCall(item.UserID, item.ID)}>
+        <Image source={Images.SearchNotification} />
+        </TouchableOpacity>
 
         {/* <View style={styles.cover}>
           <View style={styles.innercover}>
@@ -216,11 +226,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: Colors,
     borderRadius: 18,
-    marginBottom:16,
-    paddingHorizontal:16,
-    flexDirection:"row",
-    justifyContent:"space-between",
-    alignItems:"center"
+    marginBottom: 16,
+    paddingHorizontal: 16,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
   },
   slide: {
     width: screenWidth - 40,
@@ -282,7 +292,7 @@ const styles = StyleSheet.create({
 
     resizeMode: 'contain',
   },
-  cover: {width: '100%', alignItems: 'center'},
+  cover: { width: '100%', alignItems: 'center' },
   innercover: {
     width: '90%',
     alignSelf: 'center',

@@ -55,7 +55,7 @@ const MyFavorites = () => {
   }, [])
 
   useEffect(() => {
-    const nestedData =store.getState().getNotifications.getNotificationsData?.data[0]
+    const nestedData =store.getState().getNotifications.getNotificationsData?.data
      console.log("nestedDatanestedDatanestedData",nestedData)
      setNotification(nestedData)
   }, []);

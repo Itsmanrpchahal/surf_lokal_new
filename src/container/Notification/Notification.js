@@ -40,7 +40,7 @@ import { getNotifications } from '../../modules/getNotifications'
       Promise.all[
         new Promise(resolve => {
           const nestedData =store.getState().getNotifications.getNotificationsData.data
-          setData(nestedData[0])
+          setData(nestedData)
           resolve();
         })
       ];
