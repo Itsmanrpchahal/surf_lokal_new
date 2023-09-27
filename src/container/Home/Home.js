@@ -651,6 +651,7 @@ useEffect(() => {
                         setIsPressed1(false);
                         setIsPressed2(false);
                         filtertoggleModal();
+                       setIsSelected(true);
                       }}>
                       <Image
                         source={Images.newfil}
@@ -1867,41 +1868,42 @@ useEffect(() => {
             ) : (
               <View style={styles.extendescover}>
                 {filterType === 1 ? (
-                  <>
-                    <Text style={styles.extenddes}>
-                      Would you like to extend your search radius by 10 miles?
-                    </Text>
+                    <>
+                    <Text style={styles.extenddes}>Extend your search!</Text>
                     <View style={styles.extencovermain}>
                       <TouchableOpacity
-                        onPress={async () => {
-                          setLimitCount(limitCount + 1);
-                          await dispatch(
-                            getPoperties({
-                              type: 0,
-                              data: {limit: limitCount + 1},
-                            }),
-                          ).then(res => {
-                            setHomeData(res?.payload?.data);
-                          });
+                        onPress={() => {
+                        filtertoggleModal();
                         }}
                         style={styles.extencover}>
                         <Text style={styles.extendtext}>Extend</Text>
                       </TouchableOpacity>
                     </View>
                   </>
+              
                 ) : (
                   <>
-                    <Text style={styles.extenddes}>Record not found !</Text>
-                    <View style={styles.extencovermain}>
-                      <TouchableOpacity
-                        onPress={() => {
-                          clearFilterAPiCall();
-                        }}
-                        style={styles.extencover}>
-                        <Text style={styles.extendtext}>Clear Filters </Text>
-                      </TouchableOpacity>
-                    </View>
-                  </>
+                  <Text style={styles.extenddes}>
+                    Would you like to extend your search radius by 10 miles?
+                  </Text>
+                  <View style={styles.extencovermain}>
+                    <TouchableOpacity
+                      onPress={async () => {
+                        setLimitCount(limitCount + 1);
+                        await dispatch(
+                          getPoperties({
+                            type: 0,
+                            data: {limit: limitCount + 1},
+                          }),
+                        ).then(res => {
+                          setHomeData(res?.payload?.data);
+                        });
+                      }}
+                      style={styles.extencover}>
+                      <Text style={styles.extendtext}>Extend</Text>
+                    </TouchableOpacity>
+                  </View>
+                </>
                 )}
               </View>
             )}
