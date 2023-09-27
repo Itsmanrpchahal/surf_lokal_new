@@ -105,6 +105,9 @@ const Images = {
   Information: require(BaseUrl + 'information-alt.png'),
   nextslide: require(BaseUrl + 'nextslide.png'),
   next: require(BaseUrl + 'next.png'),
-  cola:require(BaseUrl+"cola.png")
+  cola:require(BaseUrl+"cola.png"),
+  feedarrow:require(BaseUrl+"chevron-left-circle.png"),
+  savedSearch:require(BaseUrl+"savedsearchnew.png"),
+  SearchNotification:require(BaseUrl+"searchnotification.png"),
 };
 export default Images;

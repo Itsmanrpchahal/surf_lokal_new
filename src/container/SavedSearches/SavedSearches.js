@@ -87,7 +87,14 @@ const MyFavorites = ({ navigation }) => {
 
     return (
       <View style={styles.slideOuter}>
-        <View style={styles.cover}>
+       <View style={{flexDirection:"row", alignItems:"center",width:"70%"}}>
+<Image source={Images.savedSearch} styles={{ height:59, width:59, resizeMode: "cover",}}/>
+<Text style={{fontSize:12, color:"#2D49AA",  fontFamily: 'Poppins-Medium',marginLeft:8}}>Palm Beach, Single Family Home 5 Beds, 
+3 Baths, $300K-$600K</Text>
+</View>
+<Image source={Images.SearchNotification} />
+
+        {/* <View style={styles.cover}>
           <View style={styles.innercover}>
             <View>
               {item.propertycity && (
@@ -142,7 +149,7 @@ const MyFavorites = ({ navigation }) => {
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </View> */}
       </View>
     );
   };
@@ -150,7 +157,7 @@ const MyFavorites = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headercover}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.leftarrow}
           onPress={() => {
             navigation.goBack();
@@ -158,7 +165,7 @@ const MyFavorites = ({ navigation }) => {
           <Image
             style={styles.leftarrowimage}
             source={Images.leftnewarrow}></Image>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View style={styles.centercover}>
           <Text style={styles.centertext}>Saved Searches</Text>
         </View>
@@ -204,11 +211,16 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   slideOuter: {
-    width: '100%',
+    width: '98%',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     backgroundColor: Colors,
     borderRadius: 18,
+    marginBottom:16,
+    paddingHorizontal:16,
+    flexDirection:"row",
+    justifyContent:"space-between",
+    alignItems:"center"
   },
   slide: {
     width: screenWidth - 40,
