@@ -7,7 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,useRef} from 'react';
 import Colors from '../../utils/Colors';
 import {useNavigation} from '@react-navigation/native';
 import Images from '../../utils/Images';
@@ -18,6 +18,7 @@ import {likeDisLike} from '../../modules/likeDislike';
 import {TypingAnimation} from 'react-native-typing-animation';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
 import LottieView from 'lottie-react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import { current } from '@reduxjs/toolkit';
 const screenWidth = Dimensions.get('window').width;
@@ -25,6 +26,7 @@ const Challenges = () => {
 
   const [question, setQuestion] = useState([]);
   const [index, setIndex] = useState();
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 const [currentSlide, setCurrentSlide] = useState(0)
   const navigation = useNavigation();
   const [questionIndex,setQuestionIndex]=useState(0)
@@ -35,6 +37,7 @@ const [currentSlide, setCurrentSlide] = useState(0)
 
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
+  const swiperRef = useRef(null);
 
    useEffect(() => {
    console.log("countt",question)
@@ -54,11 +57,33 @@ const [currentSlide, setCurrentSlide] = useState(0)
   const getRewardsChallengeApicall = () => {
     dispatch(getRewardListing()).then(response => {
       setQuestion(response?.payload?.data);
-      setCount(response?.payload?.count);
-      setCurrentSlide(response?.payload?.count)
+      setCurrentQuestionIndex(0);
+      // setCount(response?.payload?.count);
+      // setCurrentSlide(response?.payload?.count)
      
     });
   };
+  const goForward = () => {
+    if (currentQuestionIndex < question.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      swiperRef.current.scrollToIndex({
+        index: currentQuestionIndex + 1,
+      });
+    }
+  };
+
+  const goBackward = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+      swiperRef.current.scrollToIndex({
+        index: currentQuestionIndex - 1,
+      });
+    }
+  };
+  // const handleIndexChange = (index) => {
+  //   setCurrentQuestionIndex(index);
+  
+  // };
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.white}}>
@@ -87,26 +112,37 @@ const [currentSlide, setCurrentSlide] = useState(0)
       </View>
 
       <View style={styles.questioncover}>
-        {question?(
+      {question.length > 0 ? (
           <SwiperFlatList
             style={{width: screenWidth}}
-            index={count}
+            index={currentQuestionIndex}
             data={question}
-            refer={index}
+            ref={swiperRef}
+           
             renderItem={({item, index}) => {
               const {ID, points} = item;
-              const isSelected =selectedTabsMore.filter(i => i === ID).length > 0;
-              const isSelected2 = selectedTabsMore2.filter(i => i === ID).length > 0;
+              const isSelected =selectedTabsMore.filter(i => i === ID).length > 0
+              const isSelected2 = selectedTabsMore2.filter(i => i === ID).length > 0
               return (
                 <View style={{}}>
                   <View style={styles.questionmain}>
                     <Text style={styles.textques}>
                       {'Q.'}
-                      {count + 1}
+                      {index + 1}
                       {' : '}
-                      {question[count]?.post_title}
+                      {item.post_title}
                     </Text>
                     <View style={styles.innertext}>
+                    <TouchableOpacity
+                    style={{right:'60%'}}
+                     onPress={() => {
+                     goBackward()  }}
+                        activeOpacity={0.3}>
+                        <Image
+                          source={ Images.next }
+                          style={[styles.dislikedes,{transform:[{rotate: '180deg'}]}]}
+                        />
+                      </TouchableOpacity>
                       <TouchableOpacity
                         disabled={
                           item?.is_like != '0' ||
@@ -114,6 +150,7 @@ const [currentSlide, setCurrentSlide] = useState(0)
                           (isSelected && true)
                         }
                         onPress={() => {
+                   
                           if (isSelected) {
                             setSelectedTabsMore(prev =>
                               prev.filter(i => i !== ID),
@@ -135,8 +172,8 @@ const [currentSlide, setCurrentSlide] = useState(0)
                           formData.append('status', 2);
                           dispatch(likeDisLike(formData))
                         }}
-                        activeOpacity={0.8}
-                        style={{}}>
+                        // activeOpacity={0.8}
+                      >
                         <Image
                           source={
                             isSelected || item.is_like === '2'
@@ -152,7 +189,10 @@ const [currentSlide, setCurrentSlide] = useState(0)
                           isSelected ||
                           (isSelected2 && true)
                         }
+                       
                         onPress={() => {
+                    
+
                           if (isSelected2) {
                             setSelectedTabsMore2(prev =>
                               prev.filter(i => i !== ID),
@@ -185,27 +225,10 @@ const [currentSlide, setCurrentSlide] = useState(0)
                           />
                         </View>
                       </TouchableOpacity>
-                    </View>
-                    <View style={[styles.innertext,{ flexDirection: 'row',
-                     justifyContent: "space-between",paddingLeft:10,position:"relative", bottom:90}] }>
                       <TouchableOpacity
+                      style={{left:"50%"}}
                      onPress={() => {
-                      setCount(count -1)
-                     
-                      
-                    }}
-                        activeOpacity={0.3}>
-                        <Image
-                          source={ Images.next }
-                          style={[styles.dislikedes,{transform:[{rotate: '180deg'}]}]}
-                        />
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                     onPress={() => {
-                    setCount(count +1)
-                     
-                    
-
+                    goForward()
                     }}
                         activeOpacity={0.1}>
                         <View style={styles.viewstyle}>
@@ -216,6 +239,7 @@ const [currentSlide, setCurrentSlide] = useState(0)
                         </View>
                       </TouchableOpacity>
                     </View>
+              
                   </View>
                 </View>
               );
@@ -456,3 +480,4 @@ const styles = StyleSheet.create({
   bottomview: {position: 'absolute', bottom: 0, left: 0, right: 0},
 });
 export default Challenges;
+

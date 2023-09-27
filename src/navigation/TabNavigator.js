@@ -186,6 +186,7 @@ function CustomTabBar({state, descriptors, navigation}) {
           alignItems: 'center',
           alignContent: 'center',
           backgroundColor: '#F2F2F2',
+          // backgroundColor:"red",
           ...ifIphoneX(
             {
               marginBottom: 15,
