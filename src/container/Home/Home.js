@@ -152,6 +152,10 @@ const Home = () => {
   const [maxSquareFeet, setMaxSquareFeet] = useState(['No Max']);
   const [minPricerange, setMinPricerange] = useState(['No Max']);
   const [maxPriceRange, setMaxPriceRange] = useState(['No Min']);
+  const [minSquareFeetValue, setMinSquareFeetValue] = useState([]);
+  const [maxSquareFeetValue, setMaxSquareFeetValue] = useState([]);
+  const [minMinPriceValue, setMinPriceValue] = useState([]);
+  const [maxPriceValue, setMaxPriceValue] = useState([]);
   const [limitCount, setLimitCount] = useState(1);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
@@ -224,6 +228,22 @@ useEffect(() => {
     if (termName) {
     }
   }, [termName]);
+  useEffect(() => {
+    if (minSquareFeetValue) {
+    }
+  }, [minSquareFeetValue]);
+  useEffect(() => {
+    if (maxSquareFeetValue) {
+    }
+  }, [maxSquareFeetValue]);
+  useEffect(() => {
+    if (minMinPriceValue) {
+    }
+  }, [minMinPriceValue]);
+  useEffect(() => {
+    if (maxPriceValue) {
+    }
+  }, [maxPriceValue]);
 
   const handlePress2 = () => {
     setIsPressed2(!isPressed2);
@@ -254,8 +274,6 @@ useEffect(() => {
       setMaxPriceRange(old => [...old, item.data_name]);
     });
   }, [store.getState().getMoreFilter.getMoreFilterData]);
-
-
 
 
   const fetchUserScore = () => {
@@ -720,6 +738,16 @@ useEffect(() => {
                       setIsPressed(false);
                       const formData = new FormData();
                       formData.append('search_name', termName);
+                      formData.append('bedroom', bedroomitem);
+                      formData.append('bathroom', bathRoom);
+                      formData.append('min_square', minSquareFeetValue);
+                      formData.append('max_square', maxSquareFeetValue);
+                      formData.append('min_price', minMinPriceValue);
+                      formData.append('max_price', maxPriceValue);
+                      formData.append('more_filter_data', termName);
+                      formData.append('cities', cities);
+                      formData.append('image', homeData[0]?.featured_image_src[0]?.guid);
+                       console.log("cities=========>>>>",cities)
                       dispatch(filterSearch(formData)).then(response => {
                         if (
                           store.getState().getSavedSearchReducer
@@ -2160,6 +2188,7 @@ useEffect(() => {
                                     minSquareFeet ? minSquareFeet : []
                                   }
                                   onValueChange={async value => {
+                                    setMinSquareFeetValue(value)
                                     await dispatch(
                                       getPoperties({
                                         type: 3,
@@ -2188,6 +2217,7 @@ useEffect(() => {
                                     maxSquareFeet ? maxSquareFeet : []
                                   }
                                   onValueChange={async value => {
+                                    setMaxSquareFeetValue(value)
                                     await dispatch(
                                       getPoperties({
                                         type: 3,
@@ -2239,6 +2269,7 @@ useEffect(() => {
                                     minPricerange ? minPricerange : []
                                   }
                                   onValueChange={async value => {
+                                    setMinPriceValue(value)
                                     await dispatch(
                                       getPoperties({
                                         type: 3,
@@ -2267,6 +2298,7 @@ useEffect(() => {
                                     maxPriceRange ? maxPriceRange : []
                                   }
                                   onValueChange={async value => {
+                                    setMaxPriceValue(value)
                                     await dispatch(
                                       getPoperties({
                                         type: 3,
