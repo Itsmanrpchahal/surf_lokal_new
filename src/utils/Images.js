@@ -62,7 +62,7 @@ const Images = {
   train: require(BaseUrl + 'train.png'),
   VideoPlay: require(BaseUrl + 'VideoPlay.png'),
   homebig:require(BaseUrl + 'homebig.png'),
-  logoocean:require(BaseUrl + 'logo-ocean.png'),
+  logoocean:require(BaseUrl + 'logoocean.png'),
   setting: require(BaseUrl + 'setting.png'),
   savedSearch: require(BaseUrl + 'savedSearch.png'),
   notification: require(BaseUrl + 'buildings-alt.png'),

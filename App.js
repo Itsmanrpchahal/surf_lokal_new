@@ -24,7 +24,6 @@ const App = () => {
       config.headers['access_token'] = store?.getState()?.loginUserReducer?.loginData?.data?.authToken
       return config;
     });
-    console.log("setToken ", store?.getState()?.loginUserReducer?.loginData?.data?.authToken)
   }
   setToken()
   useEffect(() => {

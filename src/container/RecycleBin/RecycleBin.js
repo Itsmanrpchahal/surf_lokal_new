@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   Text,
@@ -14,34 +14,35 @@ import {
   PanResponder,
   Share,
   KeyboardAvoidingView,
-  Modal
+  Modal,
 } from 'react-native';
-import { postRating } from '../../modules/postRating';
+import {postRating} from '../../modules/postRating';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
-import {  useDispatch } from 'react-redux';
-import { getTrash } from '../../modules/getTrash';
-import { getRating } from '../../modules/getRating';
-import { postUpdateRating } from '../../modules/postUpdateRating';
-import { useIsFocused } from '@react-navigation/native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {getTrash} from '../../modules/getTrash';
+import {getRating} from '../../modules/getRating';
+import {postUpdateRating} from '../../modules/postUpdateRating';
+import {useIsFocused} from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
 const screenWidth = Dimensions.get('window').width;
 import StarRating from 'react-native-star-rating-widget';
 import Collapsible from 'react-native-collapsible';
 import LottieView from 'lottie-react-native';
 import {sortingFavoritelist} from '../../modules/sortingFavoritelist';
-import { addToFavorite } from '../../modules/addToFavorite';
-import { store } from '../../redux/store';
+import {addToFavorite} from '../../modules/addToFavorite';
+import {store} from '../../redux/store';
+import { transform } from 'typescript';
 
 const RecycleBin = () => {
   const isFocused = useIsFocused();
-
+  const [loading, setLoading] = useState(false);
   const [data, setHomeData] = useState([]);
-  const [ratingData, setRatingData] = useState([])
+  const [ratingData, setRatingData] = useState([]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const dispatch = useDispatch();
@@ -54,25 +55,22 @@ const RecycleBin = () => {
   const [productId, setProductId] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selectedSortOption, setSelectedSortOption] = useState(null)
-  useEffect(() => {
-    dispatch(getTrash())
-  }, [])
+  const [selectedSortOption, setSelectedSortOption] = useState(null);
   useEffect(() => {
     if (isFocused) {
-      Promise.all[
-        new Promise(resolve => {
-          const res  =store.getState().getTrashReducer.getTrashData?.data
-            setHomeData(res)
-          resolve();
-        })
-      ];
+      setLoading(true);
+      dispatch(getTrash()).then(res => {
+        setHomeData(res?.payload?.data);
+        setLoading(false);
+      });
     }
   }, [isFocused]);
 
   const getTrashApiCall = () => {
+    setLoading(true);
     dispatch(getTrash()).then(response => {
-        setHomeData(response?.payload?.data);
+      setHomeData(response?.payload?.data);
+      setLoading(false);
     });
   };
 
@@ -82,7 +80,6 @@ const RecycleBin = () => {
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (_, gestureState) => {
         if (gestureState.dy > 0) {
-       
           slideAnimation.setValue(gestureState.dy);
         }
       },
@@ -90,46 +87,49 @@ const RecycleBin = () => {
         if (gestureState.dy > 50) {
           closeModal();
         } else {
-         
           Animated.spring(slideAnimation, {
             toValue: 0,
             useNativeDriver: false,
           }).start();
         }
       },
-    })
+    }),
   ).current;
 
-  const generateLink = async (ID) => {
+  const generateLink = async ID => {
     try {
-      const link = await dynamicLinks().buildShortLink({
-        link: `https://surflokal.page.link/property?propetyID=${ID}`,
-        domainUriPrefix: Platform.OS === 'android' ? 'https://surflokal.page.link/' : 'https://surflokal.page.link',
-        android: {
-          packageName: 'surf.lokal',
+      const link = await dynamicLinks().buildShortLink(
+        {
+          link: `https://surflokal.page.link/property?propetyID=${ID}`,
+          domainUriPrefix:
+            Platform.OS === 'android'
+              ? 'https://surflokal.page.link/'
+              : 'https://surflokal.page.link',
+          android: {
+            packageName: 'surf.lokal',
+          },
+          ios: {
+            appStoreId: '123456789',
+            bundleId: 'surf.lokal',
+          },
+          navigation: {
+            forcedRedirectEnabled: true,
+          },
         },
-        ios: {
-          appStoreId: '123456789',
-          bundleId: 'surf.lokal',
-        },
-        navigation: {
-          forcedRedirectEnabled: true,
-        }
-      }, dynamicLinks.ShortLinkType.SHORT)
-      return link
-    } catch (error) {
-    }
-  }
-  const handleShare = async (ID) => {
-    const link = await generateLink(ID)
+        dynamicLinks.ShortLinkType.SHORT,
+      );
+      return link;
+    } catch (error) {}
+  };
+  const handleShare = async ID => {
+    const link = await generateLink(ID);
     try {
       Share.share({
         title: 'Please check this property',
         message: link,
-        url: link
+        url: link,
       });
-    } catch (error) {
-    }
+    } catch (error) {}
   };
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -151,11 +151,10 @@ const RecycleBin = () => {
     handleModalAnimation();
   }, [modalVisible]);
 
-
-const updateReview = async post_id => {
+  const updateReview = async post_id => {
     try {
-      setIsAnimating(true); 
-  
+      setIsAnimating(true);
+
       const formData = new FormData();
       formData.append('postid', productId);
       formData.append('comment_content', commentContent ? commentContent : '');
@@ -164,7 +163,7 @@ const updateReview = async post_id => {
       formData.append('description_review_stars', rating1);
       formData.append('price_review_stars', rating2);
       formData.append('interest_review_stars', rating3);
-  
+
       dispatch(postUpdateRating(formData)).then(response => {
         if (response.payload.success) {
           setIsAnimating(false);
@@ -172,20 +171,18 @@ const updateReview = async post_id => {
         } else {
           setIsAnimating(false);
           toggleModal();
-         
         }
       });
-  
     } catch (error) {
-      setIsAnimating(false); 
+      setIsAnimating(false);
       console.error('Error submitting review:', error);
     }
   };
 
   const addReview = async () => {
     try {
-      setIsAnimating(true); 
-  
+      setIsAnimating(true);
+
       const formData = new FormData();
       formData.append('postid', productId.toString());
       formData.append('reviewtitle', reviewTitle);
@@ -194,56 +191,63 @@ const updateReview = async post_id => {
       formData.append('price_stars', rating2);
       formData.append('interest_stars', rating3);
       formData.append('content', commentContent ? commentContent : '');
-  
+
       const response = await dispatch(postRating(formData));
-  
+
       if (response.payload.data.success) {
-        setIsAnimating(false); 
-        toggleModal(); 
+        setIsAnimating(false);
+        toggleModal();
       } else {
-        setIsAnimating(false); 
-        toggleModal(); 
-     
+        setIsAnimating(false);
+        toggleModal();
       }
     } catch (error) {
-      setIsAnimating(false); 
+      setIsAnimating(false);
       console.error('Error submitting review:', error);
     }
   };
   const navigation = useNavigation();
 
-
-
-  const renderItem = ({ item }) => (
-
+  const renderItem = ({item}) => (
     <View style={styles.slideOuter}>
-      <TouchableOpacity onPress={() => { navigation.navigate('ViewPropertiy', { ID: item.ID, from: 'RecycleBin' }) }}>
-        <Image   source={{uri: item?.featured_image_src[0]?.guid}}
-         style={styles.slide} />
+      <View style={{position:'relative'}}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('ViewPropertiy', {
+            ID: item.ID,
+            from: 'RecycleBin',
+          });
+        }}>
+        <Image
+          source={{uri: item?.featured_image_src[0]?.guid}}
+          style={styles.slide}
+        />
       </TouchableOpacity>
-      <TouchableOpacity  
-          onPress={async () => {
-              const formData = new FormData();
-           formData.append('post_id',item.ID);
-              await dispatch(addToFavorite(formData))
-              getTrashApiCall()
+      <TouchableOpacity 
+      style={{position:'absolute',bottom:10,left:30}}
+      onPress={() => {
+       
+          setLoading(true);
+          setHomeData([]);
+          const formData = new FormData();
+          formData.append('post_id', item.ID);
+           dispatch(addToFavorite(formData)).then(res => {
+            if (res?.payload?.data?.success) {
+              getTrashApiCall();
             }
-              
-            }>
-            <Image
-  source={Images.layerfav}
-  style={[styles.chaticon, { transform: [{ rotate: '180deg' }] }]}
-/>
-          </TouchableOpacity>
-      <View
-        style={styles.listingkeycover}>
-        <Text
-          style={styles.innerlistingkey}>
-       RX-{item.ListingKey}
-        </Text>
+          });
+        }}
+>
+        <Image
+          source={Images.layerfav} style={{ transform: [{ rotate: '180deg' }] }}
+        />
+      </TouchableOpacity>
+      </View>
+      <View style={styles.listingkeycover}>
+        <Text style={styles.innerlistingkey}>RX-{item.ListingKey}</Text>
       </View>
 
-        <View
+      <View
         style={{
           backgroundColor: item?.status === 'Active' ? Colors.surfblur : 'red',
           position: 'absolute',
@@ -257,71 +261,70 @@ const updateReview = async post_id => {
         }}>
         <Text
           style={{
-            fontSize: DeviceInfo.getDeviceType() === 'Tablet'?24:12,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 24 : 12,
             color: Colors.white,
             fontFamily: 'Poppins-Regular',
             marginBottom: 0,
-            lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?28:14,
+            lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 28 : 14,
             paddingTop: 4,
           }}>
-        {item?.status}
+          {item?.status}
         </Text>
       </View>
 
-         <View
+      <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
           width: '100%',
           justifyContent: 'space-between',
-          paddingTop:16,
-          paddingHorizontal:16
-         
+          paddingTop: 16,
+          paddingHorizontal: 16,
         }}>
         <View
           style={{
             position: 'relative',
             flexDirection: 'row',
           }}>
-      <TouchableOpacity
-              onPress={() => {
-                setProductId(item.ID);
-                setReviewTitle(item.title);
-                toggleModal();
-                dispatch(getRating(item.ID)).then(response => {
-                  setRatingData(response?.payload?.data);
-                  setRating(response?.payload?.data[0]?.photo_wuality_rating);
-                  setRating1(
-                    response?.payload?.data[0]?.description_review_stars,
-                  );
-                  setRating2(response?.payload?.data[0]?.price_review_stars);
-                  setRating3(response?.payload?.data[0]?.interest_review_stars);
-                });
-              }}>
-              <View style={styles.ratingcover}>
-                <Image
-                  source={
-                    item.total_average_rating > 0
-                      ? Images.startfill
-                      : Images.star2
-                  }
-                  style={{
-                    height: DeviceInfo.getDeviceType() === 'Tablet' ? 33 : 22,
-                    width: DeviceInfo.getDeviceType() === 'Tablet' ? 33 : 22,
-                    resizeMode: 'contain',
-                    tintColor:
-                      item.total_average_rating > 0 ? undefined : 'black',
-                  }}
-                />
-                {item.total_average_rating > 0 ? (
-                  <Text style={styles.ratingText}>
-                    {Math.round(item.total_average_rating)}
-                  </Text>
-                ) : null}
-              </View>
-            </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setProductId(item.ID);
+              setReviewTitle(item.title);
+              toggleModal();
+              dispatch(getRating(item.ID)).then(response => {
+                setRatingData(response?.payload?.data);
+                setRating(response?.payload?.data[0]?.photo_wuality_rating);
+                setRating1(
+                  response?.payload?.data[0]?.description_review_stars,
+                );
+                setRating2(response?.payload?.data[0]?.price_review_stars);
+                setRating3(response?.payload?.data[0]?.interest_review_stars);
+              });
+            }}>
+            <View style={styles.ratingcover}>
+              <Image
+                source={
+                  item.total_average_rating > 0
+                    ? Images.startfill
+                    : Images.star2
+                }
+                style={{
+                  height: DeviceInfo.getDeviceType() === 'Tablet' ? 33 : 22,
+                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 33 : 22,
+                  resizeMode: 'contain',
+                  tintColor:
+                    item.total_average_rating > 0 ? undefined : 'black',
+                }}
+              />
+              {item.total_average_rating > 0 ? (
+                <Text style={styles.ratingText}>
+                  {Math.round(item.total_average_rating)}
+                </Text>
+              ) : null}
+            </View>
+          </TouchableOpacity>
         </View>
-      
+
         <View
           style={{
             flexDirection: 'row',
@@ -382,49 +385,48 @@ const updateReview = async post_id => {
                                   </View>
                                   </TouchableOpacity>
           </View> */}
-          <TouchableOpacity style={{marginLeft:15}} onPress={() => handleShare(item.ID)}>
+          <TouchableOpacity
+            style={{marginLeft: 15}}
+            onPress={() => handleShare(item.ID)}>
             <Image
               source={Images.sendnew}
               style={{
-                height: DeviceInfo.getDeviceType() === 'Tablet'?26:18,
-                width: DeviceInfo.getDeviceType() === 'Tablet'?33:23,
+                height: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 18,
+                width: DeviceInfo.getDeviceType() === 'Tablet' ? 33 : 23,
                 resizeMode: 'contain',
-              
               }}></Image>
           </TouchableOpacity>
         </View>
-       
-
       </View>
       <TouchableOpacity
-          onPress={() => navigation.navigate('ViewPropertiy', { item })}>
-          <Text
-            style={{
-              fontSize: DeviceInfo.getDeviceType() === 'Tablet'?55:28,
-              color: "#1450B1",
-              fontFamily: 'Poppins-Medium',
-              marginTop: 0,
-            }}>
-            {item.property_price}
-          </Text>
-        </TouchableOpacity>
-        <View
+        onPress={() => navigation.navigate('ViewPropertiy', {item})}>
+        <Text
+          style={{
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 55 : 28,
+            color: '#1450B1',
+            fontFamily: 'Poppins-Medium',
+            marginTop: 0,
+          }}>
+          {item.property_price}
+        </Text>
+      </TouchableOpacity>
+      <View
         style={{
           width: '100%',
           alignSelf: 'center',
           justifyContent: 'center',
           paddingHorizontal: 12,
-          marginBottom:8
+          marginBottom: 8,
         }}>
         <Text
           numberOfLines={1}
           style={{
-            fontSize:  DeviceInfo.getDeviceType() === 'Tablet'?35:20,
+            fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 20,
             color: Colors.black,
             textAlign: 'center',
             fontFamily: 'Poppins-Light',
-            marginTop:DeviceInfo.getDeviceType() === 'Tablet'?10:6,
-            marginBottom:DeviceInfo.getDeviceType() === 'Tablet'?10:0,
+            marginTop: DeviceInfo.getDeviceType() === 'Tablet' ? 10 : 6,
+            marginBottom: DeviceInfo.getDeviceType() === 'Tablet' ? 10 : 0,
           }}>
           {item?.title}
         </Text>
@@ -432,7 +434,6 @@ const updateReview = async post_id => {
       <KeyboardAvoidingView>
         <Modal
           transparent={true}
-     
           visible={modalVisible}
           onRequestClose={toggleModal}>
           <View style={styles.modalContainer}>
@@ -456,11 +457,15 @@ const updateReview = async post_id => {
                   ],
                 },
               ]}>
-              <ScrollView style={styles.bgcover} showsVerticalScrollIndicator={false}>
+              <ScrollView
+                style={styles.bgcover}
+                showsVerticalScrollIndicator={false}>
                 <View style={{alignItems: 'center', paddingBottom: 20}}>
                   <View style={styles.indicator}></View>
                 </View>
-                <ScrollView style={styles.bgcover}showsVerticalScrollIndicator={false}>
+                <ScrollView
+                  style={styles.bgcover}
+                  showsVerticalScrollIndicator={false}>
                   <View style={{}}>
                     <Text style={styles.reviewtxt}>Rate This Property</Text>
                   </View>
@@ -655,20 +660,20 @@ const updateReview = async post_id => {
                 style={{
                   justifyContent: 'flex-start',
                   alignItems: 'flex-start',
-                 width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 70,
                 }}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
                     source={Images.newbed}
                     style={{
-                      height: DeviceInfo.getDeviceType() === 'Tablet'?49:26,
-                      width: DeviceInfo.getDeviceType() === 'Tablet'?39:21,
+                      height: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 26,
+                      width: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 21,
                       resizeMode: 'contain',
-                   
                     }}></Image>
                   <Text
                     style={{
-                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
+                      fontSize:
+                        DeviceInfo.getDeviceType() === 'Tablet' ? 17 : 11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -685,19 +690,21 @@ const updateReview = async post_id => {
                 style={{
                   justifyContent: 'flex-start',
                   alignItems: 'flex-start',
-                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 70,
                 }}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
                     source={Images.bathtub}
                     style={{
-                      height: DeviceInfo.getDeviceType() === 'Tablet'?44:26,
-                      width: DeviceInfo.getDeviceType() === 'Tablet'?49:28,
-                      resizeMode: 'contain', marginBottom: 5
+                      height: DeviceInfo.getDeviceType() === 'Tablet' ? 44 : 26,
+                      width: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 28,
+                      resizeMode: 'contain',
+                      marginBottom: 5,
                     }}></Image>
                   <Text
                     style={{
-                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
+                      fontSize:
+                        DeviceInfo.getDeviceType() === 'Tablet' ? 17 : 11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -712,20 +719,21 @@ const updateReview = async post_id => {
                 style={{
                   justifyContent: 'flex-start',
                   alignItems: 'flex-start',
-                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 70,
                 }}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
                     source={Images.measuringtape}
                     style={{
-                      height: DeviceInfo.getDeviceType() === 'Tablet'?45:26,
-                                      width: DeviceInfo.getDeviceType() === 'Tablet'?47:27,
-                                      resizeMode: 'contain',
-                                      marginBottom: 5
+                      height: DeviceInfo.getDeviceType() === 'Tablet' ? 45 : 26,
+                      width: DeviceInfo.getDeviceType() === 'Tablet' ? 47 : 27,
+                      resizeMode: 'contain',
+                      marginBottom: 5,
                     }}></Image>
                   <Text
                     style={{
-                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
+                      fontSize:
+                        DeviceInfo.getDeviceType() === 'Tablet' ? 17 : 11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -740,14 +748,14 @@ const updateReview = async post_id => {
                 style={{
                   justifyContent: 'center',
                   alignItems: 'center',
-                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 70,
                 }}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Image
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <Image
                     source={Images.hoa2}
                     style={{
-                      height: DeviceInfo.getDeviceType() === 'Tablet'?47:26,
-                      width: DeviceInfo.getDeviceType() === 'Tablet'?51:27,
+                      height: DeviceInfo.getDeviceType() === 'Tablet' ? 47 : 26,
+                      width: DeviceInfo.getDeviceType() === 'Tablet' ? 51 : 27,
                       marginTop: 0,
                       resizeMode: 'contain',
                       marginBottom: 5,
@@ -755,7 +763,8 @@ const updateReview = async post_id => {
 
                   <Text
                     style={{
-                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
+                      fontSize:
+                        DeviceInfo.getDeviceType() === 'Tablet' ? 17 : 11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -769,21 +778,22 @@ const updateReview = async post_id => {
                 style={{
                   justifyContent: 'center',
                   alignItems: 'center',
-                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 70,
                 }}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
                     source={Images.taxnew}
                     style={{
-                      height: DeviceInfo.getDeviceType() === 'Tablet'?47:27,
-                      width: DeviceInfo.getDeviceType() === 'Tablet'?43:25,
+                      height: DeviceInfo.getDeviceType() === 'Tablet' ? 47 : 27,
+                      width: DeviceInfo.getDeviceType() === 'Tablet' ? 43 : 25,
                       marginTop: 0,
                       resizeMode: 'contain',
                       marginBottom: 5,
                     }}></Image>
                   <Text
                     style={{
-                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
+                      fontSize:
+                        DeviceInfo.getDeviceType() === 'Tablet' ? 17 : 11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -796,21 +806,22 @@ const updateReview = async post_id => {
                 style={{
                   justifyContent: 'center',
                   alignItems: 'center',
-                  width: DeviceInfo.getDeviceType() === 'Tablet'?100:70,
+                  width: DeviceInfo.getDeviceType() === 'Tablet' ? 100 : 70,
                 }}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
                     source={Images.calendar}
                     style={{
-                      height: DeviceInfo.getDeviceType() === 'Tablet'?34:30,
-                      width: DeviceInfo.getDeviceType() === 'Tablet'?40:30,
+                      height: DeviceInfo.getDeviceType() === 'Tablet' ? 34 : 30,
+                      width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 30,
                       marginTop: 0,
                       resizeMode: 'contain',
                       marginBottom: 5,
                     }}></Image>
                   <Text
                     style={{
-                      fontSize:DeviceInfo.getDeviceType() === 'Tablet'?17:11,
+                      fontSize:
+                        DeviceInfo.getDeviceType() === 'Tablet' ? 17 : 11,
                       color: Colors.black,
                       textAlign: 'center',
                       fontFamily: 'Poppins-Light',
@@ -840,7 +851,7 @@ const updateReview = async post_id => {
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                
+
                   justifyContent: 'space-between',
                   marginBottom: 12,
                   width: '100%',
@@ -850,26 +861,26 @@ const updateReview = async post_id => {
                   style={{
                     justifyContent: 'flex-start',
                     alignItems: 'flex-start',
-         
+
                     width: 70,
                   }}>
                   <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Image
                       source={Images.newbed}
                       style={{
                         height: 21,
                         width: 28,
                         resizeMode: 'contain',
-                   
-                        marginBottom:5
+
+                        marginBottom: 5,
                       }}></Image>
                     <Text
                       style={{
                         fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
+                        color: Colors.black,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Light',
                       }}>
                       {item.property_bedrooms.length > 0
                         ? item.property_bedrooms
@@ -887,21 +898,21 @@ const updateReview = async post_id => {
                     width: 70,
                   }}>
                   <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Image
                       source={Images.bathtub}
                       style={{
                         height: 26,
                         width: 28,
                         resizeMode: 'contain',
-                        marginBottom:5
+                        marginBottom: 5,
                       }}></Image>
                     <Text
                       style={{
                         fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
+                        color: Colors.black,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Light',
                       }}>
                       {item.bathroomsfull.length > 0 ? item.bathroomsfull : 0}{' '}
                       {'Baths'}
@@ -916,21 +927,21 @@ const updateReview = async post_id => {
                     width: 70,
                   }}>
                   <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Image
                       source={Images.measuringtape}
                       style={{
                         height: 26,
                         width: 27,
                         resizeMode: 'contain',
-                        marginBottom:5
+                        marginBottom: 5,
                       }}></Image>
                     <Text
                       style={{
                         fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
+                        color: Colors.black,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Light',
                       }}>
                       {item.property_size.length > 0 ? item.property_size : 0}{' '}
                       {'SF'}
@@ -942,17 +953,17 @@ const updateReview = async post_id => {
                   style={{
                     justifyContent: 'center',
                     alignItems: 'center',
-                 width: 70,
+                    width: 70,
                   }}>
                   <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
-                   <Image
+                    style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <Image
                       source={Images.hoa2}
                       style={{
                         height: 28,
                         width: 29,
                         resizeMode: 'contain',
-                        marginBottom:5,
+                        marginBottom: 5,
                       }}></Image>
                     <Text
                       style={{
@@ -973,7 +984,7 @@ const updateReview = async post_id => {
                     width: 70,
                   }}>
                   <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Image
                       source={Images.taxnew}
                       style={{
@@ -981,14 +992,14 @@ const updateReview = async post_id => {
                         width: 25,
                         marginTop: 0,
                         resizeMode: 'contain',
-                        marginBottom:5
+                        marginBottom: 5,
                       }}></Image>
                     <Text
                       style={{
                         fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
+                        color: Colors.black,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Light',
                       }}>
                       {item.taxannualamount.length > 0
                         ? item.taxannualamount
@@ -1003,22 +1014,22 @@ const updateReview = async post_id => {
                     width: 70,
                   }}>
                   <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Image
-                      source={Images. cals}
+                      source={Images.cals}
                       style={{
                         height: 30,
                         width: 30,
                         marginTop: 0,
                         resizeMode: 'contain',
-                        marginBottom:5
+                        marginBottom: 5,
                       }}></Image>
                     <Text
                       style={{
                         fontSize: 11,
-                      color: Colors.black,
-                      textAlign: 'center',
-                      fontFamily: 'Poppins-Light',
+                        color: Colors.black,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Light',
                       }}>
                       {item.yearbuilt.length > 0 ? item.yearbuilt : 0}
                     </Text>
@@ -1034,8 +1045,7 @@ const updateReview = async post_id => {
 
   return (
     <SafeAreaView style={styles.container}>
-
-<View style={styles.mainheader}>
+      <View style={styles.mainheader}>
         <TouchableOpacity
           style={styles.leftheader}
           onPress={() => {
@@ -1060,199 +1070,285 @@ const updateReview = async post_id => {
       </View>
       <View style={styles.filtercover}>
         <TouchableOpacity
+          disabled={loading ? true : false}
           onPress={() => {
             setIsCollapsed(!isCollapsed);
           }}>
-          <Image style={[styles.filterimage,{ transform: isCollapsed ? [{ rotate: '90deg' }] : [{ rotate: '0deg' }]}]} source={Images.favfilter} />
+          <Image
+            style={[
+              styles.filterimage,
+              {
+                transform: isCollapsed
+                  ? [{rotate: '90deg'}]
+                  : [{rotate: '0deg'}],
+              },
+            ]}
+            source={Images.favfilter}
+          />
         </TouchableOpacity>
       </View>
-      
+
       <Collapsible collapsed={!isCollapsed} style={styles.collapsecover}>
-         <Text style={styles.sortby}>Sort By</Text>
+        <Text style={styles.sortby}>Sort By</Text>
         <View style={styles.collapsebg}>
           <TouchableOpacity
             onPress={async () => {
-              const payload={
-                sort_by:2,
-                date_favorited:1
-              }
-           await dispatch(sortingFavoritelist(payload)).then((response)=>{
-            setHomeData(response?.payload?.data)
-           })
-           setIsCollapsed(false);
-           setSelectedSortOption('Date Favorited')
-            }} style={styles.collapupper}>
-          <Image
+              const payload = {
+                sort_by: 2,
+                date_favorited: 1,
+              };
+              setIsCollapsed(false);
+              setLoading(true);
+              setHomeData([]);
+              await dispatch(sortingFavoritelist(payload)).then(response => {
+                setHomeData(response?.payload?.data);
+              });
+              setLoading(false);
+              setSelectedSortOption('Date Favorited');
+            }}
+            style={styles.collapupper}>
+            <Image
               source={Images.calenderwedding}
               style={[
                 styles.colimg,
                 {
-                  tintColor: selectedSortOption === 'Date Favorited' ? Colors.surfblur : Colors.black,
-                  fontWeight:selectedSortOption === 'Date Favorited'? '800' : 'normal',
+                  tintColor:
+                    selectedSortOption === 'Date Favorited'
+                      ? Colors.surfblur
+                      : Colors.black,
+                  fontWeight:
+                    selectedSortOption === 'Date Favorited' ? '800' : 'normal',
                 },
               ]}></Image>
-                 <Text   style={[
-            styles.coltxt,
-            { color: selectedSortOption === 'Date Favorited'? Colors.surfblur : Colors.black},
-          ]}>Date Favorited</Text>
-             
+            <Text
+              style={[
+                styles.coltxt,
+                {
+                  color:
+                    selectedSortOption === 'Date Favorited'
+                      ? Colors.surfblur
+                      : Colors.black,
+                },
+              ]}>
+              Date Favorited
+            </Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity    onPress={async () => {
-          const payload={
-            sort_by:2,
-            days_on_market:1
-          }
-          console.log(payload)
-      //  await dispatch(sortingFavoritelist(payload)).then((response)=>{
-            setHomeData(response?.payload?.data)
-           })
-       setIsCollapsed(false);
-        }}
-         style={styles.collapupper}>
-          <Image
-              source={Images.calenderwedding}
-              style={styles.colimg}></Image>
-             <Text style={styles.coltxt}>Days on Market</Text>
-             
-          </TouchableOpacity> */}
-          <TouchableOpacity     onPress={async () => {
-      const payload={
-        sort_by:2,
-        price_low_to_high:1
-      }
-   await dispatch(sortingFavoritelist(payload)).then((response)=>{
-    setHomeData(response?.payload?.data)
-   })
-   setIsCollapsed(false);
-   setSelectedSortOption('Price ascending')
-    }} style={styles.collapupper}>
-          <Image
+
+          <TouchableOpacity
+            onPress={async () => {
+              const payload = {
+                sort_by: 2,
+                price_low_to_high: 1,
+              };
+              setIsCollapsed(false);
+              setLoading(true);
+              setHomeData([]);
+              await dispatch(sortingFavoritelist(payload)).then(response => {
+                setHomeData(response?.payload?.data);
+              });
+              setLoading(false);
+              setSelectedSortOption('Price ascending');
+            }}
+            style={styles.collapupper}>
+            <Image
               source={Images.low}
               style={[
                 styles.colimg,
                 {
-                  tintColor: selectedSortOption === 'Price ascending'? Colors.surfblur : Colors.black,
-                  fontWeight: selectedSortOption ==='Price ascending' ? '800' : 'normal',
+                  tintColor:
+                    selectedSortOption === 'Price ascending'
+                      ? Colors.surfblur
+                      : Colors.black,
+                  fontWeight:
+                    selectedSortOption === 'Price ascending' ? '800' : 'normal',
                 },
               ]}></Image>
-              <Text style={[
-            styles.coltxt,
-            { color: selectedSortOption ==='Price ascending' ? Colors.surfblur : Colors.black },
-          ]}>Price ascending </Text>
-             
+            <Text
+              style={[
+                styles.coltxt,
+                {
+                  color:
+                    selectedSortOption === 'Price ascending'
+                      ? Colors.surfblur
+                      : Colors.black,
+                },
+              ]}>
+              Price ascending{' '}
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity      onPress={async () => {
-              const payload={
-                sort_by:2,
-                price_high_to_low:1
-              }
-           await dispatch(sortingFavoritelist(payload)).then((response)=>{
-            setHomeData(response?.payload?.data)
-           })
-           setIsCollapsed(false);
-           setSelectedSortOption('Price descending')
-            }} style={styles.collapupper}>
-          <Image
+          <TouchableOpacity
+            onPress={async () => {
+              const payload = {
+                sort_by: 2,
+                price_high_to_low: 1,
+              };
+              setIsCollapsed(false);
+              setLoading(true);
+              setHomeData([]);
+              await dispatch(sortingFavoritelist(payload)).then(response => {
+                setHomeData(response?.payload?.data);
+              });
+              setLoading(false);
+              setSelectedSortOption('Price descending');
+            }}
+            style={styles.collapupper}>
+            <Image
               source={Images.lowhigh}
               style={[
                 styles.colimg,
                 {
-                  tintColor: selectedSortOption ==='Price descending' ? Colors.surfblur : Colors.black,
-                  fontWeight: selectedSortOption ==='Price descending'? '800' : 'normal',
+                  tintColor:
+                    selectedSortOption === 'Price descending'
+                      ? Colors.surfblur
+                      : Colors.black,
+                  fontWeight:
+                    selectedSortOption === 'Price descending'
+                      ? '800'
+                      : 'normal',
                 },
               ]}></Image>
-                 <Text style={[
-            styles.coltxt,
-            { color: selectedSortOption ==='Price descending'? Colors.surfblur : Colors.black },
-          ]}>Price descending</Text>
-             
+            <Text
+              style={[
+                styles.coltxt,
+                {
+                  color:
+                    selectedSortOption === 'Price descending'
+                      ? Colors.surfblur
+                      : Colors.black,
+                },
+              ]}>
+              Price descending
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity    
-          onPress={async () => {
-            const payload={
-              sort_by:2,
-              beds_high_to_low:1
-            }
-         await dispatch(sortingFavoritelist(payload)).then((response)=>{
-          setHomeData(response?.payload?.data)
-         })
-         setIsCollapsed(false);
-         setSelectedSortOption('Beds')
-          }} style={styles.collapupper}>
-          <Image
+          <TouchableOpacity
+            onPress={async () => {
+              const payload = {
+                sort_by: 2,
+                beds_high_to_low: 1,
+              };
+              setIsCollapsed(false);
+              setLoading(true);
+              setHomeData([]);
+              await dispatch(sortingFavoritelist(payload)).then(response => {
+                setHomeData(response?.payload?.data);
+              });
+              setLoading(false);
+              setSelectedSortOption('Beds');
+            }}
+            style={styles.collapupper}>
+            <Image
               source={Images.newbed}
               style={[
                 styles.colimg,
                 {
-                  tintColor: selectedSortOption ==='Beds' ? Colors.surfblur : Colors.black,
-                  fontWeight: selectedSortOption==='Beds' ? '800' : 'normal',
+                  tintColor:
+                    selectedSortOption === 'Beds'
+                      ? Colors.surfblur
+                      : Colors.black,
+                  fontWeight: selectedSortOption === 'Beds' ? '800' : 'normal',
                 },
               ]}></Image>
-              <Text style={[
-            styles.coltxt,
-            { color: selectedSortOption ==='Beds' ? Colors.surfblur : Colors.black },
-          ]}>Beds</Text>
-             
+            <Text
+              style={[
+                styles.coltxt,
+                {
+                  color:
+                    selectedSortOption === 'Beds'
+                      ? Colors.surfblur
+                      : Colors.black,
+                },
+              ]}>
+              Beds
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity  
-          onPress={async () => {
-              const payload={
-                sort_by:2,
-                baths_high_to_low:1
-              }
-           await dispatch(sortingFavoritelist(payload)).then((response)=>{
-            setHomeData(response?.payload?.data)
-           })
-           setIsCollapsed(false);
-           setSelectedSortOption('Baths')
-            }} style={styles.collapupper}>
-          <Image
+          <TouchableOpacity
+            onPress={async () => {
+              const payload = {
+                sort_by: 2,
+                baths_high_to_low: 1,
+              };
+              setIsCollapsed(false);
+              setHomeData([]);
+              setLoading(true);
+              await dispatch(sortingFavoritelist(payload)).then(response => {
+                setHomeData(response?.payload?.data);
+              });
+              setLoading(false);
+              setSelectedSortOption('Baths');
+            }}
+            style={styles.collapupper}>
+            <Image
               source={Images.bathtub}
               style={[
                 styles.colimg,
                 {
-                  tintColor: selectedSortOption ==='Baths' ? Colors.surfblur : Colors.black,
-                  fontWeight: selectedSortOption ==='Baths' ? '800' : 'normal',
+                  tintColor:
+                    selectedSortOption === 'Baths'
+                      ? Colors.surfblur
+                      : Colors.black,
+                  fontWeight: selectedSortOption === 'Baths' ? '800' : 'normal',
                 },
               ]}></Image>
-         <Text style={[
-            styles.coltxt,
-            { color: selectedSortOption === 'Baths'? Colors.surfblur : Colors.black },
-          ]}>Baths</Text>
-             
+            <Text
+              style={[
+                styles.coltxt,
+                {
+                  color:
+                    selectedSortOption === 'Baths'
+                      ? Colors.surfblur
+                      : Colors.black,
+                },
+              ]}>
+              Baths
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity 
-           onPress={async () => {
-            const payload={
-              sort_by:2,
-              squraefeet_high_to_low:1
-            }
-         await dispatch(sortingFavoritelist(payload)).then((response)=>{
-          setHomeData(response?.payload?.data)
-         })
-         setIsCollapsed(false);
-         setSelectedSortOption('Square Feet')
-          }}
-          style={styles.collapupper}>
-          <Image
+          <TouchableOpacity
+            onPress={async () => {
+              const payload = {
+                sort_by: 2,
+                squraefeet_high_to_low: 1,
+              };
+              setIsCollapsed(false);
+              setHomeData([]);
+              setLoading(true);
+              await dispatch(sortingFavoritelist(payload)).then(response => {
+                setHomeData(response?.payload?.data);
+              });
+              setLoading(false);
+              setSelectedSortOption('Square Feet');
+            }}
+            style={styles.collapupper}>
+            <Image
               source={Images.measuringtape}
-              style={[styles.colimg,
-              {
-                tintColor: selectedSortOption === 'Square Feet' ? Colors.surfblur : Colors.black,
-                fontWeight: selectedSortOption === 'Square Feet' ? '800' : 'normal',
-              },
-            ]}></Image>
-              <Text style={[
-            styles.coltxt,
-            { color: selectedSortOption === 'Square Feet'? Colors.surfblur : Colors.black },
-          ]}>Square Feet</Text>
-             
+              style={[
+                styles.colimg,
+                {
+                  tintColor:
+                    selectedSortOption === 'Square Feet'
+                      ? Colors.surfblur
+                      : Colors.black,
+                  fontWeight:
+                    selectedSortOption === 'Square Feet' ? '800' : 'normal',
+                },
+              ]}></Image>
+            <Text
+              style={[
+                styles.coltxt,
+                {
+                  color:
+                    selectedSortOption === 'Square Feet'
+                      ? Colors.surfblur
+                      : Colors.black,
+                },
+              ]}>
+              Square Feet
+            </Text>
           </TouchableOpacity>
         </View>
       </Collapsible>
-  
-      <View style={{ height: '100%', width: '100%' }}>
-        {data?.length<0 ? (
+
+      <View style={{height: '100%', width: '100%'}}>
+        {data?.length <= 0 ? (
           <View
             style={{
               flex: 1,
@@ -1261,9 +1357,11 @@ const updateReview = async post_id => {
             }}>
             <Text
               style={{
-                fontSize: 18, color: Colors.black, fontFamily: 'Poppins-Medium'
+                fontSize: 18,
+                color: Colors.black,
+                fontFamily: 'Poppins-Medium',
               }}>
-             No properties in bin
+              {loading ? 'Loading...' : 'No properties in bin'}
             </Text>
           </View>
         ) : (
@@ -1271,26 +1369,24 @@ const updateReview = async post_id => {
             data={data}
             keyExtractor={item => item.id}
             renderItem={renderItem}
-            contentContainerStyle={{ paddingBottom:50 }}
+            contentContainerStyle={{paddingBottom: 50}}
           />
-
         )}
-
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  innerlistingkey:{
-    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?24:12,
+  innerlistingkey: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 24 : 12,
     color: Colors.white,
     fontFamily: 'Poppins-Regular',
     marginBottom: 0,
-    lineHeight: DeviceInfo.getDeviceType() === 'Tablet'?28:14,
+    lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 28 : 14,
     paddingTop: 4,
   },
-  listingkeycover:{
+  listingkeycover: {
     backgroundColor: Colors.surfblur,
     position: 'absolute',
     top: 8,
@@ -1301,75 +1397,72 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
   },
-  collapupper:{   flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'flex-start',
-  borderBottomWidth: 1,
-  borderBottomColor: Colors.BorderColor,
-  paddingBottom: 15,
-  paddingTop: 15,
-
-},
-leftheaderimage: {
-  width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 27,
-  height: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 27,
-  resizeMode: 'contain',
-  justifyContent: 'center',
-  flexDirection: 'row',
-  alignItems: 'center',
-  resizeMode: 'contain',
-},
-centerheader: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'center',
-},
-chaticon: {
-  height: DeviceInfo.getDeviceType() === 'Tablet' ? 23 : 19,
-  width: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 23,
-  resizeMode: 'contain',
-  marginRight: 15,
-  position: 'absolute',
-  top:-30,
-  right:'35%',
-
-  
-},
-imagedata: {
-  height: DeviceInfo.getDeviceType() === 'Tablet' ? 29 : 19,
-  width: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 29,
-  resizeMode: 'contain',
-},
-centertext: {
-  fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 20,
-  color: Colors.black,
-  fontFamily: 'Poppins-Light',
-  lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 42 : 22,
-},
-rightheader: {
-  position: 'absolute',
-  right: 10,
-  top: 15,
-  tintColor:'black',
- 
-},
-leftheader: {
-  flexDirection: 'row',
-  alignItems: 'flex-start',
-  position: 'absolute',
-  left: 12,
-  justifyContent: 'flex-start',
-
-  top: 13,
- 
-  width: 50,
-  height: 50,
-},
-  collapsebg:{
- 
+  collapupper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.BorderColor,
+    paddingBottom: 15,
+    paddingTop: 15,
   },
-  collapsecover:{
-    justifyContent:'center',width:"60%",alignSelf:'center'
+  leftheaderimage: {
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 27,
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 27,
+    resizeMode: 'contain',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    resizeMode: 'contain',
+  },
+  centerheader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  chaticon: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 35 : 30,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 30,
+    resizeMode: 'contain',
+    marginRight: 0,
+    position: 'absolute',
+    top: -35,
+    right: '35%',
+  },
+  imagedata: {
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 29 : 19,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 29,
+    resizeMode: 'contain',
+  },
+  centertext: {
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 40 : 20,
+    color: Colors.black,
+    fontFamily: 'Poppins-Light',
+    lineHeight: DeviceInfo.getDeviceType() === 'Tablet' ? 42 : 22,
+  },
+  rightheader: {
+    position: 'absolute',
+    right: 10,
+    top: 15,
+    tintColor: 'black',
+  },
+  leftheader: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    position: 'absolute',
+    left: 12,
+    justifyContent: 'flex-start',
+
+    top: 13,
+
+    width: 50,
+    height: 50,
+  },
+  collapsebg: {},
+  collapsecover: {
+    justifyContent: 'center',
+    width: '60%',
+    alignSelf: 'center',
   },
   container: {
     flex: 1,
@@ -1381,7 +1474,7 @@ leftheader: {
     justifyContent: 'space-between',
     alignItems: 'center',
     borderRadius: 18,
-marginBottom:16
+    marginBottom: 16,
   },
   emptyContainer: {
     flex: 1,
@@ -1404,7 +1497,7 @@ marginBottom:16
     margin: 20,
     marginTop: 0,
     marginBottom: 0,
-    resizeMode:"cover"
+    resizeMode: 'cover',
   },
   modalContainer: {
     flex: 1,
@@ -1521,7 +1614,6 @@ marginBottom:16
     alignItems: 'flex-start',
     flexDirection: 'row',
     marginLeft: 5,
-
   },
   indicator: {
     width: 50,
@@ -1535,10 +1627,9 @@ marginBottom:16
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 30 : 15,
     width: DeviceInfo.getDeviceType() === 'Tablet' ? 26 : 13,
     resizeMode: 'contain',
-
   },
   title: {
-    fontSize: DeviceInfo.getDeviceType() === 'Tablet'?39:23,
+    fontSize: DeviceInfo.getDeviceType() === 'Tablet' ? 39 : 23,
     marginBottom: 20,
   },
   button: {
@@ -1592,8 +1683,8 @@ marginBottom:16
     padding: 16,
     maxHeight: '80%',
   },
-  colimg:{height: 36, width: 36, resizeMode: 'contain',left:30},
-  coltxt:{fontSize: 18, fontFamily: 'Poppins-Light',left:50},
+  colimg: {height: 36, width: 36, resizeMode: 'contain', left: 30},
+  coltxt: {fontSize: 18, fontFamily: 'Poppins-Light', left: 50},
   paginationDotActive: {
     backgroundColor: 'blue',
   },
@@ -1610,10 +1701,16 @@ marginBottom:16
   },
   ratingText: {
     fontSize: 18,
-    marginHorizontal:5
+    marginHorizontal: 5,
   },
-  sortby:{fontSize:21, fontFamily:"Poppins-Light", color:Colors.black, textAlign:"center",
-  marginBottom:15,paddingTop:15},
+  sortby: {
+    fontSize: 21,
+    fontFamily: 'Poppins-Light',
+    color: Colors.black,
+    textAlign: 'center',
+    marginBottom: 15,
+    paddingTop: 15,
+  },
   screen1: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -1624,10 +1721,9 @@ marginBottom:16
     backgroundColor: Colors.gray,
   },
   imagedata: {
-    height:DeviceInfo.getDeviceType() === 'Tablet'?29:19,
-    width: DeviceInfo.getDeviceType() === 'Tablet'?49:29,
+    height: DeviceInfo.getDeviceType() === 'Tablet' ? 29 : 19,
+    width: DeviceInfo.getDeviceType() === 'Tablet' ? 49 : 29,
     resizeMode: 'contain',
-   
   },
 });
 

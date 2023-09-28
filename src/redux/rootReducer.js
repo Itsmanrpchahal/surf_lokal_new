@@ -28,7 +28,6 @@ import filterSearch from '../modules/filterSearch';
 import clearFilter from '../modules/clearFilter';
 import loginPhoneUser from '../modules/phonelogin';
 import verifyOTP from '../modules/verifyOTP';
-
 import getRewardListing from '../modules/getRewardListing';
 import likeDisLike from '../modules/likeDislike';
 import getLeaderboard from '../modules/getLeaderboard';
