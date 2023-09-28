@@ -19,6 +19,7 @@ import { deleteSearch } from '../../modules/deleteSearch';
 import { editSearch } from '../../modules/editSearch';
 import { useIsFocused } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
+import { store } from '../../redux/store';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -33,8 +34,17 @@ const MyFavorites = ({ navigation }) => {
   const [updatedParameter, setUpdatedParameter] = useState('');
   const [showNoDataMessage, setShowNoDataMessage] = useState(false);
   useEffect(() => {
-    if (isFocused) {
       getSavedApiCall();
+  }, []);
+  useEffect(() => {
+    if (isFocused) {
+      Promise.all[
+        new Promise(resolve => {
+          const nestedData =store.getState().getSavedSearchReducer?.getSavedSearchData?.data
+          setImages(nestedData)
+          resolve();
+        })
+      ];
     }
   }, [isFocused]);
 
@@ -86,7 +96,7 @@ const MyFavorites = ({ navigation }) => {
 
     return (
       <View style={styles.slideOuter}>
-        <View style={{ flexDirection: "row", alignItems: "center", width: "70%" }}>
+        <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", width: "70%" }}> 
           <Image source={Images.savedSearch} styles={{ height: 59, width: 59, resizeMode: "cover", }} />
           <Text style={{ fontSize: 12, color: "#2D49AA", fontFamily: 'Poppins-Medium', marginLeft: 8 }}>
           {item?.search_parameters ? item?.search_parameters + "," : null}
@@ -99,7 +109,7 @@ const MyFavorites = ({ navigation }) => {
             {item?.max_square ? item?.max_square + "," : null}
             {item?.more_filter_data ? item?.more_filter_data + ', ' : null}
           </Text>
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity   onPress={() => deleteSearchApiCall(item.UserID, item.ID)}>
         <Image source={Images.SearchNotification} />
         </TouchableOpacity>

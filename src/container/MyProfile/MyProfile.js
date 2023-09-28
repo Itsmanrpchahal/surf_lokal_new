@@ -66,14 +66,14 @@ const MyFavorites = () => {
 
     setTimeout(() => {
       setIsImageChanged(false);
-    }, 1500);
+    }, 1000);
   };
   const handleFavPress = () => {
     navigation.navigate('MyFavorites', { from: 'menu' });
     setIsImage(true)
     setTimeout(() => {
       setIsImage(false)
-    }, 1500);
+    }, 1000);
   };
 
   useEffect(() => {

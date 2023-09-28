@@ -103,7 +103,6 @@ const Home = () => {
         });
         setKeyboardStatus('first');
         setIsSelected(false);
-        setIsSelecteddata_name(false);
         setIsPressed1(false);
         setIsPressed(false);
         setSelectedTabs([]);
@@ -115,6 +114,7 @@ const Home = () => {
   const [homeData, setHomeData] = useState([]);
   const [selectedTabs, setSelectedTabs] = useState([]);
   const [selectedTabsMore, setSelectedTabsMore] = useState([]);
+const [setselectedTabMoreValue, setSetselectedTabMoreValue] = useState([])
   const [selected, setSelected] = useState(-1);
   const [activity, setActivity] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -123,6 +123,7 @@ const Home = () => {
   const [moreFilterData, setMoreFilterData] = useState([]);
   const [termName, setTermName] = useState([]);
   const [cities, setCities] = useState([]);
+  const [citiesValue, setCitiesValue] = useState([]);
   const navigation = useNavigation();
   const [productId, setProductId] = useState();
   const [reviewTitle, setReviewTitle] = useState('');
@@ -139,7 +140,6 @@ const Home = () => {
   const [rating3, setRating3] = useState(0);
   const [ratingData, setRatingData] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
-  const [isSelecteddata_name, setIsSelecteddata_name] = useState(false);
   const [bedroomitem, setBedroomItem] = useState(-1);
   const [bathRoom, setBathRoomItem] = useState(-1);
   const [imageIndex, setImageIndex] = useState(0);
@@ -156,6 +156,8 @@ const Home = () => {
   const [maxSquareFeetValue, setMaxSquareFeetValue] = useState([]);
   const [minMinPriceValue, setMinPriceValue] = useState([]);
   const [maxPriceValue, setMaxPriceValue] = useState([]);
+  const [bedRoomCount, setBedRoomCount] = useState([])
+  const [bathRoomCount, setBathRoomCount] = useState([])
   const [limitCount, setLimitCount] = useState(1);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
@@ -258,9 +260,18 @@ useEffect(() => {
   useEffect(() => {
     dispatch(getNotifications())
   }, [])
-  useEffect(() => {
-    dispatch(getMoreFilter());
-    setMoreFilterData(store.getState().getMoreFilter.getMoreFilterData?.data);
+  
+
+  useEffect(() => { 
+    getMoreFilterApi()
+  }, []);
+
+  const getMoreFilterApi =  async () => {
+   await dispatch(getMoreFilter()).then((res)=>{
+      setMoreFilterData(res?.payload?.data)
+    })
+  };
+  useEffect(()=>{
     moreFilterData?.min_square?.map((item, index) => {
       setMinSquareFeet(old => [...old, item.data_name]);
     });
@@ -273,8 +284,7 @@ useEffect(() => {
     moreFilterData?.max_price?.map((item, index) => {
       setMaxPriceRange(old => [...old, item.data_name]);
     });
-  }, [store.getState().getMoreFilter.getMoreFilterData]);
-
+  },[moreFilterData])
 
   const fetchUserScore = () => {
     dispatch(getUserScore());
@@ -282,9 +292,10 @@ useEffect(() => {
 
   const clearFilterAPiCall = async () => {
     setFilterType(1);
+    setSetselectedTabMoreValue([])
+    setSelectedTabsMore([])
     setSelectedTabs([]);
     setIsSelected(false);
-    setIsSelecteddata_name(false);
     setIsPressed1(false);
     setIsPressed(false);
     setBedroomItem(null);
@@ -294,6 +305,7 @@ useEffect(() => {
     setMinPricerange('');
     setMaxPriceRange('');
     setMoreFilter(false);
+    setSetselectedTabMoreValue([])
     setTermName([]);
     setCities('');
     setFilterModalVisible(false);
@@ -590,7 +602,6 @@ useEffect(() => {
             setTermName(prev => [...prev, term_name]);
           }
           setIsSelected(true);
-          setIsSelecteddata_name(true);
           setSelected(index);
           setActivity(false);
           setLoading(true);
@@ -732,22 +743,23 @@ useEffect(() => {
               <View style={styles.filterinner}>
                 <View style={styles.filterinnermain}>
                   <TouchableOpacity
+                  disabled={termName?.length>0?false:true}
                     onPress={() => {
                       getSavedApiCall();
                       setIsPressed1(!isPressed1);
                       setIsPressed(false);
                       const formData = new FormData();
                       formData.append('search_name', termName);
-                      formData.append('bedroom', bedroomitem);
-                      formData.append('bathroom', bathRoom);
+                      formData.append('bedroom', bedRoomCount);
+                      formData.append('bathroom', bathRoomCount);
                       formData.append('min_square', minSquareFeetValue);
                       formData.append('max_square', maxSquareFeetValue);
                       formData.append('min_price', minMinPriceValue);
                       formData.append('max_price', maxPriceValue);
-                      formData.append('more_filter_data', termName);
-                      formData.append('cities', cities);
-                      formData.append('image', homeData[0]?.featured_image_src[0]?.guid);
-                       console.log("cities=========>>>>",cities)
+                      formData.append('more_filter_data', setselectedTabMoreValue);
+                      formData.append('cities', citiesValue);
+                      formData.append('image', homeData[0]?.featured_image_src[0]?.guid ? homeData[0]?.featured_image_src[0]?.guid :null );
+                       console.log("selectedTabsMoreselectedTabsMore=========>>>>",selectedTabsMore)
                       dispatch(filterSearch(formData)).then(response => {
                         if (
                           store.getState().getSavedSearchReducer
@@ -776,6 +788,7 @@ useEffect(() => {
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
+                  disabled={termName?.length>0?false:true}
                     onPress={() => {
                       clearFilterAPiCall();
                     }}
@@ -2019,7 +2032,9 @@ useEffect(() => {
                             value={cities}
                             valuestyle={{color: 'red'}}
                             onChange={async item => {
+                               console.log("setCitiesValue", cities)
                               setCities(item);
+                              setCitiesValue(item?.data_name)
                               ref.current.close();
                               await dispatch(
                                 getPoperties({
@@ -2056,6 +2071,8 @@ useEffect(() => {
                                     <TouchableOpacity
                                       onPress={async () => {
                                         setBedroomItem(index),
+                                        setBedRoomCount(item.data_customvalue);
+
                                           await dispatch(
                                             getPoperties({
                                               type: 3,
@@ -2110,7 +2127,7 @@ useEffect(() => {
                                     <TouchableOpacity
                                       onPress={async () => {
                                         setBathRoomItem(index);
-                                        setBathRoomCount(item.data_name);
+                                        setBathRoomCount(item.data_customvalue);
                                         await dispatch(
                                           getPoperties({
                                             type: 3,
@@ -2327,7 +2344,7 @@ useEffect(() => {
                                 numColumns={3}
                                 renderItem={({item, index}) => {
                                   const {
-                                    data_custom_taxonomy,
+                                    data_name,
                                     data_customvalue,
                                   } = item;
                                   const isSelectedMore =
@@ -2347,10 +2364,19 @@ useEffect(() => {
                                               i => i !== data_customvalue,
                                             ),
                                           );
+                                          setSetselectedTabMoreValue(prev =>
+                                            prev.filter(
+                                              i => i !== data_name,
+                                            ),
+                                          );
                                         } else {
                                           setSelectedTabsMore(prev => [
                                             ...prev,
                                             data_customvalue,
+                                          ]);
+                                          setSetselectedTabMoreValue(prev => [
+                                            ...prev,
+                                            data_name,
                                           ]);
                                         }
                                       }}>
