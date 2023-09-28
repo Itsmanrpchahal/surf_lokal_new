@@ -314,7 +314,7 @@ const MyFavorites = () => {
             width: "70%", paddingHorizontal: 12,
             textAlign: "center",
           }}>
-            {details[0]?.username}
+            {details[0]?.first_name ? details[0]?.first_name : details[0]?.username}
 
           </Text>
           <TouchableOpacity
@@ -566,7 +566,7 @@ const MyFavorites = () => {
             
           }
 
-         <View  style={{justifyContent:'flex-start',alignContent:'center',alignItems:'center'}}>
+         <View  style={{alignContent:'center',alignItems:'center',}}>
          <Image source={Images.logoocean}style={{height:"40%",width:"40%" ,resizeMode:'contain'}}/>
          </View>
         </View>
