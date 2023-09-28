@@ -98,8 +98,10 @@ const Home = () => {
       if (adress.length > 0) {
         const formData = new FormData();
         formData.append('SearchParameters', adress);
+        setLoading(true)
         dispatch(getPoperties({type: 2, data: formData, lntLng})).then(res => {
           setHomeData(res.payload.data);
+          setLoading(false)
         });
         setKeyboardStatus('first');
         setIsSelected(false);
@@ -116,14 +118,12 @@ const Home = () => {
   const [selectedTabsMore, setSelectedTabsMore] = useState([]);
 const [setselectedTabMoreValue, setSetselectedTabMoreValue] = useState([])
   const [selected, setSelected] = useState(-1);
-  const [activity, setActivity] = useState(false);
   const [loading, setLoading] = useState(false);
   const [adress, setAddres] = useState('');
   const [filterData, setFilterData] = useState([]);
   const [moreFilterData, setMoreFilterData] = useState([]);
   const [termName, setTermName] = useState([]);
   const [cities, setCities] = useState([]);
-  const [citiesValue, setCitiesValue] = useState([]);
   const navigation = useNavigation();
   const [productId, setProductId] = useState();
   const [reviewTitle, setReviewTitle] = useState('');
@@ -204,15 +204,15 @@ useEffect(() => {
     });
   };
   const getPopertiesApiCall = async type => {
-    setFilterType(1);
     setLoading(true);
+    setFilterType(1);
     await dispatch(getPoperties(type));
     typeof store.getState().getPopertiesReducer.getPopertiesData?.data ===
     'object'
       ? store.getState().getPopertiesReducer.getPopertiesData?.data &&
         setHomeData(store.getState().getPopertiesReducer.getPopertiesData?.data)
       : setHomeData([]);
-    setLoading(false);
+      setLoading(false);
   };
 
   useEffect(() => {
@@ -291,6 +291,7 @@ useEffect(() => {
   };
 
   const clearFilterAPiCall = async () => {
+    setLoading(true)
     setFilterType(1);
     setSetselectedTabMoreValue([])
     setSelectedTabsMore([])
@@ -321,6 +322,7 @@ useEffect(() => {
       }),
     ).then(response => {
       setHomeData(response.payload.data);
+      setLoading(false)
     });
   };
   const slideAnimation = useRef(new Animated.Value(0)).current;
@@ -498,8 +500,8 @@ useEffect(() => {
   };
 
   const getCurretLocation = () => {
-    setFilterType(3);
     setLoading(true);
+    setFilterType(3);
     GetLocation.getCurrentPosition({
       enableHighAccuracy: true,
       timeout: 60000,
@@ -591,6 +593,7 @@ useEffect(() => {
     return (
       <TouchableOpacity
         onPress={() => {
+         setLoading(true)
           if (isSelected) {
             setSelectedTabs(prev => prev.filter(i => i !== data_customvalue));
           } else {
@@ -603,8 +606,6 @@ useEffect(() => {
           }
           setIsSelected(true);
           setSelected(index);
-          setActivity(false);
-          setLoading(true);
           setAddres('');
           dispatch(
             getPoperties({
@@ -617,9 +618,8 @@ useEffect(() => {
             }),
           ).then(res => {
             setHomeData(res.payload.data);
+            setLoading(false)
           });
-          setActivity(true);
-          setLoading(false);
         }}>
         <View style={styles.filtericoncover}>
           <SvgUri
@@ -750,16 +750,15 @@ useEffect(() => {
                       setIsPressed(false);
                       const formData = new FormData();
                       formData.append('search_name', termName);
-                      formData.append('bedroom', bedRoomCount);
-                      formData.append('bathroom', bathRoomCount);
-                      formData.append('min_square', minSquareFeetValue);
-                      formData.append('max_square', maxSquareFeetValue);
-                      formData.append('min_price', minMinPriceValue);
-                      formData.append('max_price', maxPriceValue);
-                      formData.append('more_filter_data', setselectedTabMoreValue);
-                      formData.append('cities', citiesValue);
-                      formData.append('image', homeData[0]?.featured_image_src[0]?.guid ? homeData[0]?.featured_image_src[0]?.guid :null );
-                       console.log("selectedTabsMoreselectedTabsMore=========>>>>",selectedTabsMore)
+                      formData.append('bedroom', bedRoomCount?bedRoomCount:'');
+                      formData.append('bathroom', bathRoomCount?bathRoomCount:'');
+                      formData.append('min_square', minSquareFeetValue?minSquareFeetValue:'');
+                      formData.append('max_square', maxSquareFeetValue?maxSquareFeetValue:'');
+                      formData.append('min_price', minMinPriceValue?minMinPriceValue:'');
+                      formData.append('max_price', maxPriceValue?maxPriceValue:'');
+                      formData.append('more_filter_data', setselectedTabMoreValue?setselectedTabMoreValue:'');
+                      formData.append('cities', cities?cities:'');
+                      formData.append('image', homeData[0]?.featured_image_src[0]?.guid ? homeData[0]?.featured_image_src[0]?.guid :'' );
                       dispatch(filterSearch(formData)).then(response => {
                         if (
                           store.getState().getSavedSearchReducer
@@ -2032,9 +2031,7 @@ useEffect(() => {
                             value={cities}
                             valuestyle={{color: 'red'}}
                             onChange={async item => {
-                               console.log("setCitiesValue", cities)
                               setCities(item);
-                              setCitiesValue(item?.data_name)
                               ref.current.close();
                               await dispatch(
                                 getPoperties({
@@ -2048,6 +2045,7 @@ useEffect(() => {
                               ).then(res => {
                                 filtertoggleModal();
                                 setHomeData(res.payload.data);
+                                setLoading(false)
                                 refRBSheet.current.close();
                               });
                             }}

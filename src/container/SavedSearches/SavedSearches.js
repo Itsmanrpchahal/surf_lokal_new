@@ -101,12 +101,12 @@ const MyFavorites = ({ navigation }) => {
           <Text style={{ fontSize: 12, color: "#2D49AA", fontFamily: 'Poppins-Medium', marginLeft: 8 }}>
           {item?.search_parameters ? item?.search_parameters + "," : null}
             {item?.cities ? item?.cities + ', ' : null}
-            Home {item?.bedroom ? item?.bedroom + "Beds," : null}
-            {item?.bathroom ? item?.bathroom + "Baths," : null}
-            {item?.min_price ? item?.min_price + "," : null}
-            {item?.max_price ? item?.max_price + "," : null}
-            {item?.min_square ? item?.min_square + "," : null}
-            {item?.max_square ? item?.max_square + "," : null}
+            Home {item?.bedroom ? item?.bedroom + " Beds, " : null}
+            {item?.bathroom ? item?.bathroom + " Baths, " : null}
+            {item?.min_price ? item?.min_price + "-" : null}
+            {item?.max_price ? item?.max_price + ", " : null}
+            {item?.min_square ? item?.min_square + "-" : null}
+            {item?.max_square ? item?.max_square + ", " : null}
             {item?.more_filter_data ? item?.more_filter_data + ', ' : null}
           </Text>
         </TouchableOpacity>
