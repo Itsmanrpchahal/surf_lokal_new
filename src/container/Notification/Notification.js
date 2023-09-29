@@ -16,6 +16,7 @@ import {useIsFocused} from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
 import {useDispatch} from 'react-redux';
 import { store } from '../../redux/store';
+
 // import DeviceInfo from 'react-native-device-info';
 import { getNotifications } from '../../modules/getNotifications'
   const Notification = () => {
@@ -41,6 +42,7 @@ import { getNotifications } from '../../modules/getNotifications'
         new Promise(resolve => {
           const nestedData =store.getState().getNotifications.getNotificationsData.data
           setData(nestedData)
+       
           resolve();
         })
       ];
@@ -67,19 +69,22 @@ import { getNotifications } from '../../modules/getNotifications'
         </View>
         <View style={{position:"absolute", zIndex:99, bottom:10,width:"100%",
          justifyContent:"center", alignItems:"center", flexDirection:"row"}}>
-
+          <TouchableOpacity >
           <Image source={Images.layerfav} style={{ height:20, width:20, marginHorizontal:8, resizeMode:"contain"}}/>
+          </TouchableOpacity>
+          <TouchableOpacity >
           <Image source={Images.layerfav} style={{ height:20, width:20, marginHorizontal:8, transform: 'rotate(180deg)', resizeMode:"contain" }}/>
+          </TouchableOpacity>
         </View>
         </View>
         <View style={styles.titlecover}>
           <TouchableOpacity 
           onPress={()=> navigation.navigate('ViewPropertiy',{ID:item.post_id})}>
           <Text style={styles.posttitle}>
-          $4,975,000
+         ${item?.price}
           </Text>
           <Text  style={styles.postcontent}>
-          21217 Los Lagos Blvd | Boynton Beach
+        {item?.post_title}
           </Text>
 
           <View style={styles.iconmaincover}>
@@ -88,7 +93,7 @@ import { getNotifications } from '../../modules/getNotifications'
                                   source={Images.newbed}
                                   style={styles.newbedstyle}></Image>
                                 <Text style={styles.labelicon}>
-                                 4343
+                                 {item?.bedrooms}
                                 </Text>
                               </View>
                               <View style={styles.iconcover}>
@@ -96,7 +101,7 @@ import { getNotifications } from '../../modules/getNotifications'
                                   source={Images.bathtub}
                                   style={styles.bathtubicon}></Image>
                                 <Text style={styles.labelicon}>
-                                 4343
+                                 {item.bathrooms}
                                 </Text>
                               </View>
                               <View style={styles.iconcover}>
@@ -104,7 +109,7 @@ import { getNotifications } from '../../modules/getNotifications'
                                   source={Images.measuringtape}
                                   style={styles.measureicon}></Image>
                                 <Text style={styles.labelicon}>
-                                 4343
+                                {item.property_size}
                                 </Text>
                               </View>
                               <View style={styles.iconcover}>
@@ -112,7 +117,7 @@ import { getNotifications } from '../../modules/getNotifications'
                                   source={Images.hoa2}
                                   style={styles.hoaicon}></Image>
                                 <Text style={styles.labelicon}>
-                                  343
+                                  {item.hoa_fee}
                                 </Text>
                               </View>
                        </View>

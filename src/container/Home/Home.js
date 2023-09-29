@@ -2482,8 +2482,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   coverrat: {
-    height: 45,
-    width: 45,
+    height: 47,
+    width: 55,
+  
   },
   ratingstyle: {
     fontSize: 18,
