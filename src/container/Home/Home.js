@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -23,50 +23,49 @@ import StarRating from 'react-native-star-rating-widget';
 import 'react-native-gesture-handler';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
-import {useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
-import {getPoperties} from '../../modules/getPoperties';
-import {postRating} from '../../modules/postRating';
-import {getFilter} from '../../modules/getFilter';
-import {SvgUri} from 'react-native-svg';
-import {postUpdateRating} from '../../modules/postUpdateRating';
-import {MultiSelect} from 'react-native-element-dropdown';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { getPoperties } from '../../modules/getPoperties';
+import { postRating } from '../../modules/postRating';
+import { getFilter } from '../../modules/getFilter';
+import { SvgUri } from 'react-native-svg';
+import { postUpdateRating } from '../../modules/postUpdateRating';
+import { MultiSelect } from 'react-native-element-dropdown';
 import CardsSwipe from 'react-native-cards-swipe';
-import {SwiperFlatList} from 'react-native-swiper-flatlist';
+import { SwiperFlatList } from 'react-native-swiper-flatlist';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import LottieView from 'lottie-react-native';
-import {store} from '../../redux/store';
-import {addToFavorite} from '../../modules/addToFavorite';
-import {addRemoveTrash} from '../../modules/addRemoveTrash';
-import {getRating} from '../../modules/getRating';
-import {ScrollView} from 'react-native-gesture-handler';
+import { store } from '../../redux/store';
+import { addToFavorite } from '../../modules/addToFavorite';
+import { addRemoveTrash } from '../../modules/addRemoveTrash';
+import { getRating } from '../../modules/getRating';
+import { ScrollView } from 'react-native-gesture-handler';
 import DeviceInfo from 'react-native-device-info';
 import MapView, {
   Marker,
   Callout,
   PROVIDER_DEFAULT,
-  PROVIDER_GOOGLE,
 } from 'react-native-maps';
 import Collapsible from 'react-native-collapsible';
-import {getMoreFilter} from '../../modules/getMoreFilter';
-import {useRef} from 'react';
-import {getTrash} from '../../modules/getTrash';
-import {getFavoriteProperties} from '../../modules/getFavoriteProperties';
-import {filterSearch} from '../../modules/filterSearch';
-import {getSavedSearch} from '../../modules/getSavedSearch';
-import {clearFilter} from '../../modules/clearFilter';
-import {getUserScore} from '../../modules/getUserScore';
+import { getMoreFilter } from '../../modules/getMoreFilter';
+import { useRef } from 'react';
+import { getTrash } from '../../modules/getTrash';
+import { getFavoriteProperties } from '../../modules/getFavoriteProperties';
+import { filterSearch } from '../../modules/filterSearch';
+import { getSavedSearch } from '../../modules/getSavedSearch';
+import { clearFilter } from '../../modules/clearFilter';
+import { getUserScore } from '../../modules/getUserScore';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import GetLocation from 'react-native-get-location';
 import Loader from '../../components/Loader';
-import {useIsFocused} from '@react-navigation/native';
-import {propertyChatList} from '../../modules/propertyChats';
-import {Picker} from 'react-native-wheel-pick';
-import {getAgent} from '../../modules/getAgent';
+import { useIsFocused } from '@react-navigation/native';
+import { propertyChatList } from '../../modules/propertyChats';
+import { Picker } from 'react-native-wheel-pick';
+import { getAgent } from '../../modules/getAgent';
 import { getNotifications } from '../../modules/getNotifications'
 
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 const Home = () => {
   const isFocused = useIsFocused();
   const [keyboardStatus, setKeyboardStatus] = useState('first');
@@ -99,7 +98,7 @@ const Home = () => {
         const formData = new FormData();
         formData.append('SearchParameters', adress);
         setLoading(true)
-        dispatch(getPoperties({type: 2, data: formData, lntLng})).then(res => {
+        dispatch(getPoperties({ type: 2, data: formData, lntLng })).then(res => {
           setHomeData(res.payload.data);
           setLoading(false)
         });
@@ -116,7 +115,7 @@ const Home = () => {
   const [homeData, setHomeData] = useState([]);
   const [selectedTabs, setSelectedTabs] = useState([]);
   const [selectedTabsMore, setSelectedTabsMore] = useState([]);
-const [setselectedTabMoreValue, setSetselectedTabMoreValue] = useState([])
+  const [setselectedTabMoreValue, setSetselectedTabMoreValue] = useState([])
   const [selected, setSelected] = useState(-1);
   const [loading, setLoading] = useState(false);
   const [adress, setAddres] = useState('');
@@ -143,7 +142,7 @@ const [setselectedTabMoreValue, setSetselectedTabMoreValue] = useState([])
   const [bedroomitem, setBedroomItem] = useState(-1);
   const [bathRoom, setBathRoomItem] = useState(-1);
   const [imageIndex, setImageIndex] = useState(0);
-  const [lntLng, setLatLng] = useState({latitude: 0.0, longitude: 0.0});
+  const [lntLng, setLatLng] = useState({ latitude: 0.0, longitude: 0.0 });
   const [showMap, setShowMap] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [mapType, setMapType] = useState('standard');
@@ -172,13 +171,12 @@ const [setselectedTabMoreValue, setSetselectedTabMoreValue] = useState([])
   const [filterType, setFilterType] = useState(1);
   const ref = useRef();
 
-useEffect(() => {
-  getFilterApicall()
-}, [])
-
+  useEffect(() => {
+    getFilterApicall()
+  }, [])
 
   useEffect(() => {
-    getPopertiesApiCall({type: 0, data: {limit: limitCount}, lntLng}),
+    getPopertiesApiCall({ type: 0, data: { limit: limitCount }, lntLng }),
       getTrashApiCall(),
       favlistApi(),
       getSavedApiCall(),
@@ -193,7 +191,8 @@ useEffect(() => {
             store.getState().getPopertiesReducer?.getPopertiesData?.data;
           setHomeData(res);
           resolve();
-        })
+        },
+        )
       ];
     }
   }, [isFocused]);
@@ -208,19 +207,17 @@ useEffect(() => {
     setFilterType(1);
     await dispatch(getPoperties(type));
     typeof store.getState().getPopertiesReducer.getPopertiesData?.data ===
-    'object'
+      'object'
       ? store.getState().getPopertiesReducer.getPopertiesData?.data &&
-        setHomeData(store.getState().getPopertiesReducer.getPopertiesData?.data)
+      setHomeData(store.getState().getPopertiesReducer.getPopertiesData?.data)
       : setHomeData([]);
-      setLoading(false);
+    setLoading(false);
   };
 
   useEffect(() => {
     dispatch(propertyChatList());
   }, []);
-  useEffect(() => {
-    setCenterHeight(mainViewHeight - topViewHeight);
-  }, [topViewHeight]);
+
 
   useEffect(() => {
     if (selectedTabsMore) {
@@ -260,18 +257,18 @@ useEffect(() => {
   useEffect(() => {
     dispatch(getNotifications())
   }, [])
-  
 
-  useEffect(() => { 
+
+  useEffect(() => {
     getMoreFilterApi()
   }, []);
 
-  const getMoreFilterApi =  async () => {
-   await dispatch(getMoreFilter()).then((res)=>{
+  const getMoreFilterApi = async () => {
+    await dispatch(getMoreFilter()).then((res) => {
       setMoreFilterData(res?.payload?.data)
     })
   };
-  useEffect(()=>{
+  useEffect(() => {
     moreFilterData?.min_square?.map((item, index) => {
       setMinSquareFeet(old => [...old, item.data_name]);
     });
@@ -284,7 +281,7 @@ useEffect(() => {
     moreFilterData?.max_price?.map((item, index) => {
       setMaxPriceRange(old => [...old, item.data_name]);
     });
-  },[moreFilterData])
+  }, [moreFilterData])
 
   const fetchUserScore = () => {
     dispatch(getUserScore());
@@ -317,7 +314,7 @@ useEffect(() => {
     await dispatch(
       getPoperties({
         type: 0,
-        data: {limit: limitCount + 1},
+        data: { limit: limitCount + 1 },
         lntLng,
       }),
     ).then(response => {
@@ -448,7 +445,7 @@ useEffect(() => {
         dynamicLinks.ShortLinkType.SHORT,
       );
       return link;
-    } catch (error) {}
+    } catch (error) { }
   };
   const handleShare = async ID => {
     const link = await generateLink(ID);
@@ -458,14 +455,14 @@ useEffect(() => {
         message: link,
         url: link,
       });
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const getSavedApiCall = () => {
-    dispatch(getSavedSearch()).then(response => {});
+    dispatch(getSavedSearch()).then(response => { });
   };
   const favlistApi = () => {
-    dispatch(getFavoriteProperties()).then(res => {});
+    dispatch(getFavoriteProperties()).then(res => { });
   };
 
   const savefile = async item => {
@@ -484,7 +481,7 @@ useEffect(() => {
     });
   };
   const getTrashApiCall = async () => {
-    await dispatch(getTrash()).then(res => {});
+    await dispatch(getTrash()).then(res => { });
   };
   const trashfile = async post_id => {
     getTrashApiCall();
@@ -510,7 +507,7 @@ useEffect(() => {
         const formData = new FormData();
         formData.append('latitude', location.latitude);
         formData.append('longitude', location.longitude);
-        dispatch(getPoperties({type: 1, data: '', latLng: formData})).then(
+        dispatch(getPoperties({ type: 1, data: '', latLng: formData })).then(
           response => {
             if (response.payload?.data.length < 1) {
               setLoading(false);
@@ -523,7 +520,7 @@ useEffect(() => {
         );
       })
       .catch(error => {
-        const {code, message} = error;
+        const { code, message } = error;
       });
   };
 
@@ -583,8 +580,8 @@ useEffect(() => {
       console.error('Error submitting review:', error);
     }
   };
-  const renderFillterItem = ({item, index}) => {
-    const {data_customvalue, term_name} = item;
+  const renderFillterItem = ({ item, index }) => {
+    const { data_customvalue, term_name } = item;
     const isSelected =
       selectedTabs.filter(i => i === data_customvalue).length > 0;
     const isSelecteddata_name =
@@ -593,7 +590,7 @@ useEffect(() => {
     return (
       <TouchableOpacity
         onPress={() => {
-         setLoading(true)
+          setLoading(true)
           if (isSelected) {
             setSelectedTabs(prev => prev.filter(i => i !== data_customvalue));
           } else {
@@ -643,9 +640,24 @@ useEffect(() => {
       </TouchableOpacity>
     );
   };
+  useEffect(() => {
+    if (isFocused) {
+      setCenterHeight(mainViewHeight - topViewHeight);
+      console.log('topViewHeight ===> ', topViewHeight)
+    }
+  }, [topViewHeight, isFocused]);
 
+  useEffect(() => {
+    if (isFocused) { console.log('centerViewHeight ===> ', centerHeight) }
+  }, [centerHeight, isFocused])
+
+  useEffect(() => {
+    if (isFocused) {
+      console.log('mainViewHeight ===> ', mainViewHeight)
+    }
+  }, [mainViewHeight, isFocused]) //test
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       {loading ? (
         <>
           <StatusBar backgroundColor={'#5BB3FF'} />
@@ -659,14 +671,14 @@ useEffect(() => {
           Platform.OS == 'android' ? styles.container : styles.containerIos
         }>
         <View
-          onLayout={({nativeEvent}) => {
-            const {x, y, width, height} = nativeEvent.layout;
+          onLayout={({ nativeEvent }) => {
+            const { x, y, width, height } = nativeEvent.layout;
             setMainViewHeight(height);
           }}
           style={styles.bgcover}>
           <View
-            onLayout={({nativeEvent}) => {
-              const {x, y, width, height} = nativeEvent.layout;
+            onLayout={({ nativeEvent }) => {
+              const { x, y, width, height } = nativeEvent.layout;
               setTopViewHeight(height);
             }}>
             <View style={styles.searchuppercover}>
@@ -680,7 +692,7 @@ useEffect(() => {
                         setIsPressed1(false);
                         setIsPressed2(false);
                         filtertoggleModal();
-                       setIsSelected(true);
+                        setIsSelected(true);
                       }}>
                       <Image
                         source={Images.newfil}
@@ -743,22 +755,22 @@ useEffect(() => {
               <View style={styles.filterinner}>
                 <View style={styles.filterinnermain}>
                   <TouchableOpacity
-                  disabled={termName?.length>0?false:true}
+                    disabled={termName?.length > 0 ? false : true}
                     onPress={() => {
                       getSavedApiCall();
                       setIsPressed1(!isPressed1);
                       setIsPressed(false);
                       const formData = new FormData();
                       formData.append('search_name', termName);
-                      formData.append('bedroom', bedRoomCount?bedRoomCount:'');
-                      formData.append('bathroom', bathRoomCount?bathRoomCount:'');
-                      formData.append('min_square', minSquareFeetValue?minSquareFeetValue:'');
-                      formData.append('max_square', maxSquareFeetValue?maxSquareFeetValue:'');
-                      formData.append('min_price', minMinPriceValue?minMinPriceValue:'');
-                      formData.append('max_price', maxPriceValue?maxPriceValue:'');
-                      formData.append('more_filter_data', setselectedTabMoreValue?setselectedTabMoreValue:'');
-                      formData.append('cities', cities?cities:'');
-                      formData.append('image', homeData[0]?.featured_image_src[0]?.guid ? homeData[0]?.featured_image_src[0]?.guid :'' );
+                      formData.append('bedroom', bedRoomCount ? bedRoomCount : '');
+                      formData.append('bathroom', bathRoomCount ? bathRoomCount : '');
+                      formData.append('min_square', minSquareFeetValue ? minSquareFeetValue : '');
+                      formData.append('max_square', maxSquareFeetValue ? maxSquareFeetValue : '');
+                      formData.append('min_price', minMinPriceValue ? minMinPriceValue : '');
+                      formData.append('max_price', maxPriceValue ? maxPriceValue : '');
+                      formData.append('more_filter_data', setselectedTabMoreValue ? setselectedTabMoreValue : '');
+                      formData.append('cities', cities ? cities : '');
+                      formData.append('image', homeData[0]?.featured_image_src[0]?.guid ? homeData[0]?.featured_image_src[0]?.guid : '');
                       dispatch(filterSearch(formData)).then(response => {
                         if (
                           store.getState().getSavedSearchReducer
@@ -782,12 +794,12 @@ useEffect(() => {
                       source={Images.SaveAlt}
                       style={[styles.filtericonstyle]}
                     />
-                    <Text style={[styles.savesearchstyle, {color: 'black'}]}>
+                    <Text style={[styles.savesearchstyle, { color: 'black' }]}>
                       Save Search
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                  disabled={termName?.length>0?false:true}
+                    disabled={termName?.length > 0 ? false : true}
                     onPress={() => {
                       clearFilterAPiCall();
                     }}
@@ -823,13 +835,13 @@ useEffect(() => {
           <View style={{}}>
             {homeData?.length > 0 ? (
               <View
-                onLayout={({nativeEvent}) => {
-                  const {x, y, width, height} = nativeEvent.layout;
+                onLayout={({ nativeEvent }) => {
+                  const { x, y, width, height } = nativeEvent.layout;
                   setCenterHeight(height);
                 }}
-                style={{height: centerHeight, width: '100%'}}>
+                style={{ height: centerHeight, width: '100%' }}>
                 {!showMap && homeData?.length > 0 ? (
-                  <View style={{height: centerHeight, width: '100%'}}>
+                  <View style={{ height: centerHeight, width: '100%' }}>
                     <CardsSwipe
                       style={styles.cardswipercover}
                       cards={homeData}
@@ -840,7 +852,7 @@ useEffect(() => {
                         <View
                           style={[
                             styles.cardinnercover,
-                            {height: imageHeight, width: imageWidth},
+                            { height: imageHeight, width: imageWidth },
                           ]}>
                           <View style={styles.cardinner}>
                             <View style={styles.thumpupcover}>
@@ -879,20 +891,20 @@ useEffect(() => {
                         savefile(homeData[item].ID);
                       }}
                       renderCard={(item, index) => (
-                        <View style={[styles.shadowProp, {height: '100%'}]}>
+                        <View style={[styles.shadowProp, { height: '100%' }]}>
                           <SwiperFlatList
-                            style={{height: '60%', width: '100%'}}
+                            style={{ height: '60%', width: '100%' }}
                             disableGesture={true}
                             index={imageIndex}
                             autoPlay={false}
                             autoplayDelay={3000}
                             data={item?.featured_image_src}
                             refer={index}
-                            renderItem={({item1, index}) => (
+                            renderItem={({ item1, index }) => (
                               <>
                                 <View
-                                  onLayout={({nativeEvent}) => {
-                                    const {x, y, width, height} =
+                                  onLayout={({ nativeEvent }) => {
+                                    const { x, y, width, height } =
                                       nativeEvent.layout;
                                     setImageHeight(height);
                                     setImageWidth(width);
@@ -949,7 +961,7 @@ useEffect(() => {
                                       // style={{backgroundColor:'red',zIndex:999,position:'absolute'}}
                                       disabled={
                                         item?.featured_image_src?.length - 1 ===
-                                        imageIndex
+                                          imageIndex
                                           ? true
                                           : false
                                       }
@@ -974,7 +986,7 @@ useEffect(() => {
                                     </TouchableOpacity>
                                   </View>
                                   <TouchableOpacity
-                                    style={{height: '100%'}}
+                                    style={{ height: '100%' }}
                                     onPress={() => {
                                       navigation.navigate('ViewPropertiy', {
                                         ID: item.ID,
@@ -1133,9 +1145,9 @@ useEffect(() => {
                                               loop
                                             />
                                             <View
-                                              style={{flexDirection: 'column'}}>
+                                              style={{ flexDirection: 'column' }}>
                                               <TouchableOpacity
-                                                style={{alignItems: 'center'}}
+                                                style={{ alignItems: 'center' }}
                                                 onPress={() => {
                                                   navigation.navigate(
                                                     'Favorites',
@@ -1217,7 +1229,7 @@ useEffect(() => {
 
                                           <View style={styles.inermodaltop}>
                                             <View
-                                              style={{flexDirection: 'column'}}>
+                                              style={{ flexDirection: 'column' }}>
                                               <TouchableOpacity
                                                 style={styles.modalaligned}
                                                 onPress={() => {
@@ -1297,14 +1309,14 @@ useEffect(() => {
                                           <Text
                                             style={[
                                               styles.savedsearchheadin,
-                                              {marginTop: 40},
+                                              { marginTop: 40 },
                                             ]}>
                                             Righteous!
                                           </Text>
                                           <Text
                                             style={[
                                               styles.savedsearchheadin,
-                                              {marginBottom: 50},
+                                              { marginBottom: 50 },
                                             ]}>
                                             You saved your first search!
                                           </Text>
@@ -1318,7 +1330,7 @@ useEffect(() => {
 
                                           <View style={styles.inermodaltop}>
                                             <View
-                                              style={{flexDirection: 'column'}}>
+                                              style={{ flexDirection: 'column' }}>
                                               <TouchableOpacity
                                                 style={styles.modalaligned}
                                                 onPress={() => {
@@ -1481,7 +1493,7 @@ useEffect(() => {
                                               <View
                                                 style={[
                                                   styles.labelcover,
-                                                  {marginTop: 10},
+                                                  { marginTop: 10 },
                                                 ]}>
                                                 <Text
                                                   style={styles.propertlabel}>
@@ -1908,42 +1920,42 @@ useEffect(() => {
             ) : (
               <View style={styles.extendescover}>
                 {filterType === 1 ? (
-                    <>
+                  <>
                     <Text style={styles.extenddes}>Extend your search!</Text>
                     <View style={styles.extencovermain}>
                       <TouchableOpacity
                         onPress={() => {
-                        filtertoggleModal();
+                          filtertoggleModal();
                         }}
                         style={styles.extencover}>
                         <Text style={styles.extendtext}>Extend</Text>
                       </TouchableOpacity>
                     </View>
                   </>
-              
+
                 ) : (
                   <>
-                  <Text style={styles.extenddes}>
-                    Would you like to extend your search radius by 10 miles?
-                  </Text>
-                  <View style={styles.extencovermain}>
-                    <TouchableOpacity
-                      onPress={async () => {
-                        setLimitCount(limitCount + 1);
-                        await dispatch(
-                          getPoperties({
-                            type: 0,
-                            data: {limit: limitCount + 1},
-                          }),
-                        ).then(res => {
-                          setHomeData(res?.payload?.data);
-                        });
-                      }}
-                      style={styles.extencover}>
-                      <Text style={styles.extendtext}>Extend</Text>
-                    </TouchableOpacity>
-                  </View>
-                </>
+                    <Text style={styles.extenddes}>
+                      Would you like to extend your search radius by 10 miles?
+                    </Text>
+                    <View style={styles.extencovermain}>
+                      <TouchableOpacity
+                        onPress={async () => {
+                          setLimitCount(limitCount + 1);
+                          await dispatch(
+                            getPoperties({
+                              type: 0,
+                              data: { limit: limitCount + 1 },
+                            }),
+                          ).then(res => {
+                            setHomeData(res?.payload?.data);
+                          });
+                        }}
+                        style={styles.extencover}>
+                        <Text style={styles.extendtext}>Extend</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </>
                 )}
               </View>
             )}
@@ -2002,7 +2014,7 @@ useEffect(() => {
                             }}
                             style={[
                               styles.searchinputtext,
-                              {width: '100%', borderWidth: 1},
+                              { width: '100%', borderWidth: 1 },
                             ]}
                           />
 
@@ -2013,7 +2025,7 @@ useEffect(() => {
                             ref={ref}
                             style={[
                               styles.dropdown,
-                              {width: '100%', borderWidth: 1},
+                              { width: '100%', borderWidth: 1 },
                             ]}
                             placeholderStyle={styles.placeholderStyle}
                             selectedTextStyle={styles.selectedTextStyle}
@@ -2029,7 +2041,7 @@ useEffect(() => {
                             placeholder="All Cities"
                             searchPlaceholder="Search..."
                             value={cities}
-                            valuestyle={{color: 'red'}}
+                            valuestyle={{ color: 'red' }}
                             onChange={async item => {
                               setCities(item);
                               ref.current.close();
@@ -2064,26 +2076,26 @@ useEffect(() => {
                                 data={moreFilterData?.bedroom}
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
-                                renderItem={({item, index}) => {
+                                renderItem={({ item, index }) => {
                                   return (
                                     <TouchableOpacity
                                       onPress={async () => {
                                         setBedroomItem(index),
-                                        setBedRoomCount(item.data_customvalue);
+                                          setBedRoomCount(item.data_customvalue);
 
-                                          await dispatch(
-                                            getPoperties({
-                                              type: 3,
-                                              data: {
-                                                filter_type: filterType,
-                                                data_custom_taxonomy: 'bedroom',
-                                                data_customvalue:
-                                                  item.data_customvalue,
-                                              },
-                                            }),
-                                          ).then(res => {
-                                            setHomeData(res.payload.data);
-                                          });
+                                        await dispatch(
+                                          getPoperties({
+                                            type: 3,
+                                            data: {
+                                              filter_type: filterType,
+                                              data_custom_taxonomy: 'bedroom',
+                                              data_customvalue:
+                                                item.data_customvalue,
+                                            },
+                                          }),
+                                        ).then(res => {
+                                          setHomeData(res.payload.data);
+                                        });
                                       }}>
                                       <View
                                         style={[
@@ -2120,7 +2132,7 @@ useEffect(() => {
                                 data={moreFilterData?.bathroom}
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
-                                renderItem={({item, index}) => {
+                                renderItem={({ item, index }) => {
                                   return (
                                     <TouchableOpacity
                                       onPress={async () => {
@@ -2170,7 +2182,7 @@ useEffect(() => {
                           </View>
 
                           <View>
-                            <Text style={[styles.modallabel, {marginTop: 12}]}>
+                            <Text style={[styles.modallabel, { marginTop: 12 }]}>
                               Square Feet
                             </Text>
                             <View
@@ -2220,7 +2232,7 @@ useEffect(() => {
                                 />
                               </View>
 
-                              <View style={[styles.dropdown, {width: '48%'}]}>
+                              <View style={[styles.dropdown, { width: '48%' }]}>
                                 <Picker
                                   style={{
                                     backgroundColor: 'white',
@@ -2251,7 +2263,7 @@ useEffect(() => {
                             </View>
                           </View>
                           <View>
-                            <Text style={[styles.modallabel, {marginTop: 12}]}>
+                            <Text style={[styles.modallabel, { marginTop: 12 }]}>
                               Price Range
                             </Text>
                             <View
@@ -2301,7 +2313,7 @@ useEffect(() => {
                                 />
                               </View>
 
-                              <View style={[styles.dropdown, {width: '48%'}]}>
+                              <View style={[styles.dropdown, { width: '48%' }]}>
                                 <Picker
                                   style={{
                                     backgroundColor: 'white',
@@ -2340,7 +2352,7 @@ useEffect(() => {
                                 }}
                                 nestedScrollEnabled
                                 numColumns={3}
-                                renderItem={({item, index}) => {
+                                renderItem={({ item, index }) => {
                                   const {
                                     data_name,
                                     data_customvalue,
@@ -2394,7 +2406,7 @@ useEffect(() => {
                                           marginBottom: 8,
                                           fontSize:
                                             DeviceInfo.getDeviceType() ===
-                                            'Tablet'
+                                              'Tablet'
                                               ? 18
                                               : 14,
                                         }}
@@ -2415,11 +2427,11 @@ useEffect(() => {
                         justifyContent: 'space-between',
                         alignContent: 'center',
                         alignItems: 'center',
-                        alignSelf:'center',
+                        alignSelf: 'center',
                         width: '100%',
-                      height:'25%',
-                      top:-35,
-                    //  bottom:20
+                        height: '25%',
+                        top: -35,
+                        //  bottom:20
                       }}>
                       <TouchableOpacity
                         onPress={() => {
@@ -2526,7 +2538,7 @@ const styles = StyleSheet.create({
     height: 100,
     top: -20,
     ...Platform.select({
-      ios: {top: 10, left: 5},
+      ios: { top: 10, left: 5 },
     }),
   },
   uppercallout: {
@@ -2690,7 +2702,7 @@ const styles = StyleSheet.create({
     height: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 49,
     width: DeviceInfo.getDeviceType() === 'Tablet' ? 79 : 59,
     marginRight: 30,
-    transform: [{rotate: '-180deg'}],
+    transform: [{ rotate: '-180deg' }],
     marginTop: 0,
     position: 'relative',
     top: DeviceInfo.getDeviceType() === 'Tablet' ? -15 : -10,
@@ -2823,7 +2835,7 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontFamily: 'Poppins-SemiBold',
   },
-  mapstarthere: {height: '100%', width: width},
+  mapstarthere: { height: '100%', width: width },
   mapuppercover: {
     position: 'absolute',
     zIndex: 99,
@@ -2842,7 +2854,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     paddingVertical: 12,
   },
-  detailcover: {flexWrap: 'wrap', top: -5},
+  detailcover: { flexWrap: 'wrap', top: -5 },
   itemtitle: {
     color: 'black',
     marginLeft: 10,
@@ -2863,7 +2875,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     top: 6,
   },
-  gpscover1: {position: 'relative'},
+  gpscover1: { position: 'relative' },
   labelinnercover: {
     flexDirection: 'row',
     marginLeft: 10,
@@ -2919,9 +2931,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Poppins-Regular',
   },
-  dropdown1DropdownStyle: {backgroundColor: '#EFEFEF'},
-  dropdown1RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
-  dropdown1RowTxtStyle: {color: '#444', textAlign: 'left'},
+  dropdown1DropdownStyle: { backgroundColor: '#EFEFEF' },
+  dropdown1RowStyle: { backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5' },
+  dropdown1RowTxtStyle: { color: '#444', textAlign: 'left' },
 
   dropdown1BtnStyle: {
     width: '100%',
@@ -2959,7 +2971,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 3,
     right: 12,
-    shadowOffset: {width: -2, height: 4},
+    shadowOffset: { width: -2, height: 4 },
     shadowColor: '#171717',
     shadowOpacity: 0.2,
     shadowRadius: 3,
@@ -2973,7 +2985,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 3,
 
-    shadowOffset: {width: -2, height: 4},
+    shadowOffset: { width: -2, height: 4 },
     shadowColor: '#171717',
     shadowOpacity: 0.2,
     shadowRadius: 3,
@@ -3674,7 +3686,7 @@ const styles = StyleSheet.create({
     height: 25,
     width: 25,
     tintColor: Colors.white,
-    transform: [{rotate: '-180deg'}],
+    transform: [{ rotate: '-180deg' }],
     position: 'absolute',
 
     left: 12,
@@ -3701,7 +3713,7 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: Colors.white,
   },
-  w85: {width: '85%'},
+  w85: { width: '85%' },
   modalcover: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -3867,7 +3879,7 @@ const styles = StyleSheet.create({
     height: 12,
     width: 12,
   },
-  w100: {width: '100%'},
+  w100: { width: '100%' },
   maincov: {
     width: '100%',
     alignSelf: 'center',

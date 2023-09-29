@@ -151,7 +151,7 @@ PODS:
     - AppAuth/Core (~> 1.6)
     - GTMSessionFetcher/Core (< 3.0, >= 1.5)
   - GTMSessionFetcher/Core (2.3.0)
-  - lottie-ios (4.3.2)
+  - lottie-ios (4.3.1)
   - lottie-react-native (6.3.1):
     - lottie-ios (~> 4.3.0)
     - React-Core
@@ -810,7 +810,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
-  lottie-ios: 48af491639ba6e8bb7cfaf7649b8a339487da935
+  lottie-ios: 6279047f1cc31b395e11f1fc24f3dab68cbf0df2
   lottie-react-native: c9f1db4f4124dcce9f8159e65d8dc6e8bcb11fb4
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
@@ -872,4 +872,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 949d3e1201d6bda139dbc8ad64e62fbea4373f50
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.13.0
