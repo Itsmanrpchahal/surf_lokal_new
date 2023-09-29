@@ -20,8 +20,6 @@ import Styles from './Styles';
 import jwt_decode from "jwt-decode";
 import { googleUser } from '../../modules/googleLogin';
 import DeviceInfo from 'react-native-device-info';
-import AsyncStorage from '@react-native-community/async-storage';
-
 
 import {
   GoogleSignin,
@@ -44,17 +42,8 @@ const viewSizeRatio = screenHeight / 1000;
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
 
-  // const [emailId, setEmailId] = useState('access@wpkraken.io');
-  // const [password, setPassword] = useState('CherryPicker1!');
-  // const [emailId, setEmailId] = usestate('roman345@gmail.com');
-  // const [password, setPassword] = useState('Roman321');
-  const [emailId, setEmailId] = useState('saurav.webperfection@gmail.com');
-  const [password, setPassword] = useState('Kumar@123');
-  // const [emailId, setEmailId] = useState('saurav1.webperfection@gmail.com');
-  // const [password, setPassword] = useState('Kumar@123');
-
- 
-
+  const [emailId, setEmailId] = useState('access@wpkraken.io');
+  const [password, setPassword] = useState('CherryPicker1!');
   const [phone, setPhone] = useState('');
   const [countryName, setCountryName] = useState('');
   const [countryCode, setCountryCode] = useState('');
@@ -193,7 +182,6 @@ export default function Login({ navigation }) {
         dispatch(googleUser(formdata)).then(response => {
           if (response.payload.success) {
             setLoading(false);
-
             navigation.navigate('AppIntro');
           } else {
             setLoading(false);
@@ -243,18 +231,7 @@ export default function Login({ navigation }) {
        
           if (response.payload.success) {
             setLoading(false);
-            let access_token = response?.payload?.data?.authToken
-            const setToken = async () => {
-              console.log('fcmtoken stored successfully.', fcmtoken);
-              console.log('access_token stored successfully.', access_token);
-              try {
-                await AsyncStorage.setItem('access_token', access_token);
-              } catch (error) {
-                console.error('Error storing token:', error);
-              }
-              navigation.navigate("AppIntro")
-            }
-            setToken()
+            navigation.navigate("AppIntro")
           } else {
             setLoading(false);
             Alert.alert( response.payload.message);

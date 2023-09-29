@@ -75,6 +75,9 @@ const Home = () => {
   }, [filterType]);
 
   useEffect(() => {
+    dispatch(clearFilter());
+  }, [])
+  useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardStatus('Keyboard Shown');
     });
@@ -289,6 +292,7 @@ useEffect(() => {
   const fetchUserScore = () => {
     dispatch(getUserScore());
   };
+
 
   const clearFilterAPiCall = async () => {
     setLoading(true)
